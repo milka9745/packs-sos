@@ -1,0 +1,23 @@
+{
+ "name": "Packs SOS",
+ "short_name": "Packs SOS",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#22252B",
+ "theme_color": "#22252B",
+ "lang": "fr",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}
