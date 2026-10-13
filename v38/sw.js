@@ -10,6 +10,6 @@ self.addEventListener("fetch",e=>{
   const scope=new URL(self.registration.scope).pathname;if(!url.pathname.startsWith(scope))return;
   
   e.respondWith(caches.open(CACHE).then(async c=>{const hit=await c.match(req,{ignoreSearch:true});if(hit)return hit;
-    try{const res=await fetch(req);if(res&&res.ok&&(req.mode==="navigate"||url.pathname.endsWith("/")||/\.(html|webmanifest|png|js)$/.test(url.pathname)))c.put(req,res.clone());return res;}
+    try{const res=await fetch(req);if(res&&res.ok&&(req.mode==="navigate"||url.pathname.endsWith("/")||/\.(html|webmanifest|png|js|gz)$/.test(url.pathname)||url.pathname.includes("/ocr/")))c.put(req,res.clone());return res;}
     catch(err){if(req.mode==="navigate"){const idx=await c.match("./index.html")||await c.match("./");if(idx)return idx;}throw err;}}));
 });

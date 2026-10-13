@@ -1,0 +1,1 @@
+Lecture des captures d'ecran (OCR) sur l'appareil : Tesseract.js 5.1.1 (Apache-2.0), tesseract.js-core 5.1.1, donnees francaises tessdata_fast (Apache-2.0). Charges a la demande, mis en cache hors ligne par le service worker.

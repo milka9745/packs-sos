@@ -947,6 +947,47 @@ html:not([data-theme="day"]) .leaflet-container{background:#1C1F25}
 .printbar.top.phone .steps{flex:1 1 100%;margin:8px 0 0}
 @media print{.specbar,.bakbar,.steps,#toast,.tmapwrap{display:none!important}}
 
+/* carte tournée et choix Visite / Consultation aussi sur ordinateur (règles reprises hors du bloc téléphone) */
+body:not(.phone) .lieu{display:flex;margin:0 0 10px;border:1.5px solid var(--line2);border-radius:14px;overflow:hidden;background:var(--field)}
+body:not(.phone) .lieu button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:16px;font-weight:700;padding:13px 6px;cursor:pointer;letter-spacing:.2px;min-height:48px}
+body:not(.phone) .lieu button.on{background:var(--btn);color:var(--onbtn);box-shadow:inset 0 -3px 0 var(--gold)}
+body:not(.phone) .lieu button:focus-visible{outline:3px solid var(--ring);outline-offset:-3px}
+body:not(.phone) .tcard{border:1.5px solid var(--gold);border-radius:14px;padding:12px 14px 10px;margin:0 0 12px;background:var(--selbg);color:var(--ink)}
+body:not(.phone) .tcard .tc-lbl{font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+body:not(.phone) .tcard .tc-name{display:block;font-family:var(--serif);font-size:22px;line-height:1.15;color:var(--acc2);margin:2px 0 1px}
+body:not(.phone) .tcard .tc-addr{font-size:14.5px;color:var(--ink2)}
+body:not(.phone) .tcard .tc-km{font-size:13px;color:var(--muted);margin-top:2px}
+body:not(.phone) .tcard .tc-cur{font-size:13.5px;color:var(--ink2);margin:0 0 8px;padding:6px 10px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+body:not(.phone) .tcard .tc-cur b{color:var(--acc2)}
+body:not(.phone) .tcard .tc-nav{display:flex;width:100%;text-decoration:none;align-items:center;justify-content:center;font-size:18px;padding:15px 8px;min-height:54px;margin-top:10px;box-sizing:border-box}
+body:not(.phone) .tcard .tc-row2{display:flex;gap:8px;margin-top:8px}
+body:not(.phone) .tcard .tc-row2 .btn{flex:1;white-space:nowrap;padding:11px 8px;font-size:14.5px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+body:not(.phone) .tcard .tc-alt{display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap}
+body:not(.phone) .tcard .tc-alt .hint{margin:0;font-size:12px}
+body:not(.phone) .tcard .tc-alt .lc{padding:3px 9px;font-size:12px}
+body:not(.phone) .tcard .tc-empty{font-size:14px;color:var(--ink2);padding:2px 0 4px}
+body:not(.phone) .tcard .tc-add{display:flex;gap:6px;margin-top:10px;position:relative}
+body:not(.phone) .tcard .tc-add input{flex:1;min-width:0;padding:10px 11px;border-radius:10px;border:1px solid var(--line2);background:var(--field);color:var(--ink);font:inherit;font-size:15px}
+body:not(.phone) .tcard .tc-add .sugg{position:absolute;left:0;right:0;top:100%;z-index:8}
+body:not(.phone) .lieu{max-width:560px}
+body:not(.phone) .tcard .tc-nav{max-width:420px}
+body:not(.phone) .tcard .tc-row2{max-width:560px}
+.tcard.tc-mini{padding:10px 14px}
+.tcard .tc-alt .lc{padding:3px 9px;font-size:12px}
+/* liste des patients validés / mis de côté */
+.vlist{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.vrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.vrow .vinfo{flex:1;min-width:0;text-align:left}
+.vrow .vinfo b{font-size:15px}
+.vrow .vinfo .gtag{margin-left:6px}
+.vrow .btn{margin:0;white-space:nowrap}
+/* fiches de régulation, appel, interrogatoire */
+.tc-interro{margin:10px 0 0}
+.tc-interro textarea{width:100%;box-sizing:border-box;min-height:84px;padding:10px 11px;border-radius:10px;border:1px solid var(--line2);background:var(--field);color:var(--ink);font:inherit;font-size:15px;resize:vertical}
+.tc-interro .tc-row2 .btn{text-decoration:none;text-align:center}
+.tcard .tc-add .tc-shots{flex:0 0 auto;padding:10px 12px;font-size:17px;line-height:1}
+#tr_paste{width:100%;box-sizing:border-box;padding:10px 11px;border-radius:10px;border:1px solid var(--line2);background:var(--field);color:var(--ink);font:inherit;font-size:14px}
+
 </style>
 </head>
 <body>
@@ -13014,7 +13055,7 @@ function identBindSettings(){
    chiffré AES-256-GCM (clé dérivée d'un mot de passe de sauvegarde par PBKDF2, KIT_ITER itérations), avec empreinte SHA-256 du contenu
    chiffré vérifiée avant déchiffrement et authentification GCM après. Restauration sur le même appareil ou un autre : les données
    chiffrées sont réécrites sous la clé de l'appareil cible (le code de déverrouillage n'a pas besoin d'être le même). */
-const BAK_ENC=["sos_journal","sos_draft","sos_ai","sos_sync","sos_tour","sos_ident","sos_lastvalid"];
+const BAK_ENC=["sos_journal","sos_draft","sos_ai","sos_sync","sos_tour","sos_ident","sos_validhist"];
 const BAK_PLAIN=["sos_tarifs","sos_astreintes","sos_astr_tarifs","sos_test","sos_rappro","sos_recon","sos_planning","sos_gardes","sos_bdpm","sos_ansm","sos_theme","sos_theme_force","sos_bigtext","sos_nav","sos_ident_demo_ack","sos_geo_ok","sos_backup_snooze"];
 async function sha256Hex(bytes){const h=await crypto.subtle.digest("SHA-256",bytes);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,"0")).join("");}
 async function backupCollect(){
