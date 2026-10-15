@@ -264,6 +264,27 @@ async def run(width,height,label):
         ht=await page.evaluate("""()=>PACKS.find(x=>x.n==='Poussée tensionnelle — HTA sévère sans urgence').s.filter(sh=>sh.k==='med').flatMap(sh=>sh.l).map(l=>typeof l==='string'?{t:l}:l)""")
         ok(label+" bloc 10 : poussée tensionnelle sans nifédipine, amlodipine décochée",not any("ADALATE" in l["t"] or "nifédipine" in l["t"].lower() for l in ht) and any(l["t"].startswith("AMLODIPINE") and l.get("opt") for l in ht),ht)
         await page.evaluate("state.ddn='01/01/1985';render();")
+        # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
+        rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
+          for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")
+        ok(label+" impression : aucun terme réservé au médecin (score, seuil, DFG, QT, AMM, indication, terrain) dans une ordonnance",not rv,rv[:5])
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1980';state.poids='70';state.patient='TEST Patient';window.print=()=>{};render();"); await page.wait_for_timeout(300)
+        await pick(page,"tabac","Sevrage tabagique")
+        pt=await page.evaluate("""async()=>{await printPack();await new Promise(r=>setTimeout(r,800));const t=(document.querySelector('#print')||{}).innerText||'';return [/NICOPATCHLIB 21/.test(t),/Coller le patch le matin/.test(t),/Fagerstr|cigarettes ou plus/i.test(t)];}""")
+        ok(label+" impression : NICOPATCHLIB imprimé avec la consigne de pose, sans le critère Fagerström",pt[0] and pt[1] and not pt[2],pt)
+        await page.evaluate("document.body.classList.remove('printing');state.patient='';render();")
+        # iPhone 375 px : lignes longues renvoyées à la ligne, crayon visible (jour, nuit, grand texte)
+        if width<500:
+            bad=[]
+            for th,big in [("day",False),("night",False),("day",True),("night",True)]:
+                await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.removeItem('sos_theme_force');localStorage.setItem('sos_bigtext','{1 if big else 0}');themeApply();")
+                for q,n in [("tabac","Sevrage tabagique"),("pouls irrégulier","Fibrillation atriale — découverte ou récidive")]:
+                    await page.evaluate("state.sel=null;state.view='';render();"); await page.wait_for_timeout(150)
+                    await pick(page,q,n)
+                    r=await page.evaluate("""()=>{const W=document.documentElement.clientWidth;let n=0,lines=0;document.querySelectorAll('.sheet ul.lines li').forEach(li=>{lines++;const r=li.getBoundingClientRect();const e=li.querySelector('.edl');const er=e&&e.getBoundingClientRect();if(r.right>W+1||!e||er.right>W+1||er.width<8||getComputedStyle(e).visibility==='hidden')n++;});return [n,lines,document.documentElement.scrollWidth<=W];}""")
+                    if r[0] or not r[2] or not r[1]: bad.append((th,big,n,r))
+            await page.evaluate("localStorage.setItem('sos_theme','auto');localStorage.setItem('sos_bigtext','0');themeApply();")
+            ok(label+" 375 px : aucune ligne d'ordonnance ne déborde, crayon visible (jour, nuit, grand texte)",not bad,bad)
         # Cahier des corrections — points 7 et 8 (risque médical)
         r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
         ok(label+" correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif",not any(re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower()) or "Tique retirée" in v for v in r7.values()),[k for k,v in r7.items() if re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower())])
