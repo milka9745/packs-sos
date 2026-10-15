@@ -1,0 +1,80 @@
+# Tests v40 (lot 1 et bloc 2)
+
+- OK — iphone version 40
+- OK — iphone packs chargés
+- OK — iphone pas de pack en double
+- OK — iphone cystite simple : MONURIL coché
+- OK — iphone cystite simple : pas d'OROKEN
+- OK — iphone bascule S/R visible
+- OK — iphone cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — iphone cystite à risque : OROKEN coché
+- OK — iphone cystite à risque : 6 alternatives radio
+- OK — iphone cystite à risque : ECBU
+- OK — iphone lombalgie : kétoprofène coché, ibuprofène option
+- OK — iphone lombalgie : pas de tramadol
+- OK — iphone lombalgie : ligne palier 3 journal+CR
+- OK — iphone CR contient le palier 3 avec mention
+- OK — iphone impression sans le palier 3
+- OK — iphone journal : AT 5 j enregistré
+- OK — iphone journal : ligne sécurisée enregistrée
+- OK — iphone journal affiche AT et ordonnance sécurisée
+- OK — iphone gastro enfant : TIORFAN au poids
+- OK — iphone gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — iphone gastro enfant : jamais de lopéramide
+- OK — iphone angine enfant : CLAMOXYL 5 ml coché
+- OK — iphone angine enfant : 5 antibiotiques
+- OK — iphone angine enfant allergie : CLAMOXYL écarté
+- OK — iphone grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — iphone grippe 35 ans consultation : pas de TAMIFLU
+- OK — iphone grippe en visite : à risque par défaut
+- OK — iphone durée AT gastro = 3 (Docteur DEIE)
+- OK — iphone durée AT entorse CNAM
+- OK — iphone gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — iphone gastro adulte simple : pas d'antibiotique
+- OK — iphone gastro adulte à risque : suspension des médicaments + 5 antibiotiques en option
+- OK — iphone bloc 2 : packs chargés
+- OK — iphone dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — iphone conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — iphone bronchiolite nuit : feuilles rendues
+- OK — iphone aucune erreur JS
+- OK — pc version 40
+- OK — pc packs chargés
+- OK — pc pas de pack en double
+- OK — pc cystite simple : MONURIL coché
+- OK — pc cystite simple : pas d'OROKEN
+- OK — pc bascule S/R visible
+- OK — pc cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — pc cystite à risque : OROKEN coché
+- OK — pc cystite à risque : 6 alternatives radio
+- OK — pc cystite à risque : ECBU
+- OK — pc lombalgie : kétoprofène coché, ibuprofène option
+- OK — pc lombalgie : pas de tramadol
+- OK — pc lombalgie : ligne palier 3 journal+CR
+- OK — pc CR contient le palier 3 avec mention
+- OK — pc impression sans le palier 3
+- OK — pc journal : AT 5 j enregistré
+- OK — pc journal : ligne sécurisée enregistrée
+- OK — pc journal affiche AT et ordonnance sécurisée
+- OK — pc gastro enfant : TIORFAN au poids
+- OK — pc gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — pc gastro enfant : jamais de lopéramide
+- OK — pc angine enfant : CLAMOXYL 5 ml coché
+- OK — pc angine enfant : 5 antibiotiques
+- OK — pc angine enfant allergie : CLAMOXYL écarté
+- OK — pc grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — pc grippe 35 ans consultation : pas de TAMIFLU
+- OK — pc grippe en visite : à risque par défaut
+- OK — pc durée AT gastro = 3 (Docteur DEIE)
+- OK — pc durée AT entorse CNAM
+- OK — pc gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — pc gastro adulte simple : pas d'antibiotique
+- OK — pc gastro adulte à risque : suspension des médicaments + 5 antibiotiques en option
+- OK — pc bloc 2 : packs chargés
+- OK — pc dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — pc conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — pc bronchiolite nuit : feuilles rendues
+- OK — pc aucune erreur JS
+
+76/76 tests OK
