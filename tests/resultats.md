@@ -1,4 +1,4 @@
-# Tests v40 (lot 1, blocs 2 à 4)
+# Tests v40 (lot 1, blocs 2 à 5)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -48,6 +48,10 @@
 - OK — iphone PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
 - OK — iphone prostatite : pas d'OROKEN (RCP), 14 jours
 - OK — iphone fiches : aucune ligne effacée par dédoublonnage
+- OK — iphone bloc 5 : 22 packs chargés
+- OK — iphone fiches : chaque champ {f:…} a sa case de saisie
+- OK — iphone durée AT cervicalgie CNAM
+- OK — iphone goutte : colchicine cochée, prednisone en alternative, pas de doublon
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -98,7 +102,11 @@
 - OK — pc PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
 - OK — pc prostatite : pas d'OROKEN (RCP), 14 jours
 - OK — pc fiches : aucune ligne effacée par dédoublonnage
+- OK — pc bloc 5 : 22 packs chargés
+- OK — pc fiches : chaque champ {f:…} a sa case de saisie
+- OK — pc durée AT cervicalgie CNAM
+- OK — pc goutte : colchicine cochée, prednisone en alternative, pas de doublon
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-100/100 tests OK
+108/108 tests OK
