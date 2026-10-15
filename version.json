@@ -1,9 +1,9 @@
 {
-  "version": "40p",
+  "version": "40q",
   "date": "2026-10-16",
   "notes": [
-    "Tournée : « Commencer » ouvre le 1er patient et montre son adresse ; heure d'arrivée prévue, rythme à tenir et alerte si l'objectif est intenable.",
-    "Tournée : « Je suis arrivé », appel masqué et mémo d'appel, écran conduite, bilan de garde, durées apprises sur ton journal.",
-    "Fiches de régulation : la mention « adresse repositionnée par » est ignorée ; gynécologie-obstétrique ajoutée (fiches non relues)."
+    "Sur chaque pack : « Courrier au spécialiste » (ou aux urgences) et « Courrier au médecin traitant », assemblés depuis tes saisies, modifiables avant impression.",
+    "Une donnée non saisie n'apparaît pas dans le courrier ; une page par courrier.",
+    "Sans médecin traitant : « À l'attention du médecin qui prendra en charge le patient »."
   ]
 }

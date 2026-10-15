@@ -56,6 +56,8 @@ main{overflow:auto;min-height:0;padding:22px 28px 60px}
 .warn{background:#FFF4E0;border-left:4px solid #D28A1A;padding:10px 12px;border-radius:6px;margin-bottom:14px;font-size:14px}
 .sheets{display:grid;gap:14px}
 .tcard{scroll-margin-top:72px}
+.lettres{margin:14px 0}.let-btns{display:flex;flex-wrap:wrap;gap:8px}.let-btns .btn{flex:1 1 220px;min-height:48px}.let-box{margin:10px 0;padding:10px;border:1px solid var(--line,#ccc);border-radius:10px}.let-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}.let-ctl input{max-width:100%}.let-ta{width:100%;box-sizing:border-box;font-family:inherit;font-size:15px;line-height:1.4;min-height:240px}
+.page.lettre .txt{margin:0 0 7px}.page.lettre-dense{font-size:10pt}.page.lettre-dense .txt{margin:0 0 5px}
 .tp-banner{margin:8px 0;padding:8px 10px;border-radius:10px;border:2px solid var(--line,#ccc);display:flex;flex-direction:column;gap:2px;font-size:15px}.tp-banner b{font-size:18px}.tp-sub{font-size:13px;opacity:.85}
 .tp-ok{color:#1B7F3B}html[data-theme=night] .tp-ok{color:#6FDC8C}.tp-ko{color:#111}
 .tp-banner.tp-alert{background:#FF3B30!important;color:#fff!important;border-color:#B00!important}.tp-banner.tp-alert .tp-ko,.tp-banner.tp-alert b{color:#fff!important}
@@ -6059,6 +6061,73 @@ function buildCR0(p){
   if(cons.length){ L.push("CONSIGNES REMISES"); cons.forEach(x=>L.push("- "+x)); }
   return L.join("\n");
 }
+/* ===================== v40 (16/10/2026) — COURRIERS ASSEMBLÉS SANS IA : spécialiste ou urgences, médecin traitant =====================
+   Assemblés uniquement depuis les données saisies ; une donnée absente = aucune ligne ; modifiables avant impression ; une page. */
+const LET_DESTS=[["urgences","Service des urgences"],["cardiologue","Cardiologue"],["pneumologue","Pneumologue"],["gastro","Gastro-entérologue"],["neurologue","Neurologue"],["orl","ORL"],["ophtalmo","Ophtalmologiste"],["dermato","Dermatologue"],["rhumato","Rhumatologue"],["ortho","Chirurgien orthopédiste"],["visceral","Chirurgien viscéral"],["urologue","Urologue"],["nephro","Néphrologue"],["gyneco","Gynécologue"],["pediatre","Pédiatre"],["psychiatre","Psychiatre"],["endocrino","Endocrinologue"],["geriatre","Gériatre"],["autre","Autre spécialiste"]];
+function letState(){state.lettres=state.lettres||{};return state.lettres;}
+function letAccord(){const f=state.sexe==="f",h=state.sexe==="h";return {ne:f?"née":h?"né":"né(e)",vu:f?"vue":h?"vu":"vu(e)",le:f?"la patiente":h?"le patient":"le patient",votre:f?"votre patiente":h?"votre patient":"votre patient(e)"};}
+function letData(p){const o=state.obs||{};const a=ageY();const A=letAccord();
+  const id=[state.patient?"**"+state.patient+"**":"",state.ddn?A.ne+" le "+normDate(state.ddn):"",a?a.y+" ans":"",state.poids&&a&&a.y<16?state.poids+" kg":""].filter(Boolean).join(", ");
+  const histMotif=String(o.hist||"").replace(/^Régulation\s*:\s*/i,"").split(/ — |\.\s/)[0].trim();
+  const motif=(String(state.f&&state.f.motif||"").trim())||histMotif||p.n.split(" —")[0].toLowerCase();
+  const diag=String(o.hyp||"").trim().replace(/[.;\s]+$/,"");
+  const al=(state.allergies||[]).length?allergiesText():(state.allergie?"pénicillines":"");
+  const terrain=[state.grossesse?"grossesse en cours"+(saText()?" ("+saText()+")":""):"",state.allait?"allaitement en cours":""].filter(Boolean).join(", ");
+  const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
+  const exam=SYSTEMS.map(([k,l])=>[l,o[k]!==undefined?String(o[k]).trim().replace(/[.;\s]+$/,""):""]).filter(x=>x[1]);
+  const faits=[];if(state.f&&state.f.ecg)faits.push("ECG : "+String(state.f.ecg).trim().replace(/[.;\s]+$/,""));if(state.f&&state.f.lesions)faits.push("lésions constatées : "+String(state.f.lesions).replace(/\n/g," ").trim().replace(/[.;\s]+$/,""));if((state.photos||[]).length)faits.push(state.photos.length+" photographie(s) avec l'accord du patient");
+  const sheets=p.s.map((sh,si)=>({sh,si,lines:state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>({s:printClean(x.fill.s),jr:!!x.jr}))})).filter(x=>x.lines.length);
+  const get=k=>sheets.filter(x=>x.sh.k===k).flatMap(x=>x.lines);
+  const short=s=>s.split(/ : |, pour |, à réaliser| — /)[0].replace(/\s*\([^)]*\)/g,"").trim();
+  const meds=get("med").map(x=>x.jr?short(x.s)+" (ordonnance sécurisée manuscrite)":x.s);
+  const bio=get("bio").map(x=>x.s.split(/ Résultats? à /)[0].replace(/\s*\([^)]*\)/g,"").replace(/[.;\s]+$/,"")),img=get("img").map(x=>short(x.s)),ide=get("ide").map(x=>short(x.s)),kine=get("kine").map(x=>short(x.s)),dm=get("dm").map(x=>short(x.s)),spe=get("spe").map(x=>short(x.s));
+  const allTxt=sheets.flatMap(x=>x.lines.map(l=>l.s)).join(" ");
+  const at=state.at&&state.at.on&&state.at.jours?("arrêt de travail "+(state.at.type==="prolongation"?"(prolongation) ":state.at.type==="at"?"(accident du travail) ":"")+"de "+state.at.jours+" jour"+(+state.at.jours>1?"s":"")+", du "+normDate(state.at.debut||state.date)+(addDays(state.at.debut||state.date,state.at.jours)?" au "+addDays(state.at.debut||state.date,state.at.jours):"")):"";
+  return {o,A,id,motif,diag,atcd:String(o.atcd||"").trim().replace(/[.;\s]+$/,""),al,terrain,tt:(state.tt||[]).join(", "),cst,exam,faits,meds,bio,img,ide,kine,dm,spe,at,allTxt,lieu:(state.cot&&state.cot.lieu)==="visite"?"en visite":"en consultation"};}
+function letExamTxt(d){const P=[];if(d.cst)P.push("Constantes : "+d.cst+".");if(d.exam.length)P.push("À l'examen : "+d.exam.map(([l,v])=>(l===l.toUpperCase()?l:l.toLowerCase())+" : "+v.charAt(0).toLowerCase()+v.slice(1)).join(" ; ")+".");if(d.faits.length)P.push("Examens réalisés : "+d.faits.join(" ; ")+".");return P.join(" ");}
+function letTerrainTxt(d){const P=[];if(d.atcd)P.push("Antécédents : "+d.atcd+".");if(d.tt)P.push("Traitement habituel : "+d.tt+".");if(d.al)P.push("**Allergies : "+d.al+".**");if(d.terrain)P.push(d.terrain.charAt(0).toUpperCase()+d.terrain.slice(1)+".");return P.join(" ");}
+function letPrescTxt(d){const P=[];if(d.meds.length)P.push("J'ai prescrit : "+d.meds.map(x=>x.replace(/[.;\s]+$/,"")).join(" ; ")+".");const ex=[...d.bio.map(x=>"biologie ("+x.charAt(0).toLowerCase()+x.slice(1)+")"),...d.img.map(x=>x.charAt(0).toLowerCase()+x.slice(1)),...d.spe.map(x=>x.charAt(0).toLowerCase()+x.slice(1))];if(ex.length)P.push("Examens demandés : "+ex.join(" ; ")+".");const par=[...d.ide.map(x=>"soins infirmiers ("+x.charAt(0).toLowerCase()+x.slice(1)+")"),...d.kine.map(x=>"kinésithérapie"),...d.dm.map(x=>x.charAt(0).toLowerCase()+x.slice(1))];if(par.length)P.push("Également prescrits : "+[...new Set(par)].join(" ; ")+".");if(d.at)P.push(d.at.charAt(0).toUpperCase()+d.at.slice(1)+".");return P.join(" ");}
+/* 1. Courrier au spécialiste ou aux urgences */
+function letSpecialiste(p){const d=letData(p);const L=letState();const dk=(L.sp&&L.sp.dest)||"";const dl=(LET_DESTS.find(x=>x[0]===dk)||[])[1]||"";const autre=String(L.sp&&L.sp.autre||"").trim();const urg=dk==="urgences";
+  const head=urg?"À l'attention du médecin du service des urgences.":dk==="autre"?(autre?"À l'attention du "+autre+".":"À l'attention du spécialiste."):dl?"À l'attention du "+dl.toLowerCase()+".":"À l'attention du spécialiste.";
+  const P=[head,"Cher confrère, chère consœur,"];
+  P.push("Je vous adresse "+(d.id||d.A.le)+", "+d.A.vu+" ce jour "+d.lieu+" de garde pour "+d.motif.replace(/[.;\s]+$/,"")+".");
+  const t=letTerrainTxt(d);if(t)P.push(t);const e=letExamTxt(d);if(e)P.push(e);const pr=letPrescTxt(d);if(pr)P.push(pr);
+  const Q=[];if(d.diag)Q.push("Le tableau vous paraît-il compatible avec "+d.diag.charAt(0).toLowerCase()+d.diag.slice(1)+" ?");else Q.push("Quel diagnostic retenez-vous devant ce tableau ?");
+  if(d.meds.length)Q.push("La prise en charge débutée vous paraît-elle adaptée ?");if(urg)Q.push("Une surveillance hospitalière vous paraît-elle nécessaire ?");
+  P.push("Je souhaiterais avoir votre avis sur les points suivants :");Q.forEach((q,i)=>P.push((i+1)+". "+q));
+  P.push("Je vous laisse juge des explorations et de la suite de la prise en charge.");
+  if(!urg)P.push("Un rendez-vous dans un délai rapproché me semblerait souhaitable.");
+  P.push(...COURRIER_FIN);return P;}
+/* 2. Courrier au médecin traitant : compte rendu de la visite de garde, pour information et suivi */
+function letTraitant(p){const d=letData(p);const L=letState();const sans=!!(L.mt&&L.mt.sansMT);
+  const P=[sans?"À l'attention du médecin qui prendra en charge le patient.":"À l'attention du médecin traitant.","Cher confrère, chère consœur,"];
+  P.push("J'ai vu ce jour à "+fmtH(Date.now())+", "+d.lieu+" de garde SOS Médecins, "+(sans?(d.id||d.A.le):d.A.votre+(d.id?" "+d.id:""))+", pour "+d.motif.replace(/[.;\s]+$/,"")+". Je vous transmets ce compte rendu pour information et suivi.");
+  const t=letTerrainTxt(d);if(t)P.push(t);const e=letExamTxt(d);if(e)P.push(e);if(d.diag)P.push("Diagnostic retenu : **"+d.diag+"**.");const pr=letPrescTxt(d);if(pr)P.push(pr);
+  const R=[];if(d.bio.length)R.push("récupérer les résultats de biologie ("+d.bio.map(x=>x.charAt(0).toLowerCase()+x.slice(1)).join(" ; ")+")");if(d.img.length||d.spe.length)R.push("récupérer le résultat de "+[...d.img,...d.spe].map(x=>x.charAt(0).toLowerCase()+x.slice(1)).join(" ; "));
+  if(/réévalu|revoir|contrôle clinique|reconsulter dans|consultation de contrôle/i.test(d.allTxt))R.push("réévaluation clinique prévue dans les consignes remises");if(/renouvel/i.test(d.meds.join(" ")))R.push("renouvellement du traitement à prévoir");
+  const sp=L.sp&&L.sp.on;if(sp){const dk=L.sp.dest;const dl=dk==="autre"?String(L.sp.autre||"spécialiste"):((LET_DESTS.find(x=>x[0]===dk)||[])[1]||"spécialiste");R.push((dk==="urgences"?"orientation vers le service des urgences":"avis spécialisé demandé ("+dl.toLowerCase()+")")+", courrier remis au patient");}
+  if(R.length){P.push("**Suite de la prise en charge :**");R.forEach((r,i)=>P.push((i+1)+". "+r.charAt(0).toUpperCase()+r.slice(1)+"."));}
+  P.push("Je vous remercie de bien vouloir assurer la suite de la prise en charge et vous prie de croire, cher confrère, chère consœur, en l'expression de mes sentiments confraternels.");P.push(COURRIER_FIN[COURRIER_FIN.length-1]);return P;}
+function letText(p,kind){const L=letState();const x=L[kind]||{};if(x.edited&&typeof x.text==="string")return x.text;return (kind==="sp"?letSpecialiste(p):letTraitant(p)).join("\n");}
+function letParas(t){return String(t||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);}
+function letBodyHTML(t){return letParas(t).map(s=>`<p class="txt">${esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}</p>`).join("");}
+function letPages(p,pat){const L=letState();let out="";for(const k of ["sp","mt"]){const x=L[k];if(!x||!x.on)continue;const t=letText(p,k);if(!letParas(t).length)continue;
+  out+=`<div class="page lettre${t.length>2300?" lettre-dense":""}">${pageHead()}<div class="frame"><div class="meta"><p><u>Date :</u> ${esc(normDate(state.date))}</p>${state.patient?`<p><u>Patient :</u> ${pat}</p>`:""}</div><h2>Courrier</h2>${letBodyHTML(t)}${pageSign()}</div></div>`;}return out;}
+function letCount(){const L=letState();return ["sp","mt"].filter(k=>L[k]&&L[k].on).length;}
+function lettresHTML(p){if(!p)return "";const L=letState();const sp=L.sp||{},mt=L.mt||{};
+  const box=(k,title)=>{const x=L[k]||{};if(!x.on)return "";const t=letText(p,k);return `<div class="let-box" data-letbox="${k}"><div class="let-ctl">${k==="sp"?`<label>Destinataire <select id="let_dest">${LET_DESTS.map(([v,l])=>`<option value="${v}" ${sp.dest===v?"selected":""}>${l}</option>`).join("")}</select></label>${sp.dest==="autre"?`<input id="let_autre" value="${esc(sp.autre||"")}" placeholder="ex. allergologue, service de pédiatrie" autocomplete="off">`:""}`:`<label><input type="checkbox" id="let_sansmt" ${mt.sansMT?"checked":""}> Pas de médecin traitant</label>`}
+    <button type="button" class="lc" data-letregen="${k}" ${x.edited?"":"disabled"}>Régénérer</button><button type="button" class="lc" data-letoff="${k}">Retirer</button></div>
+    <textarea class="let-ta" data-letta="${k}" rows="12" spellcheck="true">${esc(t)}</textarea><div class="hint">Assemblé depuis tes saisies, sans IA ; une donnée absente n'apparaît pas. Modifiable avant impression (**texte** = gras). ${x.edited?"Modifié à la main : il n'est plus mis à jour automatiquement.":"Mis à jour automatiquement tant que tu ne le modifies pas."}</div></div>`;};
+  return `<section class="lettres"><div class="let-btns"><button type="button" class="btn ${sp.on?"p":"s"}" data-leton="sp">✉ Courrier au spécialiste${sp.on?" ✓":""}</button><button type="button" class="btn ${mt.on?"p":"s"}" data-leton="mt">✉ Courrier au médecin traitant${mt.on?" ✓":""}</button></div>${box("sp")}${box("mt")}</section>`;}
+function lettresBind(p){const L=letState();
+  document.querySelectorAll("[data-leton]").forEach(b=>b.onclick=()=>{const k=b.dataset.leton;L[k]=L[k]||{};L[k].on=!L[k].on;if(k==="sp"&&!L.sp.dest)L.sp.dest="urgences";render();setTimeout(()=>{const t=document.querySelector(`[data-letbox="${k}"]`);if(t)t.scrollIntoView({block:"start"});},0);});
+  document.querySelectorAll("[data-letoff]").forEach(b=>b.onclick=()=>{const k=b.dataset.letoff;if(L[k])L[k].on=false;render();});
+  document.querySelectorAll("[data-letregen]").forEach(b=>b.onclick=()=>{const k=b.dataset.letregen;if(L[k]){L[k].edited=false;delete L[k].text;}render();});
+  document.querySelectorAll("[data-letta]").forEach(t=>{t.oninput=()=>{const k=t.dataset.letta;L[k]=L[k]||{};L[k].text=t.value;L[k].edited=true;const r=document.querySelector(`[data-letregen="${k}"]`);if(r)r.disabled=false;};});
+  const ds=document.getElementById("let_dest");if(ds)ds.onchange=()=>{L.sp.dest=ds.value;render();};
+  const au=document.getElementById("let_autre");if(au)au.onchange=()=>{L.sp.autre=au.value.trim();render();};
+  const sm=document.getElementById("let_sansmt");if(sm)sm.onchange=()=>{L.mt.sansMT=sm.checked;render();};}
 async function copyText(t){ try{ await navigator.clipboard.writeText(t); return true; }catch(e){ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(x){} ta.remove(); return true; } }
 function bindObs(p){
   const t=$("#obs_toggle"); if(t) t.onclick=()=>{state.obsOpen=!state.obsOpen;render();};
@@ -15083,11 +15152,11 @@ function renderCore(){
   const adaptAll=[...new Set([...(state.autoNotes||[]),...Object.values(ADAPT_NOTES).flat()])];
   const adaptBox=adaptAll.length?`<div class="adapt">Adapté automatiquement à l'âge et au poids : ${adaptAll.map(esc).join(" · ")}</div>`:"";
   const multiNote=p.merged?`<div class="hint" style="margin:0 0 10px;display:none">Packs combinés : les lignes identiques n'apparaissent qu'une fois ; antibiotiques et antalgiques de palier 2 forment un seul choix. Le bouton – dans la liste retire un pack.</div>`:"";
-  const nSheets=p.s.filter((sh,si)=>!state.off[si]&&!(state.nodoc&&(sh.k==="interp"||sh.k==="memo"))&&(resolve(sh,si).some(x=>x.on&&!x.jr&&!x.fill.miss.length)||(state.libre[si]||"").trim())).length;
+  const nSheets=p.s.filter((sh,si)=>!state.off[si]&&!(state.nodoc&&(sh.k==="interp"||sh.k==="memo"))&&(resolve(sh,si).some(x=>x.on&&!x.jr&&!x.fill.miss.length)||(state.libre[si]||"").trim())).length+letCount();
   const hasSR=p.s.some(sh=>sh.l.some(l=>typeof l==="object"&&l.sr));
   const srHTML=hasSR?`<div class="srtog"><span class="hint">Pack</span><button type="button" class="lc${!riskMode()?" on":""}" data-sr="s">Simple</button><button type="button" class="lc${riskMode()?" on":""}" data-sr="r">À risque</button><span class="hint">${riskMode()?"à risque de complication (visite, ≥ 75 ans, grossesse, ou choisi)":"sans facteur de risque"}</span></div>`:"";
   const titleHTML=`<div class="title"><h1>${p.n}</h1>${srHTML}<span class="sub">${nSheets} feuille(s) à imprimer</span></div>`;
-  const sheetsHTML=`<div class="sheets">${html}</div>`;
+  const sheetsHTML=`<div class="sheets">${html}</div>${lettresHTML(p)}`;
   if(isPhone()){
     const dockPhone=`<div class="act dock phone"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only" title="Imprimer le pack">Imprimer · ${nSheets}${alerts.length?` <b class="red">⚠ ${alerts.length}</b>`:""}</button></div>`;
     m.innerHTML=head+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
@@ -15212,12 +15281,13 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}
   const fin=$("#fin"); if(fin) fin.onclick=async()=>{const cp=currentPack(); if(cp){let txt=buildCR(cp); const extras=(state.copat||[]).filter(c=>c.patient); if(extras.length){for(const c of extras){txt+="\n\n==========================================\n\n"+withExtra(c,pk=>buildCR(pk));}} if(state.at.on) txt+="\n\n=== ARRÊT DE TRAVAIL (à coller dans amelipro) ===\n"+atBloc(cp); await copyText(txt); state.crCopied=Date.now(); const o=fin.textContent; fin.textContent="Compte rendu"+(state.at.on?" + arrêt":"")+" copiés ✓ — impression…"; setTimeout(()=>fin.textContent=o,2500);} printPack();};
   const g2=$("#go2"); if(g2) g2.onclick=g?g.onclick:printPack;
   if(currentPack()) bindObs(currentPack());
+  if(currentPack()) try{lettresBind(currentPack());}catch(e){console.warn('lettres',e);}
   const fp0=$("#f_patient"); if(fp0){const o=fp0.oninput;fp0.oninput=ev=>{if(!state.t0&&fp0.value.trim())state.t0=Date.now();if(o)o.call(fp0,ev);};}
   const n=$("#new"); if(n) n.onclick=newPatient;
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){state.lettres={};state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -15273,6 +15343,7 @@ function buildPages(p,withAnnex){
      </div></div>`;
   });
   const _pat=esc(state.patient)+(state.ddn?", né(e) le "+esc(normDate(state.ddn)):"");
+  try{out+=letPages(p,_pat);}catch(e){console.warn("lettres",e);}
   if(withAnnex) out+=photoPages(_pat)+nhPage(_pat);
   return {out:specimenScrub(out),removed};
 }
