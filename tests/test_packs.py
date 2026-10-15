@@ -247,6 +247,21 @@ async def run(width,height,label):
         r8=await page.evaluate("""()=>{const i=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.sel=i;state.obs={};state.cst={};const a=buildCR0(PACKS[i]);SYSTEMS.forEach(([k,,n])=>{if(state.obs[k]===undefined)state.obs[k]=n;});const b=buildCR0(PACKS[i]);state.obs={};return [a,b];}""")
         ok(label+" correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits",("non renseigné" in r8[0]) and not any(x in r8[0] for x in ["Examen clinique normal","Reste de l'examen normal","État stable","accord obtenu","EXAMEN CLINIQUE"]),r8[0][:300])
         ok(label+" correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu",("EXAMEN CLINIQUE" in r8[1]) and ("sans anomalie sur les appareils examinés" in r8[1]))
+        # Cahier des corrections — points 1, 4 et 6
+        await page.evaluate("""()=>{TOUR.stops=TOUR.stops.filter(x=>x.id!=='t_cahier');TOUR.stops.push({id:'t_cahier',addr:'12 rue de Bourgogne, 45000 Orléans',label:'12 Rue de Bourgogne 45000 Orléans',city:'Orléans',nom:'DUPONT Jean',ddn:'01/01/1950',tel:'0612345678',motif:'lombalgie',lat:47.9,lon:1.9,km:1.2,ts:Date.now()});state.sel=PACKS.findIndex(p=>p.n==='Angine — adulte (TROD positif)');state.patient='ANCIEN Patient';state.obs={atcd:'Antécédent du patient précédent'};render();}""")
+        await page.wait_for_timeout(300)
+        await page.evaluate("tourUse('t_cahier')"); await page.wait_for_timeout(500)
+        r1=await page.evaluate("({p:state.patient,ddn:state.ddn,sel:state.sel,atcd:(state.obs||{}).atcd||'',hist:(state.obs||{}).hist||'',tel:state.nh.tel,adr:state.nh.adresse,stash:VALID.hist.some(v=>v.patient==='ANCIEN Patient'),cur:TOUR.current})")
+        ok(label+" correctif 1 : « Commencer » ouvre un dossier propre prérempli (nom, naissance, motif, téléphone, adresse) et met de côté le patient précédent",r1["p"]=="DUPONT Jean" and r1["ddn"]=="01/01/1950" and r1["sel"] is None and r1["atcd"]=="" and "lombalgie" in r1["hist"] and r1["tel"]=="0612345678" and "Bourgogne" in r1["adr"] and r1["stash"] and r1["cur"]=="t_cahier",r1)
+        r4=await page.evaluate("""()=>{const a=[...document.querySelectorAll('a[href^="tel:0612345678"]')];return {n:a.length,outside:a.some(x=>!x.closest('details')),visible:a.some(x=>!x.closest('details')&&x.getBoundingClientRect().width>0)};}""")
+        ok(label+" correctif 4 : bouton d'appel visible hors menu replié",r4["outside"] and r4["visible"],r4)
+        r6=await page.evaluate("({n:stopName(tourStop('t_cahier')),card:(document.querySelector('.tcard .tc-name')||{}).textContent||''})")
+        ok(label+" correctif 6 : libellé initiale · âge · rue",r6["n"].startswith("D. · ") and " ans · " in r6["n"] and r6["n"].endswith("Rue de Bourgogne") and r6["n"] in r6["card"],r6)
+        await page.evaluate("()=>{TOUR.stops=TOUR.stops.filter(x=>x.id!=='t_cahier');TOUR.current='';tourSave();newPatient();}")
+        # Cahier des corrections — point 3
+        r3=await page.evaluate("""()=>{const v=new Date(2026,9,14,20,5).getTime(),a=new Date(2026,9,14,19,50).getTime();const avec=cotCompute({ts:v,tActe:a,lieu:'visite',extra:[],minus:[]}).codes.map(x=>x.c);const sans=cotCompute({ts:v,lieu:'visite',extra:[],minus:[]}).codes.map(x=>x.c);
+          state.patient='HEURE Test';state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.cot.lieu='visite';state.cot.h='07:55';state.cot.hArr='07:50';journalUpsert(currentPack());const e=JOURNAL[JOURNAL.length-1];const t=new Date(e.tActe),ar=new Date(e.tArr);const r={avec,sans,acte:t.getHours()+':'+t.getMinutes(),arr:ar.getHours()+':'+ar.getMinutes(),ts:!!e.ts};JOURNAL.pop();journalSave();state.cot.h='';state.cot.hArr='';state.patient='';return r;}""")
+        ok(label+" correctif 3 : la cotation suit l'heure de l'acte (19:50 = VG+U, pas VRN), arrivée et acte enregistrés",r3["avec"]==["VG","U"] and "VRN" in r3["sans"] and r3["acte"]=="7:55" and r3["arr"]=="7:50" and r3["ts"],r3)
         # Mode nuit + grand texte
         await ctx.close()
         ctx2=await b.new_context(viewport={"width":width,"height":height},color_scheme="dark",device_scale_factor=2,is_mobile=width<500,has_touch=width<500)
