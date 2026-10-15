@@ -272,6 +272,68 @@ async def run(width,height,label):
         ok(label+" bloc 11 : infection génitale haute, ceftriaxone + doxycycline + métronidazole 10 jours (HAS 2024)",all(ig),ig)
         nv=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Nausées et vomissements de la grossesse');const m=p.s.find(sh=>sh.k==='med').l.filter(l=>l.grp==='ae');return [m.length,/^CARIBAN/.test(m[0].t)&&!m[0].opt,m.some(l=>/ONDANSÉTRON/.test(l.t)&&l.opt&&/hors AMM/.test(l.t)&&!/hors AMM/.test(printClean(l.t)))];}""")
         ok(label+" bloc 11 : nausées de la grossesse, doxylamine-pyridoxine d'abord, ondansétron en option (hors AMM non imprimé)",nv[0]==3 and nv[1] and nv[2],nv)
+        # Fiches de régulation : mention « adresse repositionnée / modifiée par » ignorée (texte fictif)
+        fr=await page.evaluate(r"""()=>{const T=[
+ "INFORMATIONS PATIENT\nMARTIN PAUL\nNé(e) le 03/04/1990 - 36 A\nTél patient Tél appelant\n06 11 22 33 44 06 11 22 33 44\nINTERVENTION\n15/10/2026 19:51 1h40m\nGARDE A VUE\nATTENTION, ADRESSE REPOSITIONNEE PAR\nDURAND ALAIN LE 01/02/2025 10:11:12\nOPJ EXEMPLE\nPOLICE\nADRESSE PATIENT\n12 RUE DES LILAS,\n45000, ORLÉANS",
+ "MARTIN PAUL\nNé(e) le 03/04/1990\n06 11 22 33 44\nADRESSE PATIENT\n12 RUE DES LILAS,\n45000, ORLÉANS\nDOULEUR ABDO\nADRESSE MODIFIÉE PAR\nDURAND ALAIN\nLE 01/02/2025 10:11:12",
+ "MARTIN PAUL\nNé(e) le 03/04/1990\nADRESSE : 12 RUE DES LILAS 45000 ORLEANS\nTOUX\nAdresse repositionné par DURAND le 01/02/2025"];
+ return T.map(t=>{const r=parseFiche(t);return {addr:r.addr,motif:r.motif,note:r.note};});}""")
+        ok(label+" fiches : « repositionnée / repositionné / modifiée par » ignorés, adresse réelle (rue, code postal, commune) et auteur jamais repris",all(("12 RUE DES LILAS" in x["addr"] and "45000" in x["addr"] and "PAR" not in x["addr"].upper().split() and "DURAND" not in (x["addr"]+x["note"]).upper()) for x in fr) and fr[0]["motif"]=="GARDE A VUE",fr)
+        # Tournée — point 0 et planification (OSRM simulé)
+        TSET="""()=>{window.__oT=window.osrmTable;window.__oP=window.osrmTrip;window.osrmTable=async(c,arr)=>({km:arr.map(()=>2),min:arr.map(()=>5)});window.osrmTrip=async(pts,hasDest)=>{const inner=pts.map((p,i)=>i).filter(i=>i>0&&!(hasDest&&i===pts.length-1));return {order:inner,legs:pts.slice(1).map(()=>({km:1,min:4})),km:pts.length,min:pts.length*4};};
+          window.__tsave=JSON.stringify({stops:TOUR.stops,order:TOUR.order,legs:TOUR.legs,cur:TOUR.current,cfg:TOUR.cfg,dest:TOUR.dest,base:TOUR.base,origin:TOUR.origin});
+          TOUR.base={lat:47.9029,lon:1.9093,label:"cabinet"};TOUR.origin="cabinet";TOUR.dest="";TOUR.current="";TOUR.order=[];TOUR.legs=[];TOUR.total=null;TOUR.computed=0;TOUR.cfg=null;TOUR.destLeg=null;TOUR.est=false;
+          TOUR.stops=[{id:"r1",addr:"x",nom:"DUPONT Jean",ddn:"01/01/1946",motif:"fièvre toux",tel:"0612345678",lat:47.90,lon:1.91,label:"10 Rue de Bourgogne 45000 Orléans",city:"Orléans",done:false,ts:Date.now()},
+           {id:"r2",addr:"y",nom:"MARTIN Léa",ddn:"02/02/2022",motif:"otite",tel:"0611111111",lat:47.902,lon:1.905,label:"5 Rue Jeanne d'Arc 45000 Orléans",city:"Orléans",done:false,ts:Date.now()-3*3600000},
+           {id:"r3",addr:"z",nom:"LEROY Paul",ddn:"03/03/1976",motif:"lombalgie",tel:"0622222222",lat:47.99,lon:1.80,label:"3 Avenue de Paris 45000 Orléans",city:"Orléans",done:false,ts:Date.now()}];
+          state.patient="ANCIEN Patient";state.sel=null;state.view="";state.cot=cotDefault();render();}"""
+        TRESET="""()=>{window.osrmTable=window.__oT;window.osrmTrip=window.__oP;const s=JSON.parse(window.__tsave);TOUR.stops=s.stops;TOUR.order=s.order;TOUR.legs=s.legs;TOUR.current=s.cur;TOUR.cfg=s.cfg;TOUR.dest=s.dest;TOUR.base=s.base;TOUR.origin=s.origin;TOUR.near="";state.patient="";state.sel=null;state.view="";state.cot=cotDefault();tpGeoStop();render();}"""
+        for where in (["main","tour"] if width<500 else ["tour"]):
+            await page.evaluate(TSET)
+            if where=="tour": await page.evaluate("state.view='tour';render();")
+            await page.wait_for_timeout(200)
+            await page.locator("#tc_begin" if where=="main" else "#tr_begin").first.click()
+            await page.wait_for_timeout(900)
+            r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=c&&[...c.querySelectorAll('a')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
+            ok(label+f" tournée point 0 ({where}) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »",r0["cur"]=="r1" and r0["p"]=="DUPONT Jean" and r0["ddn"]=="01/01/1946" and r0["tel"]=="0612345678" and "Bourgogne" in (r0["adr"] or "") and "fièvre" in (r0["hist"] or "") and r0["inView"] and r0["nav"],r0)
+            await page.evaluate(TRESET)
+        await page.evaluate(TSET)
+        hp=await page.evaluate("()=>{state.view='tour';render();const t=document.body.innerText;state.view='';render();return /Calcule l'ordre des visites, ouvre le premier patient/.test(t);}")
+        ok(label+" tournée point 0 : phrase d'aide sous « Commencer la tournée »",hp)
+        r1=await page.evaluate("""async()=>{await tourOptimize();const d=new Date(Date.now()+6*3600000);TOUR.cfg=null;tpCfg().fin=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');const ok1=tpPlan();const b1=tpBannerHTML();
+           const d2=new Date(Date.now()+25*60000);tpCfg().fin=String(d2.getHours()).padStart(2,'0')+':'+String(d2.getMinutes()).padStart(2,'0');const ko=tpPlan();const hb=tpHandBack().map(s=>s.id);const b2=tpBannerHTML();
+           return {ok1:ok1.ok,b1:/(Arrivée|Fin de tournée) prévue .* ✓/.test(b1)&&/Il te reste \d+ min par visite/.test(b1),ko:ko.ok,b2:/tp-alert/.test(b2)&&/⚠ (Arrivée|Fin de tournée) prévue/.test(b2),hb,wait:/attend depuis/.test(b2)};}""")
+        ok(label+" tournée point 1 : arrivée prévue ✓ ou ⚠, rythme à tenir, alerte vive et visites à rendre (la plus éloignée d'abord)",r1["ok1"] and r1["b1"] and r1["ko"] is False and r1["b2"] and r1["hb"] and r1["hb"][0]=="r3",r1)
+        ok(label+" tournée point 4 : patient en attente depuis plus de 2 h signalé",r1["wait"],r1)
+        r2=await page.evaluate("""()=>{const save=JOURNAL.slice();const now=Date.now();JOURNAL.length=0;for(let i=0;i<3;i++)JOURNAL.push({id:'t'+i,ts:now-86400000*(i+1),tArr:now-86400000*(i+1)-40*60000,tFin:now-86400000*(i+1),lieu:'visite',pack:'Lombalgie aiguë',patient:'X'});
+           const l=tpLearned('lombalgie');const d=tpLearned('otite');JOURNAL.length=0;save.forEach(x=>JOURNAL.push(x));return {l:Math.round(l.min),d:d.min};}""")
+        ok(label+" tournée point 2 : durée apprise par motif sur le journal (40 min), 20 min par défaut",r2["l"]==40 and r2["d"]==20,r2)
+        r3=await page.evaluate("""()=>({imp:tpImpact({lat:47.905,lon:1.92,label:'test'}),ex:tpExtra({acces:{etage:true,ehpad:true}}),auto:tpExtra({note:'4e étage sans ascenseur, digicode 1234'}),pk:Math.round(tpLegMin(10,new Date(2026,9,12,8,0).getTime())),npk:Math.round(tpLegMin(10,new Date(2026,9,12,14,0).getTime()))})""")
+        ok(label+" tournée points 3, 5, 6 : impact avant ajout, minutes d'accès (cochées ou lues dans la fiche), majoration en heure de pointe",r3["imp"].startswith("Impact : +") and "arrivée" in r3["imp"] and r3["ex"]==15 and r3["auto"]==7 and r3["pk"]==12 and r3["npk"]==10,r3)
+        r7=await page.evaluate("""()=>{const d=new Date(Date.now()+20*60000);tpCfg().fin=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');TOUR.dest='cabinet';const fm=tpFinMode();const nx=tourNextStop();return {fm,nx:nx&&nx.id,far:tpOnWay(tourStop('r3'))};}""")
+        ok(label+" tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées",r7["fm"] and r7["nx"]!="r3" and r7["far"] is False,r7)
+        r11=await page.evaluate("""async()=>{TOUR.dest='';tpCfg().fin='';tourUse('r1');render();await new Promise(r=>setTimeout(r,100));const btn=document.getElementById('tc_arrive');const big=btn&&btn.getBoundingClientRect().height>=50;btn&&btn.click();await new Promise(r=>setTimeout(r,100));const s=tourStop('r1');
+           const res={big,tArr:!!s.tArr,hArr:state.cot.hArr===fmtHM(s.tArr),chrono:!!document.getElementById('tc_chrono'),onsite:/sur place/.test(document.querySelector('.tcard').innerText),dict:!!document.getElementById('tc_dict')};
+           s.tArr=Date.now()-25*60000;state.patient='TEST Tournée';patientValidate();res.dur=tourStop('r1').dur;state.view='';return res;}""")
+        ok(label+" tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation",r11["big"] and r11["tArr"] and r11["hArr"] and r11["chrono"] and r11["onsite"] and r11["dict"] and r11["dur"]==25,r11)
+        r10=await page.evaluate("""async()=>{tourUse('r2');render();await new Promise(r=>setTimeout(r,100));const t=document.querySelector('.tcard');const a=t.querySelector('[data-tpcall]');const m=t.querySelector('[data-tpmask]');const memo=t.querySelector('.tp-memo');a&&a.addEventListener('click',e=>e.preventDefault(),{once:true});a&&a.click();const s=tourStop('r2');
+           return {call:!!a,mask:!!m,memo:!!memo&&!memo.open&&/Annoncer l'arrivée vers/.test(memo.textContent),log:(s.calls||[]).length===1&&!!s.calls[0].annonce,sms:!/sms:/i.test(t.innerHTML)};}""")
+        ok(label+" tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS",all(r10.values()),r10)
+        r8=await page.evaluate("""()=>{state.view='drive';render();const d=document.querySelector('.drive');const fs=d?parseFloat(getComputedStyle(d.querySelector('.dv-addr')).fontSize):0;const txt=d?d.innerText:'';state.view='tour';render();const bil=/Bilan de garde/.test(document.body.innerText)&&/Visites faites/.test(document.querySelector('.tp-bilan').textContent);state.view='';render();return {fs,fin:/Fin prévue/.test(txt),bil};}""")
+        ok(label+" tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde",r8["fs"]>=30 and r8["fin"] and r8["bil"],r8)
+        r12=await page.evaluate("""async()=>{window.osrmTable=async()=>{throw new Error('réseau');};TOUR.computed=0;await tourOptimize();const b=tpBannerHTML();return {est:TOUR.est,order:TOUR.order.length,txt:/vol d'oiseau/.test(b)};}""")
+        ok(label+" tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée",r12["est"] and r12["order"]>=1 and r12["txt"],r12)
+        if width<500:
+            bad=[]
+            for th,big in [("day",False),("night",False),("day",True),("night",True)]:
+                await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.removeItem('sos_theme_force');localStorage.setItem('sos_bigtext','{1 if big else 0}');themeApply();")
+                for v in ["", "tour", "drive"]:
+                    await page.evaluate(f"(()=>{{const d=new Date(Date.now()+15*60000);tpCfg().fin=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');state.view='{v}';render();}})()"); await page.wait_for_timeout(150)
+                    r=await page.evaluate("()=>{const W=document.documentElement.clientWidth;const over=[...document.querySelectorAll('.tp-banner,.tcard,.drive,.tp-arrive,.dv-b,.tp-call a')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&(r.right>W+1||r.left<-1);}).length;return [over,document.documentElement.scrollWidth<=W,!!document.querySelector('.tp-banner,.drive')];}")
+                    if r[0] or not r[1] or not r[2]: bad.append((th,big,v,r))
+            await page.evaluate("localStorage.setItem('sos_theme','auto');localStorage.setItem('sos_bigtext','0');themeApply();")
+            ok(label+" tournée 375 px : bandeau, carte, écran conduite sans débordement (jour, nuit, grand texte)",not bad,bad)
+        await page.evaluate(TRESET)
         # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
         rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
           for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")
@@ -367,5 +429,5 @@ async def main():
     finally:
         srv.terminate()
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
-    open(os.path.join(ROOT,"tests","resultats.md"),"w").write("# Tests v40 (lot 1, blocs 2 à 8)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
+    open(os.path.join(ROOT,"tests","resultats.md"),"w",encoding="utf-8").write("# Tests v40 (lot 1, blocs 2 à 8)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
 asyncio.run(main())
