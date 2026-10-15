@@ -181,7 +181,7 @@ async def run(width,height,label):
         ok(label+" fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative",any("FORTRANS" in x["t"] and x["on"] for x in med) and any("4 sachets dans 500 ml" in x["t"] and not x["on"] for x in med))
         # Bloc 4 — Uro-néphrologie, et disponibilité des médicaments
         nb4=await page.evaluate("PACKS_V40_B4.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 4 : 13 packs chargés",nb4==13,nb4)
-        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
+        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
         ok(label+" fiches : aucun médicament non commercialisé ou hospitalier",len(gone)==0,gone[:2])
         await page.evaluate("state.sel=null;state.view='';state.cot.lieu='consultation';state.risk='r';state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
         await pick(page,"frissons","Pyélonéphrite aiguë simple — femme")
@@ -192,11 +192,11 @@ async def run(width,height,label):
         await pick(page,"prostatite","Prostatite aiguë")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" prostatite : pas d'OROKEN (RCP), 14 jours",not any("OROKEN" in x["t"] for x in med) and any("14 jours" in x["t"] and x["on"] for x in med))
-        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
+        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
         ok(label+" fiches : aucune ligne effacée par dédoublonnage",len(dd)==0,dd[:3])
         # Bloc 5 — Rhumatologie et traumatologie, champs à saisir
         nb5=await page.evaluate("PACKS_V40_B5.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 5 : 22 packs chargés",nb5==22,nb5)
-        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
+        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
         ok(label+" fiches : chaque champ {f:…} a sa case de saisie",len(nf)==0,nf[:3])
         cv=await page.evaluate("atDureeSugg('Cervicalgie / torticolis')"); ok(label+" durée AT cervicalgie CNAM",("CNAM" in cv),cv)
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1960';state.poids='';render();"); await page.wait_for_timeout(300)
@@ -239,6 +239,14 @@ async def run(width,height,label):
         await pick(page,"œil ne ferme plus","Paralysie faciale périphérique")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours",any("SOLUPRED" in x["t"] and "60 mg" in x["t"] and "7 jours" in x["t"] and x["on"] for x in med),[x["t"][:70] for x in med if "SOLUPRED" in x["t"]])
+        # Bloc 9 — Psychiatrie et addictions
+        nb9=await page.evaluate("PACKS_V40_B9.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 9 : 13 packs chargés",nb9==13,nb9)
+        sv=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Sevrage alcool ambulatoire — programmé');const m=p.s.find(sh=>sh.k==='med').l.map(l=>typeof l==='string'?{t:l}:l);return [m.some(l=>/^VALIUM 10 mg/.test(l.t)&&!l.opt),m.some(l=>/^BENERVA/.test(l.t)&&!l.opt),PACKS.flatMap(x=>x.s.filter(sh=>sh.k==='med').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).some(t=>/SERESTA 50/.test(t))];}""")
+        ok(label+" bloc 9 : sevrage au diazépam + B1 cochés (SFA 2023), plus de SERESTA 50 mg x3",sv[0] and sv[1] and not sv[2],sv)
+        hy=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Insomnie');return p.s.filter(sh=>sh.k==='med').flatMap(sh=>sh.l).filter(l=>/STILNOX|zolpidem/i.test(typeof l==='string'?l:l.t)&&!(typeof l==='object'&&l.jr)).length;}""")
+        ok(label+" bloc 9 : zolpidem (ordonnance sécurisée) jamais imprimé",hy==0,hy)
+        sc=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Soins psychiatriques sans consentement — certificat');const c=p.s.find(sh=>sh.k==='cert').l;return [c.filter(l=>l.grp==='mode').length,(p.fields||[]).includes('heure')&&(p.fields||[]).includes('constats')&&!!FIELDS.heure&&!!FIELDS.constats];}""")
+        ok(label+" bloc 9 : certificat sans consentement, 3 mentions exclusives, heure et constatations à saisir",sc[0]==3 and sc[1],sc)
         # Cahier des corrections — points 7 et 8 (risque médical)
         r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
         ok(label+" correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif",not any(re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower()) or "Tique retirée" in v for v in r7.values()),[k for k,v in r7.items() if re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower())])
