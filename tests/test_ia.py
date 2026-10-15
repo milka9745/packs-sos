@@ -65,6 +65,16 @@ async def run(width,height,label):
         bak=await page.evaluate("backupCollect().then(x=>JSON.stringify(x))")
         ok(L+"clé API absente de la sauvegarde",KEY not in bak and "sos_ai" not in json.loads(bak)["enc"])
         ok(L+"clé relue après déchiffrement",await page.evaluate("secGet('sos_ai',null).then(c=>c&&c.key)")==KEY)
+        # 2 bis. Noms de médicaments jamais masqués (base intégrée, puis BDPM importée)
+        mw=await page.evaluate("[aiMedWords().size,['eliquis','januvia','aricept','metformine','kardegic'].every(w=>aiMedWords().has(w))]")
+        ok(L+"lexique médicaments : base intégrée chargée",mw[0]>3000 and mw[1],mw)
+        await page.evaluate("state.patient='DUPONT Marie-Claire';state.ddn='12/03/1985';state.t0=Date.now()-1;aiPrepare('obs',{dictee:'Mme Dupont sous Januvia, Aricept et Lyrica, Tercian le soir.'})"); await page.wait_for_timeout(300)
+        txt=await page.inner_text("#ai_sent")
+        ok(L+"médicaments absents des fiches envoyés en clair, patiente masquée",all(x in txt for x in ["Januvia","Aricept","Lyrica","Tercian"]) and "Dupont" not in txt,txt[-200:])
+        await page.click("#ai_cancel")
+        await page.evaluate("BDPM={ts:Date.now(),n:1,rows:['ZORGLUBINE 10 mg, comprimé pelliculé|comprimé pelliculé']}")
+        ok(L+"spécialité de la BDPM importée ajoutée au lexique",await page.evaluate("aiMedWords().has('zorglubine')"))
+        await page.evaluate("BDPM=lsGet('sos_bdpm',null)")
         # 3. Consultation fictive avec identité complète
         await page.evaluate("""()=>{const i=PACKS.findIndex(p=>/Cystite simple/.test(p.n));state.sel=i;state.patient='DUPONT Marie-Claire';state.ddn='12/03/1985';state.date='15/10/2026';state.sexe='f';state.t0=Date.now();state.cot.lieu='consultation';render();}""")
         dictee="Mme Dupont Marie-Claire, née le 12/03/1985, 12 rue des Lilas 45000 Orléans, tél 06 12 34 56 78. Brûlures mictionnelles depuis le 13/10/2026, vue par le Dr Lemoine. Toux absente. Pas de fièvre, TA 12/7."

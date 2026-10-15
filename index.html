@@ -13439,10 +13439,12 @@ function anonEsc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
 function anonSplitName(full){const w=String(full||"").trim().split(/[\s,]+/).filter(Boolean);const nom=[],prenom=[];w.forEach(x=>{(x===x.toUpperCase()&&/[A-ZÀ-Þ]/.test(x)?nom:prenom).push(x);});if(!nom.length&&prenom.length>1)nom.push(prenom.pop());return {nom,prenom};}
 function anonNameWords(arr){const out=[];(arr||[]).forEach(x=>String(x||"").split(/[\s,]+/).forEach(w=>{w=w.replace(/^[^\p{L}]+|[^\p{L}]+$/gu,"");if(w.length<2)return;out.push(w);const parts=w.split(/[-’']/).filter(p=>p.length>=3);if(parts.length>1)out.push(...parts);}));return out;}
 
-/* ctx : {patient, nom, prenom, ddn, ref (Date ou "jj/mm/aaaa"), adresse, tel, nir, autres:[noms à masquer], masquer:[mots en plus], garder:[mots à laisser], lexique:Set(mots courants normalisés)}
+/* ctx : {patient, nom, prenom, ddn, ref (Date ou "jj/mm/aaaa"), adresse, tel, nir, autres:[noms à masquer], masquer:[mots en plus], garder:[mots à laisser], lexique:Set(mots des fiches normalisés), courants:Set(mots écrits en minuscules dans les fiches), medicaments:Set(noms de spécialités et DCI normalisés)}
    → {text, map:{jeton:original}, items:[{cat, orig, tok}]} */
 function anonymize(text,ctx){
   ctx=ctx||{};const ref=ctx.ref instanceof Date?ctx.ref:(anonParseDDN(ctx.ref)||new Date());const ddn=anonParseDDN(ctx.ddn);
+  const cour=ctx.courants||new Set(); /* mots écrits en minuscules dans les fiches : seuls eux peuvent être un mot courant homonyme du nom */
+  const med=ctx.medicaments||new Set(); /* noms de médicaments : gardés avec leur majuscule, jamais utilisés pour démasquer le nom du patient */
   const lex=ctx.lexique||new Set();const garder=new Set((ctx.garder||[]).map(anonNorm));
   const map={},items=[],byOrig={},count={};
   const tok=(cat,orig,label)=>{const key=cat+"|"+anonNorm(orig);if(byOrig[key])return "[["+byOrig[key]+"]]";
@@ -13487,7 +13489,7 @@ function anonymize(text,ctx){
       const orig=p.slice(ms[i].index,end);out+=p.slice(last,ms[i].index)+c.make(orig,cats);last=end;i=j+1;}
     return out+p.slice(last);};
   const nameCls=(w)=>{const parts=[w,...w.split(/[’']/).slice(1)];for(const x of parts){const k=anonNorm(x);if(isStop(x)&&x!==x.toUpperCase())return null;
-      if((nomW.has(k)||preW.has(k))&&x===x.toLowerCase()&&(lex.has(k)||ANON_GARDER.has(k)))continue; /* « blanc », « rose » en minuscules : mot courant, pas le nom */
+      if((nomW.has(k)||preW.has(k))&&x===x.toLowerCase()&&(cour.has(k)||ANON_GARDER.has(k)))continue; /* « blanc », « rose » en minuscules : mot courant, pas le nom */
       if(nomW.has(k)||preW.has(k))return {grp:"pat",k,make:(orig,cs)=>{const ks=cs.map(c=>c.k);const allN=ks.every(z=>nomW.has(z)),allP=ks.every(z=>preW.has(z));const elid=/^[dl][’']/i.test(orig)&&!nomW.has(anonNorm(orig))&&!preW.has(anonNorm(orig))?orig.slice(0,2):"";const o=orig.slice(elid.length);return elid+tok("PATIENT",o,allN?"NOM DU PATIENT":allP?"PRÉNOM DU PATIENT":"PATIENT");}};
       if(autW[k]){const a=autW[k];return {grp:"aut"+a.n,make:(orig)=>{const elid=/^[dl][’']/i.test(orig)&&!autW[anonNorm(orig)]?orig.slice(0,2):"";return elid+tok(a.cat,orig.slice(elid.length),a.cat==="PERSONNE"?undefined:a.cat);}};}}
     return null;};
@@ -13505,7 +13507,7 @@ function anonymize(text,ctx){
   const mq=new Set((ctx.masquer||[]).map(anonNorm).filter(Boolean));
   if(mq.size)s=anonOutside(s,p=>runs(p,w=>mq.has(anonNorm(w))?{grp:"mq",make:o=>tok("MASQUÉ",o)}:null));
   /* 8. noms propres restants : majuscule hors début de phrase (ou mot inconnu en début de phrase), capitales inconnues */
-  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(ANON_NOMS.has(k)&&!garder.has(k))return false;return ANON_GARDER.has(k)||lex.has(k)||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
+  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(ANON_NOMS.has(k)&&!garder.has(k))return false;return ANON_GARDER.has(k)||lex.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
   s=anonOutside(s,p=>runs(p,(w,idx,str)=>{
     if(!new RegExp("^["+ANON_U+"]").test(w))return null;
     const core=w.replace(/^[dlj][’']/i,"");if(core.length<2||!new RegExp("^["+ANON_U+"]").test(core))return null;
@@ -13521,10 +13523,10 @@ function anonymize(text,ctx){
 }
 /* Contrôle final avant envoi : aucun fragment d'identité ne doit subsister. → liste des fuites [{cat, frag}] */
 function anonLeaks(text,ctx){
-  ctx=ctx||{};const leaks=[];const t=String(text||"").replace(/\[\[[^\]]*\]\]/g," ");const nt=" "+anonNorm(t).replace(/[^a-z0-9']+/g," ")+" ";const runs=(t.match(/\d(?:[\s.\/-]?\d)*/g)||[]).map(anonDigits);const has=d=>runs.some(r=>r.includes(d));const lex=ctx.lexique||new Set();
+  ctx=ctx||{};const leaks=[];const t=String(text||"").replace(/\[\[[^\]]*\]\]/g," ");const nt=" "+anonNorm(t).replace(/[^a-z0-9']+/g," ")+" ";const runs=(t.match(/\d(?:[\s.\/-]?\d)*/g)||[]).map(anonDigits);const has=d=>runs.some(r=>r.includes(d));const lex=ctx.lexique||new Set();const cour=ctx.courants||new Set();
   const sp=ctx.nom||ctx.prenom?{nom:[ctx.nom],prenom:[ctx.prenom]}:anonSplitName(ctx.patient);
   const words=anonNameWords([...(sp.nom||[]),...(sp.prenom||[]),...(ctx.autres||[]).map(x=>typeof x==="string"?x:x&&x.n)]);
-  words.forEach(w=>{const k=anonNorm(w).replace(/[^a-z0-9']+/g," ").trim();if(!k||k.length<2||(ANON_GARDER.has(k)&&k.length<=3))return;if(lex.has(k)||ANON_GARDER.has(k)){const cap=x=>new RegExp("(^|[^\\p{L}])"+anonEsc(x)+"(?![\\p{L}])","u").test(t);if(cap(w.charAt(0).toUpperCase()+w.slice(1).toLowerCase())||cap(w.toUpperCase()))leaks.push({cat:"nom",frag:w});return;}if(nt.includes(" "+k+" ")||nt.includes("'"+k+" "))leaks.push({cat:"nom",frag:w});});
+  words.forEach(w=>{const k=anonNorm(w).replace(/[^a-z0-9']+/g," ").trim();if(!k||k.length<2||(ANON_GARDER.has(k)&&k.length<=3))return;if(cour.has(k)||ANON_GARDER.has(k)){const cap=x=>new RegExp("(^|[^\\p{L}])"+anonEsc(x)+"(?![\\p{L}])","u").test(t);if(cap(w.charAt(0).toUpperCase()+w.slice(1).toLowerCase())||cap(w.toUpperCase()))leaks.push({cat:"nom",frag:w});return;}if(nt.includes(" "+k+" ")||nt.includes("'"+k+" "))leaks.push({cat:"nom",frag:w});});
   const ddn=anonParseDDN(ctx.ddn);
   if(ddn){const d=String(ddn.getDate()).padStart(2,"0"),m=String(ddn.getMonth()+1).padStart(2,"0"),y=String(ddn.getFullYear());
     if(has(d+m+y)||has(d+m+y.slice(2)))leaks.push({cat:"naissance",frag:d+"/"+m+"/"+y});
@@ -13585,14 +13587,27 @@ document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.clos
 window.addEventListener("online",()=>{try{if(SEC.unlocked)render();}catch(e){}});window.addEventListener("offline",()=>{try{if(SEC.unlocked)render();}catch(e){}});
 
 /* ---- Contexte d'anonymisation : tout ce qui identifie le patient et son entourage, connu de Packs ---- */
-let _aiLex=null;
-function aiLexique(){if(_aiLex)return _aiLex;const s=new Set();const add=t=>{(String(t||"").match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ][A-Za-zÀ-ÖØ-öø-ÿŒœ'’\-]+/g)||[]).forEach(w=>{const k=anonNorm(w);s.add(k);k.split(/[-']/).forEach(x=>x.length>1&&s.add(x));});};
+let _aiLex=null,_aiMed=null,_aiMedKey="";
+/* Noms de médicaments jamais masqués : base intégrée (spécialités et DCI), fiches, thésaurus ANSM, BDPM et ANSM importées.
+   Premier mot de chaque spécialité seulement : les noms de laboratoire (souvent des noms de famille) restent masqués. */
+function aiMedWords(){const key=[PACKS.length,BDPM&&BDPM.ts||0,ANSM&&ANSM.ts||0].join("|");if(_aiMed&&_aiMedKey===key)return _aiMed;
+  const s=new Set();const addW=w=>{const k=anonNorm(w).replace(/[.,;:]+$/,"");if(k.length>=3&&!/^\d/.test(k))s.add(k);};const first=k=>String(k||"").trim().split(/\s+/)[0];const dci=t=>String(t||"").split(/[\s,()+\/]+/).forEach(addW);
+  try{BUILTIN_KEYS.forEach(k=>{addW(first(k));(BUILTIN_BRAND[k]||[]).forEach(dci);});}catch(e){}
+  try{DRUGBASE.forEach(x=>{addW(first(brandKey(x.n)||x.n));dci(x.d);});}catch(e){}
+  try{MEDS.forEach(m=>addW(first(m.n)));}catch(e){}
+  try{THES_NAMES.forEach(dci);}catch(e){}
+  try{if(BDPM&&BDPM.rows)BDPM.rows.forEach(r=>addW(first(brandKey(String(r).split("|")[0]))));}catch(e){}
+  try{if(ANSM&&ANSM.fw)Object.keys(ANSM.fw).forEach(addW);}catch(e){}
+  _aiMedKey=key;return _aiMed=s;}
+let _aiCour=null;
+function aiCourants(){aiLexique();return _aiCour;}
+function aiLexique(){if(_aiLex)return _aiLex;const s=new Set(),c=new Set();const add=t=>{(String(t||"").match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ][A-Za-zÀ-ÖØ-öø-ÿŒœ'’\-]+/g)||[]).forEach(w=>{const k=anonNorm(w);s.add(k);k.split(/[-']/).forEach(x=>x.length>1&&s.add(x));if(w===w.toLowerCase())c.add(k);});};_aiCour=c;
   PACKS.forEach(p=>{add(p.n);add(p.k);p.s.forEach(sh=>sh.l.forEach(l=>add(typeof l==="string"?l:l.t)));});SYSTEMS.forEach(x=>add(x[1]+" "+x[2]));
   return _aiLex=s;}
 function aiAnonCtx(){const stop=(typeof TOUR!=="undefined"&&TOUR.current)?tourStop(TOUR.current):null;const nh=state.nh||{};
   const doc=String(DOCTOR.nom||"").replace(/^(Docteur|Dr\.?)\s+/i,"");
   const autres=[...(state.copat||[]).map(c=>c&&c.patient).filter(Boolean).map(n=>({n,cat:"AUTRE PATIENT"})),...(stop&&stop.nom&&norm(stop.nom)!==norm(state.patient||"")?[{n:stop.nom,cat:"AUTRE PATIENT"}]:[]),...(doc&&!/SP[ÉE]CIMEN/i.test(doc)?[{n:doc,cat:"MÉDECIN"}]:[]),...(DOCTOR.assoc||[]).map(a=>({n:String(a).replace(/^(Docteurs?|Drs?\.?)\s+/i,""),cat:"MÉDECIN"})),...(nh.temoin?[{n:nh.temoin,cat:"PERSONNE"}]:[])];
-  return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:AI.masquer,garder:AI.garder,lexique:aiLexique()};}
+  return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:AI.masquer,garder:AI.garder,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
 /* Données cliniques sans identité : l'âge remplace la date de naissance */
 function ageLabel(){const a=ageY();if(!a)return "";if(a.m<24)return a.m+" mois";return a.y+" ans";}
 function aiAgeText(){const d=anonParseDDN(state.ddn);return d?anonAge(d,anonParseDDN(normDate(state.date))||new Date()):"";}

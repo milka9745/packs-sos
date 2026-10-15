@@ -50,5 +50,13 @@
 - OK — nombre retiré d'une reformulation détecté
 - OK — sigles chiffrés (SpO2, HbA1c) ne comptent pas comme nombres
 - OK — reformulation fidèle acceptée
+- OK — base intégrée chargée (plus de 3 000 noms)
+- OK — sans la base, les médicaments absents des fiches étaient masqués (constat v41)
+- OK — avec la base, aucun médicament n'est masqué
+- OK — médicaments en capitales conservés
+- OK — un prénom fréquent reste masqué même s'il est aussi un nom de médicament
+- OK — patient homonyme d'un médicament : son nom reste masqué partout
+- OK — un nom après une civilité reste masqué même s'il ressemble à un laboratoire
+- OK — noms de laboratoire (second mot d'une spécialité) non ajoutés au lexique
 
-50/50 tests OK
+58/58 tests OK

@@ -7,11 +7,12 @@ if(ia<0||ib<0){console.log("FAIL module ANON introuvable");process.exit(1);}
 const A=new Function(html.slice(ia,ib)+";return {anonymize,anonLeaks,reidentify,aiDoseGuard,aiFactGuard,anonAge,anonRel,anonParseDDN,anonNorm,ANON_NOMS};")();
 /* Lexique comme dans l'application : les mots des fiches (PACKS) */
 const pa=html.search(/const PACKS\s*=/),pb=html.indexOf("const SYSTEMS");
-const LEX=new Set((html.slice(pa,pb).match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ]{2,}/g)||[]).map(A.anonNorm));
+const WORDS=html.slice(pa,pb).match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ]{2,}/g)||[];
+const LEX=new Set(WORDS.map(A.anonNorm)),COUR=new Set(WORDS.filter(w=>w===w.toLowerCase()).map(A.anonNorm));
 const REF="15/10/2026";
 let ok=0,ko=0;const res=[];
 function t(name,cond,info){res.push([name,!!cond]);if(cond){ok++;console.log("OK  ",name);}else{ko++;console.log("FAIL",name,info===undefined?"":JSON.stringify(info));}}
-function run(text,ctx){ctx=Object.assign({ref:REF,lexique:LEX},ctx);const r=A.anonymize(text,ctx);return Object.assign(r,{leaks:A.anonLeaks(r.text,ctx),back:A.reidentify(r.text,r.map)});}
+function run(text,ctx){ctx=Object.assign({ref:REF,lexique:LEX,courants:COUR},ctx);const r=A.anonymize(text,ctx);return Object.assign(r,{leaks:A.anonLeaks(r.text,ctx),back:A.reidentify(r.text,r.map)});}
 const absent=(s,arr)=>arr.every(x=>!s.toLowerCase().includes(String(x).toLowerCase()));
 
 // 1. Identité du patient
@@ -108,6 +109,30 @@ t("nombre ajouté par l'IA détecté",!A.aiFactGuard("TA 13/8, FC 92","TA 13/8, 
 t("nombre retiré d'une reformulation détecté",!A.aiFactGuard("douleur à 7/10 depuis 3 h","douleur intense",true).ok);
 t("sigles chiffrés (SpO2, HbA1c) ne comptent pas comme nombres",A.aiFactGuard("SpO2 95 %","SpO2 95 %, HbA1c dans la norme").ok);
 t("reformulation fidèle acceptée",A.aiFactGuard("patient très agité, TA 13/8","patient agité, TA 13/8",true).ok);
+
+// 10. Médicaments jamais masqués (base intégrée : premier mot de chaque spécialité + DCI, comme aiMedWords)
+const bA=html.indexOf("const blob=`")+12,bB=html.indexOf("`;blob.split",bA);
+const MED=new Set();const addW=w=>{const k=A.anonNorm(w).replace(/[.,;:]+$/,"");if(k.length>=3&&!/^\d/.test(k))MED.add(k);};
+html.slice(bA,bB).split("\n").forEach(l=>{if(!l)return;const i=l.indexOf("=");const k=i<0?l:l.slice(0,i);addW(k.trim().split(/\s+/)[0]);if(i>=0)l.slice(i+1).split("|").forEach(d=>d.split(/[\s,()+\/]+/).forEach(addW));});
+t("base intégrée chargée (plus de 3 000 noms)",MED.size>3000,MED.size);
+/* Médicaments absents des fiches actuelles (vérifié) + médicaments courants des fiches */
+const DICT="Sous Januvia, Aricept et Ebixa. Modopar arrêté, Lyrica le soir, Tercian si agitation. Ezetrol et Inegy. Aussi Eliquis, Kardégic, Levothyrox et Tahor.";
+const DRUGS=["Januvia","Aricept","Ebixa","Modopar","Lyrica","Tercian","Ezetrol","Inegy","Eliquis","Kardégic","Levothyrox","Tahor"];
+const ABSENTS=["Januvia","Aricept","Ebixa","Modopar","Lyrica","Tercian","Ezetrol","Inegy"];
+r=run(DICT,{patient:"MARTIN Paul"});
+t("sans la base, les médicaments absents des fiches étaient masqués (constat v41)",ABSENTS.every(x=>!r.text.includes(x)),r.text);
+r=run(DICT,{patient:"MARTIN Paul",medicaments:MED});
+t("avec la base, aucun médicament n'est masqué",DRUGS.every(x=>r.text.includes(x)),DRUGS.filter(x=>!r.text.includes(x)));
+r=run("ELIQUIS 5 mg matin et soir, KARDEGIC 75.",{patient:"MARTIN Paul",medicaments:MED});
+t("médicaments en capitales conservés",r.text.includes("ELIQUIS")&&r.text.includes("KARDEGIC"),r.text);
+r=run("Mme Rose, sous Eliquis.",{patient:"X Y",medicaments:new Set([...MED,"rose"])});
+t("un prénom fréquent reste masqué même s'il est aussi un nom de médicament",!r.text.includes("Rose")&&r.text.includes("Eliquis"),r.text);
+r=run("tahor et eliquis pour tahor yves, suivi par Tahor.",{patient:"TAHOR Yves",medicaments:MED});
+t("patient homonyme d'un médicament : son nom reste masqué partout",!/tahor/i.test(r.text)&&!r.leaks.length,r.text);
+r=run("Vu par le Dr Biogaran pour son traitement.",{patient:"X Y",medicaments:MED});
+t("un nom après une civilité reste masqué même s'il ressemble à un laboratoire",!r.text.includes("Biogaran"),r.text);
+r=run("Sa fille Fabre et Pierre sont présents.",{patient:"X Y",medicaments:MED});
+t("noms de laboratoire (second mot d'une spécialité) non ajoutés au lexique",!r.text.includes("Pierre")&&!r.text.includes("Fabre"),r.text);
 
 console.log(`\n${ok}/${ok+ko} tests d'anonymisation OK`);
 fs.writeFileSync(path.join(__dirname,"resultats_anon.md"),"# Tests v41 — anonymisation locale (node tests/test_anon.js)\n\n"+res.map(([n,c])=>`- ${c?"OK":"ÉCHEC"} — ${n}`).join("\n")+`\n\n${ok}/${ok+ko} tests OK\n`);

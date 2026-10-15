@@ -7,6 +7,9 @@
 - OK — iphone clé API absente en clair du stockage
 - OK — iphone clé API absente de la sauvegarde
 - OK — iphone clé relue après déchiffrement
+- OK — iphone lexique médicaments : base intégrée chargée
+- OK — iphone médicaments absents des fiches envoyés en clair, patiente masquée
+- OK — iphone spécialité de la BDPM importée ajoutée au lexique
 - OK — iphone écran « Ce qui part » ouvert avant tout envoi
 - OK — iphone texte envoyé sans nom, naissance, adresse, téléphone ni médecin
 - OK — iphone naissance remplacée par l'âge, date par J-2
@@ -44,6 +47,9 @@
 - OK — pc clé API absente en clair du stockage
 - OK — pc clé API absente de la sauvegarde
 - OK — pc clé relue après déchiffrement
+- OK — pc lexique médicaments : base intégrée chargée
+- OK — pc médicaments absents des fiches envoyés en clair, patiente masquée
+- OK — pc spécialité de la BDPM importée ajoutée au lexique
 - OK — pc écran « Ce qui part » ouvert avant tout envoi
 - OK — pc texte envoyé sans nom, naissance, adresse, téléphone ni médecin
 - OK — pc naissance remplacée par l'âge, date par J-2
@@ -75,4 +81,4 @@
 - OK — pc mode Aucun en un geste
 - OK — pc aucune erreur JS
 
-74/74 tests OK
+80/80 tests OK
