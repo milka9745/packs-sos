@@ -151,6 +151,11 @@ async def run(width,height,label):
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché",any("CLAMOXYL" in x["t"] and "8 ml" in x["t"] and "10 jours" in x["t"] and x["on"] for x in med),[x["t"][:70] for x in med])
         await page.evaluate("state.sel=null;state.view='';render();"); await page.wait_for_timeout(300)
+        await pick(page,"ethmoïdite","Sinusite aiguë — enfant")
+        await page.evaluate("state.ddn='01/01/2017';state.poids='30';render();"); await page.wait_for_timeout(300)
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)",any("BACTRIM 40 mg/ml" in x["t"] and ": 10 ml" in x["t"] for x in med),[x["t"][:90] for x in med if "BACTRIM" in x["t"]])
+        await page.evaluate("state.sel=null;state.view='';render();"); await page.wait_for_timeout(300)
         await pick(page,"yeux collés","Conjonctivite")
         await page.evaluate("state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]

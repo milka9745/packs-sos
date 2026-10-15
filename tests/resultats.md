@@ -35,6 +35,7 @@
 - OK — iphone bloc 2 : packs chargés
 - OK — iphone dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
 - OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — iphone BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
 - OK — iphone conjonctivite : antiseptique coché, antibiotique en alternative
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
@@ -73,8 +74,9 @@
 - OK — pc bloc 2 : packs chargés
 - OK — pc dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
 - OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — pc BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
 - OK — pc conjonctivite : antiseptique coché, antibiotique en alternative
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-76/76 tests OK
+78/78 tests OK
