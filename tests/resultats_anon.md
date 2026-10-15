@@ -35,6 +35,9 @@
 - OK — prénom inconnu en début de phrase retiré
 - OK — masquage manuel d'un mot (écran « Ce qui part »)
 - OK — mot rendu à la main (garder) conservé
+- OK — début de phrase : mots médicaux et courants non masqués
+- OK — début de phrase : prénoms masqués, même à terminaison de mot courant
+- OK — civilité abrégée après un lien (Papa M.) : pas de jeton parasite
 - OK — fuite de nom détectée
 - OK — fuite de date de naissance détectée
 - OK — fuite de téléphone détectée
@@ -59,4 +62,4 @@
 - OK — un nom après une civilité reste masqué même s'il ressemble à un laboratoire
 - OK — noms de laboratoire (second mot d'une spécialité) non ajoutés au lexique
 
-58/58 tests OK
+61/61 tests OK

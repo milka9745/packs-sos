@@ -82,6 +82,13 @@ t("masquage manuel d'un mot (écran « Ce qui part »)",!r.text.includes("sèche
 r=run("Arrivée de Gaspard.",{patient:"X Y",garder:["Gaspard"]});
 t("mot rendu à la main (garder) conservé",r.text.includes("Gaspard"),r.text);
 
+r=run("Neutropénie possible. Hospitalisée en mars. Dyspnée d'effort. Maman présente.",{patient:"X Y"});
+t("début de phrase : mots médicaux et courants non masqués",["Neutropénie","Hospitalisée","Dyspnée","Maman"].every(x=>r.text.includes(x)),r.text);
+r=run("Gaspard a de la fièvre. Agnès a appelé. Émilie et Dominique sont là. Florence rappellera.",{patient:"X Y"});
+t("début de phrase : prénoms masqués, même à terminaison de mot courant",absent(r.text,["gaspard","agnès","émilie","dominique","florence"]),r.text);
+r=run("Papa M. Lambert Thomas joignable.",{patient:"LAMBERT Chloé"});
+t("civilité abrégée après un lien (Papa M.) : pas de jeton parasite",r.text.includes("M. ")&&!/\[\[PERSONNE \d\]\]\./.test(r.text)&&!/thomas|lambert/i.test(r.text),r.text);
+
 // 6. Contrôle de fuite
 t("fuite de nom détectée",A.anonLeaks("Patient Dupont vu ce jour",{patient:"DUPONT Marie",lexique:LEX}).some(l=>l.cat==="nom"));
 t("fuite de date de naissance détectée",A.anonLeaks("né le 12/03/1985",{patient:"X Y",ddn:"12/03/1985"}).some(l=>l.cat==="naissance"));

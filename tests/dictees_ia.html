@@ -1,0 +1,274 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dictées fictives IA</title>
+<style>:root{--bg:#F6F4EE;--fg:#1B2238;--mu:#5B6278;--card:#fff;--line:#DDD8CC;--tok:#E3ECFF;--tokf:#1E2A5C;--ok:#1D7A3A;--ko:#B3261E;--warn:#8A6A12}
+@media (prefers-color-scheme:dark){:root{--bg:#1B1E24;--fg:#E8EAF0;--mu:#A0A6B5;--card:#23272F;--line:#353A45;--tok:#2E3A5E;--tokf:#E8ECF8;--ok:#5BC07A;--ko:#FF8A80;--warn:#E5C46B}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,system-ui,sans-serif}main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:8px 0}.c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0}.c.ko{border-color:var(--ko)}
+h2{font-size:17px;margin:0 0 6px}h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--mu);margin:10px 0 4px}
+.b{font-size:12px;border-radius:999px;padding:2px 8px;margin-left:6px;white-space:nowrap}.b.ok{color:var(--ok);border:1px solid var(--ok)}.b.ko{color:var(--ko);border:1px solid var(--ko)}
+.m{color:var(--mu);font-size:13.5px}.d{margin:0}pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;font:13.5px/1.5 ui-monospace,Menlo,monospace;margin:0}
+mark{background:var(--tok);color:var(--tokf);border-radius:3px;padding:0 2px}.w{color:var(--ko);font-weight:600}.t{color:var(--warn);font-size:13.5px}</style></head>
+<body><main><h1>Ce qui partirait à l'IA — 20 dictées fictives</h1>
+<p class="m">Généré par <code>tests/test_dictees.py</code> dans l'application v41 (fonction réelle <code>aiPrepare</code>), consultation du 15/10/2026. Aucun envoi : l'API est bloquée pendant le test (0 requête). Identités, adresses et numéros inventés.</p>
+<p><b>20/20</b> dictées sans fragment d'identité et sans médicament perdu.</p>
+<p class="m"><b>Relecture (15/10/2026)</b> : « stade de la Source » (n° 10) et « CHR Orléans » (n° 2) partent en clair, mots courants ou ville du centre, non identifiants seuls ; dans « du 2 au 9 septembre 2026 » (n° 14), le premier jour reste un chiffre seul ; une enseigne ou un laboratoire peut être masqué en trop (Paul, Bioallians), sans risque, réintégré au retour.</p>
+<section class="c ok"><h2>1. Cystite, dictée en minuscules <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>DUPONT Marie</b>, né(e) le 12/03/1985 · adresse connue : 8 rue Bannier, 45000 Orléans · tél. connu : 06 12 34 56 78</p>
+<h3>Dictée</h3><p class="d">Visite 8 rue Bannier 3e étage. mme dupont marie 41 ans brûlures mictionnelles depuis le 13/10 pollakiurie pas de fièvre pas de douleur lombaire. allergie amoxicilline. traitement habituel Levothyrox 75. BU leucocytes plus nitrites plus. rappeler le mari au 06 12 34 56 78 si besoin. Cystite simple, Monuril.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 41 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Visite <mark>[[ADRESSE]]</mark> 3e étage. mme <mark>[[PATIENT]]</mark> 41 ans brûlures mictionnelles depuis le <mark>[[J-2]]</mark> pollakiurie pas de fièvre pas de douleur lombaire. allergie amoxicilline. traitement habituel Levothyrox 75. BU leucocytes plus nitrites plus. rappeler le mari au <mark>[[TÉLÉPHONE]]</mark> si besoin. Cystite simple, Monuril.</pre>
+<p class="m"><b>Retiré (4)</b> : 06 12 34 56 78 → [[TÉLÉPHONE]] · 13/10 → [[J-2]] · 8 rue Bannier → [[ADRESSE]] · dupont marie → [[PATIENT]]</p>
+
+
+
+</section><section class="c ok"><h2>2. Chute en EHPAD sous anticoagulant <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>MARTIN Jean-Pierre</b>, né(e) le 02/02/1941 · adresse connue : EHPAD Les Jardins de Saran, 12 allée des Tilleuls, 45770 Saran · tél. connu : 02 38 72 11 22</p>
+<h3>Dictée</h3><p class="d">EHPAD les Jardins de Saran chambre 214. Monsieur Martin Jean-Pierre né le 2 février 1941, chute ce matin vers 6 h retrouvé au sol par l&#x27;aide-soignante Mme Roux. Sous Eliquis 5 mg matin et soir et Kardégic 75. Pas de PC rapportée, Glasgow 15, plaie du cuir chevelu 3 cm. Infirmière de nuit joignable au 02 38 72 11 22. Avis du Dr Moreau médecin coordonnateur. Transfert CHR Orléans pour scanner sous anticoagulant.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 85 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+<mark>[[ADRESSE]]</mark> chambre 214. Monsieur <mark>[[PATIENT]]</mark> né le <mark>[[ÂGE : 85 ans]]</mark>, chute ce matin vers 6 h retrouvé au sol par l&#x27;aide-soignante Mme <mark>[[PERSONNE 1]]</mark>. Sous Eliquis 5 mg matin et soir et Kardégic 75. Pas de PC rapportée, Glasgow 15, plaie du cuir chevelu 3 cm. Infirmière de nuit joignable au <mark>[[TÉLÉPHONE]]</mark>. Avis du Dr <mark>[[PERSONNE 2]]</mark> médecin coordonnateur. Transfert CHR Orléans pour scanner sous anticoagulant.</pre>
+<p class="m"><b>Retiré (6)</b> : 02 38 72 11 22 → [[TÉLÉPHONE]] · 2 février 1941 → [[ÂGE : 85 ans]] · EHPAD les Jardins de Saran → [[ADRESSE]] · Martin Jean-Pierre → [[PATIENT]] · Roux → [[PERSONNE 1]] · Moreau → [[PERSONNE 2]]</p>
+
+
+
+</section><section class="c ok"><h2>3. Lombalgie, employeur et commune <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>LE GALL Jean-Baptiste</b>, né(e) le 17/07/1979</p>
+<h3>Dictée</h3><p class="d">jean-baptiste le gall 47 ans lombalgie aiguë depuis hier en soulevant un carton au travail, magasinier chez Leroy Merlin à Olivet. Lasègue négatif, pas de déficit, pas de trouble sphinctérien. A pris Doliprane et Ibuprofène sans effet. Arrêt de travail 5 jours. Bi-Profénid, Acupan, Thiocolchicoside en option.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 47 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+<mark>[[PRÉNOM DU PATIENT]]</mark> le <mark>[[NOM DU PATIENT]]</mark> 47 ans lombalgie aiguë depuis hier en soulevant un carton au travail, magasinier chez <mark>[[NOM PROPRE 1]]</mark> à <mark>[[NOM PROPRE 2]]</mark>. Lasègue négatif, pas de déficit, pas de trouble sphinctérien. A pris Doliprane et Ibuprofène sans effet. Arrêt de travail 5 jours. Bi-Profénid, Acupan, Thiocolchicoside en option.</pre>
+<p class="m"><b>Retiré (4)</b> : jean-baptiste → [[PRÉNOM DU PATIENT]] · gall → [[NOM DU PATIENT]] · Leroy Merlin → [[NOM PROPRE 1]] · Olivet → [[NOM PROPRE 2]]</p>
+
+
+
+</section><section class="c ok"><h2>4. Otite de l&#x27;enfant, maman et crèche <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>PETIT Léo</b>, né(e) le 03/05/2023</p>
+<h3>Dictée</h3><p class="d">Léo 3 ans 14 kilos amené par sa maman Mme Petit Sandrine pour fièvre à 39,5 depuis le 13 octobre, otalgie droite. Tympan droit bombé. Pas de vomissement. Va à la crèche les Petits Loups à Fleury-les-Aubrais. Clamoxyl et Doliprane pédiatrique. Maman joignable au 07 81 45 22 10.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 3 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+<mark>[[PRÉNOM DU PATIENT]]</mark> 3 ans 14 kilos amené par sa maman Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 1]]</mark> pour fièvre à 39,5 depuis le <mark>[[J-2]]</mark>, otalgie droite. Tympan droit bombé. Pas de vomissement. Va à la crèche les Petits <mark>[[NOM PROPRE 2]]</mark> à <mark>[[NOM PROPRE 3]]</mark>. Clamoxyl et Doliprane pédiatrique. Maman joignable au <mark>[[TÉLÉPHONE]]</mark>.</pre>
+<p class="m"><b>Retiré (7)</b> : 07 81 45 22 10 → [[TÉLÉPHONE]] · 13 octobre → [[J-2]] · Léo → [[PRÉNOM DU PATIENT]] · Petit → [[NOM DU PATIENT]] · Sandrine → [[NOM PROPRE 1]] · Loups → [[NOM PROPRE 2]] · Fleury-les-Aubrais → [[NOM PROPRE 3]]</p>
+
+
+
+</section><section class="c ok"><h2>5. Agitation, psychiatrie et tiers <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>BERNARD Lucas</b>, né(e) le 21/11/2001</p>
+<h3>Dictée</h3><p class="d">Appel régulation pour agitation. Patient amené par les pompiers de Fleury, connu du CHD Daumezon, schizophrénie, traitement Tercian et Abilify, arrêt du traitement depuis 3 semaines selon sa mère Mme Bernard joignable au 06.98.76.54.32. Propos délirants, pas d&#x27;idée suicidaire exprimée. Avis psychiatre de garde Dr Lefèvre à 23 h 40. Certificat SDTU rédigé, tiers la mère.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 24 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Appel régulation pour agitation. Patient amené par les pompiers de <mark>[[NOM PROPRE 1]]</mark>, connu du CHD <mark>[[NOM PROPRE 2]]</mark>, schizophrénie, traitement Tercian et Abilify, arrêt du traitement depuis 3 semaines selon sa mère Mme <mark>[[NOM DU PATIENT]]</mark> joignable au <mark>[[TÉLÉPHONE]]</mark>. Propos délirants, pas d&#x27;idée suicidaire exprimée. Avis psychiatre de garde Dr <mark>[[PERSONNE 1]]</mark> à 23 h 40. Certificat SDTU rédigé, tiers la mère.</pre>
+<p class="m"><b>Retiré (5)</b> : 06.98.76.54.32 → [[TÉLÉPHONE]] · Bernard → [[NOM DU PATIENT]] · Lefèvre → [[PERSONNE 1]] · Fleury → [[NOM PROPRE 1]] · Daumezon → [[NOM PROPRE 2]]</p>
+
+
+
+</section><section class="c ok"><h2>6. Couple vu ensemble, restaurant <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>GARCIA Ana</b>, né(e) le 08/08/1990 · vu avec GARCIA Luis</p>
+<h3>Dictée</h3><p class="d">Couple vu ensemble, Ana et Luis Garcia, gastro depuis samedi après repas au restaurant Le Lutin Gourmand rue de Bourgogne. Vomissements, diarrhée sans sang. Luis sous Metformine et Januvia, à suspendre. Pas de signe de déshydratation.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 36 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Couple vu ensemble, <mark>[[PRÉNOM DU PATIENT]]</mark> et <mark>[[AUTRE PATIENT]]</mark> <mark>[[NOM DU PATIENT]]</mark>, gastro depuis samedi après repas au restaurant Le <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark>. Vomissements, diarrhée sans sang. <mark>[[AUTRE PATIENT]]</mark> sous Metformine et Januvia, à suspendre. Pas de signe de déshydratation.</pre>
+<p class="m"><b>Retiré (5)</b> : rue de Bourgogne → [[ADRESSE]] · Ana → [[PRÉNOM DU PATIENT]] · Luis → [[AUTRE PATIENT]] · Garcia → [[NOM DU PATIENT]] · Lutin Gourmand → [[NOM PROPRE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>7. Courriel et numéro de sécurité sociale <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>NGUYEN Thi Lan</b>, né(e) le 30/01/1968</p>
+<h3>Dictée</h3><p class="d">Mme Nguyen demande un certificat, envoie les résultats par mail à lan.nguyen68@gmail.com. Numéro de sécu 2 68 01 99 350 123 45. Douleur thoracique atypique depuis dimanche, ECG normal. Sous Seresta 10 et Lysanxia.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 58 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Mme <mark>[[NOM DU PATIENT]]</mark> demande un certificat, envoie les résultats par mail à <mark>[[COURRIEL]]</mark>. Numéro de sécu <mark>[[NIR]]</mark>. Douleur thoracique atypique depuis dimanche, ECG normal. Sous Seresta 10 et Lysanxia.</pre>
+<p class="m"><b>Retiré (3)</b> : lan.nguyen68@gmail.com → [[COURRIEL]] · 2 68 01 99 350 123 45 → [[NIR]] · Nguyen → [[NOM DU PATIENT]]</p>
+
+
+
+</section><section class="c ok"><h2>8. Soins palliatifs en HAD, lieu-dit <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>MOREL Germaine</b>, né(e) le 14/04/1932 · adresse connue : lieu-dit la Mothe, 45590 Saint-Cyr-en-Val · tél. connu : 02 38 76 54 32</p>
+<h3>Dictée</h3><p class="d">Visite lieu-dit la Mothe à Saint-Cyr-en-Val, patiente en HAD pour cancer du pancréas, infirmière Sandrine de l&#x27;HAD présente. Douleurs non contrôlées malgré Skenan 30 et Actiskenan 10. Fille Mme Morel Christine au 06 22 11 00 99 d&#x27;accord avec le confort. Majoration Skenan, Oramorph si troubles de déglutition, Scopoderm.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 90 ans ou plus
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Visite <mark>[[ADRESSE]]</mark> à <mark>[[NOM PROPRE 1]]</mark>, patiente en HAD pour cancer du pancréas, infirmière <mark>[[PERSONNE 1]]</mark> de l&#x27;HAD présente. Douleurs non contrôlées malgré Skenan 30 et Actiskenan 10. Fille Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 2]]</mark> au <mark>[[TÉLÉPHONE]]</mark> d&#x27;accord avec le confort. Majoration Skenan, Oramorph si troubles de déglutition, Scopoderm.</pre>
+<p class="m"><b>Retiré (6)</b> : 06 22 11 00 99 → [[TÉLÉPHONE]] · lieu-dit la Mothe → [[ADRESSE]] · Morel → [[NOM DU PATIENT]] · Sandrine → [[PERSONNE 1]] · Saint-Cyr-en-Val → [[NOM PROPRE 1]] · Christine → [[NOM PROPRE 2]]</p>
+
+
+
+</section><section class="c ok"><h2>9. Nom de famille qui est un mot courant <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>ROSE Odette</b>, né(e) le 05/09/1950</p>
+<h3>Dictée</h3><p class="d">Éruption rose pâle du tronc depuis 48 h après introduction d&#x27;Augmentin le 10/10/2026 par son médecin traitant le Dr Fournier. Mme Rose ne présente pas de signe de gravité, pas d&#x27;atteinte muqueuse. Arrêt Augmentin, Aerius. Rose dit avoir déjà fait une réaction à la Pyostacine.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 76 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Éruption rose pâle du tronc depuis 48 h après introduction d&#x27;Augmentin le <mark>[[J-5]]</mark> par son médecin traitant le Dr <mark>[[PERSONNE 1]]</mark>. Mme <mark>[[NOM DU PATIENT]]</mark> ne présente pas de signe de gravité, pas d&#x27;atteinte muqueuse. Arrêt Augmentin, Aerius. <mark>[[NOM DU PATIENT]]</mark> dit avoir déjà fait une réaction à la Pyostacine.</pre>
+<p class="m"><b>Retiré (3)</b> : 10/10/2026 → [[J-5]] · Rose → [[NOM DU PATIENT]] · Fournier → [[PERSONNE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>10. Entorse, téléphone +33, cabinet de kiné <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>DUBOIS Kevin</b>, né(e) le 11/12/1996</p>
+<h3>Dictée</h3><p class="d">Entorse cheville gauche au foot ce soir au stade de la Source. Ottawa négatif. Joignable au +33 6 45 12 78 90. Kiné au cabinet Rivière Kiné. Bi-Profénid, attelle Aircast, béquilles.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 29 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Entorse cheville gauche au foot ce soir au stade de la Source. Ottawa négatif. Joignable au <mark>[[TÉLÉPHONE]]</mark>. Kiné au cabinet <mark>[[NOM PROPRE 1]]</mark> Kiné. Bi-Profénid, attelle Aircast, béquilles.</pre>
+<p class="m"><b>Retiré (2)</b> : +33 6 45 12 78 90 → [[TÉLÉPHONE]] · Rivière → [[NOM PROPRE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>11. Hypoglycémie, épouse et diabétologue <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>FONTAINE Marcel</b>, né(e) le 19/06/1955</p>
+<h3>Dictée</h3><p class="d">Hypoglycémie à 0,45 g/l retrouvée par son épouse Josiane, sous Novorapid, Lantus et Diamicron. Resucrage, Glucagen fait par les pompiers. Glycémie de contrôle 1,20. Repas pris. Revoir son diabétologue le Dr Henry au CHR.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 71 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Hypoglycémie à 0,45 g/l retrouvée par son épouse <mark>[[NOM PROPRE 1]]</mark>, sous Novorapid, Lantus et Diamicron. Resucrage, Glucagen fait par les pompiers. Glycémie de contrôle 1,20. Repas pris. Revoir son diabétologue le Dr <mark>[[PERSONNE 1]]</mark> au CHR.</pre>
+<p class="m"><b>Retiré (2)</b> : Henry → [[PERSONNE 1]] · Josiane → [[NOM PROPRE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>12. Épistaxis sous AVK, laboratoire et commune <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>ROUSSEAU Pierre</b>, né(e) le 01/01/1948</p>
+<h3>Dictée</h3><p class="d">Épistaxis abondante sous Previscan, INR à 4,2 fait au labo Bioallians rue de la République ce matin. Méchage. Contrôle INR le 17/10. Médecin traitant Dr Blanc à Saint-Jean-de-Braye prévenu.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 78 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Épistaxis abondante sous Previscan, INR à 4,2 fait au labo <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark> ce matin. Méchage. Contrôle INR le <mark>[[J+2]]</mark>. Médecin traitant Dr <mark>[[PERSONNE 1]]</mark> à <mark>[[NOM PROPRE 2]]</mark> prévenu.</pre>
+<p class="m"><b>Retiré (5)</b> : 17/10 → [[J+2]] · rue de la République → [[ADRESSE]] · Blanc → [[PERSONNE 1]] · Bioallians → [[NOM PROPRE 1]] · Saint-Jean-de-Braye → [[NOM PROPRE 2]]</p>
+
+
+<p class="t">Masqué peut-être en trop (sans risque, réintégré au retour ; touchez-le à l’écran pour le rendre) : Bioallians</p>
+</section><section class="c ok"><h2>13. Asthme de l&#x27;enfant, école et papa <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>LAMBERT Chloé</b>, né(e) le 22/02/2016</p>
+<h3>Dictée</h3><p class="d">Crise d&#x27;asthme, Chloé 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d&#x27;inhalation, Célestène. École Jean Zay. Papa M. Lambert Thomas joignable 0612457890.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 10 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Crise d&#x27;asthme, <mark>[[PRÉNOM DU PATIENT]]</mark> 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d&#x27;inhalation, Célestène. École <mark>[[NOM PROPRE 1]]</mark>. Papa M. <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 2]]</mark> joignable <mark>[[TÉLÉPHONE]]</mark>.</pre>
+<p class="m"><b>Retiré (5)</b> : 0612457890 → [[TÉLÉPHONE]] · Chloé → [[PRÉNOM DU PATIENT]] · Lambert → [[NOM DU PATIENT]] · Jean Zay → [[NOM PROPRE 1]] · Thomas → [[NOM PROPRE 2]]</p>
+
+
+
+</section><section class="c ok"><h2>14. Beaucoup de dates <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>SIMON Gisèle</b>, né(e) le 07/03/1939</p>
+<h3>Dictée</h3><p class="d">Hospitalisée du 2 au 9 septembre 2026 au CHR pour pneumopathie, sortie sous Augmentin jusqu&#x27;au 16/09. Depuis le 12 octobre reprise de toux fébrile. Vaccin grippe fait le 1er octobre. Kiné respiratoire avec M. Vincent.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 87 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Hospitalisée du 2 au <mark>[[il y a 1 mois]]</mark> au CHR pour pneumopathie, sortie sous Augmentin jusqu&#x27;au <mark>[[J-29]]</mark>. Depuis le <mark>[[J-3]]</mark> reprise de toux fébrile. Vaccin grippe fait le <mark>[[J-14]]</mark>. Kiné respiratoire avec M. <mark>[[PERSONNE 1]]</mark>.</pre>
+<p class="m"><b>Retiré (5)</b> : 9 septembre 2026 → [[il y a 1 mois]] · 12 octobre → [[J-3]] · 1er octobre → [[J-14]] · 16/09 → [[J-29]] · Vincent → [[PERSONNE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>15. Plaie de la main, enseigne et patron <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>MERCIER Lucas</b>, né(e) le 13/05/2011</p>
+<h3>Dictée</h3><p class="d">Plaie de la main droite avec un couteau à la boulangerie Paul place du Martroi, son patron M. Garnier présent. Vaccin antitétanique à jour selon le carnet. Orientation urgences pédiatriques CHR pour suture, samedi soir.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 15 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Plaie de la main droite avec un couteau à la boulangerie <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark>, son patron M. <mark>[[PERSONNE 1]]</mark> présent. Vaccin antitétanique à jour selon le carnet. Orientation urgences pédiatriques CHR pour suture, samedi soir.</pre>
+<p class="m"><b>Retiré (3)</b> : place du Martroi → [[ADRESSE]] · Garnier → [[PERSONNE 1]] · Paul → [[NOM PROPRE 1]]</p>
+
+
+<p class="t">Masqué peut-être en trop (sans risque, réintégré au retour ; touchez-le à l’écran pour le rendre) : Paul</p>
+</section><section class="c ok"><h2>16. Tout en minuscules (clavier iPhone) <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>FAURE Nadia</b>, né(e) le 25/12/1975</p>
+<h3>Dictée</h3><p class="d">faure nadia 50 ans migraine habituelle depuis ce matin sans signe neuro, sous zomig habituellement inefficace, propranolol en fond. adresse 22 avenue de la libération 45140 saint-jean-de-la-ruelle. tel 0698123456.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 50 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+<mark>[[PATIENT]]</mark> 50 ans migraine habituelle depuis ce matin sans signe neuro, sous zomig habituellement inefficace, propranolol en fond. adresse <mark>[[ADRESSE]]</mark>. tel <mark>[[TÉLÉPHONE]]</mark>.</pre>
+<p class="m"><b>Retiré (3)</b> : 0698123456 → [[TÉLÉPHONE]] · 22 avenue de la libération 45140 saint-jean-de-la-ruelle → [[ADRESSE]] · faure nadia → [[PATIENT]]</p>
+
+
+
+</section><section class="c ok"><h2>17. Oncologie, professeur et institut <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>CHEVALIER Bernard</b>, né(e) le 09/09/1960</p>
+<h3>Dictée</h3><p class="d">Fièvre sous chimiothérapie, suivi par le Pr Durand à l&#x27;Institut Gustave Roussy, dernière cure le 6/10. Sous Xeloda. Neutropénie possible, appel du 15, Dr Girard régulateur, transfert SAU.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 66 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Fièvre sous chimiothérapie, suivi par le Pr <mark>[[PERSONNE 1]]</mark> à l&#x27;Institut <mark>[[NOM PROPRE 1]]</mark>, dernière cure le <mark>[[J-9]]</mark>. Sous Xeloda. Neutropénie possible, appel du 15, Dr <mark>[[PERSONNE 2]]</mark> régulateur, transfert SAU.</pre>
+<p class="m"><b>Retiré (4)</b> : 6/10 → [[J-9]] · Durand → [[PERSONNE 1]] · Girard → [[PERSONNE 2]] · Gustave Roussy → [[NOM PROPRE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>18. Grossesse, sage-femme et maternité <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>ROY Sarah</b>, né(e) le 14/02/1996</p>
+<h3>Dictée</h3><p class="d">Grossesse 24 SA, suivie par la sage-femme Mme Leclerc à la maternité Oréliance, DPA le 28/01/2027. Cystite gravidique. Pas de contraction. Pas d&#x27;Oroken, préférer Monuril. Spasfon.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 30 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Grossesse 24 SA, suivie par la sage-femme Mme <mark>[[PERSONNE 1]]</mark> à la maternité <mark>[[NOM PROPRE 1]]</mark>, DPA le <mark>[[dans 3 mois]]</mark>. Cystite gravidique. Pas de contraction. Pas d&#x27;Oroken, préférer Monuril. Spasfon.</pre>
+<p class="m"><b>Retiré (3)</b> : 28/01/2027 → [[dans 3 mois]] · Leclerc → [[PERSONNE 1]] · Oréliance → [[NOM PROPRE 1]]</p>
+
+
+
+</section><section class="c ok"><h2>19. Numéros pièges (dossier, RPPS, horaires) <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>ROBIN Alain</b>, né(e) le 03/03/1972</p>
+<h3>Dictée</h3><p class="d">Dossier 2026-001234. Douleur thoracique, ECG sus-décalage, appel 15 à 2 h 10, SMUR sur place à 2 h 30. Plavix et Kardégic par le SMUR. RPPS du régulateur 10101234567.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 54 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Dossier <mark>[[NUMÉRO]]</mark>. Douleur thoracique, ECG sus-décalage, appel 15 à 2 h 10, SMUR sur place à 2 h 30. Plavix et Kardégic par le SMUR. RPPS du régulateur <mark>[[NUMÉRO 2]]</mark>.</pre>
+<p class="m"><b>Retiré (2)</b> : 2026-001234 → [[NUMÉRO]] · 10101234567 → [[NUMÉRO 2]]</p>
+
+
+
+</section><section class="c ok"><h2>20. Touriste étranger, hôtel et téléphone étranger <span class="b ok">Rien d'identifiant</span></h2>
+<p class="m">Patient fictif : <b>MULLER Hans</b>, né(e) le 12/12/1958 · adresse connue : Hôtel Mercure, 44 quai Barentin, 45000 Orléans · tél. connu : +49 171 2345678</p>
+<h3>Dictée</h3><p class="d">Touriste allemand hébergé à l&#x27;hôtel Mercure quai Barentin, chambre 312. Gastro depuis le 13. Son épouse Greta parle anglais. Numéro allemand +49 171 2345678. Smecta, Tiorfan.</p>
+<h3>Texte exact qui partirait</h3><pre>CONTEXTE CLINIQUE (sans identité)
+Âge : 67 ans
+Lieu : consultation
+
+DICTÉE DU MÉDECIN
+Touriste allemand hébergé à l&#x27;<mark>[[ADRESSE]]</mark> <mark>[[ADRESSE 2]]</mark>, chambre 312. Gastro depuis le 13. Son épouse <mark>[[NOM PROPRE 1]]</mark> parle anglais. Numéro allemand +<mark>[[NUMÉRO]]</mark>. Smecta, Tiorfan.</pre>
+<p class="m"><b>Retiré (4)</b> : 49 171 2345678 → [[NUMÉRO]] · hôtel Mercure → [[ADRESSE]] · quai Barentin → [[ADRESSE 2]] · Greta → [[NOM PROPRE 1]]</p>
+
+
+
+</section></main></body></html>

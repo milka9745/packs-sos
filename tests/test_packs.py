@@ -48,7 +48,7 @@ async def run(width,height,label):
         page=await ctx.new_page()
         errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
         await unlock(page)
-        v=await page.evaluate("APP_VERSION"); ok(label+" version 40",v=="40",v)
+        v=await page.evaluate("APP_VERSION"); ok(label+" version 41",v=="41",v)
         n=await page.evaluate("PACKS.length"); ok(label+" packs chargés",n>200,n)
         dup=await page.evaluate("(()=>{const m={};PACKS.forEach(p=>m[p.n]=(m[p.n]||0)+1);return Object.keys(m).filter(k=>m[k]>1);})()"); ok(label+" pas de pack en double",len(dup)==0,dup)
         # Cystite : simple par défaut en consultation
