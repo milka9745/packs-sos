@@ -1,4 +1,4 @@
-# Tests v40 (lot 1, blocs 2 à 6)
+# Tests v40 (lot 1, blocs 2 à 7)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -57,6 +57,9 @@
 - OK — iphone érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
 - OK — iphone gale 70 kg : ivermectine à jeun, 5 comprimés
 - OK — iphone tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — iphone bloc 7 : 16 packs chargés
+- OK — iphone laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — iphone asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -116,7 +119,10 @@
 - OK — pc érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
 - OK — pc gale 70 kg : ivermectine à jeun, 5 comprimés
 - OK — pc tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — pc bloc 7 : 16 packs chargés
+- OK — pc laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — pc asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-118/118 tests OK
+124/124 tests OK
