@@ -65,6 +65,8 @@ t("NIR retiré",!/234 567/.test(r.text)&&r.text.includes("[[NIR]]"),r.text);
 t("courriel retiré",!r.text.includes("@"),r.text);
 t("aucune fuite détectée après anonymisation",!r.leaks.length,r.leaks);
 t("réintégration exacte de l'adresse et des numéros",r.back.text.includes("12 rue des Lilas, 45000 Orléans")&&r.back.text.includes("06 12 34 56 78")&&r.back.text.includes("1 85 03 45 234 567 89"),r.back.text);
+r=run("adresse 22 avenue de la libération 45140 saint-jean-de-la-ruelle. tel connu.",{patient:"X Y"});
+t("adresse en minuscules masquée en bloc, ville comprise (décision du 15/10/2026)",absent(r.text,["libération","45140","ruelle","saint-jean"])&&r.text.includes("[[ADRESSE]]"),r.text);
 r=run("Habite 3 bis avenue de la Libération à Saran.",{patient:"X Y"});
 t("adresse dictée inconnue de Packs retirée",absent(r.text,["libération","saran"]),r.text);
 r=run("Numéro de dossier 123456789012.",{patient:"X Y"});

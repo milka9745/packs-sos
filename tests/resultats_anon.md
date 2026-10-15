@@ -26,6 +26,7 @@
 - OK — courriel retiré
 - OK — aucune fuite détectée après anonymisation
 - OK — réintégration exacte de l'adresse et des numéros
+- OK — adresse en minuscules masquée en bloc, ville comprise (décision du 15/10/2026)
 - OK — adresse dictée inconnue de Packs retirée
 - OK — numéro long (dossier, RPPS) retiré
 - OK — médecin, civilité, voisine et prénom isolé retirés
@@ -73,4 +74,4 @@
 - OK — un nom après une civilité reste masqué même s'il ressemble à un laboratoire
 - OK — noms de laboratoire (second mot d'une spécialité) non ajoutés au lexique
 
-72/72 tests OK
+73/73 tests OK
