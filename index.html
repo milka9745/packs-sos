@@ -56,6 +56,8 @@ main{overflow:auto;min-height:0;padding:22px 28px 60px}
 .warn{background:#FFF4E0;border-left:4px solid #D28A1A;padding:10px 12px;border-radius:6px;margin-bottom:14px;font-size:14px}
 .sheets{display:grid;gap:14px}
 .tcard{scroll-margin-top:72px}
+.fu{margin:10px 0;padding:10px;border:2px solid #FFB000;border-radius:12px}.fu-row{display:flex;gap:10px;align-items:flex-start;margin:8px 0}.fu-th{width:64px;height:auto;max-height:120px;object-fit:cover;border-radius:6px;border:1px solid var(--line,#ccc);flex:none}.fu-noimg{display:flex;align-items:center;justify-content:center;height:64px;font-size:12px;opacity:.7}.fu-main{flex:1;min-width:0}.fu-big{width:100%;max-height:60vh;object-fit:contain;border-radius:8px;margin:6px 0}
+#fq{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px}#fq[hidden]{display:none}.fq-box{background:var(--panel,#fff);color:var(--ink,#111);border-radius:14px;padding:16px;max-width:420px;width:100%}.fq-t{font-size:19px;font-weight:800;margin-bottom:6px}.fq-b{display:flex;flex-direction:column;gap:10px;margin-top:12px}.fq-b .btn{min-height:50px;font-size:16px}
 /* couleur du mode : Visite = vert, Consultation = bleu (jour et nuit) */
 html[data-mode="visite"]{--mode:#0B7A4B;--mode-on:#fff;--mode-soft:rgba(11,122,75,.14)}
 html[data-mode="consult"]{--mode:#1D5FD1;--mode-on:#fff;--mode-soft:rgba(29,95,209,.14)}
@@ -15925,8 +15927,8 @@ async function syncApplyIdentity(e,row){if(!row||!row.enc)return false;const id=
 /* ===================== v36 — TOURNÉE : ordre des visites, navigation, km pour les IK ===================== */
 const TOUR_BASE_ADDR="44 rue Chanzy, 45000 Orléans";
 let TOUR={origin:"cabinet",dest:"",destAddr:"",destGeo:null,stops:[],base:null,pos:null,order:[],legs:[],total:null,computed:0,status:""};
-async function tourLoad(){try{const t=await secGet("sos_tour",null);if(t&&Array.isArray(t.stops)){TOUR.origin=t.origin||"cabinet";TOUR.dest=t.dest||"";TOUR.destAddr=t.destAddr||"";TOUR.destGeo=t.destGeo||null;TOUR.stops=t.stops;TOUR.base=t.base||null;TOUR.order=t.order||[];TOUR.legs=t.legs||[];TOUR.total=t.total||null;TOUR.computed=t.computed||0;TOUR.current=t.current||"";TOUR.lastDone=t.lastDone||"";TOUR.cfg=t.cfg||null;TOUR.destLeg=t.destLeg||null;TOUR.est=!!t.est;}}catch(e){}}
-function tourSave(){secSet("sos_tour",{origin:TOUR.origin,dest:TOUR.dest||"",destAddr:TOUR.destAddr||"",destGeo:TOUR.destGeo||null,stops:TOUR.stops,base:TOUR.base,order:TOUR.order,legs:TOUR.legs,total:TOUR.total,computed:TOUR.computed,current:TOUR.current||"",lastDone:TOUR.lastDone||"",cfg:TOUR.cfg||null,destLeg:TOUR.destLeg||null,est:!!TOUR.est});}
+async function tourLoad(){try{const t=await secGet("sos_tour",null);if(t&&Array.isArray(t.stops)){TOUR.origin=t.origin||"cabinet";TOUR.dest=t.dest||"";TOUR.destAddr=t.destAddr||"";TOUR.destGeo=t.destGeo||null;TOUR.stops=t.stops;TOUR.base=t.base||null;TOUR.order=t.order||[];TOUR.legs=t.legs||[];TOUR.total=t.total||null;TOUR.computed=t.computed||0;TOUR.current=t.current||"";TOUR.lastDone=t.lastDone||"";TOUR.cfg=t.cfg||null;TOUR.destLeg=t.destLeg||null;TOUR.est=!!t.est;TOUR.consults=t.consults||[];}}catch(e){}}
+function tourSave(){secSet("sos_tour",{origin:TOUR.origin,dest:TOUR.dest||"",destAddr:TOUR.destAddr||"",destGeo:TOUR.destGeo||null,stops:TOUR.stops,base:TOUR.base,order:TOUR.order,legs:TOUR.legs,total:TOUR.total,computed:TOUR.computed,current:TOUR.current||"",lastDone:TOUR.lastDone||"",cfg:TOUR.cfg||null,destLeg:TOUR.destLeg||null,est:!!TOUR.est,consults:TOUR.consults||[]});}
 function tourRemaining(){return TOUR.stops.filter(s=>!s.done);}
 function tourStop(id){return TOUR.stops.find(s=>s.id===id);}
 function banFeat(f){return {lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0],label:f.properties.label||"",city:f.properties.city||"",score:f.properties.score||0};}
@@ -15991,7 +15993,7 @@ function renderTour(){const m=$("#main");const ordered=tourOrdered().filter(s=>s
   m.innerHTML=`<div class="jhead"><button class="btn s" id="tr_back">${backLabel()}</button><h1>Tournée</h1><span style="flex:1"></span>${topbarBtns()}</div>
    ${isPhone()?`<details class="opt"><summary><span class="ot">Comment ça marche</span></summary><div class="ob hint">Les arrêts sont géocodés par la Base Adresse Nationale (data.gouv.fr) et l'ordre calculé par OSRM : seules les adresses partent, jamais le nom ni le motif. Repère chaque arrêt par le code patient ou un indice (Mme D.). Les kilomètres depuis le cabinet remplissent la cotation (IK) avec « Patient en cours ». La carte (fond OpenStreetMap, tracé OSRM) n'envoie que des coordonnées.</div></details>`:`<div class="hint">Les arrêts sont géocodés par la Base Adresse Nationale (data.gouv.fr) et l'ordre calculé par OSRM : seules les adresses partent, jamais le nom ni le motif. Repère chaque arrêt par le code patient ou un indice (Mme D.). Les kilomètres depuis le cabinet remplissent la cotation (IK) avec « Patient en cours ». La carte (fond OpenStreetMap, tracé OSRM) n'envoie que des coordonnées.</div>`}
    <div class="gbar"><label>Arrivée <select id="tr_dest"><option value="" ${!TOUR.dest?"selected":""}>Aucune</option><option value="cabinet" ${TOUR.dest==="cabinet"?"selected":""}>Cabinet</option><option value="adresse" ${TOUR.dest==="adresse"?"selected":""}>Autre adresse (consultation suivante, domicile, point choisi)</option></select></label>${TOUR.dest==="adresse"?`<span class="aiset" style="position:relative;display:inline-block"><input id="tr_dest_addr" value="${esc(TOUR.destAddr||"")}" placeholder="Adresse d'arrivée" autocomplete="off" style="max-width:260px"><span class="sugg" id="tr_dest_sugg"></span></span>`:""}<label>Départ <select id="tr_orig"><option value="cabinet" ${TOUR.origin==="cabinet"?"selected":""}>Cabinet (44 rue Chanzy)</option><option value="position" ${TOUR.origin==="position"?"selected":""}>Ma position</option><option value="dernier" ${TOUR.origin==="dernier"?"selected":""}>Dernier arrêt fait</option></select></label><button type="button" class="btn p sm" id="tr_begin" title="Ordre optimal si besoin, puis première visite en cours">▶ Commencer la tournée</button><span class="hint tc-help" style="flex-basis:100%">${TOUR_BEGIN_HELP}</span><label class="btn s sm" for="tr_shots" title="Captures d'écran des fiches de régulation (MccMissionSG) : lecture sur l'appareil">📷 Fiches</label><input type="file" id="tr_shots" accept="image/*" multiple hidden><button type="button" class="btn s sm" id="tr_opt" ${TOUR.busy?"disabled":""}>Optimiser l'ordre</button>${full?`<a class="btn s sm nav" id="tr_full" target="_blank" rel="noopener" href="${full}">Trajet complet (Maps${n>10?", 10 premiers":""})</a>`:""}<span class="hint" id="tr_st">${esc(TOUR.status||(TOUR.total&&n?`${n} arrêt${n>1?"s":""} · ${String(TOUR.total.km).replace(".",",")} km · ${TOUR.total.min} min · calculé à ${new Date(TOUR.computed).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}`:""))}</span></div>
-   ${tpBannerHTML()}${tpSettingsHTML()}
+   ${unreadHTML()}${consultsHTML()}${tpBannerHTML()}${tpSettingsHTML()}
    <details class="opt"><summary><span class="ot">Coller le texte d'une fiche</span><span class="os">si la lecture des captures est indisponible</span></summary><div class="ob"><div class="hint">Photos → ouvrir la capture → maintenir le doigt sur le texte → « Tout sélectionner » → Copier, puis coller ici (plusieurs fiches séparées par une ligne vide).</div><textarea id="tr_paste" rows="4" placeholder="Texte de la fiche"></textarea><div class="lesbtn"><button type="button" class="btn s" id="tr_paste_ok">Ajouter à la tournée</button></div></div></details>
    <div class="tmapwrap"><div id="tmap_slot"></div><div class="tmap-off" id="tmap_off" hidden>Fond de carte indisponible hors connexion — la liste reste utilisable.</div><div class="tmap-leg"><span><span class="mk cur">●</span>en cours</span><span><span class="mk cur">◉</span>sur place</span><span><span class="mk todo">1</span>à faire, dans l'ordre</span><span><span class="mk todo prio">!</span>prioritaire</span><span><span class="mk done">✓</span>fait</span><span><span class="mk base">⌂</span>cabinet</span></div></div>
    <div class="aiset" style="position:relative"><input id="tr_addr" placeholder="Adresse (ex. 12 rue de la Gare, Saint-Jean-de-Braye) — des propositions apparaissent en tapant" autocomplete="off"><div class="sugg" id="tr_sugg"></div><input id="tr_lbl" placeholder="Repère (code patient, Mme D.)" style="max-width:220px" autocomplete="off"><label class="hint" style="white-space:nowrap"><input type="checkbox" id="tr_prio"> prioritaire</label><button type="button" class="btn p" id="tr_add">Ajouter</button></div><div class="hint tp-impact" id="tr_impact"></div>
@@ -16005,6 +16007,7 @@ function renderTour(){const m=$("#main");const ordered=tourOrdered().filter(s=>s
   $("#tr_orig").onchange=()=>{TOUR.origin=$("#tr_orig").value;tourSave();tourOptimize();};
   {const td=$("#tr_dest");if(td)td.onchange=()=>{TOUR.dest=td.value;tourSave();render();if(TOUR.dest!=="adresse"||TOUR.destGeo)tourOptimize();};const da=$("#tr_dest_addr");if(da)banAttach(da,$("#tr_dest_sugg"),g=>{TOUR.destAddr=g.label;TOUR.destGeo={lat:g.lat,lon:g.lon,label:g.label};tourSave();tourOptimize();});}
   $("#tr_opt").onclick=()=>tourOptimize();
+  try{unreadBind();}catch(e){}
   {const trb=$("#tr_begin");if(trb)trb.onclick=tourBegin;const dv=$("#tr_drive");if(dv)dv.onclick=()=>{state.view="drive";render();};try{tpSettingsBind();}catch(e){}}
   let picked=null;banAttach($("#tr_addr"),$("#tr_sugg"),g=>{picked=g;const ib=$("#tr_impact");if(ib)ib.textContent=tpImpact(g);});$("#tr_addr").addEventListener("input",()=>{picked=null;const ib=$("#tr_impact");if(ib)ib.textContent="";});
   const add=()=>{const s=tourAdd($("#tr_addr").value,$("#tr_lbl").value,$("#tr_prio").checked,picked);if(!s)return;render();tourOptimize();};
@@ -16584,13 +16587,19 @@ function parseFiche(txt){
   if(ai<0)ai=lines.findIndex((l,i)=>!ment.has(i)&&/\badresse\s*:/i.test(l));
   if(ai<0)ai=lines.findIndex((l,i)=>!ment.has(i)&&/\badresse\b/i.test(l));
   if(ai>=0){const parts=[];const isPhone=l=>pre.test(l)||/t[eé]l\b/i.test(l);pre.lastIndex=0;
-    const prev=lines[ai-1]||"";if(ai>0&&!ment.has(ai-1)&&!isPhone(prev)&&/\d/.test(prev)&&/[A-Za-zÀ-ÿ]{3,}/.test(prev)&&!/\d{2}\/\d{2}\/\d{4}/.test(prev))parts.push(prev);
-    pre.lastIndex=0;parts.push(lines[ai].replace(/^.*?adresse(\s+(du\s+|de\s+la\s+)?patient)?\s*:?\s*/i,""));
-    let j=ai+1;while(j<lines.length&&j<=ai+2&&!ment.has(j)&&!/^(bat|bât|b[aâ]t\.?\s*:|documents|allergies|t[eé]l)/i.test(lines[j])&&!/\d{2}\/\d{2}\/\d{4}/.test(lines[j])&&!/\d{5}/.test(parts.join(" "))){parts.push(lines[j]);j++;}
+    /* 16/10/2026 : seul le bloc « Adresse » compte ; le texte du motif (Rdv … envoyé par SMS, commentaires, mentions) n'est jamais repris */
+    const NOADR=/\b(rdv|sms|envoy[ée]e?|commentaire|motif|repositionn|modifi[ée]e? par)\b/i;const ACC=/^\W*(b[aâ]t(?:iment)?|etg|[ée]tage|por(?:te)?|digicode|code)\b\.?\s*:?/i;
+    pre.lastIndex=0;const head=lines[ai].replace(/^.*?adresse(\s+(du\s+|de\s+la\s+)?patient)?\s*:?\s*/i,"");if(head)parts.push(head);
+    let j=ai+1;const cpDone=()=>/\d{5}\s*,?\s*[A-Za-zÀ-ÿ]/.test(parts.join(" "));
+    while(j<lines.length&&j<=ai+3&&!ment.has(j)&&!ACC.test(lines[j])&&!NOADR.test(lines[j])&&!/^(documents|allergies|t[eé]l|intervention|informations?)/i.test(lines[j])&&!/\d{2}\/\d{2}\/\d{4}/.test(lines[j])&&!cpDone()){if(/\d{5}\s*,?\s*$/.test(parts.join(" "))&&/\d/.test(lines[j]))break;parts.push(lines[j]);j++;}
+    if(!parts.some(x=>/\d+\s*(bis|ter)?\s+\S*[A-Za-zÀ-ÿ]{2,}/i.test(x))){const prev=lines[ai-1]||"";if(ai>0&&!ment.has(ai-1)&&!NOADR.test(prev)&&!isPhone(prev)&&/\d/.test(prev)&&/[A-Za-zÀ-ÿ]{3,}/.test(prev)&&!/\d{2}\/\d{2}\/\d{4}/.test(prev))parts.unshift(prev);}
     let a=parts.join(" ").replace(/[^0-9A-Za-zÀ-ÿ' ,.\-\/]/g," ").replace(/^[\s.,-]+/,"").replace(/\s+/g," ").replace(/\s*,\s*/g,", ").replace(/,\s*,/g,",").trim();
     a=a.replace(/\b(\d{5})\b/,(m)=>OCR_DEPTS.some(d=>m.startsWith(d))?m:"").replace(/,\s*,/g,",").replace(/\s+,/g,",").replace(/,\s*$/,"").replace(/\s+/g," ").trim();
     r.addr=a;}
-  const bl=lines.find(l=>/^b[aâ]t\.?\s*:/i.test(l));if(bl)r.bat=bl.replace(/^b[aâ]t\.?\s*:\s*/i,"").trim();
+  {const acc=[];const all=lines.join("\n");const g=(re,lb)=>{const m=re.exec(all);if(m&&m[1]&&!/^(non|-|0?)$/i.test(m[1].trim()))acc.push(lb+" "+m[1].trim());};
+   g(/\bb[aâ]t(?:iment)?\.?\s*:?\s*([A-Za-z0-9]{1,6})\b/i,"Bât.");g(/\b(?:etg|[ée]tage)\.?\s*:?\s*(-?\d{1,2}|rdc|RDC)\b/i,"Étage");g(/\bpor(?:te)?\.?\s*:?\s*([A-Za-z0-9]{1,6})\b/i,"Porte");g(/\b(?:digicode|code porte)\s*:?\s*([A-Za-z0-9#*]{2,10})\b/i,"Code");
+   if(acc.length)r.bat=acc.join(" · ");}
+  r.consult=/\bchez\s+consultation\b/i.test(String(txt||""));
   const di=lines.findIndex(l=>/documents patient/i.test(l));
   const from=(ai>=0?ai+1:(ddnIdx>=0?ddnIdx+1:0));
   const keep=(l,i)=>!ment.has(i);const lines0=lines;
@@ -16611,20 +16620,49 @@ function ficheToStop(f){
   s.nom=[f.nom,f.prenom].filter(Boolean).join(" ");s.ddn=f.ddn||"";s.tel=f.tel||"";s.tel2=f.tel2||"";s.bat=f.bat||"";s.motif=f.motif||"";s.note=f.note||"";s.fiche=Date.now();
   return s;
 }
+/* 16/10/2026 — import des fiches : doublons refusés, fiches non lues à compléter (miniature), « Chez Consultation » → cabinet ou visite */
+TOUR.unread=TOUR.unread||[];
+async function ficheHash(file){try{const b=await file.arrayBuffer();const d=await crypto.subtle.digest("SHA-256",b);return [...new Uint8Array(d)].slice(0,12).map(x=>x.toString(16).padStart(2,"0")).join("");}catch(e){return "";}}
+async function ficheThumb(file,w){try{const cv=await imageToCanvas(file,w||360);return cv.toDataURL("image/jpeg",0.72);}catch(e){return "";}}
+function ficheDup(f,hash){const nom=norm([f.nom,f.prenom].filter(Boolean).join(" "));const ad=norm(f.addr||"").replace(/[^a-z0-9]/g,""),mo=norm(f.motif||"").replace(/[^a-z0-9]/g,"");
+  const pool=TOUR.stops.concat(TOUR.consults||[]);
+  return pool.find(s=>(hash&&s.imgHash===hash)||(nom&&f.ddn&&norm(s.nom||"")===nom&&s.ddn===f.ddn)||(ad&&mo&&norm(s.addr||"").replace(/[^a-z0-9]/g,"")===ad&&norm(s.motif||"").replace(/[^a-z0-9]/g,"")===mo))||null;}
+function ficheLu(f){const nom=[f.nom,f.prenom].filter(Boolean).join(" ");const mo=f.ddn?ageFromDdn(f.ddn):null;return [nom?nom[0].toUpperCase()+".":"",mo==null?"":(mo<24?mo+" mois":Math.floor(mo/12)+" ans"),f.motif||""].filter(Boolean).join(" · ")||"rien de lisible";}
+function ficheAsk(f){return new Promise(res=>{let d=document.getElementById("fq");if(!d){d=document.createElement("div");d.id="fq";document.body.appendChild(d);}
+  d.innerHTML=`<div class="fq-box" role="dialog" aria-modal="true"><div class="fq-t">Consultation au cabinet ou visite ?</div><div class="hint">La fiche ${esc(ficheLu(f))} indique « Chez Consultation ».</div><div class="fq-b"><button type="button" class="btn p" id="fq_c">Consultation au cabinet (pas d'arrêt)</button><button type="button" class="btn s" id="fq_v">Visite : ajouter à la tournée</button></div></div>`;d.hidden=false;
+  const done=v=>{d.hidden=true;d.innerHTML="";res(v);};document.getElementById("fq_c").onclick=()=>done("consult");document.getElementById("fq_v").onclick=()=>done("visite");});}
+async function fichesProcess(items){const added=[],dups=[],unread=[],consults=[];
+  for(const it of items){const f=it.f;const dup=ficheDup(f,it.hash);if(dup){dups.push(stopName(dup,ficheLu(f)));continue;}
+    if(f.consult&&f.addr!==undefined){const ch=await ficheAsk(f);if(ch==="consult"){const c={id:"c"+Date.now()+Math.random().toString(36).slice(2,5),nom:[f.nom,f.prenom].filter(Boolean).join(" "),ddn:f.ddn||"",tel:f.tel||"",tel2:f.tel2||"",motif:f.motif||"",note:f.note||"",addr:f.addr||"",imgHash:it.hash||"",ts:Date.now()};TOUR.consults=(TOUR.consults||[]).concat([c]);consults.push(c);continue;}}
+    const s=f.addr?ficheToStop(f):null;if(s){if(it.hash)s.imgHash=it.hash;added.push(s);}
+    else TOUR.unread.push({id:"u"+Date.now()+Math.random().toString(36).slice(2,5),f,hash:it.hash||"",thumb:it.thumb||"",big:it.big||"",src:it.src||""});}
+  tourSave();fichesDone(added,[],dups,consults,TOUR.unread.length);}
 async function fichesFromFiles(files){
-  const list=Array.from(files||[]);if(!list.length)return;
-  let added=[],failed=[];
-  for(let i=0;i<list.length;i++){toast("Lecture de la fiche "+(i+1)+" / "+list.length+"…");
-    try{const txt=await ocrImage(list[i]);const f=parseFiche(txt);const s=ficheToStop(f);if(s)added.push(s);else failed.push(list[i].name||("capture "+(i+1)));}
-    catch(e){if(i===0&&/indisponible|introuvable/.test(e.message||"")){alert("Lecture impossible : "+e.message);return;}failed.push((list[i].name||("capture "+(i+1)))+" ("+((e&&e.message)||"erreur")+")");}}
-  fichesDone(added,failed);
+  const list=Array.from(files||[]);if(!list.length)return;const items=[];
+  for(let i=0;i<list.length;i++){toast("Lecture de la fiche "+(i+1)+" / "+list.length+"…");const hash=await ficheHash(list[i]);const thumb=await ficheThumb(list[i],360);const big=await ficheThumb(list[i],1000);
+    try{const txt=await ocrImage(list[i]);items.push({f:parseFiche(txt),hash,thumb,big,src:"capture "+(i+1)});}
+    catch(e){if(i===0&&/indisponible|introuvable/.test(e.message||"")){alert("Lecture impossible : "+e.message);return;}items.push({f:parseFiche(""),hash,thumb,big,src:"capture "+(i+1)});}}
+  await fichesProcess(items);
 }
-function fichesFromText(txt){const parts=String(txt||"").split(/\n\s*\n\s*\n+|\n-{3,}\n/);let added=[],failed=[];parts.forEach((p,i)=>{if(!p.trim())return;const s=ficheToStop(parseFiche(p));if(s)added.push(s);else failed.push("texte "+(i+1)+" : adresse non trouvée");});fichesDone(added,failed);}
-function fichesDone(added,failed){
+function fichesFromText(txt){const parts=String(txt||"").split(/\n\s*\n\s*\n+|\n-{3,}\n/).filter(p=>p.trim());return fichesProcess(parts.map((p,i)=>({f:parseFiche(p),src:"texte "+(i+1)})));}
+function ficheComplete(id,addr,geo){const u=(TOUR.unread||[]).find(x=>x.id===id);if(!u||!String(addr||"").trim())return null;const f=Object.assign({},u.f,{addr:String(addr).trim()});const s=ficheToStop(f);if(!s)return null;if(geo&&geo.lat)Object.assign(s,{lat:geo.lat,lon:geo.lon,label:geo.label,city:geo.city});if(u.hash)s.imgHash=u.hash;TOUR.unread=TOUR.unread.filter(x=>x!==u);tourSave();return s;}
+function unreadHTML(){const L=TOUR.unread||[];if(!L.length)return "";return `<section class="fu"><div class="tc-lbl">Fiches à compléter (${L.length})</div>${L.map(u=>`<div class="fu-row" data-fu="${u.id}">${u.thumb?`<img class="fu-th" src="${u.thumb}" alt="Capture de la fiche">`:`<div class="fu-th fu-noimg">texte</div>`}<div class="fu-main"><b>${esc(ficheLu(u.f))}</b><div class="hint">adresse non lue</div>${state.fuOpen===u.id?`<div class="fu-edit">${u.big?`<img class="fu-big" src="${u.big}" alt="Capture agrandie">`:""}<div class="aiset" style="position:relative"><input class="fu-addr" placeholder="Adresse lue sur la capture" autocomplete="off"><div class="sugg fu-sugg"></div></div><div class="lesbtn"><button type="button" class="btn p sm fu-ok">Ajouter à la tournée</button><button type="button" class="lc fu-cancel">Fermer</button></div></div>`:`<div class="lesbtn"><button type="button" class="btn p sm" data-fuopen="${u.id}">Compléter</button><button type="button" class="lc" data-fudel="${u.id}">Retirer</button></div>`}</div></div>`).join("")}</section>`;}
+function consultsHTML(){const L=TOUR.consults||[];if(!L.length)return "";return `<section class="fu"><div class="tc-lbl">Consultations au cabinet attendues (${L.length})</div>${L.map(c=>`<div class="fu-row"><div class="fu-main"><b>${esc(ficheLu(c))}</b><div class="lesbtn"><button type="button" class="btn p sm" data-cstart="${c.id}">Ouvrir le dossier</button><button type="button" class="lc" data-cvisit="${c.id}">Finalement en visite</button><button type="button" class="lc" data-cdel="${c.id}">Retirer</button></div></div></div>`).join("")}</section>`;}
+function unreadBind(){document.querySelectorAll("[data-fuopen]").forEach(b=>b.onclick=()=>{state.fuOpen=b.dataset.fuopen;render();setTimeout(()=>{const i=document.querySelector(".fu-addr");if(i)i.focus();},50);});
+  document.querySelectorAll("[data-fudel]").forEach(b=>b.onclick=()=>{TOUR.unread=(TOUR.unread||[]).filter(x=>x.id!==b.dataset.fudel);tourSave();render();});
+  document.querySelectorAll(".fu-edit").forEach(e=>{const row=e.closest("[data-fu]");const id=row.dataset.fu;const inp=e.querySelector(".fu-addr");let g=null;banAttach(inp,e.querySelector(".fu-sugg"),x=>{g=x;});inp.addEventListener("input",()=>{g=null;});
+    const ok=()=>{const s=ficheComplete(id,inp.value,g);if(!s){inp.focus();return;}state.fuOpen="";render();toast("Ajoutée à la tournée : "+stopName(s,"?"));try{tourOptimize();}catch(x){}};e.querySelector(".fu-ok").onclick=ok;inp.onkeydown=ev=>{if(ev.key==="Enter"&&!e.querySelector(".fu-sugg").children.length)ok();};e.querySelector(".fu-cancel").onclick=()=>{state.fuOpen="";render();};});
+  document.querySelectorAll("[data-cdel]").forEach(b=>b.onclick=()=>{TOUR.consults=(TOUR.consults||[]).filter(x=>x.id!==b.dataset.cdel);tourSave();render();});
+  document.querySelectorAll("[data-cvisit]").forEach(b=>b.onclick=()=>{const c=(TOUR.consults||[]).find(x=>x.id===b.dataset.cvisit);if(!c)return;TOUR.consults=TOUR.consults.filter(x=>x!==c);if(c.addr){const s=ficheToStop({nom:c.nom.split(" ")[0],prenom:c.nom.split(" ").slice(1).join(" "),ddn:c.ddn,tel:c.tel,tel2:c.tel2,addr:c.addr,motif:c.motif,note:c.note});if(s&&c.imgHash)s.imgHash=c.imgHash;}else TOUR.unread.push({id:"u"+Date.now(),f:{nom:c.nom,ddn:c.ddn,tel:c.tel,motif:c.motif,note:c.note,addr:""},hash:c.imgHash||""});tourSave();render();try{tourOptimize();}catch(x){}});
+  document.querySelectorAll("[data-cstart]").forEach(b=>b.onclick=()=>{const c=(TOUR.consults||[]).find(x=>x.id===b.dataset.cstart);if(!c)return;if(state.patient||currentPack()){try{validStash();}catch(e){}}newPatient();state.patient=c.nom;state.ddn=c.ddn;state.cot=state.cot||cotDefault();state.cot.lieu="cabinet";state.nh=state.nh||nhDefault();if(c.tel)state.nh.tel=c.tel;state.obs=state.obs||{};const h=obsPrefill(c);if(h)state.obs.hist=h;TOUR.consults=TOUR.consults.filter(x=>x!==c);tourSave();state.view="";render();setTimeout(()=>{if(c.motif){const q=$("#q");if(q){q.value=c.motif;try{search(c.motif);}catch(e){}}}},0);});}
+function fichesDone(added,failed,dups,consults,nUnread){dups=dups||[];consults=consults||[];
+  if(dups.length)toast("Déjà dans la tournée : "+dups.join(", "));
+  if(consults.length&&!added.length)toast("Consultation au cabinet, pas d'arrêt : "+consults.map(ficheLu).join(", "));
+  if(nUnread){state.view="tour";render();toast((added.length?added.length+" ajoutée(s) ; ":"")+"fiche(s) à compléter : adresse non lue");}
   if(added.length){if(!TOUR.stops.some(s=>!s.fiche)&&TOUR.origin==="cabinet"&&"geolocation" in navigator)TOUR.origin="position";tourSave();render();
     toast(added.length+" fiche"+(added.length>1?"s":"")+" ajoutée"+(added.length>1?"s":"")+" : "+added.map(s=>stopName(s,"?")).join(", "));
     try{tourOptimize();}catch(e){}}
-  if(failed.length)alert("Fiche(s) non lue(s) : "+failed.join(" ; ")+"\n\nAjoute l'adresse à la main, ou colle le texte de la fiche (Photos → sélectionner le texte → tout copier).");
+  if(failed&&failed.length)alert("Fiche(s) non lue(s) : "+failed.join(" ; "));
 }
 /* Appel du patient depuis l'arrêt en cours, puis interrogatoire dicté au retour dans l'app */
 function callStop(s){if(!s||!s.tel)return;s.called=Date.now();TOUR.callBack=s.id;tourSave();}

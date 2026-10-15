@@ -1,9 +1,9 @@
 {
-  "version": "40t",
+  "version": "40u",
   "date": "2026-10-16",
   "notes": [
-    "Visite en vert, Consultation en bleu : barre du haut, boutons principaux et sélecteur prennent la couleur du mode.",
-    "Le patient en cours a sa couleur propre : cadre autour de sa fiche, de la visite et des documents, et libellé « initiale · âge · rue » toujours en haut.",
-    "Les patients validés ou mis de côté sont affichés en gris."
+    "Fiches de régulation : une capture importée deux fois n'ajoute plus de second arrêt (« déjà dans la tournée »).",
+    "Fiche non lue : miniature, éléments lus et bouton « Compléter » pour saisir l'adresse ; adresse prise dans le bloc « Adresse » et accès (bâtiment, étage, porte) lus.",
+    "« Chez Consultation » : question « Consultation au cabinet ou visite ? » avant tout ajout à la tournée."
   ]
 }
