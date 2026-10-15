@@ -1,0 +1,54 @@
+# Tests v41 — anonymisation locale (node tests/test_anon.js)
+
+- OK — nom et prénom du patient retirés
+- OK — nom seul → [[NOM DU PATIENT]]
+- OK — prénom seul → [[PRÉNOM DU PATIENT]]
+- OK — réintégration exacte (aller-retour identique)
+- OK — nom dicté en minuscules retiré
+- OK — nom qui est aussi un mot courant : le mot courant reste (« blanc »)
+- OK — …mais le nom propre avec majuscule est retiré
+- OK — prénom composé retiré
+- OK — proches nommés retirés (fils, infirmière)
+- OK — date de naissance → [[ÂGE : 41 ans]]
+- OK — date de naissance compacte (12031985) retirée
+- OK — date de naissance en toutes lettres → âge, 90 ans ou plus regroupés
+- OK — année de naissance seule → âge
+- OK — âge nourrisson en mois
+- OK — âge nouveau-né en jours
+- OK — dates exactes → J-5, J-12, J+5, J-1
+- OK — mois + année et jour/mois → relatifs
+- OK — une tension (13/8) n'est pas prise pour une date
+- OK — relatif au-delà d'un mois : en mois
+- OK — adresse retirée (voie, code postal, ville)
+- OK — digicode retiré
+- OK — téléphones (06… et +33…) retirés
+- OK — NIR retiré
+- OK — courriel retiré
+- OK — aucune fuite détectée après anonymisation
+- OK — réintégration exacte de l'adresse et des numéros
+- OK — adresse dictée inconnue de Packs retirée
+- OK — numéro long (dossier, RPPS) retiré
+- OK — médecin, civilité, voisine et prénom isolé retirés
+- OK — éponymes, médicaments et sigles conservés
+- OK — nom du médecin → [[MÉDECIN]]
+- OK — autre patient vu ensemble → [[AUTRE PATIENT]]
+- OK — prénom inconnu en début de phrase retiré
+- OK — masquage manuel d'un mot (écran « Ce qui part »)
+- OK — mot rendu à la main (garder) conservé
+- OK — fuite de nom détectée
+- OK — fuite de date de naissance détectée
+- OK — fuite de téléphone détectée
+- OK — fuite de NIR détectée
+- OK — toute date complète restante bloque l'envoi
+- OK — pas de faux positif sur un texte propre
+- OK — réintégration tolérante à la casse et aux espaces
+- OK — jeton inventé signalé, jamais remplacé au hasard
+- OK — posologie retirée d'une réponse de l'IA
+- OK — dose au poids et fréquence repérées
+- OK — pas de faux positif sur constantes et durée d'évolution
+- OK — nombre ajouté par l'IA détecté
+- OK — nombre retiré d'une reformulation détecté
+- OK — sigles chiffrés (SpO2, HbA1c) ne comptent pas comme nombres
+- OK — reformulation fidèle acceptée
+
+50/50 tests OK

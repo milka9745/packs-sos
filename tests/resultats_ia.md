@@ -1,0 +1,78 @@
+# Tests v41 — assistant IA (API simulée)
+
+- OK — iphone version 41
+- OK — iphone sans clé : mode Aucun
+- OK — iphone bouton IA affiché « Aucun »
+- OK — iphone panneau : IA coupée, aucun champ d'envoi
+- OK — iphone clé API absente en clair du stockage
+- OK — iphone clé API absente de la sauvegarde
+- OK — iphone clé relue après déchiffrement
+- OK — iphone écran « Ce qui part » ouvert avant tout envoi
+- OK — iphone texte envoyé sans nom, naissance, adresse, téléphone ni médecin
+- OK — iphone naissance remplacée par l'âge, date par J-2
+- OK — iphone liste de ce qui est retiré affichée sur l'appareil
+- OK — iphone mot masqué à la main sur l'écran de contrôle
+- OK — iphone un seul envoi
+- OK — iphone requête sans aucune donnée identifiante
+- OK — iphone clé envoyée seulement dans l'en-tête
+- OK — iphone consignes fixes en cache, Sonnet pour rédiger
+- OK — iphone identité réintégrée sur l'appareil
+- OK — iphone constante inventée écartée (SpO2 99 absente de la dictée)
+- OK — iphone posologie proposée par l'IA jamais appliquée
+- OK — iphone observation appliquée, identité réelle dans le dossier
+- OK — iphone aucune ligne d'ordonnance créée par l'IA
+- OK — iphone trace de la modification par l'IA
+- OK — iphone coût enregistré sans donnée identifiante
+- OK — iphone écran Consommation : jour, garde, mois, par usage, par modèle, par patient
+- OK — iphone plafond atteint : passage automatique en Aucun
+- OK — iphone hors connexion : passage automatique en Aucun
+- OK — iphone hors connexion : rien n'est préparé ni envoyé
+- OK — iphone compte rendu envoyé sans identité
+- OK — iphone compte rendu et courrier : un seul appel
+- OK — iphone manques signalés avant validation
+- OK — iphone courrier : identité réintégrée, posologie de l'IA retirée
+- OK — iphone courrier : traitement repris de la fiche par Packs
+- OK — iphone reformulation acceptée, faits conservés
+- OK — iphone raisonnement ajouté au compte rendu
+- OK — iphone Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
+- OK — iphone mode Aucun en un geste
+- OK — iphone aucune erreur JS
+- OK — pc version 41
+- OK — pc sans clé : mode Aucun
+- OK — pc bouton IA affiché « Aucun »
+- OK — pc panneau : IA coupée, aucun champ d'envoi
+- OK — pc clé API absente en clair du stockage
+- OK — pc clé API absente de la sauvegarde
+- OK — pc clé relue après déchiffrement
+- OK — pc écran « Ce qui part » ouvert avant tout envoi
+- OK — pc texte envoyé sans nom, naissance, adresse, téléphone ni médecin
+- OK — pc naissance remplacée par l'âge, date par J-2
+- OK — pc liste de ce qui est retiré affichée sur l'appareil
+- OK — pc mot masqué à la main sur l'écran de contrôle
+- OK — pc un seul envoi
+- OK — pc requête sans aucune donnée identifiante
+- OK — pc clé envoyée seulement dans l'en-tête
+- OK — pc consignes fixes en cache, Sonnet pour rédiger
+- OK — pc identité réintégrée sur l'appareil
+- OK — pc constante inventée écartée (SpO2 99 absente de la dictée)
+- OK — pc posologie proposée par l'IA jamais appliquée
+- OK — pc observation appliquée, identité réelle dans le dossier
+- OK — pc aucune ligne d'ordonnance créée par l'IA
+- OK — pc trace de la modification par l'IA
+- OK — pc coût enregistré sans donnée identifiante
+- OK — pc écran Consommation : jour, garde, mois, par usage, par modèle, par patient
+- OK — pc plafond atteint : passage automatique en Aucun
+- OK — pc hors connexion : passage automatique en Aucun
+- OK — pc hors connexion : rien n'est préparé ni envoyé
+- OK — pc compte rendu envoyé sans identité
+- OK — pc compte rendu et courrier : un seul appel
+- OK — pc manques signalés avant validation
+- OK — pc courrier : identité réintégrée, posologie de l'IA retirée
+- OK — pc courrier : traitement repris de la fiche par Packs
+- OK — pc reformulation acceptée, faits conservés
+- OK — pc raisonnement ajouté au compte rendu
+- OK — pc Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
+- OK — pc mode Aucun en un geste
+- OK — pc aucune erreur JS
+
+74/74 tests OK

@@ -1,0 +1,114 @@
+// Tests de l'anonymisation locale v41 (aucun navigateur requis) : node tests/test_anon.js
+// Le module est lu tel quel dans index.html, entre /*ANON-BEGIN et /*ANON-END*/.
+const fs=require("fs"),path=require("path");
+const html=fs.readFileSync(path.join(__dirname,"..","index.html"),"utf8");
+const ia=html.indexOf("/*ANON-BEGIN"),ib=html.indexOf("/*ANON-END*/");
+if(ia<0||ib<0){console.log("FAIL module ANON introuvable");process.exit(1);}
+const A=new Function(html.slice(ia,ib)+";return {anonymize,anonLeaks,reidentify,aiDoseGuard,aiFactGuard,anonAge,anonRel,anonParseDDN,anonNorm,ANON_NOMS};")();
+/* Lexique comme dans l'application : les mots des fiches (PACKS) */
+const pa=html.search(/const PACKS\s*=/),pb=html.indexOf("const SYSTEMS");
+const LEX=new Set((html.slice(pa,pb).match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ]{2,}/g)||[]).map(A.anonNorm));
+const REF="15/10/2026";
+let ok=0,ko=0;const res=[];
+function t(name,cond,info){res.push([name,!!cond]);if(cond){ok++;console.log("OK  ",name);}else{ko++;console.log("FAIL",name,info===undefined?"":JSON.stringify(info));}}
+function run(text,ctx){ctx=Object.assign({ref:REF,lexique:LEX},ctx);const r=A.anonymize(text,ctx);return Object.assign(r,{leaks:A.anonLeaks(r.text,ctx),back:A.reidentify(r.text,r.map)});}
+const absent=(s,arr)=>arr.every(x=>!s.toLowerCase().includes(String(x).toLowerCase()));
+
+// 1. Identité du patient
+let r=run("Mme DUPONT Marie-Claire, 41 ans, vue pour fièvre. Marie-Claire dit que Dupont est son nom d'usage.",{patient:"DUPONT Marie-Claire",ddn:"12/03/1985"});
+t("nom et prénom du patient retirés",absent(r.text,["dupont","marie-claire","marie","claire"]),r.text);
+t("nom seul → [[NOM DU PATIENT]]",r.text.includes("[[NOM DU PATIENT]]"),r.text);
+t("prénom seul → [[PRÉNOM DU PATIENT]]",r.text.includes("[[PRÉNOM DU PATIENT]]"),r.text);
+t("réintégration exacte (aller-retour identique)",r.back.text==="Mme DUPONT Marie-Claire, 41 ans, vue pour fièvre. Marie-Claire dit que Dupont est son nom d'usage."&&!r.back.unresolved.length,r.back);
+r=run("dupont marie appelle pour sa fille, pas de fièvre.",{patient:"DUPONT Marie"});
+t("nom dicté en minuscules retiré",absent(r.text,["dupont","marie"])&&!r.leaks.length,r.text);
+r=run("Patiente vue avec son mari. Antécédent de lupus. Liquide blanc à l'examen.",{patient:"BLANC Rose"});
+t("nom qui est aussi un mot courant : le mot courant reste (« blanc »)",r.text.includes("Liquide blanc"),r.text);
+r=run("Mme Blanc présente une éruption ; Rose ne tousse pas.",{patient:"BLANC Rose"});
+t("…mais le nom propre avec majuscule est retiré",absent(r.text,["Blanc","Rose"])&&!r.leaks.length,r.text);
+r=run("Vu avec Jean-Pierre, son fils Kevin et l'infirmière Mme Roux.",{patient:"MARTIN Jean-Pierre"});
+t("prénom composé retiré",absent(r.text,["jean-pierre","jean","pierre"]),r.text);
+t("proches nommés retirés (fils, infirmière)",absent(r.text,["kevin","roux"]),r.text);
+
+// 2. Date de naissance → âge
+r=run("Née le 12/03/1985, enceinte de 20 SA.",{patient:"X Y",ddn:"12/03/1985"});
+t("date de naissance → [[ÂGE : 41 ans]]",r.text.includes("[[ÂGE : 41 ans]]")&&!r.text.includes("1985"),r.text);
+r=run("ddn 12031985",{patient:"X Y",ddn:"12031985"});
+t("date de naissance compacte (12031985) retirée",!r.text.includes("12031985")&&!r.leaks.length,r.text);
+r=run("Né le 1er mars 1930.",{patient:"X Y",ddn:"01/03/1930"});
+t("date de naissance en toutes lettres → âge, 90 ans ou plus regroupés",r.text.includes("[[ÂGE : 90 ans ou plus]]")&&!/1930|mars/.test(r.text),r.text);
+r=run("Patient né en 1985.",{patient:"X Y",ddn:"02/05/1985"});
+t("année de naissance seule → âge",!r.text.includes("1985")&&r.back.text==="Patient né en 1985.",r);
+t("âge nourrisson en mois",A.anonAge(A.anonParseDDN("01/02/2025"),A.anonParseDDN(REF))==="20 mois");
+t("âge nouveau-né en jours",A.anonAge(A.anonParseDDN("10/10/2026"),A.anonParseDDN(REF))==="5 jours");
+
+// 3. Dates exactes → relatives
+r=run("Fièvre depuis le 10/10/2026, vu par un confrère le 3 octobre, contrôle le 20/10/2026, ECG du 2026-10-14.",{patient:"X Y"});
+t("dates exactes → J-5, J-12, J+5, J-1",["[[J-5]]","[[J-12]]","[[J+5]]","[[J-1]]"].every(x=>r.text.includes(x))&&!/2026|octobre/.test(r.text),r.text);
+r=run("Hospitalisé en mars 2024 puis revu le 14/10.",{patient:"X Y"});
+t("mois + année et jour/mois → relatifs",!/2024|mars|14\/10/.test(r.text)&&r.text.includes("[[J-1]]"),r.text);
+r=run("TA 13/8, puis 14/9. Sat 95 %.",{patient:"X Y"});
+t("une tension (13/8) n'est pas prise pour une date",r.text.includes("TA 13/8, puis 14/9"),r.text);
+t("relatif au-delà d'un mois : en mois",A.anonRel(A.anonParseDDN("15/05/2026"),A.anonParseDDN(REF))==="il y a 5 mois");
+
+// 4. Adresse, téléphone, NIR, courriel, codes
+r=run("Domicile : 12 rue des Lilas, 45000 Orléans, bâtiment B, digicode 4512B. Tél 06 12 34 56 78 ou +33 2 38 11 22 33. NIR 1 85 03 45 234 567 89. Mail jp.martin@orange.fr",{patient:"MARTIN Jean",adresse:["12 rue des Lilas, 45000 Orléans"],tel:["06 12 34 56 78"],nir:"1 85 03 45 234 567 89"});
+t("adresse retirée (voie, code postal, ville)",absent(r.text,["lilas","45000","orléans"]),r.text);
+t("digicode retiré",!r.text.includes("4512B"),r.text);
+t("téléphones (06… et +33…) retirés",!/06 12|38 11/.test(r.text),r.text);
+t("NIR retiré",!/234 567/.test(r.text)&&r.text.includes("[[NIR]]"),r.text);
+t("courriel retiré",!r.text.includes("@"),r.text);
+t("aucune fuite détectée après anonymisation",!r.leaks.length,r.leaks);
+t("réintégration exacte de l'adresse et des numéros",r.back.text.includes("12 rue des Lilas, 45000 Orléans")&&r.back.text.includes("06 12 34 56 78")&&r.back.text.includes("1 85 03 45 234 567 89"),r.back.text);
+r=run("Habite 3 bis avenue de la Libération à Saran.",{patient:"X Y"});
+t("adresse dictée inconnue de Packs retirée",absent(r.text,["libération","saran"]),r.text);
+r=run("Numéro de dossier 123456789012.",{patient:"X Y"});
+t("numéro long (dossier, RPPS) retiré",!r.text.includes("123456789"),r.text);
+
+// 5. Noms propres
+r=run("Vu par le Dr Lemoine la semaine dernière. Avis de M. Bernard. Sa voisine Josiane a appelé. Puis Kevin est arrivé.",{patient:"X Y"});
+t("médecin, civilité, voisine et prénom isolé retirés",absent(r.text,["lemoine","bernard","josiane","kevin"]),r.text);
+r=run("Signe de Murphy positif, Lasègue négatif, score de Glasgow à 15. Traité par DOLIPRANE et SPASFON. Avis SAMU, transfert au CHU.",{patient:"X Y"});
+t("éponymes, médicaments et sigles conservés",["Murphy","Lasègue","Glasgow","DOLIPRANE","SPASFON","SAMU","CHU"].every(x=>r.text.includes(x)),r.text);
+r=run("Appel de Mickaël DEIE au patient.",{patient:"X Y",autres:[{n:"Mickaël DEIE",cat:"MÉDECIN"}]});
+t("nom du médecin → [[MÉDECIN]]",r.text.includes("[[MÉDECIN]]")&&!/deie/i.test(r.text),r.text);
+r=run("Le frère, Paul Durand, et le patient.",{patient:"X Y",autres:[{n:"DURAND Paul",cat:"AUTRE PATIENT"}]});
+t("autre patient vu ensemble → [[AUTRE PATIENT]]",r.text.includes("[[AUTRE PATIENT]]")&&!/durand|paul/i.test(r.text),r.text);
+r=run("Julie, 4 ans, fièvre.",{patient:"X Y",masquer:[]});
+t("prénom inconnu en début de phrase retiré",!r.text.includes("Julie"),r.text);
+r=run("Toux sèche chez Murphy.",{patient:"X Y",masquer:["sèche"]});
+t("masquage manuel d'un mot (écran « Ce qui part »)",!r.text.includes("sèche")&&r.back.text==="Toux sèche chez Murphy.",r.text);
+r=run("Arrivée de Gaspard.",{patient:"X Y",garder:["Gaspard"]});
+t("mot rendu à la main (garder) conservé",r.text.includes("Gaspard"),r.text);
+
+// 6. Contrôle de fuite
+t("fuite de nom détectée",A.anonLeaks("Patient Dupont vu ce jour",{patient:"DUPONT Marie",lexique:LEX}).some(l=>l.cat==="nom"));
+t("fuite de date de naissance détectée",A.anonLeaks("né le 12/03/1985",{patient:"X Y",ddn:"12/03/1985"}).some(l=>l.cat==="naissance"));
+t("fuite de téléphone détectée",A.anonLeaks("rappeler au 06.12.34.56.78",{patient:"X Y",tel:"0612345678"}).some(l=>l.cat==="téléphone"));
+t("fuite de NIR détectée",A.anonLeaks("NIR 185034523456789",{patient:"X Y",nir:"1 85 03 45 234 567 89"}).some(l=>l.cat==="NIR"));
+t("toute date complète restante bloque l'envoi",A.anonLeaks("vu le 03/10/2026",{patient:"X Y"}).some(l=>l.cat==="date exacte"));
+t("pas de faux positif sur un texte propre",!A.anonLeaks("[[PATIENT]], [[ÂGE : 41 ans]], TA 13/8, SpO2 95 %.",{patient:"DUPONT Marie",ddn:"12/03/1985",tel:"0612345678",lexique:LEX}).length);
+
+// 7. Réintégration
+let b=A.reidentify("Je vous adresse [[PATIENT]] ([[ âge : 41 ans ]]).",{"PATIENT":"DUPONT Marie","ÂGE : 41 ans":"12/03/1985"});
+t("réintégration tolérante à la casse et aux espaces",b.text==="Je vous adresse DUPONT Marie (12/03/1985)."&&!b.unresolved.length,b);
+b=A.reidentify("Vu avec [[PERSONNE 9]].",{"PATIENT":"X"});
+t("jeton inventé signalé, jamais remplacé au hasard",b.unresolved.length===1&&b.text.includes("[[PERSONNE 9]]"),b);
+
+// 8. Posologies : jamais de l'IA
+let d=A.aiDoseGuard("Patient informé. Poursuivre AUGMENTIN 1 g matin et soir pendant 7 jours. Revoir si fièvre.");
+t("posologie retirée d'une réponse de l'IA",!/1 g|7 jours/.test(d.text)&&d.text.includes("Revoir si fièvre")&&d.found.length>=1,d);
+d=A.aiDoseGuard("Paracétamol 15 mg/kg toutes les 6 h. Consignes données.");
+t("dose au poids et fréquence repérées",!/mg\/kg|6 h/.test(d.text)&&d.text==="Consignes données.",d);
+d=A.aiDoseGuard("Douleur à 6/10, fièvre à 38,5 °C depuis 2 jours.");
+t("pas de faux positif sur constantes et durée d'évolution",d.text.includes("38,5")&&!d.found.length,d);
+
+// 9. Un fait ne se crée pas
+t("nombre ajouté par l'IA détecté",!A.aiFactGuard("TA 13/8, FC 92","TA 13/8, FC 92, SpO2 97 %").ok);
+t("nombre retiré d'une reformulation détecté",!A.aiFactGuard("douleur à 7/10 depuis 3 h","douleur intense",true).ok);
+t("sigles chiffrés (SpO2, HbA1c) ne comptent pas comme nombres",A.aiFactGuard("SpO2 95 %","SpO2 95 %, HbA1c dans la norme").ok);
+t("reformulation fidèle acceptée",A.aiFactGuard("patient très agité, TA 13/8","patient agité, TA 13/8",true).ok);
+
+console.log(`\n${ok}/${ok+ko} tests d'anonymisation OK`);
+fs.writeFileSync(path.join(__dirname,"resultats_anon.md"),"# Tests v41 — anonymisation locale (node tests/test_anon.js)\n\n"+res.map(([n,c])=>`- ${c?"OK":"ÉCHEC"} — ${n}`).join("\n")+`\n\n${ok}/${ok+ko} tests OK\n`);
+process.exit(ko?1:0);
