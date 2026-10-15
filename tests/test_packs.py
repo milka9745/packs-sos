@@ -1,5 +1,5 @@
 # Tests navigateur Packs SOS — prérequis : pip install playwright puis python -m playwright install chromium
-import asyncio, os, json, subprocess, time, sys
+import asyncio, os, json, subprocess, time, sys, re
 
 from playwright.async_api import async_playwright
 
@@ -239,6 +239,14 @@ async def run(width,height,label):
         await pick(page,"œil ne ferme plus","Paralysie faciale périphérique")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours",any("SOLUPRED" in x["t"] and "60 mg" in x["t"] and "7 jours" in x["t"] and x["on"] for x in med),[x["t"][:70] for x in med if "SOLUPRED" in x["t"]])
+        # Cahier des corrections — points 7 et 8 (risque médical)
+        r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
+        ok(label+" correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif",not any(re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower()) or "Tique retirée" in v for v in r7.values()),[k for k,v in r7.items() if re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower())])
+        cp=await page.evaluate("""()=>{const i=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.sel=i;state.obs={atcd:'Asthme sévère'};state.tt=['KARDEGIC'];state.grossesse=true;const cr=withExtra({patient:'Co Patient',packName:'Lombalgie aiguë'},p=>buildCR0(p));const back=state.obs.atcd;state.obs={};state.tt=[];state.grossesse=false;return [cr,back];}""")
+        ok(label+" correctif 7 : le co-patient n'hérite pas des antécédents, traitements ni de la grossesse",("Asthme" not in cp[0]) and ("KARDEGIC" not in cp[0]) and ("Grossesse" not in cp[0]) and cp[1]=="Asthme sévère")
+        r8=await page.evaluate("""()=>{const i=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.sel=i;state.obs={};state.cst={};const a=buildCR0(PACKS[i]);SYSTEMS.forEach(([k,,n])=>{if(state.obs[k]===undefined)state.obs[k]=n;});const b=buildCR0(PACKS[i]);state.obs={};return [a,b];}""")
+        ok(label+" correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits",("non renseigné" in r8[0]) and not any(x in r8[0] for x in ["Examen clinique normal","Reste de l'examen normal","État stable","accord obtenu","EXAMEN CLINIQUE"]),r8[0][:300])
+        ok(label+" correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu",("EXAMEN CLINIQUE" in r8[1]) and ("sans anomalie sur les appareils examinés" in r8[1]))
         # Mode nuit + grand texte
         await ctx.close()
         ctx2=await b.new_context(viewport={"width":width,"height":height},color_scheme="dark",device_scale_factor=2,is_mobile=width<500,has_touch=width<500)

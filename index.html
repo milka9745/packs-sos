@@ -5369,7 +5369,7 @@ const OBS_TEMPLATES = [
  [/otite moyenne|otite-conjonctivite/i,{focus:["orl"],orl:"Tympan congestif, bombé, opaque, avec perte du triangle lumineux du côté atteint ; tympan controlatéral normal ; rhinorrhée claire ; pas de mastoïdite.",hyp:"Otite moyenne aiguë purulente",hist:"Fièvre et otalgie depuis 48 heures, rhinopharyngite initiale."}],
  [/otite externe/i,{focus:["orl"],orl:"Conduit auditif externe inflammatoire, œdématié, douloureux à la traction du pavillon ; tympan vu, normal ; pas d'adénopathie.",hyp:"Otite externe",hist:"Otalgie depuis 3 jours après baignade."}],
  [/sinusite/i,{focus:["orl"],orl:"Douleur à la pression des sinus maxillaires, rhinorrhée purulente, obstruction nasale ; pas d'œdème palpébral, pas de signe méningé.",hyp:"Sinusite maxillaire aiguë",hist:"Rhinopharyngite depuis 10 jours avec aggravation secondaire, douleur faciale."}],
- [/rhinopharyngite|toux/i,{focus:["orl","resp"],orl:"Rhinorrhée claire, pharynx érythémateux, tympans normaux.",hyp:"Rhinopharyngite virale",hist:"Rhinorrhée, toux et fièvre modérée depuis 3 jours."}],
+ [/rhinopharyngite/i,{focus:["orl","resp"],orl:"Rhinorrhée claire, pharynx érythémateux, tympans normaux.",hyp:"Rhinopharyngite virale",hist:"Rhinorrhée, toux et fièvre modérée depuis 3 jours."}],
  [/laryngite/i,{focus:["resp","orl"],resp:"Toux rauque, voix enrouée, stridor inspiratoire aux pleurs uniquement, pas de tirage au repos, SpO2 normale.",hyp:"Laryngite aiguë sous-glottique",hist:"Toux aboyante nocturne apparue brutalement, rhinopharyngite depuis 2 jours."}],
  [/bronchite/i,{focus:["resp"],resp:"Quelques ronchi diffus, pas de foyer, pas de sibilant, pas de signe de lutte, SpO2 normale.",hyp:"Bronchite aiguë",hist:"Toux productive depuis 5 jours, fièvre modérée initiale."}],
  [/pneumopathie/i,{focus:["resp","gen"],resp:"Foyer de crépitants en base, pas de signe de lutte, SpO2 supérieure à 95 %.",hyp:"Pneumopathie aiguë communautaire sans critère d'hospitalisation",hist:"Fièvre, toux et douleur thoracique depuis 3 jours."}],
@@ -5383,7 +5383,8 @@ const OBS_TEMPLATES = [
  [/colique néphrétique/i,{focus:["abdo"],abdo:"Patient agité, douleur lombaire irradiant vers l'aine, fosse lombaire sensible, abdomen souple, bandelette urinaire : hématurie.",hyp:"Colique néphrétique simple",hist:"Douleur lombaire brutale irradiant vers les organes génitaux depuis 3 heures."}],
  [/urétrite/i,{focus:["abdo","cut"],abdo:"Écoulement urétral, méat inflammatoire, testicules indolores, pas d'adénopathie inguinale.",hyp:"Urétrite",hist:"Brûlures mictionnelles et écoulement depuis 3 jours, rapport non protégé."}],
  [/mycose vaginale|vaginose/i,{focus:["abdo","cut"],abdo:"Vulve érythémateuse, leucorrhées épaisses blanchâtres (ou grisâtres malodorantes), pas de douleur à la mobilisation utérine.",hyp:"Vulvo-vaginite",hist:"Prurit vulvaire et leucorrhées depuis 4 jours."}],
- [/lombalgie|lombosciatique/i,{focus:["loco","neuro"],loco:"Contracture paravertébrale lombaire, raideur, Lasègue négatif, pas de déficit moteur, réflexes symétriques, pas de trouble sphinctérien.",hyp:"Lombalgie aiguë commune",hist:"Douleur lombaire brutale après effort, sans irradiation."}],
+ [/lombalgie|lumbago/i,{focus:["loco","neuro"],loco:"Contracture paravertébrale lombaire, raideur, Lasègue négatif, pas de déficit moteur, réflexes symétriques, pas de trouble sphinctérien.",hyp:"Lombalgie aiguë commune",hist:"Douleur lombaire brutale après effort, sans irradiation."}],
+ [/lombosciatique|sciatique|cruralgie/i,{focus:["loco","neuro"],loco:"Raideur lombaire : … ; Lasègue : … ; déficit moteur (releveurs, quadriceps) : … ; réflexes : … ; sensibilité en selle : … ; troubles sphinctériens : …",neuro:"Force segmentaire, réflexes ostéotendineux, sensibilité : …",hyp:"Lombosciatique aiguë",hist:""}],
  [/cervicalgie/i,{focus:["loco","neuro"],loco:"Contracture cervicale, mobilités limitées en rotation, pas de déficit, pas de signe méningé.",hyp:"Cervicalgie aiguë commune",hist:"Torticolis au réveil."}],
  [/entorse de cheville/i,{focus:["loco"],loco:"Œdème pré- et sous-malléolaire externe, ecchymose, douleur du LTFA, appui possible 4 pas, pas de douleur osseuse (critères d'Ottawa négatifs), pas de laxité.",hyp:"Entorse latérale de cheville de gravité légère à moyenne",hist:"Traumatisme en inversion ce jour."}],
  [/genou/i,{focus:["loco"],loco:"Genou peu épanché, mobilités conservées, pas de laxité, points méniscaux sensibles, appui possible.",hyp:"Traumatisme du genou sans signe de gravité",hist:"Traumatisme du genou en torsion."}],
@@ -5396,7 +5397,7 @@ const OBS_TEMPLATES = [
  [/traumatisme crânien/i,{focus:["neuro","gen"],neuro:"Glasgow 15, pas d'amnésie, pas de vomissement, pupilles symétriques et réactives, pas de déficit, pas d'hématome du cuir chevelu inquiétant, marche normale.",hyp:"Traumatisme crânien léger sans critère de gravité",hist:"Chute de sa hauteur avec choc crânien, pas de perte de connaissance."}],
  [/épilepsie/i,{focus:["neuro"],neuro:"Examen neurologique normal au décours, pas de déficit post-critique, pas de morsure de langue, pas de traumatisme.",hyp:"Crise d'épilepsie chez un patient épileptique connu",hist:"Crise généralisée de moins de 5 minutes, récupération complète."}],
  [/anxiété/i,{focus:["gen","neuro"],gen:"Patient anxieux, tachycardie modérée, examen somatique normal, pas d'idée suicidaire exprimée.",hyp:"Crise d'angoisse",hist:"Angoisse aiguë avec palpitations et sensation d'oppression, contexte de stress."}],
- [/alcool/i,{focus:["gen","neuro"],gen:"Haleine œnolique, tremblements fins, sueurs, pas de confusion, pas de signe de localisation, pas de traumatisme.",hyp:"Alcoolisation aiguë sans complication",hist:"Consommation d'alcool excessive, demande d'aide au sevrage."}],
+ [/ivresse|alcoolisation|intoxication alcoolique/i,{focus:["gen","neuro"],gen:"Haleine œnolique, tremblements fins, sueurs, pas de confusion, pas de signe de localisation, pas de traumatisme.",hyp:"Alcoolisation aiguë sans complication",hist:"Consommation d'alcool excessive, demande d'aide au sevrage."}],
  [/hypertension découverte/i,{focus:["cv","neuro"],cv:"Pression artérielle élevée confirmée à deux mesures après repos, bruits du cœur réguliers, pas de signe d'insuffisance cardiaque, examen neurologique normal.",hyp:"Pression artérielle élevée sans signe de gravité",hist:"Découverte fortuite ou céphalées, pas de douleur thoracique."}],
  [/palpitations/i,{focus:["cv","neuro"],cv:"Rythme régulier à l'auscultation, pas de souffle, pas de signe d'insuffisance cardiaque ; ECG réalisé ce jour, en rythme sinusal régulier, sans trouble de la conduction ni de la repolarisation.",hyp:"Palpitations sans anomalie ECG",hist:"Palpitations brèves régulières, pas de syncope."}],
  [/hyperglycémie \/ hypoglycémie/i,{focus:["gen"],gen:"Glycémie capillaire mesurée au cabinet, pas de déshydratation, pas de dyspnée de Kussmaul, conscience normale.",hyp:"Trouble glycémique sans signe de gravité",hist:"Malaise ou polyurie-polydipsie."}],
@@ -5409,17 +5410,17 @@ const OBS_TEMPLATES = [
  [/roséole/i,{focus:["cut","gen"],cut:"Éruption maculeuse rosée du tronc apparue à la chute de la fièvre, bon état général.",hyp:"Roséole",hist:"Fièvre élevée isolée de 3 jours puis éruption."}],
  [/scarlatine/i,{focus:["orl","cut"],orl:"Angine érythémateuse, langue framboisée, exanthème rugueux des plis, TROD positif.",hyp:"Scarlatine",hist:"Fièvre et angine puis éruption depuis 24 heures."}],
  [/piqûre/i,{focus:["cut"],cut:"Réaction locale inflammatoire de quelques centimètres, pas de traînée de lymphangite, pas d'adénopathie, pas de signe général.",hyp:"Réaction locale à piqûre d'insecte",hist:"Piqûre hier, rougeur et prurit extensifs."}],
- [/tique|lyme/i,{focus:["cut"],cut:"Point de morsure propre, sans érythème migrant, pas de signe général.",hyp:"Morsure de tique",hist:"Tique retirée ce jour."}],
+ [/morsure de tique|piqûre de tique|tique|lyme|érythème migrant/i,{focus:["cut"],cut:"Point de morsure propre, sans érythème migrant, pas de signe général.",hyp:"Morsure de tique",hist:"Tique retirée ce jour."}],
  [/urticaire/i,{focus:["cut","resp"],cut:"Papules œdémateuses migratrices, prurigineuses, pas d'angio-œdème, pas de dyspnée, pas d'hypotension.",hyp:"Urticaire aiguë",hist:"Plaques apparues depuis quelques heures, sans facteur déclenchant identifié."}],
  [/conjonctivite/i,{focus:["orl"],orl:"Hyperhémie conjonctivale bilatérale avec sécrétions, cornée claire, acuité conservée, pas de photophobie, tympans normaux.",hyp:"Conjonctivite",hist:"Œil rouge collé au réveil depuis 2 jours."}],
  [/plaie|suture/i,{focus:["cut","neuro"],cut:"Plaie linéaire de la zone décrite, berges nettes, pas de corps étranger, pas d'atteinte profonde, sensibilité et mobilité d'aval conservées ; suture ou rapprochement réalisé.",hyp:"Plaie simple",hist:"Plaie par objet tranchant ce jour."}],
- [/brûlure/i,{focus:["cut"],cut:"Brûlure du 2e degré superficiel de la zone décrite, phlyctènes, surface estimée inférieure à 5 %, pas de zone fonctionnelle, pas de brûlure circulaire.",hyp:"Brûlure superficielle",hist:"Brûlure thermique ce jour."}],
+ [/brûlure(?! oculaire)/i,{focus:["cut"],cut:"Brûlure du 2e degré superficiel de la zone décrite, phlyctènes, surface estimée inférieure à 5 %, pas de zone fonctionnelle, pas de brûlure circulaire.",hyp:"Brûlure superficielle",hist:"Brûlure thermique ce jour."}],
  [/abcès/i,{focus:["cut","gen"],cut:"Collection fluctuante, inflammatoire, de la zone décrite, pas de lymphangite, pas de fièvre ; incision-drainage et méchage réalisés.",hyp:"Abcès cutané incisé",hist:"Tuméfaction douloureuse depuis 4 jours."}],
  [/morsure/i,{focus:["cut","neuro"],cut:"Plaie par morsure de la zone décrite, nettoyée, sans atteinte profonde ni corps étranger, sensibilité et mobilité d'aval conservées.",hyp:"Morsure animale",hist:"Morsure ce jour par un animal identifié."}],
  [/plaie infectée/i,{focus:["cut","gen"],cut:"Plaie de la zone décrite avec rougeur, chaleur, écoulement, pas de lymphangite, pas de crépitation, pas de fièvre.",hyp:"Plaie infectée",hist:"Plaie datant de plusieurs jours avec aggravation locale."}],
  [/candidose|coliques|régurgitations/i,{focus:["gen","abdo","cut"],gen:"Nourrisson tonique, courbe de poids satisfaisante, fontanelle normale.",hyp:"Trouble bénin du nourrisson",hist:"Pleurs vespéraux et régurgitations, croissance normale."}],
  [/fièvre — enfant/i,{focus:["gen","orl","resp"],gen:"Enfant tonique, bien coloré, bon contact, pas de purpura, pas de signe de déshydratation, pas de signe méningé.",hyp:"Fièvre sans point d'appel, probablement virale",hist:"Fièvre depuis 24 heures, bien tolérée."}],
- [/grippe|syndrome viral/i,{focus:["gen","resp","orl"],gen:"Fébrile, courbatures, examen sans foyer infectieux bactérien, pas de signe de gravité.",hyp:"Syndrome grippal",hist:"Fièvre brutale, courbatures et toux depuis 48 heures."}],
+ [/grippe(?! —? ?prophylaxie)|syndrome viral/i,{focus:["gen","resp","orl"],gen:"Fébrile, courbatures, examen sans foyer infectieux bactérien, pas de signe de gravité.",hyp:"Syndrome grippal",hist:"Fièvre brutale, courbatures et toux depuis 48 heures."}],
  [/dentaire/i,{focus:["orl"],orl:"Tuméfaction gingivale en regard d'une dent cariée, douleur à la percussion, pas de trismus, pas de cellulite faciale, pas de fièvre.",hyp:"Abcès dentaire",hist:"Douleur dentaire pulsatile depuis 3 jours."}],
  [/cérumen/i,{focus:["orl"],orl:"Bouchon de cérumen obstruant le conduit, tympan non vu, pas de douleur.",hyp:"Bouchon de cérumen",hist:"Hypoacousie et sensation d'oreille bouchée."}],
  [/asthénie/i,{focus:["gen"],gen:"Examen clinique normal, pas d'adénopathie, pas d'organomégalie.",hyp:"Asthénie à explorer",hist:"Fatigue depuis plusieurs semaines sans point d'appel."}],
@@ -5481,7 +5482,12 @@ OBS_TEMPLATES.push(
  [/mucoviscidose/i,{focus:["resp","gen"],gen:"Poids comparé au poids habituel, état d'hydratation, saturation notée.",resp:"Toux grasse, crachats purulents, râles bronchiques diffus, fréquence respiratoire et saturation mesurées, pas de signe de lutte.",hyp:"Exacerbation respiratoire de mucoviscidose sans critère d'hospitalisation",hist:"Majoration de la toux et des crachats depuis quelques jours chez un patient suivi en CRCM."}],
  [/reprise du sport intense/i,{focus:["cv","loco","resp"],cv:"Pression artérielle normale, bruits du cœur réguliers sans souffle, pouls fémoraux perçus, ECG de repos réalisé et lu : rythme sinusal, PR, QRS, QT normaux, pas de préexcitation ni de trouble de la repolarisation.",loco:"Rachis et membres inférieurs sans anomalie, appuis et mobilités normaux.",resp:"Auscultation normale.",hyp:"Absence de contre-indication clinique apparente au sport intense",hist:"Reprise d'un sport d'endurance intense après une période d'arrêt."}]
 );
-function obsTemplate(p){ const t={focus:[],hyp:"",hist:""}; const names=p.n; for(const [r,o] of OBS_TEMPLATES){ if(r.test(names)){ Object.keys(o).forEach(k=>{ if(k==="focus") t.focus=[...new Set([...t.focus,...o.focus])]; else if(k==="hyp"||k==="hist") t[k]=t[k]?t[k]+" ; "+o[k]:o[k]; else t[k]=o[k]; }); } } return t; }
+/* Correctif 7 (15/10/2026) : un seul modèle par pack, le plus spécifique (correspondance la plus longue), sur des mots entiers ; « sciatique » ne déclenche plus « tique ». */
+function obsTplScore(r,name){ const g=new RegExp(r.source,r.flags.includes("g")?r.flags:r.flags+"g"); let best=0,m; const isL=c=>!!c&&/[\p{L}\p{N}]/u.test(c);
+  while((m=g.exec(name))!==null){ if(!m[0]){g.lastIndex++;continue;} const a=name[m.index-1], b=name[m.index+m[0].length]; if(!isL(a)&&!isL(b)) best=Math.max(best,m[0].length); } return best; }
+function obsTemplate(p){ const t={focus:[],hyp:"",hist:""}; const names=p.n; let pick=null,sc=0;
+  for(const [r,o] of OBS_TEMPLATES){ const v=obsTplScore(r,names); if(v>sc){sc=v;pick=o;} }
+  if(pick) Object.keys(pick).forEach(k=>{ t[k]=k==="focus"?[...pick.focus]:pick[k]; }); return t; }
 /* ---- Dictée globale : répartition automatique ---- */
 const SYS_KW = {
  orl:/gorge|amygdal|pharyn|tympan|oreille|conduit auditif|otoscop|nez|rhinorrh|sinus|adénopath|ganglion|luette|trismus|trod|langue|dent|gencive|bouche|œil|oeil|conjonctiv|yeux|paupi/i,
@@ -5537,16 +5543,16 @@ function applyDictation(){
 function obsHTML(p){
   const tpl=obsTemplate(p); const o=state.obs;
   const cst=[["ta","TA","mmHg"],["fc","FC","/min"],["spo2","SpO2","%"],["temp","T°","°C"],["fr","FR","/min"],["gly","Glycémie","g/l"],["eva","EVA","/10"]];
-  if(!state.obsOpen) return `<div class="obs closed"><button class="btn s" id="obs_toggle" type="button">＋ Observation et compte rendu</button><span>Constantes, dictée, examen prérempli normal, compte rendu en un clic</span></div>`;
-  let html=`<div class="obs"><div class="obs-hd"><b>Observation express</b><span>Constantes, examen par appareil prérempli, compte rendu copiable</span><button class="mini" id="obs_toggle" type="button">Replier</button></div>`;
-  html+=`<div class="obs-row dict"><label>Dictée globale — constantes, histoire, examen, diagnostic, dans n'importe quel ordre ; puis « Répartir »</label><textarea data-obs="dict" rows="3" placeholder="Ex. : vient pour mal de gorge depuis 2 jours avec fièvre, pas de toux. TA 13/8, pouls 92, température 38,5, saturation 98. Amygdales rouges avec points blancs, ganglions cervicaux, TROD positif. Poumons clairs. Diagnostic angine streptococcique.">${esc(o.dict||"")}</textarea><div class="dict-act"><button class="btn p" id="dict_go" type="button">Répartir dans les rubriques</button><label class="chk"><input type="checkbox" id="dict_only" ${o.dictated?"checked":""}> Omettre les appareils non dictés (sinon : examen normal détaillé par défaut)</label></div></div>`;
+  if(!state.obsOpen) return `<div class="obs closed"><button class="btn s" id="obs_toggle" type="button">＋ Observation et compte rendu</button><span>Constantes, dictée, examen validé appareil par appareil, compte rendu en un clic</span></div>`;
+  let html=`<div class="obs"><div class="obs-hd"><b>Observation express</b><span>Constantes, examen par appareil à valider, compte rendu copiable</span><button class="mini" id="obs_toggle" type="button">Replier</button></div>`;
+  html+=`<div class="obs-row dict"><label>Dictée globale — constantes, histoire, examen, diagnostic, dans n'importe quel ordre ; puis « Répartir »</label><textarea data-obs="dict" rows="3" placeholder="Ex. : vient pour mal de gorge depuis 2 jours avec fièvre, pas de toux. TA 13/8, pouls 92, température 38,5, saturation 98. Amygdales rouges avec points blancs, ganglions cervicaux, TROD positif. Poumons clairs. Diagnostic angine streptococcique.">${esc(o.dict||"")}</textarea><div class="dict-act"><button class="btn p" id="dict_go" type="button">Répartir dans les rubriques</button><button class="btn s" id="obs_allnorm" type="button">Normal sur les appareils non saisis</button></div><div class="hint">Seuls les appareils saisis, dictés ou validés (« Normal », « Proposé ») figurent au compte rendu ; rien n'est ajouté par défaut.</div></div>`;
   html+=`<div class="cst">${cst.map(([k,l,u])=>`<label>${l}<input data-cst="${k}" value="${esc(state.cst[k]||"")}" placeholder="${u}" inputmode="decimal"></label>`).join("")}</div>`;
   html+=`<div class="obs-row"><label>Histoire de la maladie (dicte au micro du clavier)</label><textarea data-obs="hist" rows="2" placeholder="${esc(tpl.hist)}">${esc(o.hist||"")}</textarea></div>`;
   html+=`<div class="obs-row"><label>Antécédents / allergies</label><input data-obs="atcd" value="${esc(o.atcd||"")}" placeholder="Aucun antécédent notable ; pas d'allergie connue"></div>`;
   html+=`<div class="obs-sys">`;
   SYSTEMS.forEach(([k,l,norm])=>{
-    const focus=tpl.focus.includes(k); const val=o[k]!==undefined?o[k]:(o.dictated?"":(focus?(tpl[k]||norm):norm)); const isNorm=val===norm;
-    html+=`<div class="sys${focus?" focus":""}"><div class="sys-hd"><b>${l}</b><button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${o.dictated?"non examiné / non dicté : omis du compte rendu":""}">${esc(val)}</textarea></div>`;
+    const focus=tpl.focus.includes(k); const val=o[k]!==undefined?o[k]:""; const isNorm=val===norm; const sugg=focus?(tpl[k]||norm):norm;
+    html+=`<div class="sys${focus?" focus":""}"><div class="sys-hd"><b>${l}</b><button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${esc("Non renseigné : omis du compte rendu. Suggestion : "+sugg)}">${esc(val)}</textarea></div>`;
   });
   html+=`</div>`;
   html+=`<div class="obs-row"><label>Hypothèse diagnostique</label><input data-obs="hyp" value="${esc(o.hyp||"")}" placeholder="${esc(tpl.hyp||p.n)}"></div>`;
@@ -5561,11 +5567,11 @@ function buildCR0(p){
   const pat=[state.patient, state.ddn?"né(e) le "+normDate(state.ddn):"", a?a.y+" ans":"", state.poids?state.poids+" kg":""].filter(Boolean).join(", ");
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","Glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
   const D=!!o.dictated;
-  const hist=o.hist||(D?"":tpl.hist); let hyp=(o.hyp||tpl.hyp||p.n).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
+  const hist=o.hist||""; let hyp=(o.hyp||p.n).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
   const temp=parseFloat((state.cst.temp||"").replace(",","."));
-  const exam=SYSTEMS.map(([k,l,norm])=>{let v=o[k]!==undefined?o[k]:(D?"":(tpl.focus.includes(k)?(tpl[k]||norm):norm)); if(k==="gen"&&temp>=38&&/apyrétique/.test(v)) v=v.replace("apyrétique","fébrile à "+state.cst.temp+" °C"); return [l,v,v!==norm&&!!v];}).filter(x=>x[1]);
+  const exam=SYSTEMS.map(([k,l,norm])=>{let v=o[k]!==undefined?String(o[k]).trim():""; /* correctif 8 : un appareil non saisi, non dicté et non validé n'apparaît pas */ if(k==="gen"&&temp>=38&&/apyrétique/.test(v)) v=v.replace("apyrétique","fébrile à "+state.cst.temp+" °C"); return [l,v,v!==norm&&!!v];}).filter(x=>x[1]);
   const normalLike=v=>/\b(normal|normale|normaux|sans anomalie|sans particularité|bon état général|souple|indolore|clair|libre|conservé|symétrique|réactives)\b/i.test(v)&&!/anormal|pas normal|douloureu|défense|déficit|sibil|crépit|rouge|œdème|oedème|pultac|purulent|bomb|positif/i.test(v);
-  const abn=exam.filter(x=>x[2]&&!(D&&normalLike(x[1]))).map(x=>x[0]+" : "+x[1]);
+  const abn=exam.filter(x=>x[2]&&!normalLike(x[1])).map(x=>x[0]+" : "+x[1]);
   const sheets=p.s.map((sh,si)=>({sh,lines:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>x.fill.s+(x.jr?" (ordonnance sécurisée rédigée à la main, non imprimée)":""))})).filter(x=>x.lines.length&&!state.off[p.s.indexOf(x.sh)]);
   const get=k=>sheets.filter(x=>x.sh.k===k).flatMap(x=>x.lines);
   const meds=get("med"), bio=get("bio"), img=get("img"), kine=get("kine"), dm=get("dm"), ide=get("ide"), cons=get("cons"), let_=get("let"); const spe=get("spe"), para=get("para"), proto=get("proto");
@@ -5579,12 +5585,12 @@ function buildCR0(p){
   const hist0=hist.replace(/\.$/,"").replace(/^(vient pour|consulte pour|motif\s*:?|se présente pour|amené pour|amenée pour)\s*/i,"");
   let res="Consultation pour "+(hist0?hist0.charAt(0).toLowerCase()+hist0.slice(1):p.n.toLowerCase())+". ";
   res+=cst?"Constantes : "+cst+". ":"";
-  res+=abn.length?"Examen : "+abn.map(x=>x.replace(/\.$/,"")).join(" ; ")+(D?". ":". Reste de l'examen normal. "):(D?(exam.length?"Examen sans anomalie sur les appareils examinés. ":""):"Examen clinique normal. ");
+  res+=abn.length?"Examen : "+abn.map(x=>x.replace(/\.$/,"")).join(" ; ")+(exam.length>abn.length?" ; sans anomalie sur les autres appareils examinés. ":". "):(exam.length?"Examen sans anomalie sur les appareils examinés. ":"Examen clinique non renseigné dans l'observation. ");
   res+="Diagnostic retenu : "+hyp+". ";
   res+=meds.length?"Traitement : "+medNames+". ":"";
   res+=(bio.length||img.length)?"Examens complémentaires prescrits. ":"";
   res+=let_.length?"Avis spécialisé demandé. ":"";
-  res+="Consignes de surveillance et de reconsultation remises.";
+  if(cons.length) res+="Consignes de surveillance et de reconsultation remises.";
   L.push(res); L.push("");
   if(hist){ L.push("CHRONOLOGIE / HISTOIRE DE LA MALADIE"); L.push(hist); L.push(""); }
   const atcd=[o.atcd, (state.allergies||[]).length?"Allergies : "+allergiesText():(state.allergie?"Allergie aux pénicillines":""), state.grossesse?"Grossesse en cours"+(saText()?" ("+saText()+")":""):"", state.allait?"Allaitement en cours":""].filter(Boolean).join(" ; ");
@@ -5593,7 +5599,7 @@ function buildCR0(p){
   if(cst||exam.length){ L.push("EXAMEN CLINIQUE"); if(cst) L.push("Constantes : "+cst+"."); exam.forEach(([l,v])=>L.push(l+" : "+v)); if(state.f.lesions) L.push("Lésions constatées : "+state.f.lesions.replace(/\n/g," ").replace(/[.;\s]+$/,"")+"."); if(state.photos.length) L.push("Documentation photographique : "+state.photos.length+" cliché(s) réalisé(s) ce jour avec l'accord du patient, joint(s) au dossier."); L.push(""); }
   if(bio.length||img.length||spe.length){ L.push("EXAMENS COMPLÉMENTAIRES PRESCRITS"); bio.forEach(x=>L.push("- Biologie : "+x)); img.forEach(x=>L.push("- Imagerie : "+x)); spe.forEach(x=>L.push("- Examen spécialisé : "+x)); L.push(""); }
   L.push("INTERPRÉTATION"); L.push(hyp+"."); L.push("");
-  if(!D){ L.push("ÉVOLUTION"); L.push("État stable au terme de la consultation, prise en charge ambulatoire."); L.push(""); }
+  if(o.evol){ L.push("ÉVOLUTION"); L.push(o.evol); L.push(""); }
   {const sc=scoresCR(p); if(sc.length){L.push("SCORES ET RÈGLES DE DÉCISION");L.push(...sc);L.push("");}}
   L.push("CONDUITE À TENIR");
   meds.forEach(x=>L.push("- "+x)); dm.forEach(x=>L.push("- Dispositif : "+x)); ide.forEach(x=>L.push("- Soins infirmiers : "+x)); kine.forEach(x=>L.push("- Kinésithérapie : "+x)); para.forEach(x=>L.push("- Paramédical : "+x)); proto.forEach(x=>L.push("- Protocole insulinique : "+x));
@@ -5602,7 +5608,7 @@ function buildCR0(p){
   if(state.nh.on&&nhTotal()>0) L.push("- Note d'honoraires n° "+nhNumero()+" remise ("+fmtEur(nhTotal())+(state.nh.hn?", acte hors nomenclature, tarif annoncé avant l'acte":"")+")"+(state.nh.statut==="differe"?" ; règlement différé convenu"+(state.nh.echeance?" au "+normDate(state.nh.echeance):"")+", reconnaissance de dette de "+fmtEur(nhReste())+" signée par le patient.":state.nh.statut==="refus"?" ; refus de paiement de la part restant à charge ("+fmtEur(nhReste())+") constaté à l'issue de la consultation"+(state.nh.temoin?" en présence de "+state.nh.temoin:"")+" ; soins et documents remis ; note d'honoraires remise valant facture.":"."));
   L.push("");
   const trace=[o.trace].filter(Boolean).join(" ; ");
-  if(trace||!D){ L.push("TRAÇABILITÉ DES ÉCHANGES"); L.push(trace||"Patient (ou représentant légal) informé du diagnostic, du traitement et des signes devant faire reconsulter ; accord obtenu."); L.push(""); }
+  if(trace){ L.push("TRAÇABILITÉ DES ÉCHANGES"); L.push(trace); L.push(""); }
   if(cons.length){ L.push("CONSIGNES REMISES"); cons.forEach(x=>L.push("- "+x)); }
   return L.join("\n");
 }
@@ -5611,7 +5617,7 @@ function bindObs(p){
   const t=$("#obs_toggle"); if(t) t.onclick=()=>{state.obsOpen=!state.obsOpen;render();};
   const dg=$("#dict_go"); if(dg) dg.onclick=applyDictation;
   const dt=document.querySelector('textarea[data-obs="dict"]'); if(dt) dt.onkeydown=ev=>{ if(ev.key==="Enter"&&(ev.metaKey||ev.ctrlKey)){ev.preventDefault();applyDictation();} };
-  const dn=$("#dict_only"); if(dn) dn.onchange=()=>{state.obs.dictated=dn.checked;render();};
+  const an=$("#obs_allnorm"); if(an) an.onclick=()=>{SYSTEMS.forEach(([k,,norm])=>{if(state.obs[k]===undefined||state.obs[k]==="") state.obs[k]=norm;});render();};
   const cstEls=[...document.querySelectorAll("[data-cst]")];
   const done={ta:v=>{const m=/^\d{2,3}\/(\d{2,3})$/.exec(v); if(!m) return false; const d=m[1]; if(d.length===2&&/^1[0-2]$/.test(d)) return false; if(d.length===2&&+d<30) return true; return d.length===2||d.length===3;},fc:v=>/^\d{2,3}$/.test(v)&&(+v>=40?v.length>=2&&(+v>=100||v.length===2):false),spo2:v=>/^\d{2}$/.test(v)||v==="100",temp:v=>/^\d{2}[.,]\d$/.test(v),fr:v=>/^\d{2}$/.test(v),gly:v=>/^\d[.,]\d{2}$/.test(v),eva:v=>/^\d$/.test(v)&&v!=="1"||v==="10"};
   cstEls.forEach((e,i)=>{
@@ -14764,8 +14770,9 @@ async function printPack(){
   finishPrint(p,out,removed);
 }
 function withExtra(c,fn){
-  const keep={patient:state.patient,ddn:state.ddn,poids:state.poids,sexe:state.sexe,allergie:state.allergie,gs:state.gs,off:state.off,lo:state.lo,sel:state.sel,t0:state.t0};
-  Object.assign(state,{patient:c.patient,ddn:c.ddn||"",poids:c.poids||"",sexe:c.sexe||"",allergie:!!c.allergie,gs:{},t0:0});
+  const keep={patient:state.patient,ddn:state.ddn,poids:state.poids,sexe:state.sexe,allergie:state.allergie,gs:state.gs,off:state.off,lo:state.lo,sel:state.sel,t0:state.t0,obs:state.obs,cst:state.cst,tt:state.tt,allergies:state.allergies,grossesse:state.grossesse,allait:state.allait};
+  /* correctif 7 : le co-patient n'hérite ni de l'observation, ni des constantes, traitements, allergies, grossesse ou allaitement du patient principal */
+  Object.assign(state,{patient:c.patient,ddn:c.ddn||"",poids:c.poids||"",sexe:c.sexe||"",allergie:!!c.allergie,gs:{},t0:0,obs:{},cst:{},tt:[],allergies:c.allergie?["Pénicillines"]:[],grossesse:false,allait:false});
   const j=c.packName?PACKS.findIndex(x=>x.n===c.packName):-1;
   if(j>=0){state.sel=j;state.off={};state.lo={};}
   try{autoAgePack();}catch(e){}
