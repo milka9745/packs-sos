@@ -31,7 +31,7 @@
 - OK — iphone durée AT entorse CNAM
 - OK — iphone gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
 - OK — iphone gastro adulte simple : pas d'antibiotique
-- OK — iphone gastro adulte à risque : suspension des médicaments + 5 antibiotiques en option
+- OK — iphone gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
 - OK — iphone bloc 2 : packs chargés
 - OK — iphone dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
 - OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
@@ -76,7 +76,7 @@
 - OK — pc durée AT entorse CNAM
 - OK — pc gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
 - OK — pc gastro adulte simple : pas d'antibiotique
-- OK — pc gastro adulte à risque : suspension des médicaments + 5 antibiotiques en option
+- OK — pc gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
 - OK — pc bloc 2 : packs chargés
 - OK — pc dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
 - OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché

@@ -136,7 +136,7 @@ async def run(width,height,label):
         ok(label+" gastro adulte simple : pas d'antibiotique",not any("AZITHROMYCINE" in x["t"] for x in med))
         await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
-        ok(label+" gastro adulte à risque : suspension des médicaments + 5 antibiotiques en option",any("suspendre le diurétique" in x["t"] for x in med) and sum(1 for x in med if any(k in x["t"] for k in ["AZITHROMYCINE","CIFLOX","BACTRIM","DIFICLIR","FLAGYL"]))==5)
+        ok(label+" gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)",any("suspendre le diurétique" in x["t"] for x in med) and sum(1 for x in med if any(k in x["t"] for k in ["AZITHROMYCINE","CIFLOX","BACTRIM","FLAGYL"]))==4)
         await page.screenshot(path=f"{OUT}/{label}-gastro-risque.png",full_page=True)
         # Bloc 2 — ORL et ophtalmologie
         nb2=await page.evaluate("PACKS_V40_B2.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 2 : packs chargés",nb2==len(await page.evaluate("PACKS_V40_B2"))and nb2>=30,nb2)
