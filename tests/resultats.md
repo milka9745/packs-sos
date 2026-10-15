@@ -1,4 +1,4 @@
-# Tests v40 (lot 1, blocs 2 à 7)
+# Tests v40 (lot 1, blocs 2 à 8)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -60,6 +60,9 @@
 - OK — iphone bloc 7 : 16 packs chargés
 - OK — iphone laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
 - OK — iphone asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — iphone bloc 8 : 15 packs chargés
+- OK — iphone migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — iphone paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -122,7 +125,10 @@
 - OK — pc bloc 7 : 16 packs chargés
 - OK — pc laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
 - OK — pc asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — pc bloc 8 : 15 packs chargés
+- OK — pc migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — pc paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-124/124 tests OK
+130/130 tests OK
