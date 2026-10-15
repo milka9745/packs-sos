@@ -402,6 +402,10 @@ main .hint{color:#4F566B;font-size:13.5px}
 .aidiff{margin:6px 0}.aidiff del{display:block;color:var(--bad)}.aidiff ins{display:block;text-decoration:none;color:var(--ok,#1d7a3a)}
 .aiwarn{display:inline-block;margin-top:4px;color:var(--bad);font-size:13px}
 .aibar{height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin:8px 0}.aibar span{display:block;height:100%;background:var(--navy)}.aibar span.warn{background:var(--gold)}.aibar span.over{background:var(--bad)}
+#aidoc{position:fixed;inset:0;z-index:515;background:rgba(27,34,56,.55);display:flex;align-items:flex-start;justify-content:center;padding:20px 10px;overflow:auto}
+.adtools{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.adtools button{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:999px;padding:8px 12px;font:inherit;font-weight:600;min-height:40px}.adtools button.on{background:var(--navy);color:#fff}
+.adwrap{margin:8px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#888}.adwrap canvas{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+.aiimgbox{margin-top:10px;font-size:13.5px}.aiimg{display:block;max-width:100%;max-height:50vh;margin-top:6px;border:1px solid var(--line);border-radius:6px}
 html[data-theme="night"] .aitok{background:#2E3A5E;color:#E8ECF8}html[data-theme="night"] .aimode button.on{background:var(--chk);color:var(--onchk)}
 label.sa{display:inline-flex;align-items:center;gap:6px}label.sa input{padding:6px 8px;border:1px solid var(--line2);border-radius:8px;font:inherit}label.sa .hint{margin:0}
 /* ===== Thème v35 — jour / nuit à jetons. Nuit = anthracite, crème, or en liseré ; Jour = blanc, noir, bleu nuit, or pour l'élément actif ===== */
@@ -4149,7 +4153,7 @@ function buildCR0(p){
   const atcd=[o.atcd, (state.allergies||[]).length?"Allergies : "+allergiesText():(state.allergie?"Allergie aux pénicillines":""), state.grossesse?"Grossesse en cours"+(saText()?" ("+saText()+")":""):"", state.allait?"Allaitement en cours":""].filter(Boolean).join(" ; ");
   if(atcd){ L.push("ANTÉCÉDENTS"); L.push(atcd); L.push(""); }
   if(state.tt.length){ L.push("TRAITEMENTS EN COURS"); L.push(state.tt.join(", ")); L.push(""); }
-  if(cst||exam.length){ L.push("EXAMEN CLINIQUE"); if(cst) L.push("Constantes : "+cst+"."); exam.forEach(([l,v])=>L.push(l+" : "+v)); if(state.f.lesions) L.push("Lésions constatées : "+state.f.lesions.replace(/\n/g," ").replace(/[.;\s]+$/,"")+"."); if(state.photos.length) L.push("Documentation photographique : "+state.photos.length+" cliché(s) réalisé(s) ce jour avec l'accord du patient, joint(s) au dossier."); L.push(""); }
+  if(cst||exam.length){ L.push("EXAMEN CLINIQUE"); if(cst) L.push("Constantes : "+cst+"."); exam.forEach(([l,v])=>L.push(l+" : "+v)); if(o.docs) L.push("Documents consultés : "+o.docs.replace(/\n/g," ; ").replace(/[.;\s]+$/,"")+"."); if(state.f.lesions) L.push("Lésions constatées : "+state.f.lesions.replace(/\n/g," ").replace(/[.;\s]+$/,"")+"."); if(state.photos.length) L.push("Documentation photographique : "+state.photos.length+" cliché(s) réalisé(s) ce jour avec l'accord du patient, joint(s) au dossier."); L.push(""); }
   if(bio.length||img.length||spe.length){ L.push("EXAMENS COMPLÉMENTAIRES PRESCRITS"); bio.forEach(x=>L.push("- Biologie : "+x)); img.forEach(x=>L.push("- Imagerie : "+x)); spe.forEach(x=>L.push("- Examen spécialisé : "+x)); L.push(""); }
   L.push("INTERPRÉTATION"); L.push(hyp+"."); if(o.raison) L.push(o.raison); L.push("");
   if(!D){ L.push("ÉVOLUTION"); L.push("État stable au terme de la consultation, prise en charge ambulatoire."); L.push(""); }
@@ -13584,8 +13588,8 @@ function aiFactGuard(src,out,strict){const a=aiNums(src),b=aiNums(out);const add
 /*ANON-END*/
 /* ===== v41 — Assistant IA facultatif (CDC § 7) : modes Aucun / Partiel / Complet, anonymisation locale, écran « Ce qui part », réintégration sur l'appareil, consommation et plafond =====
    Jamais sur le chemin critique : pack, doses et documents restent instantanés et hors ligne. Les posologies viennent des fiches, jamais de l'IA. */
-const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande"},cap:10,alert:80,alerted:""},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],res:null};
-const AI_FN={obs:"Dictée → observation",cr:"Compte rendu",let:"Courrier"};
+const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande",doc:"demande"},cap:10,alert:80,alerted:""},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],res:null};
+const AI_FN={obs:"Dictée → observation",cr:"Compte rendu",let:"Courrier",doc:"Document ou image"};
 const AI_MODEL={redac:"claude-sonnet-5-5",tri:"claude-haiku-5-5"};          /* Sonnet pour rédiger, Haiku pour trier et tester */
 const AI_PRICE={"claude-sonnet-5-5":[2,10,0.2,2.5],"claude-haiku-5-5":[0.1,0.5,0.01,0.125]}; /* $ par million de jetons : entrée, sortie, lecture du cache, écriture du cache */
 const AI_USD_EUR=0.92;                                                         /* taux indicatif */
@@ -13647,7 +13651,7 @@ function aiClinique(){const L=[];const a=aiAgeText();if(a)L.push("Âge : "+a);if
 /* ---- Consignes fixes (identiques à chaque envoi : mises en cache) ---- */
 const AI_SYS_COMMUN=`Tu assistes un médecin généraliste et urgentiste de SOS Médecins (visites à domicile, consultations de garde), en France.
 Le texte reçu a été anonymisé sur l'appareil du médecin : les identités, adresses, numéros et dates sont remplacés par des jetons entre doubles crochets, par exemple [[NOM DU PATIENT]], [[PERSONNE 1]], [[ADRESSE]], [[J-3]] (3 jours avant la consultation, qui est J0), [[il y a 5 mois]], [[ÂGE : 41 ans]]. Recopie ces jetons tels quels, crochets compris, quand tu en as besoin ; [[PATIENT]], [[NOM DU PATIENT]] et [[PRÉNOM DU PATIENT]] sont toujours disponibles ; n'en invente jamais d'autres ; ne cherche jamais à retrouver une identité.
-Règles absolues : n'écris aucun examen, geste, constante ou résultat qui n'est pas dans le texte reçu ; ne retire ni ne modifie aucun fait clinique, horaire ou décision ; n'écris jamais de posologie, de dose, de durée ni de fréquence de traitement (elles viennent des fiches validées du médecin) ; jamais de « à préciser », de champ vide ni de crochet autre que les jetons reçus ; français médical sobre, factuel, sans jugement.
+Règles absolues : n'écris aucun examen, geste, constante ou résultat qui n'est pas dans ce qui t'est transmis (texte ou image) ; ne retire ni ne modifie aucun fait clinique, horaire ou décision ; n'écris jamais de posologie, de dose, de durée ni de fréquence de traitement (elles viennent des fiches validées du médecin) ; jamais de « à préciser », de champ vide ni de crochet autre que les jetons reçus ; français médical sobre, factuel, sans jugement.
 Tu réponds uniquement par un objet JSON valide, sans texte autour.`;
 const AI_SYS_OBS=AI_SYS_COMMUN+`
 TÂCHE : le médecin a dicté en vrac. Range la dictée en observation. Clés du JSON :
@@ -13701,10 +13705,11 @@ function aiSendScreen(){const P=AI.pending;if(!P)return;let el=document.getEleme
    ${P.leaks.length?`<div class="alert">Envoi bloqué : fragment d'identité encore présent (${P.leaks.map(l=>esc(l.cat)+" « "+esc(l.frag)+" »").join(", ")}). Touchez le mot pour le masquer.</div>`:""}
    ${off?`<div class="alert">Hors connexion : aucun envoi possible, rien n'est mis en attente.</div>`:""}${overCap?`<div class="alert">Plafond mensuel : cet envoi le dépasserait. Modifiez le plafond dans Consommation.</div>`:""}${eff.mode==="aucun"&&!off?`<div class="alert">IA coupée${eff.why?" : "+esc(eff.why):""}.</div>`:""}
    <div class="aiitems"><b>Retiré avant envoi, réintégré ensuite sur l'appareil</b> (${P.items.length})${P.items.length?"<ul>"+Object.entries(cats).map(([c,l])=>`<li><i>${esc(c.toLowerCase())}</i> : ${l.map(i=>esc(i.orig)+" → <code>[["+esc(i.tok)+"]]</code>").join(" · ")}</li>`).join("")+"</ul>":" : rien à retirer."}</div>
+   ${P.img?`<div class="aiimgbox"><b>Image envoyée, exactement</b> <span class="hint">(ré-encodée sur l'appareil, sans métadonnées ni position ; ${P.edits} zone(s) recadrée(s) ou masquée(s), vérifiée(s) par la lecture locale${P.ocrOk?"":" — lecture locale indisponible, vérification manuelle seulement"})</span><img class="aiimg" src="${P.img}" alt="Image exacte envoyée"></div>`:""}
    <div class="aisent" id="ai_sent">${aiSentHTML(P.user)}</div>
    <details class="aisys"><summary>Consignes fixes envoyées avec (aucune donnée patient)</summary><pre>${esc(P.system.length>3000?P.system.slice(0,3000)+"\n… (liste des fiches de Packs)":P.system)}</pre></details>
    <div class="aiact"><button type="button" class="btn p" id="ai_send" ${blocked?"disabled":""}>Envoyer</button><button type="button" class="btn s" id="ai_cancel">Annuler</button>${AI.masquer.length||AI.garder.length?`<button type="button" class="btn s" id="ai_reset">Revenir au masquage automatique</button>`:""}</div></div>`;
-  const redo=()=>aiPrepare(P.kind,P.opt);
+  const redo=()=>P.kind==="doc"?aiDocPrepare():aiPrepare(P.kind,P.opt);
   el.querySelectorAll(".aiw").forEach(s=>s.onclick=()=>{const w=s.dataset.w;AI.garder=AI.garder.filter(x=>anonNorm(x)!==anonNorm(w));if(!AI.masquer.includes(w))AI.masquer.push(w);redo();});
   el.querySelectorAll(".aitok").forEach(s=>s.onclick=()=>{const t=s.dataset.tok;const it=P.items.find(i=>i.tok===t);if(!it||it.cat!=="NOM PROPRE")return;it.orig.split(/\s+/).forEach(w=>AI.garder.push(w));AI.masquer=AI.masquer.filter(x=>!it.orig.split(/\s+/).some(w=>anonNorm(w)===anonNorm(x)));redo();});
   el.querySelector("#ai_cancel").onclick=()=>{AI.pending=null;el.remove();};
@@ -13730,9 +13735,10 @@ async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=docume
   const leaks=anonLeaks(P.user,P.ctx);if(leaks.length){P.leaks=leaks;aiSendScreen();return;}
   if(aiEffective().mode==="aucun"||navigator.onLine===false){aiSendScreen();return;}
   AI.busy=true;const b=el&&el.querySelector("#ai_send");if(b){b.disabled=true;b.textContent="Envoi…";}
-  try{const raw=await aiCall(P.fns[0],P.model,P.system,P.user,P.maxT,P.pid);const j=aiJson(raw);
-    AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,pid:P.pid};if(el)el.remove();AI.pending=null;
-    if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.fns.includes("cr")?"cr":"let");aiShowResult();}
+  try{const content=P.img?[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:P.img.split(",")[1]}},{type:"text",text:P.user}]:P.user;
+    const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
+    AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
+    if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
   catch(e){if(el){const a=document.createElement("div");a.className="alert";a.textContent=e.message||String(e);el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}}
   AI.busy=false;}
 
@@ -13744,7 +13750,7 @@ function aiBack(t,opt){opt=opt||{};const R=AI.res;const s=String(t||"").trim();i
   const r=reidentify(x,R.map);if(r.unresolved.length)return {ok:false,text:x,why:"jeton inconnu "+r.unresolved.join(" ")};
   return {ok:true,text:r.text,doses};}
 function aiShowResult(){const R=AI.res,out=document.getElementById("ai_out");if(!R||!out)return;const j=R.j;
-  if(R.kind==="obs")return aiShowObs(j,out);return aiShowCR(j,out);}
+  if(R.kind==="obs")return aiShowObs(j,out);if(R.kind==="doc")return aiShowDoc(j,out);return aiShowCR(j,out);}
 function aiShowObs(j,out){const R=AI.res;const packs=(j.packs||[]).map(n=>PACKS.findIndex(p=>p.n===n)).filter(i=>i>=0);const rows=[],rej=[];const obs={};
   Object.entries(j.obs||{}).forEach(([k,v])=>{if(!v||!(["hist","atcd","hyp","trace"].includes(k)||SYSTEMS.some(s=>s[0]===k)))return;const b=aiBack(v);if(b.ok)obs[k]=b.text;else rej.push((k)+" ("+b.why+")");});
   const cst={};Object.entries(j.cst||{}).forEach(([k,v])=>{if(v&&aiFactGuard(R.sent,String(v)).ok)cst[k]=String(v);});
@@ -13797,25 +13803,139 @@ function aiAccept(id){const R=AI.res,a=R&&R.acc[id];if(!a)return false;
 
 /* ---- Panneau ---- */
 function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=tab;const eff=aiEffective();
-  const tabs=["obs","cr","let"].filter(f=>aiFn(f)!=="off");if(tabs.length&&!tabs.includes(AI.tab))AI.tab=tabs[0];
+  const tabs=["obs","cr","let","doc"].filter(f=>aiFn(f)!=="off");if(tabs.length&&!tabs.includes(AI.tab))AI.tab=tabs[0];
   const el=document.createElement("div");el.id="aipanel";const t=AI.tab;const p=currentPack();
   const body=eff.mode==="aucun"?`<div class="aires">IA coupée${eff.why?" : "+esc(eff.why):" (mode Aucun)"}. Packs fonctionne sans IA : rien n'est envoyé, rien n'est facturé.</div>`:
    `<div class="aitabs">${tabs.map(f=>`<button type="button" data-aitab="${f}" class="${t===f?"on":""}">${AI_FN[f]}</button>`).join("")}</div>
    ${t==="obs"?`<textarea id="ai_in" rows="5" placeholder="Dictez en vrac : âge, poids, symptômes, constantes, examen, diagnostic (micro du clavier). Pas de posologie : elles viennent de la fiche.">${esc(state.obs.dict||"")}</textarea>`
     :t==="cr"?`<div class="hint">Relit le compte rendu de la consultation en cours${p?" (« "+esc(p.n)+" »)":""} : manques, formulation neutre, raisonnement, information donnée. Rien n'est modifié sans votre accord.</div>${aiFn("let")!=="off"?`<label class="hint"><input type="checkbox" id="ai_withlet" ${p&&p.s.some(sh=>sh.k==="let")?"checked":""}> Courrier dans le même envoi</label><textarea id="ai_in" rows="2" placeholder="Courrier : à qui, quelle question (facultatif)"></textarea>`:""}`
+    :t==="doc"?`<div class="hint">Photo ou capture d'écran d'un document (biologie, compte rendu, ordonnance, ECG). Packs cherche et masque l'identité sur l'appareil ; vous recadrez ou masquez ensuite, c'est obligatoire. Les PDF : faites une capture de la page.</div><label class="btn p" for="ai_file">Importer une photo ou une capture</label><input type="file" id="ai_file" accept="image/*" style="display:none">`
     :`<textarea id="ai_in" rows="3" placeholder="À qui, quelle question : « ORL, otites à répétition, avis pour aérateurs »"></textarea><div class="hint">Le traitement est ajouté par Packs depuis la fiche, jamais rédigé par l'IA.</div>`}
-   <div class="aiact"><button type="button" class="btn p" id="ai_go">Voir ce qui part</button><span class="hint">Rien ne part avant l'écran de contrôle.</span></div>`;
+   ${t==="doc"?"":`<div class="aiact"><button type="button" class="btn p" id="ai_go">Voir ce qui part</button><span class="hint">Rien ne part avant l'écran de contrôle.</span></div>`}`;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>✦ Assistant IA</b>${aiModeHTML()}<button type="button" class="btn s sm" id="ai_conso">Consommation</button><button type="button" class="btn s sm" id="ai_close">Fermer</button></div>
    <div class="hint">Facultatif. Identité, adresse, téléphone, NIR et dates retirés sur l'appareil avant tout envoi, remis ici au retour. ${eff.mode==="partiel"?"Partiel : réglage par fonction dans Journal → Assistant IA.":eff.mode==="complet"?"Complet : l'écran de contrôle s'ouvre de lui-même après la dictée et la copie du compte rendu.":""}</div>${body}<div id="ai_out"></div></div>`;
   document.body.appendChild(el);
   el.querySelector("#ai_close").onclick=()=>el.remove();el.onclick=ev=>{if(ev.target===el)el.remove();};el.querySelector("#ai_conso").onclick=aiConsoScreen;
   el.querySelectorAll("[data-aitab]").forEach(b=>b.onclick=()=>{AI.tab=b.dataset.aitab;AI.res=null;el.remove();aiOpen();});
   const go=el.querySelector("#ai_go");if(go)go.onclick=()=>{const v=(el.querySelector("#ai_in")||{}).value||"";if(t==="obs")aiPrepare("obs",{dictee:v});else if(t==="cr"){const wl=el.querySelector("#ai_withlet");aiPrepare("cr",{cr:true,let:!!(wl&&wl.checked),demande:v});}else aiPrepare("cr",{cr:false,let:true,demande:v});};
-  if(AI.res&&((AI.res.kind==="obs")===(t==="obs")))aiShowResult();}
+  const fi=el.querySelector("#ai_file");if(fi)fi.onchange=()=>{const f=fi.files&&fi.files[0];fi.value="";if(f)aiDocImport(f);};
+  if(AI.res&&(AI.res.kind==="obs"?t==="obs":AI.res.kind==="doc"?t==="doc":(t==="cr"||t==="let")))aiShowResult();}
 /* Complet : déclenchement automatique de l'écran de contrôle (jamais d'envoi automatique) */
 function aiAutoObs(){if(aiFn("obs")==="auto"&&(state.obs.dict||"").trim())aiPrepare("obs",{dictee:state.obs.dict});}
 function aiAutoCR(){const p=currentPack();if(!p||aiFn("cr")!=="auto"||state.aiCrAuto)return;state.aiCrAuto=true;aiPrepare("cr",{cr:true,let:aiFn("let")==="auto"&&p.s.some(sh=>sh.k==="let")});}
 function aiObsBtnHTML(){return aiFn("cr")==="off"&&aiFn("let")==="off"?"":`<button class="btn ai" id="ai_crbtn" type="button">✦ Relecture IA</button>`;}
+
+/* ---- Documents et images vers l'IA (cahier de corrections, point 2) ----
+   L'image ne part jamais telle quelle : recadrage ou masquage obligatoire, détection de l'identité par la lecture locale (Tesseract, sur l'appareil),
+   vérification finale bloquante, image ré-encodée (métadonnées et position GPS supprimées), puis écran « Ce qui part ».
+   Deux façons d'envoyer : le texte lu sur l'appareil puis anonymisé (recommandé), ou l'image masquée (tracé ECG, lésion, document manuscrit). */
+const DOC={cv:null,undo:[],edits:0,auto:0,tool:"mask",mode:"texte",checked:false,flag:[],status:"",busy:false};
+const AI_DOC_SENSIBLE=["PATIENT","NAISSANCE","TÉLÉPHONE","NIR","COURRIEL","ADRESSE","CODE POSTAL","CODE","NUMÉRO","PERSONNE","AUTRE PATIENT","MÉDECIN","LIEU","DATE"];
+const AI_DOC_BLOQUE=["PATIENT","NAISSANCE","TÉLÉPHONE","NIR","COURRIEL","ADRESSE","CODE POSTAL","CODE","NUMÉRO","PERSONNE","AUTRE PATIENT","MÉDECIN","LIEU"];
+const AI_POSO_RE=/\b(?:\d+(?:[.,]\d+)?\s*(?:cp|cps|comprimés?|gélules?|sachets?|ampoules?|bouffées?|gouttes?|doses?|suppositoires?|injections?)\b|\d+\s*fois\s+par\s+(?:jour|semaine)|toutes les \d+|matin(?:,|\s+et)\s+(?:midi|soir)|par jour|\/\s?j\b)/i;
+const AI_SYS_DOC=AI_SYS_COMMUN+`
+TÂCHE : un document médical a été importé (photo ou capture) : résultat de biologie, compte rendu, courrier, ordonnance, ECG ou autre. Les zones noires ont été masquées volontairement sur l'appareil : ne cherche jamais à deviner ce qu'elles cachent. Clés du JSON :
+"type": nature du document en quelques mots ;
+"resume": une à trois phrases factuelles sur ce que le document apporte à la consultation ;
+"resultats": liste des résultats ou constatations, chacun recopié tel qu'écrit, avec valeur, unité et anomalie si le document la signale ; [] sinon ;
+"ecg": si le document est un tracé ECG, lecture structurée à partir du tracé (rythme, fréquence, axe, PR, QRS, repolarisation, QT), la conclusion imprimée par l'appareil seulement en comparaison et tout désaccord signalé ; "" sinon ;
+"antecedents": antécédents mentionnés ; [] sinon ;
+"traitements": noms des médicaments mentionnés, sans dose ni posologie ; [] sinon ;
+"remarques": vigilances et passages illisibles ; [] sinon.
+Tu peux recopier une valeur de laboratoire ; tu ne recopies jamais une posologie.`;
+/* Lecture locale avec positions des mots ; zones à masquer = mots qui portent une identité, une date ou un lieu précis */
+async function aiDocRead(cv){const w=await ocrLoad();const r=await w.recognize(cv,{},{text:true,blocks:true});const d=(r&&r.data)||{};
+  const lines=[];(d.blocks||[]).forEach(b=>(b.paragraphs||[]).forEach(p=>(p.lines||[]).forEach(l=>lines.push((l.words||[]).filter(x=>x&&x.text&&x.bbox)))));
+  if(!lines.length&&d.words)lines.push(d.words);
+  /* mots lus dans une zone noircie : bruit de lecture, ignorés */
+  const g=cv.getContext("2d");const dark=bb=>{const w=Math.max(1,Math.round(bb.x1-bb.x0)),h=Math.max(1,Math.round(bb.y1-bb.y0));try{const px=g.getImageData(Math.max(0,Math.round(bb.x0)),Math.max(0,Math.round(bb.y0)),w,h).data;let n=0,k=0;for(let i=0;i<px.length;i+=16){k++;if(px[i]<40&&px[i+1]<40&&px[i+2]<40)n++;}return k&&n/k>0.7;}catch(e){return false;}};
+  const kept=lines.map(l=>l.filter(x=>!dark(x.bbox))).filter(l=>l.length);
+  return {text:kept.length||!d.text?kept.map(l=>l.map(x=>x.text).join(" ")).join("\n"):d.text,lines:kept};}
+function aiDocFlag(read,ctx,cats){const boxes=[],found=[];
+  read.lines.forEach(ws=>{if(!ws.length)return;let lt="",pos=[];ws.forEach(x=>{if(lt)lt+=" ";pos.push([lt.length,lt.length+x.text.length]);lt+=x.text;});
+    const an=anonymize(lt,ctx);const lk=anonLeaks(lt,ctx);const hits=an.items.filter(i=>cats.includes(i.cat)).map(i=>i.orig).concat(lk.map(l=>l.frag));
+    hits.forEach(o=>{const lo=lt.toLowerCase();let k=lo.indexOf(String(o).toLowerCase()),n=0;if(k<0){const t=anonNorm(o).split(/[^a-z0-9]+/).filter(z=>z.length>=2);ws.forEach((x,i)=>{if(t.includes(anonNorm(x.text).replace(/[^a-z0-9]/g,"")))boxes.push(x.bbox);});found.push(o);return;}
+      while(k>=0&&n<20){const e=k+String(o).length;ws.forEach((x,i)=>{if(pos[i][0]<e&&pos[i][1]>k)boxes.push(x.bbox);});k=lo.indexOf(String(o).toLowerCase(),e);n++;}found.push(o);});});
+  return {boxes,found:[...new Set(found)]};}
+function aiDocCanvas(img){const k=Math.min(1,1600/Math.max(img.width,img.height));const cv=document.createElement("canvas");cv.width=Math.round(img.width*k);cv.height=Math.round(img.height*k);cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);return cv;}
+function aiDocSnap(){const c=document.createElement("canvas");c.width=DOC.cv.width;c.height=DOC.cv.height;c.getContext("2d").drawImage(DOC.cv,0,0);DOC.undo.push({cv:c,edits:DOC.edits,auto:DOC.auto});if(DOC.undo.length>20)DOC.undo.shift();}
+function aiDocMask(boxes,auto){if(!boxes.length)return 0;aiDocSnap();const c=DOC.cv.getContext("2d");c.fillStyle="#000";boxes.forEach(b=>{const p=4;c.fillRect(Math.max(0,b.x0-p),Math.max(0,b.y0-p),b.x1-b.x0+2*p,b.y1-b.y0+2*p);});DOC.edits+=boxes.length;if(auto)DOC.auto+=boxes.length;return boxes.length;}
+function aiDocCrop(r){if(r.w<20||r.h<20)return;aiDocSnap();const c=document.createElement("canvas");c.width=Math.round(r.w);c.height=Math.round(r.h);c.getContext("2d").drawImage(DOC.cv,r.x,r.y,r.w,r.h,0,0,r.w,r.h);DOC.cv=c;DOC.edits++;}
+/* Import : fichier image (photo, capture). Les PDF ne sont pas lus : faire une capture d'écran de la page. */
+async function aiDocImport(file){if(!file)return;
+  if(/pdf/i.test(file.type)||/\.pdf$/i.test(file.name||"")){alert("Les PDF ne sont pas lus par Packs : faites une capture d'écran de la page utile, puis importez la capture.");return;}
+  if(!/^image\//.test(file.type||"image/")){alert("Format non reconnu : importez une photo ou une capture d'écran.");return;}
+  const url=URL.createObjectURL(file);const img=new Image();
+  await new Promise((ok,ko)=>{img.onload=ok;img.onerror=()=>ko(new Error("image illisible"));img.src=url;}).catch(e=>{alert(e.message);});
+  URL.revokeObjectURL(url);if(!img.width)return;
+  Object.assign(DOC,{cv:aiDocCanvas(img),undo:[],edits:0,auto:0,tool:"mask",mode:"texte",checked:false,flag:[],status:"Recherche locale de l'identité…",busy:true});
+  aiDocScreen();try{const r=await aiDocRead(DOC.cv);const f=aiDocFlag(r,aiAnonCtx(),AI_DOC_SENSIBLE);const n=aiDocMask(f.boxes,true);DOC.status=n?n+" zone(s) masquée(s) automatiquement ("+f.found.slice(0,6).map(x=>"« "+x+" »").join(", ")+"). Vérifiez et complétez.":"Aucune identité détectée automatiquement : recadrez ou masquez vous-même.";}
+  catch(e){DOC.status="Lecture locale indisponible ("+(e.message||e)+") : masquez vous-même toute identité.";}
+  DOC.busy=false;aiDocScreen();}
+function aiDocScreen(){let el=document.getElementById("aidoc");if(!el){el=document.createElement("div");el.id="aidoc";document.body.appendChild(el);}
+  const can=DOC.edits>0&&DOC.checked&&!DOC.busy;
+  el.innerHTML=`<div class="aibox"><div class="aihd"><b>Document → IA</b><span class="hint">Rien ne part d'ici.</span><button type="button" class="btn s sm" id="ad_close">Annuler</button></div>
+   <div class="adtools" role="group"><button type="button" data-adtool="mask" class="${DOC.tool==="mask"?"on":""}">■ Masquer une zone</button><button type="button" data-adtool="crop" class="${DOC.tool==="crop"?"on":""}">⬚ Recadrer</button><button type="button" id="ad_undo" ${DOC.undo.length?"":"disabled"}>↶ Annuler le dernier</button></div>
+   <div class="hint">Glissez le doigt sur l'image pour ${DOC.tool==="mask"?"noircir une zone (nom, date, adresse, numéro, en-tête)":"garder seulement la partie utile"}. ${esc(DOC.status)}</div>
+   <div class="adwrap"><canvas id="ad_cv"></canvas></div>
+   ${DOC.flag.length?`<div class="alert">Encore lisible sur l'image : ${DOC.flag.map(esc).join(", ")}. <button type="button" class="btn s sm" id="ad_fix">Masquer ces zones</button></div>`:""}
+   <div class="nhopts"><label><input type="radio" name="ad_mode" value="texte" ${DOC.mode==="texte"?"checked":""}> Envoyer le texte lu sur l'appareil, anonymisé (recommandé)</label><label><input type="radio" name="ad_mode" value="image" ${DOC.mode==="image"?"checked":""}> Envoyer l'image masquée (tracé ECG, lésion, manuscrit)</label></div>
+   <label class="hint"><input type="checkbox" id="ad_ok" ${DOC.checked?"checked":""}> J'ai vérifié : aucune identité, date de naissance, adresse, numéro ni lieu précis n'est visible.</label>
+   <div class="aiact"><button type="button" class="btn p" id="ad_go" ${can?"":"disabled"}>Voir ce qui part</button><span class="hint">${DOC.edits?DOC.edits+" modification(s)":"Recadrage ou masquage obligatoire avant envoi."}</span></div></div>`;
+  const cv=el.querySelector("#ad_cv");cv.width=DOC.cv.width;cv.height=DOC.cv.height;const c=cv.getContext("2d");c.drawImage(DOC.cv,0,0);
+  let st=null;const pt=ev=>{const r=cv.getBoundingClientRect();return {x:(ev.clientX-r.left)*cv.width/r.width,y:(ev.clientY-r.top)*cv.height/r.height};};
+  cv.onpointerdown=ev=>{if(DOC.busy)return;ev.preventDefault();cv.setPointerCapture&&cv.setPointerCapture(ev.pointerId);st=pt(ev);};
+  cv.onpointermove=ev=>{if(!st)return;const p=pt(ev);c.drawImage(DOC.cv,0,0);c.lineWidth=Math.max(2,cv.width/300);c.strokeStyle=DOC.tool==="mask"?"#d00":"#1E5BD8";c.setLineDash([8,6]);c.strokeRect(st.x,st.y,p.x-st.x,p.y-st.y);};
+  cv.onpointerup=ev=>{if(!st)return;const p=pt(ev);const r={x:Math.max(0,Math.min(st.x,p.x)),y:Math.max(0,Math.min(st.y,p.y))};r.w=Math.min(cv.width,Math.max(st.x,p.x))-r.x;r.h=Math.min(cv.height,Math.max(st.y,p.y))-r.y;st=null;
+    if(r.w>4&&r.h>4){if(DOC.tool==="mask")aiDocMask([{x0:r.x+4,y0:r.y+4,x1:r.x+r.w-4,y1:r.y+r.h-4}]);else aiDocCrop(r);DOC.flag=[];}aiDocScreen();};
+  el.querySelectorAll("[data-adtool]").forEach(b=>b.onclick=()=>{DOC.tool=b.dataset.adtool;aiDocScreen();});
+  el.querySelector("#ad_undo").onclick=()=>{const u=DOC.undo.pop();if(u){DOC.cv=u.cv;DOC.edits=u.edits;DOC.auto=u.auto;DOC.flag=[];}aiDocScreen();};
+  el.querySelectorAll("[name=ad_mode]").forEach(r=>r.onchange=()=>{DOC.mode=r.value;});
+  el.querySelector("#ad_ok").onchange=e=>{DOC.checked=e.target.checked;aiDocScreen();};
+  el.querySelector("#ad_close").onclick=()=>{el.remove();DOC.cv=null;};
+  const fx=el.querySelector("#ad_fix");if(fx)fx.onclick=()=>{aiDocMask(DOC.flagBoxes||[],true);DOC.flag=[];aiDocScreen();};
+  el.querySelector("#ad_go").onclick=aiDocPrepare;}
+/* Vérification finale sur l'image exacte qui partirait, puis écran « Ce qui part » */
+async function aiDocPrepare(){if(!DOC.cv||!(DOC.edits>0&&DOC.checked))return;const eff=aiEffective();if(eff.mode==="aucun"){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return;}
+  DOC.busy=true;DOC.status="Vérification de l'image sur l'appareil…";aiDocScreen();
+  const ctx=aiAnonCtx();let read=null,ocrOk=true;try{read=await aiDocRead(DOC.cv);}catch(e){ocrOk=false;read={text:"",lines:[]};}
+  const f=aiDocFlag(read,ctx,AI_DOC_BLOQUE);const lk=anonLeaks(read.text,ctx);DOC.busy=false;
+  if(f.found.length||lk.length){DOC.flag=[...new Set([...f.found,...lk.map(l=>l.frag)])];DOC.flagBoxes=f.boxes;DOC.status="Envoi bloqué tant que ces éléments restent lisibles.";aiDocScreen();return;}
+  if(DOC.mode==="texte"&&!ocrOk){DOC.status="Lecture locale impossible : choisissez « Envoyer l'image masquée » ou annulez.";aiDocScreen();return;}
+  if(DOC.mode==="texte"&&read.text.trim().length<10){DOC.status="Presque aucun texte lu : choisissez « Envoyer l'image masquée » (tracé, photo) ou recadrez mieux.";aiDocScreen();return;}
+  const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}
+  const SEP="\n§§§\n";const an=anonymize([aiClinique(),DOC.mode==="texte"?read.text.trim():""].join(SEP),ctx);aiPatientTokens(an.map);const parts=an.text.split(SEP);
+  const img=DOC.mode==="image"?DOC.cv.toDataURL("image/jpeg",0.85):null;  /* ré-encodage : aucune métadonnée de la photo d'origine */
+  const user="CONTEXTE CLINIQUE (sans identité)\n"+parts[0]+"\n\n"+(img?"DOCUMENT : image jointe, recadrée et masquée sur l'appareil ; les zones noires sont volontaires.":"DOCUMENT : texte lu sur l'appareil puis anonymisé\n"+parts[1]);
+  const model=AI_MODEL.redac;const imgTok=img?Math.round(DOC.cv.width*DOC.cv.height/750):0;
+  AI.pending={kind:"doc",opt:{},fns:["doc"],ctx,system:AI_SYS_DOC,user,img,map:an.map,items:an.items,leaks:anonLeaks(user,ctx),model,maxT:1500,est:aiEur(model,{input_tokens:Math.round((AI_SYS_DOC.length+user.length)/3.2)+imgTok,output_tokens:700}),pid:state.t0||Date.now(),ocr:read.text,ocrOk,auto:DOC.auto,edits:DOC.edits};
+  const el=document.getElementById("aidoc");if(el)el.remove();aiSendScreen();}
+function aiPatientTokens(map){const sp=anonSplitName(state.patient||"");const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(map[k]===undefined)map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom.join(" ")||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom.join(" ")||state.patient||dflt);}
+/* Réponse : identité réintégrée, posologies retirées ; en mode image, une valeur absente de la lecture locale est signalée « à vérifier sur le document » */
+function aiDocBack(t,opt){const R=AI.res;let s=String(t||"").trim();if(!s)return null;let doses=[];
+  if(opt&&opt.noDose){const g=aiDoseGuard(s);s=g.text;doses=g.found;if(!s)return {ok:false,why:"posologie retirée",doses};}
+  const r=reidentify(s,R.map);if(r.unresolved.length)return {ok:false,why:"jeton inconnu "+r.unresolved.join(" ")};
+  const fg=aiFactGuard(R.src,s);if(!fg.ok&&!R.img)return {ok:false,why:"nombre absent du document lu : "+fg.added.join(", ")};
+  return {ok:true,text:r.text,verif:!fg.ok,doses};}
+function aiShowDoc(j,out){const R=AI.res;R.acc={};const H=[];const meds=aiMedWords();
+  const line=(b)=>esc(b.text)+(b.verif?' <span class="aiwarn">à vérifier sur le document</span>':"");
+  const res=(j.resultats||[]).filter(x=>x&&!AI_POSO_RE.test(String(x))).map(x=>aiDocBack(x)).filter(b=>b&&b.ok);
+  const ecg=j.ecg?aiDocBack(j.ecg,{noDose:true}):null;const sum=j.resume?aiDocBack(j.resume,{noDose:true}):null;
+  const atcd=(j.antecedents||[]).map(x=>aiDocBack(x,{noDose:true})).filter(b=>b&&b.ok);
+  const tt=(j.traitements||[]).map(x=>aiDocBack(String(x).replace(AI_DOSE_RE,"").replace(/\s{2,}/g," ").trim())).filter(b=>b&&b.ok&&b.text);
+  const docLines=[(j.type?String(j.type).replace(/[.\s]+$/,""):"Document")+(sum&&sum.ok?" : "+sum.text:"")].concat(res.map(b=>b.text)).concat(ecg&&ecg.ok?["ECG (lecture) : "+ecg.text]:[]);
+  R.acc.docs={text:docLines.join(" ; ").replace(/\s*;\s*;/g," ;")};R.acc.atcd={list:atcd.map(b=>b.text)};R.acc.tt={list:tt.map(b=>b.text)};
+  H.push(`<div class="aires"><b>${esc(j.type||"Document")}</b>${sum&&sum.ok?"<br>"+line(sum):""}${res.length?"<ul>"+res.map(b=>"<li>"+line(b)+"</li>").join("")+"</ul>":""}${ecg&&ecg.ok?"<br><i>ECG</i> — "+line(ecg):""}<div class="aiact"><button type="button" class="btn p" data-dacc="docs">Ajouter au compte rendu (documents consultés)</button></div></div>`);
+  if(atcd.length)H.push(`<div class="aires"><i>Antécédents</i> — ${atcd.map(line).join(" ; ")} <button type="button" class="btn s sm" data-dacc="atcd">Ajouter aux antécédents</button></div>`);
+  if(tt.length)H.push(`<div class="aires"><i>Traitements cités (noms seuls)</i> — ${tt.map(line).join(", ")} <button type="button" class="btn s sm" data-dacc="tt">Ajouter aux traitements en cours</button></div>`);
+  if(j.remarques&&j.remarques.length)H.push(`<div class="aires"><i>Vigilances</i> — ${j.remarques.map(x=>aiDocBack(x,{noDose:true})).filter(b=>b&&b.ok).map(line).join(" · ")}</div>`);
+  if(R.img)H.push(`<div class="hint">Image envoyée : les valeurs lues par l'IA sont à contrôler sur le document avant de les reprendre.</div>`);
+  out.innerHTML=H.join("");
+  out.querySelectorAll("[data-dacc]").forEach(b=>b.onclick=()=>{const k=b.dataset.dacc,a=R.acc[k];if(!a)return;
+    if(k==="docs"){state.obs.docs=[state.obs.docs,a.text].filter(Boolean).join("\n");aiLog("doc","document ajouté au compte rendu",a.text);}
+    else if(k==="atcd"){state.obs.atcd=[state.obs.atcd,...a.list].filter(Boolean).join(" ; ");aiLog("doc","antécédents ajoutés",a.list.join(" ; "));}
+    else if(k==="tt"){a.list.forEach(t=>{if(t&&!state.tt.some(x=>norm(x)===norm(t)))state.tt.push(t);});aiLog("doc","traitements ajoutés",a.list.join(", "));}
+    state.obsOpen=true;b.disabled=true;b.textContent="Ajouté ✓";render();});}
 
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}
@@ -13836,7 +13956,7 @@ function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=do
 function aiSettingsHTML(){const sel=f=>`<label>${AI_FN[f]} <select data-aifn="${f}">${[["auto","automatique"],["demande","à la demande"],["off","coupée"]].map(([v,l])=>`<option value="${v}" ${AI.cfg.fn[f]===v?"selected":""}>${l}</option>`).join("")}</select></label>`;
   return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée dans le profil de cet appareil</b> : jamais dans un fichier publié, ni dans la sauvegarde, ni dans la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026).</div>
  <div class="aiset"><input id="ai_key" type="password" placeholder="sk-ant-…" value="${esc(AI.key)}" autocomplete="off"><button type="button" class="btn p" id="ai_savekey">Enregistrer</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?"Clé enregistrée (chiffrée)":"Aucune clé"}</span></div>
- ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement, l'envoi reste validé à l'écran « Ce qui part ».":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>`;}
+ ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement, l'envoi reste validé à l'écran « Ce qui part ».":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>`;}
 function aiBindSettings(){const k=$("#ai_key");if(!k)return;
   $("#ai_savekey").onclick=()=>{AI.key=k.value.trim();if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key="";return;}if(AI.key&&AI.cfg.mode==="aucun"){AI.cfg.mode="partiel";aiSave();}$("#ai_setst").textContent=AI.key?"Clé enregistrée (chiffrée)":"Aucune clé";render();};
   $("#ai_test").onclick=async()=>{AI.key=k.value.trim();if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){$("#ai_setst").textContent="Échec : "+(e.message||e);}};

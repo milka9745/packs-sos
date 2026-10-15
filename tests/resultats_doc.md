@@ -1,0 +1,52 @@
+# Tests v41 — documents et images vers l'IA (lecture locale réelle, API simulée)
+
+- OK — iphone PDF : refusé avec la marche à suivre (capture d'écran)
+- OK — iphone onglet « Document ou image » avec import de photo
+- OK — iphone lecture locale terminée
+- OK — iphone identité repérée et masquée automatiquement
+- OK — iphone envoi impossible tant que la vérification n'est pas cochée
+- OK — iphone sans recadrage ni masque : envoi impossible même coché
+- OK — iphone identité encore lisible : envoi bloqué, éléments listés
+- OK — iphone rien n'est parti
+- OK — iphone « Ce qui part » atteint après masquage
+- OK — iphone mode texte : aucune identité dans le texte envoyé
+- OK — iphone mode texte : les résultats partent
+- OK — iphone mode texte : aucune image jointe
+- OK — iphone requête texte sans identité ni image
+- OK — iphone posologie du document jamais reprise
+- OK — iphone résultats ajoutés au compte rendu (documents consultés)
+- OK — iphone traitements repris sans dose
+- OK — iphone mode image : « Ce qui part » atteint
+- OK — iphone mode image : l'image exacte est montrée avant envoi
+- OK — iphone mode image : un seul envoi
+- OK — iphone mode image : JPEG ré-encodé, sans EXIF ni GPS
+- OK — iphone mode image : texte joint sans identité
+- OK — iphone mode image : valeurs signalées à vérifier si absentes de la lecture locale
+- OK — iphone mode Aucun : pas d'import vers l'IA
+- OK — iphone aucune erreur JS
+- OK — pc PDF : refusé avec la marche à suivre (capture d'écran)
+- OK — pc onglet « Document ou image » avec import de photo
+- OK — pc lecture locale terminée
+- OK — pc identité repérée et masquée automatiquement
+- OK — pc envoi impossible tant que la vérification n'est pas cochée
+- OK — pc sans recadrage ni masque : envoi impossible même coché
+- OK — pc identité encore lisible : envoi bloqué, éléments listés
+- OK — pc rien n'est parti
+- OK — pc « Ce qui part » atteint après masquage
+- OK — pc mode texte : aucune identité dans le texte envoyé
+- OK — pc mode texte : les résultats partent
+- OK — pc mode texte : aucune image jointe
+- OK — pc requête texte sans identité ni image
+- OK — pc posologie du document jamais reprise
+- OK — pc résultats ajoutés au compte rendu (documents consultés)
+- OK — pc traitements repris sans dose
+- OK — pc mode image : « Ce qui part » atteint
+- OK — pc mode image : l'image exacte est montrée avant envoi
+- OK — pc mode image : un seul envoi
+- OK — pc mode image : JPEG ré-encodé, sans EXIF ni GPS
+- OK — pc mode image : texte joint sans identité
+- OK — pc mode image : valeurs signalées à vérifier si absentes de la lecture locale
+- OK — pc mode Aucun : pas d'import vers l'IA
+- OK — pc aucune erreur JS
+
+48/48 tests OK
