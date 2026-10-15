@@ -1,0 +1,9 @@
+{
+  "version": "40n",
+  "date": "2026-10-16",
+  "notes": [
+    "Bandeau de mise à jour bien visible en haut de l'écran, avec ce qui change.",
+    "Ordonnances : les critères réservés au médecin (score, DFG, QT…) ne sont plus imprimés.",
+    "iPhone : les lignes longues passent à la ligne, le crayon ✎ reste visible."
+  ]
+}

@@ -9,7 +9,7 @@ Tu travailles pour le Docteur Mickaël DEIE, médecin généraliste et urgentist
 - Ne touche jamais aux dossiers `v38/`, `v39/`, `ocr/`, ni à `profil.json`. Ne remets jamais de signature, de cachet, de nom ou d'Adeli en clair dans un fichier.
 - Change le moins de choses possible en dehors des fiches. Ne modifie jamais une fiche validée (lot 1, `PACKS_V40`) sans le signaler.
 - Avant chaque commit : `node --check` sur chaque bloc `<script>` d'`index.html`, puis `python tests/test_packs.py` (tous les tests doivent passer ; ajoute 2 à 4 tests par bloc).
-- Un commit par bloc, message en français : « Bloc N — appareil — X fiches ». Renomme le cache dans `sw.js` (`packs-sos-v40`, puis `packs-sos-v40b`, `v40c`…) et `APP_VERSION` reste « 40 ».
+- Un commit par bloc, message en français : « Bloc N — appareil — X fiches ». Renomme le cache dans `sw.js` (`packs-sos-v40`, puis `packs-sos-v40b`, `v40c`…) et `APP_VERSION` reste « 40 ». À chaque publication sur `main`, mettre à jour `version.json` (même suffixe que le cache, 2 ou 3 lignes « Ce qui change » en langage simple) : il alimente le bandeau de mise à jour.
 
 ## Philosophie médicale (appliquée sans redemander)
 - Recommandations françaises à jour (HAS, SPILF, GPIP, SFP, SFMU, SPLF, SFD, CRAT, ANSM, RCP de la base de données publique des médicaments). Vérifie chaque posologie sur sa source (recherche web). Ne jamais inventer une dose ; si une donnée manque, la ligne n'est pas créée et le point est listé dans le rapport.

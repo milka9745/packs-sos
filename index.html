@@ -256,7 +256,14 @@ body.locked #main,body.locked aside,body.locked #print{filter:blur(6px);pointer-
 .reckey{font-family:ui-monospace,Menlo,monospace;font-size:22px;letter-spacing:2px;text-align:center;background:#f3f5fb;border:1px dashed var(--navy);border-radius:8px;padding:12px;margin:10px 0;user-select:all}.lockwarn{background:#fde8e8;color:#8a1f1f;border-radius:8px;padding:8px 10px;font-size:13px;margin:8px 0}
 .cat.sel{color:var(--gold2,#c9a227)}
 .lockbox input.uid{letter-spacing:0;font-size:16px;text-align:left;padding:12px 14px;margin:14px 0 0}
-#updbar{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:900;background:var(--navy);color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.4);display:flex;gap:8px;align-items:center;font-size:14px}
+#updbar{position:fixed;left:0;right:0;top:0;z-index:10000;background:#FFB000!important;color:#111!important;border:0!important;border-bottom:3px solid #111!important;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 12px;box-shadow:0 6px 24px rgba(0,0,0,.45);font-size:15px;line-height:1.35;box-sizing:border-box}
+#updbar .ut{font-weight:800;font-size:18px}#updbar .uc{font-weight:700;margin-top:6px}#updbar ul{margin:2px 0 0;padding-left:20px}#updbar li{margin:1px 0}
+#updbar .uw{margin-top:6px;font-weight:700}
+#updbar .ub{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+#updbar #upd_go{flex:1 1 220px;min-height:52px;font-size:18px;font-weight:800;background:#111;color:#FFD54A;border:0;border-radius:12px;cursor:pointer}
+#updbar #upd_later{flex:0 0 auto;min-height:52px;padding:0 18px;font-size:15px;font-weight:600;background:transparent;color:#111;border:2px solid #111;border-radius:12px;cursor:pointer}
+#updbar.mini{padding:calc(4px + env(safe-area-inset-top,0px)) 10px 4px}#updbar.mini #upd_open{width:100%;min-height:36px;background:transparent;border:0;color:#111;font-weight:800;font-size:15px;cursor:pointer}
+html.upd-on body{padding-top:var(--updh,0px)}
 .copat{margin:4px 0 10px}.copatrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0;padding:6px 8px;background:#f3f5fb;border-radius:8px}.copatrow input,.copatrow select{padding:6px 8px;border:1px solid #ccd;border-radius:6px}.btn.sm{padding:5px 10px;font-size:13px}
 /* ===== Thème « Cabinet » v21 — clair, premium, lisible longtemps ===== */
 :root{
@@ -368,7 +375,7 @@ main .hint,main small{color:var(--muted)}
 /* Schéma corporel */
 .bz{fill:#EEF0F6;stroke:#A4ACC4}.bz.on{fill:var(--navy);stroke:var(--navy)}
 /* Mise à jour */
-#updbar{background:var(--navy)}
+
 /* Écran de verrouillage */
 #lock{background:radial-gradient(1200px 600px at 20% -10%,#2B3A7A 0%,#1F2A5C 55%,#151D44 100%)}
 .printbar{background:var(--navy);border-top:1px solid rgba(255,255,255,.15)}
@@ -555,7 +562,7 @@ table{color:var(--ink)}th{color:var(--acc2)}td,th{border-color:var(--line)}
 /* schéma corporel */
 .bz{fill:var(--panel3);stroke:var(--line2)}.bz.on{fill:var(--chk);stroke:var(--gold)}
 /* lock + print */
-#updbar{background:var(--btn);color:var(--onbtn);border:1px solid var(--btnline)}
+
 ::selection{background:var(--chk);color:var(--onchk)}
 @media (max-width:760px){.pcard{padding:12px 12px 4px}}
 .dq{width:100%;padding:11px 13px;border:1.5px solid var(--line2);border-radius:10px;margin:8px 0 14px;background:var(--field);color:var(--ink);font:inherit;font-size:16px}.dq:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--ring)}
@@ -659,7 +666,7 @@ html:not([data-theme="day"]) .sheet,html:not([data-theme="day"]) .pcard{border-t
 #thememenu button{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer}
 #thememenu button:hover{background:var(--panel2)}#thememenu button.on{background:var(--chk);color:var(--onchk);font-weight:700}
 #thememenu .hint{padding:4px 12px 6px;margin:0}
-html[data-size="big"] .app,html[data-size="big"] #lock,html[data-size="big"] #aipanel,html[data-size="big"] #thememenu,html[data-size="big"] #updbar{zoom:1.18}
+html[data-size="big"] .app,html[data-size="big"] #lock,html[data-size="big"] #aipanel,html[data-size="big"] #thememenu{zoom:1.18}
 @media (max-width:760px){html[data-size="big"] .app,html[data-size="big"] #lock,html[data-size="big"] #aipanel{zoom:1.12}}
 /* v36 : code patient, bandeau « pas de garde », tournée */
 .pcd{display:inline-block;margin-left:8px;font-size:11.5px;font-family:ui-monospace,Menlo,monospace;letter-spacing:.3px;padding:1px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);vertical-align:middle}
@@ -15145,11 +15152,28 @@ const APP_VERSION="40";
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
   navigator.serviceWorker.register("sw.js").then(reg=>{
     reg.addEventListener("updatefound",()=>{const had=!!reg.active;const nw=reg.installing;nw&&nw.addEventListener("statechange",()=>{if(nw.state==="installed"&&had&&navigator.serviceWorker.controller){showUpdateBar();}});});
+    if(reg.waiting&&navigator.serviceWorker.controller)showUpdateBar();
     setInterval(()=>reg.update().catch(()=>{}),60*60*1000);
+    document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")reg.update().catch(()=>{});});
   }).catch(()=>{});
-  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(window.__reloading)return;window.__reloading=1;location.reload();});
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(window.__reloading)return;if(!window.__updOk&&updInConsult()){UPD.pendingReload=true;return;}window.__reloading=1;location.reload();});
 }
-function showUpdateBar(){if($("#updbar"))return;const b=document.createElement("div");b.id="updbar";b.innerHTML='Nouvelle version disponible. <button class="btn p" id="upd_go">Mettre à jour</button> <button class="btn s" id="upd_later">Plus tard</button>';document.body.appendChild(b);$("#upd_go").onclick=()=>{navigator.serviceWorker.getRegistration().then(r=>{if(r&&r.waiting)r.waiting.postMessage("skip");});};$("#upd_later").onclick=()=>b.remove();}
+/* 16/10/2026 : bandeau « Nouvelle version disponible » impossible à rater — pleine largeur en haut, version et « Ce qui change » (version.json),
+   « Plus tard » le réduit et il revient au prochain retour sur l'écran principal ; jamais de mise à jour automatique pendant une consultation */
+const UPD={ready:false,collapsed:false,info:null,wasMain:true,pendingReload:false};
+function updInConsult(){try{return (state.sel!==null&&state.sel!==undefined)||!!String(state.patient||"").trim();}catch(e){return false;}}
+function updMain(){try{return !state.view&&(state.sel===null||state.sel===undefined);}catch(e){return true;}}
+async function updInfo(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(r.ok){const j=await r.json();if(j&&typeof j==="object")UPD.info=j;}}catch(e){}}
+function showUpdateBar(){UPD.ready=true;UPD.collapsed=false;updRender();updInfo().then(updRender);}
+function updRender(){if(!UPD.ready)return;let b=document.getElementById("updbar");if(!b){b=document.createElement("div");b.id="updbar";b.setAttribute("role","alert");document.body.prepend(b);}
+  const i=UPD.info||{};const v=i.version?String(i.version):"";const notes=(Array.isArray(i.notes)?i.notes:[]).slice(0,3);
+  document.documentElement.classList.add("upd-on");
+  if(UPD.collapsed){b.className="mini";b.innerHTML=`<button type="button" id="upd_open">⬆ Mise à jour en attente${v?" — version "+esc(v):""} · afficher</button>`;document.getElementById("upd_open").onclick=()=>{UPD.collapsed=false;updRender();};}
+  else{b.className="";b.innerHTML=`<div class="ut">⬆ Nouvelle version disponible${v?" : version "+esc(v):""}</div>${notes.length?`<div class="uc">Ce qui change :</div><ul>${notes.map(n=>`<li>${esc(String(n))}</li>`).join("")}</ul>`:""}${updInConsult()?'<div class="uw">Consultation en cours : rien ne se mettra à jour tout seul.</div>':""}<div class="ub"><button type="button" id="upd_go">Mettre à jour maintenant</button><button type="button" id="upd_later">Plus tard</button></div>`;
+    document.getElementById("upd_go").onclick=updGo;document.getElementById("upd_later").onclick=()=>{UPD.collapsed=true;UPD.wasMain=updMain();updRender();};}
+  document.documentElement.style.setProperty("--updh",b.offsetHeight+"px");}
+function updGo(){if(updInConsult()&&!confirm("Une consultation est en cours. Mettre à jour maintenant ? Le dossier en cours est conservé en brouillon et rouvert après le déverrouillage."))return;window.__updOk=1;navigator.serviceWorker.getRegistration().then(r=>{if(r&&r.waiting)r.waiting.postMessage("skip");else location.reload();}).catch(()=>location.reload());}
+function updOnRender(){if(!UPD.ready)return;const m=updMain();if(m&&!UPD.wasMain&&UPD.collapsed)UPD.collapsed=false;UPD.wasMain=m;if(UPD.pendingReload&&m&&!updInConsult()){window.__reloading=1;location.reload();return;}updRender();}
 
 /* ===== Assistant IA (API Claude, appel direct depuis le navigateur, clé chiffrée sur l'appareil) ===== */
 const AI={key:"",model:"",busy:false,mode:"dictee",last:null};
@@ -15499,7 +15523,7 @@ function backLabel(){return isPhone()?"← Packs":"← Retour aux packs";}
 function parkAside(){const a=document.querySelector("aside"),app=document.querySelector(".app");if(a&&app&&a.parentNode!==app)app.insertBefore(a,app.firstChild);}
 function phoneLayout(){const ph=isPhone();document.body.classList.toggle("phone",ph);document.body.classList.toggle("view-sub",!!state.view);
   const slot=document.getElementById("aside_slot"),a=document.querySelector("aside");if(ph&&slot&&a&&!state.view)slot.appendChild(a);}
-function render(){parkAside();renderCore();try{phoneLayout();}catch(e){}}
+function render(){parkAside();renderCore();try{phoneLayout();}catch(e){}try{updOnRender();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p" id="go_top" ${p0?"":"disabled"} title="Imprimer le pack"><span class="ico">🖨 </span>Imprimer</button><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>

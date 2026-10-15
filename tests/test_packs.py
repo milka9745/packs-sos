@@ -285,6 +285,20 @@ async def run(width,height,label):
                     if r[0] or not r[2] or not r[1]: bad.append((th,big,n,r))
             await page.evaluate("localStorage.setItem('sos_theme','auto');localStorage.setItem('sos_bigtext','0');themeApply();")
             ok(label+" 375 px : aucune ligne d'ordonnance ne déborde, crayon visible (jour, nuit, grand texte)",not bad,bad)
+        # Bandeau « Nouvelle version disponible » (16/10/2026)
+        if width<500:
+            ub=[]
+            for th in ["day","night"]:
+                await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.removeItem('sos_theme_force');themeApply();state.sel=null;state.view='';state.patient='';render();")
+                await page.evaluate("UPD.info=null;showUpdateBar();"); await page.wait_for_timeout(700)
+                r=await page.evaluate("""()=>{const b=document.getElementById('updbar');const r=b.getBoundingClientRect();const g=document.getElementById('upd_go').getBoundingClientRect();const W=document.documentElement.clientWidth;const bg=getComputedStyle(b).backgroundColor;const j=document.querySelector('.jbar.phone');const jt=j?j.getBoundingClientRect().top:999;return {top:Math.round(r.top),w:Math.round(r.width),W,h:Math.round(r.height),go:Math.round(g.height),goR:Math.round(g.right),bg,txt:b.innerText,li:b.querySelectorAll('li').length,jt:Math.round(jt),sw:document.documentElement.scrollWidth};}""")
+                if not (r["top"]==0 and r["w"]==r["W"] and r["go"]>=48 and r["goR"]<=r["W"] and "rgb(255, 176, 0)" in r["bg"] and "40n" in r["txt"] and "Mettre à jour maintenant" in r["txt"] and 1<=r["li"]<=3 and r["jt"]>=r["h"]-2 and r["sw"]<=r["W"]): ub.append((th,r))
+            await page.evaluate("localStorage.setItem('sos_theme','auto');themeApply();")
+            ok(label+" mise à jour : bandeau pleine largeur en haut, jaune-orange jour et nuit, version, 1 à 3 lignes « Ce qui change », gros bouton (375 px)",not ub,ub)
+            st=await page.evaluate("""async()=>{const w=ms=>new Promise(r=>setTimeout(r,ms));document.getElementById('upd_later').click();await w(100);const a=document.getElementById('updbar').className;state.sel=PACKS.findIndex(p=>p.n==='Angine');render();await w(100);const b=document.getElementById('updbar').className;state.sel=null;render();await w(100);const c=document.getElementById('updbar').className;return [a,b,c];}""")
+            ok(label+" mise à jour : « Plus tard » réduit le bandeau, il revient au retour sur l'écran principal",st[0]=="mini" and st[1]=="mini" and st[2]=="",st)
+            nr=await page.evaluate("""async()=>{window.__noReload=1;state.sel=PACKS.findIndex(p=>p.n==='Angine');render();navigator.serviceWorker.dispatchEvent(new Event('controllerchange'));await new Promise(r=>setTimeout(r,300));const res=[window.__noReload===1,UPD.pendingReload,!!document.querySelector('#updbar .uw')];UPD.pendingReload=false;UPD.ready=false;document.getElementById('updbar').remove();document.documentElement.classList.remove('upd-on');document.documentElement.style.removeProperty('--updh');state.sel=null;render();return res;}""")
+            ok(label+" mise à jour : jamais de rechargement automatique pendant une consultation",nr[0] and nr[1] and nr[2],nr)
         # Cahier des corrections — points 7 et 8 (risque médical)
         r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
         ok(label+" correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif",not any(re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower()) or "Tique retirée" in v for v in r7.values()),[k for k,v in r7.items() if re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower())])
