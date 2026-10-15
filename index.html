@@ -13416,6 +13416,15 @@ const ANON_GARDER=new Set(("le la les l un une des du de d au aux en et ou mais 
 const ANON_NOMS=new Set(("marie jean pierre michel philippe alain nicolas christophe patrick daniel thomas julien david eric laurent stephane sebastien francois frederic olivier bernard nathalie isabelle sylvie catherine martine christine sophie anne francoise valerie sandrine monique nicole celine stephanie julie camille lea emma louise jade alice chloe lina rose anna mila ambre hugo lucas louis gabriel arthur jules adam leo raphael paul nathan jacques claude andre rene robert henri yves gerard roger marcel georges jeanne yvette simone suzanne odette paulette denise colette ginette josette jacqueline micheline genevieve madeleine therese huguette lucie manon ines sarah clara eva zoe nina mathis tom noah enzo ethan sacha timeo maxime antoine alexandre kevin romain clement vincent quentin mohamed ahmed ali fatima yasmine " +
  "martin durand dubois moreau simon lefebvre leroy roux bertrand morel fournier girard bonnet dupont lambert fontaine rousseau muller lefevre faure mercier blanc guerin boyer garnier chevalier legrand gauthier garcia perrin robin morin henry roussel mathieu gautier masson marchand duval denis dumont lemaire noel meyer dufour meunier brun blanchard giraud joly riviere brunet gaillard barbier arnaud martinez roche renard schmitt roy leroux colin vidal caron picard fabre aubert lemoine renaud dumas lacroix bourgeois benoit rey leclerc payet rolland guillaume lecomte lopez dupuy guillot hubert berger carpentier sanchez dupuis moulin deschamps huet vasseur perez boucher fleury royer klein jacquet poirier marty aubry guyot carre charles renault charpentier menard maillard baron bertin bailly herve schneider fernandez collet leger bouvier prevost millet perrot cousin germain breton besson langlois remy pelletier leveque perrier leblanc barre lebrun marchal weber mallet hamon boulanger jacob monnier michaud rodriguez guichard gillet etienne poulain tessier chevallier collin chauvin bouchet gay lemaitre benard marechal humbert reynaud hoarau perret barthelemy cordier pichon lejeune gilbert lamy delaunay pasquier carlier laporte petit grand noir "+
  "agnes emilie melanie amelie ophelie aurelie elodie coralie rosalie leslie natalie laurie annie virginie julie lucie sophie nathalie valerie stephanie sylvie aimee renee desiree dorothee timothee marguerite constance laurence florence clemence prudence dominique veronique angelique frederique jerome hilaire maurice beatrice patrice berenice candice eunice clarisse").split(/\s+/));
+/* Villes gardées en clair (consigne du Dr DEIE, 15/10/2026) : Orléans Métropole, Loiret, villes des hôpitaux de recours. Quartiers et lieux précis : masqués. */
+const ANON_VILLES=new Set(("orleans boigny-sur-bionne bou chanteau checy combleux fleury-les-aubrais fleury ingre la-chapelle-saint-mesmin mardie marigny-les-usages olivet ormes saint-cyr-en-val saint-denis-en-val saint-hilaire-saint-mesmin saint-jean-de-braye saint-jean-de-la-ruelle saint-jean-le-blanc saint-pryve-saint-mesmin saran semoy " +
+ "montargis gien pithiviers meung-sur-loire beaugency jargeau la-ferte-saint-aubin chateauneuf-sur-loire sully-sur-loire briare amilly malesherbes neuville-aux-bois patay artenay saint-denis-de-l'hotel tigy chaingy saint-ay cercottes chevilly donnery vennecy marcilly-en-villette ardon clery-saint-andre mareau-aux-pres jouy-le-potier sandillon darvoy " +
+ "paris tours blois chartres bourges vierzon chateauroux le-mans lyon marseille lille bordeaux nantes toulouse strasbourg rennes montpellier nice villejuif clichy creteil garches le-kremlin-bicetre kremlin-bicetre poitiers angers dijon rouen caen reims nancy limoges clermont-ferrand grenoble brest besancon amiens nimes toulon").split(/\s+/));
+function anonVille(w){const k=anonNorm(w).replace(/\s+/g,"-");return ANON_VILLES.has(k)||ANON_VILLES.has("la-"+k)||ANON_VILLES.has("le-"+k);}
+/* Quartiers d'Orléans et environs : lieux précis, masqués même sans type de lieu */
+const ANON_QUARTIERS="la Source|l['’]Argonne|les Blossières|Saint-Marceau|la Barrière Saint-Marc|les Groues|Dunois|les Aydes|la Bolière|le Larry|Saint-Loup|les Chaises|la Madeleine";
+/* Types de lieu précis : le type reste lisible, le nom est masqué */
+const ANON_LIEUX="EHPAD|Ehpad|USLD|maison de retraite|foyer|crèche|creche|halte-garderie|école|ecole|collège|college|lycée|lycee|université|faculté|stade|gymnase|piscine|salle de sport|salle|centre commercial|centre social|centre de loisirs|centre aéré|centre équestre|restaurant|brasserie|bar|café|cafe|boulangerie|pâtisserie|boucherie|pharmacie|magasin|supermarché|hypermarché|hôtel|hotel|camping|gîte|laboratoire|labo|cabinet|garage|usine|entreprise|société|chez|église|jardin|quartier|gare|aéroport|prison|maison d'arrêt|caserne|club|association|mairie|commissariat|gendarmerie|bureau|agence|banque|ferme|haras|discothèque|parking|zone|ZA|ZI|ZAC";
 const ANON_SUFFIXE=/(?:ie|ies|ite|ites|ose|oses|ee|ees|ique|iques|ment|ments|tion|tions|sion|sions|isme|ismes|algie|emie|pathie|ome|omes|ase|ases|eur|eurs|euse|euses|ant|ante|ants|antes|able|ables|aire|aires|age|ages|ure|ures|ite|ites|ance|ances|ence|ences|logue|logie|scopie|graphie|ectomie|otomie|plastie)$/;
 const ANON_CIV="M\\.|MM\\.|Mr\\.?|Mme|Mmes|Mlle|Mlles|Madame|Mesdames|Monsieur|Messieurs|Mademoiselle|Dr\\.?|Drs|Docteur|Docteure|Pr\\.?|Professeur|Professeure|Me|Maître|Maitre";
 const ANON_REL="fille|fils|enfant|mère|mere|maman|père|pere|papa|femme|épouse|epouse|mari|époux|epoux|conjoint|conjointe|compagne|compagnon|concubin|concubine|sœur|soeur|frère|frere|grand-mère|grand-mere|grand-père|grand-pere|petite-fille|petit-fils|tante|oncle|neveu|nièce|niece|cousin|cousine|voisin|voisine|ami|amie|belle-fille|beau-fils|belle-mère|beau-père|gendre|bru|tuteur|tutrice|curateur|curatrice|aidant|aidante|aide-soignante|aide-soignant|auxiliaire de vie|infirmière|infirmier|kiné|kinésithérapeute|médecin traitant|pharmacien|pharmacienne|cardiologue|pneumologue|psychiatre|pédiatre|gynécologue|sage-femme|dentiste";
@@ -13449,18 +13458,29 @@ function anonymize(text,ctx){
   const med=ctx.medicaments||new Set(); /* noms de médicaments : gardés avec leur majuscule, jamais utilisés pour démasquer le nom du patient */
   const lex=ctx.lexique||new Set();const garder=new Set((ctx.garder||[]).map(anonNorm));
   const map={},items=[],byOrig={},count={};
-  const tok=(cat,orig,label)=>{const key=cat+"|"+anonNorm(orig);if(byOrig[key])return "[["+byOrig[key]+"]]";
+  const tok=(cat,orig,label,kx)=>{const key=cat+"|"+(kx||anonNorm(orig));if(byOrig[key])return "[["+byOrig[key]+"]]";
     let base=label||cat;count[base]=(count[base]||0)+1;let t=(["PERSONNE","NOM PROPRE","MASQUÉ"].includes(base))?base+" "+count[base]:(count[base]>1?base+" "+count[base]:base);
     if(label&&map[t]!==undefined){let k=2;while(map[t+" #"+k]!==undefined)k++;t=t+" #"+k;}
     map[t]=orig;byOrig[key]=t;items.push({cat,orig,tok:t});return "[["+t+"]]";};
   let s=String(text||"");
   const R=(re,fn)=>{s=anonOutside(s,p=>p.replace(re,fn));};
+  const ART="(?:de[ \\t]+la[ \\t]+|de[ \\t]+l['’]|du[ \\t]+|des[ \\t]+|de[ \\t]+|d['’]|la[ \\t]+|le[ \\t]+|les[ \\t]+|l['’]|aux[ \\t]+|au[ \\t]+)";
+  const NOMLIEU="["+ANON_U+"0-9][\\p{L}0-9'’\\-]*(?:[ \\t]+"+ART+"?["+ANON_U+"0-9][\\p{L}0-9'’\\-]*){0,4}";
+  const cap1=l=>l.split("|").map(w=>/^[a-zà-ÿ]/.test(w)?"["+w[0]+w[0].toUpperCase()+"]"+w.slice(1):w).join("|");
+  /* 0. établissement de soins : nom gardé en clair (consigne), protégé pendant les autres passes */
+  const keep=[];
+  R(new RegExp("(?<![\\p{L}])(?:CHRU|CHU|CHR|CHD|CHS|CH|EPSM|SSR|"+cap1("centre hospitalier(?:[ \\t]+(?:régional|universitaire|départemental|spécialisé|intercommunal))*|hôpital|hopital|polyclinique|clinique|maternité|institut")+")[ \\t]+"+ART+"?"+NOMLIEU,"gu"),m=>{keep.push(m);return "[[§"+(keep.length-1)+"]]";});
   /* 1. courriel, NIR, téléphone */
   R(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g,m=>tok("COURRIEL",m));
   R(/\b[12][\s.]?\d{2}[\s.]?(?:0[1-9]|1[0-2]|[2-9]\d)[\s.]?(?:\d{2}|2[AaBb])[\s.]?\d{3}[\s.]?\d{3}(?:[\s.]?\d{2})?\b/g,m=>tok("NIR",m));
   R(/(?:(?:\+|00)33[\s.-]?(?:\(0\)[\s.-]?)?|\b0)[1-9](?:[\s.-]?\d{2}){4}\b/g,m=>tok("TÉLÉPHONE",m));
   /* 2. dates exactes → relatives ; date de naissance → âge */
-  const dateTok=(m,dt)=>{if(!dt)return m;if(ddn&&anonSameDay(dt,ddn))return tok("NAISSANCE",m,"ÂGE : "+anonAge(ddn,ref));return tok("DATE",m,anonRel(dt,ref));};
+  const dateTok=(m,dt)=>{if(!dt)return m;if(ddn&&anonSameDay(dt,ddn))return tok("NAISSANCE",m,"ÂGE : "+anonAge(ddn,ref));return tok("DATE",m,anonRel(dt,ref),dt.getTime()+"|"+anonNorm(m));};
+  const jTok=(m,dt)=>{const a=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()),b=new Date(ref.getFullYear(),ref.getMonth(),ref.getDate());const n=Math.round((a-b)/864e5);return tok("DATE",m,n===0?"J0":(n>0?"J+"+n:"J"+n),"J|"+dt.getTime()+"|"+anonNorm(m));};
+  const inYear=(d,mo,y)=>{let dt=anonDateOf(d,mo,y?(+y<100?+y+2000:+y):ref.getFullYear());if(dt&&!y&&dt-ref>45*864e5)dt=anonDateOf(d,mo,ref.getFullYear()-1);return dt;};
+  /* intervalles : « du 2 au 9 septembre 2026 », « entre le 3 et le 5/10 » → « du [[J-43]] au [[J-36]] » */
+  R(new RegExp("\\b(du|entre le|entre)(\\s+)(1er|\\d{1,2})(\\s+)(au|et le|et)(\\s+)((1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?)\\b","gi"),(m,a,s1,d1,s2,b,s3,whole,d2,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo))+1;const n=x=>x==="1er"?1:+x;const t1=inYear(n(d1),mi,y),t2=inYear(n(d2),mi,y);if(!t1||!t2)return m;return a+s1+jTok(d1,t1)+s2+b+s3+jTok(whole,t2);});
+  R(/\b(du|entre le|entre)(\s+)(\d{1,2})(\s+)(au|et le|et)(\s+)((\d{1,2})\s?[\/.]\s?(\d{1,2})(?:\s?[\/.]\s?(\d{4}|\d{2}))?)\b/gi,(m,a,s1,d1,s2,b,s3,whole,d2,mo,y)=>{const t1=inYear(+d1,+mo,y),t2=inYear(+d2,+mo,y);if(!t1||!t2)return m;return a+s1+jTok(d1,t1)+s2+b+s3+jTok(whole,t2);});
   R(/\b(\d{4})-(\d{2})-(\d{2})\b/g,(m,y,mo,d)=>dateTok(m,anonDateOf(d,mo,y)));
   R(/\b(\d{1,2})\s?[\/.\-]\s?(\d{1,2})\s?[\/.\-]\s?(\d{4}|\d{2})\b/g,(m,d,mo,y)=>dateTok(m,anonDateOf(d,mo,y)));
   R(new RegExp("\\b(1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?\\b","gi"),(m,d,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo));let yy=y?+y:ref.getFullYear();let dt=anonDateOf(d==="1er"?1:d,mi+1,yy);if(dt&&!y&&dt-ref>45*864e5)dt=anonDateOf(d==="1er"?1:d,mi+1,yy-1);return dateTok(m,dt);});
@@ -13472,11 +13492,16 @@ function anonymize(text,ctx){
   R(/\b\d(?:[ .-]?\d){8,}\b/g,m=>tok("NUMÉRO",m));
   R(/\b(digicode|code porte|code d'entrée|code d'entree|code de la porte|code)\s*:?\s*([0-9]{2,}[A-Za-z]?|[A-Za-z][0-9]{2,})\b/gi,(m,k,c)=>k+" "+tok("CODE",c));
   /* 4. adresse : celle de la tournée, puis toute adresse dictée */
-  [].concat(ctx.adresse||[]).map(a=>String(a||"").trim()).filter(a=>a.length>=5).sort((a,b)=>b.length-a.length).forEach(a=>{R(new RegExp(anonEsc(a).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));const v=a.split(/,/)[0].trim();if(v.length>=8&&v!==a)R(new RegExp(anonEsc(v).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));});
+  /* la ville connue reste en clair : seule la partie précise (voie, lieu-dit, établissement) est cherchée telle quelle */
+  const sansVille=a=>{let x=String(a||"").trim();const m=/^(.*?)[,\s]*\b\d{5}\s+(.+)$/.exec(x);if(m&&anonVille(m[2].trim()))x=m[1];else{const p=x.split(/,/);if(p.length>1&&anonVille(p[p.length-1].trim()))x=p.slice(0,-1).join(",");}return x.replace(/[,\s]+$/,"").trim();};
+  [].concat(ctx.adresse||[]).map(sansVille).filter(a=>a.length>=5).sort((a,b)=>b.length-a.length).forEach(a=>{R(new RegExp(anonEsc(a).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));const v=a.split(/,/)[0].trim();if(v.length>=8&&v!==a)R(new RegExp(anonEsc(v).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));});
   const voie="(?:rue|avenue|av\\.?|boulevard|bd|bld|place|pl\\.|allée|allee|impasse|imp\\.|chemin|route|rte|quai|cours|square|résidence|residence|lotissement|faubourg|fbg|passage|sentier|voie|hameau|cité|cite|mail|esplanade|promenade|rond-point|lieu-dit|lieudit|chaussée|venelle|ruelle|clos|domaine|parc)";
   R(new RegExp("\\b\\d{1,4}\\s?(?:bis|ter|quater|[a-d])?\\s*,?\\s+"+voie+"\\b[^,.;:\\n()]{0,60}","gi"),m=>tok("ADRESSE",m.trim())+(/\s$/.test(m)?" ":""));
   R(new RegExp("\\b"+voie+"\\s+(?:de\\s+la\\s+|de\\s+l'|de\\s+l’|du\\s+|des\\s+|de\\s+|d'|d’|la\\s+|le\\s+|les\\s+)?["+ANON_U+"0-9][\\p{L}'’\\-]*(?:\\s+(?:de\\s+la\\s+|de\\s+|du\\s+|des\\s+|d'|la\\s+|le\\s+)?["+ANON_U+"][\\p{L}'’\\-]*)*","gu"),m=>tok("ADRESSE",m));
-  R(new RegExp("\\b(?:F-)?\\d{5}\\s+(?:["+ANON_U+"][a-zà-öø-ÿ]{2,}|["+ANON_U+"]{3,})(?:[\\s-]+(?:sur|sous|en|de|la|le|les|lès|lez|aux|du|["+ANON_U+"][\\p{L}'’]+))*","gu"),m=>/\b(?:UI|MG|ML)\b/.test(m)?m:tok("ADRESSE",m));
+  R(new RegExp("\\b(?:F-)?\\d{5}\\s+(?:["+ANON_U+"][a-zà-öø-ÿ]{2,}|["+ANON_U+"]{3,})(?:[\\s-]+(?:sur|sous|en|de|la|le|les|lès|lez|aux|du|["+ANON_U+"][\\p{L}'’]+))*","gu"),m=>{if(/\b(?:UI|MG|ML)\b/.test(m))return m;const c=/^((?:F-)?\d{5})(\s+)(.+)$/.exec(m);return c&&anonVille(c[3])?tok("CODE POSTAL",c[1])+c[2]+c[3]:tok("ADRESSE",m);});
+  /* 4 bis. lieux précis : EHPAD, école, stade, commerce, employeur… (type lisible, nom masqué) et quartiers */
+  R(new RegExp("(?<![\\p{L}])("+cap1(ANON_LIEUX)+")([ \\t]+)(?!(?:M\\.|Mme|Mlle|Madame|Monsieur|Mademoiselle|Dr|Docteur|Pr)\\b)("+ART+"?"+NOMLIEU+")","gu"),(m,t,sp,nm)=>t+sp+tok("LIEU",nm));
+  R(new RegExp("(^|[^\\p{L}])((?:à|de|du|quartier)[ \\t]+)?("+ANON_QUARTIERS+")(?![\\p{L}])","gu"),(m,pre,de,q)=>pre+(de||"")+tok("LIEU",q));
   /* 5. identité connue : patient, autres patients, médecin, proches nommés */
   const sp=ctx.nom||ctx.prenom?{nom:anonNameWords([ctx.nom]),prenom:anonNameWords([ctx.prenom])}:anonSplitName(ctx.patient);
   const nomW=new Set(anonNameWords(sp.nom).map(anonNorm)),preW=new Set(anonNameWords(sp.prenom).map(anonNorm));
@@ -13509,7 +13534,7 @@ function anonymize(text,ctx){
   const mq=new Set((ctx.masquer||[]).map(anonNorm).filter(Boolean));
   if(mq.size)s=anonOutside(s,p=>runs(p,w=>mq.has(anonNorm(w))?{grp:"mq",make:o=>tok("MASQUÉ",o)}:null));
   /* 8. noms propres restants : majuscule hors début de phrase (ou mot inconnu en début de phrase), capitales inconnues */
-  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(ANON_NOMS.has(k)&&!garder.has(k))return false;return ANON_GARDER.has(k)||lex.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
+  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(anonVille(k))return true;if(ANON_NOMS.has(k)&&!garder.has(k))return false;return ANON_GARDER.has(k)||lex.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
   s=anonOutside(s,(p,seg)=>runs(p,(w,idx,str)=>{
     if(!new RegExp("^["+ANON_U+"]").test(w))return null;
     const core=w.replace(/^[dlj][’']/i,"");if(core.length<2||!new RegExp("^["+ANON_U+"]").test(core))return null;
@@ -13520,6 +13545,7 @@ function anonymize(text,ctx){
     if(start&&core!==core.toUpperCase()&&!ANON_NOMS.has(anonNorm(core))&&ANON_SUFFIXE.test(anonNorm(core)))return null;
     return {grp:"np",make:o=>{const el=/^[dlj][’']/i.test(o)?o.slice(0,2):"";return el+tok("NOM PROPRE",o.slice(el.length));}};
   }));
+  s=s.replace(/\[\[§(\d+)\]\]/g,(m,i)=>keep[+i]);   /* établissements de soins remis en clair */
   return {text:s,map,items};
 }
 /* Contrôle final avant envoi : aucun fragment d'identité ne doit subsister. → liste des fuites [{cat, frag}] */
@@ -13535,11 +13561,12 @@ function anonLeaks(text,ctx){
     else if(new RegExp("\\b(?:1er|0?"+ddn.getDate()+")\\s+"+ANON_MOIS[ddn.getMonth()]+"\\s+"+y,"i").test(anonNorm(t)))leaks.push({cat:"naissance",frag:d+"/"+m+"/"+y});}
   [].concat(ctx.tel||[]).forEach(x=>{const tel=anonDigits(x);if(tel.length>=9&&has(tel.slice(-9)))leaks.push({cat:"téléphone",frag:x});});
   const nir=anonDigits(ctx.nir);if(nir.length>=13&&has(nir.slice(0,13)))leaks.push({cat:"NIR",frag:ctx.nir});
-  [].concat(ctx.adresse||[]).filter(Boolean).forEach(adr=>{anonNorm(adr).split(/[^a-z0-9]+/).filter(w=>w.length>=4&&!/^\d+$/.test(w)&&!ANON_GARDER.has(w)&&!lex.has(w)&&!/^(rue|avenue|boulevard|place|allee|impasse|chemin|route|quai|cours|square|residence|lotissement|faubourg|bis|ter|france)$/.test(w)).forEach(w=>{if(nt.includes(" "+w+" "))leaks.push({cat:"adresse",frag:w});});
+  [].concat(ctx.adresse||[]).filter(Boolean).forEach(adr=>{const villes=new Set();String(adr).split(/,|\b\d{5}\b/).map(x=>x.trim()).filter(anonVille).forEach(v=>anonNorm(v).split(/[^a-z0-9]+/).forEach(w=>villes.add(w)));anonNorm(adr).split(/[^a-z0-9]+/).filter(w=>!villes.has(w)).filter(w=>w.length>=4&&!/^\d+$/.test(w)&&!ANON_GARDER.has(w)&&!lex.has(w)&&!/^(rue|avenue|boulevard|place|allee|impasse|chemin|route|quai|cours|square|residence|lotissement|faubourg|bis|ter|france)$/.test(w)).forEach(w=>{if(nt.includes(" "+w+" "))leaks.push({cat:"adresse",frag:w});});
     const cp=(String(adr).match(/\b\d{5}\b/)||[])[0];if(cp&&new RegExp("(^|\\D)"+cp+"(\\D|$)").test(t))leaks.push({cat:"adresse",frag:cp});});
   /* toute date complète restante (jj/mm/aaaa, aaaa-mm-jj, 12 mars 2024) */
   const dm=t.match(/\b\d{1,2}\s?[\/.\-]\s?\d{1,2}\s?[\/.\-]\s?(?:\d{4}|\d{2})\b|\b\d{4}-\d{2}-\d{2}\b/g)||[];dm.forEach(x=>{const p=x.split(/\s?[\/.\-]\s?/);if(p[0].length===4||anonDateOf(p[0],p[1],p[2]))leaks.push({cat:"date exacte",frag:x});});
   const dl=t.match(new RegExp("\\b(?:1er|\\d{1,2})\\s+(?:"+ANON_MOIS_RE+")\\s+\\d{4}\\b","gi"))||[];dl.forEach(x=>leaks.push({cat:"date exacte",frag:x}));
+  const di=t.match(new RegExp("\\b(?:du|entre le|entre)\\s+(?:1er|\\d{1,2})\\s+(?:au|et le|et)\\s+(?:1er|\\d{1,2})\\s*(?:"+ANON_MOIS_RE+"|[\\/.]\\s?\\d{1,2})","gi"))||[];di.forEach(x=>leaks.push({cat:"intervalle de dates",frag:x}));
   if(/(?:(?:\+|00)33|\b0)[1-9](?:[\s.-]?\d{2}){4}\b/.test(t))leaks.push({cat:"téléphone",frag:"numéro de téléphone"});
   if(/[\w.+-]+@[\w-]+\.[\w.-]+/.test(t))leaks.push({cat:"courriel",frag:"adresse électronique"});
   const seen=new Set();return leaks.filter(l=>{const k=l.cat+"|"+l.frag;if(seen.has(k))return false;seen.add(k);return true;});

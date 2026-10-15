@@ -9,6 +9,10 @@ const A=new Function(html.slice(ia,ib)+";return {anonymize,anonLeaks,reidentify,
 const pa=html.search(/const PACKS\s*=/),pb=html.indexOf("const SYSTEMS");
 const WORDS=html.slice(pa,pb).match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ]{2,}/g)||[];
 const LEX=new Set(WORDS.map(A.anonNorm)),COUR=new Set(WORDS.filter(w=>w===w.toLowerCase()).map(A.anonNorm));
+// 10. Médicaments jamais masqués (base intégrée : premier mot de chaque spécialité + DCI, comme aiMedWords)
+const bA=html.indexOf("const blob=`")+12,bB=html.indexOf("`;blob.split",bA);
+const MED=new Set();const addW=w=>{const k=A.anonNorm(w).replace(/[.,;:]+$/,"");if(k.length>=3&&!/^\d/.test(k))MED.add(k);};
+html.slice(bA,bB).split("\n").forEach(l=>{if(!l)return;const i=l.indexOf("=");const k=i<0?l:l.slice(0,i);addW(k.trim().split(/\s+/)[0]);if(i>=0)l.slice(i+1).split("|").forEach(d=>d.split(/[\s,()+\/]+/).forEach(addW));});
 const REF="15/10/2026";
 let ok=0,ko=0;const res=[];
 function t(name,cond,info){res.push([name,!!cond]);if(cond){ok++;console.log("OK  ",name);}else{ko++;console.log("FAIL",name,info===undefined?"":JSON.stringify(info));}}
@@ -54,7 +58,7 @@ t("relatif au-delà d'un mois : en mois",A.anonRel(A.anonParseDDN("15/05/2026"),
 
 // 4. Adresse, téléphone, NIR, courriel, codes
 r=run("Domicile : 12 rue des Lilas, 45000 Orléans, bâtiment B, digicode 4512B. Tél 06 12 34 56 78 ou +33 2 38 11 22 33. NIR 1 85 03 45 234 567 89. Mail jp.martin@orange.fr",{patient:"MARTIN Jean",adresse:["12 rue des Lilas, 45000 Orléans"],tel:["06 12 34 56 78"],nir:"1 85 03 45 234 567 89"});
-t("adresse retirée (voie, code postal, ville)",absent(r.text,["lilas","45000","orléans"]),r.text);
+t("adresse retirée (voie, code postal), ville gardée en clair",absent(r.text,["lilas","45000"])&&r.text.includes("[[CODE POSTAL]] Orléans"),r.text);
 t("digicode retiré",!r.text.includes("4512B"),r.text);
 t("téléphones (06… et +33…) retirés",!/06 12|38 11/.test(r.text),r.text);
 t("NIR retiré",!/234 567/.test(r.text)&&r.text.includes("[[NIR]]"),r.text);
@@ -89,6 +93,25 @@ t("début de phrase : prénoms masqués, même à terminaison de mot courant",ab
 r=run("Papa M. Lambert Thomas joignable.",{patient:"LAMBERT Chloé"});
 t("civilité abrégée après un lien (Papa M.) : pas de jeton parasite",r.text.includes("M. ")&&!/\[\[PERSONNE \d\]\]\./.test(r.text)&&!/thomas|lambert/i.test(r.text),r.text);
 
+// 5 bis. Consigne du 15/10/2026 : hôpital et ville en clair, tous les autres lieux précis masqués
+r=run("Transfert CHR d'Orléans. Suivi à l'Institut Gustave Roussy, accouchement à la maternité Oréliance, opéré à la clinique de l'Archette, connu du CHD Daumezon, scanner au CHU de Tours.",{patient:"X Y"});
+t("noms d'hôpitaux gardés en clair",["CHR d'Orléans","Institut Gustave Roussy","maternité Oréliance","clinique de l'Archette","CHD Daumezon","CHU de Tours"].every(x=>r.text.includes(x)),r.text);
+r=run("Vit à Saint-Jean-de-Braye, travaille à Olivet, hospitalisé à Paris, pompiers de Fleury-les-Aubrais, famille à La Ferté-Saint-Aubin.",{patient:"X Y"});
+t("villes gardées en clair",["Saint-Jean-de-Braye","Olivet","Paris","Fleury-les-Aubrais","La Ferté-Saint-Aubin"].every(x=>r.text.includes(x)),r.text);
+r=run("Vit à l'EHPAD les Jardins de Saran. Chute au stade de la Source. Fils à l'école Jean Zay, fille à la crèche les Petits Loups. Coupure à la boulangerie Paul, repas au restaurant Le Lutin Gourmand, magasinier chez Leroy Merlin, ordonnance à la pharmacie du Martroi, prise de sang au labo Bioallians. Habite à la Source, quartier Saint-Marceau.",{patient:"X Y",medicaments:MED});
+t("lieux précis masqués même s'ils ressemblent à des mots courants",absent(r.text,["jardins","source","zay","loups","paul","lutin","gourmand","leroy","merlin","martroi","bioallians","marceau"]),r.text);
+t("type de lieu gardé lisible (EHPAD, stade, école, boulangerie…)",["EHPAD [[LIEU","stade [[LIEU","école [[LIEU","boulangerie [[LIEU","chez [[LIEU","pharmacie [[LIEU"].every(x=>r.text.includes(x)),r.text);
+t("lieux réintégrés à l'identique",r.back.text.startsWith("Vit à l'EHPAD les Jardins de Saran. Chute au stade de la Source.")&&r.back.text.endsWith("Habite à la Source, quartier Saint-Marceau."),r.back.text);
+r=run("Visite lieu-dit la Mothe à Saint-Cyr-en-Val.",{patient:"X Y",adresse:["lieu-dit la Mothe, 45590 Saint-Cyr-en-Val"]});
+t("adresse connue : lieu-dit masqué, ville en clair, pas de fausse fuite",!/mothe/i.test(r.text)&&r.text.includes("Saint-Cyr-en-Val")&&!r.leaks.length,[r.text,r.leaks]);
+// Intervalles de dates
+r=run("Hospitalisée du 2 au 9 septembre 2026, puis entre le 3 et le 5/10, et du 2 au 4 octobre.",{patient:"X Y"});
+t("intervalle « du 2 au 9 septembre 2026 » → du J-43 au J-36",r.text.includes("du [[J-43]] au [[J-36]]"),r.text);
+t("intervalle « entre le 3 et le 5/10 » → J-12 et J-10",r.text.includes("entre le [[J-12]] et le [[J-10]]"),r.text);
+t("même numéro de jour dans deux intervalles : jetons distincts",r.text.includes("du [[J-13]] au [[J-11]]")&&!r.leaks.length,r.text);
+t("intervalles réintégrés à l'identique",r.back.text==="Hospitalisée du 2 au 9 septembre 2026, puis entre le 3 et le 5/10, et du 2 au 4 octobre."&&!r.back.unresolved.length,r.back);
+t("intervalle resté en clair détecté comme fuite",A.anonLeaks("hospitalisé du 2 au 9 septembre",{patient:"X Y"}).some(l=>l.cat==="intervalle de dates"));
+
 // 6. Contrôle de fuite
 t("fuite de nom détectée",A.anonLeaks("Patient Dupont vu ce jour",{patient:"DUPONT Marie",lexique:LEX}).some(l=>l.cat==="nom"));
 t("fuite de date de naissance détectée",A.anonLeaks("né le 12/03/1985",{patient:"X Y",ddn:"12/03/1985"}).some(l=>l.cat==="naissance"));
@@ -117,10 +140,6 @@ t("nombre retiré d'une reformulation détecté",!A.aiFactGuard("douleur à 7/10
 t("sigles chiffrés (SpO2, HbA1c) ne comptent pas comme nombres",A.aiFactGuard("SpO2 95 %","SpO2 95 %, HbA1c dans la norme").ok);
 t("reformulation fidèle acceptée",A.aiFactGuard("patient très agité, TA 13/8","patient agité, TA 13/8",true).ok);
 
-// 10. Médicaments jamais masqués (base intégrée : premier mot de chaque spécialité + DCI, comme aiMedWords)
-const bA=html.indexOf("const blob=`")+12,bB=html.indexOf("`;blob.split",bA);
-const MED=new Set();const addW=w=>{const k=A.anonNorm(w).replace(/[.,;:]+$/,"");if(k.length>=3&&!/^\d/.test(k))MED.add(k);};
-html.slice(bA,bB).split("\n").forEach(l=>{if(!l)return;const i=l.indexOf("=");const k=i<0?l:l.slice(0,i);addW(k.trim().split(/\s+/)[0]);if(i>=0)l.slice(i+1).split("|").forEach(d=>d.split(/[\s,()+\/]+/).forEach(addW));});
 t("base intégrée chargée (plus de 3 000 noms)",MED.size>3000,MED.size);
 /* Médicaments absents des fiches actuelles (vérifié) + médicaments courants des fiches */
 const DICT="Sous Januvia, Aricept et Ebixa. Modopar arrêté, Lyrica le soir, Tercian si agitation. Ezetrol et Inegy. Aussi Eliquis, Kardégic, Levothyrox et Tahor.";

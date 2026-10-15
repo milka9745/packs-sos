@@ -10,7 +10,7 @@ mark{background:var(--tok);color:var(--tokf);border-radius:3px;padding:0 2px}.w{
 <body><main><h1>Ce qui partirait à l'IA — 20 dictées fictives</h1>
 <p class="m">Généré par <code>tests/test_dictees.py</code> dans l'application v41 (fonction réelle <code>aiPrepare</code>), consultation du 15/10/2026. Aucun envoi : l'API est bloquée pendant le test (0 requête). Identités, adresses et numéros inventés.</p>
 <p><b>20/20</b> dictées sans fragment d'identité et sans médicament perdu.</p>
-<p class="m"><b>Relecture (15/10/2026)</b> : « stade de la Source » (n° 10) et « CHR Orléans » (n° 2) partent en clair, mots courants ou ville du centre, non identifiants seuls ; dans « du 2 au 9 septembre 2026 » (n° 14), le premier jour reste un chiffre seul ; une enseigne ou un laboratoire peut être masqué en trop (Paul, Bioallians), sans risque, réintégré au retour.</p>
+<p class="m"><b>Règles du 15/10/2026</b> : nom de l’hôpital (CHR, CHU, clinique, maternité, institut) et ville gardés en clair ; tous les autres lieux précis masqués (rue, lieu-dit, EHPAD, école, crèche, stade, commerce, employeur, quartier), le type de lieu restant lisible ; intervalles « du 2 au 9 septembre » convertis en « du J-x au J-y ».</p>
 <section class="c ok"><h2>1. Cystite, dictée en minuscules <span class="b ok">Rien d'identifiant</span></h2>
 <p class="m">Patient fictif : <b>DUPONT Marie</b>, né(e) le 12/03/1985 · adresse connue : 8 rue Bannier, 45000 Orléans · tél. connu : 06 12 34 56 78</p>
 <h3>Dictée</h3><p class="d">Visite 8 rue Bannier 3e étage. mme dupont marie 41 ans brûlures mictionnelles depuis le 13/10 pollakiurie pas de fièvre pas de douleur lombaire. allergie amoxicilline. traitement habituel Levothyrox 75. BU leucocytes plus nitrites plus. rappeler le mari au 06 12 34 56 78 si besoin. Cystite simple, Monuril.</p>
@@ -45,8 +45,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-<mark>[[PRÉNOM DU PATIENT]]</mark> le <mark>[[NOM DU PATIENT]]</mark> 47 ans lombalgie aiguë depuis hier en soulevant un carton au travail, magasinier chez <mark>[[NOM PROPRE 1]]</mark> à <mark>[[NOM PROPRE 2]]</mark>. Lasègue négatif, pas de déficit, pas de trouble sphinctérien. A pris Doliprane et Ibuprofène sans effet. Arrêt de travail 5 jours. Bi-Profénid, Acupan, Thiocolchicoside en option.</pre>
-<p class="m"><b>Retiré (4)</b> : jean-baptiste → [[PRÉNOM DU PATIENT]] · gall → [[NOM DU PATIENT]] · Leroy Merlin → [[NOM PROPRE 1]] · Olivet → [[NOM PROPRE 2]]</p>
+<mark>[[PRÉNOM DU PATIENT]]</mark> le <mark>[[NOM DU PATIENT]]</mark> 47 ans lombalgie aiguë depuis hier en soulevant un carton au travail, magasinier chez <mark>[[LIEU]]</mark> à Olivet. Lasègue négatif, pas de déficit, pas de trouble sphinctérien. A pris Doliprane et Ibuprofène sans effet. Arrêt de travail 5 jours. Bi-Profénid, Acupan, Thiocolchicoside en option.</pre>
+<p class="m"><b>Retiré (3)</b> : Leroy Merlin → [[LIEU]] · jean-baptiste → [[PRÉNOM DU PATIENT]] · gall → [[NOM DU PATIENT]]</p>
 
 
 
@@ -58,8 +58,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-<mark>[[PRÉNOM DU PATIENT]]</mark> 3 ans 14 kilos amené par sa maman Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 1]]</mark> pour fièvre à 39,5 depuis le <mark>[[J-2]]</mark>, otalgie droite. Tympan droit bombé. Pas de vomissement. Va à la crèche les Petits <mark>[[NOM PROPRE 2]]</mark> à <mark>[[NOM PROPRE 3]]</mark>. Clamoxyl et Doliprane pédiatrique. Maman joignable au <mark>[[TÉLÉPHONE]]</mark>.</pre>
-<p class="m"><b>Retiré (7)</b> : 07 81 45 22 10 → [[TÉLÉPHONE]] · 13 octobre → [[J-2]] · Léo → [[PRÉNOM DU PATIENT]] · Petit → [[NOM DU PATIENT]] · Sandrine → [[NOM PROPRE 1]] · Loups → [[NOM PROPRE 2]] · Fleury-les-Aubrais → [[NOM PROPRE 3]]</p>
+<mark>[[PRÉNOM DU PATIENT]]</mark> 3 ans 14 kilos amené par sa maman Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 1]]</mark> pour fièvre à 39,5 depuis le <mark>[[J-2]]</mark>, otalgie droite. Tympan droit bombé. Pas de vomissement. Va à la crèche <mark>[[LIEU]]</mark> à Fleury-les-Aubrais. Clamoxyl et Doliprane pédiatrique. Maman joignable au <mark>[[TÉLÉPHONE]]</mark>.</pre>
+<p class="m"><b>Retiré (6)</b> : 07 81 45 22 10 → [[TÉLÉPHONE]] · 13 octobre → [[J-2]] · les Petits Loups → [[LIEU]] · Léo → [[PRÉNOM DU PATIENT]] · Petit → [[NOM DU PATIENT]] · Sandrine → [[NOM PROPRE 1]]</p>
 
 
 
@@ -71,8 +71,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Appel régulation pour agitation. Patient amené par les pompiers de <mark>[[NOM PROPRE 1]]</mark>, connu du CHD <mark>[[NOM PROPRE 2]]</mark>, schizophrénie, traitement Tercian et Abilify, arrêt du traitement depuis 3 semaines selon sa mère Mme <mark>[[NOM DU PATIENT]]</mark> joignable au <mark>[[TÉLÉPHONE]]</mark>. Propos délirants, pas d&#x27;idée suicidaire exprimée. Avis psychiatre de garde Dr <mark>[[PERSONNE 1]]</mark> à 23 h 40. Certificat SDTU rédigé, tiers la mère.</pre>
-<p class="m"><b>Retiré (5)</b> : 06.98.76.54.32 → [[TÉLÉPHONE]] · Bernard → [[NOM DU PATIENT]] · Lefèvre → [[PERSONNE 1]] · Fleury → [[NOM PROPRE 1]] · Daumezon → [[NOM PROPRE 2]]</p>
+Appel régulation pour agitation. Patient amené par les pompiers de Fleury, connu du CHD Daumezon, schizophrénie, traitement Tercian et Abilify, arrêt du traitement depuis 3 semaines selon sa mère Mme <mark>[[NOM DU PATIENT]]</mark> joignable au <mark>[[TÉLÉPHONE]]</mark>. Propos délirants, pas d&#x27;idée suicidaire exprimée. Avis psychiatre de garde Dr <mark>[[PERSONNE 1]]</mark> à 23 h 40. Certificat SDTU rédigé, tiers la mère.</pre>
+<p class="m"><b>Retiré (3)</b> : 06.98.76.54.32 → [[TÉLÉPHONE]] · Bernard → [[NOM DU PATIENT]] · Lefèvre → [[PERSONNE 1]]</p>
 
 
 
@@ -84,8 +84,8 @@ Appel régulation pour agitation. Patient amené par les pompiers de <mark>[[NOM
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Couple vu ensemble, <mark>[[PRÉNOM DU PATIENT]]</mark> et <mark>[[AUTRE PATIENT]]</mark> <mark>[[NOM DU PATIENT]]</mark>, gastro depuis samedi après repas au restaurant Le <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark>. Vomissements, diarrhée sans sang. <mark>[[AUTRE PATIENT]]</mark> sous Metformine et Januvia, à suspendre. Pas de signe de déshydratation.</pre>
-<p class="m"><b>Retiré (5)</b> : rue de Bourgogne → [[ADRESSE]] · Ana → [[PRÉNOM DU PATIENT]] · Luis → [[AUTRE PATIENT]] · Garcia → [[NOM DU PATIENT]] · Lutin Gourmand → [[NOM PROPRE 1]]</p>
+Couple vu ensemble, <mark>[[PRÉNOM DU PATIENT]]</mark> et <mark>[[AUTRE PATIENT]]</mark> <mark>[[NOM DU PATIENT]]</mark>, gastro depuis samedi après repas au restaurant <mark>[[LIEU]]</mark> <mark>[[ADRESSE]]</mark>. Vomissements, diarrhée sans sang. <mark>[[AUTRE PATIENT]]</mark> sous Metformine et Januvia, à suspendre. Pas de signe de déshydratation.</pre>
+<p class="m"><b>Retiré (5)</b> : rue de Bourgogne → [[ADRESSE]] · Le Lutin Gourmand → [[LIEU]] · Ana → [[PRÉNOM DU PATIENT]] · Luis → [[AUTRE PATIENT]] · Garcia → [[NOM DU PATIENT]]</p>
 
 
 
@@ -110,8 +110,8 @@ Mme <mark>[[NOM DU PATIENT]]</mark> demande un certificat, envoie les résultats
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Visite <mark>[[ADRESSE]]</mark> à <mark>[[NOM PROPRE 1]]</mark>, patiente en HAD pour cancer du pancréas, infirmière <mark>[[PERSONNE 1]]</mark> de l&#x27;HAD présente. Douleurs non contrôlées malgré Skenan 30 et Actiskenan 10. Fille Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 2]]</mark> au <mark>[[TÉLÉPHONE]]</mark> d&#x27;accord avec le confort. Majoration Skenan, Oramorph si troubles de déglutition, Scopoderm.</pre>
-<p class="m"><b>Retiré (6)</b> : 06 22 11 00 99 → [[TÉLÉPHONE]] · lieu-dit la Mothe → [[ADRESSE]] · Morel → [[NOM DU PATIENT]] · Sandrine → [[PERSONNE 1]] · Saint-Cyr-en-Val → [[NOM PROPRE 1]] · Christine → [[NOM PROPRE 2]]</p>
+Visite <mark>[[ADRESSE]]</mark> à Saint-Cyr-en-Val, patiente en HAD pour cancer du pancréas, infirmière <mark>[[PERSONNE 1]]</mark> de l&#x27;HAD présente. Douleurs non contrôlées malgré Skenan 30 et Actiskenan 10. Fille Mme <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 1]]</mark> au <mark>[[TÉLÉPHONE]]</mark> d&#x27;accord avec le confort. Majoration Skenan, Oramorph si troubles de déglutition, Scopoderm.</pre>
+<p class="m"><b>Retiré (5)</b> : 06 22 11 00 99 → [[TÉLÉPHONE]] · lieu-dit la Mothe → [[ADRESSE]] · Morel → [[NOM DU PATIENT]] · Sandrine → [[PERSONNE 1]] · Christine → [[NOM PROPRE 1]]</p>
 
 
 
@@ -136,8 +136,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Entorse cheville gauche au foot ce soir au stade de la Source. Ottawa négatif. Joignable au <mark>[[TÉLÉPHONE]]</mark>. Kiné au cabinet <mark>[[NOM PROPRE 1]]</mark> Kiné. Bi-Profénid, attelle Aircast, béquilles.</pre>
-<p class="m"><b>Retiré (2)</b> : +33 6 45 12 78 90 → [[TÉLÉPHONE]] · Rivière → [[NOM PROPRE 1]]</p>
+Entorse cheville gauche au foot ce soir au stade <mark>[[LIEU]]</mark>. Ottawa négatif. Joignable au <mark>[[TÉLÉPHONE]]</mark>. Kiné au cabinet <mark>[[LIEU 2]]</mark>. Bi-Profénid, attelle Aircast, béquilles.</pre>
+<p class="m"><b>Retiré (3)</b> : +33 6 45 12 78 90 → [[TÉLÉPHONE]] · de la Source → [[LIEU]] · Rivière Kiné → [[LIEU 2]]</p>
 
 
 
@@ -162,11 +162,11 @@ Hypoglycémie à 0,45 g/l retrouvée par son épouse <mark>[[NOM PROPRE 1]]</mar
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Épistaxis abondante sous Previscan, INR à 4,2 fait au labo <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark> ce matin. Méchage. Contrôle INR le <mark>[[J+2]]</mark>. Médecin traitant Dr <mark>[[PERSONNE 1]]</mark> à <mark>[[NOM PROPRE 2]]</mark> prévenu.</pre>
-<p class="m"><b>Retiré (5)</b> : 17/10 → [[J+2]] · rue de la République → [[ADRESSE]] · Blanc → [[PERSONNE 1]] · Bioallians → [[NOM PROPRE 1]] · Saint-Jean-de-Braye → [[NOM PROPRE 2]]</p>
+Épistaxis abondante sous Previscan, INR à 4,2 fait au labo <mark>[[LIEU]]</mark> <mark>[[ADRESSE]]</mark> ce matin. Méchage. Contrôle INR le <mark>[[J+2]]</mark>. Médecin traitant Dr <mark>[[PERSONNE 1]]</mark> à Saint-Jean-de-Braye prévenu.</pre>
+<p class="m"><b>Retiré (4)</b> : 17/10 → [[J+2]] · rue de la République → [[ADRESSE]] · Bioallians → [[LIEU]] · Blanc → [[PERSONNE 1]]</p>
 
 
-<p class="t">Masqué peut-être en trop (sans risque, réintégré au retour ; touchez-le à l’écran pour le rendre) : Bioallians</p>
+
 </section><section class="c ok"><h2>13. Asthme de l&#x27;enfant, école et papa <span class="b ok">Rien d'identifiant</span></h2>
 <p class="m">Patient fictif : <b>LAMBERT Chloé</b>, né(e) le 22/02/2016</p>
 <h3>Dictée</h3><p class="d">Crise d&#x27;asthme, Chloé 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d&#x27;inhalation, Célestène. École Jean Zay. Papa M. Lambert Thomas joignable 0612457890.</p>
@@ -175,8 +175,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Crise d&#x27;asthme, <mark>[[PRÉNOM DU PATIENT]]</mark> 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d&#x27;inhalation, Célestène. École <mark>[[NOM PROPRE 1]]</mark>. Papa M. <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 2]]</mark> joignable <mark>[[TÉLÉPHONE]]</mark>.</pre>
-<p class="m"><b>Retiré (5)</b> : 0612457890 → [[TÉLÉPHONE]] · Chloé → [[PRÉNOM DU PATIENT]] · Lambert → [[NOM DU PATIENT]] · Jean Zay → [[NOM PROPRE 1]] · Thomas → [[NOM PROPRE 2]]</p>
+Crise d&#x27;asthme, <mark>[[PRÉNOM DU PATIENT]]</mark> 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d&#x27;inhalation, Célestène. École <mark>[[LIEU]]</mark>. Papa M. <mark>[[NOM DU PATIENT]]</mark> <mark>[[NOM PROPRE 1]]</mark> joignable <mark>[[TÉLÉPHONE]]</mark>.</pre>
+<p class="m"><b>Retiré (5)</b> : 0612457890 → [[TÉLÉPHONE]] · Jean Zay → [[LIEU]] · Chloé → [[PRÉNOM DU PATIENT]] · Lambert → [[NOM DU PATIENT]] · Thomas → [[NOM PROPRE 1]]</p>
 
 
 
@@ -188,8 +188,8 @@ Crise d&#x27;asthme, <mark>[[PRÉNOM DU PATIENT]]</mark> 10 ans 32 kg, sibilants
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Hospitalisée du 2 au <mark>[[il y a 1 mois]]</mark> au CHR pour pneumopathie, sortie sous Augmentin jusqu&#x27;au <mark>[[J-29]]</mark>. Depuis le <mark>[[J-3]]</mark> reprise de toux fébrile. Vaccin grippe fait le <mark>[[J-14]]</mark>. Kiné respiratoire avec M. <mark>[[PERSONNE 1]]</mark>.</pre>
-<p class="m"><b>Retiré (5)</b> : 9 septembre 2026 → [[il y a 1 mois]] · 12 octobre → [[J-3]] · 1er octobre → [[J-14]] · 16/09 → [[J-29]] · Vincent → [[PERSONNE 1]]</p>
+Hospitalisée du <mark>[[J-43]]</mark> au <mark>[[J-36]]</mark> au CHR pour pneumopathie, sortie sous Augmentin jusqu&#x27;au <mark>[[J-29]]</mark>. Depuis le <mark>[[J-3]]</mark> reprise de toux fébrile. Vaccin grippe fait le <mark>[[J-14]]</mark>. Kiné respiratoire avec M. <mark>[[PERSONNE 1]]</mark>.</pre>
+<p class="m"><b>Retiré (6)</b> : 2 → [[J-43]] · 9 septembre 2026 → [[J-36]] · 12 octobre → [[J-3]] · 1er octobre → [[J-14]] · 16/09 → [[J-29]] · Vincent → [[PERSONNE 1]]</p>
 
 
 
@@ -201,11 +201,11 @@ Hospitalisée du 2 au <mark>[[il y a 1 mois]]</mark> au CHR pour pneumopathie, s
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Plaie de la main droite avec un couteau à la boulangerie <mark>[[NOM PROPRE 1]]</mark> <mark>[[ADRESSE]]</mark>, son patron M. <mark>[[PERSONNE 1]]</mark> présent. Vaccin antitétanique à jour selon le carnet. Orientation urgences pédiatriques CHR pour suture, samedi soir.</pre>
-<p class="m"><b>Retiré (3)</b> : place du Martroi → [[ADRESSE]] · Garnier → [[PERSONNE 1]] · Paul → [[NOM PROPRE 1]]</p>
+Plaie de la main droite avec un couteau à la boulangerie <mark>[[LIEU]]</mark> <mark>[[ADRESSE]]</mark>, son patron M. <mark>[[PERSONNE 1]]</mark> présent. Vaccin antitétanique à jour selon le carnet. Orientation urgences pédiatriques CHR pour suture, samedi soir.</pre>
+<p class="m"><b>Retiré (3)</b> : place du Martroi → [[ADRESSE]] · Paul → [[LIEU]] · Garnier → [[PERSONNE 1]]</p>
 
 
-<p class="t">Masqué peut-être en trop (sans risque, réintégré au retour ; touchez-le à l’écran pour le rendre) : Paul</p>
+
 </section><section class="c ok"><h2>16. Tout en minuscules (clavier iPhone) <span class="b ok">Rien d'identifiant</span></h2>
 <p class="m">Patient fictif : <b>FAURE Nadia</b>, né(e) le 25/12/1975</p>
 <h3>Dictée</h3><p class="d">faure nadia 50 ans migraine habituelle depuis ce matin sans signe neuro, sous zomig habituellement inefficace, propranolol en fond. adresse 22 avenue de la libération 45140 saint-jean-de-la-ruelle. tel 0698123456.</p>
@@ -227,8 +227,8 @@ DICTÉE DU MÉDECIN
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Fièvre sous chimiothérapie, suivi par le Pr <mark>[[PERSONNE 1]]</mark> à l&#x27;Institut <mark>[[NOM PROPRE 1]]</mark>, dernière cure le <mark>[[J-9]]</mark>. Sous Xeloda. Neutropénie possible, appel du 15, Dr <mark>[[PERSONNE 2]]</mark> régulateur, transfert SAU.</pre>
-<p class="m"><b>Retiré (4)</b> : 6/10 → [[J-9]] · Durand → [[PERSONNE 1]] · Girard → [[PERSONNE 2]] · Gustave Roussy → [[NOM PROPRE 1]]</p>
+Fièvre sous chimiothérapie, suivi par le Pr <mark>[[PERSONNE 1]]</mark> à l&#x27;Institut Gustave Roussy, dernière cure le <mark>[[J-9]]</mark>. Sous Xeloda. Neutropénie possible, appel du 15, Dr <mark>[[PERSONNE 2]]</mark> régulateur, transfert SAU.</pre>
+<p class="m"><b>Retiré (3)</b> : 6/10 → [[J-9]] · Durand → [[PERSONNE 1]] · Girard → [[PERSONNE 2]]</p>
 
 
 
@@ -240,8 +240,8 @@ Fièvre sous chimiothérapie, suivi par le Pr <mark>[[PERSONNE 1]]</mark> à l&#
 Lieu : consultation
 
 DICTÉE DU MÉDECIN
-Grossesse 24 SA, suivie par la sage-femme Mme <mark>[[PERSONNE 1]]</mark> à la maternité <mark>[[NOM PROPRE 1]]</mark>, DPA le <mark>[[dans 3 mois]]</mark>. Cystite gravidique. Pas de contraction. Pas d&#x27;Oroken, préférer Monuril. Spasfon.</pre>
-<p class="m"><b>Retiré (3)</b> : 28/01/2027 → [[dans 3 mois]] · Leclerc → [[PERSONNE 1]] · Oréliance → [[NOM PROPRE 1]]</p>
+Grossesse 24 SA, suivie par la sage-femme Mme <mark>[[PERSONNE 1]]</mark> à la maternité Oréliance, DPA le <mark>[[dans 3 mois]]</mark>. Cystite gravidique. Pas de contraction. Pas d&#x27;Oroken, préférer Monuril. Spasfon.</pre>
+<p class="m"><b>Retiré (2)</b> : 28/01/2027 → [[dans 3 mois]] · Leclerc → [[PERSONNE 1]]</p>
 
 
 

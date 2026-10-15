@@ -19,7 +19,7 @@
 - OK — mois + année et jour/mois → relatifs
 - OK — une tension (13/8) n'est pas prise pour une date
 - OK — relatif au-delà d'un mois : en mois
-- OK — adresse retirée (voie, code postal, ville)
+- OK — adresse retirée (voie, code postal), ville gardée en clair
 - OK — digicode retiré
 - OK — téléphones (06… et +33…) retirés
 - OK — NIR retiré
@@ -38,6 +38,17 @@
 - OK — début de phrase : mots médicaux et courants non masqués
 - OK — début de phrase : prénoms masqués, même à terminaison de mot courant
 - OK — civilité abrégée après un lien (Papa M.) : pas de jeton parasite
+- OK — noms d'hôpitaux gardés en clair
+- OK — villes gardées en clair
+- OK — lieux précis masqués même s'ils ressemblent à des mots courants
+- OK — type de lieu gardé lisible (EHPAD, stade, école, boulangerie…)
+- OK — lieux réintégrés à l'identique
+- OK — adresse connue : lieu-dit masqué, ville en clair, pas de fausse fuite
+- OK — intervalle « du 2 au 9 septembre 2026 » → du J-43 au J-36
+- OK — intervalle « entre le 3 et le 5/10 » → J-12 et J-10
+- OK — même numéro de jour dans deux intervalles : jetons distincts
+- OK — intervalles réintégrés à l'identique
+- OK — intervalle resté en clair détecté comme fuite
 - OK — fuite de nom détectée
 - OK — fuite de date de naissance détectée
 - OK — fuite de téléphone détectée
@@ -62,4 +73,4 @@
 - OK — un nom après une civilité reste masqué même s'il ressemble à un laboratoire
 - OK — noms de laboratoire (second mot d'une spécialité) non ajoutés au lexique
 
-61/61 tests OK
+72/72 tests OK

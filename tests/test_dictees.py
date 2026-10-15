@@ -15,16 +15,16 @@ D=[
   interdit=["dupont","marie","bannier","06 12","13/10","45000"],garder=["Levothyrox","Monuril"]),
  dict(t="Chute en EHPAD sous anticoagulant",p="MARTIN Jean-Pierre",ddn="02/02/1941",adr="EHPAD Les Jardins de Saran, 12 allée des Tilleuls, 45770 Saran",tel="02 38 72 11 22",
   d="EHPAD les Jardins de Saran chambre 214. Monsieur Martin Jean-Pierre né le 2 février 1941, chute ce matin vers 6 h retrouvé au sol par l'aide-soignante Mme Roux. Sous Eliquis 5 mg matin et soir et Kardégic 75. Pas de PC rapportée, Glasgow 15, plaie du cuir chevelu 3 cm. Infirmière de nuit joignable au 02 38 72 11 22. Avis du Dr Moreau médecin coordonnateur. Transfert CHR Orléans pour scanner sous anticoagulant.",
-  interdit=["martin","jean-pierre","1941","saran","tilleuls","roux","moreau","02 38"],garder=["Eliquis","Kardégic","Glasgow","CHR"]),
+  interdit=["martin","jean-pierre","1941","jardins","tilleuls","roux","moreau","02 38"],garder=["Eliquis","Kardégic","Glasgow","CHR Orléans"]),
  dict(t="Lombalgie, employeur et commune",p="LE GALL Jean-Baptiste",ddn="17/07/1979",
   d="jean-baptiste le gall 47 ans lombalgie aiguë depuis hier en soulevant un carton au travail, magasinier chez Leroy Merlin à Olivet. Lasègue négatif, pas de déficit, pas de trouble sphinctérien. A pris Doliprane et Ibuprofène sans effet. Arrêt de travail 5 jours. Bi-Profénid, Acupan, Thiocolchicoside en option.",
-  interdit=["gall","jean-baptiste","leroy","merlin","olivet","1979"],garder=["Lasègue","Doliprane","Bi-Profénid","Acupan"]),
+  interdit=["gall","jean-baptiste","leroy","merlin","1979"],garder=["Olivet","Lasègue","Doliprane","Bi-Profénid","Acupan"]),
  dict(t="Otite de l'enfant, maman et crèche",p="PETIT Léo",ddn="03/05/2023",
   d="Léo 3 ans 14 kilos amené par sa maman Mme Petit Sandrine pour fièvre à 39,5 depuis le 13 octobre, otalgie droite. Tympan droit bombé. Pas de vomissement. Va à la crèche les Petits Loups à Fleury-les-Aubrais. Clamoxyl et Doliprane pédiatrique. Maman joignable au 07 81 45 22 10.",
-  interdit=["léo","sandrine","2023","13 octobre","loups","fleury","07 81"],garder=["Clamoxyl","Doliprane"]),
+  interdit=["léo","sandrine","2023","13 octobre","loups","07 81"],garder=["Fleury-les-Aubrais","Clamoxyl","Doliprane"]),
  dict(t="Agitation, psychiatrie et tiers",p="BERNARD Lucas",ddn="21/11/2001",
   d="Appel régulation pour agitation. Patient amené par les pompiers de Fleury, connu du CHD Daumezon, schizophrénie, traitement Tercian et Abilify, arrêt du traitement depuis 3 semaines selon sa mère Mme Bernard joignable au 06.98.76.54.32. Propos délirants, pas d'idée suicidaire exprimée. Avis psychiatre de garde Dr Lefèvre à 23 h 40. Certificat SDTU rédigé, tiers la mère.",
-  interdit=["bernard","lucas","2001","daumezon","06.98","lefèvre","fleury"],garder=["Tercian","Abilify"]),
+  interdit=["bernard","lucas","2001","06.98","lefèvre"],garder=["Fleury","CHD Daumezon","Tercian","Abilify"]),
  dict(t="Couple vu ensemble, restaurant",p="GARCIA Ana",ddn="08/08/1990",copat="GARCIA Luis",
   d="Couple vu ensemble, Ana et Luis Garcia, gastro depuis samedi après repas au restaurant Le Lutin Gourmand rue de Bourgogne. Vomissements, diarrhée sans sang. Luis sous Metformine et Januvia, à suspendre. Pas de signe de déshydratation.",
   interdit=["garcia","ana ","luis","lutin","gourmand","bourgogne","1990"],garder=["Metformine","Januvia"]),
@@ -33,37 +33,37 @@ D=[
   interdit=["nguyen","thi ","lan.","gmail","350 123","1968"],garder=["Seresta","Lysanxia","ECG"]),
  dict(t="Soins palliatifs en HAD, lieu-dit",p="MOREL Germaine",ddn="14/04/1932",adr="lieu-dit la Mothe, 45590 Saint-Cyr-en-Val",tel="02 38 76 54 32",
   d="Visite lieu-dit la Mothe à Saint-Cyr-en-Val, patiente en HAD pour cancer du pancréas, infirmière Sandrine de l'HAD présente. Douleurs non contrôlées malgré Skenan 30 et Actiskenan 10. Fille Mme Morel Christine au 06 22 11 00 99 d'accord avec le confort. Majoration Skenan, Oramorph si troubles de déglutition, Scopoderm.",
-  interdit=["morel","germaine","mothe","saint-cyr","sandrine","christine","06 22","1932"],garder=["Skenan","Actiskenan","Oramorph","Scopoderm","HAD"]),
+  interdit=["morel","germaine","mothe","sandrine","christine","06 22","1932"],garder=["Saint-Cyr-en-Val","Skenan","Actiskenan","Oramorph","Scopoderm","HAD"]),
  dict(t="Nom de famille qui est un mot courant",p="ROSE Odette",ddn="05/09/1950",
   d="Éruption rose pâle du tronc depuis 48 h après introduction d'Augmentin le 10/10/2026 par son médecin traitant le Dr Fournier. Mme Rose ne présente pas de signe de gravité, pas d'atteinte muqueuse. Arrêt Augmentin, Aerius. Rose dit avoir déjà fait une réaction à la Pyostacine.",
   interdit=["odette","mme rose","rose dit","fournier","10/10/2026","1950"],garder=["rose pâle","Augmentin","Aerius","Pyostacine"]),
  dict(t="Entorse, téléphone +33, cabinet de kiné",p="DUBOIS Kevin",ddn="11/12/1996",
   d="Entorse cheville gauche au foot ce soir au stade de la Source. Ottawa négatif. Joignable au +33 6 45 12 78 90. Kiné au cabinet Rivière Kiné. Bi-Profénid, attelle Aircast, béquilles.",
-  interdit=["dubois","kevin","1996","45 12 78","rivière"],garder=["Ottawa","Bi-Profénid"]),
+  interdit=["dubois","kevin","1996","45 12 78","rivière","source"],garder=["Ottawa","Bi-Profénid"]),
  dict(t="Hypoglycémie, épouse et diabétologue",p="FONTAINE Marcel",ddn="19/06/1955",
   d="Hypoglycémie à 0,45 g/l retrouvée par son épouse Josiane, sous Novorapid, Lantus et Diamicron. Resucrage, Glucagen fait par les pompiers. Glycémie de contrôle 1,20. Repas pris. Revoir son diabétologue le Dr Henry au CHR.",
   interdit=["fontaine","marcel","josiane","henry","1955"],garder=["Novorapid","Lantus","Diamicron","Glucagen"]),
  dict(t="Épistaxis sous AVK, laboratoire et commune",p="ROUSSEAU Pierre",ddn="01/01/1948",
   d="Épistaxis abondante sous Previscan, INR à 4,2 fait au labo Bioallians rue de la République ce matin. Méchage. Contrôle INR le 17/10. Médecin traitant Dr Blanc à Saint-Jean-de-Braye prévenu.",
-  interdit=["rousseau","pierre","1948","république","dr blanc","saint-jean","17/10"],garder=["Previscan","INR"]),
+  interdit=["rousseau","pierre","1948","république","dr blanc","bioallians","17/10"],garder=["Saint-Jean-de-Braye","Previscan","INR"]),
  dict(t="Asthme de l'enfant, école et papa",p="LAMBERT Chloé",ddn="22/02/2016",
   d="Crise d'asthme, Chloé 10 ans 32 kg, sibilants diffus, SpO2 93 %, Ventoline 10 bouffées en chambre d'inhalation, Célestène. École Jean Zay. Papa M. Lambert Thomas joignable 0612457890.",
   interdit=["lambert","chloé","thomas","2016","0612457890","zay"],garder=["Ventoline","Célestène","SpO2"]),
  dict(t="Beaucoup de dates",p="SIMON Gisèle",ddn="07/03/1939",
   d="Hospitalisée du 2 au 9 septembre 2026 au CHR pour pneumopathie, sortie sous Augmentin jusqu'au 16/09. Depuis le 12 octobre reprise de toux fébrile. Vaccin grippe fait le 1er octobre. Kiné respiratoire avec M. Vincent.",
-  interdit=["simon","gisèle","1939","septembre 2026","16/09","12 octobre","1er octobre","vincent"],garder=["Augmentin","CHR"]),
+  interdit=["simon","gisèle","1939","septembre 2026","du 2 au","16/09","12 octobre","1er octobre","vincent"],garder=["du [[J-43]] au [[J-36]]","Augmentin","CHR"]),
  dict(t="Plaie de la main, enseigne et patron",p="MERCIER Lucas",ddn="13/05/2011",
   d="Plaie de la main droite avec un couteau à la boulangerie Paul place du Martroi, son patron M. Garnier présent. Vaccin antitétanique à jour selon le carnet. Orientation urgences pédiatriques CHR pour suture, samedi soir.",
-  interdit=["mercier","lucas","2011","martroi","garnier"],garder=["CHR"]),
+  interdit=["mercier","lucas","2011","martroi","garnier","paul"],garder=["CHR"]),
  dict(t="Tout en minuscules (clavier iPhone)",p="FAURE Nadia",ddn="25/12/1975",
   d="faure nadia 50 ans migraine habituelle depuis ce matin sans signe neuro, sous zomig habituellement inefficace, propranolol en fond. adresse 22 avenue de la libération 45140 saint-jean-de-la-ruelle. tel 0698123456.",
   interdit=["faure","nadia","1975","libération","45140","ruelle","0698123456"],garder=["zomig","propranolol"]),
  dict(t="Oncologie, professeur et institut",p="CHEVALIER Bernard",ddn="09/09/1960",
   d="Fièvre sous chimiothérapie, suivi par le Pr Durand à l'Institut Gustave Roussy, dernière cure le 6/10. Sous Xeloda. Neutropénie possible, appel du 15, Dr Girard régulateur, transfert SAU.",
-  interdit=["chevalier","bernard","1960","durand","gustave","roussy","6/10","girard"],garder=["Xeloda","SAU"]),
+  interdit=["chevalier","bernard","1960","durand","6/10","girard"],garder=["Institut Gustave Roussy","Xeloda","SAU"]),
  dict(t="Grossesse, sage-femme et maternité",p="ROY Sarah",ddn="14/02/1996",
   d="Grossesse 24 SA, suivie par la sage-femme Mme Leclerc à la maternité Oréliance, DPA le 28/01/2027. Cystite gravidique. Pas de contraction. Pas d'Oroken, préférer Monuril. Spasfon.",
-  interdit=["roy","sarah","1996","leclerc","oréliance","28/01/2027"],garder=["Monuril","Spasfon","Oroken"]),
+  interdit=["roy","sarah","1996","leclerc","28/01/2027"],garder=["maternité Oréliance","Monuril","Spasfon","Oroken"]),
  dict(t="Numéros pièges (dossier, RPPS, horaires)",p="ROBIN Alain",ddn="03/03/1972",
   d="Dossier 2026-001234. Douleur thoracique, ECG sus-décalage, appel 15 à 2 h 10, SMUR sur place à 2 h 30. Plavix et Kardégic par le SMUR. RPPS du régulateur 10101234567.",
   interdit=["robin","alain","1972","10101234567","001234"],garder=["Plavix","Kardégic","SMUR","ECG"]),
@@ -107,7 +107,7 @@ async def main():
                 low=r["user"].lower()
                 fuite=[f for f in x["interdit"] if f.lower() in low]
                 perdu=[g for g in x["garder"] if g not in r["user"]]
-                trop=[it["orig"] for it in r["items"] if it["cat"]=="NOM PROPRE" and not any(f.strip().lower() in it["orig"].lower() for f in x["interdit"])]
+                trop=[it["orig"] for it in r["items"] if it["cat"] in ("NOM PROPRE","LIEU") and not any(f.strip().lower() in it["orig"].lower() for f in x["interdit"])]
                 out.append(dict(x,n=i+1,**r,fuite=fuite,perdu=perdu,trop=trop))
             ok_js=len(errors)==0
             await b.close()
@@ -140,7 +140,7 @@ mark{{background:var(--tok);color:var(--tokf);border-radius:3px;padding:0 2px}}.
 <body><main><h1>Ce qui partirait à l'IA — 20 dictées fictives</h1>
 <p class="m">Généré par <code>tests/test_dictees.py</code> dans l'application v41 (fonction réelle <code>aiPrepare</code>), consultation du {REF}. Aucun envoi : l'API est bloquée pendant le test ({len(sent)} requête). Identités, adresses et numéros inventés.</p>
 <p><b>{len(ok)}/{len(out)}</b> dictées sans fragment d'identité et sans médicament perdu.</p>
-<p class="m"><b>Relecture (15/10/2026)</b> : « stade de la Source » (n° 10) et « CHR Orléans » (n° 2) partent en clair, mots courants ou ville du centre, non identifiants seuls ; dans « du 2 au 9 septembre 2026 » (n° 14), le premier jour reste un chiffre seul ; une enseigne ou un laboratoire peut être masqué en trop (Paul, Bioallians), sans risque, réintégré au retour.</p>
+<p class="m"><b>Règles du 15/10/2026</b> : nom de l’hôpital (CHR, CHU, clinique, maternité, institut) et ville gardés en clair ; tous les autres lieux précis masqués (rue, lieu-dit, EHPAD, école, crèche, stade, commerce, employeur, quartier), le type de lieu restant lisible ; intervalles « du 2 au 9 septembre » convertis en « du J-x au J-y ».</p>
 {"".join(cards)}</main></body></html>'''
     open(os.path.join(ROOT,"tests","dictees_ia.html"),"w",encoding="utf-8").write(page_html)
     lines=[f"- {'OK' if o in ok else 'ÉCHEC'} — {o['n']}. {o['t']}"+("" if o in ok else f" — fuite {o['fuite']+[l['frag'] for l in o['leaks']]} perdu {o['perdu']}") for o in out]
