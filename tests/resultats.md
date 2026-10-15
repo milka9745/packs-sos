@@ -1,4 +1,4 @@
-# Tests v40 (lot 1, blocs 2 et 3)
+# Tests v40 (lot 1, blocs 2 à 4)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -7,7 +7,7 @@
 - OK — iphone cystite simple : pas d'OROKEN
 - OK — iphone bascule S/R visible
 - OK — iphone cystite simple : 2 feuilles à imprimer (memo non comptée)
-- OK — iphone cystite à risque : OROKEN coché
+- OK — iphone cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
 - OK — iphone cystite à risque : 6 alternatives radio
 - OK — iphone cystite à risque : ECBU
 - OK — iphone lombalgie : kétoprofène coché, ibuprofène option
@@ -43,6 +43,11 @@
 - OK — iphone PAC à risque : AUGMENTIN coché
 - OK — iphone BPCO : antibiotique décoché par défaut (HAS 2024)
 - OK — iphone fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — iphone bloc 4 : 13 packs chargés
+- OK — iphone fiches : aucun médicament non commercialisé ou hospitalier
+- OK — iphone PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — iphone prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — iphone fiches : aucune ligne effacée par dédoublonnage
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -52,7 +57,7 @@
 - OK — pc cystite simple : pas d'OROKEN
 - OK — pc bascule S/R visible
 - OK — pc cystite simple : 2 feuilles à imprimer (memo non comptée)
-- OK — pc cystite à risque : OROKEN coché
+- OK — pc cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
 - OK — pc cystite à risque : 6 alternatives radio
 - OK — pc cystite à risque : ECBU
 - OK — pc lombalgie : kétoprofène coché, ibuprofène option
@@ -88,7 +93,12 @@
 - OK — pc PAC à risque : AUGMENTIN coché
 - OK — pc BPCO : antibiotique décoché par défaut (HAS 2024)
 - OK — pc fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — pc bloc 4 : 13 packs chargés
+- OK — pc fiches : aucun médicament non commercialisé ou hospitalier
+- OK — pc PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — pc prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — pc fiches : aucune ligne effacée par dédoublonnage
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-90/90 tests OK
+100/100 tests OK

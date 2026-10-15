@@ -62,7 +62,7 @@ async def run(width,height,label):
         await page.screenshot(path=f"{OUT}/{label}-cystite-simple.png",full_page=True)
         await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(400)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
-        ok(label+" cystite à risque : OROKEN coché",any("OROKEN" in x["t"] and x["on"] for x in med),[x["t"][:30] for x in med if x["on"]])
+        ok(label+" cystite à risque : FURADANTINE cochée (HAS), OROKEN en option",any("FURADANTINE" in x["t"] and x["on"] for x in med) and any("OROKEN" in x["t"] and not x["on"] for x in med),[x["t"][:30] for x in med if x["on"]])
         ok(label+" cystite à risque : 6 alternatives radio",sum(1 for x in med if any(k in x["t"] for k in ["OROKEN","FURADANTINE","MONURIL","BACTRIM","CLAMOXYL","SELEXID"]))>=6)
         ok(label+" cystite à risque : ECBU",any("ECBU" in x["t"] for x in [l for s in L if s["lbl"]=="Biologie" for l in s["l"]]))
         await page.screenshot(path=f"{OUT}/{label}-cystite-risque.png",full_page=True)
@@ -106,7 +106,7 @@ async def run(width,height,label):
         await page.evaluate("state.ddn='01/01/2020';state.poids='20';render();"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" angine enfant : CLAMOXYL 5 ml coché",any("CLAMOXYL" in x["t"] and "5 ml" in x["t"] and x["on"] for x in med),[x["t"][:70] for x in med])
-        ok(label+" angine enfant : 5 antibiotiques",sum(1 for x in med if any(k in x["t"] for k in ["CLAMOXYL","ORELOX","ZINNAT","ZITHROMAX","JOSACINE"]))==5)
+        ok(label+" angine enfant : 5 antibiotiques",sum(1 for x in med if any(k in x["t"] for k in ["CLAMOXYL","ORELOX","ZINNAT","ZITHROMAX","ZECLAR"]))==5)
         # Allergie pénicilline → bascule automatique
         await page.evaluate("state.allergie=true;state.gs={};render();"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
@@ -170,7 +170,7 @@ async def run(width,height,label):
         ok(label+" PAC simple : CLAMOXYL coché, pas d'AUGMENTIN",any("CLAMOXYL" in x["t"] and x["on"] for x in med) and not any("AUGMENTIN" in x["t"] for x in med),[x["t"][:40] for x in med if x["on"]])
         await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
-        ok(label+" PAC à risque : AUGMENTIN coché",any("AUGMENTIN" in x["t"] and x["on"] for x in med),[x["t"][:40] for x in med if x["on"]])
+        ok(label+" PAC à risque : AUGMENTIN coché",any("AUGMENTIN" in x["t"] and x["on"] for x in med),[(x["on"],x["t"][:100]) for x in med])
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;render();"); await page.wait_for_timeout(300)
         await pick(page,"emphysème","Exacerbation de BPCO")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
@@ -179,6 +179,21 @@ async def run(width,height,label):
         await pick(page,"impaction","Fécalome / constipation sévère")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative",any("FORTRANS" in x["t"] and x["on"] for x in med) and any("4 sachets dans 500 ml" in x["t"] and not x["on"] for x in med))
+        # Bloc 4 — Uro-néphrologie, et disponibilité des médicaments
+        nb4=await page.evaluate("PACKS_V40_B4.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 4 : 13 packs chargés",nb4==13,nb4)
+        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
+        ok(label+" fiches : aucun médicament non commercialisé ou hospitalier",len(gone)==0,gone[:2])
+        await page.evaluate("state.sel=null;state.view='';state.cot.lieu='consultation';state.risk='r';state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
+        await pick(page,"frissons","Pyélonéphrite aiguë simple — femme")
+        await page.evaluate("state.risk='r';render();"); await page.wait_for_timeout(300)
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" PNA à risque : recommandation cochée (CIFLOX), OROKEN en option",any("CIFLOX" in x["t"] and "10 jours" in x["t"] and x["on"] for x in med) and any("OROKEN" in x["t"] and not x["on"] for x in med),[(x["on"],x["t"][:100]) for x in med])
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;render();"); await page.wait_for_timeout(300)
+        await pick(page,"prostatite","Prostatite aiguë")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" prostatite : pas d'OROKEN (RCP), 14 jours",not any("OROKEN" in x["t"] for x in med) and any("14 jours" in x["t"] and x["on"] for x in med))
+        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
+        ok(label+" fiches : aucune ligne effacée par dédoublonnage",len(dd)==0,dd[:3])
         # Mode nuit + grand texte
         await ctx.close()
         ctx2=await b.new_context(viewport={"width":width,"height":height},color_scheme="dark",device_scale_factor=2,is_mobile=width<500,has_touch=width<500)
@@ -200,5 +215,5 @@ async def main():
     finally:
         srv.terminate()
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
-    open(os.path.join(ROOT,"tests","resultats.md"),"w").write("# Tests v40 (lot 1, blocs 2 et 3)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
+    open(os.path.join(ROOT,"tests","resultats.md"),"w").write("# Tests v40 (lot 1, blocs 2 à 4)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
 asyncio.run(main())
