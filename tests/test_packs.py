@@ -247,6 +247,12 @@ async def run(width,height,label):
         ok(label+" bloc 9 : zolpidem (ordonnance sécurisée) jamais imprimé",hy==0,hy)
         sc=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Soins psychiatriques sans consentement — certificat');const c=p.s.find(sh=>sh.k==='cert').l;return [c.filter(l=>l.grp==='mode').length,(p.fields||[]).includes('heure')&&(p.fields||[]).includes('constats')&&!!FIELDS.heure&&!!FIELDS.constats];}""")
         ok(label+" bloc 9 : certificat sans consentement, 3 mentions exclusives, heure et constatations à saisir",sc[0]==3 and sc[1],sc)
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1940';state.poids='70';render();"); await page.wait_for_timeout(300)
+        await pick(page,"tristesse","Dépression — bilan et prise en charge initiale")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        es=[x["t"] for x in med if x["t"].startswith("ESCITALOPRAM")]; ci=[x["t"] for x in med if x["t"].startswith("CITALOPRAM")]
+        ok(label+" bloc 9 : dépression après 65 ans, escitalopram 5 mg (10 mg max) et citalopram 20 mg max (RCP)",bool(es) and "5 mg" in es[0] and "10 mg par jour au maximum" in es[0] and bool(ci) and "20 mg par jour au maximum" in ci[0] and "40 mg" not in ci[0],es+ci)
+        await page.evaluate("state.ddn='01/01/1985';render();")
         # Cahier des corrections — points 7 et 8 (risque médical)
         r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
         ok(label+" correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif",not any(re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower()) or "Tique retirée" in v for v in r7.values()),[k for k,v in r7.items() if re.search(r"(?<![a-zàâäéèêëïîôöùûüç])tique",v.lower())])
