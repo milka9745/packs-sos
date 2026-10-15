@@ -1,4 +1,4 @@
-# Tests v40 (lot 1 et bloc 2)
+# Tests v40 (lot 1, blocs 2 et 3)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -37,6 +37,12 @@
 - OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
 - OK — iphone BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
 - OK — iphone conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — iphone bloc 3 : 30 packs chargés
+- OK — iphone blocs 2-3 : gabarits équilibrés
+- OK — iphone PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — iphone PAC à risque : AUGMENTIN coché
+- OK — iphone BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — iphone fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -76,7 +82,13 @@
 - OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
 - OK — pc BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
 - OK — pc conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — pc bloc 3 : 30 packs chargés
+- OK — pc blocs 2-3 : gabarits équilibrés
+- OK — pc PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — pc PAC à risque : AUGMENTIN coché
+- OK — pc BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — pc fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-78/78 tests OK
+90/90 tests OK

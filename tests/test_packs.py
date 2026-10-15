@@ -160,6 +160,25 @@ async def run(width,height,label):
         await page.evaluate("state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" conjonctivite : antiseptique coché, antibiotique en alternative",any("VITABACT" in x["t"] and x["on"] for x in med) and any("AZYTER" in x["t"] and not x["on"] for x in med) and not any("corticoïde" in x["t"].lower() and x["on"] for x in med))
+        # Bloc 3 — Respiratoire et digestif
+        nb3=await page.evaluate("PACKS_V40_B3.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 3 : 30 packs chargés",nb3==len(await page.evaluate("PACKS_V40_B3"))and nb3>=30,nb3)
+        bad=await page.evaluate("[...PACKS_V40_B2,...PACKS_V40_B3].flatMap(p=>p.s.flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>(t.match(/{/g)||[]).length!==(t.match(/}/g)||[]).length)")
+        ok(label+" blocs 2-3 : gabarits équilibrés",len(bad)==0,bad[:2])
+        await page.evaluate("state.sel=null;state.view='';state.cot.lieu='consultation';state.risk=undefined;state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
+        await pick(page,"crépitants","Pneumopathie aiguë — adulte")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" PAC simple : CLAMOXYL coché, pas d'AUGMENTIN",any("CLAMOXYL" in x["t"] and x["on"] for x in med) and not any("AUGMENTIN" in x["t"] for x in med),[x["t"][:40] for x in med if x["on"]])
+        await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(300)
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" PAC à risque : AUGMENTIN coché",any("AUGMENTIN" in x["t"] and x["on"] for x in med),[x["t"][:40] for x in med if x["on"]])
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;render();"); await page.wait_for_timeout(300)
+        await pick(page,"emphysème","Exacerbation de BPCO")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" BPCO : antibiotique décoché par défaut (HAS 2024)",not any(x["on"] for x in med if any(k in x["t"] for k in ["CLAMOXYL","AUGMENTIN","PYOSTACINE","ZECLAR","TAVANIC","BACTRIM"])) and any("VENTOLINE" in x["t"] and x["on"] for x in med))
+        await page.evaluate("state.sel=null;state.view='';render();"); await page.wait_for_timeout(300)
+        await pick(page,"impaction","Fécalome / constipation sévère")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative",any("FORTRANS" in x["t"] and x["on"] for x in med) and any("4 sachets dans 500 ml" in x["t"] and not x["on"] for x in med))
         # Mode nuit + grand texte
         await ctx.close()
         ctx2=await b.new_context(viewport={"width":width,"height":height},color_scheme="dark",device_scale_factor=2,is_mobile=width<500,has_touch=width<500)
@@ -181,5 +200,5 @@ async def main():
     finally:
         srv.terminate()
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
-    open(os.path.join(ROOT,"tests","resultats.md"),"w").write("# Tests v40 (lot 1 et bloc 2)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
+    open(os.path.join(ROOT,"tests","resultats.md"),"w").write("# Tests v40 (lot 1, blocs 2 et 3)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
 asyncio.run(main())
