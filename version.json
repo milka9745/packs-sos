@@ -1,8 +1,9 @@
 {
-  "version": "40v",
+  "version": "40w",
   "date": "2026-10-16",
   "notes": [
-    "Administratif et renouvellement : 13 fiches (accident du travail, bon de transport, sport, garde à vue, ordonnance bizone, stupéfiants, pilule, insuline, oxygène) — non relues.",
-    "Stupéfiants : lignes jamais imprimées, à recopier à la main sur ordonnance sécurisée."
+    "Fiches de régulation lues zone par zone (repérées par leurs intitulés, iPhone comme Android), avec contraste amélioré ; ce qui ne colle pas est signalé (code postal, téléphone, âge).",
+    "Nouveau bouton « 📋 Coller les fiches » : crée tous les arrêts d'un coup depuis le texte copié (raccourci iOS « Fiches Packs » ou Android), doublons refusés.",
+    "Écran Tournée : le menu « Arrivée » ne déborde plus sur iPhone."
   ]
 }

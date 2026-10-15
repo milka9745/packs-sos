@@ -41,6 +41,8 @@ async def pick(page,query,name):
 async def lines(page):
     return await page.evaluate("""()=>[...document.querySelectorAll('.sheet')].map(sh=>({t:sh.querySelector('.hd label').textContent.trim(),lbl:sh.querySelector('.tp').textContent,l:[...sh.querySelectorAll('li')].map(li=>({on:li.querySelector('input').checked,t:li.querySelector('.lt').textContent,jr:!!li.querySelector('.pcd')}))}))""")
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fiches_fictives as FF
 async def run(width,height,label):
     async with async_playwright() as p:
         b=await p.chromium.launch()
@@ -415,6 +417,22 @@ async def run(width,height,label):
         bt=await page.evaluate("""()=>{const sh=[...document.querySelectorAll('.sheet')].find(s=>/Paramédical|Transport/i.test(s.innerText));return sh?[...sh.querySelectorAll('li')].map(li=>li.querySelector('.lt').textContent):[];}""")
         ok(label+" bloc 14 : bon de transport, VSL ou taxi conventionné en transport partagé, ambulance ou véhicule personnel",len(bt)==3 and any("transport partagé" in x for x in bt) and any("ambulance" in x for x in bt),bt)
         await page.evaluate("state.sel=null;render();")
+        # Fiches : vraisemblance, « Coller les fiches » (raccourci iOS / Android), lecture par zones sur captures fictives (OCR réel)
+        vr=await page.evaluate("""()=>{const a=parseFiche("DUPONT JEAN\\nNé(e) le 01/01/1980 - 30 A\\nTél patient\\n06 12 34\\nAdresse : 3 rue de la Paix 75001 PARIS\\nTOUX");const w=ficheCheck(a);const b=parseFiche("DUPONT JEAN\\nNé(e) le 01/01/1980 - 46 A\\n06 12 34 56 78\\nAdresse : 3 rue de la Paix 45000 ORLEANS\\nTOUX");return {w,ok:ficheCheck(b)};}""")
+        ok(label+" fiches : vraisemblance signalée (code postal hors Loiret, téléphone incomplet, âge incohérent avec la naissance)",any("75001 hors secteur" in x for x in vr["w"]) and any("téléphone" in x for x in vr["w"]) and any("âge affiché" in x for x in vr["w"]) and vr["ok"]==[],vr)
+        cl=await page.evaluate("""async()=>{const save=JSON.stringify({s:TOUR.stops,o:TOUR.order});window.__tO2=window.tourOptimize;window.tourOptimize=async()=>{};TOUR.stops=[];TOUR.order=[];TOUR.unread=[];
+          const txt="DURAND LUCIE\\nNé(e) le 05/06/1985\\n06 22 33 44 55\\nTOUX\\nAdresse : 12 AVENUE DES PINS, 45100, ORLÉANS-LA-SOURCE\\n-----\\nBERNARD LEO\\nNé(e) le 02/03/2015\\n06 99 88 77 66\\nOTITE\\nAdresse : 5 RUE JEANNE D'ARC 45000 ORLEANS\\n-----\\nDURAND LUCIE\\nNé(e) le 05/06/1985\\n06 22 33 44 55\\nTOUX\\nAdresse : 12 AVENUE DES PINS, 45100, ORLÉANS-LA-SOURCE\\n";
+          const o=navigator.clipboard&&navigator.clipboard.readText;try{Object.defineProperty(navigator,'clipboard',{value:{readText:async()=>txt},configurable:true});}catch(e){}
+          state.view='tour';render();await new Promise(r=>setTimeout(r,50));const btn=document.querySelector('[data-fpaste]');document.querySelector('[data-fpaste]').click();await new Promise(r=>setTimeout(r,400));
+          const n=TOUR.stops.length,dup=/[Dd]éjà dans la tournée/.test((document.getElementById('toast')||{}).textContent||'');const r=JSON.parse(save);TOUR.stops=r.s;TOUR.order=r.o;window.tourOptimize=window.__tO2;state.view='';render();return {n,dup,btn:!!btn};}""")
+        ok(label+" fiches : « Coller les fiches » crée tous les arrêts d'un coup, doublons refusés",cl["n"]==2 and cl["dup"] and cl["btn"],cl)
+        if width<500:
+            paths=await FF.make(b,os.path.join(ROOT,"tests","_tmp_fiches"))
+            for nm,ex in FF.EXPECT.items():
+                r=await page.evaluate("""async n=>{const b=await (await fetch('tests/_tmp_fiches/fiche-'+n+'.png')).blob();const f=new File([b],'x.png',{type:'image/png'});const cv=await imageToCanvas(f,1100);const z=await ocrZonesFromCanvas(cv);const pf=parseFiche(z.text);return {zones:z.zones,addr:pf.addr,tel:pf.tel,ddn:pf.ddn,bat:pf.bat,motif:pf.motif,note:pf.note,warn:ficheCheck(pf)};}""",nm)
+                good=r["zones"]>=4 and all(x in r["addr"] for x in ex["addr"]) and r["tel"]==ex["tel"] and r["ddn"]==ex["ddn"] and r["bat"]==ex["bat"] and r["motif"]==ex["motif"] and not r["warn"] and "DURAND" not in (r["addr"]+r["note"]) and "SMS" not in r["addr"]
+                ok(label+f" fiches : capture fictive {nm} lue par zones repérées par leurs intitulés (adresse, commune composée, téléphone, naissance, accès, motif)",good,r)
+            import shutil; shutil.rmtree(os.path.join(ROOT,"tests","_tmp_fiches"),ignore_errors=True)
         # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
         rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
           for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")
