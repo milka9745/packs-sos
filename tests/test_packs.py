@@ -371,6 +371,22 @@ async def run(width,height,label):
         vk=[x["t"] for x in med if "VITAMINE K1" in x["t"]]
         ok(label+" bloc 13 : surdosage en AVK, vitamine K 2 mg et 5 mg per os proposées (HAS 2008), aucune cochée d'office",len(vk)==2 and any("(2 mg)" in v for v in vk) and any("(5 mg)" in v for v in vk) and not any(x["on"] for x in med if "VITAMINE K1" in x["t"]),vk)
         await page.evaluate("state.risk=undefined;state.ddn='01/01/1985';state.sel=null;render();")
+        # Repères visuels : couleur du mode, patient en cours encadré et nommé, patients validés en gris
+        vis=[]
+        for th in ["day","night"]:
+            r=await page.evaluate("""async th=>{const w=ms=>new Promise(r=>setTimeout(r,ms));THEME.mode=th;localStorage.removeItem('sos_theme_force');themeApply();
+              newPatient();state.sel=null;state.view='';state.patient='DURAND Paul';state.ddn='01/01/1950';state.nh=state.nh||{};state.cot=cotDefault();state.cot.lieu='visite';render();await w(80);
+              const bv=getComputedStyle(document.querySelector('.btn.p')).backgroundColor,mv=document.documentElement.dataset.mode;
+              state.cot.lieu='cabinet';render();await w(80);const bc=getComputedStyle(document.querySelector('.btn.p')).backgroundColor,mc=document.documentElement.dataset.mode;
+              const tag=document.querySelector('.jbar .pat-tag, .jhead .pat-tag');const tr=tag&&tag.getBoundingClientRect();const pco=getComputedStyle(document.querySelector('.pcard')).outlineStyle;const W=document.documentElement.clientWidth;
+              const p1=getComputedStyle(document.documentElement).getPropertyValue('--pat').trim();newPatient();state.patient='MARTIN Léa';state.ddn='02/02/2022';render();await w(50);const p2=getComputedStyle(document.documentElement).getPropertyValue('--pat').trim();
+              const res={mv,mc,bv,bc,tag:tag?tag.textContent:'',tagIn:!!(tr&&tr.top>=0&&tr.top<160&&tr.right<=W+1),outline:pco,tagTop:tr?Math.round(tr.top):null,pdiff:p1!==p2,sw:document.documentElement.scrollWidth<=W};
+              state.patient='';state.ddn='';render();res.off=!document.documentElement.classList.contains('pat-on');return res;}""",th)
+            if not (r["mv"]=="visite" and r["mc"]=="consult" and r["bv"]!=r["bc"] and r["tag"].startswith("D. · ") and r["tagIn"] and r["outline"]=="solid" and r["pdiff"] and r["sw"] and r["off"]): vis.append((th,r))
+        await page.evaluate("THEME.mode='auto';themeApply();state.cot=cotDefault();render();")
+        ok(label+" repères visuels : Visite et Consultation de couleurs distinctes, patient encadré et nommé « initiale · âge » en haut, couleur différente par patient (jour et nuit)",not vis,vis)
+        gr=await page.evaluate("""()=>{const h=VALID.hist;VALID.hist=[{ts:Date.now(),patient:'TEST Gris',pack:'',snap:{}},{ts:Date.now(),patient:'TEST Côté',pending:true,pack:'',snap:{}}];validListScreen();const rows=[...document.querySelectorAll('#lock .vrow')];const ok=rows.length===2&&rows.every(r=>r.classList.contains('pat-off')&&/grayscale/.test(getComputedStyle(r).filter));VALID.hist=h;identClose();return ok;}""")
+        ok(label+" repères visuels : patients validés ou mis de côté affichés en gris",gr)
         # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
         rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
           for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")

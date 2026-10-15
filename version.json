@@ -1,8 +1,9 @@
 {
-  "version": "40s",
+  "version": "40t",
   "date": "2026-10-16",
   "notes": [
-    "Gériatrie, intoxications et soins palliatifs : 15 fiches (confusion, surdosage en anticoagulant, intoxications, fin de vie) — non relues.",
-    "Insuffisance surrénale : le doublement concerne la dose orale d'hydrocortisone, pas l'injection de 100 mg."
+    "Visite en vert, Consultation en bleu : barre du haut, boutons principaux et sélecteur prennent la couleur du mode.",
+    "Le patient en cours a sa couleur propre : cadre autour de sa fiche, de la visite et des documents, et libellé « initiale · âge · rue » toujours en haut.",
+    "Les patients validés ou mis de côté sont affichés en gris."
   ]
 }
