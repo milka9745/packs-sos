@@ -1,9 +1,8 @@
 {
-  "version": "40u",
+  "version": "40v",
   "date": "2026-10-16",
   "notes": [
-    "Fiches de régulation : une capture importée deux fois n'ajoute plus de second arrêt (« déjà dans la tournée »).",
-    "Fiche non lue : miniature, éléments lus et bouton « Compléter » pour saisir l'adresse ; adresse prise dans le bloc « Adresse » et accès (bâtiment, étage, porte) lus.",
-    "« Chez Consultation » : question « Consultation au cabinet ou visite ? » avant tout ajout à la tournée."
+    "Administratif et renouvellement : 13 fiches (accident du travail, bon de transport, sport, garde à vue, ordonnance bizone, stupéfiants, pilule, insuline, oxygène) — non relues.",
+    "Stupéfiants : lignes jamais imprimées, à recopier à la main sur ordonnance sécurisée."
   ]
 }
