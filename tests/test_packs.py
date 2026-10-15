@@ -181,7 +181,7 @@ async def run(width,height,label):
         ok(label+" fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative",any("FORTRANS" in x["t"] and x["on"] for x in med) and any("4 sachets dans 500 ml" in x["t"] and not x["on"] for x in med))
         # Bloc 4 — Uro-néphrologie, et disponibilité des médicaments
         nb4=await page.evaluate("PACKS_V40_B4.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 4 : 13 packs chargés",nb4==13,nb4)
-        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
+        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
         ok(label+" fiches : aucun médicament non commercialisé ou hospitalier",len(gone)==0,gone[:2])
         await page.evaluate("state.sel=null;state.view='';state.cot.lieu='consultation';state.risk='r';state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
         await pick(page,"frissons","Pyélonéphrite aiguë simple — femme")
@@ -192,11 +192,11 @@ async def run(width,height,label):
         await pick(page,"prostatite","Prostatite aiguë")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" prostatite : pas d'OROKEN (RCP), 14 jours",not any("OROKEN" in x["t"] for x in med) and any("14 jours" in x["t"] and x["on"] for x in med))
-        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
+        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
         ok(label+" fiches : aucune ligne effacée par dédoublonnage",len(dd)==0,dd[:3])
         # Bloc 5 — Rhumatologie et traumatologie, champs à saisir
         nb5=await page.evaluate("PACKS_V40_B5.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 5 : 22 packs chargés",nb5==22,nb5)
-        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
+        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
         ok(label+" fiches : chaque champ {f:…} a sa case de saisie",len(nf)==0,nf[:3])
         cv=await page.evaluate("atDureeSugg('Cervicalgie / torticolis')"); ok(label+" durée AT cervicalgie CNAM",("CNAM" in cv),cv)
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1960';state.poids='';render();"); await page.wait_for_timeout(300)
@@ -252,6 +252,17 @@ async def run(width,height,label):
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         es=[x["t"] for x in med if x["t"].startswith("ESCITALOPRAM")]; ci=[x["t"] for x in med if x["t"].startswith("CITALOPRAM")]
         ok(label+" bloc 9 : dépression après 65 ans, escitalopram 5 mg (10 mg max) et citalopram 20 mg max (RCP)",bool(es) and "5 mg" in es[0] and "10 mg par jour au maximum" in es[0] and bool(ci) and "20 mg par jour au maximum" in ci[0] and "40 mg" not in ci[0],es+ci)
+        await page.evaluate("state.ddn='01/01/1985';render();")
+        # Bloc 10 — Cardio-vasculaire
+        nb10=await page.evaluate("PACKS_V40_B10.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 10 : 13 packs chargés",nb10==13,nb10)
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1950';state.poids='70';render();"); await page.wait_for_timeout(300)
+        await pick(page,"pouls irrégulier","Fibrillation atriale — découverte ou récidive")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" bloc 10 : FA, apixaban 5 et 2,5 mg et rivaroxaban affichés (aucun effacé en doublon), rien coché d'office",sum(1 for x in med if x["t"].startswith("ELIQUIS"))==2 and any(x["t"].startswith("XARELTO") for x in med) and not any(x["on"] for x in med if x["t"].startswith(("ELIQUIS","XARELTO"))),[x["t"][:30] for x in med])
+        tv=await page.evaluate("""()=>{const p=PACKS.find(x=>x.n==='Phlébite / thrombose veineuse profonde');const m=p.s.find(sh=>sh.k==='med').l.filter(l=>l.grp==='ac');const t=PACKS.find(x=>x.n==='Thrombose veineuse superficielle (paraphlébite)').s.find(sh=>sh.k==='med').l.map(l=>typeof l==='string'?l:l.t).join(' ');return [m.length,m.filter(l=>!l.opt).length,/ARIXTRA 2,5 mg/.test(t)&&/45 jours/.test(t),!!FIELDS.hbpm&&(p.fields||[]).includes('hbpm')];}""")
+        ok(label+" bloc 10 : TVP 3 anticoagulants exclusifs (apixaban par défaut, rivaroxaban, HBPM au poids à saisir), TVS fondaparinux 45 j",tv[0]==3 and tv[1]==1 and tv[2] and tv[3],tv)
+        ht=await page.evaluate("""()=>PACKS.find(x=>x.n==='Poussée tensionnelle — HTA sévère sans urgence').s.filter(sh=>sh.k==='med').flatMap(sh=>sh.l).map(l=>typeof l==='string'?{t:l}:l)""")
+        ok(label+" bloc 10 : poussée tensionnelle sans nifédipine, amlodipine décochée",not any("ADALATE" in l["t"] or "nifédipine" in l["t"].lower() for l in ht) and any(l["t"].startswith("AMLODIPINE") and l.get("opt") for l in ht),ht)
         await page.evaluate("state.ddn='01/01/1985';render();")
         # Cahier des corrections — points 7 et 8 (risque médical)
         r7=await page.evaluate("""()=>{const out={};for(const n of ['Lombosciatique aiguë','Colique néphrétique','Diarrhée du voyageur / diarrhée sous antibiotique','Brûlure oculaire — projection de caustique']){const i=PACKS.findIndex(p=>p.n===n);state.sel=i;state.obs={};state.cst={};out[n]=buildCR0(PACKS[i]);}return out;}""")
