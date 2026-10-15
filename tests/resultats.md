@@ -1,0 +1,134 @@
+# Tests v40 (lot 1, blocs 2 à 8)
+
+- OK — iphone version 40
+- OK — iphone packs chargés
+- OK — iphone pas de pack en double
+- OK — iphone cystite simple : MONURIL coché
+- OK — iphone cystite simple : pas d'OROKEN
+- OK — iphone bascule S/R visible
+- OK — iphone cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — iphone cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
+- OK — iphone cystite à risque : 6 alternatives radio
+- OK — iphone cystite à risque : ECBU
+- OK — iphone lombalgie : kétoprofène coché, ibuprofène option
+- OK — iphone lombalgie : pas de tramadol
+- OK — iphone lombalgie : ligne palier 3 journal+CR
+- OK — iphone CR contient le palier 3 avec mention
+- OK — iphone impression sans le palier 3
+- OK — iphone journal : AT 5 j enregistré
+- OK — iphone journal : ligne sécurisée enregistrée
+- OK — iphone journal affiche AT et ordonnance sécurisée
+- OK — iphone gastro enfant : TIORFAN au poids
+- OK — iphone gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — iphone gastro enfant : jamais de lopéramide
+- OK — iphone angine enfant : CLAMOXYL 5 ml coché
+- OK — iphone angine enfant : 5 antibiotiques
+- OK — iphone angine enfant allergie : CLAMOXYL écarté
+- OK — iphone grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — iphone grippe 35 ans consultation : pas de TAMIFLU
+- OK — iphone grippe en visite : à risque par défaut
+- OK — iphone durée AT gastro = 3 (Docteur DEIE)
+- OK — iphone durée AT entorse CNAM
+- OK — iphone gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — iphone gastro adulte simple : pas d'antibiotique
+- OK — iphone gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
+- OK — iphone bloc 2 : packs chargés
+- OK — iphone dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — iphone BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
+- OK — iphone conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — iphone bloc 3 : 30 packs chargés
+- OK — iphone blocs 2-3 : gabarits équilibrés
+- OK — iphone PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — iphone PAC à risque : AUGMENTIN coché
+- OK — iphone BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — iphone fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — iphone bloc 4 : 13 packs chargés
+- OK — iphone fiches : aucun médicament non commercialisé ou hospitalier
+- OK — iphone PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — iphone prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — iphone fiches : aucune ligne effacée par dédoublonnage
+- OK — iphone bloc 5 : 22 packs chargés
+- OK — iphone fiches : chaque champ {f:…} a sa case de saisie
+- OK — iphone durée AT cervicalgie CNAM
+- OK — iphone goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — iphone bloc 6 : 22 packs chargés
+- OK — iphone tous les packs : aucun produit retiré du marché prescrit
+- OK — iphone érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — iphone gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — iphone tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — iphone bloc 7 : 16 packs chargés
+- OK — iphone laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — iphone asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — iphone bloc 8 : 15 packs chargés
+- OK — iphone migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — iphone paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
+- OK — iphone bronchiolite nuit : feuilles rendues
+- OK — iphone aucune erreur JS
+- OK — pc version 40
+- OK — pc packs chargés
+- OK — pc pas de pack en double
+- OK — pc cystite simple : MONURIL coché
+- OK — pc cystite simple : pas d'OROKEN
+- OK — pc bascule S/R visible
+- OK — pc cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — pc cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
+- OK — pc cystite à risque : 6 alternatives radio
+- OK — pc cystite à risque : ECBU
+- OK — pc lombalgie : kétoprofène coché, ibuprofène option
+- OK — pc lombalgie : pas de tramadol
+- OK — pc lombalgie : ligne palier 3 journal+CR
+- OK — pc CR contient le palier 3 avec mention
+- OK — pc impression sans le palier 3
+- OK — pc journal : AT 5 j enregistré
+- OK — pc journal : ligne sécurisée enregistrée
+- OK — pc journal affiche AT et ordonnance sécurisée
+- OK — pc gastro enfant : TIORFAN au poids
+- OK — pc gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — pc gastro enfant : jamais de lopéramide
+- OK — pc angine enfant : CLAMOXYL 5 ml coché
+- OK — pc angine enfant : 5 antibiotiques
+- OK — pc angine enfant allergie : CLAMOXYL écarté
+- OK — pc grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — pc grippe 35 ans consultation : pas de TAMIFLU
+- OK — pc grippe en visite : à risque par défaut
+- OK — pc durée AT gastro = 3 (Docteur DEIE)
+- OK — pc durée AT entorse CNAM
+- OK — pc gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — pc gastro adulte simple : pas d'antibiotique
+- OK — pc gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
+- OK — pc bloc 2 : packs chargés
+- OK — pc dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — pc BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
+- OK — pc conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — pc bloc 3 : 30 packs chargés
+- OK — pc blocs 2-3 : gabarits équilibrés
+- OK — pc PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — pc PAC à risque : AUGMENTIN coché
+- OK — pc BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — pc fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — pc bloc 4 : 13 packs chargés
+- OK — pc fiches : aucun médicament non commercialisé ou hospitalier
+- OK — pc PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — pc prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — pc fiches : aucune ligne effacée par dédoublonnage
+- OK — pc bloc 5 : 22 packs chargés
+- OK — pc fiches : chaque champ {f:…} a sa case de saisie
+- OK — pc durée AT cervicalgie CNAM
+- OK — pc goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — pc bloc 6 : 22 packs chargés
+- OK — pc tous les packs : aucun produit retiré du marché prescrit
+- OK — pc érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — pc gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — pc tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — pc bloc 7 : 16 packs chargés
+- OK — pc laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — pc asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — pc bloc 8 : 15 packs chargés
+- OK — pc migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — pc paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
+- OK — pc bronchiolite nuit : feuilles rendues
+- OK — pc aucune erreur JS
+
+130/130 tests OK
