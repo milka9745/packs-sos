@@ -1,4 +1,4 @@
-# Tests v40 (lot 1, blocs 2 à 5)
+# Tests v40 (lot 1, blocs 2 à 6)
 
 - OK — iphone version 40
 - OK — iphone packs chargés
@@ -52,6 +52,11 @@
 - OK — iphone fiches : chaque champ {f:…} a sa case de saisie
 - OK — iphone durée AT cervicalgie CNAM
 - OK — iphone goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — iphone bloc 6 : 22 packs chargés
+- OK — iphone tous les packs : aucun produit retiré du marché prescrit
+- OK — iphone érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — iphone gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — iphone tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
 - OK — iphone bronchiolite nuit : feuilles rendues
 - OK — iphone aucune erreur JS
 - OK — pc version 40
@@ -106,7 +111,12 @@
 - OK — pc fiches : chaque champ {f:…} a sa case de saisie
 - OK — pc durée AT cervicalgie CNAM
 - OK — pc goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — pc bloc 6 : 22 packs chargés
+- OK — pc tous les packs : aucun produit retiré du marché prescrit
+- OK — pc érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — pc gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — pc tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-108/108 tests OK
+118/118 tests OK
