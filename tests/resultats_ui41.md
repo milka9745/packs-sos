@@ -14,8 +14,8 @@
 - OK — 375 px texte normal jour : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px texte normal jour : clé saisie : reste sur « Aucun », choix du mode affiché
 - OK — 375 px texte normal jour : Partiel : bouton en couleur vive avec le mode
-- OK — 375 px texte normal jour : bouton IA à côté de « Observation et compte rendu »
-- OK — 375 px texte normal jour : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px texte normal jour : bouton IA dans la carte Dictée, au-dessus de l'observation
+- OK — 375 px texte normal jour : bouton IA à côté du grand champ de dictée
 - OK — 375 px texte normal jour : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
 - OK — 375 px texte normal jour : « Relire le compte rendu » ouvre « Ce qui part »
 - OK — 375 px texte normal jour : « Rédiger le courrier » ouvre l'onglet Courrier
@@ -33,8 +33,8 @@
 - OK — 375 px texte normal nuit : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px texte normal nuit : clé saisie : reste sur « Aucun », choix du mode affiché
 - OK — 375 px texte normal nuit : Partiel : bouton en couleur vive avec le mode
-- OK — 375 px texte normal nuit : bouton IA à côté de « Observation et compte rendu »
-- OK — 375 px texte normal nuit : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px texte normal nuit : bouton IA dans la carte Dictée, au-dessus de l'observation
+- OK — 375 px texte normal nuit : bouton IA à côté du grand champ de dictée
 - OK — 375 px texte normal nuit : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
 - OK — 375 px texte normal nuit : « Relire le compte rendu » ouvre « Ce qui part »
 - OK — 375 px texte normal nuit : « Rédiger le courrier » ouvre l'onglet Courrier
@@ -52,8 +52,8 @@
 - OK — 375 px grand texte jour : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px grand texte jour : clé saisie : reste sur « Aucun », choix du mode affiché
 - OK — 375 px grand texte jour : Partiel : bouton en couleur vive avec le mode
-- OK — 375 px grand texte jour : bouton IA à côté de « Observation et compte rendu »
-- OK — 375 px grand texte jour : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px grand texte jour : bouton IA dans la carte Dictée, au-dessus de l'observation
+- OK — 375 px grand texte jour : bouton IA à côté du grand champ de dictée
 - OK — 375 px grand texte jour : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
 - OK — 375 px grand texte jour : « Relire le compte rendu » ouvre « Ce qui part »
 - OK — 375 px grand texte jour : « Rédiger le courrier » ouvre l'onglet Courrier
@@ -71,8 +71,8 @@
 - OK — 375 px grand texte nuit : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px grand texte nuit : clé saisie : reste sur « Aucun », choix du mode affiché
 - OK — 375 px grand texte nuit : Partiel : bouton en couleur vive avec le mode
-- OK — 375 px grand texte nuit : bouton IA à côté de « Observation et compte rendu »
-- OK — 375 px grand texte nuit : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px grand texte nuit : bouton IA dans la carte Dictée, au-dessus de l'observation
+- OK — 375 px grand texte nuit : bouton IA à côté du grand champ de dictée
 - OK — 375 px grand texte nuit : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
 - OK — 375 px grand texte nuit : « Relire le compte rendu » ouvre « Ce qui part »
 - OK — 375 px grand texte nuit : « Rédiger le courrier » ouvre l'onglet Courrier

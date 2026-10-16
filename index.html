@@ -477,6 +477,18 @@ html[data-theme="night"] .btn.aimain.vive{background:#FFB300!important;color:#1A
 #aipop [data-aipa]:disabled{opacity:.55}#aipop .aipkey{display:flex;flex-direction:column;gap:6px;border:1.5px solid #FFB000;border-radius:10px;padding:8px}
 #aipop .aipkey input{padding:10px;border:1px solid var(--line2);border-radius:8px;font:inherit;font-size:16px}#aipop .aipmode .aimode{width:100%;justify-content:space-between}#aipop .aipmode .aimode button{flex:1;min-height:44px}
 #aipop .aipok{color:#1D7A3A}#aipop .aipfoot{padding:2px 6px}
+/* 16/10/2026 lot 1 : carte Dictée, dictées récentes, fiche d'un autre âge, impression */
+.dictcard textarea#f_dict{width:100%;min-height:150px;padding:12px;border:2px solid var(--navy);border-radius:12px;font:inherit;font-size:16px;line-height:1.45;resize:vertical;background:var(--field,#fff);color:var(--ink)}
+html[data-theme="night"] .dictcard textarea#f_dict{border-color:#8FA6E0}
+.dictcard .dict-how{margin:2px 0 8px}.dict-act2{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}.dict-act2 .btn{min-height:44px}.dsaved{color:#1D7A3A!important;font-weight:700}
+html[data-theme="night"] .dsaved{color:#5BC07A!important}
+#dicth{position:fixed;inset:0;z-index:520;background:rgba(27,34,56,.55);display:flex;align-items:flex-start;justify-content:center;padding:24px 10px;overflow:auto}
+.dhrow{display:flex;gap:10px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:10px 2px}.dhrow .btn{flex:none;min-height:40px}
+.agemis{border-left:4px solid #C98A00}.agemis .btn{margin-top:6px}
+.phload{width:100%;height:80px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+.printbar .pdfst{font-size:13px;color:var(--muted);margin-left:8px}
+.printbar.top:not(.phone){position:sticky;top:0;bottom:auto;z-index:21;flex-wrap:wrap} /* n° 9 : la barre du haut n'est plus recouverte par celle du bas */
+.printbar.top:not(.phone) .pdfst{color:inherit;opacity:.85;font-weight:600}
 html[data-theme="night"] .aitok{background:#2E3A5E;color:#E8ECF8}html[data-theme="night"] .aimode button.on{background:var(--chk);color:var(--onchk)}
 label.sa{display:inline-flex;align-items:center;gap:6px}label.sa input{padding:6px 8px;border:1px solid var(--line2);border-radius:8px;font:inherit}label.sa .hint{margin:0}
 /* ===== Thème v35 — jour / nuit à jetons. Nuit = anthracite, crème, or en liseré ; Jour = blanc, noir, bleu nuit, or pour l'élément actif ===== */
@@ -6584,9 +6596,9 @@ function applyDictation(){
 function obsHTML(p){
   const tpl=obsTemplate(p); const o=state.obs;
   const cst=[["ta","TA","mmHg"],["fc","FC","/min"],["spo2","SpO2","%"],["temp","T°","°C"],["fr","FR","/min"],["gly","Glycémie","g/l"],["eva","EVA","/10"]];
-  if(!state.obsOpen) return `<div class="obs closed"><button class="btn s" id="obs_toggle" type="button">＋ Observation et compte rendu</button>${aiMainHTML()}<span>Constantes, dictée, examen validé appareil par appareil, compte rendu en un clic</span></div>`;
+  if(!state.obsOpen) return `<div class="obs closed"><button class="btn s" id="obs_toggle" type="button">＋ Observation et compte rendu</button><span>Constantes, dictée, examen validé appareil par appareil, compte rendu en un clic</span></div>`;
   let html=`<div class="obs"><div class="obs-hd"><b>Observation express</b><span>Constantes, examen par appareil à valider, compte rendu copiable</span><button class="mini" id="obs_toggle" type="button">Replier</button></div>`;
-  html+=`<div class="obs-row dict"><label>Dictée globale — constantes, histoire, examen, diagnostic, dans n'importe quel ordre ; puis « Répartir »</label><textarea data-obs="dict" rows="3" placeholder="Ex. : vient pour mal de gorge depuis 2 jours avec fièvre, pas de toux. TA 13/8, pouls 92, température 38,5, saturation 98. Amygdales rouges avec points blancs, ganglions cervicaux, TROD positif. Poumons clairs. Diagnostic angine streptococcique.">${esc(o.dict||"")}</textarea><div class="dict-act"><button class="btn p" id="dict_go" type="button">Répartir dans les rubriques</button>${aiMainHTML()}<button class="btn s" id="obs_allnorm" type="button">Normal sur les appareils non saisis</button></div><div class="hint">Seuls les appareils saisis, dictés ou validés (« Normal », « Proposé ») figurent au compte rendu ; rien n'est ajouté par défaut.</div></div>`;
+  html+=`<div class="obs-row dict"><div class="dict-act"><button class="btn p" id="dict_go" type="button">Répartir la dictée dans les rubriques</button><button class="btn s" id="obs_allnorm" type="button">Normal sur les appareils non saisis</button></div><div class="hint">La dictée se fait dans la carte « Dictée » en haut (toujours visible, enregistrée à chaque mot). Seuls les appareils saisis, dictés ou validés (« Normal », « Proposé ») figurent au compte rendu ; rien n'est ajouté par défaut.</div></div>`;
   html+=`<div class="cst">${cst.map(([k,l,u])=>`<label>${l}<input data-cst="${k}" value="${esc(state.cst[k]||"")}" placeholder="${u}" inputmode="decimal"></label>`).join("")}</div>`;
   html+=`<div class="obs-row"><label>Histoire de la maladie (dicte au micro du clavier)</label><textarea data-obs="hist" rows="2" placeholder="${esc(tpl.hist)}">${esc(o.hist||"")}</textarea></div>`;
   html+=`<div class="obs-row"><label>Antécédents / allergies</label><input data-obs="atcd" value="${esc(o.atcd||"")}" placeholder="Aucun antécédent notable ; pas d'allergie connue"></div>`;
@@ -6608,7 +6620,7 @@ function buildCR0(p){
   const pat=[state.patient, state.ddn?"né(e) le "+normDate(state.ddn):"", a?a.y+" ans":"", state.poids?state.poids+" kg":""].filter(Boolean).join(", ");
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","Glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
   const D=!!o.dictated;
-  const hist=o.hist||""; let hyp=(o.hyp||p.n).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
+  const hist=o.hist||""; let hyp=(o.hyp||diagName(p)).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
   const temp=parseFloat((state.cst.temp||"").replace(",","."));
   const exam=SYSTEMS.map(([k,l,norm])=>{let v=o[k]!==undefined?String(o[k]).trim():""; /* correctif 8 : un appareil non saisi, non dicté et non validé n'apparaît pas */ if(k==="gen"&&temp>=38&&/apyrétique/.test(v)) v=v.replace("apyrétique","fébrile à "+state.cst.temp+" °C"); return [l,v,v!==norm&&!!v];}).filter(x=>x[1]);
   const normalLike=v=>/\b(normal|normale|normaux|sans anomalie|sans particularité|bon état général|souple|indolore|clair|libre|conservé|symétrique|réactives)\b/i.test(v)&&!/anormal|pas normal|douloureu|défense|déficit|sibil|crépit|rouge|œdème|oedème|pultac|purulent|bomb|positif/i.test(v);
@@ -6624,7 +6636,7 @@ function buildCR0(p){
   L.push("");
   L.push("RÉSUMÉ");
   const hist0=hist.replace(/\.$/,"").replace(/^(vient pour|consulte pour|motif\s*:?|se présente pour|amené pour|amenée pour)\s*/i,"");
-  let res="Consultation pour "+(hist0?hist0.charAt(0).toLowerCase()+hist0.slice(1):p.n.toLowerCase())+". ";
+  let res="Consultation pour "+(hist0?hist0.charAt(0).toLowerCase()+hist0.slice(1):diagName(p).toLowerCase())+". ";
   res+=cst?"Constantes : "+cst+". ":"";
   res+=abn.length?"Examen : "+abn.map(x=>x.replace(/\.$/,"")).join(" ; ")+(exam.length>abn.length?" ; sans anomalie sur les autres appareils examinés. ":". "):(exam.length?"Examen sans anomalie sur les appareils examinés. ":"Examen clinique non renseigné dans l'observation. ");
   res+="Diagnostic retenu : "+hyp+". ";
@@ -6968,7 +6980,7 @@ function search(q){
   const res=$("#res"); res.innerHTML="";
   if(selSet.size){const c=document.createElement("div");c.className="cat sel";c.textContent="Sélection ("+selSet.size+")";res.appendChild(c);
     selIdx().forEach(i=>{const p=PACKS[i];const row=document.createElement("div");row.className="row";const b=document.createElement("button");b.className="res on";b.innerHTML='<div class="n">'+p.n+'</div><div class="t">'+p.s.map(x=>TYPES[x.k].lbl).join(" · ")+'</div>';
-      const un=()=>{let cur=selIdx().filter(x=>x!==i);state.sel=cur.length===0?null:cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};state.obs={};render();search($("#q").value);};
+      const un=()=>{let cur=selIdx().filter(x=>x!==i);state.sel=cur.length===0?null:cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};render();search($("#q").value);}; /* 16/10/2026 n° 10 : l'observation et la dictée sont conservées */
       b.onclick=un;const x=document.createElement("button");x.className="rm";x.title="Retirer";x.textContent="×";x.onclick=un;row.appendChild(b);row.appendChild(x);res.appendChild(row);});}
   if(!list.length&&!selSet.size){res.innerHTML='<div class="empty">Aucun pack pour « '+q+' ». Essaie un autre mot : symptôme, organe, nom du pack.</div>';return;}
   let lastCat="";
@@ -6978,7 +6990,7 @@ function search(q){
     const row=document.createElement("div");row.className="row";
     const b=document.createElement("button");b.className="res"+(selIdx().includes(i)?" on":"");
     b.innerHTML='<div class="n">'+p.n+'</div><div class="t">'+p.s.map(x=>TYPES[x.k].lbl).join(" · ")+'</div>';
-    const reset=()=>{state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};state.obs={};};
+    const reset=()=>{state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};}; /* n° 10 : observation conservée */
     const toggle=()=>{let cur=selIdx();if(cur.includes(i)){cur=cur.filter(x=>x!==i);}else cur=[...cur,i];state.sel=cur.length===0?null:cur.length===1?cur[0]:cur;reset();render();search($("#q").value);};
     b.onclick=toggle;
     const plus=document.createElement("button");plus.className="plus"+(selIdx().includes(i)?" on":"");plus.type="button";plus.title=selIdx().includes(i)?"Retirer ce pack":"Ajouter ce pack";plus.textContent=selIdx().includes(i)?"×":"+";
@@ -7097,13 +7109,6 @@ function lesionBuilder(){
   return h;
 }
 /* ---- Photos (option) : jointes en fin de pack sur le modèle SOS ---- */
-function photosUI(){
-  const th=state.photos.map((p,i)=>`<figure class="pth"><img src="${p.src}" alt=""><input data-pcap="${i}" placeholder="Légende (ex. lésion 1, avant-bras droit)" value="${esc(p.cap||"")}"><button type="button" data-pdel="${i}" title="Retirer">×</button></figure>`).join("");
-  return `<div class="photobox"><label class="btn s" for="f_photos">📷 Photos (option) — ajoutées en fin de pack</label><input type="file" id="f_photos" accept="image/*" multiple style="display:none">${state.photos.length?`<div class="pths">${th}</div>`:""}</div>`;
-}
-function addPhotoFiles(files){
-  [...files].forEach(f=>{ const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ try{ const M=1400; let w=img.width,h=img.height; const k=Math.min(1,M/Math.max(w,h)); w=Math.round(w*k); h=Math.round(h*k); const cv=document.createElement("canvas"); cv.width=w; cv.height=h; cv.getContext("2d").drawImage(img,0,0,w,h); state.photos.push({src:cv.toDataURL("image/jpeg",0.82),cap:""}); }catch(e){ state.photos.push({src:r.result,cap:""}); } render(); }; img.onerror=()=>{state.photos.push({src:r.result,cap:""});render();}; img.src=r.result; }; r.readAsDataURL(f); });
-}
 function photoPages(pat){
   if(!state.photos.length) return "";
   let out=""; for(let i=0;i<state.photos.length;i+=4){
@@ -7278,7 +7283,8 @@ async function unlockDone(){SEC.unlocked=true;const el=$("#lock");if(el)el.remov
   try{await tourLoad();}catch(e){}
   try{await identLoad();}catch(e){}
   try{await validLoad();}catch(e){}
-  if(!window.__draftChecked){window.__draftChecked=1;try{const d=await secGet("sos_draft",null);if(d&&Date.now()-d.ts<3*3600*1000&&d.state&&(d.state.patient||d.state.sel!==null)){Object.assign(state,d.state);state.view="";window.__draftRestored=d.state.patient||"";}}catch(e){}}
+  if(!window.__draftChecked){window.__draftChecked=1;try{const d=await secGet("sos_draft",null);if(d&&Date.now()-d.ts<12*3600*1000&&d.state&&(d.state.patient||d.state.sel!==null||(d.state.obs&&Object.values(d.state.obs).some(v=>typeof v==="string"&&v.trim())))){Object.assign(state,d.state);state.view="";window.__draftRestored=d.state.patient||"";}}catch(e){}}
+  try{await dictHistLoad();}catch(e){}setTimeout(()=>{try{photosHydrate();phPurge();}catch(e){}},50);
   await aiLoad();await syncLoad();search("");render();armAutoLock();sessSave();identGate();if(syncOn())setTimeout(()=>syncNow(true),1500);}
 function lockNow(){if(!SEC.unlocked)return;SEC.unlocked=false;SEC.key=null;sessClear();lockScreen("unlock","");}
 function armAutoLock(){clearTimeout(SEC.timer);SEC.timer=setTimeout(lockNow,SEC.lockDelayMin*60*1000);if(!SEC._t||Date.now()-SEC._t>30000){SEC._t=Date.now();sessTouch();}}
@@ -15657,7 +15663,7 @@ function renderCore(){
   if(state.view==="drugs"){renderDrugs();return;}
   if(state.view==="drive"){renderDrive();return;}
   try{autoFlagsFromPack();}catch(e){}
-  try{if(SEC.unlocked){const {view,jg,...rest}=state;secSet("sos_draft",{ts:Date.now(),state:rest});}}catch(e){}
+  try{if(SEC.unlocked)draftSaveNow();}catch(e){}
   if(state.view==="journal"){renderJournal();return;}
   if(state.view==="fin"){renderFin();return;}
   if(state.view==="valid"){renderValid();return;}
@@ -15673,7 +15679,7 @@ function renderCore(){
   const testBanner=(TESTMODE&&!isPhone())?`<div class="testbar">MODE TEST : impressions et saisies ne sont pas enregistrées dans le journal de garde ni dans la comptabilité. Cliquez « MODE TEST » pour revenir en mode réel.</div>`:"";
   const jbar=`<div class="jbar"><button type="button" class="btn newp" id="new2">＋ Nouveau patient</button><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒</button>${topbarBtns()}<span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${aiBtnHTML()}<span class="jsp"></span><button type="button" class="btn ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde">${TESTMODE?"MODE TEST — journal non alimenté":"Mode test"}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${(()=>{const n=tourRemaining().length;return n?" ("+n+")":"";})()}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_open">↩ Validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="j_open">Journal de garde${(()=>{const n=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;return n?" ("+n+")":"";})()}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div>`;
     const copatUI=(!_p0)?"":`<div class="copat">${(state.copat||[]).map((c,i)=>`<div class="copatrow"><span class="hint">Même motif, patient ${i+2}</span><input data-cp="${i}" data-k="patient" placeholder="NOM Prénom" value="${esc(c.patient||"")}" style="width:220px"><input data-cp="${i}" data-k="ddn" placeholder="Date de naissance" value="${esc(c.ddn||"")}" inputmode="numeric" style="width:130px"><input data-cp="${i}" data-k="poids" placeholder="Poids (kg)" value="${esc(c.poids||"")}" inputmode="decimal" style="width:80px"><select data-cp="${i}" data-k="sexe"><option value="" ${!c.sexe?"selected":""}>Sexe</option><option value="h" ${c.sexe==="h"?"selected":""}>Homme</option><option value="f" ${c.sexe==="f"?"selected":""}>Femme</option></select><label><input type="checkbox" data-cp="${i}" data-k="allergie" ${c.allergie?"checked":""}> Allergie pénicillines</label><input data-cp="${i}" data-k="packName" list="packlist" placeholder="Même motif (ou taper un autre pack)" value="${esc(c.packName||"")}" style="width:260px"><button type="button" class="rm" data-cprm="${i}" title="Retirer">×</button></div>`).join("")}<datalist id="packlist">${PACKS.map(x=>`<option value="${esc(x.n)}">`).join("")}</datalist><button type="button" class="btn s sm" id="copat_add">＋ Même motif, autre patient (fratrie, couple)</button>${(state.copat||[]).length?'<span class="hint" style="margin-left:8px">Chaque patient reçoit ses feuilles (doses au poids, règles d\'âge, allergie), avec le même pack ou celui tapé dans « motif » ; chacun est inscrit dans le journal et dans le compte rendu.</span>':""}</div>`;
-  const head=restored+testBanner+(isPhone()?phoneTopbar(_p0):jbar)+specBarHTML()+backupBarHTML()+gardeBannerHTML()+lieuSwitchHTML()+(isPhone()?stepsHTML(_p0?2:1):"")+tourCardHTML()+`<section class="pcard"><div class="pcard-h"><span class="stepn">1</span><b>Patient</b><span class="hint">Nom, naissance, poids · Entrée passe au champ suivant, puis au motif</span><span class="pcard-ai">${aiMainHTML()}</span></div><div class="patient">
+  const head=restored+testBanner+(isPhone()?phoneTopbar(_p0):jbar)+specBarHTML()+backupBarHTML()+gardeBannerHTML()+lieuSwitchHTML()+(isPhone()?stepsHTML(_p0?2:1):"")+tourCardHTML()+`<section class="pcard"><div class="pcard-h"><span class="stepn">1</span><b>Patient</b><span class="hint">Nom, naissance, poids · Entrée passe au champ suivant, puis au motif</span></div><div class="patient">
    <div><label>Patient (NOM Prénom)</label><input id="f_patient" value="${esc(state.patient)}" placeholder="ex. DUPONT Marie"></div>
    <div><label>Date de naissance<span id="f_age" class="agetag">${esc(ageLabel())}</span></label><input id="f_ddn" value="${esc(state.ddn)}" placeholder="ex. 12031985" inputmode="numeric"></div>
    <div ${needPoids?"":'style="display:none"'}><label>Poids (kg)</label><input id="f_poids" value="${esc(state.poids)}" placeholder="ex. 14" inputmode="decimal"></div>
@@ -15692,7 +15698,7 @@ function renderCore(){
   <div class="tt"><label>Traitements en cours</label><div class="chips" id="tt_chips">${state.tt.map((t,i)=>`<span class="chip">${esc(t)}<button type="button" data-ttdel="${i}">×</button></span>`).join("")}<input id="f_tt" autocomplete="off" placeholder="${state.tt.length?"Ajouter…":"Tape un médicament habituel (AVK, metformine…) puis Entrée — déclenche les alertes d'interaction"}"></div><div class="sugg" id="sg_tt"></div></div>${isPhone()?copatUI:""}${pmoreClose()}</section>${isPhone()?'<div id="aside_slot"></div>':""}`;
   const p=currentPack();
   if(!p){
-    m.innerHTML=head+(isPhone()?`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Fin de consultation » copie le compte rendu et ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare le PDF A4 pour Phomemo.</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
+    m.innerHTML=head+dictCardHTML()+(isPhone()?`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Fin de consultation » copie le compte rendu et ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare le PDF A4 pour Phomemo.</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
     <p>Un clic sur un pack l'ajoute ; un second clic (ou ×) le retire ; plusieurs packs se cumulent sans doublon. Chaque pack regroupe les feuilles nécessaires : ordonnance de médicaments, biologie, imagerie, kinésithérapie, dispositifs médicaux, consignes. Tu coches ou décoches chaque ligne (les lignes à puce ronde sont des choix : une seule est retenue), tu renseignes le nom du patient, et <kbd>Imprimer le pack</kbd> sort une page par feuille sur le modèle SOS Médecins Orléans.</p>
     <p>Le poids sert aux doses enfant ; la date de naissance sert aux doses selon l'âge. Coche « Allergie aux pénicillines » pour remplacer l'antibiotique par trois alternatives au choix. Chaque feuille a une ligne libre en bas et des boutons tout cocher / tout décocher.</p><p>Sur iPhone : « Imprimer » ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare un PDF A4 (une page par feuille) et ouvre le menu Partager pour Phomemo.</p></div>`);
     bind();return;
@@ -15743,7 +15749,7 @@ function renderCore(){
   const warn=missing.size?`<div class="warn">Pour imprimer sans trou, renseigne : ${[...missing].join(", ")}. Les lignes barrées seraient retirées de la feuille.</div>`:"";
   const alerts=checkAlerts(p.s);
   const thesList=thesAlerts(p.s);const thesBox=thesBoxHTML(thesList);const alerts2=alerts.filter(x=>!/^(⛔|⚠) /.test(x));
-  const alertBox=(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
+  const alertBox=ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
   const adaptAll=[...new Set([...(state.autoNotes||[]),...Object.values(ADAPT_NOTES).flat()])];
   const adaptBox=adaptAll.length?`<div class="adapt">Adapté automatiquement à l'âge et au poids : ${adaptAll.map(esc).join(" · ")}</div>`:"";
   const multiNote=p.merged?`<div class="hint" style="margin:0 0 10px;display:none">Packs combinés : les lignes identiques n'apparaissent qu'une fois ; antibiotiques et antalgiques de palier 2 forment un seul choix. Le bouton – dans la liste retire un pack.</div>`:"";
@@ -15754,9 +15760,9 @@ function renderCore(){
   const sheetsHTML=`<div class="sheets">${html}</div>${lettresHTML(p)}`;
   if(isPhone()){
     const dockPhone=`<div class="act dock phone"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only" title="Imprimer le pack">Imprimer · ${nSheets}${alerts.length?` <b class="red">⚠ ${alerts.length}</b>`:""}</button></div>`;
-    m.innerHTML=head+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
+    m.innerHTML=head+dictCardHTML()+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
   }else{
-    m.innerHTML=head+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+
+    m.innerHTML=head+dictCardHTML()+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+
      `<div class="act dock"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only">Imprimer</button><button class="btn s" id="go" title="Imprimer et copier le compte rendu">Imprimer + CR</button><button class="btn newp" id="new">＋ Nouveau patient</button><span class="count">${nSheets} feuille(s)${alerts.length?` · <b class="red">${alerts.length} alerte(s)</b>`:""}</span></div><button class="fab" id="go2" type="button" title="Imprimer">🖨️ Imprimer</button>`+obsHTML(p)+sheetsHTML+`
    <p class="hint">Coche ou décoche chaque ligne ; une puce ronde = un choix parmi plusieurs. Impression : A4, marges « aucune », échelle 100 %. Chaque feuille tient sur une page.</p>`;
   }
@@ -15771,7 +15777,7 @@ function autoAgePack(){
     if(!target) return i; const j=PACKS.findIndex(p=>p.n===target); if(j<0) return i; (ADAPT_NOTES.pack=ADAPT_NOTES.pack||[]).push("Pack « "+PACKS[j].n+" » sélectionné d'après l'âge"); return j;};
   const idx=selIdx(); if(!idx.length) return; const nidx=idx.map(swap); if(nidx.some((v,k)=>v!==idx[k])){state.sel=nidx.length===1?nidx[0]:nidx;state.off={};state.lo={};state.gs={};state.edits={};}
 }
-function bind(){try{gardeBannerBind();themeApply();}catch(e){}
+function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind();}catch(e){}
   try{phoneBind();}catch(e){console.warn("phoneBind",e);}
   try{backupBind();const sa=$("#spec_act");if(sa)sa.onclick=()=>identScreen("activate","");const tr2=$("#tc_reopen");if(tr2)tr2.onclick=()=>{if(VALID.last&&!state.patient&&VALID.hist.length===1)patientReopen(VALID.last);else validListScreen();};["#vh_menu","#vh_open"].forEach(id=>{const b=$(id);if(b)b.onclick=validListScreen;});const tcv=$("#tc_valid");if(tcv)tcv.onclick=patientValidate;const tb=$("#tc_begin");if(tb)tb.onclick=tourBegin;{const g=id=>document.getElementById(id);const a=g("tc_arrive");if(a)a.onclick=tpArrive;const ny=g("tc_near_yes");if(ny)ny.onclick=tpArrive;const nn=g("tc_near_no");if(nn)nn.onclick=()=>{TOUR.near="_no";render();};const dv=g("tc_drive");if(dv)dv.onclick=()=>{state.view="drive";render();};const dc=g("tc_dict");if(dc)dc.onclick=tpDictate;try{tpGeoWatch();}catch(e){}}const tf=$("#tc_free");if(tf)tf.onclick=tourFree;const trb=$("#tr_begin");if(trb)trb.onclick=tourBegin;interroBind(TOUR.current?tourStop(TOUR.current):null);}catch(e){console.warn("bind v39",e);}
   const wire=(id,key,fn)=>{const e=$(id);if(!e)return;e.oninput=()=>{state[key]=e.value;if(fn)fn();};};
@@ -15948,25 +15954,25 @@ async function finishPrint(p,out,removed){
   if(PRINT2UP){try{out=print2up(out);}catch(e){}}
   state.lastPrint={n:sheetCount(out),sent:false,ts:Date.now()};
   const top=phone?`<div class="printbar top phone"><button class="btn s" id="pb_back2" type="button">← Modifier</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${stepsHTML(3)}</div>`
-    :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">Imprimer / PDF</button><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
-  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">Envoyer à l'imprimante</button><button class="btn s" id="pb_ios" type="button" hidden title="Fenêtre d'impression d'iOS (secours)">Impression iOS</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
-    :`<div class="printbar"><button class="btn p" id="pb_print" type="button">Imprimer / enregistrer en PDF</button><button class="btn s valid" id="pb_valid" type="button">✓ Valider le patient</button><button class="btn s" id="pb_back" type="button">Retour</button></div>`;
+    :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf2" type="button">⬇ Enregistrer en PDF</button><span class="pdfst" id="pdf_st"></span><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
+  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">Envoyer à l'imprimante</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button><button class="btn s" id="pb_ios" type="button" title="Fenêtre d'impression de l'iPhone">🖨 Impression</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
+    :`<div class="printbar"><button class="btn p" id="pb_print" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button><button class="btn s valid" id="pb_valid" type="button">✓ Valider le patient</button><button class="btn s" id="pb_back" type="button">Retour</button></div>`;
   const pr=$("#print");pr.classList.toggle("phone",phone);pr.innerHTML=top+out+bottom;
   document.title=(p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");
   document.body.classList.add("printing");
   const back=()=>{pdfCancel();document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";};
   const _pb=$("#pb_back");if(_pb)_pb.onclick=back;const _pb2=$("#pb_back2");if(_pb2)_pb2.onclick=back;
   const _valid=()=>{back();patientValidate();};["#pb_valid","#pb_valid2"].forEach(id=>{const b=$(id);if(b)b.onclick=_valid;});
-  const _print=()=>{if(state.lastPrint)state.lastPrint.sent=true;window.print();};
-  if(phone){$("#pb_send").onclick=pdfSend;$("#pb_ios").onclick=_print;}
-  else{$("#pb_print").onclick=_print;$("#pb_print2").onclick=_print;}
+  const _print=printNow;PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;
+  if(phone){$("#pb_send").onclick=pdfSend;$("#pb_ios").onclick=_print;$("#pb_pdf").onclick=pdfSave;}
+  else{$("#pb_print").onclick=_print;$("#pb_print2").onclick=_print;$("#pb_pdf").onclick=pdfSave;$("#pb_pdf2").onclick=pdfSave;}
   const imgs=[...document.querySelectorAll("#print img")];
   await Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=i.onerror=r;})));
   try{ await Promise.all(imgs.map(i=>i.decode().catch(()=>{}))); }catch(e){}
   if(PRINT2UP&&pr.querySelector(".page.sheet2")){try{if(unpairOverflow(pr)){out=[...pr.children].filter(x=>x.classList&&x.classList.contains("page")).map(x=>x.outerHTML).join("");state.lastPrint.n=sheetCount(out);}}catch(e){}}
   window.scrollTo(0,0);
-  if(phone) pdfPrepare(out);
-  else setTimeout(()=>{if(state.lastPrint)state.lastPrint.sent=true;window.print();},150);
+  if(phone||iosLike()) pdfPrepare(out);
+  if(!phone&&!iosLike()) setTimeout(printNow,150); /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
 }
 
 $("#q").addEventListener("input",e=>search(e.target.value));
@@ -16563,6 +16569,97 @@ function aiShowDoc(j,out){const R=AI.res;R.acc={};const H=[];const meds=aiMedWor
     else if(k==="tt"){a.list.forEach(t=>{if(t&&!state.tt.some(x=>norm(x)===norm(t)))state.tt.push(t);});aiLog("doc","traitements ajoutés",a.list.join(", "));}
     state.obsOpen=true;b.disabled=true;b.textContent="Ajouté ✓";render();});}
 
+
+/* ===================== 16/10/2026 — LOT 1 (registre docs/CORRECTIONS-2026-10-16.md) ===================== */
+/* ---- n° 10 : aucune perte de saisie. Sauvegarde chiffrée à chaque frappe (et avant de quitter), restauration automatique, dictées récentes ---- */
+const DRAFT={saved:0,t:0};
+/* le brouillon ne contient jamais les images : elles sont dans le coffre photos chiffré (n° 7) */
+function draftClean(o){const c=JSON.parse(JSON.stringify(o));if(Array.isArray(c.photos))c.photos=c.photos.map(p=>({id:p.id||"",cap:p.cap||"",kb:p.kb||0}));if(Array.isArray(c.copat))c.copat.forEach(x=>{if(x&&Array.isArray(x.photos))x.photos=x.photos.map(p=>({id:p.id||"",cap:p.cap||""}));});return c;}
+function draftSaveNow(){try{if(!SEC.unlocked)return;const {view,jg,...rest}=state;secSet("sos_draft",{ts:Date.now(),state:draftClean(rest)});dictHistNote();DRAFT.saved=Date.now();draftSavedUI();}catch(e){console.warn("brouillon",e);}}
+function draftSaveSoon(){clearTimeout(DRAFT.t);DRAFT.t=setTimeout(draftSaveNow,250);}
+function draftSavedUI(){document.querySelectorAll(".dsaved").forEach(e=>{e.textContent=DRAFT.saved?"✓ enregistrée "+new Date(DRAFT.saved).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"";});}
+document.addEventListener("input",ev=>{const t=ev.target;if(!t||!t.closest||t.closest("#lock"))return;draftSaveSoon();});
+document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.closest||t.closest("#lock"))return;draftSaveSoon();});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)draftSaveNow();});
+window.addEventListener("pagehide",()=>draftSaveNow());
+/* dictées récentes : chaque dictée est gardée chiffrée 48 h, même effacée ou remplacée ; reprise d'un geste */
+let DICTH=[];
+async function dictHistLoad(){try{const h=await secGet("sos_dicthist",[]);DICTH=Array.isArray(h)?h.filter(x=>x&&x.txt&&Date.now()-x.ts<48*3600*1000):[];}catch(e){DICTH=[];}}
+function dictHistNote(){const txt=String((state.obs&&state.obs.dict)||"").trim();if(txt.length<10)return;const k=String(state.t0||"cur");
+  const last=DICTH.find(x=>x.k===k&&!x.old);
+  if(last&&last.txt!==txt&&txt.length<last.txt.length*0.6){DICTH.unshift({k,ts:last.ts,txt:last.txt,pat:last.pat,old:1});}  /* gros effacement : l'ancienne version reste reprenable */
+  if(last){last.txt=txt;last.ts=Date.now();last.pat=patInit();}else DICTH.unshift({k,ts:Date.now(),txt,pat:patInit()});
+  DICTH=DICTH.filter(x=>Date.now()-x.ts<48*3600*1000).slice(0,30);secSet("sos_dicthist",DICTH);}
+function patInit(){const p=String(state.patient||"").trim();return p?p.split(/\s+/)[0].charAt(0).toUpperCase()+".":"";}
+function dictHistScreen(){let el=document.getElementById("dicth");if(!el){el=document.createElement("div");el.id="dicth";document.body.appendChild(el);}
+  el.innerHTML=`<div class="aibox"><div class="aihd"><b>Dictées récentes</b><span class="hint">Gardées chiffrées 48 h sur cet appareil, même effacées.</span><button type="button" class="btn s sm" id="dh_close">Fermer</button></div>
+   ${DICTH.length?DICTH.map((x,i)=>`<div class="dhrow"><div><b>${new Date(x.ts).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</b>${x.pat?" · "+esc(x.pat):""}${x.old?' <span class="gtag">avant effacement</span>':""}<div class="hint" style="margin:2px 0 0">${esc(x.txt.slice(0,140))}${x.txt.length>140?"…":""}</div></div><button type="button" class="btn p sm" data-dh="${i}">Reprendre</button></div>`).join(""):'<div class="hint">Aucune dictée gardée pour l\'instant.</div>'}</div>`;
+  el.querySelector("#dh_close").onclick=()=>el.remove();el.onclick=ev=>{if(ev.target===el)el.remove();};
+  el.querySelectorAll("[data-dh]").forEach(b=>b.onclick=()=>{const x=DICTH[+b.dataset.dh];if(!x)return;const cur=String(state.obs.dict||"").trim();
+    state.obs.dict=cur&&cur!==x.txt?(confirm("Une dictée est déjà en cours.\nOK : ajouter la dictée reprise à la suite.\nAnnuler : remplacer.")?cur+"\n"+x.txt:x.txt):x.txt;el.remove();render();draftSaveNow();toast("Dictée reprise");});}
+
+/* ---- n° 5 : dictée toujours visible, grand champ, micro du clavier (reconnaissance vocale du navigateur non utilisée : non fiable en application installée sur iPhone) ---- */
+function dictCardHTML(){const n=DICTH.length;const p=currentPack();
+  return `<section class="pcard dictcard" id="dictcard"><div class="pcard-h"><span class="stepn">🎙</span><b>Dictée</b><span class="pcard-ai">${aiMainHTML()}</span></div>
+   <div class="hint dict-how">Touchez le champ, puis le micro 🎤 du clavier iPhone. Interrompre : touchez ailleurs ; reprendre : touchez de nouveau le champ. Enregistrée à chaque mot, chiffrée.</div>
+   <textarea id="f_dict" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
+   <div class="dict-act2"><button type="button" class="btn p" id="dict_go2">Répartir dans l'observation</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span></div>
+   ${!p&&String((state.obs&&state.obs.dict)||"").trim()?'<div class="hint">Choisissez une fiche (motif) : l\'observation rangée apparaîtra dessous. La dictée est gardée.</div>':""}</section>`;}
+function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;};}
+  const g=document.getElementById("dict_go2");if(g)g.onclick=()=>{if(!String(state.obs.dict||"").trim()){t&&t.focus();return;}if(currentPack())state.obsOpen=true;applyDictation();try{aiAutoObs();}catch(e){}toast(currentPack()?"Dictée répartie dans l'observation":"Dictée gardée : choisissez une fiche");};
+  const h=document.getElementById("dict_hist");if(h)h.onclick=dictHistScreen;draftSavedUI();}
+/* « 🎙 Dicter » de la tournée : focus immédiat dans le geste (sinon l'iPhone n'ouvre pas le clavier) ; à défaut, le grand champ Dictée */
+function tpDictate(){const d=document.getElementById("tc_interro_box");const t=document.getElementById("tc_interro");
+  if(d&&t){d.open=true;t.focus();t.scrollIntoView({block:"center"});toast("Touchez 🎤 sur le clavier pour dicter");return;}
+  const f=document.getElementById("f_dict");if(f){f.focus();f.scrollIntoView({block:"center"});toast("Touchez 🎤 sur le clavier pour dicter");}}
+
+/* ---- n° 7 : photos. Compression une par une sur l'appareil, coffre chiffré (IndexedDB, AES-GCM), confirmation et limite exacte ---- */
+const PHOTO={db:null,max:1600,q:0.72,busy:false};
+function phDb(){if(PHOTO.db)return Promise.resolve(PHOTO.db);return new Promise((ok,ko)=>{try{const r=indexedDB.open("packs-sos-photos",1);r.onupgradeneeded=()=>{r.result.createObjectStore("p");};r.onsuccess=()=>{PHOTO.db=r.result;ok(r.result);};r.onerror=()=>ko(r.error||new Error("stockage photos indisponible"));}catch(e){ko(e);}});}
+function phTx(mode,fn){return phDb().then(db=>new Promise((ok,ko)=>{const tx=db.transaction("p",mode);const st=tx.objectStore("p");let res;try{res=fn(st);}catch(e){ko(e);return;}tx.oncomplete=()=>ok(res&&res.result!==undefined?res.result:res);tx.onerror=()=>ko(tx.error||new Error("écriture refusée"));tx.onabort=()=>ko(tx.error||new Error("stockage plein"));}));}
+async function phPut(id,bytes){if(!SEC.key)throw new Error("chiffrement indisponible");const enc=await aesEnc(SEC.key,bytes);return phTx("readwrite",st=>st.put({ts:Date.now(),enc},id));}
+async function phGet(id){const v=await phTx("readonly",st=>st.get(id));if(!v||!v.enc||!SEC.key)return "";const b=await aesDec(SEC.key,v.enc);return "data:image/jpeg;base64,"+b64(b);}
+async function phPurge(){try{const cut=Date.now()-14*864e5;const keep=new Set();[state.photos||[],...(VALID.hist||[]).map(v=>v&&v.snap&&v.snap.photos||[])].flat().forEach(p=>p&&p.id&&keep.add(p.id));
+  await phTx("readwrite",st=>{const r=st.openCursor();r.onsuccess=()=>{const c=r.result;if(!c)return;if(c.value.ts<cut&&!keep.has(c.key))c.delete();c.continue();};return r;});}catch(e){}}
+/* recharge les images manquantes (brouillon restauré, patient rouvert) */
+async function photosHydrate(){const miss=(state.photos||[]).filter(p=>p&&p.id&&!p.src);if(!miss.length)return;for(const p of miss){try{p.src=await phGet(p.id);}catch(e){}}state.photos=(state.photos||[]).filter(p=>p.src||p.id);render();}
+function phCompress(file){return new Promise((ok,ko)=>{const u=URL.createObjectURL(file);const img=new Image();img.onload=()=>{try{const k=Math.min(1,PHOTO.max/Math.max(img.width,img.height));const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(img.width*k));cv.height=Math.max(1,Math.round(img.height*k));cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);URL.revokeObjectURL(u);
+    cv.toBlob(b=>{if(!b){ko(new Error("compression impossible"));return;}b.arrayBuffer().then(buf=>ok({bytes:new Uint8Array(buf),w:cv.width,h:cv.height}),ko);},"image/jpeg",PHOTO.q);}catch(e){URL.revokeObjectURL(u);ko(e);}};img.onerror=()=>{URL.revokeObjectURL(u);ko(new Error("format d'image non lu"));};img.src=u;});}
+async function phSpace(){try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();return {free:Math.max(0,(e.quota||0)-(e.usage||0)),quota:e.quota||0};}}catch(e){}return null;}
+async function addPhotoFiles(files){const list=[...files].filter(Boolean);if(!list.length)return;if(PHOTO.busy){toast("Import déjà en cours…");return;}
+  PHOTO.busy=true;state.photos=state.photos||[];let okN=0,kb=0;const fails=[];
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});}catch(e){}
+  for(let i=0;i<list.length;i++){toast("Photo "+(i+1)+" / "+list.length+" : compression et chiffrement…");
+    try{const sp=await phSpace();if(sp&&sp.free<8*1024*1024)throw new Error("espace de stockage presque plein ("+(sp.free/1048576).toFixed(1).replace(".",",")+" Mo libres)");
+      const c=await phCompress(list[i]);const id="ph"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);await phPut(id,c.bytes);
+      state.photos.push({id,src:"data:image/jpeg;base64,"+b64(c.bytes),cap:"",kb:Math.round(c.bytes.length/1024)});okN++;kb+=c.bytes.length/1024;}
+    catch(e){fails.push((list[i].name||"photo "+(i+1))+" : "+((e&&e.message)||e));}}
+  PHOTO.busy=false;render();draftSaveNow();
+  const sp=await phSpace();const tail=sp?" · espace libre "+(sp.free/1048576>=1024?(sp.free/1073741824).toFixed(1).replace(".",",")+" Go":Math.round(sp.free/1048576)+" Mo"):"";
+  const msg=(okN?"✓ "+okN+" photo"+(okN>1?"s":"")+" ajoutée"+(okN>1?"s":"")+" au dossier ("+(kb/1024).toFixed(1).replace(".",",")+" Mo, chiffrées sur l'appareil)":"Aucune photo ajoutée")+tail+(fails.length?"\n\nNon ajoutée(s) :\n- "+fails.join("\n- "):"");
+  PHOTO.last=msg;toast(msg.split("\n")[0]);if(fails.length)alert(msg);const st=document.getElementById("ph_status");if(st)st.textContent=msg.split("\n")[0];}
+function photosUI(){
+  const th=(state.photos||[]).map((p,i)=>`<figure class="pth">${p.src?`<img src="${p.src}" alt="">`:'<div class="phload">chargement…</div>'}<input data-pcap="${i}" placeholder="Légende (ex. lésion 1, avant-bras droit)" value="${esc(p.cap||"")}"><button type="button" data-pdel="${i}" title="Retirer">×</button></figure>`).join("");
+  return `<div class="photobox"><label class="btn s" for="f_photos">📷 Photos — prendre ou choisir (plusieurs possibles)</label><input type="file" id="f_photos" accept="image/*" multiple style="display:none"><div class="hint" id="ph_status">${esc(PHOTO.last?PHOTO.last.split("\n")[0]:"Compressées (1 600 px) et chiffrées sur l'appareil, sans limite de nombre tant que l'espace le permet ; imprimées en fin de pack, 4 par page.")}</div>${(state.photos||[]).length?`<div class="pths">${th}</div>`:""}</div>`;}
+
+/* ---- n° 8 : le profil réel du patient prévaut. Diagnostic sans variante d'âge ni doublon ; fiche d'un autre âge signalée, bascule en un geste ---- */
+const AGE_VAR_RE=/\s+—\s+(adulte|enfant|nourrisson|adolescent|sujet âgé|adulte et enfant|enfant et adulte)$/i;
+function diagName(p){if(!p)return "";const seen=new Set();return String(p.n).split(" + ").map(n=>n.replace(AGE_VAR_RE,"").trim()).filter(n=>{const k=norm(n);if(seen.has(k))return false;seen.add(k);return true;}).join(" + ");}
+function ageMismatch(){const a=ageY();if(!a)return [];const child=a.y<15;const out=[];
+  selIdx().forEach(i=>{const p=PACKS[i];if(!p)return;const m=/\s+—\s+(adulte|enfant|nourrisson)$/i.exec(p.n);if(!m)return;const v=m[1].toLowerCase();
+    if(child&&v==="adulte"||!child&&(v==="enfant"||v==="nourrisson")){const base=p.n.replace(AGE_VAR_RE,"");const want=child?(a.m<24?["nourrisson","enfant"]:["enfant","nourrisson"]):["adulte"];
+      let j=-1;for(const w of want){j=PACKS.findIndex(q=>q.n===base+" — "+w);if(j>=0)break;}out.push({i,j,from:p.n,to:j>=0?PACKS[j].n:""});}});return out;}
+function ageMismatchHTML(){const mm=ageMismatch();if(!mm.length)return "";const a=ageY();const age=a.m<24?a.m+" mois":a.y+" ans";
+  return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge.${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-agesw]");if(!b)return;const [i,j]=b.dataset.agesw.split("|").map(Number);let cur=selIdx().filter(x=>x!==i&&x!==j);cur.push(j);state.sel=cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.extra={};render();try{search($("#q").value);}catch(e){}toast("Fiche adaptée à l'âge : "+PACKS[j].n+" (observation conservée)");});
+
+/* ---- n° 9 : impression et PDF. Impression dans le geste, vrai bouton « Enregistrer en PDF » partout ---- */
+function iosLike(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
+function printNow(){if(state.lastPrint)state.lastPrint.sent=true;try{window.print();}catch(e){alert("Impression impossible : "+((e&&e.message)||e)+"\nUtilisez « Enregistrer en PDF ».");}}
+function pdfSave(){ /* dans le geste : PDF prêt → partage (iPhone, iPad) ou téléchargement ; sinon préparation puis téléchargement automatique */
+  if(PDFJOB.file){if(iosLike())pdfSend();else pdfDownload(PDFJOB.file);return;}
+  PDFJOB.wantDl=true;pdfStatus("Préparation du PDF…");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
+
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}
   const now=Date.now(),day=new Date().toDateString(),mk=aiMonthKey(),gk=typeof gardeKey==="function"?gardeKey(now):"";
@@ -16916,7 +17013,7 @@ function jmenuFit(menu){try{const r=menu.getBoundingClientRect();const vh=(windo
 if(window.visualViewport)window.visualViewport.addEventListener("resize",()=>{const m=document.getElementById("jmenu");if(m&&!m.hidden)jmenuFit(m);});
 function phoneBind(){
   const mb=$("#more_btn"),menu=$("#jmenu");
-  if(mb&&menu){const close=()=>{menu.hidden=true;mb.setAttribute("aria-expanded","false");};mb.onclick=ev=>{ev.stopPropagation();if(menu.hidden){menu.hidden=false;mb.setAttribute("aria-expanded","true");jmenuFit(menu);requestAnimationFrame(()=>jmenuFit(menu));setTimeout(()=>jmenuFit(menu),150);}else close();};
+  if(mb&&menu){const close=()=>{menu.hidden=true;mb.setAttribute("aria-expanded","false");};mb.onclick=ev=>{ev.stopPropagation();if(menu.hidden){menu.hidden=false;mb.setAttribute("aria-expanded","true");jmenuFit(menu);requestAnimationFrame(()=>jmenuFit(menu));setTimeout(()=>jmenuFit(menu),150);if(!menu.__fit){menu.__fit=1;["touchstart","wheel","pointerdown"].forEach(t=>menu.addEventListener(t,()=>jmenuFit(menu),{passive:true,capture:true}));}}else close();};
     menu.querySelectorAll("button").forEach(b=>{if(b.id==="th_btn")return;b.addEventListener("click",()=>setTimeout(close,0));});}
   const gt=$("#go_top");if(gt)gt.onclick=printPack;
   const tp=$("#testpill");if(tp)tp.onclick=()=>{TESTMODE=false;lsSet("sos_test",false);render();};
@@ -16986,17 +17083,18 @@ function pdfBytes(pages,title){
   const out=new Uint8Array(len);let o=0;for(const b of parts){out.set(b,o);o+=b.length;}return out;}
 function pdfFileName(){return ((document.title||"Documents").trim()||"Documents")+".pdf";}
 async function pdfPrepare(out){
-  const run=++PDFJOB.run;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.err="";PDFJOB.busy=true;PDFJOB.done=0;PDFJOB.n=(out.match(/<div class="page/g)||[]).length;pdfStatus();
+  const run=++PDFJOB.run;PDFJOB.out=out;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.err="";PDFJOB.busy=true;PDFJOB.done=0;PDFJOB.n=(out.match(/<div class="page/g)||[]).length;pdfStatus();
   try{
     if(typeof html2canvas!=="function")throw new Error("module de rendu absent");
     const pages=await pdfRenderPages(out,(d,t)=>{if(run!==PDFJOB.run)return;PDFJOB.done=d;PDFJOB.n=t;pdfStatus();},()=>run!==PDFJOB.run);
     if(run!==PDFJOB.run)return;
     const name=pdfFileName();const bytes=pdfBytes(pages,name.replace(/\.pdf$/,""));
     PDFJOB.file=new File([bytes],name,{type:"application/pdf"});PDFJOB.n=pages.length;PDFJOB.busy=false;pdfStatus();
+    if(PDFJOB.wantDl){PDFJOB.wantDl=false;if(iosLike())pdfStatus("PDF prêt : touchez « Enregistrer le PDF »");else pdfDownload(PDFJOB.file);}
     if(PDFJOB.want){try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}}
   }catch(e){if(run!==PDFJOB.run)return;PDFJOB.busy=false;PDFJOB.err="PDF impossible : "+((e&&e.message)||e)+" — utiliser « Impression iOS »";pdfStatus();const f=$("#pb_ios");if(f)f.hidden=false;}
 }
-function pdfDownload(f){try{const u=URL.createObjectURL(f);const a=document.createElement("a");a.href=u;a.download=f.name;a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u);},60000);if(state.lastPrint)state.lastPrint.sent=true;pdfStatus("PDF enregistré — l'ouvrir avec Phomemo.");}catch(e){pdfStatus("Partage impossible : "+((e&&e.message)||e));}}
+function pdfDownload(f){try{const u=URL.createObjectURL(f);const a=document.createElement("a");a.href=u;a.download=f.name;a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u);},60000);if(state.lastPrint)state.lastPrint.sent=true;pdfStatus(iosLike()?"PDF enregistré — l'ouvrir avec Phomemo.":"PDF enregistré dans Téléchargements.");}catch(e){pdfStatus("Partage impossible : "+((e&&e.message)||e));}}
 function pdfSend(){ /* appelé directement dans le geste : Safari exige un partage synchrone */
   if(!PDFJOB.file){PDFJOB.want=true;pdfStatus();return;}
   const f=PDFJOB.file;PDFJOB.want=false;
@@ -17262,7 +17360,7 @@ function validListScreen(){
 }
 function stepsHTML(cur){if(!isPhone()||!state.cot||state.cot.lieu!=="visite")return "";const L=["Patient en cours","Documents","Fin de consultation","Validé ✓"];return `<ol class="steps" aria-label="Étapes de la visite">${L.map((t,i)=>`<li class="${i+1<cur?"done":i+1===cur?"on":""}"><span>${t}</span></li>`).join("")}</ol>`;}
 function tourNextStop(){const l=tourOrdered().filter(s=>s.id!==TOUR.current);try{if(tpFinMode()){const w=l.find(tpOnWay);if(w)return w;}}catch(e){}return l[0]||null;}
-function stateSnapshot(){const {view,jg,dq,dopen,rm,tedit,...rest}=state;return JSON.parse(JSON.stringify(rest));}
+function stateSnapshot(){const {view,jg,dq,dopen,rm,tedit,...rest}=state;return draftClean(rest);}
 async function validLoad(){try{let h=await secGet("sos_validhist",null);if(!Array.isArray(h)){const v=await secGet("sos_lastvalid",null);h=v?[v]:[];}VALID.hist=h.filter(v=>v&&v.snap&&Date.now()-v.ts<12*3600*1000);}catch(e){VALID.hist=[];}VALID.last=VALID.hist.find(x=>!x.pending)||null;}
 function validSave(){if(!VALID.hist.length){secRemove("sos_validhist");secRemove("sos_lastvalid");return;}let h=VALID.hist;try{if(JSON.stringify(h).length>1500000)h=h.map((v,i)=>i<2?v:Object.assign({},v,{snap:Object.assign({},v.snap,{photos:[]})}));}catch(e){}if(SEC.key){secPut("sos_validhist",h).catch(()=>secSet("sos_validhist",h));}else secSet("sos_validhist",h);secRemove("sos_lastvalid");}
 function patientValidate(){
@@ -17282,7 +17380,7 @@ function patientReopen(arg){
   Object.assign(state,v.snap);state.view="";
   if(TOUR.current&&TOUR.current!==v.stopId){const c=tourStop(TOUR.current);if(c){delete c.cur;if(!c.done&&!TOUR.order.includes(c.id))TOUR.order.unshift(c.id);}TOUR.current="";}
   const s=v.stopId?tourStop(v.stopId):null;if(s){s.done=false;delete s.doneTs;s.cur=true;TOUR.current=s.id;if(!TOUR.order.includes(s.id))TOUR.order.unshift(s.id);if(TOUR.lastDone===s.id)TOUR.lastDone="";tourSave();}
-  VALID.undoUntil=0;validRemove(v);render();window.scrollTo(0,0);
+  VALID.undoUntil=0;validRemove(v);render();window.scrollTo(0,0);try{photosHydrate();}catch(e){}
 }
 function patientUndo(){if(Date.now()>VALID.undoUntil){toast("Délai d'annulation dépassé — « Rouvrir ce patient » reste possible.");return;}patientReopen(VALID.last);toast("Validation annulée");}
 function patientNext(){VALID.undoUntil=0;clearInterval(VALID.timer);state.view="";newPatient();const n=tourNextStop();
@@ -17637,7 +17735,7 @@ function tpImpactBind(input,box){if(!input||!box)return;input.addEventListener("
 function tpArrive(){const s=TOUR.current?tourStop(TOUR.current):null;if(!s)return;const now=Date.now();s.tArr=now;delete TOUR.near;tourSave();
   state.cot=state.cot||cotDefault();state.cot.hArr=fmtHM(now);if(!state.t0)state.t0=now;tpGeoStop();render();toast("Arrivée enregistrée à "+fmtH(now)+" (heure de l'acte modifiable dans la cotation)");
   setTimeout(()=>{const c=document.querySelector(".tcard");if(c)c.scrollIntoView({block:"start"});},0);}
-function tpDictate(){const d=document.getElementById("tc_interro_box");if(d){d.open=true;const t=document.getElementById("tc_interro");if(t){t.focus();t.scrollIntoView({block:"center"});}}}
+
 /* option : à moins de 100 m de l'adresse, proposer « Tu es arrivé ? » (position calculée sur l'appareil, jamais envoyée, jamais de validation seule) */
 let TP_WATCH=null;
 function tpGeoStop(){if(TP_WATCH!=null){try{navigator.geolocation.clearWatch(TP_WATCH);}catch(e){}TP_WATCH=null;}}

@@ -1,0 +1,69 @@
+# Tests lot 1 — registre du 16/10/2026 (n° 10, 5, 9, 7, 8)
+
+- OK — iphone n°5 carte Dictée visible sans fiche choisie
+- OK — iphone n°5 grand champ (≥ 140 px de haut, texte 16 px : pas de zoom iPhone, toute la largeur de la carte)
+- OK — iphone n°10 dictée enregistrée (chiffrée) pendant la frappe, sans changer d'écran
+- OK — iphone n°10 aucune dictée en clair dans le stockage
+- OK — iphone n°10 indicateur « enregistrée » affiché
+- OK — iphone n°10 aller au journal puis revenir : dictée intacte
+- OK — iphone n°10 choisir, ajouter, retirer une fiche : dictée et observation conservées
+- OK — iphone n°10 panneau IA : (IA sur Aucun, pas de champ) — dictée gardée
+- OK — iphone n°10 après fermeture et réouverture : dictée restaurée automatiquement
+- OK — iphone n°10 après réouverture : observation et fiche restaurées
+- OK — iphone n°10 champ effacé : « Dictées récentes » proposé
+- OK — iphone n°10 dictée effacée reprise d'un geste
+- OK — iphone n°5 « Dicter » sans fiche de régulation : focus immédiat dans le grand champ
+- OK — iphone n°8 enfant + fiche adulte : aucune mention « adulte » dans le compte rendu
+- OK — iphone n°8 enfant + fiche adulte : doses toujours adaptées (formes enfant)
+- OK — iphone n°8 alerte « fiche adulte pour un patient de 3 ans » avec bascule
+- OK — iphone n°8 même diagnostic choisi deux fois (adulte + enfant) : aucun doublon
+- OK — iphone n°8 bascule en un geste vers la fiche enfant, observation conservée
+- OK — iphone n°8 adulte + fiche enfant : alerte et bascule vers l'adulte
+- OK — iphone n°7 12 photos de 12 Mpx (12 Mo) intégrées au dossier
+- OK — iphone n°7 compressées sur l'appareil (< 450 Ko chacune)
+- OK — iphone n°7 confirmation affichée avec poids et espace libre
+- OK — iphone n°7 brouillon sans images (aucun dépassement du stockage local)
+- OK — iphone n°7 coffre photos chiffré (AES-GCM), aucune image en clair
+- OK — iphone n°7 après fermeture : les 12 photos reviennent
+- OK — iphone n°7 stockage presque plein : refus expliqué avec la limite exacte (Mo libres)
+- OK — iphone n°9 aperçu : boutons Envoyer, Enregistrer le PDF, Impression visibles
+- OK — iphone n°9 « Impression » ouvre la fenêtre d'impression
+- OK — iphone n°9 « Enregistrer en PDF » produit un vrai fichier PDF
+- OK — iphone aucune erreur JS
+- OK — pc n°5 carte Dictée visible sans fiche choisie
+- OK — pc n°5 grand champ (≥ 140 px de haut, texte 16 px : pas de zoom iPhone, toute la largeur de la carte)
+- OK — pc n°10 dictée enregistrée (chiffrée) pendant la frappe, sans changer d'écran
+- OK — pc n°10 aucune dictée en clair dans le stockage
+- OK — pc n°10 indicateur « enregistrée » affiché
+- OK — pc n°10 aller au journal puis revenir : dictée intacte
+- OK — pc n°10 choisir, ajouter, retirer une fiche : dictée et observation conservées
+- OK — pc n°10 panneau IA : (IA sur Aucun, pas de champ) — dictée gardée
+- OK — pc n°10 après fermeture et réouverture : dictée restaurée automatiquement
+- OK — pc n°10 après réouverture : observation et fiche restaurées
+- OK — pc n°10 champ effacé : « Dictées récentes » proposé
+- OK — pc n°10 dictée effacée reprise d'un geste
+- OK — pc n°5 « Dicter » sans fiche de régulation : focus immédiat dans le grand champ
+- OK — pc n°8 enfant + fiche adulte : aucune mention « adulte » dans le compte rendu
+- OK — pc n°8 enfant + fiche adulte : doses toujours adaptées (formes enfant)
+- OK — pc n°8 alerte « fiche adulte pour un patient de 3 ans » avec bascule
+- OK — pc n°8 même diagnostic choisi deux fois (adulte + enfant) : aucun doublon
+- OK — pc n°8 bascule en un geste vers la fiche enfant, observation conservée
+- OK — pc n°8 adulte + fiche enfant : alerte et bascule vers l'adulte
+- OK — pc n°7 12 photos de 12 Mpx (12 Mo) intégrées au dossier
+- OK — pc n°7 compressées sur l'appareil (< 450 Ko chacune)
+- OK — pc n°7 confirmation affichée avec poids et espace libre
+- OK — pc n°7 brouillon sans images (aucun dépassement du stockage local)
+- OK — pc n°7 coffre photos chiffré (AES-GCM), aucune image en clair
+- OK — pc n°7 après fermeture : les 12 photos reviennent
+- OK — pc n°7 stockage presque plein : refus expliqué avec la limite exacte (Mo libres)
+- OK — pc n°9 « Imprimer » ouvre la fenêtre d'impression sans Ctrl+P
+- OK — pc n°9 aperçu : chaque bouton entièrement cliquable (barres sans chevauchement)
+- OK — pc n°9 bouton « Imprimer » de l'aperçu
+- OK — pc n°9 « Enregistrer en PDF » produit un vrai fichier PDF
+- OK — pc aucune erreur JS
+- OK — 375 px normal jour : carte Dictée sans débordement horizontal
+- OK — 375 px normal nuit : carte Dictée sans débordement horizontal
+- OK — 375 px grand texte jour : carte Dictée sans débordement horizontal
+- OK — 375 px grand texte nuit : carte Dictée sans débordement horizontal
+
+65/65 tests OK
