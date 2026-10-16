@@ -1,0 +1,41 @@
+# Tests « Packs conseille, le médecin décide » (16/10/2026)
+
+- OK — pc renouvellement ESCITALOPRAM + HALOPÉRIDOL : contre-indication détectée
+- OK — pc aucune fenêtre « Imprimer quand même ? » (plus de blocage par confirm)
+- OK — pc écran « Avant d'imprimer » : motif, source, alternative
+- OK — pc une même contre-indication affichée une seule fois, sans libellé répété
+- OK — pc conseils liés à l'alerte proposés, cochables
+- OK — pc « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions
+- OK — pc suggestion d'un toucher, modifiable
+- OK — pc impression réalisée après maintien
+- OK — pc ordonnance imprimée avec les deux médicaments maintenus
+- OK — pc motif et alerte jamais sur les documents imprimés
+- OK — pc conseil coché ajouté aux consignes imprimées
+- OK — pc compte rendu : alerte passée outre, source et motif (traçabilité)
+- OK — pc journal : alerte et motif inscrits
+- OK — pc réimpression : décision déjà prise, pas de nouvel écran
+- OK — pc stupéfiant : la règle de forme est expliquée dans l'écran d'alerte
+- OK — pc stupéfiant : « ordonnance sécurisée à rédiger à la main » affiché, le reste imprimé
+- OK — pc aucun bouton grisé sans explication (accueil, fiche, journal, tournée)
+- OK — pc aucune erreur JS
+- OK — iphone « Imprimer » sans fiche : actif, explique quoi faire
+- OK — iphone renouvellement ESCITALOPRAM + HALOPÉRIDOL : contre-indication détectée
+- OK — iphone aucune fenêtre « Imprimer quand même ? » (plus de blocage par confirm)
+- OK — iphone écran « Avant d'imprimer » : motif, source, alternative
+- OK — iphone une même contre-indication affichée une seule fois, sans libellé répété
+- OK — iphone conseils liés à l'alerte proposés, cochables
+- OK — iphone « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions
+- OK — iphone suggestion d'un toucher, modifiable
+- OK — iphone impression réalisée après maintien
+- OK — iphone ordonnance imprimée avec les deux médicaments maintenus
+- OK — iphone motif et alerte jamais sur les documents imprimés
+- OK — iphone conseil coché ajouté aux consignes imprimées
+- OK — iphone compte rendu : alerte passée outre, source et motif (traçabilité)
+- OK — iphone journal : alerte et motif inscrits
+- OK — iphone réimpression : décision déjà prise, pas de nouvel écran
+- OK — iphone stupéfiant : la règle de forme est expliquée dans l'écran d'alerte
+- OK — iphone stupéfiant : « ordonnance sécurisée à rédiger à la main » affiché, le reste imprimé
+- OK — iphone aucun bouton grisé sans explication (accueil, fiche, journal, tournée)
+- OK — iphone aucune erreur JS
+
+37/37 tests OK

@@ -200,3 +200,28 @@ Objectif final : une application qui me permette d'enchaîner efficacement mes c
 | PDF 2 | Deux courriers fusionnés sur une page (le second sans formule ni signature) ; consignes de deux fiches mêlées sans titre. | Un courrier = un destinataire = une page, chacun avec formule d'appel, formule finale et une seule ligne de signature ; consignes : un titre par fiche, et un document par fiche si la page ne suffit pas même en petite police. | Corrigé | test_pdf16.py |
 | PDF 3 | « J'ai prescrit le bilan biologique, un ECG, une rééducation… et revu les médicaments » imprimé quoi qu'il soit coché ; « médicaments revus » dans les consignes ; 159 renvois au « compte rendu joint » (non imprimé) dans les fiches. | Phrases d'action vérifiées au moment d'imprimer (courriers, consignes, certificats, courriers assemblés) : « J'ai prescrit » réécrit avec la liste exacte des examens, soins et traitements cochés ; « médicaments revus » seulement si la case « Médicaments revus » est cochée (proposée quand une fiche en parle) ou si la dictée le dit ; « ont été prescrits » vérifié ; résultats d'examens annoncés seulement si des examens sont prescrits ; renvoi au compte rendu remplacé par les éléments dictés (« Éléments recueillis ce jour : … ») ou, à défaut, par « sont à votre disposition sur simple demande ». | Corrigé | test_pdf16.py (dont contrôle de toutes les fiches du catalogue) |
 | PDF 4 | Fiche « Chute du sujet âgé — bilan » : HbA1c cochée d'office. Pas d'alerte si le patient a moins de 65 ans. | HbA1c en option non cochée (« diabète connu »), glycémie conservée ; alerte « Fiche « sujet âgé » pour un patient de 52 ans ». **Fiche modifiée : à relire** (ligne biologie uniquement). | Corrigé | test_pdf16.py |
+
+## Garde du 16/10/2026 : « Packs conseille, le médecin décide »
+
+**Constat.** Renouvellement d'un traitement psychiatrique ancien signalé « contre-indiqué » (ex. ESCITALOPRAM + HALOPÉRIDOL, thésaurus ANSM : torsades de pointes) : l'impression passait par une fenêtre système « Imprimer quand même ? » chargée du texte brut de l'ANSM, sans motif ni traçabilité (sur iPhone, facile à refermer par erreur).
+
+**Correction (état : corrigé).**
+1. Aucune contre-indication, interaction, dose ou durée ne bloque l'impression. Écran « Avant d'imprimer » : niveau (contre-indication, déconseillé, à vérifier), motif, source (thésaurus ANSM et sa version, RCP, critères du sujet âgé, allergie déclarée, contrôle de saisie), alternative proposée ; une même alerte venue de deux entrées du thésaurus n'apparaît qu'une fois.
+2. « Je maintiens la prescription » (un geste), puis motif en une ligne, avec trois suggestions d'un toucher (« traitement ancien prescrit par le spécialiste, renouvellement à l'identique », « bénéfice supérieur au risque, patient informé », « avis spécialisé pris ») ; modifiable, dictable au micro du clavier ; vide → « motif non précisé » (jamais de blocage).
+3. Motif et alerte au journal et au compte rendu (rubrique « Décisions de prescription ») ; jamais sur l'ordonnance ni sur aucun document imprimé. La décision vaut pour la consultation (pas de nouvel écran à la réimpression) ; « Nouveau patient » la remet à zéro.
+4. Conseils liés à l'alerte proposés et cochables (torsades : appeler le 15 en cas de malaise ; sédation : conduite et alcool ; saignement ; chute), ajoutés aux consignes imprimées s'ils sont cochés.
+5. Règles légales de forme : stupéfiant → « ordonnance sécurisée à rédiger à la main » affiché, le reste s'imprime ; ligne incomplète → « non imprimé faute de donnée : compléter le champ » affiché (aucune ligne ne disparaît sans le dire).
+6. Test : tests/test_ciover.py (37 tests, 375 px et ordinateur).
+
+**Blocages silencieux recherchés dans tout le code** (alertes suivies d'un abandon, boutons grisés, retours sans message) :
+
+| Endroit | Avant | Maintenant |
+|---|---|---|
+| Impression avec alerte (interaction, contre-indication, sujet âgé, poids, allergie) | « Imprimer quand même ? » sans motif ni traçabilité | Écran d'alerte, maintien motivé, traçabilité au journal et au compte rendu |
+| Ajout d'une injection intramusculaire sous anticoagulant (suggestions de la feuille) | Refusé (alerte puis rien) | Ligne ajoutée avec avertissement ; décision à l'impression |
+| Lignes avec un champ manquant (`{f:…}` non rempli) | Retirées de l'impression sans aucun message | Liste « Non imprimé faute de donnée » affichée dans l'aperçu et l'écran d'alerte |
+| Bouton « Imprimer » du haut sur iPhone sans fiche choisie | Grisé sans explication | Actif : « Choisissez d'abord une fiche (motif) » |
+| « ＋ Ajouter cette lésion » (certificat de lésions) | Grisé, explication seulement dans le texte voisin | Explication au toucher (« Choisissez d'abord le type et le siège ») |
+| « Régénérer » (courrier assemblé) | Grisé sans explication | « Rien à régénérer : le texte n'a pas été modifié » |
+
+Restent volontairement grisés, avec leur explication à l'écran : « Signature et cachet » sans profil activé (« profil non activé »), « Continuer » de la clé de secours (case « Je l'ai notée » à cocher), « Envoyer » de l'IA (motif du blocage affiché : fuite d'identité, hors connexion, plafond), « Voir ce qui part » d'un document (« Recadrage ou masquage obligatoire »), entrées du petit choix IA (raison sous chaque entrée), « Optimiser » pendant un calcul (état affiché), boutons de déchiffrement ou de chiffrement pendant l'opération (état affiché). « Renseigne le nom du patient avant d'imprimer » reste une règle de forme (nom obligatoire sur une ordonnance) : le message dit quoi faire et place le curseur dans le champ.

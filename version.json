@@ -1,9 +1,9 @@
 {
-  "version": "41d",
+  "version": "41e",
   "date": "2026-10-16",
   "notes": [
-    "Documents imprimés : plus aucun texte sous le cachet ni masqué (police réduite si besoin, sinon alerte avant impression) ; un courrier par destinataire avec sa signature ; consignes titrées par fiche.",
-    "Les courriers et consignes ne décrivent que ce qui est fait : examens réellement cochés, « médicaments revus » seulement si coché ou dicté, plus de renvoi au compte rendu non imprimé.",
-    "Chute du sujet âgé : HbA1c en option ; alerte si la fiche « sujet âgé » est choisie avant 65 ans."
+    "Packs conseille, vous décidez : une contre-indication ou une interaction ne bloque plus l'impression ; « Je maintiens la prescription » puis un motif d'un toucher.",
+    "Le motif et l'alerte vont au journal et au compte rendu, jamais sur l'ordonnance ; les conseils liés (conduite, malaise…) restent proposés.",
+    "Stupéfiant ou ligne incomplète : Packs dit quoi faire, le reste s'imprime ; plus de bouton grisé sans explication."
   ]
 }
