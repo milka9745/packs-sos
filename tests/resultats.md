@@ -1,94 +1,278 @@
-# Tests v40 (lot 1, blocs 2 et 3)
+# Tests v40 (lot 1, blocs 2 à 8)
 
-- OK � iphone version 40
-- OK � iphone packs charg�s
-- OK � iphone pas de pack en double
-- OK � iphone cystite simple : MONURIL coch�
-- OK � iphone cystite simple : pas d'OROKEN
-- OK � iphone bascule S/R visible
-- OK � iphone cystite simple : 2 feuilles � imprimer (memo non compt�e)
-- OK � iphone cystite � risque : OROKEN coch�
-- OK � iphone cystite � risque : 6 alternatives radio
-- OK � iphone cystite � risque : ECBU
-- OK � iphone lombalgie : k�toprof�ne coch�, ibuprof�ne option
-- OK � iphone lombalgie : pas de tramadol
-- OK � iphone lombalgie : ligne palier 3 journal+CR
-- OK � iphone CR contient le palier 3 avec mention
-- OK � iphone impression sans le palier 3
-- OK � iphone journal : AT 5 j enregistr�
-- OK � iphone journal : ligne s�curis�e enregistr�e
-- OK � iphone journal affiche AT et ordonnance s�curis�e
-- OK � iphone gastro enfant : TIORFAN au poids
-- OK � iphone gastro enfant : ZOPHREN 2,5 ml (2 mg) � 12 kg, non coch�
-- OK � iphone gastro enfant : jamais de lop�ramide
-- OK � iphone angine enfant : CLAMOXYL 5 ml coch�
-- OK � iphone angine enfant : 5 antibiotiques
-- OK � iphone angine enfant allergie : CLAMOXYL �cart�
-- OK � iphone grippe 80 ans : TAMIFLU (� risque automatique)
-- OK � iphone grippe 35 ans consultation : pas de TAMIFLU
-- OK � iphone grippe en visite : � risque par d�faut
-- OK � iphone dur�e AT gastro = 3 (Docteur DEIE)
-- OK � iphone dur�e AT entorse CNAM
-- OK � iphone gastro adulte : VOGAL�NE LYOC coch�, suppositoire en alternative
-- OK � iphone gastro adulte simple : pas d'antibiotique
-- OK � iphone gastro adulte � risque : suspension des m�dicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
-- OK � iphone bloc 2 : packs charg�s
-- OK � iphone dentaire HAS 2026 : antibiotique d�coch�, 5 alternatives 3 jours
-- OK � iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coch�
-- OK � iphone BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
-- OK � iphone conjonctivite : antiseptique coch�, antibiotique en alternative
-- OK � iphone bloc 3 : 30 packs charg�s
-- OK � iphone blocs 2-3 : gabarits �quilibr�s
-- OK � iphone PAC simple : CLAMOXYL coch�, pas d'AUGMENTIN
-- OK � iphone PAC � risque : AUGMENTIN coch�
-- OK � iphone BPCO : antibiotique d�coch� par d�faut (HAS 2024)
-- OK � iphone f�calome : FORTRANS coch� (convention), MOVICOL 8 sachets en alternative
-- OK � iphone bronchiolite nuit : feuilles rendues
-- OK � iphone aucune erreur JS
-- OK � pc version 40
-- OK � pc packs charg�s
-- OK � pc pas de pack en double
-- OK � pc cystite simple : MONURIL coch�
-- OK � pc cystite simple : pas d'OROKEN
-- OK � pc bascule S/R visible
-- OK � pc cystite simple : 2 feuilles � imprimer (memo non compt�e)
-- OK � pc cystite � risque : OROKEN coch�
-- OK � pc cystite � risque : 6 alternatives radio
-- OK � pc cystite � risque : ECBU
-- OK � pc lombalgie : k�toprof�ne coch�, ibuprof�ne option
-- OK � pc lombalgie : pas de tramadol
-- OK � pc lombalgie : ligne palier 3 journal+CR
-- OK � pc CR contient le palier 3 avec mention
-- OK � pc impression sans le palier 3
-- OK � pc journal : AT 5 j enregistr�
-- OK � pc journal : ligne s�curis�e enregistr�e
-- OK � pc journal affiche AT et ordonnance s�curis�e
-- OK � pc gastro enfant : TIORFAN au poids
-- OK � pc gastro enfant : ZOPHREN 2,5 ml (2 mg) � 12 kg, non coch�
-- OK � pc gastro enfant : jamais de lop�ramide
-- OK � pc angine enfant : CLAMOXYL 5 ml coch�
-- OK � pc angine enfant : 5 antibiotiques
-- OK � pc angine enfant allergie : CLAMOXYL �cart�
-- OK � pc grippe 80 ans : TAMIFLU (� risque automatique)
-- OK � pc grippe 35 ans consultation : pas de TAMIFLU
-- OK � pc grippe en visite : � risque par d�faut
-- OK � pc dur�e AT gastro = 3 (Docteur DEIE)
-- OK � pc dur�e AT entorse CNAM
-- OK � pc gastro adulte : VOGAL�NE LYOC coch�, suppositoire en alternative
-- OK � pc gastro adulte simple : pas d'antibiotique
-- OK � pc gastro adulte � risque : suspension des m�dicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
-- OK � pc bloc 2 : packs charg�s
-- OK � pc dentaire HAS 2026 : antibiotique d�coch�, 5 alternatives 3 jours
-- OK � pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coch�
-- OK � pc BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
-- OK � pc conjonctivite : antiseptique coch�, antibiotique en alternative
-- OK � pc bloc 3 : 30 packs charg�s
-- OK � pc blocs 2-3 : gabarits �quilibr�s
-- OK � pc PAC simple : CLAMOXYL coch�, pas d'AUGMENTIN
-- OK � pc PAC � risque : AUGMENTIN coch�
-- OK � pc BPCO : antibiotique d�coch� par d�faut (HAS 2024)
-- OK � pc f�calome : FORTRANS coch� (convention), MOVICOL 8 sachets en alternative
-- OK � pc bronchiolite nuit : feuilles rendues
-- OK � pc aucune erreur JS
+- OK — iphone version 41
+- OK — iphone packs chargés
+- OK — iphone pas de pack en double
+- OK — iphone cystite simple : MONURIL coché
+- OK — iphone cystite simple : pas d'OROKEN
+- OK — iphone bascule S/R visible
+- OK — iphone cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — iphone cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
+- OK — iphone cystite à risque : 6 alternatives radio
+- OK — iphone cystite à risque : ECBU
+- OK — iphone lombalgie : kétoprofène coché, ibuprofène option
+- OK — iphone lombalgie : pas de tramadol
+- OK — iphone lombalgie : ligne palier 3 journal+CR
+- OK — iphone CR contient le palier 3 avec mention
+- OK — iphone impression sans le palier 3
+- OK — iphone journal : AT 5 j enregistré
+- OK — iphone journal : ligne sécurisée enregistrée
+- OK — iphone journal affiche AT et ordonnance sécurisée
+- OK — iphone gastro enfant : TIORFAN au poids
+- OK — iphone gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — iphone gastro enfant : jamais de lopéramide
+- OK — iphone angine enfant : CLAMOXYL 5 ml coché
+- OK — iphone angine enfant : 5 antibiotiques
+- OK — iphone angine enfant allergie : CLAMOXYL écarté
+- OK — iphone grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — iphone grippe 35 ans consultation : pas de TAMIFLU
+- OK — iphone grippe en visite : à risque par défaut
+- OK — iphone durée AT gastro = 3 (Docteur DEIE)
+- OK — iphone durée AT entorse CNAM
+- OK — iphone gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — iphone gastro adulte simple : pas d'antibiotique
+- OK — iphone gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
+- OK — iphone bloc 2 : packs chargés
+- OK — iphone dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — iphone sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — iphone BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
+- OK — iphone conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — iphone bloc 3 : 30 packs chargés
+- OK — iphone blocs 2-3 : gabarits équilibrés
+- OK — iphone PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — iphone PAC à risque : AUGMENTIN coché
+- OK — iphone BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — iphone fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — iphone bloc 4 : 13 packs chargés
+- OK — iphone fiches : aucun médicament non commercialisé ou hospitalier
+- OK — iphone PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — iphone prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — iphone fiches : aucune ligne effacée par dédoublonnage
+- OK — iphone bloc 5 : 22 packs chargés
+- OK — iphone fiches : chaque champ {f:…} a sa case de saisie
+- OK — iphone durée AT cervicalgie CNAM
+- OK — iphone goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — iphone bloc 6 : 22 packs chargés
+- OK — iphone tous les packs : aucun produit retiré du marché prescrit
+- OK — iphone érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — iphone gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — iphone tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — iphone bloc 7 : 16 packs chargés
+- OK — iphone laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — iphone asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — iphone bloc 8 : 15 packs chargés
+- OK — iphone migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — iphone paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
+- OK — iphone bloc 9 : 13 packs chargés
+- OK — iphone bloc 9 : sevrage au diazépam + B1 cochés (SFA 2023), plus de SERESTA 50 mg x3
+- OK — iphone bloc 9 : zolpidem (ordonnance sécurisée) jamais imprimé
+- OK — iphone bloc 9 : certificat sans consentement, 3 mentions exclusives, heure et constatations à saisir
+- OK — iphone bloc 9 : dépression après 65 ans, escitalopram 5 mg (10 mg max) et citalopram 20 mg max (RCP)
+- OK — iphone bloc 10 : 13 packs chargés
+- OK — iphone bloc 10 : FA, apixaban 5 et 2,5 mg et rivaroxaban affichés (aucun effacé en doublon), rien coché d'office
+- OK — iphone bloc 10 : TVP 3 anticoagulants exclusifs (apixaban par défaut, rivaroxaban, HBPM au poids à saisir), TVS fondaparinux 45 j
+- OK — iphone bloc 10 : poussée tensionnelle sans nifédipine, amlodipine décochée
+- OK — iphone bloc 11 : 13 packs chargés
+- OK — iphone bloc 11 : cystite gravidique, fosfomycine cochée (HAS 2025), OROKEN en option, ECBU de contrôle
+- OK — iphone bloc 11 : infection génitale haute, ceftriaxone + doxycycline + métronidazole 10 jours (HAS 2024)
+- OK — iphone bloc 11 : nausées de la grossesse, doxylamine-pyridoxine d'abord, ondansétron en option (hors AMM non imprimé)
+- OK — iphone fiches : « repositionnée / repositionné / modifiée par » ignorés, adresse réelle (rue, code postal, commune) et auteur jamais repris
+- OK — iphone tournée point 0 (main) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »
+- OK — iphone tournée point 0 (tour) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »
+- OK — iphone tournée point 0 : phrase d'aide sous « Commencer la tournée »
+- OK — iphone tournée point 1 : arrivée prévue ✓ ou ⚠, rythme à tenir, alerte vive et visites à rendre (la plus éloignée d'abord)
+- OK — iphone tournée point 4 : patient en attente depuis plus de 2 h signalé
+- OK — iphone tournée point 2 : durée apprise par motif sur le journal (40 min), 20 min par défaut
+- OK — iphone tournée points 3, 5, 6 : impact avant ajout, minutes d'accès (cochées ou lues dans la fiche), majoration en heure de pointe
+- OK — iphone tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
+- OK — iphone tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation
+- OK — iphone tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS
+- OK — iphone tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde
+- OK — iphone tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée
+- OK — iphone tournée 375 px : bandeau, carte, écran conduite sans débordement (jour, nuit, grand texte)
+- OK — iphone courriers : deux boutons sur le pack, courrier au cardiologue en questions, sobre, une phrase de rendez-vous, données saisies seulement
+- OK — iphone courriers : médecin traitant, compte rendu pour information et suivi, prescrit avec durée, avis demandé dans la suite, rien d'inventé
+- OK — iphone courriers : modifiables avant impression, une page chacun, gras conservé
+- OK — iphone courriers : sans médecin traitant, « À l'attention du médecin qui prendra en charge le patient »
+- OK — iphone bloc 12 : 11 packs chargés
+- OK — iphone bloc 12 : REVAXIS (non commercialisé) n'est plus prescrit nulle part, remplacé par un dTcaP
+- OK — iphone bloc 12 : purpura fulminans (ceftriaxone, ligne jamais imprimée), pied diabétique céfalexine 2 g/j 7 jours (SPILF 2023, RCP)
+- OK — iphone bloc 12 : hypoglycémie, glucagon 0,5 mg sous 25 kg (RCP GLUCAGEN)
+- OK — iphone bloc 13 : 13 packs chargés
+- OK — iphone bloc 13 : stupéfiants et midazolam (ordonnance sécurisée) jamais imprimés en soins palliatifs
+- OK — iphone bloc 13 : surdosage en AVK, vitamine K 2 mg et 5 mg per os proposées (HAS 2008), aucune cochée d'office
+- OK — iphone repères visuels : Visite et Consultation de couleurs distinctes, patient encadré et nommé « initiale · âge » en haut, couleur différente par patient (jour et nuit)
+- OK — iphone repères visuels : patients validés ou mis de côté affichés en gris
+- OK — iphone fiches : adresse lue dans le bloc « Adresse » (commune composée), motif et SMS ignorés, accès Bat/Etg/Por
+- OK — iphone fiches : même fiche importée deux fois = « déjà dans la tournée », pas de second arrêt (nom + naissance, adresse + motif, ou même image)
+- OK — iphone fiches : fiche non lue = miniature + éléments lus (initiale, âge, motif) + « Compléter » avec capture agrandie et saisie de l'adresse
+- OK — iphone fiches : « Chez Consultation » → question « Consultation au cabinet ou visite ? », par défaut consultation sans arrêt
+- OK — iphone bloc 14 : 9 packs chargés
+- OK — iphone bloc 14 : stupéfiants jamais imprimés, garde à vue en 3 conclusions sans diagnostic, champs à saisir déclarés
+- OK — iphone bloc 14 : bon de transport, VSL ou taxi conventionné en transport partagé, ambulance ou véhicule personnel
+- OK — iphone fiches : vraisemblance signalée (code postal hors Loiret, téléphone incomplet, âge incohérent avec la naissance)
+- OK — iphone fiches : « Coller les fiches » crée tous les arrêts d'un coup, doublons refusés
+- OK — iphone fiches : capture fictive ios lue par zones repérées par leurs intitulés (adresse, commune composée, téléphone, naissance, accès, motif)
+- OK — iphone fiches : capture fictive android lue par zones repérées par leurs intitulés (adresse, commune composée, téléphone, naissance, accès, motif)
+- OK — iphone bloc 15 : 11 packs chargés
+- OK — iphone bloc 15 : énurésie à 10 ans, desmopressine 120 µg le soir avec restriction hydrique (RCP MINIRINMELT)
+- OK — iphone bloc 15 : fer chez l'enfant de 8 ans, 1 comprimé par jour (RCP TARDYFERON)
+- OK — iphone bloc 15 : chaque fiche ◇ rappelle le cadre premier recours (dépannage puis orientation)
+- OK — iphone réglages de tournée : aucun recalcul pendant la saisie, appliqués à la validation, la vue ne bouge pas
+- OK — iphone alerte d'attente : une seule ligne compacte « 3 patients attendent depuis plus de 2 h », repliée, liste sans doublon
+- OK — iphone journal : sommaire en haut (gardes et patients, sécurité, identité, sauvegarde…), lien qui amène à la partie, boutons haut et bas
+- OK — iphone affichage Garde par défaut : actions principales pleines et vives, une seule mise en avant (Naviguer puis Je suis arrivé), choix Garde / Premium dans le menu
+- OK — iphone impression : aucun terme réservé au médecin (score, seuil, DFG, QT, AMM, indication, terrain) dans une ordonnance
+- OK — iphone impression : NICOPATCHLIB imprimé avec la consigne de pose, sans le critère Fagerström
+- OK — iphone 375 px : aucune ligne d'ordonnance ne déborde, crayon visible (jour, nuit, grand texte)
+- OK — iphone mise à jour : bandeau pleine largeur en haut, jaune-orange jour et nuit, version, 1 à 3 lignes « Ce qui change », gros bouton (375 px)
+- OK — iphone mise à jour : « Plus tard » réduit le bandeau, il revient au retour sur l'écran principal
+- OK — iphone mise à jour : jamais de rechargement automatique pendant une consultation
+- OK — iphone correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif
+- OK — iphone correctif 7 : le co-patient n'hérite pas des antécédents, traitements ni de la grossesse
+- OK — iphone correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits
+- OK — iphone correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu
+- OK — iphone correctif 1 : « Commencer » ouvre un dossier propre prérempli (nom, naissance, motif, téléphone, adresse) et met de côté le patient précédent
+- OK — iphone correctif 4 : bouton d'appel visible hors menu replié
+- OK — iphone correctif 6 : libellé initiale · âge · rue
+- OK — iphone correctif 3 : la cotation suit l'heure de l'acte (19:50 = VG+U, pas VRN), arrivée et acte enregistrés
+- OK — iphone correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée
+- OK — iphone correctif 10 : 2 documents par A4 en option (désactivée par défaut), jamais pour une ordonnance
+- OK — iphone correctif 10 : documents courts regroupés, document trop long remis en pleine page (jamais tronqué)
+- OK — iphone bronchiolite nuit : feuilles rendues
+- OK — iphone aucune erreur JS
+- OK — pc version 41
+- OK — pc packs chargés
+- OK — pc pas de pack en double
+- OK — pc cystite simple : MONURIL coché
+- OK — pc cystite simple : pas d'OROKEN
+- OK — pc bascule S/R visible
+- OK — pc cystite simple : 2 feuilles à imprimer (memo non comptée)
+- OK — pc cystite à risque : FURADANTINE cochée (HAS), OROKEN en option
+- OK — pc cystite à risque : 6 alternatives radio
+- OK — pc cystite à risque : ECBU
+- OK — pc lombalgie : kétoprofène coché, ibuprofène option
+- OK — pc lombalgie : pas de tramadol
+- OK — pc lombalgie : ligne palier 3 journal+CR
+- OK — pc CR contient le palier 3 avec mention
+- OK — pc impression sans le palier 3
+- OK — pc journal : AT 5 j enregistré
+- OK — pc journal : ligne sécurisée enregistrée
+- OK — pc journal affiche AT et ordonnance sécurisée
+- OK — pc gastro enfant : TIORFAN au poids
+- OK — pc gastro enfant : ZOPHREN 2,5 ml (2 mg) à 12 kg, non coché
+- OK — pc gastro enfant : jamais de lopéramide
+- OK — pc angine enfant : CLAMOXYL 5 ml coché
+- OK — pc angine enfant : 5 antibiotiques
+- OK — pc angine enfant allergie : CLAMOXYL écarté
+- OK — pc grippe 80 ans : TAMIFLU (à risque automatique)
+- OK — pc grippe 35 ans consultation : pas de TAMIFLU
+- OK — pc grippe en visite : à risque par défaut
+- OK — pc durée AT gastro = 3 (Docteur DEIE)
+- OK — pc durée AT entorse CNAM
+- OK — pc gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative
+- OK — pc gastro adulte simple : pas d'antibiotique
+- OK — pc gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)
+- OK — pc bloc 2 : packs chargés
+- OK — pc dentaire HAS 2026 : antibiotique décoché, 5 alternatives 3 jours
+- OK — pc sinusite enfant 20 kg : CLAMOXYL 8 ml 10 jours coché
+- OK — pc BACTRIM enfant 30 kg : 10 ml par prise au maximum (RCP)
+- OK — pc conjonctivite : antiseptique coché, antibiotique en alternative
+- OK — pc bloc 3 : 30 packs chargés
+- OK — pc blocs 2-3 : gabarits équilibrés
+- OK — pc PAC simple : CLAMOXYL coché, pas d'AUGMENTIN
+- OK — pc PAC à risque : AUGMENTIN coché
+- OK — pc BPCO : antibiotique décoché par défaut (HAS 2024)
+- OK — pc fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative
+- OK — pc bloc 4 : 13 packs chargés
+- OK — pc fiches : aucun médicament non commercialisé ou hospitalier
+- OK — pc PNA à risque : recommandation cochée (CIFLOX), OROKEN en option
+- OK — pc prostatite : pas d'OROKEN (RCP), 14 jours
+- OK — pc fiches : aucune ligne effacée par dédoublonnage
+- OK — pc bloc 5 : 22 packs chargés
+- OK — pc fiches : chaque champ {f:…} a sa case de saisie
+- OK — pc durée AT cervicalgie CNAM
+- OK — pc goutte : colchicine cochée, prednisone en alternative, pas de doublon
+- OK — pc bloc 6 : 22 packs chargés
+- OK — pc tous les packs : aucun produit retiré du marché prescrit
+- OK — pc érysipèle 70 kg : amoxicilline 1 g 3 fois par jour, 7 jours
+- OK — pc gale 70 kg : ivermectine à jeun, 5 comprimés
+- OK — pc tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée
+- OK — pc bloc 7 : 16 packs chargés
+- OK — pc laryngite 12 kg : prednisolone 1 mg/kg (10 mg) cochée, 3 jours
+- OK — pc asthme enfant 25 kg : prednisolone 40 mg 3 jours (SP2A 2024)
+- OK — pc bloc 8 : 15 packs chargés
+- OK — pc migraine : PROFEMIGR coché (AMM crise), pas de forme LP
+- OK — pc paralysie faciale 80 kg : prednisolone plafonnée à 60 mg, 7 jours
+- OK — pc bloc 9 : 13 packs chargés
+- OK — pc bloc 9 : sevrage au diazépam + B1 cochés (SFA 2023), plus de SERESTA 50 mg x3
+- OK — pc bloc 9 : zolpidem (ordonnance sécurisée) jamais imprimé
+- OK — pc bloc 9 : certificat sans consentement, 3 mentions exclusives, heure et constatations à saisir
+- OK — pc bloc 9 : dépression après 65 ans, escitalopram 5 mg (10 mg max) et citalopram 20 mg max (RCP)
+- OK — pc bloc 10 : 13 packs chargés
+- OK — pc bloc 10 : FA, apixaban 5 et 2,5 mg et rivaroxaban affichés (aucun effacé en doublon), rien coché d'office
+- OK — pc bloc 10 : TVP 3 anticoagulants exclusifs (apixaban par défaut, rivaroxaban, HBPM au poids à saisir), TVS fondaparinux 45 j
+- OK — pc bloc 10 : poussée tensionnelle sans nifédipine, amlodipine décochée
+- OK — pc bloc 11 : 13 packs chargés
+- OK — pc bloc 11 : cystite gravidique, fosfomycine cochée (HAS 2025), OROKEN en option, ECBU de contrôle
+- OK — pc bloc 11 : infection génitale haute, ceftriaxone + doxycycline + métronidazole 10 jours (HAS 2024)
+- OK — pc bloc 11 : nausées de la grossesse, doxylamine-pyridoxine d'abord, ondansétron en option (hors AMM non imprimé)
+- OK — pc fiches : « repositionnée / repositionné / modifiée par » ignorés, adresse réelle (rue, code postal, commune) et auteur jamais repris
+- OK — pc tournée point 0 (tour) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »
+- OK — pc tournée point 0 : phrase d'aide sous « Commencer la tournée »
+- OK — pc tournée point 1 : arrivée prévue ✓ ou ⚠, rythme à tenir, alerte vive et visites à rendre (la plus éloignée d'abord)
+- OK — pc tournée point 4 : patient en attente depuis plus de 2 h signalé
+- OK — pc tournée point 2 : durée apprise par motif sur le journal (40 min), 20 min par défaut
+- OK — pc tournée points 3, 5, 6 : impact avant ajout, minutes d'accès (cochées ou lues dans la fiche), majoration en heure de pointe
+- OK — pc tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
+- OK — pc tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation
+- OK — pc tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS
+- OK — pc tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde
+- OK — pc tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée
+- OK — pc courriers : deux boutons sur le pack, courrier au cardiologue en questions, sobre, une phrase de rendez-vous, données saisies seulement
+- OK — pc courriers : médecin traitant, compte rendu pour information et suivi, prescrit avec durée, avis demandé dans la suite, rien d'inventé
+- OK — pc courriers : modifiables avant impression, une page chacun, gras conservé
+- OK — pc courriers : sans médecin traitant, « À l'attention du médecin qui prendra en charge le patient »
+- OK — pc bloc 12 : 11 packs chargés
+- OK — pc bloc 12 : REVAXIS (non commercialisé) n'est plus prescrit nulle part, remplacé par un dTcaP
+- OK — pc bloc 12 : purpura fulminans (ceftriaxone, ligne jamais imprimée), pied diabétique céfalexine 2 g/j 7 jours (SPILF 2023, RCP)
+- OK — pc bloc 12 : hypoglycémie, glucagon 0,5 mg sous 25 kg (RCP GLUCAGEN)
+- OK — pc bloc 13 : 13 packs chargés
+- OK — pc bloc 13 : stupéfiants et midazolam (ordonnance sécurisée) jamais imprimés en soins palliatifs
+- OK — pc bloc 13 : surdosage en AVK, vitamine K 2 mg et 5 mg per os proposées (HAS 2008), aucune cochée d'office
+- OK — pc repères visuels : Visite et Consultation de couleurs distinctes, patient encadré et nommé « initiale · âge » en haut, couleur différente par patient (jour et nuit)
+- OK — pc repères visuels : patients validés ou mis de côté affichés en gris
+- OK — pc fiches : adresse lue dans le bloc « Adresse » (commune composée), motif et SMS ignorés, accès Bat/Etg/Por
+- OK — pc fiches : même fiche importée deux fois = « déjà dans la tournée », pas de second arrêt (nom + naissance, adresse + motif, ou même image)
+- OK — pc fiches : fiche non lue = miniature + éléments lus (initiale, âge, motif) + « Compléter » avec capture agrandie et saisie de l'adresse
+- OK — pc fiches : « Chez Consultation » → question « Consultation au cabinet ou visite ? », par défaut consultation sans arrêt
+- OK — pc bloc 14 : 9 packs chargés
+- OK — pc bloc 14 : stupéfiants jamais imprimés, garde à vue en 3 conclusions sans diagnostic, champs à saisir déclarés
+- OK — pc bloc 14 : bon de transport, VSL ou taxi conventionné en transport partagé, ambulance ou véhicule personnel
+- OK — pc fiches : vraisemblance signalée (code postal hors Loiret, téléphone incomplet, âge incohérent avec la naissance)
+- OK — pc fiches : « Coller les fiches » crée tous les arrêts d'un coup, doublons refusés
+- OK — pc bloc 15 : 11 packs chargés
+- OK — pc bloc 15 : énurésie à 10 ans, desmopressine 120 µg le soir avec restriction hydrique (RCP MINIRINMELT)
+- OK — pc bloc 15 : fer chez l'enfant de 8 ans, 1 comprimé par jour (RCP TARDYFERON)
+- OK — pc bloc 15 : chaque fiche ◇ rappelle le cadre premier recours (dépannage puis orientation)
+- OK — pc réglages de tournée : aucun recalcul pendant la saisie, appliqués à la validation, la vue ne bouge pas
+- OK — pc alerte d'attente : une seule ligne compacte « 3 patients attendent depuis plus de 2 h », repliée, liste sans doublon
+- OK — pc journal : sommaire en haut (gardes et patients, sécurité, identité, sauvegarde…), lien qui amène à la partie, boutons haut et bas
+- OK — pc affichage Garde par défaut : actions principales pleines et vives, une seule mise en avant (Naviguer puis Je suis arrivé), choix Garde / Premium dans le menu
+- OK — pc impression : aucun terme réservé au médecin (score, seuil, DFG, QT, AMM, indication, terrain) dans une ordonnance
+- OK — pc impression : NICOPATCHLIB imprimé avec la consigne de pose, sans le critère Fagerström
+- OK — pc correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif
+- OK — pc correctif 7 : le co-patient n'hérite pas des antécédents, traitements ni de la grossesse
+- OK — pc correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits
+- OK — pc correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu
+- OK — pc correctif 1 : « Commencer » ouvre un dossier propre prérempli (nom, naissance, motif, téléphone, adresse) et met de côté le patient précédent
+- OK — pc correctif 4 : bouton d'appel visible hors menu replié
+- OK — pc correctif 6 : libellé initiale · âge · rue
+- OK — pc correctif 3 : la cotation suit l'heure de l'acte (19:50 = VG+U, pas VRN), arrivée et acte enregistrés
+- OK — pc correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée
+- OK — pc correctif 10 : 2 documents par A4 en option (désactivée par défaut), jamais pour une ordonnance
+- OK — pc correctif 10 : documents courts regroupés, document trop long remis en pleine page (jamais tronqué)
+- OK — pc bronchiolite nuit : feuilles rendues
+- OK — pc aucune erreur JS
 
-90/90 tests OK
+274/274 tests OK

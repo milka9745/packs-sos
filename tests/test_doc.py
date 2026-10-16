@@ -104,7 +104,7 @@ async def run(width,height,label):
         ok(L+"posologie du document jamais reprise",("AMOXICILLINE" not in out) and ("1000" not in out) and ("METFORMINE" in out),out[:400])
         await page.locator("[data-dacc=docs]").click(); await page.locator("[data-dacc=tt]").click(); await page.wait_for_timeout(300)
         cr=await page.evaluate("buildCR0(PACKS[0])")
-        ok(L+"résultats ajoutés au compte rendu (documents consultés)","Documents consultés : Bilan biologique" in cr and "CRP 85 mg/l" in cr,cr[:200])
+        ok(L+"résultats ajoutés au compte rendu (documents consultés)","DOCUMENTS ET RÉSULTATS CONSULTÉS\n- Bilan biologique" in cr and "CRP 85 mg/l" in cr,cr[-400:])
         tt=await page.evaluate("state.tt")
         ok(L+"traitements repris sans dose",any("METFORMINE" in t for t in tt) and not any("1000" in t or "mg" in t for t in tt),tt)
         await page.evaluate("document.getElementById('aipanel')&&document.getElementById('aipanel').remove()")
