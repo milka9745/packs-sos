@@ -1,0 +1,98 @@
+# Tests lot 2 — registre du 16/10/2026 (n° 1 à 4)
+
+- OK — iphone jour : n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)
+- OK — iphone jour : n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)
+- OK — iphone jour : n°2 appel du patient en cours et du suivant visibles (un toucher)
+- OK — iphone jour : n°2 appel depuis la fiche patient
+- OK — iphone jour : n°3 mode voiture : patient actuel et patient suivant
+- OK — iphone jour : n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire
+- OK — iphone jour : n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement
+- OK — iphone jour : n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)
+- OK — iphone jour : n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier
+- OK — iphone jour : n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer
+- OK — iphone jour : n°4 nouvelle demande visible tout de suite dans la carte de visite, avec son secteur
+- OK — iphone jour : n°4 nouvelle demande visible aussi en mode voiture
+- OK — iphone jour : n°4 écran Tournée : nouvelle demande en tête, avec son secteur
+- OK — iphone jour : n°2 liste des visites : appel d'un toucher par visite
+- OK — iphone jour : n°4 « Intégrer au mieux » : insérée à côté des visites du même secteur, bandeau retiré
+- OK — iphone jour : n°4 « En fin de tournée » : ajoutée en dernier
+- OK — iphone jour : n°1 consultation au cabinet : étapes Patient → Dictée → Fiche → Imprimer → Validé
+- OK — iphone jour : aucun débordement horizontal
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)
+- OK — iphone nuit : n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)
+- OK — iphone nuit : n°2 appel du patient en cours et du suivant visibles (un toucher)
+- OK — iphone nuit : n°2 appel depuis la fiche patient
+- OK — iphone nuit : n°3 mode voiture : patient actuel et patient suivant
+- OK — iphone nuit : n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire
+- OK — iphone nuit : n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement
+- OK — iphone nuit : n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)
+- OK — iphone nuit : n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier
+- OK — iphone nuit : n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer
+- OK — iphone nuit : n°4 nouvelle demande visible tout de suite dans la carte de visite, avec son secteur
+- OK — iphone nuit : n°4 nouvelle demande visible aussi en mode voiture
+- OK — iphone nuit : n°4 écran Tournée : nouvelle demande en tête, avec son secteur
+- OK — iphone nuit : n°2 liste des visites : appel d'un toucher par visite
+- OK — iphone nuit : n°4 « Intégrer au mieux » : insérée à côté des visites du même secteur, bandeau retiré
+- OK — iphone nuit : n°4 « En fin de tournée » : ajoutée en dernier
+- OK — iphone nuit : n°1 consultation au cabinet : étapes Patient → Dictée → Fiche → Imprimer → Validé
+- OK — iphone nuit : aucun débordement horizontal
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte jour : n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)
+- OK — iphone grand texte jour : n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)
+- OK — iphone grand texte jour : n°2 appel du patient en cours et du suivant visibles (un toucher)
+- OK — iphone grand texte jour : n°2 appel depuis la fiche patient
+- OK — iphone grand texte jour : n°3 mode voiture : patient actuel et patient suivant
+- OK — iphone grand texte jour : n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire
+- OK — iphone grand texte jour : n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement
+- OK — iphone grand texte jour : n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)
+- OK — iphone grand texte jour : n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier
+- OK — iphone grand texte jour : n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer
+- OK — iphone grand texte jour : n°4 nouvelle demande visible tout de suite dans la carte de visite, avec son secteur
+- OK — iphone grand texte jour : n°4 nouvelle demande visible aussi en mode voiture
+- OK — iphone grand texte jour : n°4 écran Tournée : nouvelle demande en tête, avec son secteur
+- OK — iphone grand texte jour : n°2 liste des visites : appel d'un toucher par visite
+- OK — iphone grand texte jour : n°4 « Intégrer au mieux » : insérée à côté des visites du même secteur, bandeau retiré
+- OK — iphone grand texte jour : n°4 « En fin de tournée » : ajoutée en dernier
+- OK — iphone grand texte jour : n°1 consultation au cabinet : étapes Patient → Dictée → Fiche → Imprimer → Validé
+- OK — iphone grand texte jour : aucun débordement horizontal
+- OK — iphone grand texte jour : aucune erreur JS
+- OK — iphone grand texte nuit : n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)
+- OK — iphone grand texte nuit : n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)
+- OK — iphone grand texte nuit : n°2 appel du patient en cours et du suivant visibles (un toucher)
+- OK — iphone grand texte nuit : n°2 appel depuis la fiche patient
+- OK — iphone grand texte nuit : n°3 mode voiture : patient actuel et patient suivant
+- OK — iphone grand texte nuit : n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire
+- OK — iphone grand texte nuit : n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement
+- OK — iphone grand texte nuit : n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)
+- OK — iphone grand texte nuit : n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier
+- OK — iphone grand texte nuit : n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer
+- OK — iphone grand texte nuit : n°4 nouvelle demande visible tout de suite dans la carte de visite, avec son secteur
+- OK — iphone grand texte nuit : n°4 nouvelle demande visible aussi en mode voiture
+- OK — iphone grand texte nuit : n°4 écran Tournée : nouvelle demande en tête, avec son secteur
+- OK — iphone grand texte nuit : n°2 liste des visites : appel d'un toucher par visite
+- OK — iphone grand texte nuit : n°4 « Intégrer au mieux » : insérée à côté des visites du même secteur, bandeau retiré
+- OK — iphone grand texte nuit : n°4 « En fin de tournée » : ajoutée en dernier
+- OK — iphone grand texte nuit : n°1 consultation au cabinet : étapes Patient → Dictée → Fiche → Imprimer → Validé
+- OK — iphone grand texte nuit : aucun débordement horizontal
+- OK — iphone grand texte nuit : aucune erreur JS
+- OK — pc jour : n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)
+- OK — pc jour : n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)
+- OK — pc jour : n°2 appel du patient en cours et du suivant visibles (un toucher)
+- OK — pc jour : n°2 appel depuis la fiche patient
+- OK — pc jour : n°3 mode voiture : patient actuel et patient suivant
+- OK — pc jour : n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire
+- OK — pc jour : n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement
+- OK — pc jour : n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)
+- OK — pc jour : n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier
+- OK — pc jour : n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer
+- OK — pc jour : n°4 nouvelle demande visible tout de suite dans la carte de visite, avec son secteur
+- OK — pc jour : n°4 nouvelle demande visible aussi en mode voiture
+- OK — pc jour : n°4 écran Tournée : nouvelle demande en tête, avec son secteur
+- OK — pc jour : n°2 liste des visites : appel d'un toucher par visite
+- OK — pc jour : n°4 « Intégrer au mieux » : insérée à côté des visites du même secteur, bandeau retiré
+- OK — pc jour : n°4 « En fin de tournée » : ajoutée en dernier
+- OK — pc jour : aucun débordement horizontal
+- OK — pc jour : aucune erreur JS
+
+94/94 tests OK

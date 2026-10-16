@@ -322,7 +322,7 @@ async def run(width,height,label):
            return {call:!!a,mask:!!m,memo:!!memo&&!memo.open&&/Annoncer l'arrivée vers/.test(memo.textContent),log:(s.calls||[]).length===1&&!!s.calls[0].annonce,sms:!/sms:/i.test(t.innerHTML)};}""")
         ok(label+" tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS",all(r10.values()),r10)
         r8=await page.evaluate("""()=>{state.view='drive';render();const d=document.querySelector('.drive');const fs=d?parseFloat(getComputedStyle(d.querySelector('.dv-addr')).fontSize):0;const txt=d?d.innerText:'';state.view='tour';render();const bil=/Bilan de garde/.test(document.body.innerText)&&/Visites faites/.test(document.querySelector('.tp-bilan').textContent);state.view='';render();return {fs,fin:/Fin prévue/.test(txt),bil};}""")
-        ok(label+" tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde",r8["fs"]>=30 and r8["fin"] and r8["bil"],r8)
+        ok(label+" tournée points 8 et 9 : écran conduite adresse adaptative ≥ 22 px (registre n° 12), bilan de garde",r8["fs"]>=22 and r8["fin"] and r8["bil"],r8)
         r12=await page.evaluate("""async()=>{window.osrmTable=async()=>{throw new Error('réseau');};TOUR.computed=0;await tourOptimize();const b=tpBannerHTML();return {est:TOUR.est,order:TOUR.order.length,txt:/vol d'oiseau/.test(b)};}""")
         ok(label+" tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée",r12["est"] and r12["order"]>=1 and r12["txt"],r12)
         if width<500:

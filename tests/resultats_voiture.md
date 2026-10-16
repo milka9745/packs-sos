@@ -1,0 +1,138 @@
+# Tests registre n° 12 — mode voiture iPhone (16/10/2026)
+
+- OK — 320×568 portrait jour : aucun défilement horizontal
+- OK — 320×568 portrait jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 portrait jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 portrait jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 portrait jour : adresse longue : complète d'un toucher
+- OK — 320×568 portrait jour : aucune erreur JS
+- OK — 320×568 portrait jour grand texte : aucun défilement horizontal
+- OK — 320×568 portrait jour grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 portrait jour grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 portrait jour grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 portrait jour grand texte : adresse longue : complète d'un toucher
+- OK — 320×568 portrait jour grand texte : aucune erreur JS
+- OK — 320×568 portrait nuit : aucun défilement horizontal
+- OK — 320×568 portrait nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 portrait nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 portrait nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 portrait nuit : adresse longue : complète d'un toucher
+- OK — 320×568 portrait nuit : aucune erreur JS
+- OK — 320×568 portrait nuit grand texte : aucun défilement horizontal
+- OK — 320×568 portrait nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 portrait nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 portrait nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 portrait nuit grand texte : adresse longue : complète d'un toucher
+- OK — 320×568 portrait nuit grand texte : aucune erreur JS
+- OK — 320×568 paysage jour : aucun défilement horizontal
+- OK — 320×568 paysage jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 paysage jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 paysage jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 paysage jour : adresse longue : complète d'un toucher
+- OK — 320×568 paysage jour : aucune erreur JS
+- OK — 320×568 paysage jour grand texte : aucun défilement horizontal
+- OK — 320×568 paysage jour grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 paysage jour grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 paysage jour grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 paysage jour grand texte : adresse longue : complète d'un toucher
+- OK — 320×568 paysage jour grand texte : aucune erreur JS
+- OK — 320×568 paysage nuit : aucun défilement horizontal
+- OK — 320×568 paysage nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 paysage nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 paysage nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 paysage nuit : adresse longue : complète d'un toucher
+- OK — 320×568 paysage nuit : aucune erreur JS
+- OK — 320×568 paysage nuit grand texte : aucun défilement horizontal
+- OK — 320×568 paysage nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 320×568 paysage nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 320×568 paysage nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 320×568 paysage nuit grand texte : adresse longue : complète d'un toucher
+- OK — 320×568 paysage nuit grand texte : aucune erreur JS
+- OK — 375×812 portrait jour : aucun défilement horizontal
+- OK — 375×812 portrait jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 portrait jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 portrait jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 portrait jour : adresse longue : complète d'un toucher
+- OK — 375×812 portrait jour : aucune erreur JS
+- OK — 375×812 portrait jour grand texte : aucun défilement horizontal
+- OK — 375×812 portrait jour grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 portrait jour grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 portrait jour grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 portrait jour grand texte : adresse longue : complète d'un toucher
+- OK — 375×812 portrait jour grand texte : aucune erreur JS
+- OK — 375×812 portrait nuit : aucun défilement horizontal
+- OK — 375×812 portrait nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 portrait nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 portrait nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 portrait nuit : adresse longue : complète d'un toucher
+- OK — 375×812 portrait nuit : aucune erreur JS
+- OK — 375×812 portrait nuit grand texte : aucun défilement horizontal
+- OK — 375×812 portrait nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 portrait nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 portrait nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 portrait nuit grand texte : adresse longue : complète d'un toucher
+- OK — 375×812 portrait nuit grand texte : aucune erreur JS
+- OK — 375×812 paysage jour : aucun défilement horizontal
+- OK — 375×812 paysage jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 paysage jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 paysage jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 paysage jour : adresse longue : complète d'un toucher
+- OK — 375×812 paysage jour : aucune erreur JS
+- OK — 375×812 paysage nuit : aucun défilement horizontal
+- OK — 375×812 paysage nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 paysage nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 paysage nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 paysage nuit : adresse longue : complète d'un toucher
+- OK — 375×812 paysage nuit : aucune erreur JS
+- OK — 375×812 paysage nuit grand texte : aucun défilement horizontal
+- OK — 375×812 paysage nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 375×812 paysage nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 375×812 paysage nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 375×812 paysage nuit grand texte : adresse longue : complète d'un toucher
+- OK — 375×812 paysage nuit grand texte : aucune erreur JS
+- OK — 430×932 portrait jour : aucun défilement horizontal
+- OK — 430×932 portrait jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 portrait jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 portrait jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 portrait jour : adresse longue : complète d'un toucher
+- OK — 430×932 portrait jour : aucune erreur JS
+- OK — 430×932 portrait jour grand texte : aucun défilement horizontal
+- OK — 430×932 portrait jour grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 portrait jour grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 portrait jour grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 portrait jour grand texte : adresse longue : complète d'un toucher
+- OK — 430×932 portrait jour grand texte : aucune erreur JS
+- OK — 430×932 portrait nuit : aucun défilement horizontal
+- OK — 430×932 portrait nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 portrait nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 portrait nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 portrait nuit : adresse longue : complète d'un toucher
+- OK — 430×932 portrait nuit : aucune erreur JS
+- OK — 430×932 portrait nuit grand texte : aucun défilement horizontal
+- OK — 430×932 portrait nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 portrait nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 portrait nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 portrait nuit grand texte : adresse longue : complète d'un toucher
+- OK — 430×932 portrait nuit grand texte : aucune erreur JS
+- OK — 430×932 paysage jour : aucun défilement horizontal
+- OK — 430×932 paysage jour : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 paysage jour : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 paysage jour : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 paysage jour : adresse longue : complète d'un toucher
+- OK — 430×932 paysage jour : aucune erreur JS
+- OK — 430×932 paysage nuit : aucun défilement horizontal
+- OK — 430×932 paysage nuit : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 paysage nuit : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 paysage nuit : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 paysage nuit : adresse longue : complète d'un toucher
+- OK — 430×932 paysage nuit : aucune erreur JS
+- OK — 430×932 paysage nuit grand texte : aucun défilement horizontal
+- OK — 430×932 paysage nuit grand texte : adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)
+- OK — 430×932 paysage nuit grand texte : ordre : adresse, accès (bâtiment, étage, code), puis boutons
+- OK — 430×932 paysage nuit grand texte : boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement
+- OK — 430×932 paysage nuit grand texte : adresse longue : complète d'un toucher
+- OK — 430×932 paysage nuit grand texte : aucune erreur JS
+- OK — zones sûres iOS : marges env(safe-area-inset-top/bottom/left/right) sur le mode voiture
+- OK — zones sûres iOS : viewport-fit=cover déclaré
+
+134/134 tests OK

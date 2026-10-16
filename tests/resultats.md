@@ -87,7 +87,7 @@
 - OK — iphone tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
 - OK — iphone tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation
 - OK — iphone tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS
-- OK — iphone tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde
+- OK — iphone tournée points 8 et 9 : écran conduite adresse adaptative ≥ 22 px (registre n° 12), bilan de garde
 - OK — iphone tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée
 - OK — iphone tournée 375 px : bandeau, carte, écran conduite sans débordement (jour, nuit, grand texte)
 - OK — iphone courriers : deux boutons sur le pack, courrier au cardiologue en questions, sobre, une phrase de rendez-vous, données saisies seulement
@@ -227,7 +227,7 @@
 - OK — pc tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
 - OK — pc tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation
 - OK — pc tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS
-- OK — pc tournée points 8 et 9 : écran conduite à très gros caractères, bilan de garde
+- OK — pc tournée points 8 et 9 : écran conduite adresse adaptative ≥ 22 px (registre n° 12), bilan de garde
 - OK — pc tournée point 12 : itinéraire indisponible, estimation à vol d'oiseau majorée et signalée
 - OK — pc courriers : deux boutons sur le pack, courrier au cardiologue en questions, sobre, une phrase de rendez-vous, données saisies seulement
 - OK — pc courriers : médecin traitant, compte rendu pour information et suivi, prescrit avec durée, avis demandé dans la suite, rien d'inventé

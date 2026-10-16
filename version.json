@@ -1,9 +1,9 @@
 {
-  "version": "41e",
+  "version": "41f",
   "date": "2026-10-16",
   "notes": [
-    "Packs conseille, vous décidez : une contre-indication ou une interaction ne bloque plus l'impression ; « Je maintiens la prescription » puis un motif d'un toucher.",
-    "Le motif et l'alerte vont au journal et au compte rendu, jamais sur l'ordonnance ; les conseils liés (conduite, malaise…) restent proposés.",
-    "Stupéfiant ou ligne incomplète : Packs dit quoi faire, le reste s'imprime ; plus de bouton grisé sans explication."
+    "Tournée en 4 étapes : 2 à 4 gros boutons à chaque étape, le reste dans « Plus » ; « 📞 Appeler » d'un toucher partout.",
+    "Nouvelle demande signalée tout de suite, avec son secteur : « Intégrer au mieux » ou « En fin de tournée ».",
+    "Mode voiture : patient actuel et suivant, adresse jamais coupée (complète d'un toucher), gros boutons toujours visibles sur iPhone."
   ]
 }
