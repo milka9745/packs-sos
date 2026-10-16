@@ -30,6 +30,7 @@
 - OK — iphone plafond atteint : passage automatique en Aucun
 - OK — iphone hors connexion : passage automatique en Aucun
 - OK — iphone hors connexion : rien n'est préparé ni envoyé
+- OK — iphone hors connexion : demande mise en attente sur l'appareil (n° 6), jamais envoyée
 - OK — iphone compte rendu envoyé sans identité
 - OK — iphone compte rendu et courrier : un seul appel
 - OK — iphone manques signalés avant validation
@@ -70,6 +71,7 @@
 - OK — pc plafond atteint : passage automatique en Aucun
 - OK — pc hors connexion : passage automatique en Aucun
 - OK — pc hors connexion : rien n'est préparé ni envoyé
+- OK — pc hors connexion : demande mise en attente sur l'appareil (n° 6), jamais envoyée
 - OK — pc compte rendu envoyé sans identité
 - OK — pc compte rendu et courrier : un seul appel
 - OK — pc manques signalés avant validation
@@ -81,4 +83,4 @@
 - OK — pc mode Aucun en un geste
 - OK — pc aucune erreur JS
 
-80/80 tests OK
+82/82 tests OK

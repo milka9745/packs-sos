@@ -1,9 +1,9 @@
 {
-  "version": "41f",
+  "version": "41g",
   "date": "2026-10-16",
   "notes": [
-    "Tournée en 4 étapes : 2 à 4 gros boutons à chaque étape, le reste dans « Plus » ; « 📞 Appeler » d'un toucher partout.",
-    "Nouvelle demande signalée tout de suite, avec son secteur : « Intégrer au mieux » ou « En fin de tournée ».",
-    "Mode voiture : patient actuel et suivant, adresse jamais coupée (complète d'un toucher), gros boutons toujours visibles sur iPhone."
+    "Hors connexion : bandeau « rien n'est perdu », avec ce qui marche sans réseau et ce qui attend le réseau.",
+    "Demande IA hors connexion mise en attente, chiffrée ; au retour du réseau, « Voir ce qui part » : rien ne part tout seul.",
+    "Clé API Claude chiffrée dans le profil : la phrase maître suffit sur un autre appareil ; jamais affichée, remplaçable d'un geste."
   ]
 }

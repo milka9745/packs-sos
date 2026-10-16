@@ -1,0 +1,74 @@
+# Tests lot 3 du registre du 16/10/2026 (n° 6 et 11)
+
+- OK — iphone jour : n°6 hors connexion signalé à l'écran, « rien n'est perdu »
+- OK — iphone jour : n°6 ce qui fonctionne sans réseau et ce qui attend le réseau, affichés
+- OK — iphone jour : n°6 bandeau sans débordement horizontal
+- OK — iphone jour : n°6 dictée hors connexion enregistrée chiffrée sur l'appareil
+- OK — iphone jour : n°6 demande IA mise en attente, rien n'est parti
+- OK — iphone jour : n°6 demande en attente déjà anonymisée (nom retiré)
+- OK — iphone jour : n°6 file d'attente rangée chiffrée (aucun texte en clair)
+- OK — iphone jour : n°6 réseau revenu : rien n'est envoyé tout seul
+- OK — iphone jour : n°6 réseau revenu : demande proposée (« Voir ce qui part »)
+- OK — iphone jour : n°6 l'écran « Ce qui part » s'ouvre, envoi au choix du médecin
+- OK — iphone jour : n°6 après « Envoyer » : un seul envoi, file vidée, bandeau retiré
+- OK — iphone jour : n°6 demande d'une autre consultation : signalée, jamais appliquée au patient suivant
+- OK — iphone jour : n°6 demande retirée d'un geste
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : n°6 hors connexion signalé à l'écran, « rien n'est perdu »
+- OK — iphone nuit : n°6 ce qui fonctionne sans réseau et ce qui attend le réseau, affichés
+- OK — iphone nuit : n°6 bandeau sans débordement horizontal
+- OK — iphone nuit : n°6 dictée hors connexion enregistrée chiffrée sur l'appareil
+- OK — iphone nuit : n°6 demande IA mise en attente, rien n'est parti
+- OK — iphone nuit : n°6 demande en attente déjà anonymisée (nom retiré)
+- OK — iphone nuit : n°6 file d'attente rangée chiffrée (aucun texte en clair)
+- OK — iphone nuit : n°6 réseau revenu : rien n'est envoyé tout seul
+- OK — iphone nuit : n°6 réseau revenu : demande proposée (« Voir ce qui part »)
+- OK — iphone nuit : n°6 l'écran « Ce qui part » s'ouvre, envoi au choix du médecin
+- OK — iphone nuit : n°6 après « Envoyer » : un seul envoi, file vidée, bandeau retiré
+- OK — iphone nuit : n°6 demande d'une autre consultation : signalée, jamais appliquée au patient suivant
+- OK — iphone nuit : n°6 demande retirée d'un geste
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte : n°6 hors connexion signalé à l'écran, « rien n'est perdu »
+- OK — iphone grand texte : n°6 ce qui fonctionne sans réseau et ce qui attend le réseau, affichés
+- OK — iphone grand texte : n°6 bandeau sans débordement horizontal
+- OK — iphone grand texte : n°6 dictée hors connexion enregistrée chiffrée sur l'appareil
+- OK — iphone grand texte : n°6 demande IA mise en attente, rien n'est parti
+- OK — iphone grand texte : n°6 demande en attente déjà anonymisée (nom retiré)
+- OK — iphone grand texte : n°6 file d'attente rangée chiffrée (aucun texte en clair)
+- OK — iphone grand texte : n°6 réseau revenu : rien n'est envoyé tout seul
+- OK — iphone grand texte : n°6 réseau revenu : demande proposée (« Voir ce qui part »)
+- OK — iphone grand texte : n°6 l'écran « Ce qui part » s'ouvre, envoi au choix du médecin
+- OK — iphone grand texte : n°6 après « Envoyer » : un seul envoi, file vidée, bandeau retiré
+- OK — iphone grand texte : n°6 demande d'une autre consultation : signalée, jamais appliquée au patient suivant
+- OK — iphone grand texte : n°6 demande retirée d'un geste
+- OK — iphone grand texte : aucune erreur JS
+- OK — ordinateur : n°6 hors connexion signalé à l'écran, « rien n'est perdu »
+- OK — ordinateur : n°6 ce qui fonctionne sans réseau et ce qui attend le réseau, affichés
+- OK — ordinateur : n°6 bandeau sans débordement horizontal
+- OK — ordinateur : n°6 dictée hors connexion enregistrée chiffrée sur l'appareil
+- OK — ordinateur : n°6 demande IA mise en attente, rien n'est parti
+- OK — ordinateur : n°6 demande en attente déjà anonymisée (nom retiré)
+- OK — ordinateur : n°6 file d'attente rangée chiffrée (aucun texte en clair)
+- OK — ordinateur : n°6 réseau revenu : rien n'est envoyé tout seul
+- OK — ordinateur : n°6 réseau revenu : demande proposée (« Voir ce qui part »)
+- OK — ordinateur : n°6 l'écran « Ce qui part » s'ouvre, envoi au choix du médecin
+- OK — ordinateur : n°6 après « Envoyer » : un seul envoi, file vidée, bandeau retiré
+- OK — ordinateur : n°6 demande d'une autre consultation : signalée, jamais appliquée au patient suivant
+- OK — ordinateur : n°6 demande retirée d'un geste
+- OK — ordinateur : aucune erreur JS
+- OK — n°11 : profil.json : clé API absente en clair (chiffrée avec la phrase maître)
+- OK — n°11 : profil.json déchiffré par la phrase : clé API retrouvée
+- OK — n°11 : mauvaise phrase : rien n'est déchiffré
+- OK — n°11 : réglages : clé jamais affichée ni présente dans la page
+- OK — n°11 : réglages : clé reconnaissable sans être lisible (4 derniers caractères)
+- OK — n°11 : clé remplacée d'un geste (coller, « Remplacer »), rangée chiffrée
+- OK — n°11 : avertissement : la sécurité dépend de la solidité de la phrase maître
+- OK — n°11 : avertissement repris à la publication du profil
+- OK — n°11 : appareil neuf : aucune clé avant activation
+- OK — n°11 : autre appareil : clé disponible après la phrase maître, rangée chiffrée
+- OK — n°11 : autre appareil : IA laissée sur « Aucun » (rien ne part sans choix du médecin)
+- OK — n°11 : clé non dupliquée dans l'identité enregistrée
+- OK — n°11 : activation : aucun appel à l'API
+- OK — n°11 : aucune erreur JS
+
+70/70 tests OK

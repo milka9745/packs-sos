@@ -123,6 +123,8 @@ async def run(width,height,label):
         ok(L+"hors connexion : passage automatique en Aucun",await page.evaluate("aiEffective().mode")=="aucun")
         n0=len(sent); r=await page.evaluate("aiPrepare('obs',{dictee:'test'})===null")
         ok(L+"hors connexion : rien n'est préparé ni envoyé",r and len(sent)==n0)
+        ok(L+"hors connexion : demande mise en attente sur l'appareil (n° 6), jamais envoyée",await page.evaluate("AIQ.list.length")>=1 and len(sent)==n0)
+        await page.evaluate("AIQ.list=[];aiqSave();netUI();")
         await ctx.set_offline(False); await page.wait_for_timeout(200)
         # 7. Compte rendu + courrier en un seul envoi
         await page.evaluate("""()=>{const i=PACKS.findIndex(p=>p.s.some(sh=>sh.k==='let')&&p.s.some(sh=>sh.k==='med'));state.sel=i;state.obs.hist='Brûlures mictionnelles, patiente très inquiète.';state.obs.dictated=true;state.obsOpen=true;render();}""")

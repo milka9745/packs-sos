@@ -526,6 +526,12 @@ html[data-theme="night"] .tc-steps li.done{background:#1F3B29;color:#8FD3A6}html
 .pcard-h .pcall{margin-left:auto;min-height:40px}
 /* 16/10/2026 : écran de verrouillage défilable (paysage, petit iPhone, grand texte) : plus de bouton hors d'atteinte */
 #lock{overflow-y:auto;align-items:flex-start!important;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px)!important}#lock>.lockbox{margin:auto}
+/* 16/10/2026 n° 6 : hors connexion — bandeau d'état et demandes IA en attente */
+#netbar{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:6px calc(env(safe-area-inset-right,0px) + 10px) calc(env(safe-area-inset-bottom,0px) + 6px) calc(env(safe-area-inset-left,0px) + 10px);background:#3A2A00;color:#FFE7A3;font-size:14px;box-shadow:0 -2px 10px rgba(0,0,0,.25);max-height:60vh;overflow:auto}
+#netbar.on{background:#123A22;color:#CFF5DC}#netbar .nb-hd{all:unset;cursor:pointer;display:flex;gap:6px;align-items:center;width:100%;min-height:36px;font-weight:700}#netbar .nb-i{margin-left:auto}
+#netbar .nb-body{padding:4px 0}#netbar .hint{color:inherit;opacity:.85}#netbar .nq-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:4px 0}#netbar .nq-row>span{flex:1 1 180px}
+#netbar .lc{color:inherit;border-color:currentColor}#netbar .nb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}#netbar ul{margin:4px 0;padding-left:18px}
+body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 /* 16/10/2026 n° 12 : mode voiture — zones sûres iOS, adresse adaptative, boutons toujours visibles */
 .drive{padding:calc(env(safe-area-inset-top,0px) + 8px) calc(env(safe-area-inset-right,0px) + 10px) calc(env(safe-area-inset-bottom,0px) + 10px) calc(env(safe-area-inset-left,0px) + 10px)!important;gap:8px!important;max-width:100%;box-sizing:border-box}
 .drive .dv-top{flex-wrap:wrap}.drive .dv-top .dv-ok,.drive .dv-top .dv-ko{font-size:18px}
@@ -7340,7 +7346,7 @@ async function unlockDone(){SEC.unlocked=true;const el=$("#lock");if(el)el.remov
   try{await validLoad();}catch(e){}
   if(!window.__draftChecked){window.__draftChecked=1;try{const d=await secGet("sos_draft",null);if(d&&Date.now()-d.ts<12*3600*1000&&d.state&&(d.state.patient||d.state.sel!==null||(d.state.obs&&Object.values(d.state.obs).some(v=>typeof v==="string"&&v.trim())))){Object.assign(state,d.state);state.view="";window.__draftRestored=d.state.patient||"";}}catch(e){}}
   try{await dictHistLoad();}catch(e){}setTimeout(()=>{try{photosHydrate();phPurge();}catch(e){}},50);
-  await aiLoad();await syncLoad();search("");render();armAutoLock();sessSave();identGate();if(syncOn())setTimeout(()=>syncNow(true),1500);}
+  await aiLoad();await aiqLoad();await syncLoad();search("");render();armAutoLock();sessSave();identGate();if(syncOn())setTimeout(()=>syncNow(true),1500);}
 function lockNow(){if(!SEC.unlocked)return;SEC.unlocked=false;SEC.key=null;sessClear();lockScreen("unlock","");}
 function armAutoLock(){clearTimeout(SEC.timer);SEC.timer=setTimeout(lockNow,SEC.lockDelayMin*60*1000);if(!SEC._t||Date.now()-SEC._t>30000){SEC._t=Date.now();sessTouch();}}
 ["pointerdown","keydown","touchstart"].forEach(ev=>document.addEventListener(ev,()=>{if(SEC.unlocked)armAutoLock();},{passive:true}));
@@ -16283,7 +16289,7 @@ function aiEffective(){
   if(navigator.onLine===false)return {mode:"aucun",why:"hors connexion : aucun envoi"};
   if(+AI.cfg.cap>0&&aiMonthCost()>=+AI.cfg.cap)return {mode:"aucun",why:"plafond mensuel atteint ("+fmtEur(+AI.cfg.cap)+")"};
   return {mode:AI.cfg.mode,why:""};}
-function aiFn(f){const m=aiEffective().mode;if(m==="aucun")return "off";if(m==="complet")return "auto";return AI.cfg.fn[f]||"demande";}
+function aiFn(f){const m=aiOfflineOnly()?AI.cfg.mode:aiEffective().mode;if(m==="aucun")return "off";if(m==="complet")return "auto";return AI.cfg.fn[f]||"demande";}
 function aiAvailable(){return aiEffective().mode!=="aucun";}
 function aiModeLabel(){const e=aiEffective();return {aucun:"Aucun",partiel:"Partiel",complet:"Complet"}[e.mode]+(e.mode==="aucun"&&AI.cfg.mode!=="aucun"?" (auto)":"");}
 function aiBtnHTML(){const e=aiEffective();return `<button type="button" class="btn ai" id="ai_btn" title="${esc(e.why||"Dictée, compte rendu, courrier — rien ne part sans votre accord")}">✦ IA · ${esc(aiModeLabel())}</button>`;}
@@ -16347,7 +16353,7 @@ TÂCHE : relecture de sécurité médico-légale du compte rendu, avant validati
 function aiPacksList(){return PACKS.map(p=>p.n).join("\n");}
 function aiMemoPoints(p){if(!p)return [];const m=p.s.find(sh=>sh.k==="memo");if(!m)return [];return m.l.map(l=>typeof l==="string"?l:l.t).filter(t=>/tra[çc]abilit|v[ée]rification|bloquant|documenter|gravit[ée]|reconsult/i.test(t)).slice(0,12);}
 function aiPrepare(kind,opt){opt=opt||{};
-  const eff=aiEffective();if(eff.mode==="aucun"){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return null;}
+  const eff=aiEffective();const offq=aiOfflineOnly();if(eff.mode==="aucun"&&!offq){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return null;}
   const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}  /* masquages manuels : propres à ce patient */
   const ctx=aiAnonCtx();const p=currentPack();let system,parts,build,maxT,fns;
   if(kind==="obs"){const d=String(opt.dictee||"").trim();if(!d){alert("Dictée vide.");return null;}
@@ -16366,6 +16372,7 @@ function aiPrepare(kind,opt){opt=opt||{};
   const leaks=anonLeaks(user,ctx);const model=AI_MODEL.redac;
   const est=aiEur(model,{input_tokens:Math.round((system.length+user.length)/3.2),output_tokens:Math.round(maxT*0.5)});
   AI.pending={kind,opt,fns,ctx,system,user,map:an.map,items:an.items,leaks,model,maxT,est,pid:state.t0||Date.now()};
+  if(offq){aiqAdd(AI.pending);AI.pending=null;return null;} /* n° 6 : hors connexion, mise en attente sur l'appareil */
   aiSendScreen();return AI.pending;}
 
 /* ---- Écran « Ce qui part » : le texte exact, ce qui a été retiré, le coût ; rien ne part sans « Envoyer » ---- */
@@ -16377,16 +16384,17 @@ function aiSendScreen(){const P=AI.pending;if(!P)return;let el=document.getEleme
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>Ce qui part</b><span class="hint">${esc(P.fns.map(f=>AI_FN[f]).join(" + "))} · modèle ${esc(P.model)} · environ ${fmtEur(P.est)} (mois : ${fmtEur(month)}${cap?" sur "+fmtEur(cap):""})</span></div>
    <div class="hint">Rien n'est parti. Destinataire : API Anthropic (Claude). Le texte ci-dessous est envoyé <b>mot pour mot</b>, avec les consignes fixes. Touchez un mot pour le masquer en plus ; touchez un jeton « NOM PROPRE » pour le rendre.</div>
    ${P.leaks.length?`<div class="alert">Envoi bloqué : fragment d'identité encore présent (${P.leaks.map(l=>esc(l.cat)+" « "+esc(l.frag)+" »").join(", ")}). Touchez le mot pour le masquer.</div>`:""}
-   ${off?`<div class="alert">Hors connexion : aucun envoi possible, rien n'est mis en attente.</div>`:""}${overCap?`<div class="alert">Plafond mensuel : cet envoi le dépasserait. Modifiez le plafond dans Consommation.</div>`:""}${eff.mode==="aucun"&&!off?`<div class="alert">IA coupée${eff.why?" : "+esc(eff.why):""}.</div>`:""}
+   ${off?`<div class="alert">Hors connexion : aucun envoi possible. ${P.qid?"La demande reste en attente.":"« Mettre en attente » la garde chiffrée sur l'appareil ; elle vous sera reproposée ici au retour du réseau."}</div>`:""}${overCap?`<div class="alert">Plafond mensuel : cet envoi le dépasserait. Modifiez le plafond dans Consommation.</div>`:""}${eff.mode==="aucun"&&!off?`<div class="alert">IA coupée${eff.why?" : "+esc(eff.why):""}.</div>`:""}
    <div class="aiitems"><b>Retiré avant envoi, réintégré ensuite sur l'appareil</b> (${P.items.length})${P.items.length?"<ul>"+Object.entries(cats).map(([c,l])=>`<li><i>${esc(c.toLowerCase())}</i> : ${l.map(i=>esc(i.orig)+" → <code>[["+esc(i.tok)+"]]</code>").join(" · ")}</li>`).join("")+"</ul>":" : rien à retirer."}</div>
    ${P.img?`<div class="aiimgbox"><b>Image envoyée, exactement</b> <span class="hint">(ré-encodée sur l'appareil, sans métadonnées ni position ; ${P.edits} zone(s) recadrée(s) ou masquée(s), vérifiée(s) par la lecture locale${P.ocrOk?"":" — lecture locale indisponible, vérification manuelle seulement"})</span><img class="aiimg" src="${P.img}" alt="Image exacte envoyée"></div>`:""}
    <div class="aisent" id="ai_sent">${aiSentHTML(P.user)}</div>
    <details class="aisys"><summary>Consignes fixes envoyées avec (aucune donnée patient)</summary><pre>${esc(P.system.length>3000?P.system.slice(0,3000)+"\n… (liste des fiches de Packs)":P.system)}</pre></details>
-   <div class="aiact"><button type="button" class="btn p" id="ai_send" ${blocked?"disabled":""}>Envoyer</button><button type="button" class="btn s" id="ai_cancel">Annuler</button>${AI.masquer.length||AI.garder.length?`<button type="button" class="btn s" id="ai_reset">Revenir au masquage automatique</button>`:""}</div></div>`;
+   <div class="aiact"><button type="button" class="btn p" id="ai_send" ${blocked?"disabled":""}>Envoyer</button>${off&&!P.qid&&P.kind!=="doc"?`<button type="button" class="btn p" id="ai_queue">Mettre en attente</button>`:""}<button type="button" class="btn s" id="ai_cancel">Annuler</button>${AI.masquer.length||AI.garder.length?`<button type="button" class="btn s" id="ai_reset">Revenir au masquage automatique</button>`:""}</div></div>`;
   const redo=()=>P.kind==="doc"?aiDocPrepare():aiPrepare(P.kind,P.opt);
   el.querySelectorAll(".aiw").forEach(s=>s.onclick=()=>{const w=s.dataset.w;AI.garder=AI.garder.filter(x=>anonNorm(x)!==anonNorm(w));if(!AI.masquer.includes(w))AI.masquer.push(w);redo();});
   el.querySelectorAll(".aitok").forEach(s=>s.onclick=()=>{const t=s.dataset.tok;const it=P.items.find(i=>i.tok===t);if(!it||it.cat!=="NOM PROPRE")return;it.orig.split(/\s+/).forEach(w=>AI.garder.push(w));AI.masquer=AI.masquer.filter(x=>!it.orig.split(/\s+/).some(w=>anonNorm(w)===anonNorm(x)));redo();});
   el.querySelector("#ai_cancel").onclick=()=>{AI.pending=null;el.remove();};
+  const qb=el.querySelector("#ai_queue");if(qb)qb.onclick=()=>{aiqAdd(P);AI.pending=null;el.remove();};
   const rs=el.querySelector("#ai_reset");if(rs)rs.onclick=()=>{AI.masquer=[];AI.garder=[];redo();};
   el.querySelector("#ai_send").onclick=aiSend;}
 
@@ -16412,7 +16420,7 @@ async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=docume
   AI.busy=true;const b=el&&el.querySelector("#ai_send");if(b){b.disabled=true;b.textContent="Envoi…";}
   try{const content=P.img?[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:P.img.split(",")[1]}},{type:"text",text:P.user}]:P.user;
     AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
-    AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
+    if(P.qid)aiqDel(P.qid);AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
     if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
   catch(e){if(el){const a=document.createElement("div");a.className="alert";a.textContent=e.message||String(e);el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}}
   AI.busy=false;}
@@ -16477,7 +16485,7 @@ function aiAccept(id){const R=AI.res,a=R&&R.acc[id];if(!a)return false;
   render();return true;}
 
 /* ---- Panneau ---- */
-function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=tab;const eff=aiEffective();
+function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=tab;const offq=aiOfflineOnly();const eff=offq?{mode:AI.cfg.mode,why:""}:aiEffective();
   const tabs=["obs","cr","let","doc"].filter(f=>aiFn(f)!=="off");if(tabs.length&&!tabs.includes(AI.tab))AI.tab=tabs[0];
   const el=document.createElement("div");el.id="aipanel";const t=AI.tab;const p=currentPack();
   const body=eff.mode==="aucun"?`<div class="aires">IA coupée${eff.why?" : "+esc(eff.why):" (mode Aucun)"}. Packs fonctionne sans IA : rien n'est envoyé, rien n'est facturé.</div>`:
@@ -16486,7 +16494,7 @@ function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=
     :t==="cr"?`<div class="hint">Relit le compte rendu de la consultation en cours${p?" (« "+esc(p.n)+" »)":""} : manques, formulation neutre, raisonnement, information donnée. Rien n'est modifié sans votre accord.</div>${aiFn("let")!=="off"?`<label class="hint"><input type="checkbox" id="ai_withlet" ${p&&p.s.some(sh=>sh.k==="let")?"checked":""}> Courrier dans le même envoi</label><textarea id="ai_in" rows="2" placeholder="Courrier : à qui, quelle question (facultatif)"></textarea>`:""}`
     :t==="doc"?`<div class="hint">Photo ou capture d'écran d'un document (biologie, compte rendu, ordonnance, ECG). Packs cherche et masque l'identité sur l'appareil ; vous recadrez ou masquez ensuite, c'est obligatoire. Les PDF : faites une capture de la page.</div><label class="btn p" for="ai_file">Importer une photo ou une capture</label><input type="file" id="ai_file" accept="image/*" style="display:none">`
     :`<textarea id="ai_in" rows="3" placeholder="À qui, quelle question : « ORL, otites à répétition, avis pour aérateurs »"></textarea><div class="hint">Le traitement est ajouté par Packs depuis la fiche, jamais rédigé par l'IA.</div>`}
-   ${t==="doc"?"":`<div class="aiact"><button type="button" class="btn p" id="ai_go">Voir ce qui part</button><span class="hint">Rien ne part avant l'écran de contrôle.</span></div>`}`;
+   ${t==="doc"?"":`<div class="aiact"><button type="button" class="btn p" id="ai_go">${offq?"Mettre en attente":"Voir ce qui part"}</button><span class="hint">${offq?"Hors connexion : préparée et anonymisée sur l'appareil, proposée à l'écran « Ce qui part » au retour du réseau.":"Rien ne part avant l'écran de contrôle."}</span></div>`}`;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>✦ Assistant IA</b>${aiModeHTML()}<button type="button" class="btn s sm" id="ai_conso">Consommation</button><button type="button" class="btn s sm" id="ai_close">Fermer</button></div>
    <div class="hint">Facultatif. Identité, adresse, téléphone, NIR et dates retirés sur l'appareil avant tout envoi, remis ici au retour. ${eff.mode==="partiel"?"Partiel : réglage par fonction dans Journal → Assistant IA.":eff.mode==="complet"?"Complet : l'écran de contrôle s'ouvre de lui-même après la dictée et la copie du compte rendu.":""}</div>${body}<div id="ai_out"></div></div>`;
   document.body.appendChild(el);
@@ -16505,12 +16513,12 @@ function swPill(on){return `<span class="swp${on?" on":""}">${on?"activé":"dés
 function aiMainHTML(){const e=aiEffective();const lbl={aucun:"Aucun",partiel:"Partiel",complet:"Complet"}[e.mode]+(e.mode==="aucun"&&AI.cfg.mode!=="aucun"?" (auto)":"");
   return `<button type="button" class="btn aimain ${e.mode==="aucun"?"off":"vive"}" data-aimain="1" aria-haspopup="true" title="${esc(e.why||"Assistant IA : rien ne part sans l'écran « Ce qui part »")}">✦ IA · ${esc(lbl)}</button>`;}
 function aiPopClose(){const m=document.getElementById("aipop");if(m)m.remove();}
-function aiPop(anchor,showMode){aiPopClose();const e=aiEffective();const off=e.mode==="aucun";const p=currentPack();
+function aiPop(anchor,showMode){aiPopClose();const e=aiEffective();const off=e.mode==="aucun"&&!aiOfflineOnly();const p=currentPack();
   const m=document.createElement("div");m.id="aipop";m.setAttribute("role","menu");
   const why=f=>off?(AI.key?"IA sur « Aucun » : changez le mode":"saisissez d'abord la clé"):aiFn(f)==="off"?"fonction coupée dans les réglages":"";
   const act=(id,lbl,w)=>`<button type="button" role="menuitem" data-aipa="${id}" ${w?"disabled":""}>${lbl}${w?`<small>${esc(w)}</small>`:""}</button>`;
   let h=`<div class="aiphd">✦ IA · <b>${{aucun:"Aucun",partiel:"Partiel",complet:"Complet"}[e.mode]}</b>${e.why?`<small>${esc(e.why)}</small>`:""}</div>`;
-  if(!AI.key)h+=`<div class="aipkey"><b>Aucune clé API</b><small>Elle est rangée chiffrée sur cet appareil, jamais dans un fichier. L'IA reste sur « Aucun » tant que vous ne changez pas le mode.</small><input id="aip_key" type="password" placeholder="sk-ant-…" autocomplete="off" autocapitalize="none"><button type="button" class="btn p sm" id="aip_save">Enregistrer la clé</button><small id="aip_st"></small></div>`;
+  if(!AI.key)h+=`<div class="aipkey"><b>Aucune clé API</b><small>Elle est rangée chiffrée sur cet appareil (et, profil publié, chiffrée par la phrase maître pour vos autres appareils). L'IA reste sur « Aucun » tant que vous ne changez pas le mode.</small><input id="aip_key" type="password" placeholder="sk-ant-…" autocomplete="off" autocapitalize="none"><button type="button" class="btn p sm" id="aip_save">Enregistrer la clé</button><small id="aip_st"></small></div>`;
   h+=act("obs","Analyser la dictée",why("obs"))+act("cr","Relire le compte rendu",why("cr")||(!p?"choisissez d'abord une fiche":""))+act("let","Rédiger le courrier",why("let")||(!p?"choisissez d'abord une fiche":""))+act("mode","Changer le mode","");
   if(showMode)h+=`<div class="aipmode">${aiModeHTML()}<small>Aucun : zéro envoi. Partiel : à la demande. Complet : l'écran « Ce qui part » s'ouvre de lui-même.</small></div>`;
   h+=`<small class="aipfoot">Rien n'est envoyé sans l'écran « Ce qui part ».</small>`;
@@ -16930,6 +16938,40 @@ function patCallHTML(){const c=TOUR.current?tourStop(TOUR.current):null;const te
 function tpSectorsHTML(){const g={};tourRemaining().filter(x=>x.id!==TOUR.current).forEach(x=>{const k=tpSector(x)||"secteur inconnu";g[k]=(g[k]||0)+1;});const e=Object.entries(g).sort((a,b)=>b[1]-a[1]);if(e.length<2)return "";
   return `<div class="tp-sectors"><span class="hint">Secteurs :</span>${e.map(([k,v])=>`<span class="chip">${esc(k)} · ${v}</span>`).join("")}<span class="hint">« Optimiser » regroupe les visites d'un même secteur.</span></div>`;}
 
+/* ---- n° 6 : hors connexion — ce qui marche sans réseau, ce qui attend ; demandes IA mises en attente, jamais envoyées seules ----
+   La demande est préparée et anonymisée sur l'appareil, rangée chiffrée (48 h), puis proposée à l'écran « Ce qui part » au retour du réseau. */
+const AIQ={list:[],open:false};
+async function aiqLoad(){try{const l=await secGet("sos_aiq",[]);const lim=Date.now()-48*36e5;AIQ.list=Array.isArray(l)?l.filter(q=>q&&q.P&&q.ts>lim):[];}catch(e){AIQ.list=[];}netUI();}
+function aiqSave(){try{if(SEC.key)secSet("sos_aiq",AIQ.list);}catch(e){}}
+/* seule raison de l'arrêt : le réseau (clé, chiffrement, niveau choisi et plafond en règle) */
+function aiOfflineOnly(){try{return navigator.onLine===false&&hasCrypto&&!!SEC.key&&!!AI.key&&AI.cfg.mode!=="aucun"&&!(+AI.cfg.cap>0&&aiMonthCost()>=+AI.cfg.cap);}catch(e){return false;}}
+function aiqSame(q){return (q.t0||0)===(state.t0||0)&&(q.who||"")===(state.patient||"");}
+function aiqAdd(P){const q={id:hexRand(4),ts:Date.now(),t0:state.t0||0,who:state.patient||"",fns:P.fns.slice(),P:{kind:P.kind,opt:P.opt,fns:P.fns,ctx:P.ctx,system:P.system,user:P.user,map:P.map,items:P.items,leaks:P.leaks,model:P.model,maxT:P.maxT,est:P.est,pid:P.pid}};
+  AIQ.list=AIQ.list.filter(x=>!(aiqSame(x)&&x.P.kind===q.P.kind&&x.fns.join()===q.fns.join()));AIQ.list.push(q);aiqSave();netUI();
+  toast("Hors connexion : demande IA mise en attente sur l'appareil, rien n'est parti");return q;}
+function aiqDel(id){AIQ.list=AIQ.list.filter(q=>q.id!==id);aiqSave();netUI();}
+function aiqOpen(id){const q=AIQ.list.find(x=>x.id===id);if(!q)return;if(!aiqSame(q)){alert("Cette demande concerne une autre consultation : elle ne peut plus s'appliquer ici. La dictée reste dans l'historique des dictées (48 h).");return;}
+  if(navigator.onLine===false){alert("Toujours hors connexion : la demande reste en attente.");return;}
+  AI.pending=Object.assign({},q.P,{qid:q.id,leaks:anonLeaks(q.P.user,q.P.ctx)});aiSendScreen();}
+function aiqLabel(q){return q.fns.map(f=>AI_FN[f]).join(" + ")+" · "+new Date(q.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});}
+/* Fonctions locales et fonctions qui attendent le réseau, affichées telles quelles */
+const NET_LOCAL=["Fiches, ordonnances, certificats, courriers, impression et PDF","Observation, dictée (micro du clavier) et compte rendu Packs, enregistrés chiffrés à chaque frappe","Photos du dossier, chiffrées sur l'appareil","Journal de garde, cotation, tournée (trajets estimés à vol d'oiseau)"];
+const NET_WAIT=["Assistant IA : demandes mises en attente, proposées à l'écran « Ce qui part » au retour du réseau","Synchronisation entre appareils : relancée seule au retour du réseau","Cartes, recherche d'adresse, Waze et Plans","Import de document vers l'IA"];
+function netUI(){try{let el=document.getElementById("netbar");const off=navigator.onLine===false;const n=AIQ.list.length;const lockd=typeof SEC!=="undefined"&&!SEC.unlocked;
+  if((!off&&!n)||lockd||(state&&state.view==="drive"&&!off)){if(el)el.remove();document.body.classList.remove("hasnet");return;}
+  if(!el){el=document.createElement("div");el.id="netbar";el.setAttribute("role","status");document.body.appendChild(el);}
+  const rows=AIQ.list.map(q=>{const same=aiqSame(q);return `<div class="nq-row"><span>✦ ${esc(aiqLabel(q))}${same?"":` <small>(autre consultation : ne s'applique plus ici)</small>`}</span>${!off&&same?`<button type="button" class="btn p sm" data-aiqgo="${q.id}">Voir ce qui part</button>`:""}<button type="button" class="lc" data-aiqdel="${q.id}">Retirer</button></div>`;}).join("");
+  el.className=off?"off":"on";
+  el.innerHTML=`<button type="button" class="nb-hd" id="nb_tog" aria-expanded="${AIQ.open}">${off?"📵 Hors connexion · rien n'est perdu":"📶 Réseau revenu"}${n?` · <b>${n} demande${n>1?"s":""} IA en attente</b>`:""}<span class="nb-i">${AIQ.open?"▾":"ⓘ"}</span></button>
+   ${AIQ.open||(!off&&n)?`<div class="nb-body">${!off&&n?`<div class="hint">Rien n'est parti : chaque demande passe par l'écran « Ce qui part ».</div>`:""}${rows}
+   ${AIQ.open?`<div class="nb-cols"><div><b>Fonctionne sans réseau</b><ul>${NET_LOCAL.map(x=>"<li>"+esc(x)+"</li>").join("")}</ul></div><div><b>Attend le réseau</b><ul>${NET_WAIT.map(x=>"<li>"+esc(x)+"</li>").join("")}</ul></div></div>`:""}</div>`:""}`;
+  document.body.classList.add("hasnet");}catch(e){}}
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;
+  if(t.closest("#nb_tog")){AIQ.open=!AIQ.open;netUI();return;}
+  const g=t.closest("[data-aiqgo]");if(g){aiqOpen(g.dataset.aiqgo);return;}
+  const d=t.closest("[data-aiqdel]");if(d){if(confirm("Retirer cette demande IA en attente ? (la dictée reste dans l'observation)"))aiqDel(d.dataset.aiqdel);}});
+window.addEventListener("online",()=>netUI());
+window.addEventListener("offline",()=>netUI());
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}
   const now=Date.now(),day=new Date().toDateString(),mk=aiMonthKey(),gk=typeof gardeKey==="function"?gardeKey(now):"";
@@ -16946,13 +16988,15 @@ function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=do
   el.querySelector("#ac_save").onclick=()=>{const c=parseFloat(String(el.querySelector("#ac_cap").value).replace(",","."));const a=parseInt(el.querySelector("#ac_alert").value,10);AI.cfg.cap=c>0?c:0;AI.cfg.alert=a>0&&a<=100?a:80;AI.cfg.alerted="";aiSave();aiConsoScreen();render();};}
 
 /* ---- Réglages (Journal) ---- */
+function aiKeyTail(){return AI.key?"se termine par …"+AI.key.slice(-4):"";}
 function aiSettingsHTML(){const sel=f=>`<label>${AI_FN[f]} <select data-aifn="${f}">${[["auto","automatique"],["demande","à la demande"],["off","coupée"]].map(([v,l])=>`<option value="${v}" ${AI.cfg.fn[f]===v?"selected":""}>${l}</option>`).join("")}</select></label>`;
-  return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée dans le profil de cet appareil</b> : jamais dans un fichier publié, ni dans la sauvegarde, ni dans la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026).</div>
- <div class="aiset"><input id="ai_key" type="password" placeholder="sk-ant-…" value="${esc(AI.key)}" autocomplete="off"><button type="button" class="btn p" id="ai_savekey">Enregistrer</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?(AI.cfg.mode==="aucun"?"Clé enregistrée (chiffrée). IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":"Clé enregistrée (chiffrée)"):"Aucune clé"}</span></div>
+  return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée sur cet appareil</b>, jamais affichée en clair ; avec un profil activé, elle part aussi <b>chiffrée par la phrase maître dans profil.json</b> (« Publier le profil ») : sur vos autres appareils, la phrase maître suffit. La sécurité de la clé dépend alors de la solidité de la phrase. Jamais dans la sauvegarde ni la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026).</div>
+ <div class="aiset"><input id="ai_key" type="password" placeholder="${AI.key?"Coller une nouvelle clé pour remplacer":"sk-ant-…"}" value="" autocomplete="off" autocapitalize="none"><button type="button" class="btn p" id="ai_savekey">${AI.key?"Remplacer":"Enregistrer"}</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?"Clé enregistrée (chiffrée, "+aiKeyTail()+")"+(AI.cfg.mode==="aucun"?". IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":""):"Aucune clé"}</span>${AI.key&&IDENT.on?'<button type="button" class="btn s" id="ai_pub">Publier le profil avec la clé</button>':""}</div>
  ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement, l'envoi reste validé à l'écran « Ce qui part ».":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>`;}
 function aiBindSettings(){const k=$("#ai_key");if(!k)return;
-  $("#ai_savekey").onclick=()=>{AI.key=k.value.trim();if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key="";return;}$("#ai_setst").textContent=AI.key?(AI.cfg.mode==="aucun"?"Clé enregistrée (chiffrée). IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":"Clé enregistrée (chiffrée)"):"Aucune clé";render();};
-  $("#ai_test").onclick=async()=>{AI.key=k.value.trim();if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){$("#ai_setst").textContent="Échec : "+(e.message||e);}};
+  $("#ai_savekey").onclick=()=>{const v=k.value.trim();if(!v){$("#ai_setst").textContent=AI.key?"Collez la nouvelle clé pour remplacer l'ancienne.":"Collez d'abord la clé.";return;}const old=AI.key;AI.key=v;if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key=old;return;}k.value="";render();toast(old?"Clé API remplacée"+(IDENT.on?" · publiez le profil pour vos autres appareils":""):"Clé API enregistrée (chiffrée)");};
+  const pb=$("#ai_pub");if(pb)pb.onclick=()=>{const x=$("#id_export");if(x)x.click();};
+  $("#ai_test").onclick=async()=>{const v=k.value.trim();const old=AI.key;if(v)AI.key=v;if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){if(v)AI.key=old;$("#ai_setst").textContent="Échec : "+(e.message||e);}};
   const d=$("#ai_delkey");if(d)d.onclick=()=>{if(!confirm("Retirer la clé API de cet appareil ?"))return;AI.key="";AI.cfg.mode="aucun";aiSave();render();};
   document.querySelectorAll("[data-aifn]").forEach(s=>s.onchange=()=>{AI.cfg.fn[s.dataset.aifn]=s.value;aiSave();});
   const c2=$("#ai_conso2");if(c2)c2.onclick=aiConsoScreen;}
@@ -17266,7 +17310,7 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}}
+function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
@@ -17407,6 +17451,8 @@ async function kitEncrypt(identity,phrase,keep){
   const salt=b64(crypto.getRandomValues(new Uint8Array(16)));const key=await kitKey(phrase,salt,KIT_ITER);
   const id=(keep&&keep.kitId)||hexRand(4);const created=(keep&&keep.created)||Date.now();
   const payload={nom:identity.nom,adeli:identity.adeli||"",assoc:identity.assoc||[],stamp:identity.stamp,kitId:id,created};
+  /* n° 11 : clé API Claude chiffrée avec le profil (même phrase maître que la signature) */
+  const ai=identity.ai!==undefined?identity.ai:kitAiNow();if(ai&&ai.key)payload.ai={key:String(ai.key),at:+ai.at||Date.now()};
   const o=await aesEnc(key,new TextEncoder().encode(JSON.stringify(payload)));
   return {app:"Packs SOS",kind:"kit",v:1,id,created,iter:KIT_ITER,salt,iv:o.iv,ct:o.ct};
 }
@@ -17422,8 +17468,12 @@ async function kitDecrypt(kit,phrase){
 }
 async function secPut(name,obj){if(!SEC.key)throw new Error("chiffrement indisponible sur cet appareil");const enc=await encStr(JSON.stringify(obj));localStorage.setItem(name+"_enc",enc);localStorage.removeItem(name);}
 async function identLoad(){try{if(!SEC.key){identApply(null);return;}const id=await secGet("sos_ident",null);identApply(id);}catch(e){identApply(null);}}
-async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);return id;}
+async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);const ai=id.ai;delete id.ai;id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);id.aiOk=await identAiInstall(ai);return id;}
 function identForget(){secRemove("sos_ident");identApply(null);}
+const AI_KIT_WARN="Clé API Claude incluse, chiffrée avec la phrase maître : sur tout appareil, la phrase suffit à la retrouver. Le fichier étant public, <b>la sécurité de la clé dépend de la solidité de la phrase maître</b> (6 mots proposés : solide).";
+function kitAiNow(){try{return AI&&AI.key?{key:AI.key,at:Date.now()}:null;}catch(e){return null;}}
+/* n° 11 : à l'activation, la clé API du profil est installée chiffrée sur l'appareil (IA laissée sur son niveau, « Aucun » par défaut) */
+async function identAiInstall(ai){try{if(!ai||!ai.key||!/^sk-/.test(String(ai.key)))return false;if(AI.key===ai.key)return true;if(!hasCrypto||!SEC.key)return false;AI.key=String(ai.key);await secPut("sos_ai",{key:AI.key,cfg:AI.cfg});return true;}catch(e){return false;}}
 function identSnapshot(){return {nom:IDENT.nom,adeli:IDENT.adeli,assoc:IDENT.assoc.slice(),stamp:IDENT.stamp};}
 function identGate(){if(IDENT.on||!hasCrypto||!SEC.key)return;if(lsGet("sos_ident_demo_ack",false))return;identScreen("activate","");}
 function identClose(){const el=$("#lock");if(el)el.remove();document.body.classList.remove("locked");try{render();}catch(e){}}
@@ -17470,7 +17520,7 @@ function identScreen(mode,msg){
         if(remote&&kit&&remote.id&&kit.id!==remote.id&&(+kit.created||0)<(+remote.created||0)){m.textContent="Ce fichier est périmé : la phrase maître a été changée depuis. Utilise le profil publié (phrase seule).";return;}}
       else{if(!searched){m.textContent="Recherche du profil publié en cours…";return;}kit=remote;if(!kit){m.textContent="Aucun profil publié : choisis le fichier profil.json, ou crée ton profil.";const fl=$("#id_filelbl");if(fl)fl.hidden=false;return;}}
       m.textContent="Déchiffrement…";$("#id_ok").disabled=true;
-      try{const id=await identActivate(kit,ph);identClose();toast("Profil activé : "+id.nom);}catch(e){m.textContent=(e&&e.message)||"échec";$("#id_ok").disabled=false;}};
+      try{const id=await identActivate(kit,ph);identClose();toast("Profil activé : "+id.nom+(id.aiOk?" · clé API Claude retrouvée":""));}catch(e){m.textContent=(e&&e.message)||"échec";$("#id_ok").disabled=false;}};
     $("#id_ok").onclick=go;$("#id_phrase").onkeydown=ev=>{if(ev.key==="Enter")go();};
     $("#id_create").onclick=()=>identScreen("create","");const io=$("#id_other");if(io)io.onclick=()=>{$("#id_filelbl").hidden=false;io.hidden=true;};
     $("#id_demo").onclick=()=>{lsSet("sos_ident_demo_ack",true);identClose();};
@@ -17494,7 +17544,7 @@ function identScreen(mode,msg){
       const identity=rekey?identSnapshot():{nom:$("#kt_nom").value.trim(),adeli:$("#kt_adeli").value.trim(),assoc:$("#kt_assoc").value.split("\n").map(s=>s.trim()).filter(Boolean),stamp};
       if(!identity.nom){m.textContent="Nom requis.";return;}if(!identity.stamp){m.textContent="Image de signature et cachet requise.";return;}
       m.textContent="Chiffrement…";$("#kt_ok").disabled=true;
-      try{const kit=await kitEncrypt(identity,p1);const id=await kitDecrypt(kit,p1);id.since=Date.now();id.bk=await bakKeyRaw(p1);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);
+      try{const kit=await kitEncrypt(identity,p1);const id=await kitDecrypt(kit,p1);delete id.ai;id.since=Date.now();id.bk=await bakKeyRaw(p1);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);
         profileFileScreen(kit,`Profil ${esc(id.nom)} activé sur cet appareil (n° <b>${esc(kit.id)}</b>). ${rekey?"Une fois le nouveau profil.json en ligne, l'ancienne phrase n'active plus aucun appareil. ":""}`);
       }catch(e){m.textContent=(e&&e.message)||"échec";$("#kt_ok").disabled=false;}};
   }
@@ -17514,7 +17564,7 @@ function specBarHTML(){if(IDENT.on)return "";return `<div class="specbar"><b>SP�
 /* Réglages (Journal → Sécurité) */
 function identSettingsHTML(){
   const st=IDENT.on?`<b>Profil activé : ${esc(IDENT.nom)}</b> · n° ${esc(IDENT.kitId||"?")}${IDENT.since?" · activé le "+new Date(IDENT.since).toLocaleDateString("fr-FR"):""}`:`<b class="red">Profil non activé — mode SPÉCIMEN</b> : les feuilles sortent sans signature, cachet, nom ni Adeli.`;
-  return `<h2 class="jsec">Identité du prescripteur</h2><div class="hint">${st}</div><div class="hint">Signature, cachet, nom, Adeli et associés sont chiffrés par ta phrase maître (AES-256-GCM, PBKDF2 ${KIT_ITER.toLocaleString("fr-FR")} itérations) et conservés chiffrés sur cet appareil. Le fichier <b>profil.json</b> publié à la racine du site est ce profil chiffré : sur tout appareil, seule la phrase est demandée.</div>
+  return `<h2 class="jsec">Identité du prescripteur</h2><div class="hint">${st}</div><div class="hint">Signature, cachet, nom, Adeli et associés sont chiffrés par ta phrase maître (AES-256-GCM, PBKDF2 ${KIT_ITER.toLocaleString("fr-FR")} itérations) et conservés chiffrés sur cet appareil. Le fichier <b>profil.json</b> publié à la racine du site est ce profil chiffré (avec la clé API Claude si elle est enregistrée) : sur tout appareil, seule la phrase est demandée.</div>
    <div class="lesbtn"><button class="btn ${IDENT.on?"s":"p"}" id="id_act">${IDENT.on?"Réactiver / autre fichier":"Activer le profil"}</button>${IDENT.on?`<button class="btn s" id="id_export">Publier le profil (profil.json)</button><button class="btn s" id="id_rekey">Changer la phrase maître</button><button class="btn s" id="id_forget" style="margin-left:auto;color:var(--bad)">Désactiver sur cet appareil</button>`:`<button class="btn s" id="id_new">Créer mon profil</button>`}</div>
    ${IDENT.on?`<div class="hint">« Publier le profil » demande la phrase et produit profil.json à déposer sur GitHub. « Changer la phrase maître » crée un nouveau profil, à publier de la même façon : l'ancienne phrase n'active alors plus aucun appareil.</div>`:""}`;
 }
@@ -17523,7 +17573,7 @@ function identBindSettings(){
   const n=$("#id_new");if(n)n.onclick=()=>identScreen("create","");
   const r=$("#id_rekey");if(r)r.onclick=()=>identScreen("rekey","");
   const f=$("#id_forget");if(f)f.onclick=()=>{if(!confirm("Désactiver le profil sur cet appareil ? Les feuilles sortiront en SPÉCIMEN jusqu'à une nouvelle activation avec la phrase maître."))return;identForget();render();};
-  const x=$("#id_export");if(x)x.onclick=async()=>{const ph=prompt("Phrase maître (le profil publié sera chiffré avec elle) :");if(ph==null)return;if(!phraseOk(ph)){alert("Phrase maître trop courte.");return;}try{const kit=await kitEncrypt(identSnapshot(),ph,{kitId:IDENT.kitId,created:IDENT.created});profileFileScreen(kit,"");}catch(e){alert("Impossible : "+((e&&e.message)||e));}};
+  const x=$("#id_export");if(x)x.onclick=async()=>{const ph=prompt("Phrase maître (le profil publié sera chiffré avec elle) :");if(ph==null)return;if(!phraseOk(ph)){alert("Phrase maître trop courte.");return;}try{const kit=await kitEncrypt(identSnapshot(),ph,{kitId:IDENT.kitId,created:IDENT.created});profileFileScreen(kit,AI.key?AI_KIT_WARN+" ":"");}catch(e){alert("Impossible : "+((e&&e.message)||e));}};
 }
 
 /* ===================== v39 — SAUVEGARDE CHIFFRÉE COMPLÈTE ET RESTAURATION =====================
