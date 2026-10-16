@@ -16167,7 +16167,7 @@ const AI_FN={obs:"Dictée → observation",cr:"Compte rendu",let:"Courrier",doc:
 const AI_MODEL={redac:"claude-sonnet-5-5",tri:"claude-haiku-5-5"};          /* Sonnet pour rédiger, Haiku pour trier et tester */
 const AI_PRICE={"claude-sonnet-5-5":[2,10,0.2,2.5],"claude-haiku-5-5":[0.1,0.5,0.01,0.125]}; /* $ par million de jetons : entrée, sortie, lecture du cache, écriture du cache */
 const AI_USD_EUR=0.92;                                                         /* taux indicatif */
-async function aiLoad(){try{const c=await secGet("sos_ai",null);if(c){AI.key=c.key||"";const g=c.cfg||{};AI.cfg=Object.assign({},AI.cfg,g,{fn:Object.assign({},AI.cfg.fn,g.fn||{})});if(!c.cfg&&AI.key)AI.cfg.mode="partiel";}const u=await secGet("sos_ai_use",[]);AI.use=Array.isArray(u)?u:[];}catch(e){}}
+async function aiLoad(){try{const c=await secGet("sos_ai",null);if(c){AI.key=c.key||"";const g=c.cfg||{};AI.cfg=Object.assign({},AI.cfg,g,{fn:Object.assign({},AI.cfg.fn,g.fn||{})});/* v41 : « Aucun » par défaut, même avec une clé héritée de la v40 ; seul le médecin choisit un autre niveau */}const u=await secGet("sos_ai_use",[]);AI.use=Array.isArray(u)?u:[];}catch(e){}}
 /* La clé n'est rangée que chiffrée (profil de l'appareil) : sans chiffrement, pas d'IA ; jamais dans un fichier publié ni dans la sauvegarde */
 function aiSave(){if(!hasCrypto||!SEC.key)return false;secSet("sos_ai",{key:AI.key,cfg:AI.cfg});return true;}
 function aiUseSave(){const lim=Date.now()-400*864e5;AI.use=AI.use.filter(u=>u.ts>lim);if(SEC.key)secSet("sos_ai_use",AI.use);}
@@ -16292,6 +16292,7 @@ function aiSendScreen(){const P=AI.pending;if(!P)return;let el=document.getEleme
 
 /* ---- Envoi : dernier contrôle, appel, coût, réintégration locale ---- */
 async function aiCall(f,model,system,user,maxTokens,pid){
+  if(f!=="test"){if(AI._go!==true)throw new Error("Envoi refusé : il ne part que depuis l'écran « Ce qui part ».");AI._go=false;}
   if(navigator.onLine===false)throw new Error("Hors connexion : rien n'a été envoyé.");
   if(!AI.key)throw new Error("Aucune clé API.");
   if(!hasCrypto||!SEC.key)throw new Error("Chiffrement indisponible : IA coupée.");
@@ -16310,7 +16311,7 @@ async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=docume
   if(aiEffective().mode==="aucun"||navigator.onLine===false){aiSendScreen();return;}
   AI.busy=true;const b=el&&el.querySelector("#ai_send");if(b){b.disabled=true;b.textContent="Envoi…";}
   try{const content=P.img?[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:P.img.split(",")[1]}},{type:"text",text:P.user}]:P.user;
-    const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
+    AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
     AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
     if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
   catch(e){if(el){const a=document.createElement("div");a.className="alert";a.textContent=e.message||String(e);el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}}
@@ -16529,10 +16530,10 @@ function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=do
 /* ---- Réglages (Journal) ---- */
 function aiSettingsHTML(){const sel=f=>`<label>${AI_FN[f]} <select data-aifn="${f}">${[["auto","automatique"],["demande","à la demande"],["off","coupée"]].map(([v,l])=>`<option value="${v}" ${AI.cfg.fn[f]===v?"selected":""}>${l}</option>`).join("")}</select></label>`;
   return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée dans le profil de cet appareil</b> : jamais dans un fichier publié, ni dans la sauvegarde, ni dans la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026).</div>
- <div class="aiset"><input id="ai_key" type="password" placeholder="sk-ant-…" value="${esc(AI.key)}" autocomplete="off"><button type="button" class="btn p" id="ai_savekey">Enregistrer</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?"Clé enregistrée (chiffrée)":"Aucune clé"}</span></div>
+ <div class="aiset"><input id="ai_key" type="password" placeholder="sk-ant-…" value="${esc(AI.key)}" autocomplete="off"><button type="button" class="btn p" id="ai_savekey">Enregistrer</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?(AI.cfg.mode==="aucun"?"Clé enregistrée (chiffrée). IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":"Clé enregistrée (chiffrée)"):"Aucune clé"}</span></div>
  ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement, l'envoi reste validé à l'écran « Ce qui part ».":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>`;}
 function aiBindSettings(){const k=$("#ai_key");if(!k)return;
-  $("#ai_savekey").onclick=()=>{AI.key=k.value.trim();if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key="";return;}if(AI.key&&AI.cfg.mode==="aucun"){AI.cfg.mode="partiel";aiSave();}$("#ai_setst").textContent=AI.key?"Clé enregistrée (chiffrée)":"Aucune clé";render();};
+  $("#ai_savekey").onclick=()=>{AI.key=k.value.trim();if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key="";return;}$("#ai_setst").textContent=AI.key?(AI.cfg.mode==="aucun"?"Clé enregistrée (chiffrée). IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":"Clé enregistrée (chiffrée)"):"Aucune clé";render();};
   $("#ai_test").onclick=async()=>{AI.key=k.value.trim();if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){$("#ai_setst").textContent="Échec : "+(e.message||e);}};
   const d=$("#ai_delkey");if(d)d.onclick=()=>{if(!confirm("Retirer la clé API de cet appareil ?"))return;AI.key="";AI.cfg.mode="aucun";aiSave();render();};
   document.querySelectorAll("[data-aifn]").forEach(s=>s.onchange=()=>{AI.cfg.fn[s.dataset.aifn]=s.value;aiSave();});
