@@ -1766,6 +1766,15 @@ html[data-design="premium"] main{padding-left:16px;padding-right:16px}
 html[data-design="premium"] .tcard,html[data-design="premium"] .pcard{padding:16px 16px 10px}
 html[data-design="premium"] a.btn,html[data-design="premium"] a.btn *{text-decoration:none!important}
 html[data-design="premium"] .ico{display:inline-flex;vertical-align:-3px;margin-right:6px}html[data-design="premium"] .ico svg{width:18px;height:18px}
+
+/* mode Garde : actions principales pleines, grandes, vives et contrastées ; une seule mise en avant (étape en cours) */
+html[data-vivid][data-mode="visite"]{--vivid:#0B7A4B;--onvivid:#FFFFFF}html[data-vivid][data-mode="consult"]{--vivid:#1D5FD1;--onvivid:#FFFFFF}
+html[data-vivid][data-theme="night"][data-mode="visite"]{--vivid:#34D399;--onvivid:#06251A}html[data-vivid][data-theme="night"][data-mode="consult"]{--vivid:#7AB0FF;--onvivid:#0B1D3D}
+html[data-vivid] .vact:not(#_z){background:var(--vivid)!important;color:var(--onvivid)!important;border:1px solid var(--vivid)!important;font-weight:800!important;min-height:52px;box-shadow:none!important;text-decoration:none!important}
+html[data-vivid] .vact:not(#_z) *{color:inherit!important;text-decoration:none!important}
+html[data-vivid] .vact.act-now:not(#_z){min-height:62px;font-size:19px!important;box-shadow:0 0 0 3px var(--bg),0 0 0 6px var(--gold)!important}
+html[data-vivid] #tc_arrive:not(.act-now),html[data-vivid] #fin:not(.act-now){font-size:17px!important}
+.dmode{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 4px;border-bottom:1px solid var(--line,#ccc);margin-bottom:4px}.dmode span{font-weight:700;margin-right:4px}.dmode .lc.on{border-color:var(--gold)!important;color:var(--gold-ink,var(--gold))!important;font-weight:800}
 </style>
 </head>
 <body>
@@ -16327,7 +16336,7 @@ function visApply(){const r=document.documentElement;r.setAttribute("data-mode",
   const on=patActive();r.classList.toggle("pat-on",on);if(on){const h=patHue();r.style.setProperty("--pat-d",h.d);r.style.setProperty("--pat-n",h.n);}
   document.querySelectorAll(".pat-tag-slot").forEach(x=>x.innerHTML=patTagHTML());}
 /* design premium en essai : réglage local « sos_design » (classic par défaut) ; icônes fines à la place des émojis */
-let DESIGN=lsGet("sos_design","classic");
+let DESIGN=lsGet("sos_design","garde");if(!["garde","premium","classic"].includes(DESIGN))DESIGN="garde";
 const ICONS=(()=>{const P=d=>`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;return {
  "🖨":P('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
  "📞":P('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'),
@@ -16345,9 +16354,21 @@ const ICONS=(()=>{const P=d=>`<svg viewBox="0 0 24 24" width="18" height="18" fi
  "✦":P('<path d="M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/>'),
  "📍":P('<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>')};})();
 const ICON_RE=new RegExp("("+Object.keys(ICONS).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")\\uFE0F?","g");
-function designIcons(root){if(DESIGN!=="premium"||!root)return;root.querySelectorAll("button,a,label,summary,.tc-lbl,.tp-wait summary,.chip,.ut,.ico").forEach(el=>{if(el.dataset.icd)return;const h=el.innerHTML;if(!ICON_RE.test(h)){ICON_RE.lastIndex=0;return;}ICON_RE.lastIndex=0;
+function designIcons(root){if((DESIGN!=="premium"&&DESIGN!=="garde")||!root)return;root.querySelectorAll("button,a,label,summary,.tc-lbl,.tp-wait summary,.chip,.ut,.ico").forEach(el=>{if(el.dataset.icd)return;const h=el.innerHTML;if(!ICON_RE.test(h)){ICON_RE.lastIndex=0;return;}ICON_RE.lastIndex=0;
   el.innerHTML=h.replace(ICON_RE,(m,k)=>`<span class="ico">${ICONS[k]}</span>`);el.dataset.icd="1";});}
-function designApply(){document.documentElement.toggleAttribute("data-design",DESIGN==="premium");if(DESIGN==="premium")document.documentElement.setAttribute("data-design","premium");try{designIcons(document.body);}catch(e){}}
+/* actions principales de la visite : Naviguer, Je suis arrivé, Appeler, Valider le patient, Imprimer / Fin de consultation — une seule mise en avant (étape en cours) */
+const VACT_SEL=".tc-nav,#tc_arrive,[data-tpcall],#tc_valid,#tr_valid,#go_top,#fin,#go_only";
+function actStep(){if(state.view)return null;const cur=TOUR.current?tourStop(TOUR.current):null;
+  if(cur&&!cur.tArr)return cur.navTs?"#tc_arrive":".tcard .tc-nav";
+  const p=typeof currentPack==="function"?currentPack():null;if(p&&!state.lastPrint)return document.getElementById("fin")?"#fin":"#go_top";
+  if(state.lastPrint)return cur?"#tc_valid":"#fin";return null;}
+function designApply(){const r=document.documentElement;const on=DESIGN==="premium"||DESIGN==="garde";r.toggleAttribute("data-design",on);if(on)r.setAttribute("data-design","premium");r.toggleAttribute("data-vivid",DESIGN==="garde");
+  try{designIcons(document.body);}catch(e){}
+  document.querySelectorAll(".vact,.act-now").forEach(x=>x.classList.remove("vact","act-now"));
+  if(DESIGN==="garde"){document.querySelectorAll(VACT_SEL).forEach(x=>x.classList.add("vact"));const st=actStep();if(st){const e=document.querySelector(st);if(e)e.classList.add("act-now");}}
+  document.querySelectorAll("[data-dset]").forEach(b=>b.classList.toggle("on",b.dataset.dset===DESIGN));}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-dset]");if(b){DESIGN=b.dataset.dset;lsSet("sos_design",DESIGN);render();return;}
+  const n=ev.target.closest&&ev.target.closest(".tcard .tc-nav");if(n){const c=TOUR.current?tourStop(TOUR.current):null;if(c&&!c.navTs){c.navTs=Date.now();tourSave();setTimeout(()=>{try{designApply();}catch(e){}},50);}}});
 /* 16/10/2026 : journal — sommaire des parties et boutons discrets haut / bas */
 const ICO_UP='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const ICO_DOWN='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -16362,7 +16383,7 @@ function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!==
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p" id="go_top" ${p0?"":"disabled"} title="Imprimer le pack"><span class="ico">🖨 </span>Imprimer</button><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
-   <div class="jmenu" id="jmenu" hidden><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button><button type="button" class="btn ai" id="ai_btn" ${aiAvailable()?"":"disabled"} title="${AI.key?(navigator.onLine===false?"Hors connexion":"Dictée, courrier, question"):"Colle ta clé API dans Journal → Assistant IA"}">✦ Assistant</button><button type="button" class="btn ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde">${TESTMODE?"Mode test — actif, toucher pour arrêter":"Mode test"}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
+   <div class="jmenu" id="jmenu" hidden><div class="dmode" role="group" aria-label="Affichage"><span>Affichage</span><button type="button" class="lc" data-dset="garde">Garde (visibilité maximale)</button><button type="button" class="lc" data-dset="premium">Premium</button></div><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button><button type="button" class="btn ai" id="ai_btn" ${aiAvailable()?"":"disabled"} title="${AI.key?(navigator.onLine===false?"Hors connexion":"Dictée, courrier, question"):"Colle ta clé API dans Journal → Assistant IA"}">✦ Assistant</button><button type="button" class="btn ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde">${TESTMODE?"Mode test — actif, toucher pour arrêter":"Mode test"}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
 function lieuSwitchHTML(){const l=(state.cot&&state.cot.lieu)==="visite"?"visite":"cabinet";const tn=tourRemaining().filter(s=>s.id!==TOUR.current).length;
   return `<div class="lieu" role="group" aria-label="Lieu de l'acte"><button type="button" class="${l==="visite"?"on":""}" data-lieu="visite" aria-pressed="${l==="visite"}">Visite</button><button type="button" class="${l==="cabinet"?"on":""}" data-lieu="cabinet" aria-pressed="${l==="cabinet"}">Consultation</button>${l==="visite"?`<button type="button" class="tourbtn" id="tour_open2" aria-label="Tournée et carte">🗺<span>Tournée${tn?" · "+tn:""}</span></button>`:""}</div>`;}
 function navPref(){try{const v=localStorage.getItem("sos_nav");return ["waze","maps","plans"].includes(v)?v:"waze";}catch(e){return "waze";}}
@@ -16621,7 +16642,7 @@ function identBindSettings(){
    chiffré vérifiée avant déchiffrement et authentification GCM après. Restauration sur le même appareil ou un autre : les données
    chiffrées sont réécrites sous la clé de l'appareil cible (le code de déverrouillage n'a pas besoin d'être le même). */
 const BAK_ENC=["sos_journal","sos_draft","sos_ai","sos_sync","sos_tour","sos_ident","sos_validhist"];
-const BAK_PLAIN=["sos_2up","sos_tarifs","sos_astreintes","sos_astr_tarifs","sos_test","sos_rappro","sos_recon","sos_planning","sos_gardes","sos_bdpm","sos_ansm","sos_theme","sos_theme_force","sos_bigtext","sos_nav","sos_ident_demo_ack","sos_geo_ok","sos_backup_snooze"];
+const BAK_PLAIN=["sos_design","sos_2up","sos_tarifs","sos_astreintes","sos_astr_tarifs","sos_test","sos_rappro","sos_recon","sos_planning","sos_gardes","sos_bdpm","sos_ansm","sos_theme","sos_theme_force","sos_bigtext","sos_nav","sos_ident_demo_ack","sos_geo_ok","sos_backup_snooze"];
 async function sha256Hex(bytes){const h=await crypto.subtle.digest("SHA-256",bytes);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,"0")).join("");}
 async function backupCollect(){
   const enc={};for(const k of BAK_ENC){let v;try{v=await secGet(k,undefined);}catch(e){v=undefined;}if(v!==undefined&&v!==null)enc[k]=v;}
