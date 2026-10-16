@@ -183,7 +183,7 @@ async def run(width,height,label):
         ok(label+" fécalome : FORTRANS coché (convention), MOVICOL 8 sachets en alternative",any("FORTRANS" in x["t"] and x["on"] for x in med) and any("4 sachets dans 500 ml" in x["t"] and not x["on"] for x in med))
         # Bloc 4 — Uro-néphrologie, et disponibilité des médicaments
         nb4=await page.evaluate("PACKS_V40_B4.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 4 : 13 packs chargés",nb4==13,nb4)
-        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
+        gone=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14,...PACKS_V40_B15].flatMap(p=>p.s.filter(sh=>sh.k!=='memo').flatMap(sh=>sh.l.map(l=>typeof l==='string'?l:l.t))).filter(t=>/JOSACINE \d|PÉDIAZOLE|VANCOMYCINE 125 mg gélule|DIFICLIR 200|MOTILIUM 10|NICOPATCH \d|BACTRIM pédiatrique suspension buvable :|VITAMINE A DULCIS/.test(t))")
         ok(label+" fiches : aucun médicament non commercialisé ou hospitalier",len(gone)==0,gone[:2])
         await page.evaluate("state.sel=null;state.view='';state.cot.lieu='consultation';state.risk='r';state.ddn='01/01/1985';state.poids='';render();"); await page.wait_for_timeout(300)
         await pick(page,"frissons","Pyélonéphrite aiguë simple — femme")
@@ -194,11 +194,11 @@ async def run(width,height,label):
         await pick(page,"prostatite","Prostatite aiguë")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" prostatite : pas d'OROKEN (RCP), 14 jours",not any("OROKEN" in x["t"] for x in med) and any("14 jours" in x["t"] and x["on"] for x in med))
-        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
+        dd=await page.evaluate("""()=>{const out=[];const sv=[state.risk,state.ddn,state.poids];for(const pk of [...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14,...PACKS_V40_B15]){for(const rk of ['s','r']){state.risk=rk;state.ddn='01/01/1985';state.poids='70';pk.s.forEach((sh,si)=>{if(sh.k!=='med'&&sh.k!=='dm')return;expand(sh,si);(ADAPT_NOTES[si]||[]).filter(n=>/double/.test(n)).forEach(n=>out.push(pk.n+' : '+n));});}}[state.risk,state.ddn,state.poids]=sv;return [...new Set(out)];}""")
         ok(label+" fiches : aucune ligne effacée par dédoublonnage",len(dd)==0,dd[:3])
         # Bloc 5 — Rhumatologie et traumatologie, champs à saisir
         nb5=await page.evaluate("PACKS_V40_B5.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 5 : 22 packs chargés",nb5==22,nb5)
-        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
+        nf=await page.evaluate("[...PACKS_V40,...PACKS_V40_B2,...PACKS_V40_B3,...PACKS_V40_B4,...PACKS_V40_B5,...PACKS_V40_B6,...PACKS_V40_B7,...PACKS_V40_B8,...PACKS_V40_B9,...PACKS_V40_B10,...PACKS_V40_B11,...PACKS_V40_B12,...PACKS_V40_B13,...PACKS_V40_B14,...PACKS_V40_B15].filter(p=>{const u=[...JSON.stringify(p.s).matchAll(/\{f:(\w+)\}/g)].map(m=>m[1]);return u.some(k=>!(p.fields||[]).includes(k)||!FIELDS[k]);}).map(p=>p.n)")
         ok(label+" fiches : chaque champ {f:…} a sa case de saisie",len(nf)==0,nf[:3])
         cv=await page.evaluate("atDureeSugg('Cervicalgie / torticolis')"); ok(label+" durée AT cervicalgie CNAM",("CNAM" in cv),cv)
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1960';state.poids='';render();"); await page.wait_for_timeout(300)
@@ -433,6 +433,19 @@ async def run(width,height,label):
                 good=r["zones"]>=4 and all(x in r["addr"] for x in ex["addr"]) and r["tel"]==ex["tel"] and r["ddn"]==ex["ddn"] and r["bat"]==ex["bat"] and r["motif"]==ex["motif"] and not r["warn"] and "DURAND" not in (r["addr"]+r["note"]) and "SMS" not in r["addr"]
                 ok(label+f" fiches : capture fictive {nm} lue par zones repérées par leurs intitulés (adresse, commune composée, téléphone, naissance, accès, motif)",good,r)
             import shutil; shutil.rmtree(os.path.join(ROOT,"tests","_tmp_fiches"),ignore_errors=True)
+        # Bloc 15 — Fiches ◇ premier recours
+        nb15=await page.evaluate("PACKS_V40_B15.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 15 : 11 packs chargés",nb15==11,nb15)
+        await page.evaluate("state.sel=null;state.view='';state.ddn='01/01/2016';state.poids='25';render();"); await page.wait_for_timeout(200)
+        await pick(page,"pipi au lit","Énurésie de l'enfant")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" bloc 15 : énurésie à 10 ans, desmopressine 120 µg le soir avec restriction hydrique (RCP MINIRINMELT)",any("MINIRINMELT 120" in x["t"] and "1 heure avant et 8 heures après" in x["t"] for x in med),[x["t"][:80] for x in med])
+        await page.evaluate("state.ddn='01/01/2018';render();"); await page.wait_for_timeout(100)
+        await page.evaluate("state.sel=null;render();"); await pick(page,"carence en fer","Anémie ferriprive — traitement")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" bloc 15 : fer chez l'enfant de 8 ans, 1 comprimé par jour (RCP TARDYFERON)",any("TARDYFERON" in x["t"] and "1 comprimé par jour" in x["t"] and "1 à 2" not in x["t"] for x in med),[x["t"][:80] for x in med])
+        pr=await page.evaluate("""()=>['HTA — suivi et ajustement du traitement','Dyslipidémie — dépistage et traitement','Diabète de type 2 — suivi','Grossesse sans suivi — examens et orientation'].every(n=>/Premier recours/.test(JSON.stringify(PACKS.find(x=>x.n===n).s.find(sh=>sh.k==='memo'))))""")
+        ok(label+" bloc 15 : chaque fiche ◇ rappelle le cadre premier recours (dépannage puis orientation)",pr)
+        await page.evaluate("state.ddn='01/01/1985';state.poids='70';state.sel=null;render();")
         # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
         rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
           for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")
