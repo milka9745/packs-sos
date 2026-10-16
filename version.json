@@ -1,9 +1,8 @@
 {
-  "version": "40w",
+  "version": "40x",
   "date": "2026-10-16",
   "notes": [
-    "Fiches de régulation lues zone par zone (repérées par leurs intitulés, iPhone comme Android), avec contraste amélioré ; ce qui ne colle pas est signalé (code postal, téléphone, âge).",
-    "Nouveau bouton « 📋 Coller les fiches » : crée tous les arrêts d'un coup depuis le texte copié (raccourci iOS « Fiches Packs » ou Android), doublons refusés.",
-    "Écran Tournée : le menu « Arrivée » ne déborde plus sur iPhone."
+    "Catalogue complet : fiches « premier recours » ajoutées (HTA et cholestérol, diabète de type 2, grossesse sans suivi, contraception, sein, thyroïde, énurésie, anémie, démence) — non relues.",
+    "Chaque fiche de premier recours propose un dépannage puis une orientation vers le médecin traitant ou le spécialiste."
   ]
 }
