@@ -1,9 +1,9 @@
 {
-  "version": "40y",
+  "version": "40z",
   "date": "2026-10-16",
   "notes": [
-    "Tournée › Réglages : l'heure limite et les marges ne s'appliquent qu'en validant (OK ou en quittant le panneau) ; l'écran ne saute plus pendant la saisie.",
-    "Alerte d'attente : une seule ligne « 3 patients attendent depuis plus de 2 h », à déplier pour voir la liste.",
-    "Journal de garde : sommaire en haut et boutons discrets pour remonter ou descendre."
+    "Nouvel affichage « Garde » : fond sobre, icônes fines, et les actions de la visite (Naviguer, Je suis arrivé, Appeler, Valider, Imprimer) en grands boutons vifs.",
+    "Le bouton de l'étape en cours est mis en avant (cerclé d'or) ; les actions secondaires sont en contour fin.",
+    "Menu ⋯ : « Affichage : Garde / Premium » (Garde par défaut)."
   ]
 }
