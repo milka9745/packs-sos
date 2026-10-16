@@ -1,0 +1,82 @@
+# Tests iPhone 375 px — menu ⋯, interrupteurs, bouton IA (16/10/2026)
+
+- OK — 375 px texte normal jour : menu ⋯ tient dans l'écran visible, défilement interne
+- OK — 375 px texte normal jour : lignes du bas (Sauvegarde, Journal, Fin de garde) atteignables par défilement
+- OK — 375 px texte normal jour : Grand texte : pastille juste
+- OK — 375 px texte normal jour : Mode nuit : pastille juste
+- OK — 375 px texte normal jour : Mode test : pastille « désactivé »
+- OK — 375 px texte normal jour : Affichage : une seule option « activé »
+- OK — 375 px texte normal jour : pastille « activé » sur fond vert plein, « désactivé » sans fond
+- OK — 375 px texte normal jour : aucune ligne du menu écrasée ni rognée
+- OK — 375 px texte normal jour : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
+- OK — 375 px texte normal jour : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px texte normal jour : petit choix IA : aucune ligne rognée
+- OK — 375 px texte normal jour : sans clé : propose de la saisir, actions IA inactives
+- OK — 375 px texte normal jour : clé saisie : reste sur « Aucun », choix du mode affiché
+- OK — 375 px texte normal jour : Partiel : bouton en couleur vive avec le mode
+- OK — 375 px texte normal jour : bouton IA à côté de « Observation et compte rendu »
+- OK — 375 px texte normal jour : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px texte normal jour : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
+- OK — 375 px texte normal jour : « Relire le compte rendu » ouvre « Ce qui part »
+- OK — 375 px texte normal jour : « Rédiger le courrier » ouvre l'onglet Courrier
+- OK — 375 px texte normal nuit : menu ⋯ tient dans l'écran visible, défilement interne
+- OK — 375 px texte normal nuit : lignes du bas (Sauvegarde, Journal, Fin de garde) atteignables par défilement
+- OK — 375 px texte normal nuit : Grand texte : pastille juste
+- OK — 375 px texte normal nuit : Mode nuit : pastille juste
+- OK — 375 px texte normal nuit : Mode test : pastille « désactivé »
+- OK — 375 px texte normal nuit : Affichage : une seule option « activé »
+- OK — 375 px texte normal nuit : pastille « activé » sur fond vert plein, « désactivé » sans fond
+- OK — 375 px texte normal nuit : aucune ligne du menu écrasée ni rognée
+- OK — 375 px texte normal nuit : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
+- OK — 375 px texte normal nuit : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px texte normal nuit : petit choix IA : aucune ligne rognée
+- OK — 375 px texte normal nuit : sans clé : propose de la saisir, actions IA inactives
+- OK — 375 px texte normal nuit : clé saisie : reste sur « Aucun », choix du mode affiché
+- OK — 375 px texte normal nuit : Partiel : bouton en couleur vive avec le mode
+- OK — 375 px texte normal nuit : bouton IA à côté de « Observation et compte rendu »
+- OK — 375 px texte normal nuit : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px texte normal nuit : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
+- OK — 375 px texte normal nuit : « Relire le compte rendu » ouvre « Ce qui part »
+- OK — 375 px texte normal nuit : « Rédiger le courrier » ouvre l'onglet Courrier
+- OK — 375 px grand texte jour : menu ⋯ tient dans l'écran visible, défilement interne
+- OK — 375 px grand texte jour : lignes du bas (Sauvegarde, Journal, Fin de garde) atteignables par défilement
+- OK — 375 px grand texte jour : Grand texte : pastille juste
+- OK — 375 px grand texte jour : Mode nuit : pastille juste
+- OK — 375 px grand texte jour : Mode test : pastille « désactivé »
+- OK — 375 px grand texte jour : Affichage : une seule option « activé »
+- OK — 375 px grand texte jour : pastille « activé » sur fond vert plein, « désactivé » sans fond
+- OK — 375 px grand texte jour : aucune ligne du menu écrasée ni rognée
+- OK — 375 px grand texte jour : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
+- OK — 375 px grand texte jour : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px grand texte jour : petit choix IA : aucune ligne rognée
+- OK — 375 px grand texte jour : sans clé : propose de la saisir, actions IA inactives
+- OK — 375 px grand texte jour : clé saisie : reste sur « Aucun », choix du mode affiché
+- OK — 375 px grand texte jour : Partiel : bouton en couleur vive avec le mode
+- OK — 375 px grand texte jour : bouton IA à côté de « Observation et compte rendu »
+- OK — 375 px grand texte jour : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px grand texte jour : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
+- OK — 375 px grand texte jour : « Relire le compte rendu » ouvre « Ce qui part »
+- OK — 375 px grand texte jour : « Rédiger le courrier » ouvre l'onglet Courrier
+- OK — 375 px grand texte nuit : menu ⋯ tient dans l'écran visible, défilement interne
+- OK — 375 px grand texte nuit : lignes du bas (Sauvegarde, Journal, Fin de garde) atteignables par défilement
+- OK — 375 px grand texte nuit : Grand texte : pastille juste
+- OK — 375 px grand texte nuit : Mode nuit : pastille juste
+- OK — 375 px grand texte nuit : Mode test : pastille « désactivé »
+- OK — 375 px grand texte nuit : Affichage : une seule option « activé »
+- OK — 375 px grand texte nuit : pastille « activé » sur fond vert plein, « désactivé » sans fond
+- OK — 375 px grand texte nuit : aucune ligne du menu écrasée ni rognée
+- OK — 375 px grand texte nuit : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
+- OK — 375 px grand texte nuit : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px grand texte nuit : petit choix IA : aucune ligne rognée
+- OK — 375 px grand texte nuit : sans clé : propose de la saisir, actions IA inactives
+- OK — 375 px grand texte nuit : clé saisie : reste sur « Aucun », choix du mode affiché
+- OK — 375 px grand texte nuit : Partiel : bouton en couleur vive avec le mode
+- OK — 375 px grand texte nuit : bouton IA à côté de « Observation et compte rendu »
+- OK — 375 px grand texte nuit : bouton IA à côté de la dictée (« Répartir »)
+- OK — 375 px grand texte nuit : « Analyser la dictée » ouvre « Ce qui part », dictée anonymisée
+- OK — 375 px grand texte nuit : « Relire le compte rendu » ouvre « Ce qui part »
+- OK — 375 px grand texte nuit : « Rédiger le courrier » ouvre l'onglet Courrier
+- OK — 375 px : aucune requête vers l'IA pendant tout le test
+- OK — 375 px : aucune erreur JS
+
+78/78 tests OK

@@ -1,9 +1,9 @@
 {
-  "version": "41",
+  "version": "41b",
   "date": "2026-10-16",
   "notes": [
-    "Assistant IA facultatif (menu ⋯ : Aucun / Partiel / Complet) : dictée → observation, relecture du compte rendu, courrier, document ou photo ; rien ne part sans l'écran « Ce qui part ».",
-    "Anonymisation sur l'appareil avant tout envoi : identité, naissance (remplacée par l'âge), adresse, téléphone, NIR, lieux précis, dates (J-x) ; hôpital et ville en clair ; identité remise au retour.",
-    "Posologies jamais issues de l'IA ; clé API chiffrée sur l'appareil ; écran Consommation avec plafond mensuel ; hors connexion, aucun envoi."
+    "Menu ⋯ : il défile jusqu'en bas (Sauvegarde, Journal de garde, Fin de garde), avec ou sans grand texte.",
+    "Grand texte, Mode nuit, Mode test et Affichage : pastille verte « activé » ou « désactivé ».",
+    "Bouton IA dans la fiche patient et près de la dictée, avec le mode en cours (gris si Aucun) : analyser la dictée, relire le compte rendu, rédiger le courrier, changer le mode ; rien ne part sans « Ce qui part »."
   ]
 }
