@@ -489,6 +489,13 @@ html[data-theme="night"] .dsaved{color:#5BC07A!important}
 .printbar .pdfst{font-size:13px;color:var(--muted);margin-left:8px}
 .printbar.top:not(.phone){position:sticky;top:0;bottom:auto;z-index:21;flex-wrap:wrap} /* n° 9 : la barre du haut n'est plus recouverte par celle du bas */
 .printbar.top:not(.phone) .pdfst{color:inherit;opacity:.85;font-weight:600}
+/* 16/10/2026 : documents imprimés — géométrie A4 pour l'ajustement, titres de fiche dans les consignes, case d'action */
+#print.fitting .page{height:297mm!important;min-height:297mm!important;transform:none!important;margin:0!important;display:flex!important;flex-direction:column!important}
+#print.fitting .frame{flex:1 1 auto!important;min-height:0!important;overflow:hidden!important}
+.page h3.fsrc{font-size:12pt;margin:3mm 0 1mm;border-bottom:1px solid #999}
+.docact{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0;padding:8px 12px;border:1px dashed var(--line2);border-radius:10px;font-size:14px}
+.docact label{display:inline-flex;align-items:center;gap:6px;min-height:40px}
+.fitwarn{margin:8px 16px}
 html[data-theme="night"] .aitok{background:#2E3A5E;color:#E8ECF8}html[data-theme="night"] .aimode button.on{background:var(--chk);color:var(--onchk)}
 label.sa{display:inline-flex;align-items:center;gap:6px}label.sa input{padding:6px 8px;border:1px solid var(--line2);border-radius:8px;font:inherit}label.sa .hint{margin:0}
 /* ===== Thème v35 — jour / nuit à jetons. Nuit = anthracite, crème, or en liseré ; Jour = blanc, noir, bleu nuit, or pour l'élément actif ===== */
@@ -2955,7 +2962,7 @@ const PACKS_V4 = [
 
 /* ---------- CHUTE SUJET ÂGÉ ---------- */
 {n:"Chute du sujet âgé — bilan",k:"chute personne âgée tombée gériatrie fracture orthostatique sarcopénie domicile kiné",s:[
- {k:"bio",l:["NFS plaquettes.","Ionogramme sanguin, créatininémie avec DFG, calcémie, albuminémie.","Glycémie, HbA1c.","CPK (station au sol prolongée).","Vitamine D (25-OH).","TSH.","Vitamine B12, folates.","CRP.","Bandelette urinaire, ECBU si bandelette positive avec symptômes.",{t:"INR (sous AVK).",opt:true},{t:"Troponine ultrasensible, NT-proBNP (malaise, dyspnée, douleur thoracique).",opt:true},RET_BIO]},
+ {k:"bio",l:["NFS plaquettes.","Ionogramme sanguin, créatininémie avec DFG, calcémie, albuminémie.","Glycémie.",{t:"HbA1c (diabète connu).",opt:true},"CPK (station au sol prolongée).","Vitamine D (25-OH).","TSH.","Vitamine B12, folates.","CRP.","Bandelette urinaire, ECBU si bandelette positive avec symptômes.",{t:"INR (sous AVK).",opt:true},{t:"Troponine ultrasensible, NT-proBNP (malaise, dyspnée, douleur thoracique).",opt:true},RET_BIO]},
  {k:"img",l:["ECG 12 dérivations : troubles de conduction, du rythme, QT.",{t:"Radiographie du bassin de face et de la hanche douloureuse de face et de profil, pour chute avec douleur de hanche ou impotence fonctionnelle.",opt:true},{t:"Radiographie du rachis dorso-lombaire de face et de profil, pour douleur rachidienne après chute (tassement vertébral).",opt:true},{t:"Scanner cérébral sans injection, pour traumatisme crânien sous anticoagulant ou antiagrégant, ou trouble neurologique.",opt:true},{t:"Ostéodensitométrie, pour chute avec fracture ou facteurs de risque d'ostéoporose.",opt:true}]},
  {k:"kine",l:["Kinésithérapie : 20 séances à domicile, pour chute du sujet âgé : bilan de l'équilibre et de la marche (Timed Up and Go, appui unipodal), renforcement musculaire des membres inférieurs, travail de l'équilibre et du relevé du sol, apprentissage de la marche sécurisée avec aide technique si nécessaire.",{t:"Bilan d'ergothérapie à domicile : aménagement du logement, aides techniques, prévention des chutes.",opt:true}]},
  {k:"interp",l:["Causes à rechercher : hypotension orthostatique (mesure à 1 et 3 minutes), trouble du rythme ou de conduction, hypoglycémie, médicaments (psychotropes, benzodiazépines, antihypertenseurs, opioïdes, plus de 4 médicaments), troubles de la marche et de l'équilibre, déficit visuel, dénutrition, carence en vitamine D, infection, anémie, environnement (tapis, éclairage, chaussures).","Gravité : station au sol de plus d'une heure, chutes répétées (3 ou plus par an), impossibilité de se relever seul, traumatisme crânien sous anticoagulant, fracture, syndrome post-chute.","Hospitalisation (15) : fracture suspectée, traumatisme crânien sous anticoagulant, trouble de la conscience, rhabdomyolyse, hypothermie, malaise d'origine cardiaque, impossibilité du maintien à domicile."]},
@@ -6717,7 +6724,7 @@ function letTraitant(p){const d=letData(p);const L=letState();const sans=!!(L.mt
 function letText(p,kind){const L=letState();const x=L[kind]||{};if(x.edited&&typeof x.text==="string")return x.text;return (kind==="sp"?letSpecialiste(p):letTraitant(p)).join("\n");}
 function letParas(t){return String(t||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);}
 function letBodyHTML(t){return letParas(t).map(s=>`<p class="txt">${esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}</p>`).join("");}
-function letPages(p,pat){const L=letState();let out="";for(const k of ["sp","mt"]){const x=L[k];if(!x||!x.on)continue;const t=letText(p,k);if(!letParas(t).length)continue;
+function letPages(p,pat){const L=letState();let out="";for(const k of ["sp","mt"]){const x=L[k];if(!x||!x.on)continue;let t=letText(p,k);try{const dc=docCtx(p);t=String(t).split(/\n/).map(x=>x.trim()?docFact(x,dc):x).join("\n");}catch(e){}if(!letParas(t).length)continue;
   out+=`<div class="page lettre${t.length>2300?" lettre-dense":""}">${pageHead()}<div class="frame"><div class="meta"><p><u>Date :</u> ${esc(normDate(state.date))}</p>${state.patient?`<p><u>Patient :</u> ${pat}</p>`:""}</div><h2>Courrier</h2>${letBodyHTML(t)}${pageSign()}</div></div>`;}return out;}
 function letCount(){const L=letState();return ["sp","mt"].filter(k=>L[k]&&L[k].on).length;}
 function lettresHTML(p){if(!p)return "";const L=letState();const sp=L.sp||{},mt=L.mt||{};
@@ -6792,7 +6799,7 @@ function currentPack(){
   idx.forEach(i=>{const p=PACKS[i]; if(p.fields) fields=[...new Set([...fields,...p.fields])]; if(p.body) body=true; if(!p.nopatient) nopatient=false;
     p.s.forEach(sh=>{ const k=sh.k==="agenda"?"agenda"+(sh.cols?sh.cols.join(""):""):sh.k; const key=k;
       if(!by[key]) by[key]=Object.assign({},sh,{l:[]}); seen[key]=seen[key]||new Set();
-      sh.l.forEach(l=>{ const t=norm(typeof l==="string"?l:l.t); if(seen[key].has(t)) return; seen[key].add(t); by[key].l.push(l); }); });});
+      sh.l.forEach(l=>{ const t=norm(typeof l==="string"?l:l.t); if(seen[key].has(t)) return; seen[key].add(t); by[key].l.push(l); (by[key].src=by[key].src||[]).push(p.n); }); });});
   const s=Object.keys(by).sort((x,y)=>order.indexOf(by[x].k)-order.indexOf(by[y].k)).map(k=>by[k]);
   return {n:idx.map(i=>PACKS[i].n).join(" + "),k:"",fields,nopatient,body,s,merged:true};
 }
@@ -6914,8 +6921,8 @@ function expand(sh,si){
     if(state.allergie && o.alt){
       const alts = Array.isArray(o.alt)?o.alt:[o.alt];
       const g = o.grp || ("alt"+li);
-      alts.forEach((t,ai)=>out.push({t,grp:g,opt:o.opt,jr:o.jr,key:si+"-"+li+"-"+ai}));
-    } else out.push({t:o.t,grp:o.grp,opt:o.opt,jr:o.jr,key:si+"-"+li});
+      alts.forEach((t,ai)=>out.push({t,grp:g,opt:o.opt,jr:o.jr,key:si+"-"+li+"-"+ai,src:sh.src?sh.src[li]:undefined}));
+    } else out.push({t:o.t,grp:o.grp,opt:o.opt,jr:o.jr,key:si+"-"+li,src:sh.src?sh.src[li]:undefined});
   });
   const cp=currentPack(); if(cp&&cp.renew&&sh.k==="med"){ state.tt.forEach((t,i)=>out.push({t:t+" : poursuivre le traitement habituel à la posologie en cours, sans modification, pendant 1 mois.",key:"r"+si+"-"+i})); if(!state.tt.length) out.push({t:"{f:renew}",key:"r0"}); }
   (state.extra[si]||[]).forEach((t,i)=>out.push({t,key:"x"+si+"-"+i,extra:i}));
@@ -15760,9 +15767,9 @@ function renderCore(){
   const sheetsHTML=`<div class="sheets">${html}</div>${lettresHTML(p)}`;
   if(isPhone()){
     const dockPhone=`<div class="act dock phone"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only" title="Imprimer le pack">Imprimer · ${nSheets}${alerts.length?` <b class="red">⚠ ${alerts.length}</b>`:""}</button></div>`;
-    m.innerHTML=head+dictCardHTML()+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
+    m.innerHTML=head+dictCardHTML()+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+docActHTML(p)+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
   }else{
-    m.innerHTML=head+dictCardHTML()+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+
+    m.innerHTML=head+dictCardHTML()+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+docActHTML(p)+
      `<div class="act dock"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only">Imprimer</button><button class="btn s" id="go" title="Imprimer et copier le compte rendu">Imprimer + CR</button><button class="btn newp" id="new">＋ Nouveau patient</button><span class="count">${nSheets} feuille(s)${alerts.length?` · <b class="red">${alerts.length} alerte(s)</b>`:""}</span></div><button class="fab" id="go2" type="button" title="Imprimer">🖨️ Imprimer</button>`+obsHTML(p)+sheetsHTML+`
    <p class="hint">Coche ou décoche chaque ligne ; une puce ronde = un choix parmi plusieurs. Impression : A4, marges « aucune », échelle 100 %. Chaque feuille tient sur une page.</p>`;
   }
@@ -15925,16 +15932,28 @@ function buildPages(p,withAnnex){
     const T=TYPES[sh.k];
     const all=resolve(sh,si);
     all.filter(x=>x.on&&x.fill.miss.length).forEach(x=>removed.push(T.lbl+" : "+x.t.replace(/\{[^}]*\}/g,"…")+" — manque : "+x.fill.miss.join(", ")));
-    const lines=all.filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s):x.fill.s);
+    const DOCK=["let","cons","cert"].includes(sh.k)||!!T.txt;const dctx=DOCK?docCtx(p):null;
+    let items=all.filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>({t:PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s):x.fill.s,src:x.src}));
+    if(DOCK)items=items.map(x=>({t:docFact(x.t,dctx),src:x.src})).filter(x=>x.t);
+    const lines=items.map(x=>x.t);
     if((state.libre[si]||"").trim()&&!catFor(sh.k).some(m=>norm(m.n).includes(norm(state.libre[si].trim())))) lines.push(state.libre[si].trim());
     if(!lines.length) return;
+    if((state.libre[si]||"").trim()&&lines[lines.length-1]===state.libre[si].trim())items.push({t:lines[lines.length-1],src:items.length?items[items.length-1].src:undefined});
     const pat=esc(state.patient)+(state.ddn?", né(e) le "+esc(normDate(state.ddn)):"")+(sh.k==="med"&&state.poids?" — "+esc(state.poids)+" kg":"");
     let body;
     if(T.grid){
       const cols=sh.cols||["Date","Durée","Intensité (1-3)","Déclencheur","Traitement pris","Efficacité (0-2)"];
       body=lines.map(s=>`<p class="txt">${esc(s)}</p>`).join("")+`<table class="grid"><tr>${cols.map(c=>"<th>"+c+"</th>").join("")}</tr>${("<tr>"+cols.map(()=>"<td></td>").join("")+"</tr>").repeat(sh.rows||12)}</table>`;
+    } else if(sh.k==="let"){ /* 16/10/2026 : un courrier = un destinataire = une page */
+      const ltrs=docLetters(items);const head2=`<div class="frame"><div class="meta"><p><u>Date :</u> ${esc(normDate(state.date))}</p>${state.patient?`<p><u>Patient :</u> ${pat}</p>`:""}</div>`;
+      ltrs.forEach(l=>{out+=`<div class="page">${pageHead()}${head2}<h2>${T.t}</h2>${l.map(x=>`<p class="txt">${esc(x)}</p>`).join("")}${pageSign()}</div></div>`;});return;
     } else if(T.txt) body=lines.map(s=>`<p class="txt">${esc(s)}</p>`).join("");
-    else if(sh.k==="cons") body=`<ul>${lines.map(s=>`<li class="tight">${esc(s)}</li>`).join("")}</ul>`;
+    else if(sh.k==="cons"){const gr=docBySrc(items);
+      if(gr.length>1){ /* consignes de plusieurs fiches : un titre par fiche ; un document par fiche si la page ne suffit pas (voir docFitPages) */
+        const id="alt"+si+"_"+Date.now().toString(36);const head2=`<div class="frame"><div class="meta"><p><u>Date :</u> ${esc(normDate(state.date))}</p>${state.patient?`<p><u>Patient :</u> ${pat}</p>`:""}</div>`;
+        DOCALT[id]=gr.map(g=>`<div class="page">${pageHead()}${head2}<h2>${T.t} — ${esc(diagName({n:g.k})||"")}</h2><ul>${g.l.map(x=>`<li class="tight">${esc(x)}</li>`).join("")}</ul>${pageSign()}</div></div>`);
+        out+=`<div class="page" data-alt="${id}">${pageHead()}${head2}<h2>${T.t}</h2>${gr.map(g=>`<h3 class="fsrc">${esc(diagName({n:g.k})||"")}</h3><ul>${g.l.map(x=>`<li class="tight">${esc(x)}</li>`).join("")}</ul>`).join("")}${pageSign()}</div></div>`;return;}
+      body=`<ul>${lines.map(s=>`<li class="tight">${esc(s)}</li>`).join("")}</ul>`;}
     else body=(T.pre?`<p class="txt">${T.pre}</p>`:"")+`<ol>${lines.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`;
     out+=`<div class="page">
      ${pageHead()}
@@ -15970,6 +15989,10 @@ async function finishPrint(p,out,removed){
   await Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=i.onerror=r;})));
   try{ await Promise.all(imgs.map(i=>i.decode().catch(()=>{}))); }catch(e){}
   if(PRINT2UP&&pr.querySelector(".page.sheet2")){try{if(unpairOverflow(pr)){out=[...pr.children].filter(x=>x.classList&&x.classList.contains("page")).map(x=>x.outerHTML).join("");state.lastPrint.n=sheetCount(out);}}catch(e){}}
+  try{let over=docFitPages(pr);
+    const alt=[...pr.querySelectorAll('.page[data-over][data-alt]')];if(alt.length){alt.forEach(pg=>{const h=DOCALT[pg.dataset.alt];if(h){pg.insertAdjacentHTML("afterend",h.join(""));pg.remove();}});over=docFitPages(pr);}
+    out=[...pr.querySelectorAll(".page")].map(x=>x.outerHTML).join("");PDFJOB.out=out;state.lastPrint.n=sheetCount(out);
+    if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>À raccourcir avant d'imprimer :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même en petite police (9 pt). Rien n'est masqué : décochez des lignes ou séparez le document.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
   window.scrollTo(0,0);
   if(phone||iosLike()) pdfPrepare(out);
   if(!phone&&!iosLike()) setTimeout(printNow,150); /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
@@ -16646,19 +16669,92 @@ function photosUI(){
 const AGE_VAR_RE=/\s+—\s+(adulte|enfant|nourrisson|adolescent|sujet âgé|adulte et enfant|enfant et adulte)$/i;
 function diagName(p){if(!p)return "";const seen=new Set();return String(p.n).split(" + ").map(n=>n.replace(AGE_VAR_RE,"").trim()).filter(n=>{const k=norm(n);if(seen.has(k))return false;seen.add(k);return true;}).join(" + ");}
 function ageMismatch(){const a=ageY();if(!a)return [];const child=a.y<15;const out=[];
+  selIdx().forEach(i=>{const p=PACKS[i];if(p&&/sujet âgé|personne âgée/i.test(p.n)&&a.y<65)out.push({i,j:-1,from:p.n,to:"",old:1});});
   selIdx().forEach(i=>{const p=PACKS[i];if(!p)return;const m=/\s+—\s+(adulte|enfant|nourrisson)$/i.exec(p.n);if(!m)return;const v=m[1].toLowerCase();
     if(child&&v==="adulte"||!child&&(v==="enfant"||v==="nourrisson")){const base=p.n.replace(AGE_VAR_RE,"");const want=child?(a.m<24?["nourrisson","enfant"]:["enfant","nourrisson"]):["adulte"];
       let j=-1;for(const w of want){j=PACKS.findIndex(q=>q.n===base+" — "+w);if(j>=0)break;}out.push({i,j,from:p.n,to:j>=0?PACKS[j].n:""});}});return out;}
 function ageMismatchHTML(){const mm=ageMismatch();if(!mm.length)return "";const a=ageY();const age=a.m<24?a.m+" mois":a.y+" ans";
-  return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge.${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
+  return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> ${x.old?"Cette fiche vise les patients de 65 ans et plus : vérifiez qu'elle convient.":"Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge."}${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-agesw]");if(!b)return;const [i,j]=b.dataset.agesw.split("|").map(Number);let cur=selIdx().filter(x=>x!==i&&x!==j);cur.push(j);state.sel=cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.extra={};render();try{search($("#q").value);}catch(e){}toast("Fiche adaptée à l'âge : "+PACKS[j].n+" (observation conservée)");});
 
 /* ---- n° 9 : impression et PDF. Impression dans le geste, vrai bouton « Enregistrer en PDF » partout ---- */
 function iosLike(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
-function printNow(){if(state.lastPrint)state.lastPrint.sent=true;try{window.print();}catch(e){alert("Impression impossible : "+((e&&e.message)||e)+"\nUtilisez « Enregistrer en PDF ».");}}
+function printNow(){if(DOCFIT.over.length&&!confirm("Ne tient pas sur une page : "+DOCFIT.over.join(", ")+".\nImprimer quand même (rien n'est masqué, le texte peut déborder) ?"))return;if(state.lastPrint)state.lastPrint.sent=true;try{window.print();}catch(e){alert("Impression impossible : "+((e&&e.message)||e)+"\nUtilisez « Enregistrer en PDF ».");}}
 function pdfSave(){ /* dans le geste : PDF prêt → partage (iPhone, iPad) ou téléchargement ; sinon préparation puis téléchargement automatique */
   if(PDFJOB.file){if(iosLike())pdfSend();else pdfDownload(PDFJOB.file);return;}
   PDFJOB.wantDl=true;pdfStatus("Préparation du PDF…");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
+
+
+/* ===================== 16/10/2026 — DOCUMENTS IMPRIMÉS (test PDF : Chute du sujet âgé + Douleur en fin de vie) =====================
+   1. zone du cachet réservée, police réduite jusqu'à un minimum lisible, sinon alerte ; jamais de texte masqué
+   2. un courrier = un destinataire = une page (formule finale et signature) ; consignes titrées par fiche, ou un document par fiche
+   3. phrases d'action vérifiées : examens, soins et traitements réellement cochés ; « médicaments revus » si coché ou dicté ; plus de renvoi au compte rendu non imprimé */
+function docCtx(p){const c={bio:[],img:[],ecgPresc:false,kine:false,ide:false,para:false,med:[],cons:false};
+  const noise=/^(Résultats|Résultat|À faire|A faire|Prélèvement|Ordonnance|Bilan à|À jeun)|transmettre|messagerie|MSSanté|fax|cabinet SOS|laboratoire de ville/i;
+  const short=t=>String(t).replace(/\s*\((?:si |pour |indiqué|sous |selon |station|malaise|en cas|à |chez )[^)]*\)/gi,"").replace(/\s*,?\s*pour [^,.;]*$/i,"").replace(/[.;:\s]+$/,"").trim();
+  (p?p.s:[]).forEach((sh,si)=>{if(state.off[si])return;let on=[];try{on=resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>x.fill.s);}catch(e){}
+    if(sh.k==="bio")on.filter(t=>!noise.test(t)&&t.length<160).forEach(t=>{if(/\bECG\b/.test(t))c.ecgPresc=true;else c.bio.push(short(t));});
+    if(sh.k==="img")on.forEach(t=>{if(/^ECG\b/.test(t)){c.ecgPresc=true;return;}c.img.push(short(t.split(" : ")[0]));});
+    if(sh.k==="kine"&&on.length)c.kine=on.some(t=>/kin[ée]si/i.test(t))||c.kine,c.ergo=on.some(t=>/ergoth/i.test(t))||c.ergo;
+    if(sh.k==="ide"&&on.length)c.ide=true;if(sh.k==="para"&&on.length)c.para=true;if(sh.k==="cons"&&on.length)c.cons=true;
+    if(sh.k==="med")on.forEach(t=>{const b=brandKey(t)||t.split(" ")[0];if(b&&!c.med.includes(b))c.med.push(b);});});
+  const o=state.obs||{};const dict=[o.dict,o.trace,o.hist,o.hyp,o.atcd,o.raison].filter(Boolean).join(" ");
+  c.medsRevus=!!(state.actions&&state.actions.medsRevus)||/(revu|r[ée]vis[ée]|r[ée][ée]valu[ée]|adapt[ée]|ajust[ée]|suspendu|arr[êe]t[ée]|diminu[ée])[^.]{0,50}(m[ée]dicament|traitement|ordonnance)|(m[ée]dicaments?|traitements?)[^.]{0,40}(revus?|r[ée]vis[ée]s?|r[ée][ée]valu[ée]s?|adapt[ée]s?)/i.test(dict);
+  c.ecgFait=!!(state.cot&&state.cot.ecg);return c;}
+function docList(a){a=a.filter(Boolean);return a.length<2?(a[0]||""):a.slice(0,-1).join(", ")+" et "+a[a.length-1];}
+function docPresc(c){const parts=[];const lc=x=>/^[A-ZÀ-Ý][a-zà-ÿ'’\-]+(?=[\s,(]|$)/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x;if(c.bio.length)parts.push("un bilan biologique ("+c.bio.map(lc).join(" ; ")+")");if(c.ecgPresc)parts.push("un ECG");c.img.forEach(x=>parts.push(lc(x)));
+  if(c.kine)parts.push("une rééducation par kinésithérapie");if(c.ergo)parts.push("un bilan d'ergothérapie");if(c.ide)parts.push("des soins infirmiers");if(c.med.length)parts.push("un traitement ("+c.med.join(", ")+")");return parts;}
+/* résumé des éléments dictés ou saisis, à la place d'un renvoi au compte rendu (non imprimé) */
+function docObsSummary(){const o=state.obs||{};const b=[];if(o.hist)b.push(String(o.hist).replace(/[.\s]+$/,""));
+  const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:"/min",spo2:" %",temp:" °C",eva:"/10"}[k]));if(cst.length)b.push("constantes : "+cst.join(", "));
+  SYSTEMS.forEach(([k,l])=>{if(o[k]&&String(o[k]).trim())b.push(l.toLowerCase()+" : "+String(o[k]).replace(/[.\s]+$/,""));});if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
+const DOC_FALLBACK="sont à votre disposition sur simple demande";
+function docFact(text,c){let t=String(text||"");const presc=docPresc(c);
+  /* « J'ai prescrit … » : réécrit avec ce qui est réellement coché (examens, soins, traitements), et « revu les médicaments » seulement si fait */
+  t=t.replace(/J'ai prescrit[^.]*\./g,()=>{const acts=presc.slice();if(c.medsRevus)acts.push("revu les médicaments");if(!acts.length)return "";return "J'ai prescrit "+docList(presc)+(c.medsRevus?(presc.length?" et revu les médicaments":"revu les médicaments"):"")+".";}).replace(/J'ai prescrit revu/,"J'ai revu");
+  const sents=t.split(/(?<=[.!?])\s+/);const out=[];
+  for(let s of sents){let cl=s.split(/\s*;\s*/);
+    cl=cl.map(x=>{
+      if(/(revu les médicaments|médicaments[^.;]{0,60}(ont été|a été) revus?|traitements?[^.;]{0,40}(ont été|a été) (revus?|révisés?|réévalués?))/i.test(x)&&!c.medsRevus)return x.replace(/\s*(?:,\s*)?(?:et\s+)?(?:les\s+)?médicaments[^.;]{0,60}(?:ont été|a été) revus?[^.;]*/i,"").replace(/\s*(?:et\s+)?(?:j'ai\s+)?revu les médicaments[^.;,]*/i,"");
+      if(/(examens? prescrits?|résultats des examens|résultats (vous )?seront transmis|bilan prescrit)/i.test(x)&&!(c.bio.length||c.img.length||c.ecgPresc))return "";
+      const pr=/^(.*?)\s+(?:ont été|a été) prescrite?s?\b/i.exec(x);if(pr&&!/J'ai prescrit/.test(x)){const words=(pr[1].match(/[\p{L}]{5,}/gu)||[]).map(w=>norm(w));const hay=norm([c.bio.join(" "),c.img.join(" "),c.ecgPresc?"ecg":""].join(" "));if(!words.some(w=>hay.includes(w)))return "";}
+      if(/\bj'ai (débuté|adapté|introduit)\b/i.test(x)&&!c.med.length)return x.replace(/,?\s*(?:et\s+)?j'ai (débuté|adapté|introduit)[^.;]*/i,"");
+      if(/compte rendu joint|compte-rendu joint|ci-joint|figurent dans le compte rendu/i.test(x)){const sum=docObsSummary();
+        if(sum)return "Éléments recueillis ce jour : "+sum;
+        return x.replace(/figurent dans le compte[- ]rendu joint/i,DOC_FALLBACK).replace(/\s*(?:sont |est )?(?:détaillée?s? |décrite?s? )?dans le compte[- ]rendu joint/i,"").replace(/\s*\(?ci-joint\)?/i,"");}
+      return x;}).filter(x=>x&&x.replace(/[.;,\s]/g,""));
+    if(!cl.length)continue;let r=cl.join(" ; ").replace(/\s+([,.])/g,"$1").replace(/[;,]\s*\./g,".").replace(/\s*;\s*$/,"").trim();if(r&&!/[.!?…:,]$/.test(r))r+=".";r=r.replace(/^\s*,\s*/,"");if(r.replace(/[.\s]/g,""))out.push(r.charAt(0).toUpperCase()+r.slice(1));}
+  return out.join(" ").trim();}
+/* courriers : un destinataire = une page, avec formule d'appel, formule finale et signature */
+function docLetters(lines){const groups=[];let cur=null;let lastSrc;
+  lines.forEach(x=>{const t=x.t;const start=/^(À|A) l'attention|^Au (médecin|docteur|service)|^Aux (urgences|équipes?)/i.test(t)||(x.src&&lastSrc&&x.src!==lastSrc);if(!cur||start&&cur.l.length){cur={src:x.src,l:[]};groups.push(cur);}cur.l.push(t);lastSrc=x.src||lastSrc;});
+  const nom=DOCTOR.nom||"";
+  return groups.map(g=>{let l=g.l.slice();const hasSal=l.some(t=>/^(Cher|Chère|Mon cher|Ma chère|Madame|Monsieur|Mesdames|Messieurs|Bonjour)/i.test(t));const hasEnd=l.some(t=>/(sentiments|confraternel|salutations|cordialement|bien à vous|Avec mes remerciements)/i.test(t));
+    const iAtt=l.findIndex(t=>/^(À|A) l'attention|^Au |^Aux /i.test(t));if(!hasSal)l.splice(iAtt>=0?iAtt+1:0,0,"Cher confrère, chère consœur,");
+    if(!hasEnd)l.push("Je vous remercie de votre prise en charge et vous prie de croire, cher confrère, chère consœur, en l'expression de mes sentiments confraternels.");
+    const isSig=t=>/^(Docteur|Dr\.?)\s+[^,;:]{2,50}\.?$/i.test(String(t).trim())||norm(String(t).replace(/[.\s]+$/,""))===norm(nom);
+    const sigs=l.filter(isSig);l=l.filter(t=>!isSig(t));l.push(String(sigs.length?sigs[sigs.length-1]:nom).replace(/[.\s]+$/,""));return l.filter(Boolean);});}
+/* consignes de plusieurs fiches : un titre par fiche */
+function docBySrc(items){const g=[];items.forEach(x=>{const k=x.src||"";let c=g.find(y=>y.k===k);if(!c){c={k,l:[]};g.push(c);}c.l.push(x.t);});return g;}
+/* ajustement des pages après affichage : zone du cachet réservée, police réduite par paliers jusqu'à 9 pt, sinon page signalée (texte jamais masqué) */
+const DOCFIT={min:0.80,steps:[1,0.95,0.9,0.85,0.8],over:[]};
+function docFitPages(pr){DOCFIT.over=[];if(!pr)return [];pr.classList.add("fitting");
+  const pages=[...pr.querySelectorAll(".page")].filter(pg=>!pg.classList.contains("sheet2"));
+  for(let pi=0;pi<pages.length;pi++){const pg=pages[pi];const fr=pg.querySelector(".frame");if(!fr)continue;
+    const zone=[...fr.querySelectorAll(".stamp,.sig")].map(e=>e.getBoundingClientRect()).filter(r=>r.height);const zTop=zone.length?Math.min(...zone.map(r=>r.top)):null;
+    const txt=[...fr.querySelectorAll("p,li,h2,h3,td,th,.meta")].filter(e=>!e.closest(".stamp,.sig"));
+    txt.forEach(e=>{if(!e.dataset.fz)e.dataset.fz=parseFloat(getComputedStyle(e).fontSize);});
+    const bad=()=>{if(fr.scrollHeight>fr.clientHeight+1)return true;if(zTop==null)return false;const fb=fr.getBoundingClientRect();const lim=zTop-3;return txt.some(e=>{const r=e.getBoundingClientRect();return r.height&&r.bottom>lim&&r.top<fb.bottom;});};
+    let ok=false;for(const k of DOCFIT.steps){txt.forEach(e=>{e.style.fontSize=k===1?"":(+e.dataset.fz*k).toFixed(2)+"px";e.style.lineHeight=k===1?"":"1.28";});if(!bad()){ok=true;if(k<1)pg.dataset.fit=String(k);break;}}
+    if(!ok){fr.style.overflow="visible";pg.dataset.over="1";const h=pg.querySelector("h2");DOCFIT.over.push((h?h.textContent:"Document")+" (page "+(pi+1)+")");}}
+  pr.classList.remove("fitting");return DOCFIT.over;}
+const DOCALT={};
+/* case « Médicaments revus » : proposée seulement quand un courrier ou une consigne cochés en parlent ; la dictée suffit aussi */
+function docActHTML(p){if(!p)return "";const re=/revu les médicaments|médicaments[^.;]{0,60}(ont été|a été) revus?|traitements?[^.;]{0,40}(ont été|a été) (revus?|révisés?|réévalués?)/i;let need=false;
+  p.s.forEach((sh,si)=>{if(need||state.off[si]||!["let","cons","cert"].includes(sh.k))return;try{need=resolve(sh,si).some(x=>x.on&&re.test(x.t));}catch(e){}});if(!need)return "";
+  const c=docCtx(p);const on=!!(state.actions&&state.actions.medsRevus);
+  return `<div class="docact"><span><b>Actions faites</b> (reprises dans les courriers et consignes, sinon retirées) :</span><label><input type="checkbox" id="act_meds" ${on?"checked":""}> Médicaments revus</label>${!on&&c.medsRevus?'<span class="hint">détecté dans la dictée</span>':""}</div>`;}
+document.addEventListener("change",ev=>{if(ev.target&&ev.target.id==="act_meds"){state.actions=state.actions||{};state.actions.medsRevus=ev.target.checked;render();}});
 
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}

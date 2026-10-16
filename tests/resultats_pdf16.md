@@ -1,0 +1,44 @@
+# Tests documents imprimés — test PDF du 16/10/2026
+
+- OK — pc n°4 Chute : HbA1c en option, non cochée par défaut ; glycémie cochée
+- OK — pc n°1 aucune ligne de texte ne chevauche le cachet ou la signature (tous les documents)
+- OK — pc n°1 aucun texte masqué (jamais de débordement coupé)
+- OK — pc n°2 deux fiches avec courrier : deux pages « Courrier », une par destinataire
+- OK — pc n°2 chaque courrier : une seule ligne de signature
+- OK — pc n°2 chaque courrier : formule d'appel, formule finale et signature
+- OK — pc n°2 consignes de deux fiches : un titre par fiche
+- OK — pc n°3 « médicaments revus » absent tant que l'action n'est ni cochée ni dictée
+- OK — pc n°3 aucun renvoi au compte rendu joint (non imprimé)
+- OK — pc n°3 « J'ai prescrit » liste ce qui est coché (NFS, CRP, ECG, kinésithérapie) et pas l'HbA1c non cochée
+- OK — pc n°3 case « Médicaments revus » proposée (une consigne en parle)
+- OK — pc n°3 action cochée : « revu les médicaments » et « ont été revus » apparaissent
+- OK — pc n°3 liste des examens exacte : CRP décochée absente, HbA1c cochée présente
+- OK — pc n°3 éléments dictés repris à la place du renvoi au compte rendu
+- OK — pc n°1 après modification : toujours aucun chevauchement du cachet
+- OK — pc n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
+- OK — pc n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué
+- OK — pc n°4 fiche « sujet âgé » à 52 ans : alerte à l'écran
+- OK — pc n°3 toutes les fiches : ni « compte rendu joint » ni « médicaments revus » non cochés dans les documents
+- OK — pc aucune erreur JS
+- OK — iphone n°4 Chute : HbA1c en option, non cochée par défaut ; glycémie cochée
+- OK — iphone n°1 aucune ligne de texte ne chevauche le cachet ou la signature (tous les documents)
+- OK — iphone n°1 aucun texte masqué (jamais de débordement coupé)
+- OK — iphone n°2 deux fiches avec courrier : deux pages « Courrier », une par destinataire
+- OK — iphone n°2 chaque courrier : une seule ligne de signature
+- OK — iphone n°2 chaque courrier : formule d'appel, formule finale et signature
+- OK — iphone n°2 consignes de deux fiches : un titre par fiche
+- OK — iphone n°3 « médicaments revus » absent tant que l'action n'est ni cochée ni dictée
+- OK — iphone n°3 aucun renvoi au compte rendu joint (non imprimé)
+- OK — iphone n°3 « J'ai prescrit » liste ce qui est coché (NFS, CRP, ECG, kinésithérapie) et pas l'HbA1c non cochée
+- OK — iphone n°3 case « Médicaments revus » proposée (une consigne en parle)
+- OK — iphone n°3 action cochée : « revu les médicaments » et « ont été revus » apparaissent
+- OK — iphone n°3 liste des examens exacte : CRP décochée absente, HbA1c cochée présente
+- OK — iphone n°3 éléments dictés repris à la place du renvoi au compte rendu
+- OK — iphone n°1 après modification : toujours aucun chevauchement du cachet
+- OK — iphone n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
+- OK — iphone n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué
+- OK — iphone n°4 fiche « sujet âgé » à 52 ans : alerte à l'écran
+- OK — iphone n°3 toutes les fiches : ni « compte rendu joint » ni « médicaments revus » non cochés dans les documents
+- OK — iphone aucune erreur JS
+
+40/40 tests OK

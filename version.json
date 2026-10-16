@@ -1,9 +1,9 @@
 {
-  "version": "41c",
+  "version": "41d",
   "date": "2026-10-16",
   "notes": [
-    "Dictée toujours visible sous la fiche patient, enregistrée chiffrée à chaque mot : changer de fiche, d'écran ou fermer l'app ne la perd plus ; « Dictées récentes » pour reprendre un texte effacé.",
-    "Imprimer et « Enregistrer en PDF » fonctionnent directement (ordinateur, tablette, iPhone) ; photos compressées et chiffrées, sans limite de nombre, avec confirmation.",
-    "Enfant avec une fiche adulte : le compte rendu ne mentionne plus « adulte », bascule vers la fiche de l'âge en un geste."
+    "Documents imprimés : plus aucun texte sous le cachet ni masqué (police réduite si besoin, sinon alerte avant impression) ; un courrier par destinataire avec sa signature ; consignes titrées par fiche.",
+    "Les courriers et consignes ne décrivent que ce qui est fait : examens réellement cochés, « médicaments revus » seulement si coché ou dicté, plus de renvoi au compte rendu non imprimé.",
+    "Chute du sujet âgé : HbA1c en option ; alerte si la fiche « sujet âgé » est choisie avant 65 ans."
   ]
 }
