@@ -1,8 +1,9 @@
 {
-  "version": "40x",
+  "version": "40y",
   "date": "2026-10-16",
   "notes": [
-    "Catalogue complet : fiches « premier recours » ajoutées (HTA et cholestérol, diabète de type 2, grossesse sans suivi, contraception, sein, thyroïde, énurésie, anémie, démence) — non relues.",
-    "Chaque fiche de premier recours propose un dépannage puis une orientation vers le médecin traitant ou le spécialiste."
+    "Tournée › Réglages : l'heure limite et les marges ne s'appliquent qu'en validant (OK ou en quittant le panneau) ; l'écran ne saute plus pendant la saisie.",
+    "Alerte d'attente : une seule ligne « 3 patients attendent depuis plus de 2 h », à déplier pour voir la liste.",
+    "Journal de garde : sommaire en haut et boutons discrets pour remonter ou descendre."
   ]
 }
