@@ -11,9 +11,16 @@
 - OK — iphone : visite enfant de 4 ans en journée : VG + MU + MEG
 - OK — iphone : consultation 85 ans : G + MOP
 - OK — iphone : ECG : DEQP003
+- OK — iphone : visite avec ECG : VG + MU + DEQP003 + YYYY490 = 76,97 €
+- OK — iphone : consultation avec ECG : G + DEQP003 = 44,77 € (pas de YYYY490)
+- OK — iphone : consultation avec ECG à 21 h 30 : G + CRN + DEQP003 = 87,27 €
+- OK — iphone : ECG ajouté au journal sur une visite : YYYY490 ajouté aussi
+- OK — iphone : tarifs : G 30, VG 30, DEQP003 14,77, YYYY490 9,60
+- OK — iphone : « Tarifs utilisés » : DEQP003 14,77 et YYYY490 9,6 affichés
+- OK — iphone : tarif modifié, enregistré
 - OK — iphone : aucun code U, MDN, MDI, MM ni F dans les tarifs
-- OK — iphone : écran Express : « VG + MU »
-- OK — iphone : journal : chip « MU », jamais « U »
+- OK — iphone : écran Express : cotation de l'heure (« VG + VRD »), jamais « U » seul
+- OK — iphone : journal : codes de l'acte (VG+MU) affichés, jamais « U »
 - OK — iphone : aucune erreur JS
 - OK — ordinateur : visite en journée, adulte : VG + MU
 - OK — ordinateur : visite en journée + MD : VG + MD (MU retiré)
@@ -26,9 +33,18 @@
 - OK — ordinateur : visite enfant de 4 ans en journée : VG + MU + MEG
 - OK — ordinateur : consultation 85 ans : G + MOP
 - OK — ordinateur : ECG : DEQP003
+- OK — ordinateur : visite avec ECG : VG + MU + DEQP003 + YYYY490 = 76,97 €
+- OK — ordinateur : consultation avec ECG : G + DEQP003 = 44,77 € (pas de YYYY490)
+- OK — ordinateur : consultation avec ECG à 21 h 30 : G + CRN + DEQP003 = 87,27 €
+- OK — ordinateur : ECG ajouté au journal sur une visite : YYYY490 ajouté aussi
+- OK — ordinateur : tarifs : G 30, VG 30, DEQP003 14,77, YYYY490 9,60
+- OK — ordinateur : « Tarifs utilisés » : DEQP003 14,77 et YYYY490 9,6 affichés
+- OK — ordinateur : tarif modifié, enregistré
 - OK — ordinateur : aucun code U, MDN, MDI, MM ni F dans les tarifs
-- OK — ordinateur : écran Express : « VG + MU »
-- OK — ordinateur : journal : chip « MU », jamais « U »
+- OK — ordinateur : écran Express : cotation de l'heure (« VG + VRD »), jamais « U » seul
+- OK — ordinateur : journal : codes de l'acte (VG+MU) affichés, jamais « U »
 - OK — ordinateur : aucune erreur JS
+- OK — migration des tarifs : ancienne valeur par défaut 14,26 → 14,77 ; U → MU ; YYYY490 ajouté
+- OK — migration des tarifs : montant personnalisé (15,00) conservé ; U → MU ; YYYY490 ajouté
 
-30/30 tests OK
+46/46 tests OK

@@ -24,7 +24,7 @@ Tu travailles pour le Docteur Mickaël DEIE, médecin généraliste et urgentist
 - SpO2 d'appel du 15 : 90 %. Durées d'arrêt : gastro 3 j, angine 2 à 3 j, lombalgie 5 à 7 j selon le métier ; sinon référentiel CNAM ; ajouter le motif à `AT_DUREES`.
 - Pédiatrie : dose au poids avec les gabarits existants, arrondie à une valeur pratique, dose maximale indiquée.
 - Toujours prévoir : enfant, grossesse, allaitement, allergie, insuffisance rénale, sujet âgé.
-- Cotation (convention SOS Médecins Orléans) : VG + MU (ou VG + MD), G + CRN / VG + VRN ou G + CRM / VG + VRM selon l'heure, MEG / MOP selon l'âge, ECG DEQP003 (+ YYYY090 en visite) ; jamais MDN, MDI, MM ni F. Sutures : orientation vers les urgences le soir et le week-end.
+- Cotation (convention SOS Médecins Orléans) : VG + MU (ou VG + MD), G + CRN / VG + VRN ou G + CRM / VG + VRM selon l'heure, MEG / MOP selon l'âge, ECG DEQP003 (+ YYYY490 en visite) ; jamais MDN, MDI, MM ni F. Sutures : orientation vers les urgences le soir et le week-end.
 - Documents imprimés : une page par document, aucun trou (pas de « à compléter », de crochet ni de champ vide).
 - Aucune donnée de patient réel, nulle part.
 
