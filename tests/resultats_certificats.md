@@ -1,0 +1,80 @@
+# Tests certificats avec durée (17/10/2026)
+
+- OK — iphone jour : enfant malade : 1 jour par défaut, « du 17/10/2026 au 17/10/2026 inclus » imprimé
+- OK — iphone jour : réglage de durée visible (Express ou mode complet)
+- OK — iphone jour : « − » inactif à 1 jour
+- OK — iphone jour : boutons − / + d'au moins 44 px
+- OK — iphone jour : « + » : 2 jours, « du 17/10/2026 au 18/10/2026 inclus »
+- OK — iphone jour : saisie 5 jours : « du 17/10/2026 au 21/10/2026 inclus »
+- OK — iphone jour : à partir du 20/10 : « du 20/10/2026 au 24/10/2026 inclus »
+- OK — iphone jour : aucun débordement horizontal
+- OK — iphone jour : durée au compte rendu
+- OK — iphone jour : durée au journal
+- OK — iphone jour : journal : durée affichée
+- OK — iphone jour : dispense de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone jour : arrêt de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone jour : dispense de piscine : 1 jour par défaut, « du … au … inclus »
+- OK — iphone jour : certificat sans durée (sport, par défaut) : pas de réglage de durée
+- OK — iphone jour : Express (fièvre de l'enfant) : pas de réglage de durée sans certificat
+- OK — iphone jour : Express : « Certificat enfant malade » coché → durée visible (1 jour)
+- OK — iphone jour : Express : + → 2 jours, au compte rendu
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : enfant malade : 1 jour par défaut, « du 17/10/2026 au 17/10/2026 inclus » imprimé
+- OK — iphone nuit : réglage de durée visible (Express ou mode complet)
+- OK — iphone nuit : « − » inactif à 1 jour
+- OK — iphone nuit : boutons − / + d'au moins 44 px
+- OK — iphone nuit : « + » : 2 jours, « du 17/10/2026 au 18/10/2026 inclus »
+- OK — iphone nuit : saisie 5 jours : « du 17/10/2026 au 21/10/2026 inclus »
+- OK — iphone nuit : à partir du 20/10 : « du 20/10/2026 au 24/10/2026 inclus »
+- OK — iphone nuit : aucun débordement horizontal
+- OK — iphone nuit : durée au compte rendu
+- OK — iphone nuit : durée au journal
+- OK — iphone nuit : journal : durée affichée
+- OK — iphone nuit : dispense de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone nuit : arrêt de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone nuit : dispense de piscine : 1 jour par défaut, « du … au … inclus »
+- OK — iphone nuit : certificat sans durée (sport, par défaut) : pas de réglage de durée
+- OK — iphone nuit : Express (fièvre de l'enfant) : pas de réglage de durée sans certificat
+- OK — iphone nuit : Express : « Certificat enfant malade » coché → durée visible (1 jour)
+- OK — iphone nuit : Express : + → 2 jours, au compte rendu
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte : enfant malade : 1 jour par défaut, « du 17/10/2026 au 17/10/2026 inclus » imprimé
+- OK — iphone grand texte : réglage de durée visible (Express ou mode complet)
+- OK — iphone grand texte : « − » inactif à 1 jour
+- OK — iphone grand texte : boutons − / + d'au moins 44 px
+- OK — iphone grand texte : « + » : 2 jours, « du 17/10/2026 au 18/10/2026 inclus »
+- OK — iphone grand texte : saisie 5 jours : « du 17/10/2026 au 21/10/2026 inclus »
+- OK — iphone grand texte : à partir du 20/10 : « du 20/10/2026 au 24/10/2026 inclus »
+- OK — iphone grand texte : aucun débordement horizontal
+- OK — iphone grand texte : durée au compte rendu
+- OK — iphone grand texte : durée au journal
+- OK — iphone grand texte : journal : durée affichée
+- OK — iphone grand texte : dispense de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone grand texte : arrêt de sport : 1 jour par défaut, « du … au … inclus »
+- OK — iphone grand texte : dispense de piscine : 1 jour par défaut, « du … au … inclus »
+- OK — iphone grand texte : certificat sans durée (sport, par défaut) : pas de réglage de durée
+- OK — iphone grand texte : Express (fièvre de l'enfant) : pas de réglage de durée sans certificat
+- OK — iphone grand texte : Express : « Certificat enfant malade » coché → durée visible (1 jour)
+- OK — iphone grand texte : Express : + → 2 jours, au compte rendu
+- OK — iphone grand texte : aucune erreur JS
+- OK — ordinateur : enfant malade : 1 jour par défaut, « du 17/10/2026 au 17/10/2026 inclus » imprimé
+- OK — ordinateur : réglage de durée visible (Express ou mode complet)
+- OK — ordinateur : « − » inactif à 1 jour
+- OK — ordinateur : boutons − / + d'au moins 44 px
+- OK — ordinateur : « + » : 2 jours, « du 17/10/2026 au 18/10/2026 inclus »
+- OK — ordinateur : saisie 5 jours : « du 17/10/2026 au 21/10/2026 inclus »
+- OK — ordinateur : à partir du 20/10 : « du 20/10/2026 au 24/10/2026 inclus »
+- OK — ordinateur : aucun débordement horizontal
+- OK — ordinateur : durée au compte rendu
+- OK — ordinateur : durée au journal
+- OK — ordinateur : journal : durée affichée
+- OK — ordinateur : dispense de sport : 1 jour par défaut, « du … au … inclus »
+- OK — ordinateur : arrêt de sport : 1 jour par défaut, « du … au … inclus »
+- OK — ordinateur : dispense de piscine : 1 jour par défaut, « du … au … inclus »
+- OK — ordinateur : certificat sans durée (sport, par défaut) : pas de réglage de durée
+- OK — ordinateur : Express (fièvre de l'enfant) : pas de réglage de durée sans certificat
+- OK — ordinateur : Express : « Certificat enfant malade » coché → durée visible (1 jour)
+- OK — ordinateur : Express : + → 2 jours, au compte rendu
+- OK — ordinateur : aucune erreur JS
+
+76/76 tests OK

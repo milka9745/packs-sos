@@ -532,6 +532,12 @@ html[data-theme="night"] .tc-steps li.done{background:#1F3B29;color:#8FD3A6}html
 #netbar .nb-body{padding:4px 0}#netbar .hint{color:inherit;opacity:.85}#netbar .nq-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:4px 0}#netbar .nq-row>span{flex:1 1 180px}
 #netbar .lc{color:inherit;border-color:currentColor}#netbar .nb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}#netbar ul{margin:4px 0;padding-left:18px}
 body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
+
+/* 17/10/2026 — durée des certificats */
+.certdur{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:8px 0;padding:8px 10px;border:1px solid var(--line2);border-radius:12px}
+.certdur .cdl{font-weight:800;flex-basis:100%}.certdur .cdb{min-width:48px;min-height:48px;font-size:22px;font-weight:800;justify-content:center}
+.certdur input[data-cdin]{width:64px;min-height:44px;font-size:18px;text-align:center}.certdur .cdu{display:flex;align-items:center;gap:6px;font-size:14px}.certdur .cdu input{width:120px;min-height:40px}
+.certdur .cdp{flex-basis:100%;font-size:15px}
 /* 17/10/2026 — Express visite */
 /* 17/10/2026 (h) — favoris */
 .hasfav{position:relative}.favstar{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;font-size:20px;line-height:1;color:#B8860B;border-radius:8px;flex:0 0 auto}
@@ -2146,7 +2152,7 @@ const CERT_LINES = {
  voyage:"Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient}, dont l'état de santé contre-indique le voyage prévu, pour raison médicale, à compter de ce jour et pour une durée prévisible de 15 jours.",
  vaccin:"Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et constate que son état de santé justifie de reporter temporairement la vaccination prévue, pour une durée de 1 mois.",
  accomp:"Je soussigné, Docteur Mickaël DEIE, certifie que l'état de santé de {patient} nécessite la présence d'un accompagnant à ses côtés pour ses déplacements et ses rendez-vous médicaux.",
- piscine:"Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et constate que son état de santé contre-indique la baignade et la piscine pendant 15 jours à compter de ce jour.",
+ piscine:"Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et constate que son état de santé contre-indique la baignade et la piscine {periode}.",
  fin:"Certificat établi à la demande de l'intéressé(e) et remis en main propre pour faire valoir ce que de droit.",
 };
 const CERT_CAT = Object.entries(CERT_LINES).filter(([k])=>k!=="fin").map(([k,t])=>[{sport:"Sport sans contre-indication",sportR:"Sport loisir, hors compétition",constat:"Constatation de consultation",ecole:"Retour école / crèche",report:"Report d'examen ou de rendez-vous",voyage:"Annulation de voyage",vaccin:"Report de vaccination",accomp:"Accompagnant nécessaire",piscine:"Dispense de piscine"}[k],t]);
@@ -2754,7 +2760,7 @@ HAD_PACK,
 {n:"Certificat — enfant malade",k:"certificat enfant malade garde parent",fields:["du","au","jours"],s:[
  {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour l'enfant {patient}, dont l'état de santé nécessite la présence d'un parent à ses côtés {periode}.","Certificat établi à la demande des parents et remis en main propre pour faire valoir ce que de droit."]}]},
 {n:"Certificat — dispense de sport",k:"certificat dispense sport eps inaptitude",fields:["jours"],s:[
- {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et constate que son état de santé contre-indique la pratique de l'éducation physique et sportive {duree}.","Certificat remis en main propre à l'intéressé pour faire valoir ce que de droit."]}]},
+ {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et constate que son état de santé contre-indique la pratique de l'éducation physique et sportive {periode}.","Certificat remis en main propre à l'intéressé pour faire valoir ce que de droit."]}]},
 ];
 
 /* ============ CATALOGUE MÉDICAMENTS (ligne libre avec suggestion) ============ */
@@ -3570,7 +3576,7 @@ const PACKS_V8D=[
 
 {n:"Certificat d'arrêt de sport",k:"certificat arrêt de sport dispense eps école club inaptitude temporaire blessure",s:[
  {k:"interp",l:["Dispense d'EPS ou arrêt de sport en club : certificat descriptif de l'inaptitude (totale ou partielle, durée précise, activités interdites et autorisées), sans diagnostic ; préférer l'inaptitude partielle (l'élève reste en cours et participe à ce qu'il peut) ; durée limitée, renouvelable sur nouvel examen ; au-delà de 3 mois, le médecin scolaire peut être saisi. Après une commotion cérébrale : pas de sport de contact pendant au moins 2 à 3 semaines, reprise progressive sur avis."]},
- {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et que son état de santé justifie une inaptitude {f:type} à la pratique sportive (éducation physique et sportive et sport en club) pour une durée de {f:duree} à compter de ce jour.","Activités incompatibles pendant cette période : {f:interdit}. Activités autorisées : {f:autorise}.","Certificat remis en main propre à l'intéressé(e) ou à son représentant légal pour faire valoir ce que de droit."]},
+ {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie avoir examiné ce jour {patient} et que son état de santé justifie une inaptitude {f:type} à la pratique sportive (éducation physique et sportive et sport en club) {periode}.","Activités incompatibles pendant cette période : {f:interdit}. Activités autorisées : {f:autorise}.","Certificat remis en main propre à l'intéressé(e) ou à son représentant légal pour faire valoir ce que de droit."]},
  {k:"cons",l:["L'arrêt est limité aux activités indiquées et à la durée mentionnée ; en cours d'EPS, l'élève reste présent et participe aux activités autorisées (arbitrage, observation, mobilité douce) si l'inaptitude est partielle.","La reprise se fait progressivement, sans douleur, à la date prévue ; un nouvel examen est nécessaire si la gêne persiste.","Après un traumatisme crânien : pas de sport de contact tant que persistent maux de tête, vertiges, troubles de la concentration ou du sommeil ; reprise par étapes de 24 à 48 heures.","Consulter plus tôt en cas d'aggravation, de douleur nouvelle, de gonflement ou de fièvre."]}],fields:["type","duree","interdit","autorise"]},
 
 {n:"Certificat — plongée sous-marine (non-contre-indication)",k:"plongée sous-marine certificat non contre-indication bouteille apnée ffessm otoscopie",s:[
@@ -6762,6 +6768,7 @@ function buildCR0(p){
   L.push("CONDUITE À TENIR");
   meds.forEach(x=>L.push("- "+x)); dm.forEach(x=>L.push("- Dispositif : "+x)); ide.forEach(x=>L.push("- Soins infirmiers : "+x)); kine.forEach(x=>L.push("- Kinésithérapie : "+x)); para.forEach(x=>L.push("- Paramédical : "+x)); proto.forEach(x=>L.push("- Protocole insulinique : "+x));
   if(let_.length) L.push("- Courrier au spécialiste remis.");
+  {const ct=certTrace();if(ct)L.push("- Certificat remis ("+ct+").");}
   if(state.at.on) L.push("- Arrêt de travail fait"+(+state.at.jours>0?" : "+state.at.jours+" jour"+(+state.at.jours>1?"s":""):"")+".");
   if(state.nh.on&&nhTotal()>0) L.push("- Note d'honoraires n° "+nhNumero()+" remise ("+fmtEur(nhTotal())+(state.nh.hn?", acte hors nomenclature, tarif annoncé avant l'acte":"")+")"+(state.nh.statut==="differe"?" ; règlement différé convenu"+(state.nh.echeance?" au "+normDate(state.nh.echeance):"")+", reconnaissance de dette de "+fmtEur(nhReste())+" signée par le patient.":state.nh.statut==="refus"?" ; refus de paiement de la part restant à charge ("+fmtEur(nhReste())+") constaté à l'issue de la consultation"+(state.nh.temoin?" en présence de "+state.nh.temoin:"")+" ; soins et documents remis ; note d'honoraires remise valant facture.":"."));
   L.push("");
@@ -6979,8 +6986,7 @@ function fill(line){
    .replace(/\{acv\}/g,m=>{if(!a){miss.push("date de naissance (dose de ZOVIRAX)");return m;}if(a.m<3){miss.push("âge ≥ 3 mois pour ZOVIRAX buvable");return m;}return a.y<2?"2,5 ml (100 mg)":"5 ml (200 mg)";})
    .replace(/\{(homme|femme)\}/g,m=>{if(!state.sexe){miss.push("sexe (homme ou femme)");return m;}return "";})
    .replace(/\{patient\}/g,m=>state.patient||m)
-   .replace(/\{periode\}/g,m=>{const j=parseInt(state.jours);if(state.du&&state.au)return "du "+normDate(state.du)+" au "+normDate(state.au)+" inclus";if(state.du&&j)return "pendant "+j+" jour"+(j>1?"s":"")+" à compter du "+normDate(state.du);if(j)return "pendant "+j+" jour"+(j>1?"s":"")+" à compter de ce jour";if(state.du)return "à compter du "+normDate(state.du);return "ce jour";})
-   .replace(/\{duree\}/g,m=>{const j=parseInt(state.jours);if(!j){miss.push("durée en jours");return m;}return "pendant "+j+" jour"+(j>1?"s":"")+" à compter de ce jour";});
+   .replace(/\{periode\}|\{duree\}/g,m=>{const c=certPeriod();return "du "+c.du+" au "+c.au+" inclus";});
   s=s.replace(/\{(agelt|wlt):([\d.]+)\|([^{}|]*)\|([^{}]*)\}/g,(m,kind,n,low,high)=>{if(kind==="agelt"){const lab=(+n<1?Math.round(+n*12)+" mois":n+" ans");if(!a){adv.push("Vigilance : prescription standard imprimée (« "+high+" ») ; avant "+lab+" ce serait « "+low+" » — renseigner la date de naissance pour l'adapter");return high;}if(a.m<Math.round(+n*12)){adv.push("Adapté à l'âge : "+low+" (moins de "+lab+")");return low;}return high;}if(!p){adv.push("Vigilance : prescription standard imprimée (« "+high+" ») ; sous "+n+" kg ce serait « "+low+" » — renseigner le poids pour l'adapter");return high;}if(p<+n){adv.push("Adapté au poids : "+low+" (moins de "+n+" kg)");return low;}return high;});
   let drop=false;if(!miss.length){const ae=ageEdit(s);s=ae.s;drop=ae.drop;if(!drop){const ce=ctxEdit(s);s=ce.s;drop=ce.drop;}
     if(!drop){const pw=parseFloat((state.poids||"").replace(",","."));if(pw>27&&/^TIORFAN enfant 30 mg sachets : 2 sachets/.test(s)){s=s.replace("2 sachets","3 sachets");}}}
@@ -7244,6 +7250,16 @@ AT_DUREES.unshift([/gastro|diarrh/i,"3 (Docteur DEIE)"],[/angine/i,"2 à 3 (Doct
 AT_DUREES.unshift([/rougeole/i,"éviction jusqu'à 5 jours après le début de l'éruption"]);
 AT_DUREES.unshift([/cervicalgie|torticolis/i,"1, 3, 8 ou 15 selon le poste (référentiel CNAM)"],[/traumatisme du genou|entorse du genou/i,"bénigne 0 à 3, moyenne 3 à 14, grave 3 à 21 selon le poste (référentiel CNAM)"],[/poignet/i,"entorse bénigne 3 à 14, moyenne 7 à 21 selon le poste ; fracture du scaphoïde 7 à 90 (référentiel CNAM)"],[/fracture de côte/i,"1 à 3 côtes : 7, 14, 21 ou 28 selon le poste (référentiel CNAM)"],[/épaule douloureuse/i,"tendinopathie de la coiffe : 5, 8, 15 ou 21 selon le poste (référentiel CNAM)"]);
 function atDureeSugg(n){ for(const [r,d] of AT_DUREES){ if(r.test(n)) return d; } return ""; }
+/* 17/10/2026 : certificats avec durée — 1 jour par défaut, modifiable ; du (date de la consultation par défaut) au … inclus */
+function certJours(){const j=parseInt(state.jours,10);return j>0?Math.min(j,365):1;}
+function certPeriod(){const du=normDate(state.du||"")&&/^\d{2}\/\d{2}\/\d{4}$/.test(normDate(state.du))?normDate(state.du):normDate(state.date||todayFR());const j=certJours();return {j,du,au:addDays(du,j)||du};}
+function certPacks(){const out=[];try{selIdx().forEach(i=>{const P=PACKS[i];if(P&&P.s.some(sh=>sh.k==="cert"&&sh.l.some(l=>(typeof l==="string"||(l&&!l.grp&&!l.opt))&&/\{periode\}|\{duree\}/.test(typeof l==="string"?l:(l&&l.t)||""))))out.push(P.n);});}catch(e){}
+  try{const p=currentPack();if(p)p.s.forEach((sh,si)=>{if(sh.k!=="cert"||state.off[si])return;resolve(sh,si).forEach(x=>{if(x.on&&/\{periode\}|\{duree\}/.test(String(x.t||"")))out.push(p.n);});});}catch(e){}
+  return [...new Set(out)];}
+function certTrace(){const L=certPacks();if(!L.length)return "";const c=certPeriod();return L.map(n=>n.replace(/^Certificats? (?:— )?/,"")).join(", ")+" : "+c.j+" jour"+(c.j>1?"s":"")+", du "+c.du+" au "+c.au+" inclus";}
+function certDurHTML(id){const c=certPeriod();return `<div class="certdur" role="group" aria-label="Durée du certificat"><span class="cdl">Durée du certificat</span><button type="button" class="btn s cdb" data-cd="-1" aria-label="Un jour de moins" ${c.j<=1?"disabled":""}>−</button><input id="${id}" data-cdin inputmode="numeric" value="${c.j}" aria-label="Nombre de jours"><button type="button" class="btn s cdb" data-cd="1" aria-label="Un jour de plus">+</button><span>jour${c.j>1?"s":""}</span><label class="cdu">à partir du <input data-cddu value="${esc(state.du||"")}" placeholder="${esc(c.du)}" inputmode="numeric"></label><span class="cdp">du <b>${esc(c.du)}</b> au <b>${esc(c.au)}</b> inclus</span></div>`;}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-cd]");if(!b)return;state.jours=String(Math.max(1,Math.min(365,certJours()+(+b.dataset.cd))));try{draftSaveSoon();}catch(e){}render();});
+document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.matches)return;if(t.matches("[data-cdin]")){const v=parseInt(String(t.value).replace(/\D/g,""),10);state.jours=String(v>0?Math.min(v,365):1);render();}else if(t.matches("[data-cddu]")){state.du=normDate(t.value)||"";render();}});
 function addDays(dmy,n){ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(normDate(dmy)); if(!m||!n) return ""; const d=new Date(+m[3],+m[2]-1,+m[1]+(+n)-1); return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear(); }
 function nhReste(){const n=state.nh;const v=parseFloat(String(n.reste||"").replace(",","."));return isNaN(v)?nhTotal():v;}
 function nhTotal(){ return state.nh.lignes.reduce((a,l)=>a+(parseFloat(String(l.montant).replace(",","."))||0),0); }
@@ -7483,7 +7499,7 @@ function journalUpsert(p){
   let e=JOURNAL.find(x=>norm(x.patient)===key&&now-x.ts<2*3600*1000);
   const _ct=cotTimes(now);
   if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
-  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;}catch(x){}
+  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
   if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
   journalSave();
 }
@@ -7558,7 +7574,7 @@ function renderJournal(){
   let tot=0,exo=0;
   const rows=es.map(e=>{const c=cotCompute(e);tot+=c.total;exo+=c.exo;const t=new Date(e.ts);const has=k=>c.codes.some(x=>x.c===k);
     const tog=(k,l)=>`<button type="button" class="lc${has(k)?" on":""}" data-jt="${e.id}" data-code="${k}">${l}</button>`;
-    return `<div class="jrow"><div class="jmain"><button type="button" class="lc jh" data-jh="${e.id}" title="Modifier l'heure de l'acte (cotation)">${fmtHM(e.tActe||e.ts)}</button> ${esc(e.patient)}<span class="pcd" title="Code patient (ce code seul sort de l'appareil)">${esc(patCode(e))}</span>${e.age!=null?` <span class="hint">${e.age} ans</span>`:""}<div class="hint">${esc(e.pack)}</div><div class="hint">${e.tArr?"Arrivée "+fmtHM(e.tArr)+" · ":""}Acte ${fmtHM(e.tActe||e.ts)} · Validation ${fmtHM(e.tFin||e.ts)}${(e.appels||[]).map(c=>" · Appel "+fmtHM(c.ts)+(c.annonce?" (arrivée annoncée "+esc(c.annonce)+")":"")).join("")}</div>${e.at?`<div class="hint">Arrêt de travail fait${e.at.j?" : "+e.at.j+" j":""}</div>`:""}${(e.notes||[]).map(n=>`<div class="hint">Ordonnance sécurisée manuscrite : ${esc(n)}</div>`).join("")}</div>
+    return `<div class="jrow"><div class="jmain"><button type="button" class="lc jh" data-jh="${e.id}" title="Modifier l'heure de l'acte (cotation)">${fmtHM(e.tActe||e.ts)}</button> ${esc(e.patient)}<span class="pcd" title="Code patient (ce code seul sort de l'appareil)">${esc(patCode(e))}</span>${e.age!=null?` <span class="hint">${e.age} ans</span>`:""}<div class="hint">${esc(e.pack)}</div><div class="hint">${e.tArr?"Arrivée "+fmtHM(e.tArr)+" · ":""}Acte ${fmtHM(e.tActe||e.ts)} · Validation ${fmtHM(e.tFin||e.ts)}${(e.appels||[]).map(c=>" · Appel "+fmtHM(c.ts)+(c.annonce?" (arrivée annoncée "+esc(c.annonce)+")":"")).join("")}</div>${e.at?`<div class="hint">Arrêt de travail fait${e.at.j?" : "+e.at.j+" j":""}</div>`:""}${e.cert?`<div class="hint">Certificat ${esc(e.cert.t)}</div>`:""}${(e.notes||[]).map(n=>`<div class="hint">Ordonnance sécurisée manuscrite : ${esc(n)}</div>`).join("")}</div>
      <div class="jcodes">${c.codes.map(x=>`<span class="chip">${x.c} ${fmtEur(x.v)}</span>`).join("")}${e.impaye?`<span class="chip imp">Impayé ${fmtEur(e.impaye)}</span>`:""}${gardeHors(e.ts)?`<span class="chip hors" title="Enregistré en dehors des horaires de la garde du jour">hors horaires</span>`:""}</div>
      <div class="jact">${tog("MEG","MEG")}${tog("MOP","MOP")}${tog("DEQP003","ECG")}${e.lieu==="visite"?tog("MD","MD"):""}<button type="button" class="lc${e.lieu==="visite"?" on":""}" data-jl="${e.id}">Visite</button><b class="jtot">${fmtEur(c.total)}</b><button type="button" class="jdel" data-jdel="${e.id}" title="Supprimer cette ligne du journal">Supprimer</button></div></div>`;}).join("");
   const year=new Date().getFullYear(); const b=exoBilan(year);
@@ -15828,12 +15844,7 @@ function renderCore(){XP.dict=false;
   let extra="";
   if(p.fields){
     const dates=p.fields.filter(x=>["du","au","jours"].includes(x)), texts=p.fields.filter(x=>!["du","au","jours"].includes(x));
-    if(dates.length){
-      extra+='<div class="patient" style="grid-template-columns:repeat(3,1fr)">';
-      if(dates.includes("du")) extra+=`<div><label>Du</label><input id="f_du" value="${esc(state.du)}" placeholder="08102026" inputmode="numeric"></div><div><label>Au</label><input id="f_au" value="${esc(state.au)}" placeholder="10102026" inputmode="numeric"></div>`;
-      if(dates.includes("jours")) extra+=`<div><label>Durée (jours)${dates.includes("du")?" — ou bien Du / Au":""}</label><input id="f_jours" value="${esc(state.jours)}" placeholder="15" inputmode="numeric"></div>`;
-      extra+="</div>";
-    }
+    if(dates.length&&!certPacks().length){ /* certificats avec durée : réglage commun ci-dessous */ }
     if(texts.length){
       extra+='<div class="patient" style="grid-template-columns:1fr">';
       texts.forEach(k=>{extra+=k==="lesions"?`<div><label>${FIELDS[k]||k}</label><textarea id="ff_${k}" data-f="${k}" rows="4">${esc(state.f[k]||"")}</textarea></div>`:`<div><label>${FIELDS[k]||k}</label><input id="ff_${k}" data-f="${k}" value="${esc(state.f[k]||"")}"></div>`;});
@@ -15842,6 +15853,7 @@ function renderCore(){XP.dict=false;
       if(texts.includes("lesions")) extra+=opt("les","Décrire une lésion (schéma + chips)",(state.f.lesions?"renseigné":"à faire"),bodyMap("lesions")+lesionBuilder());
     }
   }
+  if(certPacks().length)extra=certDurHTML("f_jours")+extra;
   const cotR=(()=>{const c=state.cot;const _a=ageY();return cotCompute({ts:Date.now(),lieu:c.lieu,ecg:c.ecg,km:c.km,age:_a?_a.y:null,extra:[],minus:[]});})();
   const extraOpts=`<div class="optgrid">`+opt("cot","Cotation",cotR.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(cotR.total),cotBox())+opt("pho","Photos",state.photos.length?state.photos.length+" photo(s)":"aucune",photosUI())+opt("nh","Note d'honoraires",state.nh.on?(state.nh.statut==="paye"?"acquittée":state.nh.statut==="differe"?"règlement différé":"refus constaté")+" — "+fmtEur(nhTotal()):"non",nhUI())+opt("at","Arrêt de travail",state.at.on?"fait"+(+state.at.jours>0?", "+state.at.jours+" j":""):"non",atUI(p))+`</div>`+scoresUI(p);
   const advBox=advices.size?`<div class="adv">${[...advices].map(a=>"• "+esc(a)).join("<br>")}</div>`:"";
@@ -17147,7 +17159,8 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];const ne
   if(favHas("f:f_gross")&&state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>${favStar("f:f_gross","Grossesse")}</span>`);
   if(favHas("x:cem")&&cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>${favStar("x:cem","Certificat enfant malade")}</span>`);}
   if(favHas("sec:at"))H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_at" ${state.at&&state.at.on?"checked":""}> Arrêt de travail fait</label>${favStar("sec:at","Arrêt de travail")}</span>${state.at&&state.at.on?`<label class="xp-f sm">jours <input id="xp_atj" value="${esc(state.at.jours||"")}" inputmode="numeric" placeholder="facultatif"></label>`:""}`);
-  return H.length?`<div class="xp-fields">${H.join("")}</div>`:"";}
+  const cd=certPacks().length?certDurHTML("xp_jours"):"";
+  return (H.length?`<div class="xp-fields">${H.join("")}</div>`:"")+cd;}
 /* alertes : fixées dans l'Express (jamais bloquantes) */
 function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=ageMismatchHTML();}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}

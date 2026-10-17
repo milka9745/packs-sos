@@ -2,8 +2,8 @@
   "version": "41l",
   "date": "2026-10-17",
   "notes": [
-    "Express visite : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; le compte rendu est copié dans le même geste.",
-    "Favoris : une étoile ☆ sur chaque élément de l'écran complet l'ajoute à votre Express ; « Revenir à l'Express par défaut » dans ⋯.",
-    "Cotation : « VG + MU » ; ECG 14,77 € (DEQP003) et, en visite, supplément YYYY490 9,60 € ; association allongeant le QT : motif et ECG tracés."
+    "Express visite et favoris : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; étoile ☆ pour composer votre Express.",
+    "Certificats avec durée : 1 jour par défaut, − / +, « du … au … inclus » imprimé et noté au compte rendu.",
+    "Cotation : « VG + MU » ; ECG 14,77 € et, en visite, supplément YYYY490 9,60 €."
   ]
 }
