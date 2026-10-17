@@ -554,6 +554,11 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .appver{font-size:11px;font-weight:600;color:var(--muted);opacity:.85;letter-spacing:.2px;align-self:center;white-space:nowrap;padding:0 4px}
 .jbar.phone .appver{margin-left:auto}.jm-ver{min-height:34px;display:flex;align-items:center;font-size:12.5px;color:var(--muted);font-weight:600;padding:0 4px;flex-shrink:0}
 @media print{.appver,.jm-ver{display:none!important}}
+
+/* 17/10/2026 (essai : « Envoyer à l'imprimante » tronqué en « l'ir ») : sur iPhone, un libellé ne se coupe jamais — il passe à la ligne, les rangées de boutons aussi */
+@media(max-width:760px){.btn,.lc{white-space:normal!important;overflow-wrap:anywhere}.tc-row2,.tc-add,.pb2,.act.dock,.xp-acts,.tc-alt,.tc-main,.tp-call,.tc-next{flex-wrap:wrap!important}
+  .tc-row2>.btn,.tc-row2>a.btn,.tc-row2>button:not(.favstar){min-width:min(9.5em,100%)!important;flex:1 1 auto!important;width:auto!important}.tc-row2>.favstar{flex:0 0 auto!important}.tc-add>span{min-width:0}.tc-addv{flex:1 1 100%!important}
+  .pb2>.btn{flex:1 1 auto;min-width:min(8em,100%)}.act.dock.phone>.btn{flex:1 1 auto;min-width:min(9em,100%)}}
 /* 17/10/2026 — Express visite */
 /* 17/10/2026 (h) — favoris */
 .hasfav{position:relative}.favstar{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;font-size:20px;line-height:1;color:#B8860B;border-radius:8px;flex:0 0 auto}
@@ -1954,8 +1959,9 @@ html[data-vivid] #tc_arrive:not(.act-now),html[data-vivid] #fin:not(.act-now){fo
 </style>
 <style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
 @media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
+.page .testwm{position:absolute;left:-10%;right:-10%;top:42%;text-align:center;font:900 40px Arial,sans-serif;letter-spacing:2px;color:rgba(208,2,27,.16);transform:rotate(-28deg);pointer-events:none;z-index:5;white-space:nowrap}
 #testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style></head>
-<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41n</div>
+<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41o</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -3693,11 +3699,12 @@ const PACKS_V40=[
 
 /* ---------- 34 OTITE MOYENNE AIGUË ---------- */
 {n:"Otite moyenne aiguë — enfant",k:"otite oma enfant oreille tympan otalgie mal à l'oreille oreille qui coule",s:[
- {k:"med",l:[{t:"CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.4|15} matin et soir, pendant {agelt:2|10 jours|5 jours}.",grp:"atb",sr:"r"},
+ {k:"med",l:[{t:"CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.425|15} matin et soir, sans dépasser 15 ml par prise, pendant {agelt:2|10 jours|5 jours} (indiqué : amoxicilline 80 à 90 mg/kg/j en 2 prises, 3 g par jour au maximum ; HAS 2016).",grp:"atb",sr:"r"},
   {t:"AUGMENTIN 100 mg/12,5 mg par ml poudre pour suspension buvable (enfant de moins de 40 kg) : {ml:0.27|10} 3 fois par jour au début des repas pendant {agelt:2|10 jours|5 jours} (indiqué en cas de syndrome otite-conjonctivite ou d'échec de l'amoxicilline à 48-72 h).",grp:"atb",sr:"r"},
   {t:"ORELOX 40 mg/5 ml suspension buvable : {ml:0.5|12.5} matin et soir au cours des repas pendant {agelt:2|10 jours|5 jours} (allergie à la pénicilline sans signe de gravité).",grp:"atb",sr:"r"},
   {t:"BACTRIM 40 mg/ml + 8 mg/ml suspension buvable (cotrimoxazole, ex-BACTRIM pédiatrique) : {ml:0.375|10} matin et soir au cours des repas pendant {agelt:2|10 jours|5 jours} (si contre-indication à toutes les bêta-lactamines).",grp:"atb",sr:"r"},
-  DOLI_E]},
+  DOLI_E,
+  {t:"{agemin:0.5|CILOXADEX}CILOXADEX 3 mg/1 mg par ml suspension pour instillation auriculaire : 4 gouttes dans l'oreille qui coule, matin et soir, pendant 7 jours (si aérateurs transtympaniques ou otorrhée ; à partir de 6 mois, RCP).",opt:true}]},
  {k:"cons",l:[{t:"Traitement de la douleur seul : si la fièvre ou la douleur persistent après 48 à 72 heures, reconsulter pour un antibiotique.",sr:"s"},{t:"Donner l'antibiotique jusqu'au bout même si l'enfant va mieux ; la fièvre et la douleur doivent céder en 48 à 72 heures.",sr:"r"},"Lavages de nez ; un écoulement de l'oreille peut survenir (perforation qui cicatrise).","Reconsulter si la fièvre ou la douleur persistent au-delà de 48 heures, en cas de gonflement derrière l'oreille, de raideur de nuque, de somnolence ou de visage qui se paralyse."]},
 
  memoL1("Pack simple = enfant ≥ 2 ans peu symptomatique : traitement symptomatique et réévaluation à 48-72 h. Pack à risque = enfant < 2 ans, otalgie intense, fièvre élevée, otorrhée : antibiotique d'emblée. Doses : amoxicilline 80 à 90 mg/kg/j (max 3 g/j), 10 jours avant 2 ans, 5 jours après.","Gravité : décollement du pavillon, tuméfaction rétro-auriculaire → urgences (mastoïdite) ; paralysie faciale, vertige intense, syndrome méningé → 15 ; nourrisson < 3 mois → urgences.","OMA purulente = tympan bombant ou opaque et inflammatoire, ou otorrhée purulente, avec signes généraux. Tympan congestif ou otite séro-muqueuse : pas d'antibiotique. Pas de gouttes auriculaires.","Vérification — bloquant : mastoïdite, âge < 3 mois, poids si antibiotique ; à documenter : aspect des deux tympans, âge, allergie. Traçabilité : otoscopie bilatérale, poids, réévaluation à 48-72 h si abstention.","Fiches voisines : Otite externe · Rhinopharyngite / toux — enfant · Fièvre — enfant. Durée de visite 15 min.","Sources : HAS, SFP, GPIP, SPILF — fiche mémo Otite moyenne aiguë purulente de l'adulte et de l'enfant (2016, actualisée 2021). "+STATUT_L1)]},
@@ -3912,7 +3919,7 @@ const PACKS_V40_B2=[
 
 /* ---------- 35 OTITE EXTERNE ---------- */
 {n:"Otite externe",k:"otite externe oreille baignade piscine conduit douleur oreille tirer pavillon",s:[
- {k:"med",l:[{t:"CILOXADEX solution auriculaire (ciprofloxacine + dexaméthasone) : 4 gouttes dans l'oreille atteinte matin et soir pendant 7 jours, allongé oreille vers le haut 5 minutes après chaque instillation.",grp:"oe"},
+ {k:"med",l:[{t:"{agemin:1|CILOXADEX}CILOXADEX solution auriculaire (ciprofloxacine + dexaméthasone) : 4 gouttes dans l'oreille atteinte matin et soir pendant 7 jours, allongé oreille vers le haut 5 minutes après chaque instillation (à partir de 1 an dans l'otite externe, RCP).",grp:"oe"},
   {t:"OFLOCET 1,5 mg/0,5 ml solution auriculaire unidose : 1 unidose dans l'oreille atteinte matin et soir pendant 7 jours, allongé oreille vers le haut 5 minutes (indiqué si tympan perforé ou non visible ; hors AMM dans l'otite externe).",grp:"oe"},
   {t:"POLYDEXA solution auriculaire : {agelt:15|1 à 2 gouttes|1 à 5 gouttes} dans l'oreille atteinte matin et soir pendant 7 jours (sauf tympan perforé ou douteux).",grp:"oe"},
   {t:"PANOTILE solution auriculaire : 3 à 6 gouttes dans l'oreille atteinte matin et soir pendant 7 jours (sauf tympan perforé ou douteux).",grp:"oe"},
@@ -7057,7 +7064,10 @@ const PACK_FLAGS=[
 function autoFlagsFromPack(){const idx=selIdx();idx.forEach(i=>{if(state.ui.flagged[i])return;state.ui.flagged[i]=1;const n=PACKS[i].n;PACK_FLAGS.forEach(([re,fn])=>{if(re.test(n)){const msg=fn(state);if(msg)state.autoNotes.push(msg);}});});
  const at=(state.obs.atcd||"")+" "+state.tt.join(" ");if(!state.allergie&&/allerg\w*[^.;]{0,40}(pénicillin|penicillin|amoxicill|augmentin|clamoxyl)/i.test(at)){state.allergie=true;state.autoNotes.push("Allergie aux pénicillines cochée d'après les antécédents");}}
 /* v40 : pack simple / à risque. Par défaut : à risque en visite, à partir de 75 ans ou en cas de grossesse ; modifiable d'un geste (boutons sous le titre du pack). */
-function riskMode(){ if(state.risk==="r") return true; if(state.risk==="s") return false; const a=ageY(); return state.cot.lieu==="visite"||!!(a&&a.y>=75)||!!state.grossesse; }
+function riskMode(){ if(state.risk==="r") return true; if(state.risk==="s") return false; const a=ageY();
+  /* 17/10/2026 : otite moyenne aiguë avant 2 ans → antibiotique d'emblée (HAS 2016) */
+  if(a&&a.y<2&&selIdx().some(i=>/^Otite moyenne aiguë — enfant|^Syndrome otite-conjonctivite/.test(PACKS[i].n)))return true;
+  return state.cot.lieu==="visite"||!!(a&&a.y>=75)||!!state.grossesse; }
 function expand(sh,si){
   const out=[];
   sh.l.forEach((l,li)=>{
@@ -7479,7 +7489,7 @@ function lockScreen(mode,msg){
   document.body.classList.add("locked");
   if(mode==="setup"){el.innerHTML=`<div class="lockbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Docteur Mickaël DEIE — SOS Médecins Orléans</small></div></div><div class="lockttl">Créez un code de verrouillage</div><div class="hint">4 à 6 chiffres. Il chiffre le journal de garde et la consultation en cours sur cet appareil.${hasCrypto?"":" <b>Chiffrement indisponible dans ce navigateur : le code bloque seulement l'accès à l'écran.</b>"}</div><input id="uid" type="text" class="uid" placeholder="Identifiant (ex. mdeie)" autocomplete="username" autocapitalize="none"><input id="pin1" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Code" autocomplete="off"><input id="pin2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Confirmer" autocomplete="off"><div class="lockmsg">${esc(msg||"")}</div><button class="btn p" id="pin_ok">Activer</button></div>`;}
   else if(mode==="recovery"){el.innerHTML=`<div class="lockbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Docteur Mickaël DEIE — SOS Médecins Orléans</small></div></div><div class="lockttl">Clé de secours</div><div class="hint">Saisissez la clé de secours remise à la création du code (4 groupes de 4 caractères). Elle permet de définir un nouveau code sans rien perdre.</div><input id="rec1" type="text" autocapitalize="characters" autocomplete="off" placeholder="XXXX-XXXX-XXXX-XXXX" style="letter-spacing:2px;font-size:16px"><div class="lockmsg">${esc(msg||"")}</div><button class="btn p" id="rec_ok">Valider</button><button class="btn s" id="rec_back">Retour</button><div class="hint" style="margin-top:10px">Sans le code ni la clé de secours, les données chiffrées ne peuvent pas être récupérées ; elles ne sont jamais effacées automatiquement.</div></div>`;}
-  else{el.innerHTML=`<div class="lockbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Docteur Mickaël DEIE — SOS Médecins Orléans</small></div></div><div class="lockttl">Code de verrouillage</div><div class="hint">Le journal de garde et le brouillon sont chiffrés sur cet appareil.</div><input id="uid" type="text" class="uid" placeholder="Identifiant" autocomplete="username" autocapitalize="none" value="${esc(localStorage.getItem("sos_uid_hint")||"")}"><input id="pin1" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Code" autocomplete="off"><div class="lockmsg">${esc(msg||"")}</div><button class="btn p" id="pin_ok">Déverrouiller</button><button class="btn s" id="pin_forgot">Code oublié</button><div class="lockfoot">Données chiffrées localement · AES-256 · version ${APP_VERSION}</div></div>`;}
+  else{el.innerHTML=`<div class="lockbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Docteur Mickaël DEIE — SOS Médecins Orléans</small></div></div><div class="lockttl">Code de verrouillage</div><div class="hint">Le journal de garde et le brouillon sont chiffrés sur cet appareil.</div><input id="uid" type="text" class="uid" placeholder="Identifiant" autocomplete="username" autocapitalize="none" value="${esc(localStorage.getItem("sos_uid_hint")||"")}"><input id="pin1" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Code" autocomplete="off"><div class="lockmsg">${esc(msg||"")}</div><button class="btn p" id="pin_ok">Déverrouiller</button><button class="btn s" id="pin_forgot">Code oublié</button><div class="lockfoot">Données chiffrées localement · AES-256 · ${esc(appVerFull())}</div></div>`;}
   const go=async()=>{const p1=$("#pin1").value.trim();const u=idn(($("#uid")||{}).value);if(!u||u.length<3){$(".lockmsg").textContent="Identifiant : 3 caractères au minimum.";return;}if(!/^\d{4,6}$/.test(p1)){$(".lockmsg").textContent="Code : 4 à 6 chiffres.";return;}
     if(mode==="setup"){if(p1!==$("#pin2").value.trim()){$(".lockmsg").textContent="Les deux codes diffèrent.";return;}if(hasCrypto){const rec=await secSetup(p1,u);localStorage.setItem("sos_uid_hint",u);localStorage.setItem("sos_pin_len",String(p1.length));showRecovery(rec,"Notez cette clé de secours et rangez-la hors de l'appareil (portefeuille, gestionnaire de mots de passe). Elle seule permet de retrouver vos données si vous oubliez le code. Elle ne sera plus affichée.");}else{lsSet("sos_sec",{nocrypto:true,pin:p1,uid:u});localStorage.setItem("sos_uid_hint",u);localStorage.setItem("sos_pin_len",String(p1.length));unlockDone();}return;}
     if(SEC.fails>=5){$(".lockmsg").textContent="Trop d'essais : attendez 30 secondes.";setTimeout(()=>{SEC.fails=0;const m=$(".lockmsg");if(m)m.textContent="";},30000);return;}
@@ -15909,7 +15919,7 @@ function renderCore(){XP.dict=false;
    <label${IDENT.on?"":' title="Profil non activé : SPÉCIMEN — NON SIGNÉ"'}><input type="checkbox" id="f_cachet" ${state.cachet?"checked":""} ${IDENT.on?"":"disabled"}> Signature et cachet${IDENT.on?"":" (profil non activé)"}</label>
    <label ${canPreg?"":'style="display:none"'}><input type="checkbox" id="f_gross" ${state.grossesse?"checked":""}> Grossesse</label>${state.grossesse?`<label class="sa">DDR <input id="f_sa" inputmode="numeric" value="${esc(state.sa)}" placeholder="jjmmaaaa (ou SA)" style="width:120px"><span class="hint" id="sa_tri">${(()=>{const i=saInfo();return i?i.sa+" SA"+(i.ddr&&i.days?" + "+i.days+" j":"")+" · "+i.tri+" · terme ≈ "+i.terme:"date des dernières règles, ou nombre de SA";})()}</span></label>`:""}
    <label ${canPreg?"":'style="display:none"'}><input type="checkbox" id="f_allait" ${state.allait?"checked":""}> Allaitement</label>
-   <label ${needSexe||state.sexe||(_p0&&_p0.s.some(sh=>["let","cert"].includes(sh.k)))?"":'style="display:none"'}>Sexe <select id="f_sexe"><option value="" ${state.sexe===""?"selected":""}>—</option><option value="h" ${state.sexe==="h"?"selected":""}>Homme</option><option value="f" ${state.sexe==="f"?"selected":""}>Femme</option></select></label>
+   <label ${needSexe||state.sexe||state.ddn||(_p0&&_p0.s.some(sh=>["let","cert"].includes(sh.k)))?"":'style="display:none"'}>Sexe <select id="f_sexe"><option value="" ${state.sexe===""?"selected":""}>—</option><option value="h" ${state.sexe==="h"?"selected":""}>Homme</option><option value="f" ${state.sexe==="f"?"selected":""}>Femme</option></select></label>
    <label title="Certificats, courriers et consignes deux par feuille A4 (demi-pages) ; les ordonnances restent toujours en pleine page"><input type="checkbox" id="f_2up" ${PRINT2UP?"checked":""}> 2 documents par feuille A4 (hors ordonnances)</label>
 
   </div>
@@ -15964,7 +15974,7 @@ function renderCore(){XP.dict=false;
   const warn=missing.size?`<div class="warn">Pour imprimer sans trou, renseigne : ${[...missing].join(", ")}. Les lignes barrées seraient retirées de la feuille.</div>`:"";
   const alerts=checkAlerts(p.s);
   const thesList=thesAlerts(p.s);const thesBox=thesBoxHTML(thesList);const alerts2=alerts.filter(x=>!/^(⛔|⚠) /.test(x));
-  const alertBox=cstAbnormalHTML()+(!state.sexe&&p.s.some(sh=>["let","cert"].includes(sh.k))?`<div class="alert">Sexe du patient non renseigné : les accords du courrier et du certificat restent en « (e) ».</div>`:"")+ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
+  const alertBox=cstAbnormalHTML()+(!state.sexe&&(state.ddn||p.s.some(sh=>["let","cert"].includes(sh.k)))?`<div class="alert sexmiss">Sexe du patient non renseigné : les documents porteront « né(e) » et les accords en « (e) ». Précisez-le (champ « Sexe »).</div>`:"")+ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
   const adaptAll=[...new Set([...(state.autoNotes||[]),...Object.values(ADAPT_NOTES).flat()])];
   const adaptBox=adaptAll.length?`<div class="adapt">Adapté automatiquement à l'âge et au poids : ${adaptAll.map(esc).join(" · ")}</div>`:"";
   const multiNote=p.merged?`<div class="hint" style="margin:0 0 10px;display:none">Packs combinés : les lignes identiques n'apparaissent qu'une fois ; antibiotiques et antalgiques de palier 2 forment un seul choix. Le bouton – dans la liste retire un pack.</div>`:"";
@@ -16182,7 +16192,7 @@ async function finishPrint(p,out,removed){
   state.lastPrint={n:sheetCount(out),sent:false,ts:Date.now()};
   const top=phone?`<div class="printbar top phone"><button class="btn s" id="pb_back2" type="button">← Modifier</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${stepsHTML(3)}</div>`
     :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf2" type="button">⬇ Enregistrer en PDF</button><span class="pdfst" id="pdf_st"></span><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
-  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">Envoyer à l'imprimante</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
+  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
     :`<div class="printbar"><button class="btn p" id="pb_print" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button><button class="btn s valid" id="pb_valid" type="button">✓ Valider le patient</button><button class="btn s" id="pb_back" type="button">Retour</button></div>`;
   const pr=$("#print");pr.classList.toggle("phone",phone);pr.innerHTML=top+out+bottom;
   document.title=(p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");
@@ -16216,7 +16226,7 @@ MEDS=buildMeds();
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41n",branch:"test",date:"17/10 18:12"};
+const APP_BUILD={v:"41o",branch:"test",date:"17/10 19:59"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -17191,12 +17201,12 @@ function xpGravite(p){if(!p)return "";const m=p.s.find(s=>s.k==="memo");if(!m)re
 /* ---- a. résumé d'une ligne par médicament (nom, dose, rythme, durée) ; dose au poids toujours visible ---- */
 function xpMeds(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}
   r.forEach(x=>{if(!x.on||x.jr)return;const raw=String(x.t||"");const w=XP_WRE.test(raw)||/mg\/kg|\/kg\b/i.test(raw);const miss=!!(x.fill&&x.fill.miss&&x.fill.miss.length);
-    let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{[^}]*\}/g,"…")).trim();out.push({t,w,miss});});});return out;}
+    let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{agemin:[^}]*\}/g,"").replace(/\{[^}]*\}/g,"…")).trim();out.push({t,w,miss,why:miss?x.fill.miss.join(", "):""});});});return out;}
 function xpNeedsW(p){if(!p)return false;return p.s.some(sh=>sh.k==="med"&&sh.l.some(l=>{const t=typeof l==="string"?l:l.t;return XP_WRE.test(t)||XP_ANTICOAG.test(t);}));}
 function xpPending(p){const why=[];if(!p)return why;if(!state.patient)why.push("nom du patient");
   try{const al=ciPending(checkAlerts(p.s));if(al.length)why.push(al.length>1?al.length+" alertes à décider":"1 alerte à décider");}catch(e){}
   try{if(ciLegal(p).length)why.push("règle de forme ou ligne incomplète");}catch(e){}
-  if(xpMeds(p).some(m=>m.miss))why.push("dose au poids : poids manquant");
+  {const M=xpMeds(p).filter(m=>m.miss);if(M.some(m=>/^poids/.test(m.why)))why.push("dose au poids : poids manquant");if(M.some(m=>/âge/.test(m.why)))why.push("médicament sous l'âge minimal");}
   if(cstAbnormal().length)why.push("constante à vérifier");
   return why;}
 function xpCot(){try{const c=state.cot;const a=ageY();const r=cotCompute({ts:Date.now(),lieu:c.lieu,ecg:c.ecg,km:c.km,age:a?a.y:null,extra:[],minus:[]});return r.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(r.total);}catch(e){return "";}}
@@ -17285,10 +17295,10 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
   const cd=certPacks().length?certDurHTML("xp_jours"):"";
   return (H.length?`<div class="xp-fields">${H.join("")}</div>`:"")+cd;}
 /* alertes : fixées dans l'Express (jamais bloquantes) */
-function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=cstAbnormalHTML()+ageMismatchHTML();}catch(e){}
+function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « né(e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
-  return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — poids manquant":""}</div>`).join("")}</div>`:""}
+  return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — "+esc(/^poids/.test(m.why)?"poids manquant":"non imprimé : "+m.why):""}</div>`).join("")}</div>`:""}
    ${favHas("x:docs")?`<div class="xp-line xp-n">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${favStar("x:docs","Documents")}</div>`:""}${favHas("sec:cot")?(()=>{const c=xpCot();return c?`<div class="xp-line xp-n"><span class="hint">Cotation ${esc(c)}</span>${favStar("sec:cot","Cotation")}</div>`:"";})():""}`;}
 function xpHTML(){if(!xpActive())return "";const p=currentPack();const s=xpStop();
   if(!p&&!s&&!state.patient&&!state.xpManual)return xpHomeHTML();
@@ -17755,7 +17765,7 @@ document.addEventListener("click",ev=>{const menu=document.getElementById("jmenu
 const PDFJOB={run:0,file:null,want:false,busy:false,n:0,done:0,err:""};
 function pdfStatus(msg){const el=$("#pdf_st"),b=$("#pb_send");
   if(el)el.textContent=msg!==undefined?msg:(PDFJOB.err?PDFJOB.err:PDFJOB.file?"PDF A4 prêt — "+PDFJOB.n+" page"+(PDFJOB.n>1?"s":"")+", une par document":PDFJOB.busy?"Préparation du PDF… "+PDFJOB.done+"/"+PDFJOB.n:"");
-  if(b){b.classList.toggle("ready",!!PDFJOB.file);b.classList.toggle("wait",!PDFJOB.file&&PDFJOB.busy);b.textContent=PDFJOB.file?(PDFJOB.want?"PDF prêt — toucher pour envoyer":"Envoyer à l'imprimante"):PDFJOB.busy?"Préparation… "+PDFJOB.done+"/"+(PDFJOB.n||"?"):"Envoyer à l'imprimante";}}
+  if(b){b.classList.toggle("ready",!!PDFJOB.file);b.classList.toggle("wait",!PDFJOB.file&&PDFJOB.busy);b.textContent=PDFJOB.file?(PDFJOB.want?"PDF prêt : toucher":"🖨 Imprimer"):PDFJOB.busy?"PDF "+PDFJOB.done+"/"+(PDFJOB.n||"?"):"🖨 Imprimer";}}
 function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.wantPrint=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
 function pdfScale(){return 2;}
 function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7"];let used="";
@@ -17950,7 +17960,7 @@ function identScreen(mode,msg){
      <label class="idl" id="id_filelbl" hidden>Fichier profil.json<input id="id_file" type="file" accept="application/json,.json,.kit" class="idf"></label>
      <div class="lockmsg">${esc(msg||"")}</div><button class="btn p" id="id_ok">Activer sur cet appareil</button>
      <button class="btn s" id="id_other" hidden>J'ai le fichier profil.json</button><button class="btn s" id="id_create">Créer mon profil (première installation)</button><button class="btn s" id="id_demo">Continuer en démonstration (SPÉCIMEN)</button>
-     <div class="lockfoot">AES-256-GCM · PBKDF2 ${KIT_ITER.toLocaleString("fr-FR")} itérations · version ${APP_VERSION}</div></div>`;
+     <div class="lockfoot">AES-256-GCM · PBKDF2 ${KIT_ITER.toLocaleString("fr-FR")} itérations · ${esc(appVerFull())}</div></div>`;
     let remote=KIT_EMBEDDED||null,searched=!!KIT_EMBEDDED;
     if(!KIT_EMBEDDED){kitRemote().then(k=>{remote=k;searched=true;const e=$("#id_src");if(!e)return;const io=$("#id_other");
       if(k){e.textContent="Profil publié n° "+(k.id||"")+" trouvé : seule la phrase est demandée.";if(io)io.hidden=false;}
@@ -17992,7 +18002,8 @@ function identScreen(mode,msg){
 }
 function toast(t){try{let x=document.getElementById("toast");if(!x){x=document.createElement("div");x.id="toast";document.body.appendChild(x);}x.textContent=t;x.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>x.classList.remove("on"),2600);}catch(e){}}
 /* Feuilles : en-tête, signature, mode SPÉCIMEN */
-function pageHead(){
+function pageHead(){return '<div class="testwm" aria-hidden="true">VERSION TEST — NE PAS UTILISER</div>'+pageHead0();}
+function pageHead0(){
   if(!IDENT.on)return `<div class="ph"><img src="${LOGO}" alt="SOS Médecins Orléans"><div class="dr"><b>SPÉCIMEN — NON SIGNÉ</b><i>Profil du prescripteur non activé</i></div></div>`;
   return `<div class="ph"><img src="${LOGO}" alt="SOS Médecins Orléans"><div class="dr"><b>${esc(DOCTOR.nom)}</b><i>${esc(DOCTOR.adeli)}</i>${DOCTOR.assoc.length?`<span>En association avec :</span>${DOCTOR.assoc.map(a=>"<span>"+esc(a)+"</span>").join("")}`:""}</div></div>`;
 }
