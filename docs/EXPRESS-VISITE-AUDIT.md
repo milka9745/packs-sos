@@ -115,3 +115,21 @@ Sur iPhone, les documents sont préparés pendant la dictée : au toucher, le PD
 L'Express se coupe dans ⋯ → « Express visite ». L'écran complet reste entier dans « Plus ».
 
 **Défaut trouvé en passant (en service sur main)** : le PDF iPhone mesurait mal la page et sortait toujours en 8,5 pt, même pour une ordonnance de 3 lignes. Corrigé ici : taille normale, réduite seulement si besoin, jamais sous 9 pt ; au-delà, c'est signalé.
+
+## 6. Favoris → Express (point h, 17/10/2026)
+
+- **Étoile** : chaque élément du mode complet porte une ☆. Un toucher l'ajoute à l'Express (★), un autre l'en retire. Éléments concernés :
+  - champs : nom, naissance, poids, date, allergies, traitements, options ;
+  - documents : chaque feuille et les courriers ;
+  - sections : observation, actions faites, cotation, photos, note d'honoraires, arrêt, localisation ;
+  - boutons : Fin de consultation, Imprimer.
+- **Affichage conditionnel conservé** : un favori n'apparaît que si le mode complet l'affiche à ce moment. Exemples : « Kinésithérapie » seulement si la fiche a cette feuille ; « Grossesse » seulement chez une femme de 15 à 49 ans ; rien sur l'accueil sans patient.
+- **Sécurité fixée**, sans étoile, impossible à retirer : ligne de gravité, résumé des doses, alertes (affichées dans l'Express), poids si enfant ou dose au poids.
+- **Retirables** : les éléments de départ de l'Express (Naviguer, Appeler, Grossesse, Certificat enfant malade, Arrêt de travail fait, Voir les documents, Cotation, Dictée) portent aussi ★.
+- **Par profil, chiffrés** : rangés sur l'appareil, chiffrés, sous le profil activé (ou « spécimen »). Ils partent aussi dans profil.json, chiffrés par la phrase maître, à la prochaine « Publier le profil » : retrouvés sur un autre appareil.
+- **⋯ → « Revenir à l'Express par défaut »** rétablit le jeu de départ de l'audit.
+- **Test** : `tests/test_favoris.py`, 70 tests à 375 px (jour, nuit, grand texte) et sur ordinateur.
+  - Ajout puis retrait d'« Allergies ».
+  - Absent de l'accueil, document favori présent ou absent selon la fiche.
+  - Persistance après rechargement.
+  - Stockage chiffré, profil.json.

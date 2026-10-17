@@ -533,6 +533,16 @@ html[data-theme="night"] .tc-steps li.done{background:#1F3B29;color:#8FD3A6}html
 #netbar .lc{color:inherit;border-color:currentColor}#netbar .nb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}#netbar ul{margin:4px 0;padding-left:18px}
 body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 /* 17/10/2026 — Express visite */
+/* 17/10/2026 (h) — favoris */
+.hasfav{position:relative}.favstar{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;font-size:20px;line-height:1;color:#B8860B;border-radius:8px;flex:0 0 auto}
+.favstar.on{color:#E0A800}.favstar:active{background:var(--line)}
+.sheet.hasfav>.favstar,.pcard.hasfav>.favstar,.obs.hasfav>.favstar,.docact.hasfav>.favstar,.lettres.hasfav>.favstar,.tt.hasfav>.favstar,.patient>div.hasfav>.favstar{position:absolute;top:2px;right:2px}
+details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!important}.tt.hasfav>label{padding-right:40px}
+.xp .xp-n{display:inline-flex;align-items:center;gap:2px;flex:1 1 140px}.xp .xp-acts .xp-n>a{flex:1}
+.xp .xp-favs{display:flex;flex-direction:column;gap:8px;margin:8px 0;padding:8px;border:1px dashed #E0A800;border-radius:12px}.xp .xp-favs[hidden]{display:none}
+.xp .xp-favs .infav{margin:0}
+.xp .xp-alerts{margin:6px 0}.xp .xp-al{font-size:14.5px;padding:5px 8px;margin:3px 0;border-radius:8px;background:rgba(224,168,0,.14);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xp .xp-al.ci{background:rgba(200,40,40,.14);color:var(--bad,#b00);font-weight:700}.xp .xp-al.open{white-space:normal}
+
 .xp{border:2px solid var(--line2);border-radius:14px;padding:12px;margin:8px 0 10px;background:var(--panel,transparent)}
 .xp .xp-hd{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}.xp .xp-hd b{font-size:19px}
 .xp .xp-acts{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.xp .xp-acts>*{min-height:48px;flex:1 1 140px;justify-content:center;text-align:center;display:inline-flex;align-items:center}
@@ -7367,6 +7377,7 @@ async function unlockDone(){SEC.unlocked=true;const el=$("#lock");if(el)el.remov
   JOURNAL=await secGet("sos_journal",[]);
   try{await tourLoad();}catch(e){}
   try{await identLoad();}catch(e){}
+  try{await favLoad();}catch(e){}
   try{await validLoad();}catch(e){}
   if(!window.__draftChecked){window.__draftChecked=1;try{const d=await secGet("sos_draft",null);if(d&&Date.now()-d.ts<12*3600*1000&&d.state&&(d.state.patient||d.state.sel!==null||(d.state.obs&&Object.values(d.state.obs).some(v=>typeof v==="string"&&v.trim())))){Object.assign(state,d.state);state.view="";window.__draftRestored=d.state.patient||"";}}catch(e){}}
   try{await dictHistLoad();}catch(e){}setTimeout(()=>{try{photosHydrate();phPurge();}catch(e){}},50);
@@ -17124,27 +17135,31 @@ function xpPropHTML(){const q=xpMotif();const c=xpCandidates(q);const pi=xpPropo
   return `<div class="xp-prop"><div class="xp-lbl">Fiche proposée${xpAgeCls()?" · "+({enfant:"enfant",adulte:"adulte",age:"sujet âgé"}[xpAgeCls()]):""}</div><div class="xp-pn">${esc(PACKS[pi].n)}</div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
    <div class="xp-acts"><button type="button" class="btn p big" id="xp_ok" data-xpok="${pi}">✓ Confirmer la fiche</button><button type="button" class="btn s" id="xp_list">Autre fiche</button></div>${lst}</div>`;}
 function xpHeadHTML(){const s=xpStop();const age=ageLabel();const vis=xpVisite();
-  const tel=s&&s.tel;const nav=vis&&s&&s.lat;
+  const tel=s&&s.tel&&favHas("x:call");const nav=vis&&s&&s.lat&&favHas("x:nav");
   return `<div class="xp-who"><b>${esc(state.patient||(s?stopName(s):"Nouveau patient"))}</b>${age?` · ${esc(age)}`:""}${state.sexe?` · ${state.sexe==="f"?"femme":"homme"}`:""}${xpMotif()?`<span class="xp-rm">Motif : ${esc(xpMotif())}</span>`:""}</div>
-   ${tel||nav?`<div class="xp-acts">${nav?`<a class="btn s" target="_blank" rel="noopener" href="${navUrl(navPref(),s)}">🧭 Naviguer</a>`:""}${tel?`<a class="btn s" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>`:""}</div>`:""}`;}
+   ${tel||nav?`<div class="xp-acts">${nav?`<span class="xp-n"><a class="btn s" target="_blank" rel="noopener" href="${navUrl(navPref(),s)}">🧭 Naviguer</a>${favStar("x:nav","Naviguer")}</span>`:""}${tel?`<span class="xp-n"><a class="btn s" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>${favStar("x:call","Appeler")}</span>`:""}</div>`:""}`;}
 function xpManualHTML(){return `<div class="xp-id"><label>Nom<input id="xp_nom" value="${esc(state.patient)}" placeholder="NOM Prénom" autocomplete="off"></label><label>Naissance<input id="xp_ddn" value="${esc(state.ddn)}" placeholder="jjmmaaaa" inputmode="numeric"></label><label class="w">Motif<input id="xp_motif" value="${esc(xpMotif())}" placeholder="fièvre, chute, lombalgie…" autocomplete="off"></label></div>`;}
-function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
-  if(cls==="enfant"||xpNeedsW(p))H.push(`<label class="xp-f${!state.poids?" need":""}">Poids (kg)${cls!=="enfant"?' <span class="hint">dose au poids</span>':""}<input id="xp_poids" value="${esc(state.poids)}" inputmode="decimal" placeholder="kg"></label>`);
-  if(state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>`);
-  if(cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>`);}
-  H.push(`<label class="xp-t"><input type="checkbox" id="xp_at" ${state.at&&state.at.on?"checked":""}> Arrêt de travail fait</label>${state.at&&state.at.on?`<label class="xp-f sm">jours <input id="xp_atj" value="${esc(state.at.jours||"")}" inputmode="numeric" placeholder="facultatif"></label>`:""}`);
-  return `<div class="xp-fields">${H.join("")}</div>`;}
+function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];const need=cls==="enfant"||xpNeedsW(p);
+  if(need||favHas("f:f_poids"))H.push(`<label class="xp-f${!state.poids&&need?" need":""}">Poids (kg)${need&&cls!=="enfant"?' <span class="hint">dose au poids</span>':""}<input id="xp_poids" value="${esc(state.poids)}" inputmode="decimal" placeholder="kg"></label>${need?"":favStar("f:f_poids","Poids")}`);
+  if(favHas("f:f_gross")&&state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>${favStar("f:f_gross","Grossesse")}</span>`);
+  if(favHas("x:cem")&&cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>${favStar("x:cem","Certificat enfant malade")}</span>`);}
+  if(favHas("sec:at"))H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_at" ${state.at&&state.at.on?"checked":""}> Arrêt de travail fait</label>${favStar("sec:at","Arrêt de travail")}</span>${state.at&&state.at.on?`<label class="xp-f sm">jours <input id="xp_atj" value="${esc(state.at.jours||"")}" inputmode="numeric" placeholder="facultatif"></label>`:""}`);
+  return H.length?`<div class="xp-fields">${H.join("")}</div>`:"";}
+/* alertes : fixées dans l'Express (jamais bloquantes) */
+function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=ageMismatchHTML();}catch(e){}
+  if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
   return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — poids manquant":""}</div>`).join("")}</div>`:""}
-   <div class="xp-line">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${(()=>{const c=xpCot();return c?` · <span class="hint">Cotation ${esc(c)}</span>`:"";})()}</div>`;}
+   ${favHas("x:docs")?`<div class="xp-line xp-n">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${favStar("x:docs","Documents")}</div>`:""}${favHas("sec:cot")?(()=>{const c=xpCot();return c?`<div class="xp-line xp-n"><span class="hint">Cotation ${esc(c)}</span>${favStar("sec:cot","Cotation")}</div>`:"";})():""}`;}
 function xpHTML(){if(!xpActive())return "";const p=currentPack();const s=xpStop();
   if(!p&&!s&&!state.patient&&!state.xpManual)return xpHomeHTML();
   const manual=!s;
-  XP.dict=true;const dict=dictCardHTML(true);
-  if(!p)return `<section class="xp xp-s1">${xpHeadHTML()}${manual?xpManualHTML():""}<div id="xp_prop">${xpPropHTML()}</div>${dict}${xpPlusHint()}</section>`;
+  let dict="";if(favHas("x:dict")){XP.dict=true;dict=dictCardHTML(true).replace('<span class="pcard-ai">','<span class="pcard-ai">'+favStar("x:dict","Dictée"));}
+  const favz=`<div class="xp-favs" id="xp_favs" hidden></div>`;
+  if(!p)return `<section class="xp xp-s1">${xpHeadHTML()}${manual?xpManualHTML():""}<div id="xp_prop">${xpPropHTML()}</div>${favz}${dict}${xpPlusHint()}</section>`;
   const g=xpGravite(p);
   return `<section class="xp xp-s2">${xpHeadHTML()}<div class="xp-fiche"><span class="xp-pn">${esc(p.n)}</span><button type="button" class="lc" id="xp_change">changer</button></div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
-   ${xpFieldsHTML(p)}${xpDocsHTML(p)}${dict}
+   ${xpAlertsHTML(p)}${xpFieldsHTML(p)}${xpDocsHTML(p)}${favz}${dict}
    <div class="xp-print"><button type="button" class="btn p big" id="xp_go">🖨 Imprimer et valider</button><div class="hint" id="xp_gost"></div></div>${xpPlusHint()}</section>`;}
 function xpPlusHint(){return "";}
 function xpBarsInMenu(){try{return isPhone()&&xpActive()&&!state.view;}catch(e){return false;}}
@@ -17179,6 +17194,47 @@ function xpBind(){document.body.classList.toggle("xpmode",!!(xpActive()&&documen
   document.querySelectorAll("[data-xpopen]").forEach(a=>a.onclick=()=>{xpOpenStop(a.dataset.xpopen);}); /* le lien de navigation s'ouvre dans le même toucher (visite) */
 }
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpset]");if(!b)return;lsSet("sos_xp",!xpOn());render();toast(xpOn()?"Express visite activé":"Express visite désactivé : écran complet");});
+/* ===================== 17/10/2026 (h) — FAVORIS → EXPRESS =====================
+   Chaque élément du mode complet porte une étoile : ☆ l'ajoute à l'Express, ★ l'en retire. Rangés par profil, chiffrés
+   (sur l'appareil avec la clé du journal, dans profil.json avec la phrase maître). Un favori n'apparaît que si le choix précédent l'appelle
+   (élément absent ou masqué dans le mode complet → absent de l'Express). Sécurité fixée, sans étoile : gravité, résumé des doses, alertes,
+   poids si enfant ou dose au poids. */
+const FAV_DEFAULT=["x:nav","x:call","f:f_gross","x:cem","sec:at","x:docs","sec:cot","x:dict"];
+const FAV={keys:null};
+const FAV_RULES=[
+  [".pcard .patient > div",e=>{const i=e.querySelector("input,select");return i&&i.id?"f:"+i.id:"";},e=>{const l=e.querySelector("label");return l?l.childNodes[0].textContent.trim():"";}],
+  [".pcard .opts > label",e=>{const i=e.querySelector("input,select");return i&&i.id?"f:"+i.id:"";},e=>e.textContent.trim().split("\n")[0].trim().slice(0,40)],
+  [".pcard .tt",e=>{const i=e.querySelector("input");return i&&i.id?"f:"+i.id:"";},e=>{const l=e.querySelector(":scope > label");return l?l.textContent.trim():"";}],
+  [".dictcard",()=>"x:dict",()=>"Dictée"],
+  [".obs",()=>"sec:obs",()=>"Observation et compte rendu"],
+  [".docact",()=>"sec:act",()=>"Actions faites"],
+  [".sheet",e=>{const c=e.querySelector("[data-sheet]");const p=currentPack();if(!c||!p)return "";const sh=p.s[+c.dataset.sheet];return sh?"doc:"+sh.k:"";},e=>{const l=e.querySelector(".hd label");return l?l.textContent.trim():"Document";}],
+  [".lettres",()=>"doc:lettres",()=>"Courriers"],
+  ["details.opt[data-opt]",e=>"sec:"+e.dataset.opt,e=>{const t=e.querySelector(".ot");return t?t.textContent.trim():"";}],
+  ["#fin",()=>"btn:fin",()=>"Fin de consultation"],
+  ["#go_only",()=>"btn:go_only",()=>"Imprimer"]];
+/* éléments rendus par l'Express lui-même (version compacte) ; les autres favoris sont les éléments du mode complet, déplacés */
+const FAV_NATIVE=new Set(["x:nav","x:call","f:f_gross","x:cem","sec:at","x:docs","sec:cot","x:dict","f:f_poids"]);
+function favKeys(){return FAV.keys||FAV_DEFAULT;}
+function favHas(k){return favKeys().includes(k);}
+function favProf(){try{return IDENT.on&&IDENT.kitId?IDENT.kitId:"specimen";}catch(e){return "specimen";}}
+async function favLoad(){try{const v=await secGet("sos_xpfav_"+favProf(),null);FAV.keys=Array.isArray(v)?v.filter(x=>typeof x==="string"):null;}catch(e){FAV.keys=null;}}
+function favSave(){try{if(FAV.keys)secSet("sos_xpfav_"+favProf(),FAV.keys);else secRemove("sos_xpfav_"+favProf());}catch(e){}}
+function favToggle(k){const L=favKeys().slice();const i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);FAV.keys=L;favSave();render();
+  toast(i>=0?"Retiré de l'Express":"Ajouté à l'Express (affiché quand il s'applique)");}
+function favReset(){FAV.keys=null;favSave();render();toast("Express par défaut rétabli");}
+function favStar(k,lbl){const on=favHas(k);return `<button type="button" class="favstar${on?" on":""}" data-favk="${esc(k)}" aria-pressed="${on}" title="${on?"Retirer de l'Express":"Ajouter à l'Express"}" aria-label="${esc((on?"Retirer de l'Express : ":"Ajouter à l'Express : ")+(lbl||k))}">${on?"★":"☆"}</button>`;}
+/* étoiles sur le mode complet, puis favoris amenés dans l'Express s'ils s'appliquent */
+function favApply(){if(!xpActive())return;const m=$("#main");if(!m)return;const xp=m.querySelector(":scope > .xp");
+  FAV_RULES.forEach(([sel,key,lab])=>{m.querySelectorAll(sel).forEach(e=>{if(e.closest(".xp")||e.dataset.fav)return;const k=key(e);if(!k)return;e.dataset.fav=k;e.classList.add("hasfav");
+    const host=e.matches("details")?e.querySelector("summary"):e;if(!host)return;host.insertAdjacentHTML(e.matches("button")?"afterend":"beforeend",favStar(k,lab(e)));});});
+  const zone=xp&&xp.querySelector("#xp_favs");if(!zone)return;
+  favKeys().filter(k=>!FAV_NATIVE.has(k)).forEach(k=>{const e=m.querySelector(`[data-fav="${CSS.escape(k)}"]`);if(!e||e.closest(".xp"))return;
+    const st=(e.getAttribute("style")||"").replace(/\s/g,"");if(e.hidden||/display:none/.test(st))return;  /* ne s'applique pas ici */
+    const star=e.matches("button")?e.nextElementSibling:null;zone.appendChild(e);e.classList.add("infav");if(star&&star.classList.contains("favstar"))zone.appendChild(star);});
+  zone.hidden=!zone.children.length;}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest(".favstar[data-favk]");if(b){ev.preventDefault();ev.stopPropagation();favToggle(b.dataset.favk);return;}
+  const r=ev.target.closest&&ev.target.closest("[data-xpreset]");if(r){favReset();}},true);
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}
   const now=Date.now(),day=new Date().toDateString(),mk=aiMonthKey(),gk=typeof gardeKey==="function"?gardeKey(now):"";
@@ -17517,11 +17573,11 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{xpWrap();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
+function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
-   <div class="jmenu" id="jmenu" hidden><div class="dmode" role="group" aria-label="Affichage"><span>Affichage</span><button type="button" class="lc" data-dset="garde">Garde (visibilité maximale)${swPill(DESIGN==="garde")}</button><button type="button" class="lc" data-dset="premium">Premium${swPill(DESIGN==="premium")}</button></div>${xpBarsInMenu()?`<div class="jm-bars">${specBarHTML()}${backupBarHTML()}${gardeBannerHTML()}</div>`:""}<button type="button" class="btn sw ${xpOn()?"on":"ghost"}" data-xpset><span class="swl">Express visite<small>un choix → tout s'enchaîne</small></span>${swPill(xpOn())}</button><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button>${aiBtnHTML()}${aiModeHTML()}<button type="button" class="btn sw ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde"><span class="swl">Mode test<small>journal non alimenté</small></span>${swPill(TESTMODE)}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
+   <div class="jmenu" id="jmenu" hidden><div class="dmode" role="group" aria-label="Affichage"><span>Affichage</span><button type="button" class="lc" data-dset="garde">Garde (visibilité maximale)${swPill(DESIGN==="garde")}</button><button type="button" class="lc" data-dset="premium">Premium${swPill(DESIGN==="premium")}</button></div>${xpBarsInMenu()?`<div class="jm-bars">${specBarHTML()}${backupBarHTML()}${gardeBannerHTML()}</div>`:""}<button type="button" class="btn sw ${xpOn()?"on":"ghost"}" data-xpset><span class="swl">Express visite<small>un choix → tout s'enchaîne</small></span>${swPill(xpOn())}</button>${xpOn()?`<button type="button" class="btn ghost" data-xpreset>Revenir à l'Express par défaut${FAV.keys?"":" <small>(déjà)</small>"}</button>`:""}<button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button>${aiBtnHTML()}${aiModeHTML()}<button type="button" class="btn sw ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde"><span class="swl">Mode test<small>journal non alimenté</small></span>${swPill(TESTMODE)}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
 function lieuSwitchHTML(){const l=(state.cot&&state.cot.lieu)==="visite"?"visite":"cabinet";const tn=tourRemaining().filter(s=>s.id!==TOUR.current).length;
   return `<div class="lieu" role="group" aria-label="Lieu de l'acte"><button type="button" class="${l==="visite"?"on":""}" data-lieu="visite" aria-pressed="${l==="visite"}">Visite</button><button type="button" class="${l==="cabinet"?"on":""}" data-lieu="cabinet" aria-pressed="${l==="cabinet"}">Consultation</button>${l==="visite"?`<button type="button" class="tourbtn" id="tour_open2" aria-label="Tournée et carte">🗺<span>Tournée${tn?" · "+tn:""}</span></button>`:""}</div>`;}
 function navPref(){try{const v=localStorage.getItem("sos_nav");return ["waze","maps","plans"].includes(v)?v:"waze";}catch(e){return "waze";}}
@@ -17667,6 +17723,7 @@ async function kitEncrypt(identity,phrase,keep){
   const payload={nom:identity.nom,adeli:identity.adeli||"",assoc:identity.assoc||[],stamp:identity.stamp,kitId:id,created};
   /* n° 11 : clé API Claude chiffrée avec le profil (même phrase maître que la signature) */
   const ai=identity.ai!==undefined?identity.ai:kitAiNow();if(ai&&ai.key)payload.ai={key:String(ai.key),at:+ai.at||Date.now()};
+  try{if(FAV.keys)payload.fav=FAV.keys.slice();}catch(e){} /* 17/10/2026 (h) : favoris Express du médecin */
   const o=await aesEnc(key,new TextEncoder().encode(JSON.stringify(payload)));
   return {app:"Packs SOS",kind:"kit",v:1,id,created,iter:KIT_ITER,salt,iv:o.iv,ct:o.ct};
 }
@@ -17682,7 +17739,7 @@ async function kitDecrypt(kit,phrase){
 }
 async function secPut(name,obj){if(!SEC.key)throw new Error("chiffrement indisponible sur cet appareil");const enc=await encStr(JSON.stringify(obj));localStorage.setItem(name+"_enc",enc);localStorage.removeItem(name);}
 async function identLoad(){try{if(!SEC.key){identApply(null);return;}const id=await secGet("sos_ident",null);identApply(id);}catch(e){identApply(null);}}
-async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);const ai=id.ai;delete id.ai;id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);id.aiOk=await identAiInstall(ai);return id;}
+async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);const ai=id.ai;delete id.ai;const fav=id.fav;delete id.fav;id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);id.aiOk=await identAiInstall(ai);try{if(Array.isArray(fav)){FAV.keys=fav;favSave();}else await favLoad();}catch(e){}return id;}
 function identForget(){secRemove("sos_ident");identApply(null);}
 const AI_KIT_WARN="Clé API Claude incluse, chiffrée avec la phrase maître : sur tout appareil, la phrase suffit à la retrouver. Le fichier étant public, <b>la sécurité de la clé dépend de la solidité de la phrase maître</b> (6 mots proposés : solide).";
 function kitAiNow(){try{return AI&&AI.key?{key:AI.key,at:Date.now()}:null;}catch(e){return null;}}
@@ -17758,7 +17815,7 @@ function identScreen(mode,msg){
       const identity=rekey?identSnapshot():{nom:$("#kt_nom").value.trim(),adeli:$("#kt_adeli").value.trim(),assoc:$("#kt_assoc").value.split("\n").map(s=>s.trim()).filter(Boolean),stamp};
       if(!identity.nom){m.textContent="Nom requis.";return;}if(!identity.stamp){m.textContent="Image de signature et cachet requise.";return;}
       m.textContent="Chiffrement…";$("#kt_ok").disabled=true;
-      try{const kit=await kitEncrypt(identity,p1);const id=await kitDecrypt(kit,p1);delete id.ai;id.since=Date.now();id.bk=await bakKeyRaw(p1);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);
+      try{const kit=await kitEncrypt(identity,p1);const id=await kitDecrypt(kit,p1);delete id.ai;delete id.fav;id.since=Date.now();id.bk=await bakKeyRaw(p1);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);
         profileFileScreen(kit,`Profil ${esc(id.nom)} activé sur cet appareil (n° <b>${esc(kit.id)}</b>). ${rekey?"Une fois le nouveau profil.json en ligne, l'ancienne phrase n'active plus aucun appareil. ":""}`);
       }catch(e){m.textContent=(e&&e.message)||"échec";$("#kt_ok").disabled=false;}};
   }

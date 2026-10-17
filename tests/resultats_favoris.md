@@ -1,0 +1,74 @@
+# Tests favoris → Express (17/10/2026)
+
+- OK — iphone jour : Express par défaut : pas d'« Allergies »
+- OK — iphone jour : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
+- OK — iphone jour : sécurité fixée, sans étoile : gravité, doses, alertes
+- OK — iphone jour : ☆ « Allergies » : ajouté à l'Express (★)
+- OK — iphone jour : champ « Allergies » utilisable dans l'Express
+- OK — iphone jour : accueil (aucun patient) : « Allergies » absent de l'Express
+- OK — iphone jour : document favori « Kinésithérapie » : présent pour la chute
+- OK — iphone jour : document favori absent quand la fiche ne l'a pas (rhinopharyngite)
+- OK — iphone jour : élément par défaut retirable (« Arrêt de travail fait »)
+- OK — iphone jour : persistance après rechargement
+- OK — iphone jour : rangés chiffrés, par profil
+- OK — iphone jour : après rechargement : « Allergies » toujours dans l'Express
+- OK — iphone jour : ★ « Allergies » : retiré de l'Express
+- OK — iphone jour : poids de l'enfant fixé, sans étoile
+- OK — iphone jour : « Revenir à l'Express par défaut » : jeu de départ rétabli
+- OK — iphone jour : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : Express par défaut : pas d'« Allergies »
+- OK — iphone nuit : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
+- OK — iphone nuit : sécurité fixée, sans étoile : gravité, doses, alertes
+- OK — iphone nuit : ☆ « Allergies » : ajouté à l'Express (★)
+- OK — iphone nuit : champ « Allergies » utilisable dans l'Express
+- OK — iphone nuit : accueil (aucun patient) : « Allergies » absent de l'Express
+- OK — iphone nuit : document favori « Kinésithérapie » : présent pour la chute
+- OK — iphone nuit : document favori absent quand la fiche ne l'a pas (rhinopharyngite)
+- OK — iphone nuit : élément par défaut retirable (« Arrêt de travail fait »)
+- OK — iphone nuit : persistance après rechargement
+- OK — iphone nuit : rangés chiffrés, par profil
+- OK — iphone nuit : après rechargement : « Allergies » toujours dans l'Express
+- OK — iphone nuit : ★ « Allergies » : retiré de l'Express
+- OK — iphone nuit : poids de l'enfant fixé, sans étoile
+- OK — iphone nuit : « Revenir à l'Express par défaut » : jeu de départ rétabli
+- OK — iphone nuit : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte : Express par défaut : pas d'« Allergies »
+- OK — iphone grand texte : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
+- OK — iphone grand texte : sécurité fixée, sans étoile : gravité, doses, alertes
+- OK — iphone grand texte : ☆ « Allergies » : ajouté à l'Express (★)
+- OK — iphone grand texte : champ « Allergies » utilisable dans l'Express
+- OK — iphone grand texte : accueil (aucun patient) : « Allergies » absent de l'Express
+- OK — iphone grand texte : document favori « Kinésithérapie » : présent pour la chute
+- OK — iphone grand texte : document favori absent quand la fiche ne l'a pas (rhinopharyngite)
+- OK — iphone grand texte : élément par défaut retirable (« Arrêt de travail fait »)
+- OK — iphone grand texte : persistance après rechargement
+- OK — iphone grand texte : rangés chiffrés, par profil
+- OK — iphone grand texte : après rechargement : « Allergies » toujours dans l'Express
+- OK — iphone grand texte : ★ « Allergies » : retiré de l'Express
+- OK — iphone grand texte : poids de l'enfant fixé, sans étoile
+- OK — iphone grand texte : « Revenir à l'Express par défaut » : jeu de départ rétabli
+- OK — iphone grand texte : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone grand texte : aucune erreur JS
+- OK — ordinateur : Express par défaut : pas d'« Allergies »
+- OK — ordinateur : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
+- OK — ordinateur : sécurité fixée, sans étoile : gravité, doses, alertes
+- OK — ordinateur : ☆ « Allergies » : ajouté à l'Express (★)
+- OK — ordinateur : champ « Allergies » utilisable dans l'Express
+- OK — ordinateur : accueil (aucun patient) : « Allergies » absent de l'Express
+- OK — ordinateur : document favori « Kinésithérapie » : présent pour la chute
+- OK — ordinateur : document favori absent quand la fiche ne l'a pas (rhinopharyngite)
+- OK — ordinateur : élément par défaut retirable (« Arrêt de travail fait »)
+- OK — ordinateur : persistance après rechargement
+- OK — ordinateur : rangés chiffrés, par profil
+- OK — ordinateur : après rechargement : « Allergies » toujours dans l'Express
+- OK — ordinateur : ★ « Allergies » : retiré de l'Express
+- OK — ordinateur : poids de l'enfant fixé, sans étoile
+- OK — ordinateur : « Revenir à l'Express par défaut » : jeu de départ rétabli
+- OK — ordinateur : aucune erreur JS
+- OK — profil : favoris absents en clair de profil.json
+- OK — profil : autre appareil : favoris retrouvés après la phrase maître, rangés sous ce profil
+- OK — profil : aucune erreur JS
+
+70/70 tests OK
