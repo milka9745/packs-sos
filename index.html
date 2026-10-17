@@ -7304,9 +7304,9 @@ function atBloc(p){
 
 
 /* ---- Journal de garde : cotation, récap de fin de garde, exonération PDS (art. 151 ter CGI) ---- */
-const TARIFS_DEF={G:30,VG:30,CRN:42.5,CRM:51.5,CRD:26.5,VRN:46,VRM:59.5,VRD:30,U:22.6,MD:10,MEG:5,MOP:5,DEQP003:14.26,IK:0.61,PROV:45};
+const TARIFS_DEF={G:30,VG:30,CRN:42.5,CRM:51.5,CRD:26.5,VRN:46,VRM:59.5,VRD:30,MU:22.6,MD:10,MEG:5,MOP:5,DEQP003:14.26,IK:0.61,PROV:45};
 const EXO_CODES=["CRN","CRM","CRD","VRN","VRM","VRD"];
-const TLBL={G:"Consultation",VG:"Visite à domicile (généraliste)",CRN:"Nuit 20h-0h / 6h-8h (régulée)",CRM:"Milieu de nuit 0h-6h (régulée)",CRD:"Dimanche, férié ou pont, samedi après-midi (régulée)",VRN:"Visite nuit (régulée)",VRM:"Visite milieu de nuit (régulée)",VRD:"Visite dimanche / férié ou pont (régulée)",U:"Majoration d'urgence visite régulée en journée (hors horaires PDS)",MD:"Majoration de déplacement (rare, à cocher)",MEG:"Enfant de moins de 6 ans",MOP:"Patient de 80 ans et plus",DEQP003:"ECG",IK:"Indemnité kilométrique (par km)",PROV:"Provision charges et impôts (% des honoraires, indicatif)"};
+const TLBL={G:"Consultation",VG:"Visite à domicile (généraliste)",CRN:"Nuit 20h-0h / 6h-8h (régulée)",CRM:"Milieu de nuit 0h-6h (régulée)",CRD:"Dimanche, férié ou pont, samedi après-midi (régulée)",VRN:"Visite nuit (régulée)",VRM:"Visite milieu de nuit (régulée)",VRD:"Visite dimanche / férié ou pont (régulée)",MU:"Majoration d'urgence visite régulée en journée (hors horaires PDS)",MD:"Majoration de déplacement (rare, à cocher)",MEG:"Enfant de moins de 6 ans",MOP:"Patient de 80 ans et plus",DEQP003:"ECG",IK:"Indemnité kilométrique (par km)",PROV:"Provision charges et impôts (% des honoraires, indicatif)"};
 function lsGet(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
 function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 /* Correctif 10 (15/10/2026) : option « 2 documents par feuille A4 » — certificats, courriers, consignes ; jamais les ordonnances */
@@ -7318,7 +7318,7 @@ function print2up(html){const box=document.createElement("div");box.innerHTML=ht
   if(pend)outEls.push(pend);return outEls.map(e=>e.outerHTML).join("");}
 function unpairOverflow(root){let ch=false;root.querySelectorAll(".page.sheet2").forEach(sh=>{const halves=[...sh.children];if(halves.some(h=>{const f=h.querySelector(".frame");if(h.scrollHeight>h.clientHeight+2)return true;if(!f)return false;if(f.scrollHeight>f.clientHeight+2)return true;const fb=f.getBoundingClientRect(),hb=h.getBoundingClientRect();return fb.bottom>hb.bottom+1;})){halves.forEach(h=>{h.classList.remove("half");sh.parentNode.insertBefore(h,sh);});sh.remove();ch=true;}});return ch;}
 function sheetCount(html){const b=document.createElement("div");b.innerHTML=html;return [...b.children].filter(x=>x.classList&&x.classList.contains("page")).length;}
-let TARIFS=Object.assign({},TARIFS_DEF,lsGet("sos_tarifs",{})); delete TARIFS.V; delete TARIFS.MU;
+let TARIFS=Object.assign({},TARIFS_DEF,lsGet("sos_tarifs",{}));{const st=lsGet("sos_tarifs",{});TARIFS.MU=st.U!=null?+st.U:TARIFS_DEF.MU;} delete TARIFS.U; delete TARIFS.V; /* 17/10/2026 : MU = majoration d'urgence (ancienne clé U) ; une ancienne valeur « MU » enregistrée est ignorée */
 let JOURNAL=[];
 /* ============ VERROUILLAGE PAR CODE, CLÉ DE SECOURS ET CHIFFREMENT DES DONNÉES LOCALES ============ */
 /* Architecture : une clé maîtresse K (aléatoire) chiffre les données ; K est enveloppée deux fois, par le code et par la clé de secours. */
@@ -7407,12 +7407,14 @@ function cotTimes(now){const c=state.cot||{};const arr=hhmmToTs(c.hArr,now)||sta
 function cotCompute(e){
   const d=new Date(e.tActe||e.ts); const codes=[]; const v=e.lieu==="visite";
   codes.push(v?"VG":"G");
-  const s=pdsSlot(d); if(s) codes.push((v?"VR":"CR")+s); else if(v) codes.push("U");
+  const s=pdsSlot(d); if(s) codes.push((v?"VR":"CR")+s); else if(v) codes.push("MU"); /* 17/10/2026 : libellé MU (convention SOS Médecins Orléans) */
   if(v&&+e.km>0) codes.push("IK");
   if(e.age!=null&&e.age<6) codes.push("MEG"); if(e.age!=null&&e.age>=80) codes.push("MOP");
   if(e.ecg) codes.push("DEQP003");
-  (e.extra||[]).forEach(c=>{if(!codes.includes(c))codes.push(c);});
-  (e.minus||[]).forEach(c=>{const i=codes.indexOf(c);if(i>=0)codes.splice(i,1);});
+  const up=c=>c==="U"?"MU":c; /* anciennes lignes du journal : U → MU */
+  (e.extra||[]).map(up).forEach(c=>{if(!codes.includes(c))codes.push(c);});
+  (e.minus||[]).map(up).forEach(c=>{const i=codes.indexOf(c);if(i>=0)codes.splice(i,1);});
+  if(codes.includes("MD")){const i=codes.indexOf("MU");if(i>=0)codes.splice(i,1);} /* VG + MU ou VG + MD, jamais les deux */
   const lines=codes.map(c=>({c,v:c==="IK"?Math.round((+e.km||0)*TARIFS.IK*100)/100:TARIFS[c]}));
   const total=lines.reduce((a,l)=>a+l.v,0); const exo=lines.filter(l=>EXO_CODES.includes(l.c)).reduce((a,l)=>a+l.v,0);
   return {codes:lines,total:Math.round(total*100)/100,exo:Math.round(exo*100)/100};
@@ -17592,7 +17594,7 @@ function jmenuFit(menu){try{const r=menu.getBoundingClientRect();const vh=(windo
 if(window.visualViewport)window.visualViewport.addEventListener("resize",()=>{const m=document.getElementById("jmenu");if(m&&!m.hidden)jmenuFit(m);});
 function phoneBind(){
   const mb=$("#more_btn"),menu=$("#jmenu");
-  if(mb&&menu){const close=()=>{menu.hidden=true;mb.setAttribute("aria-expanded","false");};mb.onclick=ev=>{ev.stopPropagation();if(menu.hidden){menu.hidden=false;mb.setAttribute("aria-expanded","true");jmenuFit(menu);requestAnimationFrame(()=>jmenuFit(menu));setTimeout(()=>jmenuFit(menu),150);if(!menu.__fit){menu.__fit=1;["touchstart","wheel","pointerdown"].forEach(t=>menu.addEventListener(t,()=>jmenuFit(menu),{passive:true,capture:true}));}}else close();};
+  if(mb&&menu){const close=()=>{menu.hidden=true;mb.setAttribute("aria-expanded","false");};mb.onclick=ev=>{ev.stopPropagation();if(menu.hidden){menu.hidden=false;mb.setAttribute("aria-expanded","true");jmenuFit(menu);requestAnimationFrame(()=>jmenuFit(menu));setTimeout(()=>jmenuFit(menu),150);clearInterval(menu.__iv);menu.__iv=setInterval(()=>{if(menu.hidden||!document.body.contains(menu)){clearInterval(menu.__iv);return;}jmenuFit(menu);},200); /* la barre du haut peut s'agrandir après l'ouverture */if(!menu.__fit){menu.__fit=1;["touchstart","wheel","pointerdown"].forEach(t=>menu.addEventListener(t,()=>jmenuFit(menu),{passive:true,capture:true}));}}else close();};
     menu.querySelectorAll("button").forEach(b=>{if(b.id==="th_btn")return;b.addEventListener("click",()=>setTimeout(close,0));});}
   const gt=$("#go_top");if(gt)gt.onclick=printPack;
   const tp=$("#testpill");if(tp)tp.onclick=()=>{TESTMODE=false;lsSet("sos_test",false);render();};

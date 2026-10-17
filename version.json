@@ -4,6 +4,6 @@
   "notes": [
     "Express visite : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; le compte rendu est copié dans le même geste.",
     "Favoris : une étoile ☆ sur chaque élément de l'écran complet l'ajoute à votre Express ; « Revenir à l'Express par défaut » dans ⋯.",
-    "PDF iPhone en taille normale (il sortait toujours en petite police) ; association allongeant le QT : motif et ECG tracés."
+    "Cotation : « VG + MU » (et non « U ») à l'écran et au journal ; association allongeant le QT : motif et ECG tracés."
   ]
 }

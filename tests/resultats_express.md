@@ -222,7 +222,7 @@
 - OK — iphone : d. décoché : rien au compte rendu
 - OK — iphone : PDF : page courte en taille normale (plus de 8,5 pt systématique)
 - OK — iphone : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
-- OK — iphone : PDF : trop long même à 9 pt → signalé (l'Express ouvre alors l'aperçu)
+- OK — iphone : PDF : trop long même en dernier recours (8,5 pt) → signalé (l'Express ouvre alors l'aperçu)
 - OK — iphone : « Plus » : dossier complet replié (identité, fiches, feuilles)
 - OK — iphone : 2. après « Imprimer et valider » : patient validé, écran libéré
 - OK — iphone : 2. « Annuler » (10 s) : le patient revient tel quel
@@ -239,7 +239,7 @@
 - OK — ordinateur : d. décoché : rien au compte rendu
 - OK — ordinateur : PDF : page courte en taille normale (plus de 8,5 pt systématique)
 - OK — ordinateur : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
-- OK — ordinateur : PDF : trop long même à 9 pt → signalé (l'Express ouvre alors l'aperçu)
+- OK — ordinateur : PDF : trop long même en dernier recours (8,5 pt) → signalé (l'Express ouvre alors l'aperçu)
 - OK — ordinateur : 2. après « Imprimer et valider » : patient validé, écran libéré
 - OK — ordinateur : 2. « Annuler » (10 s) : le patient revient tel quel
 - OK — ordinateur : aucune erreur JS
