@@ -1,0 +1,9 @@
+{
+  "version": "41l-test",
+  "date": "2026-10-17",
+  "notes": [
+    "Version de test (branche ia) : données séparées de l'outil de garde.",
+    "Express visite et favoris : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; étoile ☆ pour composer votre Express.",
+    "Certificats avec durée : 1 jour par défaut, − / +, « du … au … inclus » imprimé et noté au compte rendu."
+  ]
+}
