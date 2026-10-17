@@ -84,7 +84,7 @@ async def visit(page,vid,first,fiche_re,extra):
         await R.tap("#ci_keep","Je maintiens"); await R.tap("#ci_print","Imprimer malgré l'alerte")
     await page.wait_for_selector("#print .page",timeout=8000)
     screens.append(await R.shot("apercu"))
-    await R.tap("#pb_send","Envoyer à l'imprimante")
+    await R.tap("#pb_send","Imprimer (PDF)")
     await R.tap("#pb_valid","✓ Valider le patient")
     screens.append(await R.shot("apres-validation"))
     # le récapitulatif de validation éventuel

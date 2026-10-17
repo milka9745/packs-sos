@@ -1,0 +1,72 @@
+# Tests OMA 9 mois 8 kg (17/10/2026)
+
+- OK — iphone · Express : OMA 9 mois 8 kg : « otite » propose l'OMA de l'enfant en tête, jamais l'otite externe adulte
+- OK — iphone · Express : OMA 9 mois 8 kg (cabinet) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — iphone · Express : OMA 9 mois 8 kg (cabinet) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — iphone · Express : OMA 9 mois (cabinet) : gouttes CILOXADEX en option, non cochées
+- OK — iphone · Express : OMA 9 mois (cabinet) : CILOXADEX absent des documents imprimés
+- OK — iphone · Express : OMA (cabinet) : patiente « née le », jamais « né(e) »
+- OK — iphone · Express : OMA 9 mois 8 kg (visite) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — iphone · Express : OMA 9 mois 8 kg (visite) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — iphone · Express : OMA 9 mois (visite) : gouttes CILOXADEX en option, non cochées
+- OK — iphone · Express : OMA 9 mois (visite) : CILOXADEX absent des documents imprimés
+- OK — iphone · Express : OMA (visite) : patiente « née le », jamais « né(e) »
+- OK — iphone · Express : amoxicilline de 5 à 40 kg : 80 à 90 mg/kg/j, 3 g par jour au maximum
+- OK — iphone · Express : otite externe à 9 mois : CILOXADEX bloqué (âge minimal 1 an, RCP), jamais imprimé
+- OK — iphone · Express : otite externe à 9 mois : alerte « âge ≥ 1 an pour CILOXADEX » à l'écran avant impression
+- OK — iphone · Express : otite externe à 6 ans : CILOXADEX proposé normalement, « né le »
+- OK — iphone · Express : sexe non renseigné : signalé à l'écran (« né(e) »)
+- OK — iphone · Express : aucune erreur JS
+- OK — iphone · mode complet : OMA 9 mois 8 kg : « otite » propose l'OMA de l'enfant en tête, jamais l'otite externe adulte
+- OK — iphone · mode complet : OMA 9 mois 8 kg (cabinet) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — iphone · mode complet : OMA 9 mois 8 kg (cabinet) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — iphone · mode complet : OMA 9 mois (cabinet) : gouttes CILOXADEX en option, non cochées
+- OK — iphone · mode complet : OMA 9 mois (cabinet) : CILOXADEX absent des documents imprimés
+- OK — iphone · mode complet : OMA (cabinet) : patiente « née le », jamais « né(e) »
+- OK — iphone · mode complet : OMA 9 mois 8 kg (visite) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — iphone · mode complet : OMA 9 mois 8 kg (visite) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — iphone · mode complet : OMA 9 mois (visite) : gouttes CILOXADEX en option, non cochées
+- OK — iphone · mode complet : OMA 9 mois (visite) : CILOXADEX absent des documents imprimés
+- OK — iphone · mode complet : OMA (visite) : patiente « née le », jamais « né(e) »
+- OK — iphone · mode complet : amoxicilline de 5 à 40 kg : 80 à 90 mg/kg/j, 3 g par jour au maximum
+- OK — iphone · mode complet : otite externe à 9 mois : CILOXADEX bloqué (âge minimal 1 an, RCP), jamais imprimé
+- OK — iphone · mode complet : otite externe à 9 mois : alerte « âge ≥ 1 an pour CILOXADEX » à l'écran avant impression
+- OK — iphone · mode complet : otite externe à 6 ans : CILOXADEX proposé normalement, « né le »
+- OK — iphone · mode complet : sexe non renseigné : signalé à l'écran (« né(e) »)
+- OK — iphone · mode complet : aucune erreur JS
+- OK — ordinateur · Express : OMA 9 mois 8 kg : « otite » propose l'OMA de l'enfant en tête, jamais l'otite externe adulte
+- OK — ordinateur · Express : OMA 9 mois 8 kg (cabinet) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — ordinateur · Express : OMA 9 mois 8 kg (cabinet) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — ordinateur · Express : OMA 9 mois (cabinet) : gouttes CILOXADEX en option, non cochées
+- OK — ordinateur · Express : OMA 9 mois (cabinet) : CILOXADEX absent des documents imprimés
+- OK — ordinateur · Express : OMA (cabinet) : patiente « née le », jamais « né(e) »
+- OK — ordinateur · Express : OMA 9 mois 8 kg (visite) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — ordinateur · Express : OMA 9 mois 8 kg (visite) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — ordinateur · Express : OMA 9 mois (visite) : gouttes CILOXADEX en option, non cochées
+- OK — ordinateur · Express : OMA 9 mois (visite) : CILOXADEX absent des documents imprimés
+- OK — ordinateur · Express : OMA (visite) : patiente « née le », jamais « né(e) »
+- OK — ordinateur · Express : amoxicilline de 5 à 40 kg : 80 à 90 mg/kg/j, 3 g par jour au maximum
+- OK — ordinateur · Express : otite externe à 9 mois : CILOXADEX bloqué (âge minimal 1 an, RCP), jamais imprimé
+- OK — ordinateur · Express : otite externe à 9 mois : alerte « âge ≥ 1 an pour CILOXADEX » à l'écran avant impression
+- OK — ordinateur · Express : otite externe à 6 ans : CILOXADEX proposé normalement, « né le »
+- OK — ordinateur · Express : sexe non renseigné : signalé à l'écran (« né(e) »)
+- OK — ordinateur · Express : aucune erreur JS
+- OK — ordinateur · mode complet : OMA 9 mois 8 kg : « otite » propose l'OMA de l'enfant en tête, jamais l'otite externe adulte
+- OK — ordinateur · mode complet : OMA 9 mois 8 kg (cabinet) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — ordinateur · mode complet : OMA 9 mois 8 kg (cabinet) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — ordinateur · mode complet : OMA 9 mois (cabinet) : gouttes CILOXADEX en option, non cochées
+- OK — ordinateur · mode complet : OMA 9 mois (cabinet) : CILOXADEX absent des documents imprimés
+- OK — ordinateur · mode complet : OMA (cabinet) : patiente « née le », jamais « né(e) »
+- OK — ordinateur · mode complet : OMA 9 mois 8 kg (visite) : antibiotique d'emblée avant 2 ans (pack à risque)
+- OK — ordinateur · mode complet : OMA 9 mois 8 kg (visite) : amoxicilline 3.5 ml × 2 = 87.5 mg/kg/j (80 à 90), 10 jours, maximum indiqué
+- OK — ordinateur · mode complet : OMA 9 mois (visite) : gouttes CILOXADEX en option, non cochées
+- OK — ordinateur · mode complet : OMA 9 mois (visite) : CILOXADEX absent des documents imprimés
+- OK — ordinateur · mode complet : OMA (visite) : patiente « née le », jamais « né(e) »
+- OK — ordinateur · mode complet : amoxicilline de 5 à 40 kg : 80 à 90 mg/kg/j, 3 g par jour au maximum
+- OK — ordinateur · mode complet : otite externe à 9 mois : CILOXADEX bloqué (âge minimal 1 an, RCP), jamais imprimé
+- OK — ordinateur · mode complet : otite externe à 9 mois : alerte « âge ≥ 1 an pour CILOXADEX » à l'écran avant impression
+- OK — ordinateur · mode complet : otite externe à 6 ans : CILOXADEX proposé normalement, « né le »
+- OK — ordinateur · mode complet : sexe non renseigné : signalé à l'écran (« né(e) »)
+- OK — ordinateur · mode complet : aucune erreur JS
+
+68/68 tests OK

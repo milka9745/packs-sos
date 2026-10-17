@@ -15,6 +15,7 @@ S.getItem=function(x){return g.call(this,P+x);};S.setItem=function(x,v){return s
 S.clear=function(){for(var i=this.length-1;i>=0;i--){var y=k.call(this,i);if(y&&y.indexOf(P)===0)r.call(this,y);}};window.__PACKS_TEST__=true;}catch(e){}})();</script>'''
 BADGE='''<style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
 @media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
+.page .testwm{position:absolute;left:-10%;right:-10%;top:42%;text-align:center;font:900 40px Arial,sans-serif;letter-spacing:2px;color:rgba(208,2,27,.16);transform:rotate(-28deg);pointer-events:none;z-index:5;white-space:nowrap}
 #testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style>'''
 BADGE_BODY='<div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · '+V.replace("-test","")+'</div>'
 
@@ -36,6 +37,9 @@ rep("<title>Packs SOS — Docteur Mickaël DEIE</title>","<title>Packs SOS TEST<
 rep('<meta name="apple-mobile-web-app-title" content="Packs SOS">','<meta name="apple-mobile-web-app-title" content="TEST Packs">')
 rep('<meta name="theme-color" content="#22252B">','<meta name="theme-color" content="#D0021B">')
 rep("</head>",BADGE+"</head>")
+# filigrane « VERSION TEST » sur chaque document (écran, PDF, impression) — seulement dans test/, jamais à la racine (outil de garde)
+rep("function pageHead(){","function pageHead(){return '<div class=\"testwm\" aria-hidden=\"true\">VERSION TEST — NE PAS UTILISER</div>'+pageHead0();}
+function pageHead0(){")
 s=re.sub(r"(<body[^>]*>)",lambda m:m.group(1)+BADGE_BODY,s,count=1)
 open(os.path.join(OUT,"index.html"),"w",encoding="utf-8",newline="").write(s)
 
