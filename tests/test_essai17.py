@@ -9,9 +9,11 @@ OUT=os.path.join(ROOT,"tests","captures")
 results=[]
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else str(info)[:500])
-PORT=8798
+PORT=8798 if os.environ.get("XP","on")!="off" else 8799
+XPOFF=os.environ.get("XP","on")=="off"   # XP=off : mêmes tests en mode complet (Express coupé)
 STOPS=open(os.path.join(ROOT,"tests","audit_express.py"),encoding="utf-8").read().split('STOPS="""')[1].split('"""')[0]
 async def unlock(page,uid):
+    if XPOFF: await page.add_init_script("try{localStorage.setItem('sos_xp','false')}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")
@@ -47,7 +49,7 @@ async def run(b,w,h,th,big,label):
     ab=await page.evaluate("cstAbnormal()")
     ok(L+"5. TA 150/10 signalée comme constante à vérifier",any("150/10" in x for x in ab),ab)
     ok(L+"5. alerte visible à l'écran avant impression",await page.locator(".cstbad").count()>=1)
-    ok(L+"5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer","constante à vérifier" in await page.evaluate("xpPending(currentPack())"))
+    if not XPOFF: ok(L+"5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer","constante à vérifier" in await page.evaluate("xpPending(currentPack())"))
     await page.evaluate(SETP,{"n":"Chute du sujet âgé — bilan","pat":{"patient":"MARTIN Paul","ddn":"03/04/1938","sexe":"h"}})
     pg=await page.evaluate(PAGES); let_=" ".join(x["t"] for x in pg if x["h"].startswith("Courrier"))
     ok(L+"5. patient : accords au masculin","le/la" not in let_ and "né le" in let_ and "le confie" in let_,let_[:300])
@@ -63,19 +65,24 @@ async def run(b,w,h,th,big,label):
     ok(L+"6. motif non reconnu : Fréquents de l'âge, jamais une liste vide",len(c)>=3 and all("adulte" not in x for x in c),c)
     c=await page.evaluate("()=>{const T=mccTable().map(x=>Object.assign({},x));T.push({code:'DLABD',lib:'douleur abdominale',adulte:['Douleur abdominale aiguë — adulte'],enfant:[],terrain:[]});mccSave(T);newPatient();Object.assign(state,{ddn:'01/02/1980'});const r=xpCandidates('DLABD').ok.map(i=>PACKS[i].n);localStorage.removeItem('sos_mcc');return r;}")
     ok(L+"6. tableau modifiable : nouvelle abréviation prise en compte",c==["Douleur abdominale aiguë — adulte"],c)
+    sr=await page.evaluate("()=>{newPatient();Object.assign(state,{patient:'MARTIN Paul',ddn:'01/02/1980',sexe:'h'});render();search('DLMINF');return {n:[...document.querySelectorAll('#res button.res .n')].slice(0,4).map(x=>x.textContent),cat:(document.querySelector('#res .cat')||{}).textContent||''};}")
+    ok(L+"6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête",sr["n"][:3]==["Entorse de cheville","Contusion — traumatisme bénin","Tendinopathie d'Achille"] and "DLMINF" in sr["cat"],sr)
+    sr=await page.evaluate("()=>{search('xkzwq');return {n:[...document.querySelectorAll('#res button.res .n')].length,cat:(document.querySelector('#res .cat')||{}).textContent||''};}")
+    ok(L+"6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide",sr["n"]>=3 and "fréquentes" in sr["cat"],sr)
     await page.evaluate("state.view='journal';render();"); await page.wait_for_timeout(200)
     ok(L+"6. tableau des abréviations dans le Journal (modifiable)",await page.locator(".mcct [data-mcc=code]").count()>=1)
     await page.evaluate("state.view='';render();")
-    # 7 — favoris bouton par bouton dans « Plus d'options » de la tournée
-    await page.evaluate(STOPS); await page.evaluate("xpOpenStop('v1')"); await page.wait_for_timeout(300)
-    await page.evaluate("()=>{const d=document.getElementById('xp_plus');if(d)d.open=true;document.querySelectorAll('details.tc-more').forEach(x=>x.open=true);}"); await page.wait_for_timeout(200)
-    ks=await page.evaluate("[...document.querySelectorAll('.tc-more .favstar')].map(s=>s.dataset.favk)")
-    want=["btn:tc_drive","btn:tc_view","btn:tc_free","btn:tc_addvisit","btn:tc_photo","btn:tc_fiche"]
-    ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)",all(k in ks for k in want) and any(k.startswith("btn:nav-") for k in ks),ks)
-    ok(L+"7. plus d'étoile sur le groupe entier",await page.locator('.favstar[data-favk="sec:tcmore"]').count()==0)
-    await page.locator('.tc-more .favstar[data-favk="btn:tc_drive"]').first.click(); await page.wait_for_timeout(400)
-    ok(L+"7. « Mode voiture » seul ajouté à l'Express",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==0)
-    await page.evaluate("favReset()")
+    # 7 — favoris bouton par bouton dans « Plus d'options » de la tournée (sans objet en mode complet : l'Express est coupé)
+    if not XPOFF:
+      await page.evaluate(STOPS); await page.evaluate("xpOpenStop('v1')"); await page.wait_for_timeout(300)
+      await page.evaluate("()=>{const d=document.getElementById('xp_plus');if(d)d.open=true;document.querySelectorAll('details.tc-more').forEach(x=>x.open=true);}"); await page.wait_for_timeout(200)
+      ks=await page.evaluate("[...document.querySelectorAll('.tc-more .favstar')].map(s=>s.dataset.favk)")
+      want=["btn:tc_drive","btn:tc_view","btn:tc_free","btn:tc_addvisit","btn:tc_photo","btn:tc_fiche"]
+      ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)",all(k in ks for k in want) and any(k.startswith("btn:nav-") for k in ks),ks)
+      ok(L+"7. plus d'étoile sur le groupe entier",await page.locator('.favstar[data-favk="sec:tcmore"]').count()==0)
+      await page.locator('.tc-more .favstar[data-favk="btn:tc_drive"]').first.click(); await page.wait_for_timeout(400)
+      ok(L+"7. « Mode voiture » seul ajouté à l'Express",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==0)
+      await page.evaluate("favReset()")
     # 8 — « reste de l'examen normal »
     D="Fièvre depuis hier. Tympan droit bombé, rouge. Reste de l'examen normal."
     await page.evaluate(SETP,{"n":"Otite moyenne aiguë — enfant","pat":{"patient":"PETIT Lou","ddn":"01/03/2022","sexe":"f","poids":"16"},"obs":{"dict":D}})
@@ -84,9 +91,12 @@ async def run(b,w,h,th,big,label):
     ok(L+"8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)","bombé" in (o["orl"] or "") and "orl" not in o["auto"],o)
     ok(L+"8. examen normal inséré pour les appareils non dictés, adapté à l'enfant","enfant" in (o["gen"] or "") and "gen" in o["auto"] and "resp" in o["auto"],o)
     ok(L+"8. texte inséré surligné et modifiable avant validation",await page.locator(".obsauto [data-oa]").count()>=2)
+    if XPOFF:
+        await page.evaluate("state.obsOpen=true;render();"); await page.wait_for_timeout(200)
+        ok(L+"8. mode complet : champs insérés surlignés dans l'observation (« inséré · à valider »)",await page.locator(".sys.autoins").count()>=2)
     if mob:
         await page.evaluate("document.querySelector('.obsauto').scrollIntoView({block:'center'})"); await page.wait_for_timeout(200)
-        await page.screenshot(path=os.path.join(OUT,f"essai17-examen-normal-{tag}.png"))
+        await page.screenshot(path=os.path.join(OUT,f"essai17-examen-normal-{tag}{'-complet' if XPOFF else ''}.png"))
     await page.locator(".obsauto [data-oa]").first.fill("Bon état général, enfant grognon mais consolable.")
     ok(L+"8. modifiable d'un toucher : la modification est gardée",await page.evaluate("state.obs.gen")=="Bon état général, enfant grognon mais consolable." and "gen" not in await page.evaluate("Object.keys(state.obsAuto||{})"))
     await page.evaluate("state.obs.dict='Fièvre depuis hier. Tympan droit bombé, rouge.';applyDictation();"); await page.wait_for_timeout(200)
@@ -108,6 +118,6 @@ async def main():
             await b.close()
     finally: srv.terminate()
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
-    open(os.path.join(ROOT,"tests","resultats_essai17.md"),"w",encoding="utf-8").write("# Tests de l'essai réel du 17/10/2026 (points 4 à 8)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])[:300]) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
+    open(os.path.join(ROOT,"tests","resultats_essai17"+("_complet" if XPOFF else "")+".md"),"w",encoding="utf-8").write("# Tests de l'essai réel du 17/10/2026 (points 4 à 8)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])[:300]) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
     sys.exit(0 if n==len(results) else 1)
 asyncio.run(main())

@@ -57,6 +57,12 @@ async def main():
             ver=await page.evaluate("fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>j.version)")
             ok("test/ : version de la branche ia",ver.endswith("-test"),ver)
             ok("test/ : Express présent (branche ia)",await page.evaluate("typeof xpHTML==='function'"))
+            await page.click("#more_btn"); await page.wait_for_timeout(300)
+            jm=await page.evaluate("(document.querySelector('#jmenu .jm-ver')||{}).textContent||''")
+            ok("test/ : menu ⋯ « v… · test · date » (numéro distinct de l'outil de garde)"," · test · " in jm and jm.startswith("v41") and "41k" not in jm,jm)
+            await page.click("#more_btn")
+            pill=await page.evaluate("document.getElementById('testpill').textContent")
+            ok("test/ : pastille « TEST · version »",pill.startswith("TEST · 41"),pill)
             # 3. retour à l'outil de garde : son code et ses données intacts, son code de page inchangé
             await page.goto(B); await page.wait_for_timeout(2500)
             ok("racine : aucun écran de création de code (son utilisateur « garde » est intact)",await page.locator("#pin2").count()==0)

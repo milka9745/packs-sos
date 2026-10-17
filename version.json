@@ -1,9 +1,9 @@
 {
-  "version": "41m",
+  "version": "41n",
   "date": "2026-10-17",
   "notes": [
-    "Impression toujours depuis le PDF, sur un toucher : cachet jamais recouvert (la suite passe sur une page de plus), plus de page vide ni de bandeau.",
-    "Fiche adulte chez l'enfant : alerte et médicaments adultes décochés ; « Aide à l'interprétation » jamais imprimée ; courrier sans dictée brute, accordé au sexe.",
-    "Régulation : DLMINF reconnu (tableau des abréviations modifiable), jamais l'adresse comme motif ; « reste de l'examen normal » insère l'examen type, surligné."
+    "Numéro de version visible en haut de l'écran et dans ⋯ (version · branche · date), jamais sur les documents.",
+    "Mode complet : mêmes corrections que l'Express (DLMINF et fiches fréquentes dans la recherche, sexe demandé pour les accords).",
+    "Impression depuis le PDF, cachet toujours libre ; fiche adulte chez l'enfant signalée ; « reste de l'examen normal »."
   ]
 }

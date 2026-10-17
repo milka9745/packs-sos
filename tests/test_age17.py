@@ -7,9 +7,10 @@ OUT=os.path.join(ROOT,"tests","captures")
 results=[]
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else str(info)[:700])
-PORT=8796
+PORT=8796 if os.environ.get("XP","off")=="off" else 8800
+XPON=os.environ.get("XP","off")=="on"   # XP=on : mêmes tests avec l'Express
 async def unlock(page,uid):
-    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")
+    if not XPON: await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")
@@ -53,7 +54,7 @@ async def main():
                 ok(L+"écran : alerte « fiche prévue pour l'adulte », médicaments décochés nommés","prévue pour l'adulte" in al and "décochés" in al,al[:250])
                 if mob:
                     await page.evaluate("document.querySelector('.agemis').scrollIntoView({block:'center'})"); await page.wait_for_timeout(200)
-                    await page.screenshot(path=os.path.join(OUT,"age-achille-enfant-3ans.png"))
+                    await page.screenshot(path=os.path.join(OUT,"age-achille-enfant-3ans"+("-express" if XPON else "")+".png"))
                 # adulte : rien n'est décoché pour l'âge
                 r2=await page.evaluate("""()=>{newPatient();Object.assign(state,{patient:'DURAND Paul',ddn:'14/05/1975',sexe:'h'});state.sel=PACKS.findIndex(p=>p.n==="Tendinopathie d'Achille");const p=currentPack();let n=0;p.s.forEach((sh,si)=>{if(sh.k==='med')resolve(sh,si).forEach(x=>{if(x.on)n++;});});return {n,mm:ageMismatch().length};}""")
                 ok(L+"adulte : médicaments de la fiche cochés, pas d'alerte d'âge",r2["n"]>=1 and r2["mm"]==0,r2)
@@ -66,6 +67,6 @@ async def main():
             await b.close()
     finally: srv.terminate()
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
-    open(os.path.join(ROOT,"tests","resultats_age17.md"),"w",encoding="utf-8").write("# Tests âge (17/10/2026)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])[:300]) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
+    open(os.path.join(ROOT,"tests","resultats_age17"+("_express" if XPON else "")+".md"),"w",encoding="utf-8").write("# Tests âge (17/10/2026)\n\n"+"\n".join(f"- {'OK' if r[1] else 'ÉCHEC'} — {r[0]}{(' — '+str(r[2])[:300]) if not r[1] else ''}" for r in results)+f"\n\n{n}/{len(results)} tests OK\n")
     sys.exit(0 if n==len(results) else 1)
 asyncio.run(main())

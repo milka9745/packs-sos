@@ -25,6 +25,10 @@ def rep(a,b,n=1,regex=False):
     assert c==n,(c,a[:80])
     s=re.sub(a,b,s) if regex else s.replace(a,b)
 rep("<head>","<head>\n"+SHIM)
+# livraison affichée « v41x · test · date de construction » (jamais sur les documents)
+import datetime
+s,_n=re.subn(r'const APP_BUILD=\{v:"([^"]*)",branch:"[^"]*",date:"[^"]*"\};',lambda m:'const APP_BUILD={v:"'+m.group(1)+'",branch:"test",date:"'+datetime.datetime.now().strftime("%d/%m %H:%M")+'"};',s)
+assert _n==1
 rep('indexedDB.open("packs-sos-photos"','indexedDB.open("packs-sos-test-photos"')
 rep('replace(/\\/v\\d+\\/(index\\.html)?$/,"/")','replace(/\\/(?:v\\d+|test)\\/(index\\.html)?$/,"/")')
 rep(r'<link rel="apple-touch-icon" href="data:image/png;base64,[^"]+">','<link rel="apple-touch-icon" href="apple-touch-icon.png">',regex=True)

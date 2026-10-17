@@ -16,6 +16,8 @@
 - OK — iphone jour : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
 - OK — iphone jour : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
 - OK — iphone jour : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone jour : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
+- OK — iphone jour : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone jour : 6. tableau des abréviations dans le Journal (modifiable)
 - OK — iphone jour : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone jour : 7. plus d'étoile sur le groupe entier
@@ -43,6 +45,8 @@
 - OK — iphone nuit : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
 - OK — iphone nuit : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
 - OK — iphone nuit : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone nuit : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
+- OK — iphone nuit : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone nuit : 6. tableau des abréviations dans le Journal (modifiable)
 - OK — iphone nuit : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone nuit : 7. plus d'étoile sur le groupe entier
@@ -70,6 +74,8 @@
 - OK — iphone grand texte : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
 - OK — iphone grand texte : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
 - OK — iphone grand texte : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone grand texte : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
+- OK — iphone grand texte : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone grand texte : 6. tableau des abréviations dans le Journal (modifiable)
 - OK — iphone grand texte : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone grand texte : 7. plus d'étoile sur le groupe entier
@@ -97,6 +103,8 @@
 - OK — ordinateur : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
 - OK — ordinateur : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
 - OK — ordinateur : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — ordinateur : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
+- OK — ordinateur : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — ordinateur : 6. tableau des abréviations dans le Journal (modifiable)
 - OK — ordinateur : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — ordinateur : 7. plus d'étoile sur le groupe entier
@@ -109,4 +117,4 @@
 - OK — ordinateur : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
 - OK — ordinateur : aucune erreur JS
 
-108/108 tests OK
+116/116 tests OK
