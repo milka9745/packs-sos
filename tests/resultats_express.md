@@ -1,0 +1,249 @@
+# Tests Express visite (17/10/2026)
+
+- OK — iphone jour : accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »
+- OK — iphone jour : f. en visite, toucher le patient lance la navigation (même geste)
+- OK — iphone jour : 4. bandeau profil (SPÉCIMEN) rangé dans ⋯
+- OK — iphone jour : v1 patient ouvert
+- OK — iphone jour : v1 c. fiche proposée selon le motif et l'âge : « Rhinopharyngite — adulte »
+- OK — iphone jour : v1 1. arrivée enregistrée seule à la confirmation
+- OK — iphone jour : v1 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone jour : v1 pas de certificat enfant malade chez l'adulte
+- OK — iphone jour : v1 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone jour : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
+- OK — iphone jour : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone jour : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone jour : v1 2. pas d'écran récapitulatif après validation
+- OK — iphone jour : v1 patient suivant ouvert (v2)
+- OK — iphone jour : v1 gestes : 4 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone jour : v2 patient ouvert
+- OK — iphone jour : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
+- OK — iphone jour : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
+- OK — iphone jour : c. liste classique « Autre fiche » : fiche enfant en tête à 4 ans
+- OK — iphone jour : v2 1. arrivée enregistrée seule à la confirmation
+- OK — iphone jour : poids demandé chez l'enfant, champ en évidence
+- OK — iphone jour : certificat enfant malade proposé (enfant)
+- OK — iphone jour : v2 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone jour : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
+- OK — iphone jour : a. dose au poids affichée (17 kg)
+- OK — iphone jour : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone jour : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone jour : v2 2. pas d'écran récapitulatif après validation
+- OK — iphone jour : v2 patient suivant ouvert (v3)
+- OK — iphone jour : v2 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone jour : v3 patient ouvert
+- OK — iphone jour : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
+- OK — iphone jour : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
+- OK — iphone jour : v3 1. arrivée enregistrée seule à la confirmation
+- OK — iphone jour : v3 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone jour : v3 pas de certificat enfant malade chez l'adulte
+- OK — iphone jour : v3 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone jour : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
+- OK — iphone jour : courrier prêt (fiche avec orientation)
+- OK — iphone jour : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone jour : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone jour : v3 2. pas d'écran récapitulatif après validation
+- OK — iphone jour : v3 patient suivant ouvert (tournée terminée)
+- OK — iphone jour : v3 gestes : 4 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone jour : journal : 3 patients
+- OK — iphone jour : g. secours : « Recopier le CR » dans « Patients validés »
+- OK — iphone jour : « Patients validés » : bouton « Recopier le CR »
+- OK — iphone jour : aucune fenêtre système
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »
+- OK — iphone nuit : f. en visite, toucher le patient lance la navigation (même geste)
+- OK — iphone nuit : 4. bandeau profil (SPÉCIMEN) rangé dans ⋯
+- OK — iphone nuit : v1 patient ouvert
+- OK — iphone nuit : v1 c. fiche proposée selon le motif et l'âge : « Rhinopharyngite — adulte »
+- OK — iphone nuit : v1 1. arrivée enregistrée seule à la confirmation
+- OK — iphone nuit : v1 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone nuit : v1 pas de certificat enfant malade chez l'adulte
+- OK — iphone nuit : v1 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone nuit : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
+- OK — iphone nuit : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone nuit : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone nuit : v1 2. pas d'écran récapitulatif après validation
+- OK — iphone nuit : v1 patient suivant ouvert (v2)
+- OK — iphone nuit : v1 gestes : 4 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone nuit : v2 patient ouvert
+- OK — iphone nuit : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
+- OK — iphone nuit : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
+- OK — iphone nuit : c. liste classique « Autre fiche » : fiche enfant en tête à 4 ans
+- OK — iphone nuit : v2 1. arrivée enregistrée seule à la confirmation
+- OK — iphone nuit : poids demandé chez l'enfant, champ en évidence
+- OK — iphone nuit : certificat enfant malade proposé (enfant)
+- OK — iphone nuit : v2 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone nuit : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
+- OK — iphone nuit : a. dose au poids affichée (17 kg)
+- OK — iphone nuit : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone nuit : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone nuit : v2 2. pas d'écran récapitulatif après validation
+- OK — iphone nuit : v2 patient suivant ouvert (v3)
+- OK — iphone nuit : v2 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone nuit : v3 patient ouvert
+- OK — iphone nuit : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
+- OK — iphone nuit : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
+- OK — iphone nuit : v3 1. arrivée enregistrée seule à la confirmation
+- OK — iphone nuit : v3 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone nuit : v3 pas de certificat enfant malade chez l'adulte
+- OK — iphone nuit : v3 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone nuit : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
+- OK — iphone nuit : courrier prêt (fiche avec orientation)
+- OK — iphone nuit : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone nuit : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone nuit : v3 2. pas d'écran récapitulatif après validation
+- OK — iphone nuit : v3 patient suivant ouvert (tournée terminée)
+- OK — iphone nuit : v3 gestes : 4 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone nuit : journal : 3 patients
+- OK — iphone nuit : g. secours : « Recopier le CR » dans « Patients validés »
+- OK — iphone nuit : « Patients validés » : bouton « Recopier le CR »
+- OK — iphone nuit : aucune fenêtre système
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte : accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »
+- OK — iphone grand texte : f. en visite, toucher le patient lance la navigation (même geste)
+- OK — iphone grand texte : 4. bandeau profil (SPÉCIMEN) rangé dans ⋯
+- OK — iphone grand texte : v1 patient ouvert
+- OK — iphone grand texte : v1 c. fiche proposée selon le motif et l'âge : « Rhinopharyngite — adulte »
+- OK — iphone grand texte : v1 1. arrivée enregistrée seule à la confirmation
+- OK — iphone grand texte : v1 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone grand texte : v1 pas de certificat enfant malade chez l'adulte
+- OK — iphone grand texte : v1 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone grand texte : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
+- OK — iphone grand texte : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone grand texte : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone grand texte : v1 2. pas d'écran récapitulatif après validation
+- OK — iphone grand texte : v1 patient suivant ouvert (v2)
+- OK — iphone grand texte : v1 gestes : 4 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone grand texte : v2 patient ouvert
+- OK — iphone grand texte : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
+- OK — iphone grand texte : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
+- OK — iphone grand texte : c. liste classique « Autre fiche » : fiche enfant en tête à 4 ans
+- OK — iphone grand texte : v2 1. arrivée enregistrée seule à la confirmation
+- OK — iphone grand texte : poids demandé chez l'enfant, champ en évidence
+- OK — iphone grand texte : certificat enfant malade proposé (enfant)
+- OK — iphone grand texte : v2 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone grand texte : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
+- OK — iphone grand texte : a. dose au poids affichée (17 kg)
+- OK — iphone grand texte : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone grand texte : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone grand texte : v2 2. pas d'écran récapitulatif après validation
+- OK — iphone grand texte : v2 patient suivant ouvert (v3)
+- OK — iphone grand texte : v2 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone grand texte : v3 patient ouvert
+- OK — iphone grand texte : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
+- OK — iphone grand texte : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
+- OK — iphone grand texte : v3 1. arrivée enregistrée seule à la confirmation
+- OK — iphone grand texte : v3 pas de champ poids sans dose au poids chez l'adulte
+- OK — iphone grand texte : v3 pas de certificat enfant malade chez l'adulte
+- OK — iphone grand texte : v3 d. « Arrêt de travail fait » visible, non coché
+- OK — iphone grand texte : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
+- OK — iphone grand texte : courrier prêt (fiche avec orientation)
+- OK — iphone grand texte : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — iphone grand texte : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — iphone grand texte : v3 2. pas d'écran récapitulatif après validation
+- OK — iphone grand texte : v3 patient suivant ouvert (tournée terminée)
+- OK — iphone grand texte : v3 gestes : 4 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — iphone grand texte : journal : 3 patients
+- OK — iphone grand texte : g. secours : « Recopier le CR » dans « Patients validés »
+- OK — iphone grand texte : « Patients validés » : bouton « Recopier le CR »
+- OK — iphone grand texte : aucune fenêtre système
+- OK — iphone grand texte : aucune erreur JS
+- OK — ordinateur : accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »
+- OK — ordinateur : f. en visite, toucher le patient lance la navigation (même geste)
+- OK — ordinateur : v1 patient ouvert
+- OK — ordinateur : v1 c. fiche proposée selon le motif et l'âge : « Rhinopharyngite — adulte »
+- OK — ordinateur : v1 1. arrivée enregistrée seule à la confirmation
+- OK — ordinateur : v1 pas de champ poids sans dose au poids chez l'adulte
+- OK — ordinateur : v1 pas de certificat enfant malade chez l'adulte
+- OK — ordinateur : v1 d. « Arrêt de travail fait » visible, non coché
+- OK — ordinateur : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
+- OK — ordinateur : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — ordinateur : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — ordinateur : v1 2. pas d'écran récapitulatif après validation
+- OK — ordinateur : v1 patient suivant ouvert (v2)
+- OK — ordinateur : v1 ordinateur : impression lancée
+- OK — ordinateur : v1 gestes : 4 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — ordinateur : v2 patient ouvert
+- OK — ordinateur : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
+- OK — ordinateur : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
+- OK — ordinateur : c. liste classique « Autre fiche » : fiche enfant en tête à 4 ans
+- OK — ordinateur : v2 1. arrivée enregistrée seule à la confirmation
+- OK — ordinateur : poids demandé chez l'enfant, champ en évidence
+- OK — ordinateur : certificat enfant malade proposé (enfant)
+- OK — ordinateur : v2 d. « Arrêt de travail fait » visible, non coché
+- OK — ordinateur : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
+- OK — ordinateur : a. dose au poids affichée (17 kg)
+- OK — ordinateur : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — ordinateur : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — ordinateur : v2 2. pas d'écran récapitulatif après validation
+- OK — ordinateur : v2 patient suivant ouvert (v3)
+- OK — ordinateur : v2 ordinateur : impression lancée
+- OK — ordinateur : v2 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — ordinateur : v3 patient ouvert
+- OK — ordinateur : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
+- OK — ordinateur : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
+- OK — ordinateur : v3 1. arrivée enregistrée seule à la confirmation
+- OK — ordinateur : v3 pas de champ poids sans dose au poids chez l'adulte
+- OK — ordinateur : v3 pas de certificat enfant malade chez l'adulte
+- OK — ordinateur : v3 d. « Arrêt de travail fait » visible, non coché
+- OK — ordinateur : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
+- OK — ordinateur : courrier prêt (fiche avec orientation)
+- OK — ordinateur : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
+- OK — ordinateur : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
+- OK — ordinateur : v3 2. pas d'écran récapitulatif après validation
+- OK — ordinateur : v3 patient suivant ouvert (tournée terminée)
+- OK — ordinateur : v3 ordinateur : impression lancée
+- OK — ordinateur : v3 gestes : 4 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider)
+- OK — ordinateur : journal : 3 patients
+- OK — ordinateur : g. secours : « Recopier le CR » dans « Patients validés »
+- OK — ordinateur : « Patients validés » : bouton « Recopier le CR »
+- OK — ordinateur : aucune fenêtre système
+- OK — ordinateur : aucune erreur JS
+- OK — iphone : f. au cabinet, toucher le patient n'ouvre pas la navigation
+- OK — iphone : a. alerte en attente annoncée sous le bouton
+- OK — iphone : 3. alerte en attente : écran d'alerte / aperçu au lieu de l'impression directe
+- OK — iphone : a. dose au poids sans poids (« Gastro-entérite — enfant ») : ligne signalée « poids manquant »
+- OK — iphone : a. poids manquant : le bouton ouvre l'aperçu, pas de validation
+- OK — iphone : e. adulte, fiche avec anticoagulant (« Entorse de cheville ») : poids affiché
+- OK — iphone : d. coché : « Arrêt de travail fait : 3 jours » au compte rendu
+- OK — iphone : d. coché : tracé au journal
+- OK — iphone : d. plus de bloc amelipro ni de durée suggérée
+- OK — iphone : d. décoché : rien au compte rendu
+- OK — iphone : PDF : page courte en taille normale (plus de 8,5 pt systématique)
+- OK — iphone : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
+- OK — iphone : PDF : trop long même à 9 pt → signalé (l'Express ouvre alors l'aperçu)
+- OK — iphone : « Plus » : dossier complet replié (identité, fiches, feuilles)
+- OK — iphone : 2. après « Imprimer et valider » : patient validé, écran libéré
+- OK — iphone : 2. « Annuler » (10 s) : le patient revient tel quel
+- OK — iphone : aucune erreur JS
+- OK — ordinateur : f. au cabinet, toucher le patient n'ouvre pas la navigation
+- OK — ordinateur : a. alerte en attente annoncée sous le bouton
+- OK — ordinateur : 3. alerte en attente : écran d'alerte / aperçu au lieu de l'impression directe
+- OK — ordinateur : a. dose au poids sans poids (« Gastro-entérite — enfant ») : ligne signalée « poids manquant »
+- OK — ordinateur : a. poids manquant : le bouton ouvre l'aperçu, pas de validation
+- OK — ordinateur : e. adulte, fiche avec anticoagulant (« Entorse de cheville ») : poids affiché
+- OK — ordinateur : d. coché : « Arrêt de travail fait : 3 jours » au compte rendu
+- OK — ordinateur : d. coché : tracé au journal
+- OK — ordinateur : d. plus de bloc amelipro ni de durée suggérée
+- OK — ordinateur : d. décoché : rien au compte rendu
+- OK — ordinateur : PDF : page courte en taille normale (plus de 8,5 pt systématique)
+- OK — ordinateur : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
+- OK — ordinateur : PDF : trop long même à 9 pt → signalé (l'Express ouvre alors l'aperçu)
+- OK — ordinateur : 2. après « Imprimer et valider » : patient validé, écran libéré
+- OK — ordinateur : 2. « Annuler » (10 s) : le patient revient tel quel
+- OK — ordinateur : aucune erreur JS
+
+243/243 tests OK
+
+Gestes : {"iphone jour": {"v1": 4, "v2": 5, "v3": 4}, "iphone nuit": {"v1": 4, "v2": 5, "v3": 4}, "iphone grand texte": {"v1": 4, "v2": 5, "v3": 4}, "ordinateur": {"v1": 4, "v2": 5, "v3": 4}}

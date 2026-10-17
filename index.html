@@ -532,6 +532,40 @@ html[data-theme="night"] .tc-steps li.done{background:#1F3B29;color:#8FD3A6}html
 #netbar .nb-body{padding:4px 0}#netbar .hint{color:inherit;opacity:.85}#netbar .nq-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:4px 0}#netbar .nq-row>span{flex:1 1 180px}
 #netbar .lc{color:inherit;border-color:currentColor}#netbar .nb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}#netbar ul{margin:4px 0;padding-left:18px}
 body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
+/* 17/10/2026 — Express visite */
+.xp{border:2px solid var(--line2);border-radius:14px;padding:12px;margin:8px 0 10px;background:var(--panel,transparent)}
+.xp .xp-hd{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}.xp .xp-hd b{font-size:19px}
+.xp .xp-acts{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.xp .xp-acts>*{min-height:48px;flex:1 1 140px;justify-content:center;text-align:center;display:inline-flex;align-items:center}
+.xp .xp-list{display:flex;flex-direction:column;gap:6px}
+.xp .xp-row{all:unset;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;width:100%;min-height:60px;padding:10px 12px;border:1px solid var(--line2);border-radius:12px;cursor:pointer;color:inherit;font-size:17px;position:relative;padding-right:44px}
+.xp .xp-acts>input[type=file]{display:none!important}
+.xp .xp-row .xp-rm{flex-basis:100%;font-size:14.5px;opacity:.85}.xp .xp-row .xp-go{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:22px}
+.xp .xp-row:active{background:var(--line)}
+.xp .xp-who{font-size:18px;line-height:1.3}.xp .xp-who .xp-rm{display:block;font-size:15px;opacity:.9}
+.xp .xp-lbl{font-size:12.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;opacity:.8;margin-top:6px}
+.xp .xp-pn{font-size:19px;font-weight:800;line-height:1.25}
+.xp .xp-prop{border:2px solid #FFB300;border-radius:12px;padding:10px;margin:8px 0}.xp .xp-prop.none{border-style:dashed}
+.xp .xp-grav{margin:6px 0;padding:6px 8px;border-radius:8px;background:rgba(200,40,40,.10);color:var(--bad,#b00);font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.xp .xp-grav.open{white-space:normal}
+.xp .xp-other{margin-top:6px}.xp .xp-other input{width:100%;box-sizing:border-box;min-height:44px;font-size:16px;margin:4px 0}
+.xp .xp-cands{display:flex;flex-direction:column;gap:6px;margin:6px 0}.xp .xp-cand{all:unset;box-sizing:border-box;padding:10px;border:1px solid var(--line2);border-radius:10px;min-height:44px;cursor:pointer;font-size:16px}.xp .xp-cand.alt{opacity:.8;border-style:dashed}
+.xp .xp-id{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.xp .xp-id label{display:flex;flex-direction:column;font-size:13px;font-weight:700;gap:4px}.xp .xp-id label.w{grid-column:1/-1}
+.xp .xp-id input,.xp .xp-f input{min-height:44px;font-size:17px;box-sizing:border-box;width:100%}
+.xp .xp-fiche{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin:8px 0 2px}
+.xp .xp-fields{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:8px 0}
+.xp .xp-f{display:flex;flex-direction:column;font-weight:700;font-size:14px;gap:3px;min-width:120px}.xp .xp-f.sm{min-width:90px;max-width:120px}.xp .xp-f.need input{border:2px solid #FFB300}
+.xp .xp-t{display:flex;align-items:center;gap:8px;min-height:44px;font-size:16px;font-weight:700}.xp .xp-t input{width:22px;height:22px}
+.xp .xp-meds{margin:8px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line2)}.xp .xp-med{font-size:15.5px;line-height:1.35;padding:3px 0}.xp .xp-med+.xp-med{border-top:1px dashed var(--line2)}
+.xp .xp-med.w{font-weight:700}.xp .xp-med.miss{color:var(--bad,#b00);font-weight:800}
+.xp .xp-line{margin:6px 0;font-size:15px}
+.xp .xp-print{margin-top:10px}.xp .xp-print #xp_go{width:100%;min-height:64px;font-size:20px}.xp .xp-print #xp_go.wait{opacity:.85}
+.xp-plus{margin:8px 0 80px;border:1px solid var(--line2);border-radius:12px;padding:0 10px}.xp-plus>summary{min-height:48px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;cursor:pointer;font-size:17px}
+.xp-plus>summary .hint{margin:0}
+body.xpmode #go_top{display:none}
+.jm-bars>*{margin:4px 0}
+#xptoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%) translateY(140%);z-index:80;display:flex;gap:10px;align-items:center;width:min(92vw,440px);box-sizing:border-box;padding:10px 12px;border-radius:14px;background:#1d2a20;color:#e6ffe9;box-shadow:0 6px 24px rgba(0,0,0,.35);font-size:15px;transition:transform .2s}
+#xptoast.on{transform:translateX(-50%) translateY(0)}#xptoast .btn{min-height:40px;flex:0 0 auto;background:#fff!important;color:#123!important;border-color:#fff!important;font-weight:800}
+@media(min-width:761px){.xp{max-width:980px}.xp .xp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}}
 /* 16/10/2026 n° 12 : mode voiture — zones sûres iOS, adresse adaptative, boutons toujours visibles */
 .drive{padding:calc(env(safe-area-inset-top,0px) + 8px) calc(env(safe-area-inset-right,0px) + 10px) calc(env(safe-area-inset-bottom,0px) + 10px) calc(env(safe-area-inset-left,0px) + 10px)!important;gap:8px!important;max-width:100%;box-sizing:border-box}
 .drive .dv-top{flex-wrap:wrap}.drive .dv-top .dv-ok,.drive .dv-top .dv-ko{font-size:18px}
@@ -6718,7 +6752,7 @@ function buildCR0(p){
   L.push("CONDUITE À TENIR");
   meds.forEach(x=>L.push("- "+x)); dm.forEach(x=>L.push("- Dispositif : "+x)); ide.forEach(x=>L.push("- Soins infirmiers : "+x)); kine.forEach(x=>L.push("- Kinésithérapie : "+x)); para.forEach(x=>L.push("- Paramédical : "+x)); proto.forEach(x=>L.push("- Protocole insulinique : "+x));
   if(let_.length) L.push("- Courrier au spécialiste remis.");
-  if(state.at.on&&state.at.jours) L.push("- Arrêt de travail "+(state.at.type==="prolongation"?"(prolongation)":state.at.type==="at"?"(accident du travail)":"initial")+" de "+state.at.jours+" jour(s), du "+normDate(state.at.debut||state.date)+(addDays(state.at.debut||state.date,state.at.jours)?" au "+addDays(state.at.debut||state.date,state.at.jours):"")+", sorties "+(state.at.sorties==="autorisees"?"autorisées":"non autorisées")+", télédéclaré.");
+  if(state.at.on) L.push("- Arrêt de travail fait"+(+state.at.jours>0?" : "+state.at.jours+" jour"+(+state.at.jours>1?"s":""):"")+".");
   if(state.nh.on&&nhTotal()>0) L.push("- Note d'honoraires n° "+nhNumero()+" remise ("+fmtEur(nhTotal())+(state.nh.hn?", acte hors nomenclature, tarif annoncé avant l'acte":"")+")"+(state.nh.statut==="differe"?" ; règlement différé convenu"+(state.nh.echeance?" au "+normDate(state.nh.echeance):"")+", reconnaissance de dette de "+fmtEur(nhReste())+" signée par le patient.":state.nh.statut==="refus"?" ; refus de paiement de la part restant à charge ("+fmtEur(nhReste())+") constaté à l'issue de la consultation"+(state.nh.temoin?" en présence de "+state.nh.temoin:"")+" ; soins et documents remis ; note d'honoraires remise valant facture.":"."));
   L.push("");
   {const ct=ciTrace();if(ct.length){L.push("DÉCISIONS DE PRESCRIPTION");ct.forEach(x=>L.push("- "+x));L.push("");}}
@@ -6748,7 +6782,7 @@ function letData(p){const o=state.obs||{};const a=ageY();const A=letAccord();
   const meds=get("med").map(x=>x.jr?short(x.s)+" (ordonnance sécurisée manuscrite)":x.s);
   const bio=get("bio").map(x=>x.s.split(/ Résultats? à /)[0].replace(/\s*\([^)]*\)/g,"").replace(/[.;\s]+$/,"")),img=get("img").map(x=>short(x.s)),ide=get("ide").map(x=>short(x.s)),kine=get("kine").map(x=>short(x.s)),dm=get("dm").map(x=>short(x.s)),spe=get("spe").map(x=>short(x.s));
   const allTxt=sheets.flatMap(x=>x.lines.map(l=>l.s)).join(" ");
-  const at=state.at&&state.at.on&&state.at.jours?("arrêt de travail "+(state.at.type==="prolongation"?"(prolongation) ":state.at.type==="at"?"(accident du travail) ":"")+"de "+state.at.jours+" jour"+(+state.at.jours>1?"s":"")+", du "+normDate(state.at.debut||state.date)+(addDays(state.at.debut||state.date,state.at.jours)?" au "+addDays(state.at.debut||state.date,state.at.jours):"")):"";
+  const at=state.at&&state.at.on?("arrêt de travail fait"+(+state.at.jours>0?" ("+state.at.jours+" jour"+(+state.at.jours>1?"s":"")+")":"")):"";
   return {o,A,id,motif,diag,atcd:String(o.atcd||"").trim().replace(/[.;\s]+$/,""),al,terrain,tt:(state.tt||[]).join(", "),cst,exam,faits,meds,bio,img,ide,kine,dm,spe,at,allTxt,lieu:(state.cot&&state.cot.lieu)==="visite"?"en visite":"en consultation"};}
 function letExamTxt(d){const P=[];if(d.cst)P.push("Constantes : "+d.cst+".");if(d.exam.length)P.push("À l'examen : "+d.exam.map(([l,v])=>(l===l.toUpperCase()?l:l.toLowerCase())+" : "+v.charAt(0).toLowerCase()+v.slice(1)).join(" ; ")+".");if(d.faits.length)P.push("Examens réalisés : "+d.faits.join(" ; ")+".");return P.join(" ");}
 function letTerrainTxt(d){const P=[];if(d.atcd)P.push("Antécédents : "+d.atcd+".");if(d.tt)P.push("Traitement habituel : "+d.tt+".");if(d.al)P.push("**Allergies : "+d.al+".**");if(d.terrain)P.push(d.terrain.charAt(0).toUpperCase()+d.terrain.slice(1)+".");return P.join(" ");}
@@ -6957,8 +6991,6 @@ const PACK_FLAGS=[
  [/allaitement|crevasses|engorgement|mastite/i,st=>{if(!st.allait){st.allait=true;st.sexe="f";return "Allaitement coché d'après le pack";}}],
  [/— femme|femme$|mycose vaginale|vaginose|ménopause|endométriose|contraception|infertilité|\bIVG\b|cystite simple|pyélonéphrite aiguë simple/i,st=>{if(!st.sexe){st.sexe="f";return "Sexe : femme (d'après le pack)";}}],
  [/— homme|homme$|prostat|érection|gynécomastie|hypogonadisme|urétrite/i,st=>{if(!st.sexe){st.sexe="h";return "Sexe : homme (d'après le pack)";}}],
- [/accident du travail/i,st=>{if(!st.at.on){st.at.on=true;st.at.type="at";return "Arrêt de travail ouvert en mode accident du travail";}}],
- [/burn-out|arrêt long/i,st=>{if(!st.at.on){st.at.on=true;return "Bloc arrêt de travail ouvert";}}],
  [/à domicile|\bHAD\b|palliatif|décès/i,st=>{if(st.cot.lieu!=="visite"){st.cot.lieu="visite";return "Cotation : visite à domicile";}}],
 ];
 function autoFlagsFromPack(){const idx=selIdx();idx.forEach(i=>{if(state.ui.flagged[i])return;state.ui.flagged[i]=1;const n=PACKS[i].n;PACK_FLAGS.forEach(([re,fn])=>{if(re.test(n)){const msg=fn(state);if(msg)state.autoNotes.push(msg);}});});
@@ -7038,15 +7070,20 @@ function search(q){
   const words=q.split(/\s+/).filter(Boolean);
   const selSet=new Set(selIdx());
   const list = PACKS.map((p,i)=>({p,i})).filter(({p,i})=>{if(selSet.has(i))return false;const hay=norm(p.n)+" "+norm(p.k);return words.every(w=>hay.includes(w));});
-  const res=$("#res"); res.innerHTML="";
+  const res=$("#res"); if(!res)return; res.innerHTML="";
   if(selSet.size){const c=document.createElement("div");c.className="cat sel";c.textContent="Sélection ("+selSet.size+")";res.appendChild(c);
     selIdx().forEach(i=>{const p=PACKS[i];const row=document.createElement("div");row.className="row";const b=document.createElement("button");b.className="res on";b.innerHTML='<div class="n">'+p.n+'</div><div class="t">'+p.s.map(x=>TYPES[x.k].lbl).join(" · ")+'</div>';
       const un=()=>{let cur=selIdx().filter(x=>x!==i);state.sel=cur.length===0?null:cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};render();search($("#q").value);}; /* 16/10/2026 n° 10 : l'observation et la dictée sont conservées */
       b.onclick=un;const x=document.createElement("button");x.className="rm";x.title="Retirer";x.textContent="×";x.onclick=un;row.appendChild(b);row.appendChild(x);res.appendChild(row);});}
   if(!list.length&&!selSet.size){res.innerHTML='<div class="empty">Aucun pack pour « '+q+' ». Essaie un autre mot : symptôme, organe, nom du pack.</div>';return;}
   let lastCat="";
-  for(const {p,i} of list){
-    const cat = p.n.includes("Certificat")?"Certificats":p.s.every(x=>x.k==="bio")?"Biologie seule":"Prises en charge";
+  /* 17/10/2026 (c) : fiches de l'âge du patient d'abord (enfant / adulte / sujet âgé), les autres âges à la fin */
+  let ordered=list;const OTHER=new Set();
+  try{if(xpAgeCls()||state.sexe==="h"){const ok=list.filter(x=>packAgeOk(x.i)),ot=list.filter(x=>!packAgeOk(x.i));ot.forEach(x=>OTHER.add(x.i));
+    if(words.length){const co=x=>x.p.n.includes("Certificat")?2:x.p.s.every(y=>y.k==="bio")?1:0;const sc=new Map(ok.map(x=>[x.i,packRank(x.i,words)]));ok.sort((a,b)=>co(a)-co(b)||sc.get(b.i)-sc.get(a.i));}
+    ordered=[...ok,...ot];}}catch(e){}
+  for(const {p,i} of ordered){
+    const cat = OTHER.has(i)?"Autres âges":p.n.includes("Certificat")?"Certificats":p.s.every(x=>x.k==="bio")?"Biologie seule":"Prises en charge";
     if(cat!==lastCat){const c=document.createElement("div");c.className="cat";c.textContent=cat;res.appendChild(c);lastCat=cat;}
     const row=document.createElement("div");row.className="row";
     const b=document.createElement("button");b.className="res"+(selIdx().includes(i)?" on":"");
@@ -7241,22 +7278,9 @@ function nhPage(pat){
    ${pageSign()}
    </div></div>`;
 }
-function atUI(p){
+function atUI(p){ /* 17/10/2026 (d) : Packs ne rédige pas l'arrêt ; il trace seulement qu'il a été fait */
   const a=state.at;
-  let h=`<div class="nhbox"><label class="nht"><input type="checkbox" id="at_on" ${a.on?"checked":""}> Arrêt de travail — bloc à coller dans amelipro (pas d'impression : Cerfa sécurisé ou télédéclaration)</label>`;
-  if(a.on){
-    const sugg=atDureeSugg(p.n); const fin=addDays(a.debut||state.date,a.jours);
-    h+=`<div class="nhopts">
-     <label>Type <select id="at_type">${[["initial","Initial"],["prolongation","Prolongation"],["at","Accident du travail"]].map(([v,l])=>`<option value="${v}" ${a.type===v?"selected":""}>${l}</option>`).join("")}</select></label>
-     <label>Début <input id="at_debut" placeholder="JJ/MM/AAAA (défaut : ce jour)" value="${esc(a.debut)}" style="width:150px"></label>
-     <label>Durée (jours) <input id="at_jours" inputmode="numeric" value="${esc(a.jours)}" style="width:60px">${sugg?` <span class="hint">durée indicative pour ce motif : ${sugg} j</span>`:""}</label>
-     <label>Motif (texte libre, reste confidentiel) <input id="at_motif" value="${esc(a.motif)}" placeholder="${esc(p.n)}"></label>
-     <label>Sorties <select id="at_sorties"><option value="autorisees" ${a.sorties==="autorisees"?"selected":""}>autorisées</option><option value="non" ${a.sorties==="non"?"selected":""}>non autorisées</option></select></label>
-     ${a.type==="at"?`<label>Date de l'accident <input id="at_accd" value="${esc(a.acc_date)}" placeholder="JJ/MM/AAAA" style="width:120px"></label><label>Heure <input id="at_acch" value="${esc(a.acc_heure)}" placeholder="HH:MM" style="width:70px"></label><label>Employeur (nom, adresse) <input id="at_emp" value="${esc(a.employeur)}" style="width:260px"></label><label>Lésions constatées <input id="at_les" value="${esc(a.lesions||state.f.lesions||"")}" placeholder="reprises du schéma corporel si renseigné" style="width:100%"></label><label>Soins jusqu'au <input id="at_soins" value="${esc(a.soins)}" placeholder="JJ/MM/AAAA" style="width:120px"></label>`:""}
-     ${a.sorties==="autorisees"?`<label>Horaires <select id="at_horaires">${["sans restriction d'horaires (justification médicale)","présence obligatoire de 9 h à 11 h et de 14 h à 16 h"].map(x=>`<option ${a.horaires===x?"selected":""}>${x}</option>`).join("")}</select></label>`:""}
-     </div><pre class="atprev" id="at_prev">${esc(atBloc(p))}</pre><button type="button" class="btn p" id="at_copy">Copier le bloc arrêt</button>${fin?`<span class="hint"> Fin : ${fin} inclus</span>`:""}</div>`;
-  }
-  return h+`</div>`;
+  return `<div class="nhbox atfait"><label class="nht"><input type="checkbox" id="at_on" ${a.on?"checked":""}> Arrêt de travail fait</label>${a.on?`<label class="hint">Nombre de jours (facultatif) <input id="at_jours" inputmode="numeric" value="${esc(a.jours)}" style="width:60px"></label>`:""}<div class="hint">Rédigé hors de Packs (amelipro) ; coché, il est noté au compte rendu et au journal.</div></div>`;
 }
 function atBloc(p){
   const a=state.at; const deb=normDate(a.debut||state.date); const fin=addDays(deb,a.jours);
@@ -7445,7 +7469,7 @@ function journalUpsert(p){
   let e=JOURNAL.find(x=>norm(x.patient)===key&&now-x.ts<2*3600*1000);
   const _ct=cotTimes(now);
   if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
-  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on&&state.at.jours)e.at={j:+state.at.jours,deb:normDate(state.at.debut||state.date),fin:addDays(state.at.debut||state.date,state.at.jours),type:state.at.type};}catch(x){}
+  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;}catch(x){}
   if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
   journalSave();
 }
@@ -7520,7 +7544,7 @@ function renderJournal(){
   let tot=0,exo=0;
   const rows=es.map(e=>{const c=cotCompute(e);tot+=c.total;exo+=c.exo;const t=new Date(e.ts);const has=k=>c.codes.some(x=>x.c===k);
     const tog=(k,l)=>`<button type="button" class="lc${has(k)?" on":""}" data-jt="${e.id}" data-code="${k}">${l}</button>`;
-    return `<div class="jrow"><div class="jmain"><button type="button" class="lc jh" data-jh="${e.id}" title="Modifier l'heure de l'acte (cotation)">${fmtHM(e.tActe||e.ts)}</button> ${esc(e.patient)}<span class="pcd" title="Code patient (ce code seul sort de l'appareil)">${esc(patCode(e))}</span>${e.age!=null?` <span class="hint">${e.age} ans</span>`:""}<div class="hint">${esc(e.pack)}</div><div class="hint">${e.tArr?"Arrivée "+fmtHM(e.tArr)+" · ":""}Acte ${fmtHM(e.tActe||e.ts)} · Validation ${fmtHM(e.tFin||e.ts)}${(e.appels||[]).map(c=>" · Appel "+fmtHM(c.ts)+(c.annonce?" (arrivée annoncée "+esc(c.annonce)+")":"")).join("")}</div>${e.at?`<div class="hint">Arrêt de travail${e.at.type==="at"?" (accident du travail)":e.at.type==="prolongation"?" (prolongation)":""} : ${e.at.j} j, du ${esc(e.at.deb)} au ${esc(e.at.fin)}</div>`:""}${(e.notes||[]).map(n=>`<div class="hint">Ordonnance sécurisée manuscrite : ${esc(n)}</div>`).join("")}</div>
+    return `<div class="jrow"><div class="jmain"><button type="button" class="lc jh" data-jh="${e.id}" title="Modifier l'heure de l'acte (cotation)">${fmtHM(e.tActe||e.ts)}</button> ${esc(e.patient)}<span class="pcd" title="Code patient (ce code seul sort de l'appareil)">${esc(patCode(e))}</span>${e.age!=null?` <span class="hint">${e.age} ans</span>`:""}<div class="hint">${esc(e.pack)}</div><div class="hint">${e.tArr?"Arrivée "+fmtHM(e.tArr)+" · ":""}Acte ${fmtHM(e.tActe||e.ts)} · Validation ${fmtHM(e.tFin||e.ts)}${(e.appels||[]).map(c=>" · Appel "+fmtHM(c.ts)+(c.annonce?" (arrivée annoncée "+esc(c.annonce)+")":"")).join("")}</div>${e.at?`<div class="hint">Arrêt de travail fait${e.at.j?" : "+e.at.j+" j":""}</div>`:""}${(e.notes||[]).map(n=>`<div class="hint">Ordonnance sécurisée manuscrite : ${esc(n)}</div>`).join("")}</div>
      <div class="jcodes">${c.codes.map(x=>`<span class="chip">${x.c} ${fmtEur(x.v)}</span>`).join("")}${e.impaye?`<span class="chip imp">Impayé ${fmtEur(e.impaye)}</span>`:""}${gardeHors(e.ts)?`<span class="chip hors" title="Enregistré en dehors des horaires de la garde du jour">hors horaires</span>`:""}</div>
      <div class="jact">${tog("MEG","MEG")}${tog("MOP","MOP")}${tog("DEQP003","ECG")}${e.lieu==="visite"?tog("MD","MD"):""}<button type="button" class="lc${e.lieu==="visite"?" on":""}" data-jl="${e.id}">Visite</button><b class="jtot">${fmtEur(c.total)}</b><button type="button" class="jdel" data-jdel="${e.id}" title="Supprimer cette ligne du journal">Supprimer</button></div></div>`;}).join("");
   const year=new Date().getFullYear(); const b=exoBilan(year);
@@ -15720,7 +15744,7 @@ function scoresUI(p){
 function scoresCR(p){const list=scoresFor(p);const L=[];list.forEach(s=>{const ans=state.scores&&state.scores[s.id];if(!ans||!scoreDone(s,ans))return;const tot=scoreTotal(s,ans);const r=s.calc(tot,ans);const det=(s.it||[]).filter(([k])=>ans[k]).map(([,l])=>l.toLowerCase()).join(", ");L.push("- "+s.n+" : "+tot+" ("+r.txt+")"+(det?" ; critères présents : "+det:""));});return L;}
 
 function opt(key,title,summary,body){const open=!!state.ui.opt[key];return `<details class="opt" data-opt="${key}" ${open?"open":""}><summary><span class="ot">${esc(title)}</span><span class="os">${esc(summary)}</span></summary><div class="ob">${body}</div></details>`;}
-function renderCore(){
+function renderCore(){XP.dict=false;
   if(state.view==="drugs"){renderDrugs();return;}
   if(state.view==="drive"){renderDrive();return;}
   try{autoFlagsFromPack();}catch(e){}
@@ -15740,7 +15764,7 @@ function renderCore(){
   const testBanner=(TESTMODE&&!isPhone())?`<div class="testbar">MODE TEST : impressions et saisies ne sont pas enregistrées dans le journal de garde ni dans la comptabilité. Cliquez « MODE TEST » pour revenir en mode réel.</div>`:"";
   const jbar=`<div class="jbar"><button type="button" class="btn newp" id="new2">＋ Nouveau patient</button><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒</button>${topbarBtns()}<span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${aiBtnHTML()}<span class="jsp"></span><button type="button" class="btn ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde">${TESTMODE?"MODE TEST — journal non alimenté":"Mode test"}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${(()=>{const n=tourRemaining().length;return n?" ("+n+")":"";})()}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_open">↩ Validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="j_open">Journal de garde${(()=>{const n=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;return n?" ("+n+")":"";})()}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div>`;
     const copatUI=(!_p0)?"":`<div class="copat">${(state.copat||[]).map((c,i)=>`<div class="copatrow"><span class="hint">Même motif, patient ${i+2}</span><input data-cp="${i}" data-k="patient" placeholder="NOM Prénom" value="${esc(c.patient||"")}" style="width:220px"><input data-cp="${i}" data-k="ddn" placeholder="Date de naissance" value="${esc(c.ddn||"")}" inputmode="numeric" style="width:130px"><input data-cp="${i}" data-k="poids" placeholder="Poids (kg)" value="${esc(c.poids||"")}" inputmode="decimal" style="width:80px"><select data-cp="${i}" data-k="sexe"><option value="" ${!c.sexe?"selected":""}>Sexe</option><option value="h" ${c.sexe==="h"?"selected":""}>Homme</option><option value="f" ${c.sexe==="f"?"selected":""}>Femme</option></select><label><input type="checkbox" data-cp="${i}" data-k="allergie" ${c.allergie?"checked":""}> Allergie pénicillines</label><input data-cp="${i}" data-k="packName" list="packlist" placeholder="Même motif (ou taper un autre pack)" value="${esc(c.packName||"")}" style="width:260px"><button type="button" class="rm" data-cprm="${i}" title="Retirer">×</button></div>`).join("")}<datalist id="packlist">${PACKS.map(x=>`<option value="${esc(x.n)}">`).join("")}</datalist><button type="button" class="btn s sm" id="copat_add">＋ Même motif, autre patient (fratrie, couple)</button>${(state.copat||[]).length?'<span class="hint" style="margin-left:8px">Chaque patient reçoit ses feuilles (doses au poids, règles d\'âge, allergie), avec le même pack ou celui tapé dans « motif » ; chacun est inscrit dans le journal et dans le compte rendu.</span>':""}</div>`;
-  const head=restored+testBanner+(isPhone()?phoneTopbar(_p0):jbar)+specBarHTML()+backupBarHTML()+gardeBannerHTML()+lieuSwitchHTML()+(isPhone()?stepsHTML(_p0?2:1):"")+tourCardHTML()+`<section class="pcard"><div class="pcard-h"><span class="stepn">1</span><b>Patient</b><span class="hint">Nom, naissance, poids · Entrée passe au champ suivant, puis au motif</span>${patCallHTML()}</div><div class="patient">
+  const head=restored+testBanner+(isPhone()?phoneTopbar(_p0):jbar)+xpHTML()+(xpBarsInMenu()?"":specBarHTML()+backupBarHTML()+gardeBannerHTML())+lieuSwitchHTML()+(isPhone()?stepsHTML(_p0?2:1):"")+tourCardHTML()+`<section class="pcard"><div class="pcard-h"><span class="stepn">1</span><b>Patient</b><span class="hint">Nom, naissance, poids · Entrée passe au champ suivant, puis au motif</span>${patCallHTML()}</div><div class="patient">
    <div><label>Patient (NOM Prénom)</label><input id="f_patient" value="${esc(state.patient)}" placeholder="ex. DUPONT Marie"></div>
    <div><label>Date de naissance<span id="f_age" class="agetag">${esc(ageLabel())}</span></label><input id="f_ddn" value="${esc(state.ddn)}" placeholder="ex. 12031985" inputmode="numeric"></div>
    <div ${needPoids?"":'style="display:none"'}><label>Poids (kg)</label><input id="f_poids" value="${esc(state.poids)}" placeholder="ex. 14" inputmode="decimal"></div>
@@ -15805,7 +15829,7 @@ function renderCore(){
     }
   }
   const cotR=(()=>{const c=state.cot;const _a=ageY();return cotCompute({ts:Date.now(),lieu:c.lieu,ecg:c.ecg,km:c.km,age:_a?_a.y:null,extra:[],minus:[]});})();
-  const extraOpts=`<div class="optgrid">`+opt("cot","Cotation",cotR.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(cotR.total),cotBox())+opt("pho","Photos",state.photos.length?state.photos.length+" photo(s)":"aucune",photosUI())+opt("nh","Note d'honoraires",state.nh.on?(state.nh.statut==="paye"?"acquittée":state.nh.statut==="differe"?"règlement différé":"refus constaté")+" — "+fmtEur(nhTotal()):"non",nhUI())+opt("at","Arrêt de travail",state.at.on?((state.at.type==="at"?"accident du travail":state.at.type)+(state.at.jours?", "+state.at.jours+" j":"")):"non",atUI(p))+`</div>`+scoresUI(p);
+  const extraOpts=`<div class="optgrid">`+opt("cot","Cotation",cotR.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(cotR.total),cotBox())+opt("pho","Photos",state.photos.length?state.photos.length+" photo(s)":"aucune",photosUI())+opt("nh","Note d'honoraires",state.nh.on?(state.nh.statut==="paye"?"acquittée":state.nh.statut==="differe"?"règlement différé":"refus constaté")+" — "+fmtEur(nhTotal()):"non",nhUI())+opt("at","Arrêt de travail",state.at.on?"fait"+(+state.at.jours>0?", "+state.at.jours+" j":""):"non",atUI(p))+`</div>`+scoresUI(p);
   const advBox=advices.size?`<div class="adv">${[...advices].map(a=>"• "+esc(a)).join("<br>")}</div>`:"";
   const warn=missing.size?`<div class="warn">Pour imprimer sans trou, renseigne : ${[...missing].join(", ")}. Les lignes barrées seraient retirées de la feuille.</div>`:"";
   const alerts=checkAlerts(p.s);
@@ -15940,7 +15964,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   });
   const g=$("#go"); if(g) g.onclick=async()=>{const cp=currentPack(); if(cp){await copyText(buildCR(cp)); state.crCopied=Date.now(); const o=g.textContent; g.textContent="Observation copiée ✓ — impression…"; setTimeout(()=>g.textContent=o,2000);} printPack();};
   const go=$("#go_only"); if(go) go.onclick=printPack;
-  const fin=$("#fin"); if(fin) fin.onclick=async()=>{const cp=currentPack(); if(cp){let txt=buildCR(cp); const extras=(state.copat||[]).filter(c=>c.patient); if(extras.length){for(const c of extras){txt+="\n\n==========================================\n\n"+withExtra(c,pk=>buildCR(pk));}} if(state.at.on) txt+="\n\n=== ARRÊT DE TRAVAIL (à coller dans amelipro) ===\n"+atBloc(cp); await copyText(txt); state.crCopied=Date.now(); const o=fin.textContent; fin.textContent="Compte rendu"+(state.at.on?" + arrêt":"")+" copiés ✓ — impression…"; setTimeout(()=>fin.textContent=o,2500);} printPack();};
+  const fin=$("#fin"); if(fin) fin.onclick=async()=>{const cp=currentPack(); if(cp){let txt=buildCR(cp); const extras=(state.copat||[]).filter(c=>c.patient); if(extras.length){for(const c of extras){txt+="\n\n==========================================\n\n"+withExtra(c,pk=>buildCR(pk));}} await copyText(txt); state.crCopied=Date.now(); const o=fin.textContent; fin.textContent="Compte rendu"+(state.at.on?" + arrêt":"")+" copiés ✓ — impression…"; setTimeout(()=>fin.textContent=o,2500);} printPack();};
   const g2=$("#go2"); if(g2) g2.onclick=g?g.onclick:printPack;
   if(currentPack()) bindObs(currentPack());
   if(currentPack()) try{lettresBind(currentPack());}catch(e){console.warn('lettres',e);}
@@ -15949,12 +15973,12 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){state.lettres={};delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){state.lettres={};state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
-async function printPack(){
+async function printPack(){try{xpCancelBuild();}catch(e){}
   const p=currentPack(); if(!p){toast("Choisissez d'abord une fiche (motif) : rien à imprimer pour l'instant.");return;}
   const alerts=checkAlerts(p.s);
   const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack());return;} /* 16/10/2026 : Packs conseille, le médecin décide */
@@ -16050,7 +16074,8 @@ async function finishPrint(p,out,removed){
     if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>À raccourcir avant d'imprimer :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même en petite police (9 pt). Rien n'est masqué : décochez des lignes ou séparez le document.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
   window.scrollTo(0,0);
   if(phone||iosLike()) pdfPrepare(out);
-  if(!phone&&!iosLike()) setTimeout(printNow,150); /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
+  if(!phone&&!iosLike()) setTimeout(()=>{if(XP.auto&&DOCFIT.over.length){XP.auto=false;toast("Document trop long : vérifiez l'aperçu avant d'imprimer");return;}printNow();if(XP.auto)xpAfterPrint();},150);
+  else if(XP.auto)XP.auto=false; /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
 }
 
 $("#q").addEventListener("input",e=>search(e.target.value));
@@ -16680,7 +16705,7 @@ function dictHistScreen(){let el=document.getElementById("dicth");if(!el){el=doc
     state.obs.dict=cur&&cur!==x.txt?(confirm("Une dictée est déjà en cours.\nOK : ajouter la dictée reprise à la suite.\nAnnuler : remplacer.")?cur+"\n"+x.txt:x.txt):x.txt;el.remove();render();draftSaveNow();toast("Dictée reprise");});}
 
 /* ---- n° 5 : dictée toujours visible, grand champ, micro du clavier (reconnaissance vocale du navigateur non utilisée : non fiable en application installée sur iPhone) ---- */
-function dictCardHTML(){const n=DICTH.length;const p=currentPack();
+function dictCardHTML(inXp){if(XP.dict&&!inXp)return "";const n=DICTH.length;const p=currentPack();
   return `<section class="pcard dictcard" id="dictcard"><div class="pcard-h"><span class="stepn">🎙</span><b>Dictée</b><span class="pcard-ai">${aiMainHTML()}</span></div>
    <div class="hint dict-how">Touchez le champ, puis le micro 🎤 du clavier iPhone. Interrompre : touchez ailleurs ; reprendre : touchez de nouveau le champ. Enregistrée à chaque mot, chiffrée.</div>
    <textarea id="f_dict" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
@@ -16819,6 +16844,10 @@ document.addEventListener("change",ev=>{if(ev.target&&ev.target.id==="act_meds")
    Aucune contre-indication, interaction, dose ou durée ne bloque l'impression. Alerte : motif, source, alternative ; « Je maintiens la prescription »
    (un geste) puis motif court (suggestions, modifiable, dictable) ; motif et alerte au journal et au compte rendu, jamais sur l'ordonnance ;
    conseils liés à l'alerte proposés, cochables. Règles légales de forme : ce qu'il faut faire, sans bloquer le reste. */
+/* 17/10/2026 : association qui allonge le QT maintenue — motif proposé d'un toucher, ECG tracé au compte rendu */
+const CI_MOTIF_QT="association ancienne prescrite par le spécialiste, ECG récent connu";
+const CI_ECG=[["fait","fait ce jour"],["prescrit","prescrit"],["non","non fait"]];
+const CI_ECG_CR={fait:"fait ce jour",prescrit:"prescrit",non:"non fait",np:"non précisé"};
 const CI_MOTIFS=["traitement ancien prescrit par le spécialiste, renouvellement à l'identique","bénéfice supérieur au risque, patient informé","avis spécialisé pris"];
 function ciId(t){let h=0;const s=String(t);for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return "a"+(h>>>0).toString(36);}
 function ciInfo(a){const t=String(a);const level=/^⛔/.test(t)?"ci":/^⚠/.test(t)?"warn":"info";let motif=t.replace(/^(⛔|⚠)\s*/,"");let src="Règle de vérification de Packs",alt="";
@@ -16831,34 +16860,37 @@ function ciInfo(a){const t=String(a);const level=/^⛔/.test(t)?"ci":/^⚠/.test
   else if(/intramusculaire/i.test(motif))src="RCP : voie intramusculaire sous anticoagulant";
   else if(/dose|maximum|dépass/i.test(motif))src="Doses maximales du RCP";
   if(!alt){const m=/(?:→|préférer)\s*([^;]+)/i.exec(motif);if(m)alt=m[0].replace(/^→\s*/,"");}
-  const cons=[];if(/torsade|QT|rythme/i.test(t))cons.push("En cas de malaise, de palpitations ou de perte de connaissance : appeler le 15.");
+  const qt=/torsade|QT\b|allong\w* (?:de l'intervalle )?QT/i.test(t);const cons=[];if(qt||/rythme/i.test(t))cons.push("Palpitations, malaise ou perte de connaissance : appeler le 15.");
   if(/sédatif|somnolen|benzodiaz|neurolept|anticholinerg|opium|opioïde|dépression respiratoire|HYDROXYZINE|ATARAX|confusion|antihistamin/i.test(t))cons.push("Somnolence possible : ne pas conduire ni utiliser de machine dangereuse en début de traitement ou en cas de somnolence ; éviter l'alcool.");
   if(/saign|hématome|anticoag|AINS/i.test(t))cons.push("Consulter en cas de saignement inhabituel, de selles noires ou d'hématome.");
   if(/chute|hypotension|tension/i.test(t))cons.push("Se lever lentement, en deux temps (risque de chute).");
-  return {id:ciId(t),level,motif:motif.replace(/\s+/g," ").trim(),src,alt:alt.replace(/\s+/g," ").trim(),cons,raw:t};}
-function ciPending(alerts){const done=new Set((state.ciOver||[]).map(x=>x.id));const by=new Map();alerts.map(ciInfo).forEach(a=>{const k=norm(a.motif);const b=by.get(k);if(!b){a.ids=[a.id];by.set(k,a);return;}b.ids.push(a.id);if(!b.alt&&a.alt)b.alt=a.alt;a.cons.forEach(c=>{if(!b.cons.includes(c))b.cons.push(c);});});
+  return {id:ciId(t),level,motif:motif.replace(/\s+/g," ").trim(),src,alt:alt.replace(/\s+/g," ").trim(),cons,raw:t,qt};}
+function ciPending(alerts){const done=new Set((state.ciOver||[]).map(x=>x.id));const by=new Map();alerts.map(ciInfo).forEach(a=>{const k=norm(a.motif);const b=by.get(k);if(!b){a.ids=[a.id];by.set(k,a);return;}b.ids.push(a.id);if(!b.alt&&a.alt)b.alt=a.alt;if(a.qt)b.qt=true;a.cons.forEach(c=>{if(!b.cons.includes(c))b.cons.push(c);});});
   return [...by.values()].filter(a=>a.ids.some(id=>!done.has(id)));} /* même alerte venant de deux entrées du thésaurus : affichée une fois */
 /* règles légales de forme et lignes non imprimables : on dit quoi faire, on n'empêche pas le reste */
 function ciLegal(p){const out=[];try{p.s.forEach((sh,si)=>{if(state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;if(x.jr)out.push("Ordonnance sécurisée à rédiger à la main (non imprimée par Packs, inscrite au journal et au compte rendu) : "+x.fill.s.slice(0,70));
     else if(x.fill.miss.length)out.push("Non imprimé faute de donnée ("+x.fill.miss.join(", ")+") : complétez le champ pour l'imprimer — "+x.t.replace(/\{[^}]*\}/g,"…").slice(0,70));});});}catch(e){}return out;}
 function ciScreen(p,pend,go){let el=document.getElementById("ciover");if(!el){el=document.createElement("div");el.id="ciover";document.body.appendChild(el);}
   const consIdx=p.s.findIndex(sh=>sh.k==="cons");const lev={ci:"Contre-indication",warn:"Déconseillé",info:"À vérifier"};const legal=ciLegal(p);
+  const qt=pend.some(a=>a.qt);const motifs=qt?[CI_MOTIF_QT,...CI_MOTIFS]:CI_MOTIFS;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>Avant d'imprimer</b><span class="hint">Packs conseille, vous décidez. Rien n'est bloqué.</span></div>
    ${pend.map((a,i)=>`<div class="cicard ${a.level}"><div class="cilev">${lev[a.level]}</div><div class="cimot">${esc(a.motif)}</div><div class="cisrc"><b>Source</b> : ${esc(a.src)}</div>${a.alt?`<div class="cialt"><b>Proposé</b> : ${esc(a.alt)}</div>`:""}
      ${a.cons.length?`<div class="cicons"><b>Conseils au patient</b>${consIdx<0?' <span class="hint">(cette fiche n\'a pas de feuille Consignes)</span>':""}${a.cons.map((c,j)=>`<label><input type="checkbox" data-cicons="${i}|${j}" ${consIdx<0?"disabled title=\"Pas de feuille Consignes dans cette fiche\"":""}> ${esc(c)}</label>`).join("")}</div>`:""}</div>`).join("")}
    ${legal.length?`<div class="cicard legal"><div class="cilev">À faire (règle de forme)</div><ul>${legal.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="hint">Le reste de l'ordonnance s'imprime normalement.</div></div>`:""}
    <div class="ciact" id="ci_step1"><button type="button" class="btn p big" id="ci_keep">Je maintiens la prescription</button><button type="button" class="btn s" id="ci_edit">Modifier la prescription</button></div>
-   <div class="ciwhy" id="ci_step2" hidden><label for="ci_why"><b>Motif</b> (une ligne, modifiable ; micro du clavier possible)</label><input id="ci_why" type="text" autocomplete="off" placeholder="ex. renouvellement à l'identique"><div class="cichips">${CI_MOTIFS.map(m=>`<button type="button" class="lc" data-cichip="${esc(m)}">${esc(m)}</button>`).join("")}</div>
+   <div class="ciwhy" id="ci_step2" hidden><label for="ci_why"><b>Motif</b> (une ligne, modifiable ; micro du clavier possible)</label><input id="ci_why" type="text" autocomplete="off" placeholder="ex. renouvellement à l'identique"><div class="cichips">${motifs.map(m=>`<button type="button" class="lc" data-cichip="${esc(m)}">${esc(m)}</button>`).join("")}</div>
+     ${qt?`<div class="ciecg" role="group" aria-label="ECG"><b>ECG</b> (allongement du QT) : ${CI_ECG.map(([k,l])=>`<label class="lc"><input type="radio" name="ci_ecg" value="${k}"> ${l}</label>`).join("")}<div class="hint">Tracé au compte rendu.</div></div>`:""}
      <div class="ciact"><button type="button" class="btn p big" id="ci_print">Imprimer</button><button type="button" class="btn s" id="ci_edit2">Modifier la prescription</button></div><div class="hint">Motif et alerte inscrits au journal et au compte rendu ; jamais sur l'ordonnance.</div></div></div>`;
   const close=()=>el.remove();
   el.querySelector("#ci_edit").onclick=close;el.querySelector("#ci_edit2").onclick=close;
   el.querySelector("#ci_keep").onclick=()=>{el.querySelector("#ci_step1").hidden=true;el.querySelector("#ci_step2").hidden=false;const w=el.querySelector("#ci_why");w.focus();};
   el.querySelectorAll("[data-cichip]").forEach(b=>b.onclick=()=>{const w=el.querySelector("#ci_why");w.value=b.dataset.cichip;w.focus();});
   el.querySelector("#ci_print").onclick=()=>{const why=String(el.querySelector("#ci_why").value||"").trim()||"motif non précisé";const ts=Date.now();
-    state.ciOver=state.ciOver||[];pend.forEach(a=>(a.ids||[a.id]).forEach((id,k)=>state.ciOver.push({id,motif:a.motif,src:a.src,alt:a.alt,why,ts,dup:k>0})));
+    const ecgEl=el.querySelector("[name=ci_ecg]:checked");const ecg=ecgEl?ecgEl.value:"";
+    state.ciOver=state.ciOver||[];pend.forEach(a=>(a.ids||[a.id]).forEach((id,k)=>state.ciOver.push({id,motif:a.motif,src:a.src,alt:a.alt,why,ts,dup:k>0,qt:!!a.qt,ecg:a.qt?(ecg||"np"):""})));
     if(consIdx>=0){el.querySelectorAll("[data-cicons]:checked").forEach(c=>{const [i,j]=c.dataset.cicons.split("|").map(Number);const t=pend[i].cons[j];const ex=(state.extra[consIdx]=state.extra[consIdx]||[]);if(!ex.includes(t))ex.push(t);});}
     close();draftSaveSoon();go();};}
-function ciTrace(){return (state.ciOver||[]).filter(o=>!o.dup).map(o=>"Alerte passée outre après information : "+o.motif.replace(/[.\s]+$/,"")+" (source : "+o.src+") — motif : "+o.why.replace(/[.\s]+$/,"")+".");}
+function ciTrace(){return (state.ciOver||[]).filter(o=>!o.dup).map(o=>"Alerte passée outre après information : "+o.motif.replace(/[.\s]+$/,"")+" (source : "+o.src+") — motif : "+o.why.replace(/[.\s]+$/,"")+"."+(o.qt?" ECG : "+(CI_ECG_CR[o.ecg]||CI_ECG_CR.np)+".":""));}
 
 
 /* ===================== 16/10/2026 — LOT 2 (registre) : visite par étapes, appels, mode voiture, nouvelles demandes ===================== */
@@ -16973,6 +17005,180 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;
   const d=t.closest("[data-aiqdel]");if(d){if(confirm("Retirer cette demande IA en attente ? (la dictée reste dans l'observation)"))aiqDel(d.dataset.aiqdel);}});
 window.addEventListener("online",()=>netUI());
 window.addEventListener("offline",()=>netUI());
+/* ===================== 17/10/2026 — EXPRESS VISITE : « un choix → tout s'enchaîne » =====================
+   1. toucher le patient (liste de la régulation) → identité, âge, motif, fiche proposée ; en visite, la navigation part du même toucher ;
+   2. confirmer la fiche → arrivée notée, pack selon l'âge et le terrain, doses calculées, documents préparés, cotation calculée ;
+   3. dicter puis « Imprimer et valider » → compte rendu copié, PDF, journal, tournée, patient suivant.
+   Un champ n'apparaît que s'il découle du choix précédent ; le reste est dans « Plus ». Packs conseille, le médecin décide : rien n'est bloqué. */
+const XP={dict:false,file:null,key:"",busy:false,run:0,over:false,err:"",t:null,n:0,out:"",auto:false,list:false,others:false};
+const XP_WRE=/\{(ml|mg|wlt|mgpk|gouttes|bouffees|vog|tiorfan|aerius_e|acv):?/;
+const XP_ANTICOAG=/anticoag|HBPM|[ée]noxaparine|LOVENOX|tinzaparine|INNOHEP|fondaparinux|ARIXTRA|daltéparine|FRAGMINE|\/kg\b|mg\/kg/i;
+function xpOn(){try{return lsGet("sos_xp",true)!==false;}catch(e){return true;}}
+function xpActive(){return xpOn()&&!state.view;}
+/* ---- c. âge : enfant (< 15 ans), adulte, sujet âgé (65 ans et plus) ---- */
+function xpAgeCls(){const a=ageY();if(!a)return "";return a.y<15?"enfant":a.y>=65?"age":"adulte";}
+function packAgeCls(n){if(/sujet âgé|gériatr|personne âgée/i.test(n))return "age";if(/adulte/i.test(n))return "adulte";if(/nourrisson|enfant|bébé|pédiatr|néonat/i.test(n))return "enfant";return "tous";}
+function packAgeOk(i){const n=PACKS[i].n;const a=ageY();
+  if(state.sexe==="h"&&/grossesse|enceinte|post-partum|allaitement|— femme\b/i.test(n))return false;
+  if(a&&a.y<12&&/grossesse|enceinte|post-partum|contracep|ménopause/i.test(n))return false;
+  const cls=xpAgeCls(),pc=packAgeCls(n);if(!cls||pc==="tous")return true;if(cls==="enfant")return pc==="enfant";if(cls==="adulte")return pc==="adulte";return pc==="age"||pc==="adulte";}
+function packRank(i,words){const p=PACKS[i];const n=norm(p.n),k=norm(p.k||"");let sc=0;
+  for(const w of words){if(n.includes(w))sc+=3;else if(k.includes(w))sc+=1;else return -1;}
+  if(words.length&&n.startsWith(words[0]))sc+=2;
+  const cls=xpAgeCls(),pc=packAgeCls(p.n);if(cls&&pc===cls)sc+=cls==="age"?3:2;
+  const a=ageY();if(a&&a.y>=2&&/nourrisson|moins de 3 mois/i.test(p.n))sc-=3;
+  if(/^Certificat/.test(p.n))sc-=1;return sc-n.length/400;}
+function xpCandidates(q){const words=norm(String(q||"").trim()).split(/[\s,;\/]+/).filter(w=>w.length>1);if(!words.length)return {ok:[],other:[]};
+  let L=PACKS.map((_,i)=>({i,s:packRank(i,words)})).filter(x=>x.s>=0);
+  if(!L.length&&words.length>1)L=PACKS.map((_,i)=>({i,s:Math.max(...words.map(w=>packRank(i,[w])))})).filter(x=>x.s>=0);
+  L.sort((a,b)=>b.s-a.s);return {ok:L.filter(x=>packAgeOk(x.i)).map(x=>x.i),other:L.filter(x=>!packAgeOk(x.i)).map(x=>x.i)};}
+function xpStop(){return TOUR.current?tourStop(TOUR.current):null;}
+function xpMotif(){const s=xpStop();return String(state.xpMotif!=null?state.xpMotif:(s&&s.motif)||"").trim();}
+function xpProposed(){if(state.xpPick!=null&&PACKS[state.xpPick])return state.xpPick;const c=xpCandidates(xpMotif());return c.ok.length?c.ok[0]:null;}
+function xpVisite(){return !!(state.cot&&state.cot.lieu==="visite");}
+function xpAge(ddn){const d=anonParseDDN?anonParseDDN(ddn):null;if(!d)return "";try{return anonAge(d,new Date());}catch(e){return "";}}
+/* ---- b. signes de gravité de la fiche : une ligne, jamais bloquante ---- */
+function xpGravite(p){if(!p)return "";const m=p.s.find(s=>s.k==="memo");if(!m)return "";const L=m.l.map(l=>typeof l==="string"?l:l.t);
+  let g=L.find(t=>/^Gravit/i.test(t))||"";
+  if(!g){/* fiches sans ligne « Gravité : » : premier critère d'orientation (→ 15, → urgences) ou de gravité du mémo */
+    const cl=L.join(" ; ").replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").split(/\s*;\s*|(?<=\.)\s+(?=[A-ZÀ-Ý])/);g=cl.find(t=>/→\s*(?:le\s*)?(?:15|urgences|SAMU|SMUR)|gravit|grave/i.test(t))||"";}
+  return g.replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").replace(/^Gravit[ée]\s*(?:et orientation)?\s*:\s*/i,"").trim();}
+/* ---- a. résumé d'une ligne par médicament (nom, dose, rythme, durée) ; dose au poids toujours visible ---- */
+function xpMeds(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}
+  r.forEach(x=>{if(!x.on||x.jr)return;const raw=String(x.t||"");const w=XP_WRE.test(raw)||/mg\/kg|\/kg\b/i.test(raw);const miss=!!(x.fill&&x.fill.miss&&x.fill.miss.length);
+    let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{[^}]*\}/g,"…")).trim();out.push({t,w,miss});});});return out;}
+function xpNeedsW(p){if(!p)return false;return p.s.some(sh=>sh.k==="med"&&sh.l.some(l=>{const t=typeof l==="string"?l:l.t;return XP_WRE.test(t)||XP_ANTICOAG.test(t);}));}
+function xpPending(p){const why=[];if(!p)return why;if(!state.patient)why.push("nom du patient");
+  try{const al=ciPending(checkAlerts(p.s));if(al.length)why.push(al.length>1?al.length+" alertes à décider":"1 alerte à décider");}catch(e){}
+  try{if(ciLegal(p).length)why.push("règle de forme ou ligne incomplète");}catch(e){}
+  if(xpMeds(p).some(m=>m.miss))why.push("dose au poids : poids manquant");
+  if(XP.over&&XP.key===xpKey())why.push("document trop long");return why;}
+function xpCot(){try{const c=state.cot;const a=ageY();const r=cotCompute({ts:Date.now(),lieu:c.lieu,ecg:c.ecg,km:c.km,age:a?a.y:null,extra:[],minus:[]});return r.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(r.total);}catch(e){return "";}}
+/* ---- documents préparés d'avance (PDF prêt au toucher : Safari exige un partage dans le geste) ---- */
+function xpKey(){try{return JSON.stringify([state.sel,state.off,state.lo,state.gs,state.extra,state.libre,state.f,state.edits,state.patient,state.ddn,state.poids,state.sexe,state.date,state.allergies,state.tt,state.grossesse,state.allait,state.cachet,state.nodoc,state.lettres,state.obs,state.cst,state.actions,state.copat,state.ciOver,state.photos&&state.photos.length,TESTMODE,PRINT2UP,IDENT.on,state.cot]);}catch(e){return "x"+Math.random();}}
+function xpBuild(p){let out=buildPages(p,true).out;for(const c of (state.copat||[]).filter(c=>c.patient)){withExtra(c,pk=>{out+=buildPages(pk,false).out;});}
+  if(TESTMODE)out=out.replace(/<div class="page">/g,'<div class="page testpage">');if(PRINT2UP){try{out=print2up(out);}catch(e){}}return out;}
+function xpTitle(p){return (p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");}
+function xpPrebuild(){clearTimeout(XP.t);XP.t=setTimeout(async()=>{const p=currentPack();
+  if(!p||!xpActive()||document.body.classList.contains("printing")||document.getElementById("ciover"))return;
+  const key=xpKey();if(XP.key===key&&(XP.file||XP.busy||XP.err))return;
+  if(xpPending(p).filter(x=>x!=="document trop long").length){XP.file=null;XP.key="";XP.busy=false;xpBtnUI();return;}
+  if(typeof html2canvas!=="function"){XP.err="rendu indisponible";XP.key=key;xpBtnUI();return;}
+  const run=++XP.run;XP.key=key;XP.file=null;XP.busy=true;XP.over=false;XP.err="";xpBtnUI();
+  try{const out=xpBuild(p);XP.n=(out.match(/<div class="page/g)||[]).length;const title=xpTitle(p);
+    const pages=await pdfRenderPages(out,null,()=>run!==XP.run);if(run!==XP.run)return;
+    XP.over=pages.some(x=>x.over);XP.out=out;const name=title+".pdf";XP.file=new File([pdfBytes(pages,title)],name,{type:"application/pdf"});}
+  catch(e){if(run!==XP.run)return;XP.err=String((e&&e.message)||e);XP.file=null;}
+  XP.busy=false;xpBtnUI();},1200);}
+function xpCancelBuild(){XP.run++;XP.busy=false;clearTimeout(XP.t);}
+function xpReady(){return !!(XP.file&&XP.key===xpKey()&&!XP.over);}
+function xpBtnUI(){const b=document.getElementById("xp_go");if(!b)return;const p=currentPack();const why=xpPending(p);const st=document.getElementById("xp_gost");
+  b.classList.toggle("wait",!why.length&&!xpReady()&&(isPhone()||iosLike()));
+  if(st)st.textContent=why.length?"À vérifier avant d'imprimer : "+why.join(", ")+" → l'aperçu s'ouvre.":(isPhone()||iosLike())?(xpReady()?XP.n+" document"+(XP.n>1?"s":"")+" prêt"+(XP.n>1?"s":"")+" (PDF A4).":XP.busy?"Préparation des documents…":"Documents en préparation."):"Impression puis patient suivant.";}
+/* ---- g. compte rendu copié dans le geste, sans confirmation ---- */
+function xpCRText(p){let txt="";try{txt=buildCR(p);const ex=(state.copat||[]).filter(c=>c.patient);for(const c of ex)txt+="\n\n==================================\n\n"+withExtra(c,pk=>buildCR(pk));}catch(e){}return txt;}
+function xpToast(msg,undo){let x=document.getElementById("xptoast");if(!x){x=document.createElement("div");x.id="xptoast";x.setAttribute("role","status");document.body.appendChild(x);}
+  x.innerHTML=`<span>${esc(msg)}</span>${undo?`<button type="button" class="btn s sm" id="xp_undo">Annuler</button>`:""}`;x.classList.add("on");
+  const u=x.querySelector("#xp_undo");if(u)u.onclick=()=>{x.classList.remove("on");patientUndo();};
+  clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),undo?10000:3500);}
+function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche.");return;}
+  const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
+  const why=xpPending(p);
+  if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack();return;}
+  if(isPhone()||iosLike()){
+    if(!xpReady()){toast(cp+" — documents en préparation : aperçu ouvert");XP.auto=false;printPack();return;}
+    const f=XP.file;let shared=false;
+    try{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:f.name.replace(/\.pdf$/,"")}).catch(e=>{if(!(e&&e.name==="AbortError"))pdfDownload(f);});shared=true;}}catch(e){}
+    if(!shared)pdfDownload(f);
+    xpValidate(p,XP.n,txt,cp);return;}
+  XP.auto=true;XP.crTxt=txt;XP.cpMsg=cp;printPack();}
+/* appelé par l'aperçu (ordinateur) après l'impression */
+function xpAfterPrint(){if(!XP.auto)return;XP.auto=false;const p=currentPack();try{document.body.classList.remove("printing");const pr=$("#print");pr.classList.remove("phone");pr.innerHTML="";pdfCancel();}catch(e){}
+  if(p)xpValidate(p,state.lastPrint?state.lastPrint.n:0,XP.crTxt||"",XP.cpMsg||"CR copié · prêt à coller dans MCC",true);}
+function xpValidate(p,n,txt,cp,printed){
+  if(!printed){if(!TESTMODE){try{journalUpsert(p);for(const c of (state.copat||[]).filter(c=>c.patient))withExtra(c,pk=>journalUpsert(pk));}catch(e){}}}
+  state.lastPrint={n:n||state.lastPrint&&state.lastPrint.n||0,sent:true,ts:Date.now()};
+  const who=state.patient||"patient";patientValidate();
+  try{if(VALID.hist[0]){VALID.hist[0].crTxt=txt;validSave();}}catch(e){}
+  XP.file=null;XP.key="";
+  patientNext();VALID.undoUntil=Date.now()+10000;try{const t=document.getElementById("toast");if(t)t.classList.remove("on");}catch(e){}xpToast(cp+" · "+who+" validé",true);}
+/* ---- confirmer la fiche : arrivée notée, pack adapté à l'âge ---- */
+function xpArriveQuiet(){const s=xpStop();if(!s||s.tArr)return;const now=Date.now();s.tArr=now;delete TOUR.near;tourSave();state.cot=state.cot||cotDefault();state.cot.hArr=fmtHM(now);if(!state.t0)state.t0=now;try{tpGeoStop();}catch(e){}}
+function xpConfirm(i){if(i==null||!PACKS[i])return;state.sel=i;state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};state.xpPick=null;XP.list=false;
+  try{autoAgePack();}catch(e){}if(!state.t0)state.t0=Date.now();xpArriveQuiet();render();
+  setTimeout(()=>{const c=document.querySelector(".xp");if(c)c.scrollIntoView({block:"start"});const w=document.getElementById("xp_poids");if(w&&!w.value)w.focus();},0);}
+function xpOpenStop(id){const wasCab=!xpVisite()&&!!(state.cot&&state.cot.lieu);tourUse(id);state.xpMotif=null;state.xpPick=null;
+  if(wasCab&&state.cot){state.cot.lieu="consultation";state.cot.km="";}render();}
+/* ---- rendu ---- */
+function xpRowHTML(s,i){const age=xpAge(s.ddn);const sec=tpSector(s);const visit=xpVisite()&&s.lat;const nm=stopName(s,"Patient "+(i+1));const lbl=`<b>${esc(nm)}</b>${age&&!nm.includes(age)?` · ${esc(age)}`:""}<span class="xp-rm">${esc(s.motif||"motif non précisé")}${sec?" · "+esc(sec):""}${s.prio?' · <span class="gtag">prioritaire</span>':""}</span>`;
+  return visit?`<a class="xp-row" href="${navUrl(navPref(),s)}" target="_blank" rel="noopener" data-xpopen="${esc(s.id)}">${lbl}<span class="xp-go">🧭</span></a>`:`<button type="button" class="xp-row" data-xpopen="${esc(s.id)}">${lbl}<span class="xp-go">›</span></button>`;}
+function xpHomeHTML(){const L=tourOrdered().filter(s=>!s.done&&s.id!==TOUR.current);
+  return `<section class="xp xp-home"><div class="xp-hd"><b>Patients</b><span class="hint">${xpVisite()?"Toucher un patient : dossier ouvert et navigation lancée":"Toucher un patient : dossier ouvert"}</span></div>
+   <div class="xp-acts"><label class="btn s" for="xp_shots">📷 Ajouter des fiches</label><input type="file" id="xp_shots" accept="image/*" multiple hidden><button type="button" class="btn s" id="xp_new">＋ Patient</button></div>
+   ${L.length?`<div class="xp-list">${L.map(xpRowHTML).join("")}</div>`:`<div class="hint">Aucun patient en attente : « 📷 Ajouter des fiches » (captures de la régulation) ou « ＋ Patient ».</div>`}${tpNewHTML()}</section>`;}
+function xpPropHTML(){const q=xpMotif();const c=xpCandidates(q);const pi=xpProposed();
+  const lst=XP.list?`<div class="xp-other"><input id="xp_q" value="${esc(q)}" placeholder="Motif, symptôme, organe" autocomplete="off"><div class="xp-cands">${c.ok.slice(0,15).map(i=>`<button type="button" class="xp-cand" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")||'<span class="hint">Aucune fiche pour ce motif et cet âge.</span>'}</div>
+    ${c.other.length?`<button type="button" class="lc" id="xp_others">${XP.others?"▾":"▸"} Autres âges (${c.other.length})</button>${XP.others?`<div class="xp-cands">${c.other.slice(0,15).map(i=>`<button type="button" class="xp-cand alt" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")}</div>`:""}`:""}</div>`:"";
+  if(pi==null)return `<div class="xp-prop none"><div class="hint">${q?"Aucune fiche proposée pour « "+esc(q)+" » à cet âge.":"Motif à préciser."}</div><button type="button" class="btn s" id="xp_list">Choisir une fiche</button>${lst}</div>`;
+  const g=xpGravite(PACKS[pi]);
+  return `<div class="xp-prop"><div class="xp-lbl">Fiche proposée${xpAgeCls()?" · "+({enfant:"enfant",adulte:"adulte",age:"sujet âgé"}[xpAgeCls()]):""}</div><div class="xp-pn">${esc(PACKS[pi].n)}</div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
+   <div class="xp-acts"><button type="button" class="btn p big" id="xp_ok" data-xpok="${pi}">✓ Confirmer la fiche</button><button type="button" class="btn s" id="xp_list">Autre fiche</button></div>${lst}</div>`;}
+function xpHeadHTML(){const s=xpStop();const age=ageLabel();const vis=xpVisite();
+  const tel=s&&s.tel;const nav=vis&&s&&s.lat;
+  return `<div class="xp-who"><b>${esc(state.patient||(s?stopName(s):"Nouveau patient"))}</b>${age?` · ${esc(age)}`:""}${state.sexe?` · ${state.sexe==="f"?"femme":"homme"}`:""}${xpMotif()?`<span class="xp-rm">Motif : ${esc(xpMotif())}</span>`:""}</div>
+   ${tel||nav?`<div class="xp-acts">${nav?`<a class="btn s" target="_blank" rel="noopener" href="${navUrl(navPref(),s)}">🧭 Naviguer</a>`:""}${tel?`<a class="btn s" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>`:""}</div>`:""}`;}
+function xpManualHTML(){return `<div class="xp-id"><label>Nom<input id="xp_nom" value="${esc(state.patient)}" placeholder="NOM Prénom" autocomplete="off"></label><label>Naissance<input id="xp_ddn" value="${esc(state.ddn)}" placeholder="jjmmaaaa" inputmode="numeric"></label><label class="w">Motif<input id="xp_motif" value="${esc(xpMotif())}" placeholder="fièvre, chute, lombalgie…" autocomplete="off"></label></div>`;}
+function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
+  if(cls==="enfant"||xpNeedsW(p))H.push(`<label class="xp-f${!state.poids?" need":""}">Poids (kg)${cls!=="enfant"?' <span class="hint">dose au poids</span>':""}<input id="xp_poids" value="${esc(state.poids)}" inputmode="decimal" placeholder="kg"></label>`);
+  if(state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>`);
+  if(cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>`);}
+  H.push(`<label class="xp-t"><input type="checkbox" id="xp_at" ${state.at&&state.at.on?"checked":""}> Arrêt de travail fait</label>${state.at&&state.at.on?`<label class="xp-f sm">jours <input id="xp_atj" value="${esc(state.at.jours||"")}" inputmode="numeric" placeholder="facultatif"></label>`:""}`);
+  return `<div class="xp-fields">${H.join("")}</div>`;}
+function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
+  return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — poids manquant":""}</div>`).join("")}</div>`:""}
+   <div class="xp-line">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${(()=>{const c=xpCot();return c?` · <span class="hint">Cotation ${esc(c)}</span>`:"";})()}</div>`;}
+function xpHTML(){if(!xpActive())return "";const p=currentPack();const s=xpStop();
+  if(!p&&!s&&!state.patient&&!state.xpManual)return xpHomeHTML();
+  const manual=!s;
+  XP.dict=true;const dict=dictCardHTML(true);
+  if(!p)return `<section class="xp xp-s1">${xpHeadHTML()}${manual?xpManualHTML():""}<div id="xp_prop">${xpPropHTML()}</div>${dict}${xpPlusHint()}</section>`;
+  const g=xpGravite(p);
+  return `<section class="xp xp-s2">${xpHeadHTML()}<div class="xp-fiche"><span class="xp-pn">${esc(p.n)}</span><button type="button" class="lc" id="xp_change">changer</button></div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
+   ${xpFieldsHTML(p)}${xpDocsHTML(p)}${dict}
+   <div class="xp-print"><button type="button" class="btn p big" id="xp_go">🖨 Imprimer et valider</button><div class="hint" id="xp_gost"></div></div>${xpPlusHint()}</section>`;}
+function xpPlusHint(){return "";}
+function xpBarsInMenu(){try{return isPhone()&&xpActive()&&!state.view;}catch(e){return false;}}
+/* « Plus » : tout le reste de l'écran (dossier complet), replié sur iPhone */
+function xpWrap(){const m=$("#main");if(!m||!isPhone()||!xpActive())return;const x=m.querySelector(":scope > .xp");if(!x)return;
+  const kids=[...m.children];const k=kids.indexOf(x);const move=kids.slice(k+1).filter(e=>!e.classList.contains("jbar"));if(!move.length)return;
+  const d=document.createElement("details");d.className="xp-plus";d.id="xp_plus";if(state.ui&&state.ui.xpPlus)d.open=true;
+  d.innerHTML=`<summary><b>Plus</b><span class="hint">dossier complet : identité, fiches, feuilles, tournée, cotation, options</span></summary>`;
+  const body=document.createElement("div");body.className="xp-plusb";move.forEach(e=>body.appendChild(e));d.appendChild(body);x.after(d);
+  d.addEventListener("toggle",()=>{state.ui=state.ui||{};state.ui.xpPlus=d.open;});document.body.classList.add("xpmode");}
+function xpBind(){document.body.classList.toggle("xpmode",!!(xpActive()&&document.querySelector("#main > .xp")&&isPhone()));
+  const q=id=>document.getElementById(id);
+  const ok=q("xp_ok");if(ok)ok.onclick=()=>xpConfirm(+ok.dataset.xpok);
+  document.querySelectorAll(".xp .xp-grav").forEach(g=>g.onclick=()=>g.classList.toggle("open"));
+  const ls=q("xp_list");if(ls)ls.onclick=()=>{XP.list=!XP.list;const b=q("xp_prop");if(b){b.innerHTML=xpPropHTML();xpBind();const i=q("xp_q");if(i&&XP.list)i.focus();}};
+  document.querySelectorAll("[data-xppick]").forEach(b=>b.onclick=()=>xpConfirm(+b.dataset.xppick));
+  const ot=q("xp_others");if(ot)ot.onclick=()=>{XP.others=!XP.others;const b=q("xp_prop");if(b){b.innerHTML=xpPropHTML();xpBind();}};
+  const xq=q("xp_q");if(xq)xq.oninput=()=>{state.xpMotif=xq.value;state.xpPick=null;const b=q("xp_prop");const pos=xq.selectionStart;if(b){b.innerHTML=xpPropHTML();xpBind();const n=q("xp_q");if(n){n.focus();try{n.setSelectionRange(pos,pos);}catch(e){}}}};
+  const mo=q("xp_motif");if(mo)mo.oninput=()=>{state.xpMotif=mo.value;state.xpPick=null;const b=q("xp_prop");if(b){b.innerHTML=xpPropHTML();xpBind();}};
+  const nm=q("xp_nom");if(nm){nm.oninput=()=>{state.patient=nm.value;draftSaveSoon();};nm.onchange=()=>render();}
+  const dd=q("xp_ddn");if(dd){dd.oninput=()=>{state.ddn=dd.value;draftSaveSoon();};dd.onchange=()=>{state.ddn=normDate(dd.value)||dd.value;render();};}
+  const ch=q("xp_change");if(ch)ch.onclick=()=>{state.xpPick=null;XP.list=true;state.sel=null;render();};
+  const pw=q("xp_poids");if(pw){pw.oninput=()=>{state.poids=pw.value;draftSaveSoon();};pw.onchange=()=>render();}
+  const gr=q("xp_gross");if(gr)gr.onchange=()=>{state.grossesse=gr.checked;render();};
+  const ce=q("xp_cem");if(ce)ce.onchange=()=>{const i=+ce.dataset.cem;let cur=selIdx().filter(x=>x!==i);if(ce.checked)cur.push(i);state.sel=cur.length===1?cur[0]:cur;render();};
+  const at=q("xp_at");if(at)at.onchange=()=>{state.at=state.at||atDefault();state.at.on=at.checked;render();};
+  const aj=q("xp_atj");if(aj)aj.oninput=()=>{state.at.jours=aj.value.replace(/\D/g,"");draftSaveSoon();};
+  const dc=q("xp_docs");if(dc)dc.onclick=()=>{XP.auto=false;printPack();};
+  const go=q("xp_go");if(go){go.onclick=xpGo;xpBtnUI();xpPrebuild();}
+  const nw=q("xp_new");if(nw)nw.onclick=()=>{newPatient();state.xpManual=true;state.cot=state.cot||cotDefault();render();setTimeout(()=>{const n=q("xp_nom");if(n)n.focus();},0);};
+  const sh=q("xp_shots");if(sh)sh.onchange=()=>{if(sh.files.length)fichesFromFiles(sh.files);};
+  document.querySelectorAll("[data-xpopen]").forEach(a=>a.onclick=()=>{xpOpenStop(a.dataset.xpopen);}); /* le lien de navigation s'ouvre dans le même toucher (visite) */
+}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpset]");if(!b)return;lsSet("sos_xp",!xpOn());render();toast(xpOn()?"Express visite activé":"Express visite désactivé : écran complet");});
 /* ---- Consommation : sur l'appareil, sans donnée identifiante ---- */
 function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=document.createElement("div");el.id="aiconso";document.body.appendChild(el);}
   const now=Date.now(),day=new Date().toDateString(),mk=aiMonthKey(),gk=typeof gardeKey==="function"?gardeKey(now):"";
@@ -17311,11 +17517,11 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
+function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{xpWrap();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
-   <div class="jmenu" id="jmenu" hidden><div class="dmode" role="group" aria-label="Affichage"><span>Affichage</span><button type="button" class="lc" data-dset="garde">Garde (visibilité maximale)${swPill(DESIGN==="garde")}</button><button type="button" class="lc" data-dset="premium">Premium${swPill(DESIGN==="premium")}</button></div><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button>${aiBtnHTML()}${aiModeHTML()}<button type="button" class="btn sw ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde"><span class="swl">Mode test<small>journal non alimenté</small></span>${swPill(TESTMODE)}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
+   <div class="jmenu" id="jmenu" hidden><div class="dmode" role="group" aria-label="Affichage"><span>Affichage</span><button type="button" class="lc" data-dset="garde">Garde (visibilité maximale)${swPill(DESIGN==="garde")}</button><button type="button" class="lc" data-dset="premium">Premium${swPill(DESIGN==="premium")}</button></div>${xpBarsInMenu()?`<div class="jm-bars">${specBarHTML()}${backupBarHTML()}${gardeBannerHTML()}</div>`:""}<button type="button" class="btn sw ${xpOn()?"on":"ghost"}" data-xpset><span class="swl">Express visite<small>un choix → tout s'enchaîne</small></span>${swPill(xpOn())}</button><button type="button" class="btn s" id="lock_now" title="Verrouiller l'écran">🔒 Verrouiller l'écran</button><button type="button" class="btn theme" id="th_btn" aria-label="Mode jour ou nuit">☾</button><button type="button" class="btn bigtxt" id="tx_btn">Grand texte</button>${aiBtnHTML()}${aiModeHTML()}<button type="button" class="btn sw ${TESTMODE?"test on":"ghost"}" id="t_toggle" title="En mode test, rien n'est enregistré dans le journal de garde"><span class="swl">Mode test<small>journal non alimenté</small></span>${swPill(TESTMODE)}</button><button type="button" class="btn ghost" id="d_open">Base médicaments</button><button type="button" class="btn ghost" id="tour_open">Tournée${tn?" ("+tn+")":""}</button>${VALID.hist.length?`<button type="button" class="btn ghost" id="vh_menu">↩ Patients validés (${VALID.hist.length})</button>`:""}<button type="button" class="btn ghost" id="bak_menu">Sauvegarde chiffrée</button><button type="button" class="btn ghost" id="j_open">Journal de garde${jn?" ("+jn+")":""}</button><button type="button" class="btn p" id="f_open">Fin de garde</button></div></div>`;}
 function lieuSwitchHTML(){const l=(state.cot&&state.cot.lieu)==="visite"?"visite":"cabinet";const tn=tourRemaining().filter(s=>s.id!==TOUR.current).length;
   return `<div class="lieu" role="group" aria-label="Lieu de l'acte"><button type="button" class="${l==="visite"?"on":""}" data-lieu="visite" aria-pressed="${l==="visite"}">Visite</button><button type="button" class="${l==="cabinet"?"on":""}" data-lieu="cabinet" aria-pressed="${l==="cabinet"}">Consultation</button>${l==="visite"?`<button type="button" class="tourbtn" id="tour_open2" aria-label="Tournée et carte">🗺<span>Tournée${tn?" · "+tn:""}</span></button>`:""}</div>`;}
 function navPref(){try{const v=localStorage.getItem("sos_nav");return ["waze","maps","plans"].includes(v)?v:"waze";}catch(e){return "waze";}}
@@ -17353,7 +17559,12 @@ function pdfStatus(msg){const el=$("#pdf_st"),b=$("#pb_send");
 function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
 function pdfScale(){return 2;}
 function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const reserve=pg.querySelector(".stamp")?34*mm:pg.querySelector(".sig")?32*mm:4*mm;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8"];let used="";
-  for(const s of steps){pg.classList.remove("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8");if(s)pg.classList.add(s);used=s;const inner=fr.scrollHeight;const avail=fr.clientHeight-reserve;if(inner<=avail+1)break;}
+  /* 17/10/2026 : mesure de la hauteur réelle du texte (le cadre s'étire toujours jusqu'au bas de la page : l'ancienne mesure
+     concluait toujours « ne tient pas » et sortait chaque PDF en 8,5 pt). Police réduite seulement si besoin, jamais sous 9 pt ; au-delà : signalé. */
+  const A4=297*mm;const fit=()=>{const ft=fr.getBoundingClientRect().top;let bot=ft;[...fr.children].forEach(c=>{if(c.matches&&c.matches(".stamp,.sig,.specwm"))return;const r=c.getBoundingClientRect();if(r.height)bot=Math.max(bot,r.bottom);});
+    const inner=bot-ft+(parseFloat(getComputedStyle(fr).paddingBottom)||0);const grow=Math.max(0,pg.getBoundingClientRect().height-A4);const avail=fr.clientHeight-grow-reserve;return inner<=avail+1;};
+  let okf=false;for(const s of steps.slice(0,8)){pg.classList.remove("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8");if(s)pg.classList.add(s);used=s;if(fit()){okf=true;break;}}
+  try{pg.dataset.pdfover=okf?"":"1";}catch(e){}
   return used;}
 function blobBytes(blob){return new Promise((ok,ko)=>{if(blob.arrayBuffer){blob.arrayBuffer().then(b=>ok(new Uint8Array(b)),ko);return;}const r=new FileReader();r.onload=()=>ok(new Uint8Array(r.result));r.onerror=()=>ko(r.error);r.readAsArrayBuffer(blob);});}
 function canvasJpeg(canvas,q){return new Promise((ok,ko)=>{try{if(canvas.toBlob){canvas.toBlob(b=>{if(b)blobBytes(b).then(ok,ko);else ko(new Error("image vide"));},"image/jpeg",q);return;}const d=canvas.toDataURL("image/jpeg",q);const s=atob(d.split(",")[1]);const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);ok(u);}catch(e){ko(e);}});}
@@ -17373,7 +17584,7 @@ async function pdfRenderPages(html,onProgress,cancelled){
       onclone:doc=>{const w=doc.getElementById("pdfwrap");if(w)w.style.cssText="position:absolute;left:0;top:0;width:auto;height:auto;overflow:visible;z-index:1";const b=doc.body;if(b){b.style.background="#fff";}}});
     if(cancelled&&cancelled())throw new Error("annulé");
     const jpg=await canvasJpeg(canvas,0.86);
-    out.push({jpg,w:canvas.width,h:canvas.height,fit});
+    out.push({jpg,w:canvas.width,h:canvas.height,fit,over:pg.dataset.pdfover==="1"});
     try{canvas.width=1;canvas.height=1;}catch(e){}
     if(onProgress)onProgress(i+1,pages.length);
   }
@@ -17669,17 +17880,18 @@ function versionHref(v){const p=location.pathname.replace(/\/v\d+\/?(index\.html
 /* ===================== v39 — PARCOURS VISITE : étapes visibles, validation du patient, patient suivant, rouvrir, annuler ===================== */
 const VALID={last:null,hist:[],undoUntil:0,timer:null};
 function validLabel(v){return (v.patient||"(sans nom)")+" · "+new Date(v.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});}
-function validPush(v){VALID.hist.unshift(v);if(VALID.hist.length>12)VALID.hist.length=12;VALID.last=VALID.hist.find(x=>!x.pending)||null;validSave();}
+function validPush(v){VALID.hist.unshift(v);if(VALID.hist.length>40)VALID.hist.length=40;VALID.last=VALID.hist.find(x=>!x.pending)||null;validSave();}
 function validRemove(v){VALID.hist=VALID.hist.filter(x=>x!==v);VALID.last=VALID.hist.find(x=>!x.pending)||null;validSave();}
 /* Met de côté le patient en cours (nom ou pack saisi) pour pouvoir y revenir */
 function validStash(){if(!state.patient&&!currentPack())return false;const stop=TOUR.current?tourStop(TOUR.current):null;
   validPush({ts:Date.now(),patient:state.patient||"",ddn:state.ddn||"",pack:currentPack()?currentPack().n:"",pending:true,sheets:state.lastPrint?state.lastPrint.n:0,sent:!!(state.lastPrint&&state.lastPrint.sent),cr:!!state.crCopied,cot:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap:stateSnapshot()});return true;}
 function validListScreen(){
   let el=$("#lock");if(!el){el=document.createElement("div");el.id="lock";document.body.appendChild(el);}document.body.classList.add("locked");
-  const rows=VALID.hist.map((v,i)=>`<div class="vrow pat-off"><div class="vinfo"><b>${esc(v.patient||"(sans nom)")}</b><span class="gtag">${v.pending?"mis de côté":"validé"}</span><div class="hint" style="margin:0">${new Date(v.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}${v.pack?" · "+esc(v.pack):""}${v.stopLbl?" · arrêt "+esc(v.stopLbl):""}${v.cot?" · "+esc(v.cot.codes.join("+"))+" "+fmtEur(v.cot.total):""}</div></div><button type="button" class="btn p sm" data-vopen="${i}">Rouvrir</button></div>`).join("");
+  const rows=VALID.hist.map((v,i)=>`<div class="vrow pat-off"><div class="vinfo"><b>${esc(v.patient||"(sans nom)")}</b><span class="gtag">${v.pending?"mis de côté":"validé"}</span><div class="hint" style="margin:0">${new Date(v.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}${v.pack?" · "+esc(v.pack):""}${v.stopLbl?" · arrêt "+esc(v.stopLbl):""}${v.cot?" · "+esc(v.cot.codes.join("+"))+" "+fmtEur(v.cot.total):""}</div></div>${v.crTxt?`<button type="button" class="btn s sm" data-vcr="${i}">Recopier le CR</button>`:""}<button type="button" class="btn p sm" data-vopen="${i}">Rouvrir</button></div>`).join("");
   el.innerHTML=`<div class="lockbox idbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Patients validés</small></div></div><div class="lockttl">Revenir à un patient</div><div class="hint">Rouvrir remet ses documents et son arrêt de tournée tels quels ; le patient en cours est mis de côté dans cette liste, rien n'est perdu. Conservé 12 h, chiffré sur l'appareil.</div><div class="vlist">${rows||'<div class="hint">Aucun patient validé pour l\'instant.</div>'}</div><button class="btn s" id="vl_close">Fermer</button></div>`;
   $("#vl_close").onclick=identClose;
   el.querySelectorAll("[data-vopen]").forEach(b=>b.onclick=()=>{const v=VALID.hist[+b.dataset.vopen];identClose();if(v)patientReopen(v);});
+  el.querySelectorAll("[data-vcr]").forEach(b=>b.onclick=()=>{const v=VALID.hist[+b.dataset.vcr];if(v&&v.crTxt){copyText(v.crTxt);b.textContent="CR copié ✓";toast("CR copié · prêt à coller dans MCC");}});
 }
 function stepsHTML(cur){if(isPhone()&&state.cot&&state.cot.lieu!=="visite"){const p=currentPack();const c=!p?(String((state.obs&&state.obs.dict)||"").trim()?2:1):(state.lastPrint?4:3);const L=["Patient","Dictée","Fiche et ordonnance","Imprimer","Validé ✓"];return `<ol class="steps cab" aria-label="Étapes de la consultation">${L.map((t,i)=>`<li class="${i+1<c?"done":i+1===c?"on":""}"><span>${t}</span></li>`).join("")}</ol>`;}if(!isPhone()||!state.cot||state.cot.lieu!=="visite")return "";const L=["Patient en cours","Documents","Fin de consultation","Validé ✓"];return `<ol class="steps" aria-label="Étapes de la visite">${L.map((t,i)=>`<li class="${i+1<cur?"done":i+1===cur?"on":""}"><span>${t}</span></li>`).join("")}</ol>`;}
 function tourNextStop(){const l=tourOrdered().filter(s=>s.id!==TOUR.current);try{if(tpFinMode()){const w=l.find(tpOnWay);if(w)return w;}}catch(e){}return l[0]||null;}
@@ -18063,7 +18275,7 @@ function tpArrive(){const s=TOUR.current?tourStop(TOUR.current):null;if(!s)retur
 let TP_WATCH=null;
 function tpGeoStop(){if(TP_WATCH!=null){try{navigator.geolocation.clearWatch(TP_WATCH);}catch(e){}TP_WATCH=null;}}
 function tpGeoWatch(){const c=tpCfg();const s=TOUR.current?tourStop(TOUR.current):null;if(!c.geo||!s||s.tArr||!s.lat||!("geolocation" in navigator)){tpGeoStop();return;}if(TP_WATCH!=null)return;
-  try{TP_WATCH=navigator.geolocation.watchPosition(p=>{const cur=TOUR.current?tourStop(TOUR.current):null;if(!cur||cur.tArr){tpGeoStop();return;}const d=tpHav({lat:p.coords.latitude,lon:p.coords.longitude},cur)*1000;if(d<100&&TOUR.near!==cur.id){TOUR.near=cur.id;render();}},()=>{},{enableHighAccuracy:true,maximumAge:15000,timeout:20000});}catch(e){}}
+  try{TP_WATCH=navigator.geolocation.watchPosition(p=>{const cur=TOUR.current?tourStop(TOUR.current):null;if(!cur||cur.tArr){tpGeoStop();return;}const d=tpHav({lat:p.coords.latitude,lon:p.coords.longitude},cur)*1000;if(d<100&&xpOn()){xpArriveQuiet();render();toast("Arrivée enregistrée à "+fmtH(Date.now()));return;}if(d<100&&TOUR.near!==cur.id){TOUR.near=cur.id;render();}},()=>{},{enableHighAccuracy:true,maximumAge:15000,timeout:20000});}catch(e){}}
 /* point 10 : appel adapté à la conduite — appel masqué à l'arrêt, mémo fixe, heure d'appel et heure annoncée au journal, jamais de SMS */
 function tpIsIOS(){return /iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
 function tpAnnonce(s){const p=tpPlan();const t=p.eta[s.id]||(s.id===TOUR.current?Date.now()+20*60000:null);if(!t)return "";const d=new Date(t+5*60000);d.setMinutes(Math.ceil(d.getMinutes()/5)*5,0,0);return fmtH(d.getTime());}

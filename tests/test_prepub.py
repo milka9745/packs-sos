@@ -9,6 +9,7 @@ def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else info)
 
 async def unlock(page,first=True):
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto("http://localhost:8769/index.html")
     if first:
         await page.wait_for_selector("#uid",timeout=15000)

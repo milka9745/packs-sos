@@ -100,6 +100,55 @@ async def sweep(b,w,h,th,big,label,sample=None):
     print("   fiches avec écran d'alerte :",sum(1 for r in res if r["ci"]))
     await ctx.close()
 
+
+# B3 étendu (17/10/2026) : dans chaque courrier, « J'ai prescrit … » cite exactement les examens cochés (biologie, imagerie, ECG),
+# sur toutes les fiches avec courrier, en réglage par défaut puis toutes les cases d'examen inversées.
+SWEEP2="""async(range)=>{const res=[];const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const noise=/^(Résultats|Résultat|À faire|A faire|Prélèvement|Ordonnance|Bilan à|À jeun)|transmettre|messagerie|MSSanté|fax|cabinet SOS|laboratoire de ville/i;
+  const STOP=['les','des','une','pour','avec','sur','dans','par','aux','sang','bilan','dosage','recherche','examen','test'];
+  const key=t=>{const w=(norm(String(t).split(' : ')[0].replace(/\\([^)]*\\)/g,' ')).match(/[a-z0-9]{2,}/g)||[]).filter(w=>!STOP.includes(w)&&w.length>=3||/^(nfs|crp|ecg|tsh|bnp|vs|ast|alt|ggt|inr|tca|tp)$/.test(w));return w[0]||'';};
+  const idx=range;
+  for(const i of idx){const nm=PACKS[i].n;
+    for(const flip of [false,true]){
+      document.body.classList.remove('printing');document.getElementById('print').innerHTML='';try{pdfCancel();}catch(e){}
+      try{const e=document.getElementById('ciover');if(e)e.remove();}catch(e){}
+      const kid=/enfant|nourrisson|bébé|pédiatr/i.test(nm);
+      Object.assign(state,{sel:i,obs:{},cst:{},actions:{},lo:{},gs:{},off:{},extra:{},libre:{},f:{},tt:[],copat:[],ciOver:null,patient:kid?'PETIT Lou':'MARTIN Jeanne',ddn:kid?'01/01/2019':'03/04/1938',date:'17/10/2026',sexe:'f',poids:kid?'20':'',photos:[]});
+      try{autoAgePack();}catch(e){}
+      const p=currentPack();
+      if(flip)p.s.forEach((sh,si)=>{if(!/^(bio|img)$/.test(sh.k))return;resolve(sh,si).forEach(x=>{if(!x.grp)state.lo[x.key]=!x.on;});});
+      const ck=[],un=[];p.s.forEach((sh,si)=>{if(state.off[si]||!/^(bio|img)$/.test(sh.k))return;resolve(sh,si).forEach(x=>{if(x.jr||x.fill.miss.length)return;const t=x.fill.s;if(sh.k==='bio'&&(noise.test(t)||t.length>=160))return;(x.on?ck:un).push(t);});});
+      try{await printPack();}catch(e){}
+      for(let t=0;t<40&&!document.querySelector('#print .page');t++){const c=document.getElementById('ciover');if(c){const k=c.querySelector('#ci_keep');if(k&&!c.__k){c.__k=1;k.click();await sleep(30);}const pb=c.querySelector('#ci_print');if(pb)pb.click();}await sleep(60);}
+      await sleep(60);
+      const letters=[...document.querySelectorAll('#print .page')].filter(pg=>{const h=pg.querySelector('h2');return h&&/Courrier/i.test(h.textContent);}).map(pg=>(pg.querySelector('.frame')||pg).innerText.replace(/\\s+/g,' '));
+      for(const lt of letters){const m=lt.match(/J'ai prescrit[^.]*\\./);const sent=m?norm(m[0]):'';
+        const ckTxt=norm(ck.join(' '));const miss=[],extra=[];
+        if(sent){ck.forEach(t=>{const k=key(t);if(k&&!sent.includes(k))miss.push(t.slice(0,40));});
+          un.forEach(t=>{const k=key(t);if(k&&sent.includes(k)&&!ckTxt.includes(k))extra.push(t.slice(0,40));});}
+        if(/ECG/.test(m?m[0]:'')&&!ck.some(t=>/ECG/.test(t))&&!/ECG/.test(JSON.stringify(state.actions||{})))extra.push('ECG non coché');
+        res.push({nm,flip,sent:m?m[0].slice(0,160):'',miss,extra});}
+    }}
+  document.body.classList.remove('printing');document.getElementById('print').innerHTML='';try{pdfCancel();}catch(e){}render();return res;}"""
+
+async def sweep_presc(b):
+    ctx=await b.new_context(viewport={"width":1280,"height":900})
+    await ctx.route("**/*",lambda r:asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
+    page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
+    await unlock(page); await page.evaluate(IDFAKE)
+    idx=await page.evaluate("PACKS.map((p,i)=>p.s.some(s=>s.k==='let')&&p.s.some(s=>s.k==='bio'||s.k==='img')?i:-1).filter(i=>i>=0)")
+    res=[]
+    for k in range(0,len(idx),20): res+=await page.evaluate(SWEEP2,idx[k:k+20])
+    n=await page.evaluate("PACKS.length")
+    L=f"B3 courriers ({len(idx)} fiches avec courrier et examens sur {n}, réglage par défaut puis cases inversées) : "
+    withs=[r for r in res if r["sent"]]
+    ok(L+"« J'ai prescrit » cite tous les examens cochés",not [r for r in res if r["miss"]],[(r["nm"],r["flip"],r["miss"],r["sent"]) for r in res if r["miss"]][:6])
+    ok(L+"« J'ai prescrit » ne cite aucun examen non coché",not [r for r in res if r["extra"]],[(r["nm"],r["flip"],r["extra"],r["sent"]) for r in res if r["extra"]][:6])
+    ok(L+"phrases contrôlées",len(withs)>=10,len(withs))
+    ok(L+"aucune erreur JS",not errors,errors[:2])
+    print("   phrases « J'ai prescrit » contrôlées :",len(withs),"courriers :",len(res))
+    await ctx.close()
+
 async def b4(b,w,h,label):
     mob=w<500
     ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob)
@@ -137,6 +186,8 @@ async def main():
     try:
         async with async_playwright() as p:
             b=await p.chromium.launch()
+            await sweep_presc(b)
+            if os.environ.get("ONLY")=="presc": await b.close(); return
             await sweep(b,1280,900,"day",False,"ordinateur")
             await sweep(b,375,812,"day",False,"iphone jour")
             await sweep(b,375,812,"night",True,"iphone nuit grand texte",sample=40)

@@ -18,6 +18,7 @@ def api_reply(obj):
             "content":[{"type":"text","text":json.dumps(obj,ensure_ascii=False)}],"usage":{"input_tokens":900,"output_tokens":200,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}
 
 async def unlock(page,uid="testlot3"):
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

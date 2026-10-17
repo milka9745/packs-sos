@@ -89,3 +89,29 @@ Rien n'est supprimé : tout ce qui est masqué reste derrière « Plus ».
 2. Récapitulatif de validation remplacé par un toast « Annuler » de 10 s ?
 3. « Imprimer et valider » direct, avec l'aperçu derrière « Voir les documents » ?
 4. Bandeaux profil, sauvegarde et garde déplacés dans ⋯ ?
+
+## 5. Après codage (17/10/2026, branche `ia`, non publié)
+
+Décisions retenues : 1 oui (« Je suis arrivé » reste dans Plus) ; 2 oui (liste « Patients validés » gardée 12 h) ; 3 oui sous la condition a ; 4 oui. Ajouts a à g faits.
+
+| Visite fictive | Avant | Après |
+|---|---|---|
+| Rhinopharyngite, adulte | 10 | **4** : patient (Waze lancé), confirmer, dicter, « Imprimer et valider » |
+| Fièvre, enfant de 4 ans | 10 | **5** : Naviguer, confirmer, poids, dicter, « Imprimer et valider » |
+| Chute, 88 ans, courrier | 9 | **4** |
+
+Mêmes chiffres à 375 px (jour, nuit, grand texte) et sur ordinateur. Test : `tests/test_express.py` (243 tests). Captures : `tests/captures/express-apres-*.png`.
+
+- a. Résumé d'une ligne par médicament au-dessus du bouton. Une dose au poids sans poids est marquée « poids manquant ». Une alerte, une règle de forme, une dose incomplète ou un document trop long → le bouton ouvre l'aperçu, sans imprimer directement.
+- b. Signes de gravité de la fiche sur une ligne (toucher pour la lire en entier), jamais bloquants.
+- c. Fiche proposée et listes filtrées par âge (enfant < 15 ans, adulte, sujet âgé ≥ 65 ans) ; les autres âges sont rangés à part. À 4 ans, « fièvre » donne « Fièvre — enfant » en tête.
+- d. Arrêt de travail : interrupteur « Arrêt de travail fait » et nombre de jours facultatif. Il est noté au compte rendu et au journal. Supprimés : le bloc amelipro, les durées suggérées et l'ouverture automatique (accident du travail, burn-out).
+- e. Poids affiché chez l'adulte quand la fiche contient une dose au poids ou un anticoagulant.
+- f. La navigation part du toucher seulement en mode Visite.
+- g. Le compte rendu est copié dans le geste « Imprimer et valider ». Toast : « CR copié · prêt à coller dans MCC ». En secours : « Recopier le CR » dans « Patients validés ».
+
+Sur iPhone, les documents sont préparés pendant la dictée : au toucher, le PDF part tout de suite (Safari exige un partage dans le geste). S'ils ne sont pas encore prêts, l'aperçu s'ouvre.
+
+L'Express se coupe dans ⋯ → « Express visite ». L'écran complet reste entier dans « Plus ».
+
+**Défaut trouvé en passant (en service sur main)** : le PDF iPhone mesurait mal la page et sortait toujours en 8,5 pt, même pour une ordonnance de 3 lignes. Corrigé ici : taille normale, réduite seulement si besoin, jamais sous 9 pt ; au-delà, c'est signalé.

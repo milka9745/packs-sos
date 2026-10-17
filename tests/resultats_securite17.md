@@ -1,5 +1,9 @@
 # Tests sécurité du 17/10/2026 (B1 à B4), toutes les fiches
 
+- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : « J'ai prescrit » cite tous les examens cochés
+- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : « J'ai prescrit » ne cite aucun examen non coché
+- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : phrases contrôlées
+- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : aucune erreur JS
 - OK — ordinateur : identité fictive avec cachet (en mémoire)
 - OK — ordinateur (398 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
 - OK — ordinateur (398 fiches) : B2 aucune fenêtre système bloquante pendant l'impression
@@ -41,4 +45,4 @@
 - OK — ordinateur : B4 rien n'est parti
 - OK — ordinateur : aucune erreur JS
 
-40/40 tests OK
+44/44 tests OK

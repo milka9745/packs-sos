@@ -1,9 +1,9 @@
 {
-  "version": "41h",
+  "version": "41i",
   "date": "2026-10-17",
   "notes": [
-    "IA « Document ou image » : seul le texte lu sur l'iPhone part, pseudonymisé ; l'image ne quitte jamais l'appareil.",
-    "Toutes les fiches vérifiées : cachet jamais recouvert, aucun texte masqué, aucune prescription bloquée.",
-    "Fiche « à la carte » vide : un message à l'écran au lieu d'une fenêtre bloquante."
+    "Express visite : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; le compte rendu est copié dans le même geste.",
+    "Fiches proposées selon l'âge ; signes de gravité visibles ; « Arrêt de travail fait » simple, noté au compte rendu.",
+    "PDF iPhone en taille normale (il sortait toujours en petite police) ; association allongeant le QT : motif et ECG tracés."
   ]
 }

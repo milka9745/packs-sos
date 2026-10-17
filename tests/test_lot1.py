@@ -11,6 +11,7 @@ PORT=8772
 DICT="Vient pour fièvre depuis hier, toux sèche. Pas de dyspnée. TA 12/7, pouls 90, température 38,6. Gorge rouge. Diagnostic rhinopharyngite."
 
 async def unlock(page,first=True):
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto(f"http://localhost:{PORT}/index.html")
     if first:
         await page.wait_for_selector("#uid",timeout=15000)

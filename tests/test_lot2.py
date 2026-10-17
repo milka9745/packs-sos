@@ -11,6 +11,7 @@ def ok(name,cond,info=""):
 PORT=8775
 
 async def unlock(page):
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testlot2"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

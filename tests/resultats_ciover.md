@@ -5,12 +5,16 @@
 - OK — pc écran « Avant d'imprimer » : motif, source, alternative
 - OK — pc une même contre-indication affichée une seule fois, sans libellé répété
 - OK — pc conseils liés à l'alerte proposés, cochables
-- OK — pc « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions
+- OK — pc « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions (+ 1 pour le QT)
+- OK — pc 17/10 QT : motif « association ancienne prescrite par le spécialiste, ECG récent connu » proposé en premier
+- OK — pc 17/10 QT : consigne patient cochable « palpitations, malaise ou perte de connaissance → 15 »
+- OK — pc 17/10 QT : ECG fait / prescrit / non fait proposé
 - OK — pc suggestion d'un toucher, modifiable
 - OK — pc impression réalisée après maintien
 - OK — pc ordonnance imprimée avec les deux médicaments maintenus
 - OK — pc motif et alerte jamais sur les documents imprimés
 - OK — pc conseil coché ajouté aux consignes imprimées
+- OK — pc 17/10 QT : ECG tracé au compte rendu (prescrit)
 - OK — pc compte rendu : alerte passée outre, source et motif (traçabilité)
 - OK — pc journal : alerte et motif inscrits
 - OK — pc réimpression : décision déjà prise, pas de nouvel écran
@@ -24,12 +28,16 @@
 - OK — iphone écran « Avant d'imprimer » : motif, source, alternative
 - OK — iphone une même contre-indication affichée une seule fois, sans libellé répété
 - OK — iphone conseils liés à l'alerte proposés, cochables
-- OK — iphone « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions
+- OK — iphone « Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions (+ 1 pour le QT)
+- OK — iphone 17/10 QT : motif « association ancienne prescrite par le spécialiste, ECG récent connu » proposé en premier
+- OK — iphone 17/10 QT : consigne patient cochable « palpitations, malaise ou perte de connaissance → 15 »
+- OK — iphone 17/10 QT : ECG fait / prescrit / non fait proposé
 - OK — iphone suggestion d'un toucher, modifiable
 - OK — iphone impression réalisée après maintien
 - OK — iphone ordonnance imprimée avec les deux médicaments maintenus
 - OK — iphone motif et alerte jamais sur les documents imprimés
 - OK — iphone conseil coché ajouté aux consignes imprimées
+- OK — iphone 17/10 QT : ECG tracé au compte rendu (prescrit)
 - OK — iphone compte rendu : alerte passée outre, source et motif (traçabilité)
 - OK — iphone journal : alerte et motif inscrits
 - OK — iphone réimpression : décision déjà prise, pas de nouvel écran
@@ -38,4 +46,4 @@
 - OK — iphone aucun bouton grisé sans explication (accueil, fiche, journal, tournée)
 - OK — iphone aucune erreur JS
 
-37/37 tests OK
+45/45 tests OK

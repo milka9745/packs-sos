@@ -12,6 +12,7 @@ PORT=8774
 MOTIF="traitement ancien prescrit par le spécialiste, renouvellement à l'identique"
 
 async def unlock(page):
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testci"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
@@ -57,9 +58,13 @@ async def run(width,label):
         ok(L+"conseils liés à l'alerte proposés, cochables",await page.locator("#ciover [data-cicons]").count()>=1)
         await page.screenshot(path=os.path.join(OUT,f"{label}-ci-alerte.png"))
         await page.click("#ci_keep"); await page.wait_for_timeout(200)
-        ok(L+"« Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions",await page.locator("#ci_why").is_visible() and await page.locator("#ciover [data-cichip]").count()==3)
+        ok(L+"« Je maintiens la prescription » : un geste, motif en une ligne avec 3 suggestions (+ 1 pour le QT)",await page.locator("#ci_why").is_visible() and await page.locator("#ciover [data-cichip]").count()==4)
+        ok(L+"17/10 QT : motif « association ancienne prescrite par le spécialiste, ECG récent connu » proposé en premier",(await page.locator("#ciover [data-cichip]").first.get_attribute("data-cichip"))=="association ancienne prescrite par le spécialiste, ECG récent connu")
+        ok(L+"17/10 QT : consigne patient cochable « palpitations, malaise ou perte de connaissance → 15 »","Palpitations, malaise ou perte de connaissance : appeler le 15." in await page.inner_text("#ciover"))
+        ok(L+"17/10 QT : ECG fait / prescrit / non fait proposé",await page.locator("#ciover [name=ci_ecg]").count()==3)
         await page.locator("#ciover [data-cichip]").first.click()
-        ok(L+"suggestion d'un toucher, modifiable",await page.input_value("#ci_why")==MOTIF)
+        ok(L+"suggestion d'un toucher, modifiable",await page.input_value("#ci_why")=="association ancienne prescrite par le spécialiste, ECG récent connu")
+        await page.locator("#ciover [name=ci_ecg][value=prescrit]").check()
         await page.fill("#ci_why",MOTIF+" (psychiatre)")
         n=await page.locator("#ciover [data-cicons]:not([disabled])").count()
         if n: await page.locator("#ciover [data-cicons]:not([disabled])").first.check()
@@ -74,6 +79,7 @@ async def run(width,label):
         if n: ok(L+"conseil coché ajouté aux consignes imprimées","appeler le 15" in alltxt.lower() or "conduire" in alltxt.lower())
         await page.evaluate("document.body.classList.remove('printing');document.getElementById('print').innerHTML='';pdfCancel();render();")
         cr=await page.evaluate("buildCR0(currentPack())")
+        ok(L+"17/10 QT : ECG tracé au compte rendu (prescrit)","ECG : prescrit." in cr,[l for l in cr.split(chr(10)) if "outre" in l][:1])
         ok(L+"compte rendu : alerte passée outre, source et motif (traçabilité)","DÉCISIONS DE PRESCRIPTION" in cr and "psychiatre" in cr and "Thésaurus" in cr,[l for l in cr.split("\n") if "outre" in l][:1])
         j=await page.evaluate("JOURNAL.length?JOURNAL[JOURNAL.length-1].notes||[]:[]")
         ok(L+"journal : alerte et motif inscrits",any("psychiatre" in x and "outre" in x for x in j),j[-2:])

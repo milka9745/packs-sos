@@ -232,3 +232,15 @@ Objectif final : une application qui me permette d'enchaîner efficacement mes c
 | « Régénérer » (courrier assemblé) | Grisé sans explication | « Rien à régénérer : le texte n'a pas été modifié » |
 
 Restent volontairement grisés, avec leur explication à l'écran : « Signature et cachet » sans profil activé (« profil non activé »), « Continuer » de la clé de secours (case « Je l'ai notée » à cocher), « Envoyer » de l'IA (motif du blocage affiché : fuite d'identité, hors connexion, plafond), « Voir ce qui part » d'un document (« Recadrage ou masquage obligatoire »), entrées du petit choix IA (raison sous chaque entrée), « Optimiser » pendant un calcul (état affiché), boutons de déchiffrement ou de chiffrement pendant l'opération (état affiché). « Renseigne le nom du patient avant d'imprimer » reste une règle de forme (nom obligatoire sur une ordonnance) : le message dit quoi faire et place le curseur dans le champ.
+
+## Consignes du 17/10/2026 — partie B (sécurité) et compléments
+
+| Point | État | Test |
+|---|---|---|
+| B1 cachet : aucun texte dessous, police réduite puis alerte, jamais masqué | Corrigé (v41d), vérifié sur les 398 fiches | test_securite17.py |
+| B2 aucune prescription bloquée | Corrigé (v41e) ; dernière fenêtre bloquante (fiche « à la carte » vide) remplacée par un message | test_securite17.py, test_ciover.py |
+| B2 complément : association qui allonge le QT maintenue | Motif « association ancienne prescrite par le spécialiste, ECG récent connu » proposé en premier ; consigne cochable « Palpitations, malaise ou perte de connaissance : appeler le 15 » ; ECG fait ce jour / prescrit / non fait, noté au compte rendu (« non précisé » sinon) | test_ciover.py (45) |
+| B3 phrases d'action conditionnelles | Corrigé (v41d), vérifié sur les 398 fiches | test_securite17.py |
+| B3 complément : « J'ai prescrit » des courriers = exactement les examens cochés | Vérifié : 133 fiches avec courrier et examens, réglage par défaut puis cases inversées, 54 phrases contrôlées, aucun écart | test_securite17.py |
+| B4 IA document : texte seul après lecture sur l'appareil | Corrigé : plus de mode image ; grisé avec la raison sans lecture locale | test_doc.py, test_securite17.py |
+| PDF iPhone toujours en 8,5 pt | Corrigé (mesure de la page) | test_express.py |
