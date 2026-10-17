@@ -177,7 +177,7 @@ async def extras(b,w,h,label):
     ok(L+"PDF : page courte en taille normale (plus de 8,5 pt systématique)",all(x["f"]=="" and x["o"]=="" for x in r["a"]),r["a"])
     cb=[x for x in r["b"] if x["f"]]
     ok(L+"PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement",cb and all(x["fs"]>=11.9 and x["o"]=="" for x in cb),r["b"])
-    ok(L+"PDF : trop long même à 9 pt → signalé (l'Express ouvre alors l'aperçu)",any(x["o"]=="1" and x["fs"]>=11.9 for x in r["c"]),r["c"])
+    ok(L+"PDF : trop long même en dernier recours (8,5 pt) → signalé (l'Express ouvre alors l'aperçu)",any(x["o"]=="1" and x["fs"]>=11.3 for x in r["c"]),r["c"])
     # 2. Annuler (10 s) : le patient revient
     await page.evaluate("state.view='';render();")
     if mob:

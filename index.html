@@ -17616,10 +17616,10 @@ function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want
 function pdfScale(){return 2;}
 function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const reserve=pg.querySelector(".stamp")?34*mm:pg.querySelector(".sig")?32*mm:4*mm;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8"];let used="";
   /* 17/10/2026 : mesure de la hauteur réelle du texte (le cadre s'étire toujours jusqu'au bas de la page : l'ancienne mesure
-     concluait toujours « ne tient pas » et sortait chaque PDF en 8,5 pt). Police réduite seulement si besoin, jamais sous 9 pt ; au-delà : signalé. */
+     concluait toujours « ne tient pas » et sortait chaque PDF en 8,5 pt). Police réduite seulement si besoin (9 pt, 8,5 pt en dernier recours pour garder le cachet libre) ; au-delà : signalé. */
   const A4=297*mm;const fit=()=>{const ft=fr.getBoundingClientRect().top;let bot=ft;[...fr.children].forEach(c=>{if(c.matches&&c.matches(".stamp,.sig,.specwm"))return;const r=c.getBoundingClientRect();if(r.height)bot=Math.max(bot,r.bottom);});
     const inner=bot-ft+(parseFloat(getComputedStyle(fr).paddingBottom)||0);const grow=Math.max(0,pg.getBoundingClientRect().height-A4);const avail=fr.clientHeight-grow-reserve;return inner<=avail+1;};
-  let okf=false;for(const s of steps.slice(0,8)){pg.classList.remove("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8");if(s)pg.classList.add(s);used=s;if(fit()){okf=true;break;}}
+  let okf=false;for(const s of steps){pg.classList.remove("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8");if(s)pg.classList.add(s);used=s;if(fit()){okf=true;break;}}
   try{pg.dataset.pdfover=okf?"":"1";}catch(e){}
   return used;}
 function blobBytes(blob){return new Promise((ok,ko)=>{if(blob.arrayBuffer){blob.arrayBuffer().then(b=>ok(new Uint8Array(b)),ko);return;}const r=new FileReader();r.onload=()=>ok(new Uint8Array(r.result));r.onerror=()=>ko(r.error);r.readAsArrayBuffer(blob);});}
