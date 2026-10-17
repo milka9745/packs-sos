@@ -15962,7 +15962,7 @@ async function printPack(){
   let out="", removed=[];
   const extras=(state.copat||[]).filter(c=>c.patient);
   const r0=buildPages(p,true); out+=r0.out; removed.push(...r0.removed);
-  if(!out){alert("Aucune feuille complète à imprimer.");return;}
+  if(!out){toast(/à la carte/i.test(p.n)?"Rien de coché : choisissez au moins un élément de la liste, puis imprimez.":"Aucune feuille complète à imprimer : cochez au moins une ligne.");return;}
   journalUpsert(p);
   const keep={patient:state.patient,ddn:state.ddn,poids:state.poids,sexe:state.sexe,allergie:state.allergie,gs:state.gs,t0:state.t0};
   for(const c of extras){ withExtra(c,pk=>{const r=buildPages(pk,false);out+=r.out;journalUpsert(pk);}); }
@@ -16418,7 +16418,7 @@ async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=docume
   const leaks=anonLeaks(P.user,P.ctx);if(leaks.length){P.leaks=leaks;aiSendScreen();return;}
   if(aiEffective().mode==="aucun"||navigator.onLine===false){aiSendScreen();return;}
   AI.busy=true;const b=el&&el.querySelector("#ai_send");if(b){b.disabled=true;b.textContent="Envoi…";}
-  try{const content=P.img?[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:P.img.split(",")[1]}},{type:"text",text:P.user}]:P.user;
+  try{const content=P.user; /* 17/10/2026 B4 : texte seul, jamais d'image */
     AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
     if(P.qid)aiqDel(P.qid);AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
     if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
@@ -16492,7 +16492,7 @@ function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=
    `<div class="aitabs">${tabs.map(f=>`<button type="button" data-aitab="${f}" class="${t===f?"on":""}">${AI_FN[f]}</button>`).join("")}</div>
    ${t==="obs"?`<textarea id="ai_in" rows="5" placeholder="Dictez en vrac : âge, poids, symptômes, constantes, examen, diagnostic (micro du clavier). Pas de posologie : elles viennent de la fiche.">${esc(state.obs.dict||"")}</textarea>`
     :t==="cr"?`<div class="hint">Relit le compte rendu de la consultation en cours${p?" (« "+esc(p.n)+" »)":""} : manques, formulation neutre, raisonnement, information donnée. Rien n'est modifié sans votre accord.</div>${aiFn("let")!=="off"?`<label class="hint"><input type="checkbox" id="ai_withlet" ${p&&p.s.some(sh=>sh.k==="let")?"checked":""}> Courrier dans le même envoi</label><textarea id="ai_in" rows="2" placeholder="Courrier : à qui, quelle question (facultatif)"></textarea>`:""}`
-    :t==="doc"?`<div class="hint">Photo ou capture d'écran d'un document (biologie, compte rendu, ordonnance, ECG). Packs cherche et masque l'identité sur l'appareil ; vous recadrez ou masquez ensuite, c'est obligatoire. Les PDF : faites une capture de la page.</div><label class="btn p" for="ai_file">Importer une photo ou une capture</label><input type="file" id="ai_file" accept="image/*" style="display:none">`
+    :t==="doc"?`<div class="hint">Photo ou capture d'écran d'un document (biologie, compte rendu, ordonnance). Le document est <b>lu sur l'appareil</b> ; seul le texte, pseudonymisé, part après l'écran « Ce qui part », <b>jamais l'image</b>. Sans lecture locale réussie, rien ne part. Les PDF : faites une capture de la page.</div><label class="btn p" for="ai_file">Importer une photo ou une capture</label><input type="file" id="ai_file" accept="image/*" style="display:none">`
     :`<textarea id="ai_in" rows="3" placeholder="À qui, quelle question : « ORL, otites à répétition, avis pour aérateurs »"></textarea><div class="hint">Le traitement est ajouté par Packs depuis la fiche, jamais rédigé par l'IA.</div>`}
    ${t==="doc"?"":`<div class="aiact"><button type="button" class="btn p" id="ai_go">${offq?"Mettre en attente":"Voir ce qui part"}</button><span class="hint">${offq?"Hors connexion : préparée et anonymisée sur l'appareil, proposée à l'écran « Ce qui part » au retour du réseau.":"Rien ne part avant l'écran de contrôle."}</span></div>`}`;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>✦ Assistant IA</b>${aiModeHTML()}<button type="button" class="btn s sm" id="ai_conso">Consommation</button><button type="button" class="btn s sm" id="ai_close">Fermer</button></div>
@@ -16540,17 +16540,17 @@ document.addEventListener("click",ev=>{const t=ev.target;const b=t.closest&&t.cl
 /* ---- Documents et images vers l'IA (cahier de corrections, point 2) ----
    L'image ne part jamais telle quelle : recadrage ou masquage obligatoire, détection de l'identité par la lecture locale (Tesseract, sur l'appareil),
    vérification finale bloquante, image ré-encodée (métadonnées et position GPS supprimées), puis écran « Ce qui part ».
-   Deux façons d'envoyer : le texte lu sur l'appareil puis anonymisé (recommandé), ou l'image masquée (tracé ECG, lésion, document manuscrit). */
+   17/10/2026 (B4) : texte seul ; l'image ne part jamais. */
 const DOC={cv:null,undo:[],edits:0,auto:0,tool:"mask",mode:"texte",checked:false,flag:[],status:"",busy:false};
 const AI_DOC_SENSIBLE=["PATIENT","NAISSANCE","TÉLÉPHONE","NIR","COURRIEL","ADRESSE","CODE POSTAL","CODE","NUMÉRO","PERSONNE","AUTRE PATIENT","MÉDECIN","LIEU","DATE"];
 const AI_DOC_BLOQUE=["PATIENT","NAISSANCE","TÉLÉPHONE","NIR","COURRIEL","ADRESSE","CODE POSTAL","CODE","NUMÉRO","PERSONNE","AUTRE PATIENT","MÉDECIN","LIEU"];
 const AI_POSO_RE=/\b(?:\d+(?:[.,]\d+)?\s*(?:cp|cps|comprimés?|gélules?|sachets?|ampoules?|bouffées?|gouttes?|doses?|suppositoires?|injections?)\b|\d+\s*fois\s+par\s+(?:jour|semaine)|toutes les \d+|matin(?:,|\s+et)\s+(?:midi|soir)|par jour|\/\s?j\b)/i;
 const AI_SYS_DOC=AI_SYS_COMMUN+`
-TÂCHE : un document médical a été importé (photo ou capture) : résultat de biologie, compte rendu, courrier, ordonnance, ECG ou autre. Les zones noires ont été masquées volontairement sur l'appareil : ne cherche jamais à deviner ce qu'elles cachent. Clés du JSON :
+TÂCHE : un document médical a été importé (photo ou capture) : résultat de biologie, compte rendu, courrier, ordonnance, ECG ou autre. Tu reçois seulement le texte lu sur l'appareil puis pseudonymisé (jamais l'image) : ne cherche jamais à deviner ce qui a été retiré. Clés du JSON :
 "type": nature du document en quelques mots ;
 "resume": une à trois phrases factuelles sur ce que le document apporte à la consultation ;
 "resultats": liste des résultats ou constatations, chacun recopié tel qu'écrit, avec valeur, unité et anomalie si le document la signale ; [] sinon ;
-"ecg": si le document est un tracé ECG, lecture structurée à partir du tracé (rythme, fréquence, axe, PR, QRS, repolarisation, QT), la conclusion imprimée par l'appareil seulement en comparaison et tout désaccord signalé ; "" sinon ;
+"ecg": si le texte est celui d'un compte rendu d'ECG, mesures et conclusion telles qu'écrites, sans interprétation d'un tracé que tu ne vois pas ; "" sinon ;
 "antecedents": antécédents mentionnés ; [] sinon ;
 "traitements": noms des médicaments mentionnés, sans dose ni posologie ; [] sinon ;
 "remarques": vigilances et passages illisibles ; [] sinon.
@@ -16580,20 +16580,20 @@ async function aiDocImport(file){if(!file)return;
   const url=URL.createObjectURL(file);const img=new Image();
   await new Promise((ok,ko)=>{img.onload=ok;img.onerror=()=>ko(new Error("image illisible"));img.src=url;}).catch(e=>{alert(e.message);});
   URL.revokeObjectURL(url);if(!img.width)return;
-  Object.assign(DOC,{cv:aiDocCanvas(img),undo:[],edits:0,auto:0,tool:"mask",mode:"texte",checked:false,flag:[],status:"Recherche locale de l'identité…",busy:true});
-  aiDocScreen();try{const r=await aiDocRead(DOC.cv);const f=aiDocFlag(r,aiAnonCtx(),AI_DOC_SENSIBLE);const n=aiDocMask(f.boxes,true);DOC.status=n?n+" zone(s) masquée(s) automatiquement ("+f.found.slice(0,6).map(x=>"« "+x+" »").join(", ")+"). Vérifiez et complétez.":"Aucune identité détectée automatiquement : recadrez ou masquez vous-même.";}
-  catch(e){DOC.status="Lecture locale indisponible ("+(e.message||e)+") : masquez vous-même toute identité.";}
+  Object.assign(DOC,{cv:aiDocCanvas(img),undo:[],edits:0,auto:0,tool:"mask",mode:"texte",checked:false,flag:[],status:"Lecture du document sur l'appareil…",busy:true,read:false,chars:0});
+  aiDocScreen();try{const r=await aiDocRead(DOC.cv);DOC.read=true;DOC.chars=String(r.text||"").replace(/\s+/g,"").length;const f=aiDocFlag(r,aiAnonCtx(),AI_DOC_SENSIBLE);const n=aiDocMask(f.boxes,true);DOC.status=n?n+" zone(s) masquée(s) automatiquement ("+f.found.slice(0,6).map(x=>"« "+x+" »").join(", ")+"). Vérifiez et complétez.":"Aucune identité détectée automatiquement : recadrez ou masquez vous-même.";}
+  catch(e){DOC.read=false;DOC.status="Lecture locale indisponible ("+(e.message||e)+") : rien ne peut partir vers l'IA (seul le texte lu sur l'appareil est envoyé, jamais l'image).";}
   DOC.busy=false;aiDocScreen();}
 function aiDocScreen(){let el=document.getElementById("aidoc");if(!el){el=document.createElement("div");el.id="aidoc";document.body.appendChild(el);}
-  const can=DOC.edits>0&&DOC.checked&&!DOC.busy;
+  const why=aiDocWhy();const can=!why;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>Document → IA</b><span class="hint">Rien ne part d'ici.</span><button type="button" class="btn s sm" id="ad_close">Annuler</button></div>
    <div class="adtools" role="group"><button type="button" data-adtool="mask" class="${DOC.tool==="mask"?"on":""}">■ Masquer une zone</button><button type="button" data-adtool="crop" class="${DOC.tool==="crop"?"on":""}">⬚ Recadrer</button><button type="button" id="ad_undo" ${DOC.undo.length?"":"disabled"}>↶ Annuler le dernier</button></div>
    <div class="hint">Glissez le doigt sur l'image pour ${DOC.tool==="mask"?"noircir une zone (nom, date, adresse, numéro, en-tête)":"garder seulement la partie utile"}. ${esc(DOC.status)}</div>
    <div class="adwrap"><canvas id="ad_cv"></canvas></div>
    ${DOC.flag.length?`<div class="alert">Encore lisible sur l'image : ${DOC.flag.map(esc).join(", ")}. <button type="button" class="btn s sm" id="ad_fix">Masquer ces zones</button></div>`:""}
-   <div class="nhopts"><label><input type="radio" name="ad_mode" value="texte" ${DOC.mode==="texte"?"checked":""}> Envoyer le texte lu sur l'appareil, anonymisé (recommandé)</label><label><input type="radio" name="ad_mode" value="image" ${DOC.mode==="image"?"checked":""}> Envoyer l'image masquée (tracé ECG, lésion, manuscrit)</label></div>
-   <label class="hint"><input type="checkbox" id="ad_ok" ${DOC.checked?"checked":""}> J'ai vérifié : aucune identité, date de naissance, adresse, numéro ni lieu précis n'est visible.</label>
-   <div class="aiact"><button type="button" class="btn p" id="ad_go" ${can?"":"disabled"}>Voir ce qui part</button><span class="hint">${DOC.edits?DOC.edits+" modification(s)":"Recadrage ou masquage obligatoire avant envoi."}</span></div></div>`;
+   <div class="hint"><b>Texte seul</b> : l'image ne quitte jamais l'appareil. Seul le texte lu ici, pseudonymisé, part après l'écran « Ce qui part ». Masquez ou recadrez pour exclure une partie du texte.</div>
+   <label class="hint"><input type="checkbox" id="ad_ok" ${DOC.checked?"checked":""}> J'ai vérifié les zones masquées (nom, date de naissance, adresse, numéro, lieu précis).</label>
+   <div class="aiact"><button type="button" class="btn p" id="ad_go" ${can?"":"disabled"} title="${esc(why||"Voir le texte exact qui partirait")}">Voir ce qui part</button><span class="hint" id="ad_why">${esc(why||(DOC.edits?DOC.edits+" modification(s)":"Texte lu sur l'appareil, prêt à être vérifié."))}</span></div></div>`;
   const cv=el.querySelector("#ad_cv");cv.width=DOC.cv.width;cv.height=DOC.cv.height;const c=cv.getContext("2d");c.drawImage(DOC.cv,0,0);
   let st=null;const pt=ev=>{const r=cv.getBoundingClientRect();return {x:(ev.clientX-r.left)*cv.width/r.width,y:(ev.clientY-r.top)*cv.height/r.height};};
   cv.onpointerdown=ev=>{if(DOC.busy)return;ev.preventDefault();cv.setPointerCapture&&cv.setPointerCapture(ev.pointerId);st=pt(ev);};
@@ -16602,25 +16602,26 @@ function aiDocScreen(){let el=document.getElementById("aidoc");if(!el){el=docume
     if(r.w>4&&r.h>4){if(DOC.tool==="mask")aiDocMask([{x0:r.x+4,y0:r.y+4,x1:r.x+r.w-4,y1:r.y+r.h-4}]);else aiDocCrop(r);DOC.flag=[];}aiDocScreen();};
   el.querySelectorAll("[data-adtool]").forEach(b=>b.onclick=()=>{DOC.tool=b.dataset.adtool;aiDocScreen();});
   el.querySelector("#ad_undo").onclick=()=>{const u=DOC.undo.pop();if(u){DOC.cv=u.cv;DOC.edits=u.edits;DOC.auto=u.auto;DOC.flag=[];}aiDocScreen();};
-  el.querySelectorAll("[name=ad_mode]").forEach(r=>r.onchange=()=>{DOC.mode=r.value;});
   el.querySelector("#ad_ok").onchange=e=>{DOC.checked=e.target.checked;aiDocScreen();};
   el.querySelector("#ad_close").onclick=()=>{el.remove();DOC.cv=null;};
   const fx=el.querySelector("#ad_fix");if(fx)fx.onclick=()=>{aiDocMask(DOC.flagBoxes||[],true);DOC.flag=[];aiDocScreen();};
   el.querySelector("#ad_go").onclick=aiDocPrepare;}
-/* Vérification finale sur l'image exacte qui partirait, puis écran « Ce qui part » */
-async function aiDocPrepare(){if(!DOC.cv||!(DOC.edits>0&&DOC.checked))return;const eff=aiEffective();if(eff.mode==="aucun"){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return;}
+/* 17/10/2026 B4 : texte seul. Grisé tant que le document n'est pas lu sur l'appareil (lecture locale) ; jamais d'image envoyée */
+function aiDocWhy(){if(DOC.busy)return "Lecture sur l'appareil en cours…";if(!DOC.read)return "Indisponible : le document n'a pas pu être lu sur l'appareil (lecture locale). Seul le texte lu ici peut partir, jamais l'image.";
+  if((DOC.chars||0)<10)return "Indisponible : presque aucun texte lu sur l'appareil (tracé, photo de lésion) ; l'image n'est jamais envoyée.";if(!DOC.checked)return "Cochez « J'ai vérifié les zones masquées ».";return "";}
+/* Vérification finale du texte qui partirait (relu sur l'image masquée), puis écran « Ce qui part » */
+async function aiDocPrepare(){if(!DOC.cv||aiDocWhy())return;const eff=aiEffective();if(eff.mode==="aucun"){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return;}
   DOC.busy=true;DOC.status="Vérification de l'image sur l'appareil…";aiDocScreen();
   const ctx=aiAnonCtx();let read=null,ocrOk=true;try{read=await aiDocRead(DOC.cv);}catch(e){ocrOk=false;read={text:"",lines:[]};}
   const f=aiDocFlag(read,ctx,AI_DOC_BLOQUE);const lk=anonLeaks(read.text,ctx);DOC.busy=false;
   if(f.found.length||lk.length){DOC.flag=[...new Set([...f.found,...lk.map(l=>l.frag)])];DOC.flagBoxes=f.boxes;DOC.status="Envoi bloqué tant que ces éléments restent lisibles.";aiDocScreen();return;}
-  if(DOC.mode==="texte"&&!ocrOk){DOC.status="Lecture locale impossible : choisissez « Envoyer l'image masquée » ou annulez.";aiDocScreen();return;}
-  if(DOC.mode==="texte"&&read.text.trim().length<10){DOC.status="Presque aucun texte lu : choisissez « Envoyer l'image masquée » (tracé, photo) ou recadrez mieux.";aiDocScreen();return;}
+  if(!ocrOk){DOC.read=false;DOC.status="Lecture locale impossible : rien ne part.";aiDocScreen();return;}
+  if(read.text.trim().length<10){DOC.chars=0;DOC.status="Presque aucun texte lu : rien ne part (l'image n'est jamais envoyée).";aiDocScreen();return;}
   const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}
-  const SEP="\n§§§\n";const an=anonymize([aiClinique(),DOC.mode==="texte"?read.text.trim():""].join(SEP),ctx);aiPatientTokens(an.map);const parts=an.text.split(SEP);
-  const img=DOC.mode==="image"?DOC.cv.toDataURL("image/jpeg",0.85):null;  /* ré-encodage : aucune métadonnée de la photo d'origine */
-  const user="CONTEXTE CLINIQUE (sans identité)\n"+parts[0]+"\n\n"+(img?"DOCUMENT : image jointe, recadrée et masquée sur l'appareil ; les zones noires sont volontaires.":"DOCUMENT : texte lu sur l'appareil puis anonymisé\n"+parts[1]);
-  const model=AI_MODEL.redac;const imgTok=img?Math.round(DOC.cv.width*DOC.cv.height/750):0;
-  AI.pending={kind:"doc",opt:{},fns:["doc"],ctx,system:AI_SYS_DOC,user,img,map:an.map,items:an.items,leaks:anonLeaks(user,ctx),model,maxT:1500,est:aiEur(model,{input_tokens:Math.round((AI_SYS_DOC.length+user.length)/3.2)+imgTok,output_tokens:700}),pid:state.t0||Date.now(),ocr:read.text,ocrOk,auto:DOC.auto,edits:DOC.edits};
+  const SEP="\n§§§\n";const an=anonymize([aiClinique(),read.text.trim()].join(SEP),ctx);aiPatientTokens(an.map);const parts=an.text.split(SEP);
+  const user="CONTEXTE CLINIQUE (sans identité)\n"+parts[0]+"\n\nDOCUMENT : texte lu sur l'appareil puis anonymisé\n"+parts[1];
+  const model=AI_MODEL.redac;
+  AI.pending={kind:"doc",opt:{},fns:["doc"],ctx,system:AI_SYS_DOC,user,img:null,map:an.map,items:an.items,leaks:anonLeaks(user,ctx),model,maxT:1500,est:aiEur(model,{input_tokens:Math.round((AI_SYS_DOC.length+user.length)/3.2),output_tokens:700}),pid:state.t0||Date.now(),ocr:read.text,ocrOk,auto:DOC.auto,edits:DOC.edits};
   const el=document.getElementById("aidoc");if(el)el.remove();aiSendScreen();}
 function aiPatientTokens(map){const sp=anonSplitName(state.patient||"");const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(map[k]===undefined)map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom.join(" ")||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom.join(" ")||state.patient||dflt);}
 /* Réponse : identité réintégrée, posologies retirées ; en mode image, une valeur absente de la lecture locale est signalée « à vérifier sur le document » */
@@ -17323,7 +17324,9 @@ function navUrl(app,s){const d=s.lat+","+s.lon;return app==="maps"?"https://www.
 function pmoreOpen(p0){if(!isPhone())return "";const bits=[];if(state.allergie||(state.allergies||[]).length)bits.push("allergies : "+((state.allergies||[]).join(", ")||"pénicillines"));if(state.tt.length)bits.push(state.tt.length+" traitement"+(state.tt.length>1?"s":""));if(state.grossesse)bits.push("grossesse"+(saInfo()?" "+saInfo().sa+" SA":""));if(state.allait)bits.push("allaitement");if(state.sexe)bits.push(state.sexe==="h"?"homme":"femme");if(!state.cachet)bits.push("sans cachet");if(state.nodoc)bits.push("sans feuilles médecin");if((state.copat||[]).length)bits.push((state.copat||[]).length+" autre(s) patient(s)");
   const open=!!state.ui.opt.pmore;return `<details class="opt pmore" data-opt="pmore" ${open?"open":""}><summary><span class="ot">Allergies · traitements · options</span><span class="os">${esc(bits.length?bits.join(" · "):"aucune allergie, aucun traitement")}</span></summary><div class="ob">`;}
 function pmoreClose(){return isPhone()?"</div></details>":"";}
-function jmenuFit(menu){try{const r=menu.getBoundingClientRect();const vh=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;const z=menu.offsetHeight?r.height/menu.offsetHeight:1;menu.style.maxHeight=Math.max(180,Math.floor((vh-r.top-10)/(z||1)))+"px";}catch(e){}}
+function jmenuFit(menu){try{const r=menu.getBoundingClientRect();const vh=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;const z=menu.offsetHeight?r.height/menu.offsetHeight:1;let mh=Math.max(180,Math.floor((vh-r.top-10)/(z||1)));menu.style.maxHeight=mh+"px";
+  /* 17/10/2026 : le zoom « grand texte » n'est pas mesuré pareil par tous les navigateurs : on vérifie et on corrige */
+  for(let k=0;k<3;k++){const r2=menu.getBoundingClientRect();const over=r2.bottom-(vh-10);if(over<=0.5||mh<=180)break;const ratio=menu.offsetHeight?r2.height/menu.offsetHeight:1;const zz=Math.abs(ratio-1)>0.01?ratio:(parseFloat(getComputedStyle(document.querySelector(".app")||menu).zoom)||1);mh=Math.max(180,Math.floor(mh-over/(zz||1))-1);menu.style.maxHeight=mh+"px";}}catch(e){}}
 if(window.visualViewport)window.visualViewport.addEventListener("resize",()=>{const m=document.getElementById("jmenu");if(m&&!m.hidden)jmenuFit(m);});
 function phoneBind(){
   const mb=$("#more_btn"),menu=$("#jmenu");

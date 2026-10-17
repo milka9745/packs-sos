@@ -83,7 +83,9 @@ async def run(width,height,label):
         ok(L+"envoi impossible tant que la vérification n'est pas cochée",await page.is_disabled("#ad_go"))
         # 3. Sans masque (tout annulé) : recadrage seul → envoi bloqué par la vérification finale
         while not await page.is_disabled("#ad_undo"): await page.click("#ad_undo"); await page.wait_for_timeout(100)
-        ok(L+"sans recadrage ni masque : envoi impossible même coché",(await page.evaluate("DOC.edits"))==0 and (await page.check("#ad_ok") or True) and await page.is_disabled("#ad_go"))
+        await page.check("#ad_ok"); await page.wait_for_timeout(100)
+        await page.click("#ad_go"); await page.wait_for_timeout(300); await idle(page)
+        ok(L+"sans masque : identité encore lisible dans le texte lu, rien ne part (17/10 B4)",(await page.evaluate("DOC.edits"))==0 and len(await page.evaluate("DOC.flag"))>0 and await page.locator("#aisend").count()==0)
         await page.evaluate("aiDocCrop({x:2,y:2,w:DOC.cv.width-4,h:DOC.cv.height-4});aiDocScreen();"); await page.wait_for_timeout(200)
         await page.click("#ad_go"); await page.wait_for_timeout(300); await idle(page)
         flag=await page.evaluate("DOC.flag")
@@ -108,24 +110,16 @@ async def run(width,height,label):
         tt=await page.evaluate("state.tt")
         ok(L+"traitements repris sans dose",any("METFORMINE" in t for t in tt) and not any("1000" in t or "mg" in t for t in tt),tt)
         await page.evaluate("document.getElementById('aipanel')&&document.getElementById('aipanel').remove()")
-        # 5. Mode image : image masquée ré-encodée, sans métadonnées
+        # 5. 17/10/2026 B4 : plus aucun mode image ; jamais d'image envoyée
         await import_doc(page)
-        await page.check("#ad_ok"); await page.check("[name=ad_mode][value=image]"); await page.wait_for_timeout(100)
-        ok(L+"mode image : « Ce qui part » atteint",await go_until_sent(page))
-        ok(L+"mode image : l'image exacte est montrée avant envoi",await page.locator("#aisend img.aiimg").count()==1)
+        ok(L+"B4 aucune option « envoyer l'image »",await page.locator("[name=ad_mode]").count()==0 and "jamais" in (await page.inner_text("#aidoc")).lower())
+        await page.check("#ad_ok"); await page.wait_for_timeout(100)
+        ok(L+"B4 « Ce qui part » : texte seul",await go_until_sent(page) and await page.locator("#aisend img.aiimg").count()==0)
         await page.screenshot(path=os.path.join(ROOT,"tests","captures",f"{label}-doc-ce-qui-part.png"))
         n0=len(sent); replies.append({"type":"Bilan biologique","resume":"CRP élevée.","resultats":["CRP 85 mg/l"],"ecg":"","antecedents":[],"traitements":[],"remarques":[]})
         await page.click("#ai_send"); await page.wait_for_timeout(900)
-        ok(L+"mode image : un seul envoi",len(sent)==n0+1)
-        jb=json.loads(sent[-1]) if len(sent)>n0 else {}
-        cont=jb.get("messages",[{}])[0].get("content",[])
-        img=[c for c in cont if isinstance(c,dict) and c.get("type")=="image"]
-        raw=base64.b64decode(img[0]["source"]["data"]) if img else b""
-        ok(L+"mode image : JPEG ré-encodé, sans EXIF ni GPS",raw[:2]==b"\xff\xd8" and b"Exif" not in raw and b"GPS" not in raw and b"DUPONT" not in raw)
-        txtpart=" ".join(c.get("text","") for c in cont if isinstance(c,dict))
-        ok(L+"mode image : texte joint sans identité",not any(x in txtpart for x in IDENT))
-        out=await page.inner_text("#ai_out") if await page.locator("#ai_out").count() else ""
-        ok(L+"mode image : valeurs signalées à vérifier si absentes de la lecture locale","CRP" in out)
+        ok(L+"B4 un seul envoi, sans image",len(sent)==n0+1 and all('"image"' not in x for x in sent))
+        await page.evaluate("document.getElementById('aipanel')&&document.getElementById('aipanel').remove()")
         # 6. Mode Aucun : pas d'onglet document
         await page.evaluate("document.getElementById('aipanel')&&document.getElementById('aipanel').remove();AI.cfg.mode='aucun';aiSave();aiOpen('doc')"); await page.wait_for_timeout(200)
         ok(L+"mode Aucun : pas d'import vers l'IA",await page.locator("#ai_file").count()==0)

@@ -1,9 +1,9 @@
 {
-  "version": "41g",
-  "date": "2026-10-16",
+  "version": "41h",
+  "date": "2026-10-17",
   "notes": [
-    "Hors connexion : bandeau « rien n'est perdu », avec ce qui marche sans réseau et ce qui attend le réseau.",
-    "Demande IA hors connexion mise en attente, chiffrée ; au retour du réseau, « Voir ce qui part » : rien ne part tout seul.",
-    "Clé API Claude chiffrée dans le profil : la phrase maître suffit sur un autre appareil ; jamais affichée, remplaçable d'un geste."
+    "IA « Document ou image » : seul le texte lu sur l'iPhone part, pseudonymisé ; l'image ne quitte jamais l'appareil.",
+    "Toutes les fiches vérifiées : cachet jamais recouvert, aucun texte masqué, aucune prescription bloquée.",
+    "Fiche « à la carte » vide : un message à l'écran au lieu d'une fenêtre bloquante."
   ]
 }
