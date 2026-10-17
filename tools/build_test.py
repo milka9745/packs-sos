@@ -38,8 +38,7 @@ rep('<meta name="apple-mobile-web-app-title" content="Packs SOS">','<meta name="
 rep('<meta name="theme-color" content="#22252B">','<meta name="theme-color" content="#D0021B">')
 rep("</head>",BADGE+"</head>")
 # filigrane « VERSION TEST » sur chaque document (écran, PDF, impression) — seulement dans test/, jamais à la racine (outil de garde)
-rep("function pageHead(){","function pageHead(){return '<div class=\"testwm\" aria-hidden=\"true\">VERSION TEST — NE PAS UTILISER</div>'+pageHead0();}
-function pageHead0(){")
+rep("function pageHead(){","function pageHead(){return '<div class=\"testwm\" aria-hidden=\"true\">VERSION TEST — NE PAS UTILISER</div>'+pageHead0();}\nfunction pageHead0(){")
 s=re.sub(r"(<body[^>]*>)",lambda m:m.group(1)+BADGE_BODY,s,count=1)
 open(os.path.join(OUT,"index.html"),"w",encoding="utf-8",newline="").write(s)
 
