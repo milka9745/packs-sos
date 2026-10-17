@@ -79,7 +79,7 @@ async def sweep(b,w,h,th,big,label,sample=None):
     for k in range(0,len(idx),chunk):
         res+=await page.evaluate(SWEEP,idx[k:k+chunk])
     L=f"{label} ({len(res)} fiches) : "
-    bl=[(r["nm"],r["blocked"]) for r in res if r["blocked"] and not ("à la carte" in r["nm"] and r["blocked"]=="aucun aperçu")]  # fiches « à la carte » vides : rien à imprimer, message à l'écran
+    bl=[(r["nm"],r["blocked"]) for r in res if r["blocked"] and not (("à la carte" in r["nm"] or "aide-mémoire" in r["nm"]) and r["blocked"]=="aucun aperçu")]  # aide-mémoire : écran seulement (17/10/2026)  # fiches « à la carte » vides : rien à imprimer, message à l'écran
     ok(L+"B2 aucune fiche bloquée à l'impression (alertes : maintien possible)",not bl,bl[:8])
     ok(L+"B2 aucune fenêtre système bloquante pendant l'impression",not dialogs,dialogs[:3])
     hit=[(r["nm"],r["hit"][:2]) for r in res if r["hit"]]

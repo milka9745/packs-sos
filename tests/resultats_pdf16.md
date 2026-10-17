@@ -13,7 +13,7 @@
 - OK — pc n°3 case « Médicaments revus » proposée (une consigne en parle)
 - OK — pc n°3 action cochée : « revu les médicaments » et « ont été revus » apparaissent
 - OK — pc n°3 liste des examens exacte : CRP décochée absente, HbA1c cochée présente
-- OK — pc n°3 éléments dictés repris à la place du renvoi au compte rendu
+- OK — pc n°3 (17/10) pas de renvoi au compte rendu, et jamais la dictée ni l'histoire libre recopiées dans le courrier
 - OK — pc n°1 après modification : toujours aucun chevauchement du cachet
 - OK — pc n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
 - OK — pc n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué
@@ -33,7 +33,7 @@
 - OK — iphone n°3 case « Médicaments revus » proposée (une consigne en parle)
 - OK — iphone n°3 action cochée : « revu les médicaments » et « ont été revus » apparaissent
 - OK — iphone n°3 liste des examens exacte : CRP décochée absente, HbA1c cochée présente
-- OK — iphone n°3 éléments dictés repris à la place du renvoi au compte rendu
+- OK — iphone n°3 (17/10) pas de renvoi au compte rendu, et jamais la dictée ni l'histoire libre recopiées dans le courrier
 - OK — iphone n°1 après modification : toujours aucun chevauchement du cachet
 - OK — iphone n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
 - OK — iphone n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué

@@ -10,7 +10,7 @@
 - OK — pc 17/10 QT : consigne patient cochable « palpitations, malaise ou perte de connaissance → 15 »
 - OK — pc 17/10 QT : ECG fait / prescrit / non fait proposé
 - OK — pc suggestion d'un toucher, modifiable
-- OK — pc impression réalisée après maintien
+- OK — pc aperçu et PDF après maintien (impression sur un toucher, depuis le PDF)
 - OK — pc ordonnance imprimée avec les deux médicaments maintenus
 - OK — pc motif et alerte jamais sur les documents imprimés
 - OK — pc conseil coché ajouté aux consignes imprimées
@@ -33,7 +33,7 @@
 - OK — iphone 17/10 QT : consigne patient cochable « palpitations, malaise ou perte de connaissance → 15 »
 - OK — iphone 17/10 QT : ECG fait / prescrit / non fait proposé
 - OK — iphone suggestion d'un toucher, modifiable
-- OK — iphone impression réalisée après maintien
+- OK — iphone aperçu et PDF après maintien (impression sur un toucher, depuis le PDF)
 - OK — iphone ordonnance imprimée avec les deux médicaments maintenus
 - OK — iphone motif et alerte jamais sur les documents imprimés
 - OK — iphone conseil coché ajouté aux consignes imprimées

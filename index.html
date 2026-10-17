@@ -538,12 +538,19 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .certdur .cdl{font-weight:800;flex-basis:100%}.certdur .cdb{min-width:48px;min-height:48px;font-size:22px;font-weight:800;justify-content:center}
 .certdur input[data-cdin]{width:64px;min-height:44px;font-size:18px;text-align:center}.certdur .cdu{display:flex;align-items:center;gap:6px;font-size:14px}.certdur .cdu input{width:120px;min-height:40px}
 .certdur .cdp{flex-basis:100%;font-size:15px}
+@media print{@page{margin:0}#xptoast,#toast,#netbar,#updbar,#testbadge,#testpill,.printbar,.alert,.fitwarn,.legalwarn,#pdfprint{display:none!important}}
+
+.mcct{display:flex;flex-direction:column;gap:8px;margin:6px 0}.mccr{display:grid;grid-template-columns:110px 1fr;gap:6px;padding:8px;border:1px solid var(--line2);border-radius:10px}.mccr label{grid-column:1/-1;display:flex;flex-direction:column;font-size:13px;font-weight:700}.mccr input{min-height:40px}.mccr [data-mccdel]{grid-column:1/-1;justify-self:start}
+
+.obsauto{margin:8px 0;padding:8px 10px;border:2px solid #E0A800;border-radius:12px;background:rgba(255,214,0,.16)}.obsauto .oa-row{display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin:6px 0;font-weight:700;font-size:14px}.obsauto .oa-row span{grid-column:1/-1}
+.obsauto .oa-ta{font:inherit;font-size:15px;line-height:1.35;width:100%;box-sizing:border-box;min-height:72px;background:#FFF3B0;color:#222;border:1px solid #E0A800;border-radius:8px;font-size:15px;min-height:52px}.obsauto .oa-ta.edited{background:var(--field)}
+.sys.autoins textarea{background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important}.oa-tag{margin-left:6px;font-size:11.5px;font-weight:800;color:#8a6200;background:#FFE680;border-radius:6px;padding:1px 6px}
 /* 17/10/2026 — Express visite */
 /* 17/10/2026 (h) — favoris */
 .hasfav{position:relative}.favstar{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;font-size:20px;line-height:1;color:#B8860B;border-radius:8px;flex:0 0 auto}
 .favstar.on{color:#E0A800}.favstar:active{background:var(--line)}
 .sheet.hasfav>.favstar,.pcard.hasfav>.favstar,.obs.hasfav>.favstar,.docact.hasfav>.favstar,.lettres.hasfav>.favstar,.tt.hasfav>.favstar,.patient>div.hasfav>.favstar{position:absolute;top:2px;right:2px}
-details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!important}.tt.hasfav>label{padding-right:40px}
+details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!important}.tc-addv,.tc-photo,.tc-fiche{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.tc-addv{flex:1 1 240px}.xp-favs .tc-addv input{min-height:44px;flex:1}.tt.hasfav>label{padding-right:40px}
 .xp .xp-n{display:inline-flex;align-items:center;gap:2px;flex:1 1 140px}.xp .xp-acts .xp-n>a{flex:1}
 .xp .xp-favs{display:flex;flex-direction:column;gap:8px;margin:8px 0;padding:8px;border:1px dashed #E0A800;border-radius:12px}.xp .xp-favs[hidden]{display:none}
 .xp .xp-favs .infav{margin:0}
@@ -6663,8 +6670,23 @@ const SYS_KW = {
  gen:/état général|bon état|asthén|altération|coloré|pâle|pâleur|hémodynam|fébrile|apyrétique|sueur|tonique|bon contact|anxieux|agité|calme|haleine|ivresse/i,
 };
 function num(s){ return s.replace(",",".").replace(/\s+/g,""); }
+/* 17/10/2026 : « reste de l'examen normal » / « examen normal par ailleurs » dicté → examen normal type de la fiche, adapté à l'âge,
+   inséré seulement pour les appareils non dictés ; jamais sans la phrase ; ce qui est dicté n'est jamais modifié ; surligné jusqu'à validation */
+const NORM_PHRASE_RE=/\b(?:le\s+)?reste\s+de\s+l['’]\s?examen\s+(?:(?:est|clinique|étant)\s+)*(?:normal|sans\s+particularit[ée]s?)|examen\s+(?:clinique\s+)?normal\s+par\s+ailleurs|par\s+ailleurs\s+(?:l['’]\s?)?examen\s+(?:est\s+)?normal/i;
+const SYS_NORM_ENFANT={gen:"Bon état général, enfant conscient, réactif, tonique, bien coloré, bien hydraté, hémodynamique stable.",
+  cv:"Bruits du cœur réguliers, sans souffle ; temps de recoloration cutanée inférieur à 3 secondes ; pouls périphériques perçus.",
+  resp:"Murmure vésiculaire symétrique, pas de râle, pas de signe de lutte (pas de tirage, pas de battement des ailes du nez), fréquence respiratoire normale pour l'âge.",
+  abdo:"Abdomen souple, dépressible et indolore, sans masse ni hépatosplénomégalie ; orifices herniaires libres.",
+  orl:"Tympans normaux des deux côtés, pharynx sans anomalie, pas d'adénopathie cervicale.",
+  cut:"Peau sans lésion, pas de purpura, pas de signe de déshydratation.",
+  loco:"Marche sans boiterie, mobilité articulaire conservée et indolore, pas de point douloureux osseux.",
+  neuro:"Conscient, réactif, contact adapté à l'âge ; motricité des quatre membres normale et symétrique ; nuque souple, pas de syndrome méningé."};
+function sysNormal(k){const a=ageY();const child=a&&a.y<15;let t=child&&SYS_NORM_ENFANT[k]?SYS_NORM_ENFANT[k]:((SYSTEMS.find(x=>x[0]===k)||[])[2]||"");
+  if(k==="neuro"&&a&&a.m<18)t+=" Fontanelle antérieure normotendue.";if(state.sexe==="f")t=t.replace(/\bpatient conscient\b/,"patiente consciente");return t;}
+function normSystemsFor(p){const tpl=p?obsTemplate(p):{focus:[]};const base=["gen","cv","resp","abdo"];const f=(tpl.focus||[]).filter(k=>SYSTEMS.some(x=>x[0]===k));return [...new Set(["gen",...(f.length?f:base.concat(["neuro"])),...(f.length?["cv","resp"]:[])])];}
 function parseDictation(txt){
-  let t=" "+txt.replace(/\s+/g," ").trim()+" ";
+  const restNormal0=NORM_PHRASE_RE.test(txt);
+  let t=" "+txt.replace(new RegExp(NORM_PHRASE_RE.source,"gi")," ").replace(/\s+/g," ").trim()+" ";
   const cst={}; const strip=[];
   const take=(re,fn)=>{ const m=re.exec(t); if(m){ fn(m); strip.push(m[0]); } };
   take(/(?:\bTA\b|tension(?: artérielle)?|pression artérielle|PA\b)\s*(?:est |à |de |: |égale à )?\s*(\d{1,3})\s*(?:\/|sur|-|,|\s)\s*(\d{1,3})/i,m=>{let s=+m[1],d=+m[2];if(s<30)s*=10;if(d<30)d*=10;cst.ta=s+"/"+d;});
@@ -6679,8 +6701,9 @@ function parseDictation(txt){
   t=t.replace(/\b(?:constantes?|examen|à l'examen|cliniquement)\s*:?/gi," ").replace(/\s+/g," ").trim();
   const sents=t.replace(/([.;])\s+/g,"$1\n").replace(/\s*\bpoint\b\s*/g,"\n").replace(/\s*\bà la ligne\b\s*/g,"\n").split(/\n+/).map(s=>s.trim().replace(/^[,;.\s]+|[,;\s]+$/g,"")).filter(s=>s.length>2);
   const out={hist:[],atcd:[],hyp:[],trace:[]}; SYSTEMS.forEach(([k])=>out[k]=[]);
-  let seenExam=false;
+  let seenExam=false;let restNormal=restNormal0;
   sents.forEach(s=>{
+    if(NORM_PHRASE_RE.test(s)){restNormal=true;const rest=s.replace(NORM_PHRASE_RE," ").replace(/^[,;.\s]+|[,;.\s]+$/g,"").trim();if(rest.length<3)return;s=rest;}
     const cap=s.charAt(0).toUpperCase()+s.slice(1);
     if(/antécédent|atcd|allergi|traitement habituel|traitement en cours|connu pour|suivi pour|pas d'allergie/i.test(s)){out.atcd.push(cap);return;}
     if(/diagnostic|conclusion|hypothèse|je retiens|en faveur d|il s'agit d|tableau de/i.test(s)){out.hyp.push(cap.replace(/^(diagnostic|conclusion|hypothèse(?: diagnostique)?|je retiens|il s'agit d'une?|en faveur d'une?)\s*:?\s*/i,""));return;}
@@ -6693,16 +6716,26 @@ function parseDictation(txt){
   });
   const join=a=>a.map(x=>/[.!?]$/.test(x)?x:x+".").join(" ");
   const obs={}; Object.keys(out).forEach(k=>{ if(out[k].length) obs[k]=join(out[k]); });
-  return {cst,obs,poids};
+  return {cst,obs,poids,restNormal};
 }
-function applyDictation(){
+function applyDictation(noRender){
   const txt=state.obs.dict||""; if(!txt.trim()) return;
   const r=parseDictation(txt);
   Object.assign(state.cst,r.cst);
   if(r.poids&&!state.poids) state.poids=r.poids;
+  /* insertions précédentes retirées (la phrase a pu être effacée) ; ce qui est dicté ou saisi n'est jamais touché */
+  state.obsAuto=state.obsAuto||{};Object.keys(state.obsAuto).forEach(k=>{if(state.obsAuto[k]&&state.obs[k]===state.obsAuto[k])delete state.obs[k];});state.obsAuto={};
   Object.keys(r.obs).forEach(k=>{ state.obs[k]=r.obs[k]; });
-  render();
+  if(r.restNormal){normSystemsFor(currentPack()).forEach(k=>{if(r.obs[k]||String(state.obs[k]||"").trim())return;const t=sysNormal(k);if(t){state.obs[k]=t;state.obsAuto[k]=t;}});}
+  if(!noRender)render();
 }
+/* sans quitter le champ de dictée (le clavier reste ouvert) : insertion appliquée et encadré mis à jour sur place */
+function dictAutoNormal(){applyDictation(true);const html=obsAutoHTML();document.querySelectorAll(".obsauto").forEach(x=>x.remove());if(html)document.querySelectorAll("#dictcard .dict-act2").forEach(a=>a.insertAdjacentHTML("beforebegin",html));try{draftSaveSoon();}catch(e){}}
+function obsAutoHTML(){const A=state.obsAuto||{};const ks=Object.keys(A).filter(k=>A[k]&&state.obs[k]===A[k]);if(!ks.length)return "";
+  return `<div class="obsauto" role="status"><b>Examen normal inséré</b> <span class="hint">(« reste de l'examen normal » dicté) — vérifiez, modifiez d'un toucher, ou retirez :</span>${ks.map(k=>`<label class="oa-row"><span>${esc((SYSTEMS.find(x=>x[0]===k)||[])[1]||k)}</span><textarea class="oa-ta" data-oa="${k}" rows="2">${esc(state.obs[k])}</textarea><button type="button" class="lc" data-oadel="${k}">Retirer</button></label>`).join("")}<button type="button" class="btn s sm" id="oa_ok">✓ Valider l'examen inséré</button></div>`;}
+document.addEventListener("input",ev=>{const t=ev.target;if(!t.matches||!t.matches("[data-oa]"))return;const k=t.dataset.oa;state.obs[k]=t.value;if(state.obsAuto)delete state.obsAuto[k];t.classList.add("edited");try{draftSaveSoon();}catch(e){}});
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const d=t.closest("[data-oadel]");if(d){const k=d.dataset.oadel;if(state.obsAuto&&state.obs[k]===state.obsAuto[k])delete state.obs[k];if(state.obsAuto)delete state.obsAuto[k];render();return;}
+  if(t.closest("#oa_ok")){state.obsAuto={};render();toast("Examen inséré validé");}});
 function obsHTML(p){
   const tpl=obsTemplate(p); const o=state.obs;
   const cst=[["ta","TA","mmHg"],["fc","FC","/min"],["spo2","SpO2","%"],["temp","T°","°C"],["fr","FR","/min"],["gly","Glycémie","g/l"],["eva","EVA","/10"]];
@@ -6715,7 +6748,8 @@ function obsHTML(p){
   html+=`<div class="obs-sys">`;
   SYSTEMS.forEach(([k,l,norm])=>{
     const focus=tpl.focus.includes(k); const val=o[k]!==undefined?o[k]:""; const isNorm=val===norm; const sugg=focus?(tpl[k]||norm):norm;
-    html+=`<div class="sys${focus?" focus":""}"><div class="sys-hd"><b>${l}</b><button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${esc("Non renseigné : omis du compte rendu. Suggestion : "+sugg)}">${esc(val)}</textarea></div>`;
+    const auto=!!(state.obsAuto&&state.obsAuto[k]&&state.obsAuto[k]===val);
+    html+=`<div class="sys${focus?" focus":""}${auto?" autoins":""}"><div class="sys-hd"><b>${l}</b>${auto?'<span class="oa-tag">inséré · à valider</span>':""}<button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${esc("Non renseigné : omis du compte rendu. Suggestion : "+sugg)}">${esc(val)}</textarea></div>`;
   });
   html+=`</div>`;
   html+=`<div class="obs-row"><label>Hypothèse diagnostique</label><input data-obs="hyp" value="${esc(o.hyp||"")}" placeholder="${esc(tpl.hyp||p.n)}"></div>`;
@@ -6727,7 +6761,7 @@ function buildCR(p){return specimenText(buildCR0(p));}
 function buildCR0(p){
   const tpl=obsTemplate(p); const o=state.obs; const a=ageY();
   const now=new Date(); const hhmm=now.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
-  const pat=[state.patient, state.ddn?"né(e) le "+normDate(state.ddn):"", a?a.y+" ans":"", state.poids?state.poids+" kg":""].filter(Boolean).join(", ");
+  const pat=[state.patient, state.ddn?neLe()+normDate(state.ddn):"", a?a.y+" ans":"", state.poids?state.poids+" kg":""].filter(Boolean).join(", ");
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","Glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
   const D=!!o.dictated;
   const hist=o.hist||""; let hyp=(o.hyp||diagName(p)).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
@@ -6829,7 +6863,7 @@ function letTraitant(p){const d=letData(p);const L=letState();const sans=!!(L.mt
 function letText(p,kind){const L=letState();const x=L[kind]||{};if(x.edited&&typeof x.text==="string")return x.text;return (kind==="sp"?letSpecialiste(p):letTraitant(p)).join("\n");}
 function letParas(t){return String(t||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);}
 function letBodyHTML(t){return letParas(t).map(s=>`<p class="txt">${esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}</p>`).join("");}
-function letPages(p,pat){const L=letState();let out="";for(const k of ["sp","mt"]){const x=L[k];if(!x||!x.on)continue;let t=letText(p,k);try{const dc=docCtx(p);t=String(t).split(/\n/).map(x=>x.trim()?docFact(x,dc):x).join("\n");}catch(e){}if(!letParas(t).length)continue;
+function letPages(p,pat){const L=letState();let out="";for(const k of ["sp","mt"]){const x=L[k];if(!x||!x.on)continue;let t=letText(p,k);try{const dc=docCtx(p);t=String(t).split(/\n/).map(x=>x.trim()?sexAccord(docFact(x,dc)):x).join("\n");}catch(e){}if(!letParas(t).length)continue;
   out+=`<div class="page lettre${t.length>2300?" lettre-dense":""}">${pageHead()}<div class="frame"><div class="meta"><p><u>Date :</u> ${esc(normDate(state.date))}</p>${state.patient?`<p><u>Patient :</u> ${pat}</p>`:""}</div><h2>Courrier</h2>${letBodyHTML(t)}${pageSign()}</div></div>`;}return out;}
 function letCount(){const L=letState();return ["sp","mt"].filter(k=>L[k]&&L[k].on).length;}
 function lettresHTML(p){if(!p)return "";const L=letState();const sp=L.sp||{},mt=L.mt||{};
@@ -7051,11 +7085,25 @@ const PRINT_CLEAN_K=["med","dm","ide","kine","para","podo","bio","img","spe"];
 function hasDnote(s){DNOTE_RE.lastIndex=0;return DNOTE_RE.test(s);}
 function printClean(s){return String(s).replace(DNOTE_RE,"").replace(/\s{2,}/g," ").replace(/\s+([.,;])/g,"$1").trim();}
 function screenNote(s){return esc(s).replace(/\s*\((?:(?:si |en cas de |sur avis|autoris|ferritine|nausées|antécéd|patient|allerg|diab|indiqu|préférer|hors |sauf |alternative|à discuter|si besoin de|en relais|en l'absence|si échec|si intolérance|chez le|chez la|ou si )[^()]*|[^()]*(?:antécéd|ferritine|antiépilept|diabèt|insuffisance rénale|hors AMM|non remboursé|sur avis|en relais|si échec|si intolérance|contre-indiqu|déconseill|tube neural)[^()]*)\)/gi,m=>'<span class="dnote" title="Note pour le médecin, non imprimée">'+m+'</span>');}
+/* 17/10/2026 (essai réel : fiche adulte appliquée à une enfant de 3 ans) — tranche d'âge de chaque ligne de médicament :
+   « tous » si la dose suit l'âge ou le poids (gabarits enfant) ou si la ligne vise l'enfant ; « adulte » si la dose est fixe (mg, g, %, comprimé…) ;
+   chez l'enfant (< 15 ans), une ligne « adulte » est décochée par défaut et signalée ; le médecin peut la recocher. */
+const LINE_PED_RE=/\{(?:mgpk|ml|mg|agelt|wlt|agemin|vog|tiorfan|gouttes|bouffees|aerius_e|acv)[:}|]|\benfants?\b|nourrisson|pédiatr|dose-poids|pipette|mg\/kg|par kilo/i;
+const LINE_DOSE_RE=/\b\d+(?:[,.]\d+)?\s?(?:mg|g|µg|mcg|UI|ml|%)(?![a-z])|comprim|gélule|sachet|suppositoire|ampoule|stylo|patch|collyre|spray|bouffée|pulvérisation|cp\b/i;
+function lineAge(t){t=String(t||"");if(LINE_PED_RE.test(t))return "tous";if(LINE_DOSE_RE.test(t))return "adulte";return "tous";}
+function childNow(){const a=ageY();return !!(a&&a.y<15);}
+function packAgeRange(p){if(!p)return "tous";const n=p.n;if(/sujet âgé|gériatr|personne âgée/i.test(n))return "age";if(/\badulte\b/i.test(n)&&!/enfant/i.test(n))return "adulte";if(/nourrisson|enfant|bébé|pédiatr|néonat/i.test(n))return "enfant";
+  const L=p.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.map(l=>typeof l==="string"?l:(l&&l.t)||""));if(!L.length)return "tous";
+  return L.some(t=>lineAge(t)==="tous"&&LINE_DOSE_RE.test(t))?"tous":(L.some(t=>lineAge(t)==="adulte")?"adulte":"tous");}
 function resolve(sh,si){
   const lines=expand(sh,si);
   const groups={};
   lines.forEach((x,i)=>{if(x.grp){(groups[x.grp]=groups[x.grp]||[]).push(i);}});
   const opiumOn=lines.some((x,i)=>{ if(!/^LAMALINE|^IZALGI/i.test(x.t)) return false; if(x.grp){const gk=si+":"+x.grp; const sel=state.gs[gk]; return sel===x.key;} return state.lo[x.key]!==undefined?state.lo[x.key]:!x.opt; });
+  /* fiche d'origine de chaque ligne : une ligne d'une fiche « enfant » ou « nourrisson » est prévue pour l'enfant (présentations pédiatriques à dose fixe) */
+  const _cpn=(()=>{try{const c=currentPack();return c&&!c.merged?c.n:"";}catch(e){return "";}})();
+  const pedLine=(y,j)=>{const n=y.src||(sh.src&&sh.src[j])||_cpn;return /enfant|nourrisson|bébé|pédiatr|néonat/i.test(n)&&!/adolescent et adulte/i.test(n);};
+  const adultLine=(y,j)=>sh.k==="med"&&lineAge(y.t)==="adulte"&&!pedLine(y,j);
   return lines.map((x,i)=>{
     const f=fill(x.t);
     if(state.edits&&state.edits[si]&&state.edits[si][x.key]!==undefined){f.s=state.edits[si][x.key];f.miss=[];f.drop=false;f.edited=true;}
@@ -7070,10 +7118,13 @@ function resolve(sh,si){
         selKey = first.opt ? null : first.key;
         if(!first.opt){ const ci=lineCI(lineText(first)); if(ci.length){ const alt=members.map(j=>lines[j]).find(y=>!lineCI(lineText(y)).length); if(alt){ selKey=alt.key; const note=first.t.split(" ")[0].replace(/^\{[^}]*\}/,"")+" écarté ("+ci.join(", ")+") → "+alt.t.split(" ")[0].replace(/^\{[^}]*\}/,"")+" sélectionné"; if(!(ADAPT_NOTES[si]||[]).includes(note)) (ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push(note); } } }
       }
+      /* enfant : un choix « adulte » n'est jamais retenu par défaut ; on prend le premier choix adapté, sinon aucun */
+      if(state.gs[gk]===undefined&&sh.k==="med"&&childNow()&&selKey){const sel=lines.find(y=>y.key===selKey);if(sel&&adultLine(sel,lines.indexOf(sel))){const alt=members.map(j=>lines[j]).find(y=>!adultLine(y,lines.indexOf(y))&&!y.opt);const note=(brandKey(lineText(sel))||sel.t.split(" ")[0])+" non adapté à l'âge : décoché"+(alt?" → "+(brandKey(lineText(alt))||alt.t.split(" ")[0]):"");if(!(ADAPT_NOTES[si]||[]).includes(note))(ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push(note);selKey=alt?alt.key:null;}}
       on = selKey===x.key;
     } else {
       on = state.lo[x.key]!==undefined ? state.lo[x.key] : !x.opt;
       if(on&&state.lo[x.key]===undefined){const al=lineCI(lineText(x)).filter(c=>/allergie/.test(c));if(al.length){on=false;(ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push((brandKey(lineText(x))||lineText(x).slice(0,25))+" écarté ("+al[0]+")");}}
+      if(on&&state.lo[x.key]===undefined&&childNow()&&adultLine(x,i)){on=false;const note=(brandKey(lineText(x))||lineText(x).split(/[ :]/)[0])+" non adapté à l'âge : décoché";if(!(ADAPT_NOTES[si]||[]).includes(note))(ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push(note);}
     }
     if(f.drop){on=false;}
     return Object.assign({on,fill:f},x);
@@ -7260,6 +7311,44 @@ function certTrace(){const L=certPacks();if(!L.length)return "";const c=certPeri
 function certDurHTML(id){const c=certPeriod();return `<div class="certdur" role="group" aria-label="Durée du certificat"><span class="cdl">Durée du certificat</span><button type="button" class="btn s cdb" data-cd="-1" aria-label="Un jour de moins" ${c.j<=1?"disabled":""}>−</button><input id="${id}" data-cdin inputmode="numeric" value="${c.j}" aria-label="Nombre de jours"><button type="button" class="btn s cdb" data-cd="1" aria-label="Un jour de plus">+</button><span>jour${c.j>1?"s":""}</span><label class="cdu">à partir du <input data-cddu value="${esc(state.du||"")}" placeholder="${esc(c.du)}" inputmode="numeric"></label><span class="cdp">du <b>${esc(c.du)}</b> au <b>${esc(c.au)}</b> inclus</span></div>`;}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-cd]");if(!b)return;state.jours=String(Math.max(1,Math.min(365,certJours()+(+b.dataset.cd))));try{draftSaveSoon();}catch(e){}render();});
 document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.matches)return;if(t.matches("[data-cdin]")){const v=parseInt(String(t.value).replace(/\D/g,""),10);state.jours=String(v>0?Math.min(v,365):1);render();}else if(t.matches("[data-cddu]")){state.du=normDate(t.value)||"";render();}});
+/* 17/10/2026 : accords au féminin ou au masculin selon le sexe du patient (plus de « le/la », « né(e) », « il » pour une patiente) */
+function sexAccord(t){t=String(t==null?"":t);const f=state.sexe==="f",h=state.sexe==="h";if(!f&&!h)return t;
+  if(f)return t.replace(/\b([Ll])e\/la\b/g,(m,a)=>a==="L"?"La":"la").replace(/\b([Ii])l\/elle\b/g,(m,a)=>a==="I"?"Elle":"elle").replace(/\b([Ll])ui\/elle\b/g,(m,a)=>a==="L"?"Elle":"elle")
+    .replace(/\bpatient\(e\)/g,"patiente").replace(/\(e\)/g,"e").replace(/\(ne\)/g,"ne").replace(/\(le\)/g,"le").replace(/\bdu patient\b/g,"de la patiente").replace(/\bau patient\b/g,"à la patiente")
+    .replace(/\b([Ll])e patient\b/g,(m,a)=>a==="L"?"La patiente":"la patiente").replace(/\b([Cc])e patient\b/g,(m,a)=>a==="C"?"Cette patiente":"cette patiente").replace(/\bIl n'a\b/g,"Elle n'a");
+  return t.replace(/\b([Ll])e\/la\b/g,(m,a)=>a==="L"?"Le":"le").replace(/\b([Ii])l\/elle\b/g,(m,a)=>a==="I"?"Il":"il").replace(/\b([Ll])ui\/elle\b/g,(m,a)=>a==="L"?"Lui":"lui").replace(/\bpatient\(e\)/g,"patient").replace(/\((?:e|ne|le)\)/g,"");}
+function neLe(){return state.sexe==="f"?"née le ":state.sexe==="h"?"né le ":"né(e) le ";}
+/* constantes aberrantes (faute de dictée ou de saisie) : signalées à l'écran avant impression, jamais bloquantes */
+function cstAbnormal(){const c=state.cst||{};const out=[];const num=v=>parseFloat(String(v).replace(",","."));
+  if(c.ta){const m=/(\d{2,3})\s*[\/-]\s*(\d{1,3})/.exec(String(c.ta));if(!m)out.push("TA « "+c.ta+" » illisible");else{const a=+m[1],b=+m[2];if(a<60||a>260||b<30||b>150||b>=a)out.push("TA "+a+"/"+b+" mmHg");}}
+  if(c.fc){const v=num(c.fc);if(!(v>=25&&v<=230))out.push("FC "+c.fc+"/min");}
+  if(c.spo2){const v=num(c.spo2);if(!(v>=50&&v<=100))out.push("SpO2 "+c.spo2+" %");}
+  if(c.temp){const v=num(c.temp);if(!(v>=33&&v<=43))out.push("T° "+c.temp+" °C");}
+  if(c.fr){const v=num(c.fr);if(!(v>=5&&v<=70))out.push("FR "+c.fr+"/min");}
+  if(c.gly){const v=num(c.gly);if(!(v>=0.2&&v<=6))out.push("glycémie "+c.gly+" g/l");}
+  if(c.eva){const v=num(c.eva);if(!(v>=0&&v<=10))out.push("EVA "+c.eva+"/10");}
+  return out;}
+function cstAbnormalHTML(){const L=cstAbnormal();return L.length?`<div class="alert cstbad"><b>Constante à vérifier avant d'imprimer :</b> ${L.map(esc).join(" ; ")}.</div>`:"";}
+/* 17/10/2026 : abréviations des motifs de régulation (logiciel MCC) → fiches proposées selon l'âge ; tableau modifiable (Journal → Abréviations de la régulation) */
+const MCC_DEF=[{code:"DLMINF",lib:"douleur de membre inférieur",adulte:["Entorse de cheville","Contusion — traumatisme bénin","Tendinopathie d'Achille"],enfant:["Boiterie de l'enfant","Contusion — traumatisme bénin","Entorse de cheville"],terrain:["Phlébite / thrombose veineuse profonde"]}];
+function mccTable(){try{const t=lsGet("sos_mcc",null);return Array.isArray(t)?t:MCC_DEF;}catch(e){return MCC_DEF;}}
+function mccFind(txt){const w=String(txt||"").toUpperCase().replace(/[^A-Z0-9]+/g," ").trim().split(" ");return mccTable().find(r=>r.code&&w.includes(String(r.code).toUpperCase()))||null;}
+function mccPacks(r){if(!r)return [];const cls=xpAgeCls();const L=[...(cls==="enfant"?(r.enfant||[]):(r.adulte||[])),...(r.terrain||[])];const out=[];
+  L.forEach(n=>{const nn=norm(String(n).trim());if(!nn)return;let i=PACKS.findIndex(p=>norm(p.n)===nn);if(i<0)i=PACKS.findIndex(p=>norm(p.n).startsWith(nn));if(i>=0&&!out.includes(i))out.push(i);});return out;}
+/* Fréquents de l'âge : fiches les plus utilisées au journal pour cette tranche d'âge, sinon une liste de départ ; jamais une liste vide */
+const FREQ_DEF={enfant:["Fièvre — enfant","Rhinopharyngite / toux — enfant","Gastro-entérite — enfant","Otite moyenne aiguë — enfant","Angine — enfant (TROD positif)","Bronchiolite — nourrisson"],
+  adulte:["Rhinopharyngite — adulte","Gastro-entérite — adulte","Lombalgie aiguë","Cystite simple — femme","Angine virale — TROD négatif","Douleur abdominale aiguë — adulte"],
+  age:["Chute du sujet âgé — bilan","Douleur de hanche après chute — sujet âgé","Fièvre de l'adulte sans point d'appel","Gastro-entérite — adulte","Douleur thoracique aiguë — orientation","Lombalgie aiguë"]};
+function freqPacks(){const cls=xpAgeCls()||"adulte";const cnt={};try{JOURNAL.forEach(e=>{const ec=e.age==null?"":e.age<15?"enfant":e.age>=65?"age":"adulte";if(ec!==cls||!e.pack)return;String(e.pack).split(" + ").forEach(n=>{cnt[n]=(cnt[n]||0)+1;});});}catch(e){}
+  const fromJ=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(x=>PACKS.findIndex(p=>p.n===x[0])).filter(i=>i>=0&&packAgeOk(i));
+  const def=(FREQ_DEF[cls]||FREQ_DEF.adulte).map(n=>PACKS.findIndex(p=>p.n===n)).filter(i=>i>=0);return [...new Set([...fromJ,...def])].slice(0,8);}
+function mccSettingsHTML(){const T=mccTable();return `<h2 class="jsec">Abréviations de la régulation (MCC)</h2><div class="hint">Code du motif de régulation → fiches proposées selon l'âge. Noms de fiches séparés par « ; ». Rangé sur cet appareil.</div>
+  <div class="mcct">${T.map((r,i)=>`<div class="mccr" data-mcci="${i}"><input data-mcc="code" value="${esc(r.code||"")}" placeholder="CODE" aria-label="Code"><input data-mcc="lib" value="${esc(r.lib||"")}" placeholder="libellé" aria-label="Libellé"><label>Adulte<input data-mcc="adulte" value="${esc((r.adulte||[]).join(" ; "))}"></label><label>Enfant<input data-mcc="enfant" value="${esc((r.enfant||[]).join(" ; "))}"></label><label>Selon le terrain<input data-mcc="terrain" value="${esc((r.terrain||[]).join(" ; "))}"></label><button type="button" class="lc" data-mccdel="${i}">Retirer</button></div>`).join("")}</div>
+  <div class="lesbtn"><button type="button" class="btn s" id="mcc_add">＋ Ajouter une abréviation</button><button type="button" class="btn ghost" id="mcc_reset">Tableau de départ</button></div>`;}
+function mccSave(T){lsSet("sos_mcc",T);}
+document.addEventListener("change",ev=>{const i=ev.target.closest&&ev.target.closest("[data-mcci]");if(!i||!ev.target.dataset.mcc)return;const T=mccTable().map(x=>Object.assign({},x));const r=T[+i.dataset.mcci];if(!r)return;const k=ev.target.dataset.mcc;const v=ev.target.value.trim();r[k]=["adulte","enfant","terrain"].includes(k)?v.split(/\s*;\s*/).filter(Boolean):(k==="code"?v.toUpperCase():v);mccSave(T);});
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const d=t.closest("[data-mccdel]");if(d){const T=mccTable().slice();T.splice(+d.dataset.mccdel,1);mccSave(T);render();return;}
+  if(t.closest("#mcc_add")){const T=mccTable().slice();T.push({code:"",lib:"",adulte:[],enfant:[],terrain:[]});mccSave(T);render();return;}if(t.closest("#mcc_reset")){if(confirm("Revenir au tableau de départ des abréviations ?")){localStorage.removeItem("sos_mcc");render();}}});
 function addDays(dmy,n){ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(normDate(dmy)); if(!m||!n) return ""; const d=new Date(+m[3],+m[2]-1,+m[1]+(+n)-1); return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear(); }
 function nhReste(){const n=state.nh;const v=parseFloat(String(n.reste||"").replace(",","."));return isNaN(v)?nhTotal():v;}
 function nhTotal(){ return state.nh.lignes.reduce((a,l)=>a+(parseFloat(String(l.montant).replace(",","."))||0),0); }
@@ -7601,7 +7690,7 @@ function renderJournal(){
      <div class="nhopts"><label>Relevé CPAM <input data-rp="cpam" inputmode="decimal" value="${esc(r.cpam||"")}" style="width:90px"> €</label><label>Télécollecte CB <input data-rp="cb" inputmode="decimal" value="${esc(r.cb||"")}" style="width:90px"> €</label><label>Chèques <input data-rp="chq" inputmode="decimal" value="${esc(r.chq||"")}" style="width:90px"> €</label><label>Espèces <input data-rp="esp" inputmode="decimal" value="${esc(r.esp||"")}" style="width:90px"> €</label></div>
      ${enc?`<div class="jsum ${Math.abs(enc-st.tot-st.ast)>1?"big":""}"><div>Encaissé : <b>${fmtEur(enc)}</b></div><div>Écart : <b>${fmtEur(enc-st.tot-st.ast)}</b> <span class="hint">${enc-st.tot-st.ast<-1?"(impayés, rejets CPAM à recycler, actes non facturés)":enc-st.tot-st.ast>1?"(actes non enregistrés dans le journal ou régularisations)":"— cohérent"}</span></div></div>`:'<div class="hint">Saisissez les montants encaissés du mois (relevé CPAM, ticket de télécollecte, chèques, espèces) : l\'écart avec le journal apparaît.</div>'}`;})()}
    <div class="lesbtn"><button class="btn p" id="j_arapl">Export ARAPL ${year} (mois, exonération, kilomètres)</button></div>
-   <h2 class="jsec">Sécurité</h2><div class="hint">Journal et brouillon chiffrés sur cet appareil (AES-256, code personnel). Verrouillage automatique après ${SEC.lockDelayMin} minutes d'inactivité, ou avec le cadenas. Le code n'est pas redemandé si tu recharges la page.</div><div class="lesbtn"><button class="btn s" id="sec_change">Changer le code</button><button class="btn s" id="sec_reckey">Nouvelle clé de secours</button><button class="btn s" id="sec_wipe" style="margin-left:auto;color:var(--bad)">Effacer définitivement les données chiffrées</button></div>${identSettingsHTML()}${backupSettingsHTML()}${aiSettingsHTML()}
+   <h2 class="jsec">Sécurité</h2><div class="hint">Journal et brouillon chiffrés sur cet appareil (AES-256, code personnel). Verrouillage automatique après ${SEC.lockDelayMin} minutes d'inactivité, ou avec le cadenas. Le code n'est pas redemandé si tu recharges la page.</div><div class="lesbtn"><button class="btn s" id="sec_change">Changer le code</button><button class="btn s" id="sec_reckey">Nouvelle clé de secours</button><button class="btn s" id="sec_wipe" style="margin-left:auto;color:var(--bad)">Effacer définitivement les données chiffrées</button></div>${identSettingsHTML()}${backupSettingsHTML()}${aiSettingsHTML()}${mccSettingsHTML()}
    <h2 class="jsec">Tarifs utilisés</h2>
    <div class="hint">Modifiables si la convention change. Les montants sont conservés sur ce téléphone.</div>
    <div class="jtarifs">${Object.keys(TARIFS_DEF).map(k=>`<label>${k} <span class="hint">${TLBL[k]||""}</span><input data-tarif="${k}" inputmode="decimal" value="${String(TARIFS[k]).replace(".",",")}"></label>`).join("")}</div>
@@ -15806,7 +15895,7 @@ function renderCore(){XP.dict=false;
    <label ${canPreg?"":'style="display:none"'}><input type="checkbox" id="f_gross" ${state.grossesse?"checked":""}> Grossesse</label>${state.grossesse?`<label class="sa">DDR <input id="f_sa" inputmode="numeric" value="${esc(state.sa)}" placeholder="jjmmaaaa (ou SA)" style="width:120px"><span class="hint" id="sa_tri">${(()=>{const i=saInfo();return i?i.sa+" SA"+(i.ddr&&i.days?" + "+i.days+" j":"")+" · "+i.tri+" · terme ≈ "+i.terme:"date des dernières règles, ou nombre de SA";})()}</span></label>`:""}
    <label ${canPreg?"":'style="display:none"'}><input type="checkbox" id="f_allait" ${state.allait?"checked":""}> Allaitement</label>
    <label ${needSexe||state.sexe?"":'style="display:none"'}>Sexe <select id="f_sexe"><option value="" ${state.sexe===""?"selected":""}>—</option><option value="h" ${state.sexe==="h"?"selected":""}>Homme</option><option value="f" ${state.sexe==="f"?"selected":""}>Femme</option></select></label>
-   <label><input type="checkbox" id="f_nodoc" ${state.nodoc?"checked":""}> Sans les feuilles « Pour le médecin »</label><label title="Certificats, courriers et consignes deux par feuille A4 (demi-pages) ; les ordonnances restent toujours en pleine page"><input type="checkbox" id="f_2up" ${PRINT2UP?"checked":""}> 2 documents par feuille A4 (hors ordonnances)</label>
+   <label title="Certificats, courriers et consignes deux par feuille A4 (demi-pages) ; les ordonnances restent toujours en pleine page"><input type="checkbox" id="f_2up" ${PRINT2UP?"checked":""}> 2 documents par feuille A4 (hors ordonnances)</label>
 
   </div>
   <div class="tt al"><label>Allergies</label><div class="chips" id="al_chips">${(state.allergies||[]).map((t,i)=>`<span class="chip alc">${esc(t)}<button type="button" data-aldel="${i}">×</button></span>`).join("")}<input id="f_al" autocomplete="off" placeholder="${(state.allergies||[]).length?"Ajouter…":"Aucune allergie connue — tape pour ajouter (AINS, codéine, iode…) : les lignes concernées seront écartées"}"></div><div class="sugg" id="sg_al"></div></div>
@@ -15860,11 +15949,11 @@ function renderCore(){XP.dict=false;
   const warn=missing.size?`<div class="warn">Pour imprimer sans trou, renseigne : ${[...missing].join(", ")}. Les lignes barrées seraient retirées de la feuille.</div>`:"";
   const alerts=checkAlerts(p.s);
   const thesList=thesAlerts(p.s);const thesBox=thesBoxHTML(thesList);const alerts2=alerts.filter(x=>!/^(⛔|⚠) /.test(x));
-  const alertBox=ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
+  const alertBox=cstAbnormalHTML()+(!state.sexe&&p.s.some(sh=>["let","cert"].includes(sh.k))?`<div class="alert">Sexe du patient non renseigné : les accords du courrier et du certificat restent en « (e) ».</div>`:"")+ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
   const adaptAll=[...new Set([...(state.autoNotes||[]),...Object.values(ADAPT_NOTES).flat()])];
   const adaptBox=adaptAll.length?`<div class="adapt">Adapté automatiquement à l'âge et au poids : ${adaptAll.map(esc).join(" · ")}</div>`:"";
   const multiNote=p.merged?`<div class="hint" style="margin:0 0 10px;display:none">Packs combinés : les lignes identiques n'apparaissent qu'une fois ; antibiotiques et antalgiques de palier 2 forment un seul choix. Le bouton – dans la liste retire un pack.</div>`:"";
-  const nSheets=p.s.filter((sh,si)=>!state.off[si]&&!(state.nodoc&&(sh.k==="interp"||sh.k==="memo"))&&(resolve(sh,si).some(x=>x.on&&!x.jr&&!x.fill.miss.length)||(state.libre[si]||"").trim())).length+letCount();
+  const nSheets=p.s.filter((sh,si)=>!state.off[si]&&!(sh.k==="interp"||sh.k==="memo")&&(resolve(sh,si).some(x=>x.on&&!x.jr&&!x.fill.miss.length)||(state.libre[si]||"").trim())).length+letCount();
   const hasSR=p.s.some(sh=>sh.l.some(l=>typeof l==="object"&&l.sr));
   const srHTML=hasSR?`<div class="srtog"><span class="hint">Pack</span><button type="button" class="lc${!riskMode()?" on":""}" data-sr="s">Simple</button><button type="button" class="lc${riskMode()?" on":""}" data-sr="r">À risque</button><span class="hint">${riskMode()?"à risque de complication (visite, ≥ 75 ans, grossesse, ou choisi)":"sans facteur de risque"}</span></div>`:"";
   const titleHTML=`<div class="title"><h1>${p.n}</h1>${srHTML}<span class="sub">${nSheets} feuille(s) à imprimer</span></div>`;
@@ -15999,7 +16088,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){state.lettres={};state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){state.lettres={};state.obsAuto={};state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -16032,18 +16121,18 @@ function buildPages(p,withAnnex){
   let out="", removed=[];
   p.s.forEach((sh,si)=>{
     if(state.off[si]) return;
-    if(state.nodoc&&(sh.k==="interp"||sh.k==="memo")) return;
+    if(sh.k==="interp"||sh.k==="memo") return; /* 17/10/2026 : feuilles « Pour le médecin » jamais imprimées ni dans le PDF */
     const T=TYPES[sh.k];
     const all=resolve(sh,si);
     all.filter(x=>x.on&&x.fill.miss.length).forEach(x=>removed.push(T.lbl+" : "+x.t.replace(/\{[^}]*\}/g,"…")+" — manque : "+x.fill.miss.join(", ")));
     const DOCK=["let","cons","cert"].includes(sh.k)||!!T.txt;const dctx=DOCK?docCtx(p):null;
     let items=all.filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>({t:PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s):x.fill.s,src:x.src}));
-    if(DOCK)items=items.map(x=>({t:docFact(x.t,dctx),src:x.src})).filter(x=>x.t);
+    if(DOCK)items=items.map(x=>({t:sexAccord(docFact(x.t,dctx)),src:x.src})).filter(x=>x.t);
     const lines=items.map(x=>x.t);
     if((state.libre[si]||"").trim()&&!catFor(sh.k).some(m=>norm(m.n).includes(norm(state.libre[si].trim())))) lines.push(state.libre[si].trim());
     if(!lines.length) return;
     if((state.libre[si]||"").trim()&&lines[lines.length-1]===state.libre[si].trim())items.push({t:lines[lines.length-1],src:items.length?items[items.length-1].src:undefined});
-    const pat=esc(state.patient)+(state.ddn?", né(e) le "+esc(normDate(state.ddn)):"")+(sh.k==="med"&&state.poids?" — "+esc(state.poids)+" kg":"");
+    const pat=esc(state.patient)+(state.ddn?", "+neLe()+esc(normDate(state.ddn)):"")+(sh.k==="med"&&state.poids?" — "+esc(state.poids)+" kg":"");
     let body;
     if(T.grid){
       const cols=sh.cols||["Date","Durée","Intensité (1-3)","Déclencheur","Traitement pris","Efficacité (0-2)"];
@@ -16066,7 +16155,7 @@ function buildPages(p,withAnnex){
      ${T.grid?"":pageSign()}
      </div></div>`;
   });
-  const _pat=esc(state.patient)+(state.ddn?", né(e) le "+esc(normDate(state.ddn)):"");
+  const _pat=esc(state.patient)+(state.ddn?", "+neLe()+esc(normDate(state.ddn)):"");
   try{out+=letPages(p,_pat);}catch(e){console.warn("lettres",e);}
   if(withAnnex) out+=photoPages(_pat)+nhPage(_pat);
   return {out:specimenScrub(out),removed};
@@ -16078,7 +16167,7 @@ async function finishPrint(p,out,removed){
   state.lastPrint={n:sheetCount(out),sent:false,ts:Date.now()};
   const top=phone?`<div class="printbar top phone"><button class="btn s" id="pb_back2" type="button">← Modifier</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${stepsHTML(3)}</div>`
     :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf2" type="button">⬇ Enregistrer en PDF</button><span class="pdfst" id="pdf_st"></span><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
-  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">Envoyer à l'imprimante</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button><button class="btn s" id="pb_ios" type="button" title="Fenêtre d'impression de l'iPhone">🖨 Impression</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
+  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">Envoyer à l'imprimante</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
     :`<div class="printbar"><button class="btn p" id="pb_print" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button><button class="btn s valid" id="pb_valid" type="button">✓ Valider le patient</button><button class="btn s" id="pb_back" type="button">Retour</button></div>`;
   const pr=$("#print");pr.classList.toggle("phone",phone);pr.innerHTML=top+out+bottom;
   document.title=(p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");
@@ -16087,7 +16176,7 @@ async function finishPrint(p,out,removed){
   const _pb=$("#pb_back");if(_pb)_pb.onclick=back;const _pb2=$("#pb_back2");if(_pb2)_pb2.onclick=back;
   const _valid=()=>{back();patientValidate();};["#pb_valid","#pb_valid2"].forEach(id=>{const b=$(id);if(b)b.onclick=_valid;});
   const _print=printNow;PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;
-  if(phone){$("#pb_send").onclick=pdfSend;$("#pb_ios").onclick=_print;$("#pb_pdf").onclick=pdfSave;}
+  if(phone){$("#pb_send").onclick=pdfSend;$("#pb_pdf").onclick=pdfSave;}
   else{$("#pb_print").onclick=_print;$("#pb_print2").onclick=_print;$("#pb_pdf").onclick=pdfSave;$("#pb_pdf2").onclick=pdfSave;}
   const imgs=[...document.querySelectorAll("#print img")];
   await Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=i.onerror=r;})));
@@ -16096,12 +16185,12 @@ async function finishPrint(p,out,removed){
   try{let over=docFitPages(pr);
     const alt=[...pr.querySelectorAll('.page[data-over][data-alt]')];if(alt.length){alt.forEach(pg=>{const h=DOCALT[pg.dataset.alt];if(h){pg.insertAdjacentHTML("afterend",h.join(""));pg.remove();}});over=docFitPages(pr);}
     out=[...pr.querySelectorAll(".page")].map(x=>x.outerHTML).join("");PDFJOB.out=out;state.lastPrint.n=sheetCount(out);
+    {const cb=cstAbnormalHTML();if(cb){const w=document.createElement("div");w.innerHTML=cb;const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w.firstChild);else pr.prepend(w.firstChild);}}
     {const lg=ciLegal(p);if(lg.length){const w=document.createElement("div");w.className="alert legalwarn";w.innerHTML="<b>À savoir :</b><ul>"+lg.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>Le reste s'imprime normalement.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}
-    if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>À raccourcir avant d'imprimer :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même en petite police (9 pt). Rien n'est masqué : décochez des lignes ou séparez le document.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
+    if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>Document long :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même à 9 pt : la fin passera sur une page de plus, avec le cachet sur la dernière. Rien n'est masqué.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
   window.scrollTo(0,0);
-  if(phone||iosLike()) pdfPrepare(out);
-  if(!phone&&!iosLike()) setTimeout(()=>{if(XP.auto&&DOCFIT.over.length){XP.auto=false;toast("Document trop long : vérifiez l'aperçu avant d'imprimer");return;}printNow();if(XP.auto)xpAfterPrint();},150);
-  else if(XP.auto)XP.auto=false; /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
+  pdfPrepare(out);
+  if(XP.auto){if(!phone&&!iosLike()){PDFJOB.wantPrint=true;PDFJOB.afterPrint=xpAfterPrint;}else XP.auto=false;} /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
 }
 
 $("#q").addEventListener("input",e=>search(e.target.value));
@@ -16735,9 +16824,10 @@ function dictCardHTML(inXp){if(XP.dict&&!inXp)return "";const n=DICTH.length;con
   return `<section class="pcard dictcard" id="dictcard"><div class="pcard-h"><span class="stepn">🎙</span><b>Dictée</b><span class="pcard-ai">${aiMainHTML()}</span></div>
    <div class="hint dict-how">Touchez le champ, puis le micro 🎤 du clavier iPhone. Interrompre : touchez ailleurs ; reprendre : touchez de nouveau le champ. Enregistrée à chaque mot, chiffrée.</div>
    <textarea id="f_dict" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
-   <div class="dict-act2"><button type="button" class="btn p" id="dict_go2">Répartir dans l'observation</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span></div>
+   ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">Répartir dans l'observation</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span></div>
    ${!p&&String((state.obs&&state.obs.dict)||"").trim()?'<div class="hint">Choisissez une fiche (motif) : l\'observation rangée apparaîtra dessous. La dictée est gardée.</div>':""}</section>`;}
-function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;};}
+function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;clearTimeout(dictCardBind._t);
+    if(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length)dictCardBind._t=setTimeout(dictAutoNormal,1500);};}
   const g=document.getElementById("dict_go2");if(g)g.onclick=()=>{if(!String(state.obs.dict||"").trim()){t&&t.focus();return;}if(currentPack())state.obsOpen=true;applyDictation();try{aiAutoObs();}catch(e){}toast(currentPack()?"Dictée répartie dans l'observation":"Dictée gardée : choisissez une fiche");};
   const h=document.getElementById("dict_hist");if(h)h.onclick=dictHistScreen;draftSavedUI();}
 /* « 🎙 Dicter » de la tournée : focus immédiat dans le geste (sinon l'iPhone n'ouvre pas le clavier) ; à défaut, le grand champ Dictée */
@@ -16779,16 +16869,23 @@ const AGE_VAR_RE=/\s+—\s+(adulte|enfant|nourrisson|adolescent|sujet âgé|adul
 function diagName(p){if(!p)return "";const seen=new Set();return String(p.n).split(" + ").map(n=>n.replace(AGE_VAR_RE,"").trim()).filter(n=>{const k=norm(n);if(seen.has(k))return false;seen.add(k);return true;}).join(" + ");}
 function ageMismatch(){const a=ageY();if(!a)return [];const child=a.y<15;const out=[];
   selIdx().forEach(i=>{const p=PACKS[i];if(p&&/sujet âgé|personne âgée/i.test(p.n)&&a.y<65)out.push({i,j:-1,from:p.n,to:"",old:1});});
-  selIdx().forEach(i=>{const p=PACKS[i];if(!p)return;const m=/\s+—\s+(adulte|enfant|nourrisson)$/i.exec(p.n);if(!m)return;const v=m[1].toLowerCase();
+  selIdx().forEach(i=>{const p=PACKS[i];if(!p)return;if(child&&!/\s+—\s+(adulte|enfant|nourrisson)$/i.test(p.n)&&packAgeRange(p)==="adulte"){const meds=[];try{const P=currentPack();P.s.forEach((sh,si)=>{if(sh.k!=="med")return;resolve(sh,si).forEach(x=>{if(!x.on&&lineAge(x.t)==="adulte")meds.push(brandKey(lineText(x))||lineText(x).split(/[ :]/)[0]);});});}catch(e){}
+      const base=p.n.replace(AGE_VAR_RE,"");const j=PACKS.findIndex(q=>q.n!==p.n&&(q.n===base+" — enfant"||q.n.startsWith(base)&&/enfant/i.test(q.n)));out.push({i,j,from:p.n,to:j>=0?PACKS[j].n:"",adult:1,meds:[...new Set(meds)]});return;}
+    const m=/\s+—\s+(adulte|enfant|nourrisson)$/i.exec(p.n);if(!m)return;const v=m[1].toLowerCase();
     if(child&&v==="adulte"||!child&&(v==="enfant"||v==="nourrisson")){const base=p.n.replace(AGE_VAR_RE,"");const want=child?(a.m<24?["nourrisson","enfant"]:["enfant","nourrisson"]):["adulte"];
       let j=-1;for(const w of want){j=PACKS.findIndex(q=>q.n===base+" — "+w);if(j>=0)break;}out.push({i,j,from:p.n,to:j>=0?PACKS[j].n:""});}});return out;}
 function ageMismatchHTML(){const mm=ageMismatch();if(!mm.length)return "";const a=ageY();const age=a.m<24?a.m+" mois":a.y+" ans";
-  return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> ${x.old?"Cette fiche vise les patients de 65 ans et plus : vérifiez qu'elle convient.":"Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge."}${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
+  return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> ${x.old?"Cette fiche vise les patients de 65 ans et plus : vérifiez qu'elle convient.":x.adult?"Fiche prévue pour l'adulte : "+(x.meds&&x.meds.length?"médicaments non adaptés à l'âge décochés ("+x.meds.map(esc).join(", ")+") ; ":"")+"vérifiez aussi rééducation, examens et consignes avant d'imprimer.":"Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge."}${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-agesw]");if(!b)return;const [i,j]=b.dataset.agesw.split("|").map(Number);let cur=selIdx().filter(x=>x!==i&&x!==j);cur.push(j);state.sel=cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.extra={};render();try{search($("#q").value);}catch(e){}toast("Fiche adaptée à l'âge : "+PACKS[j].n+" (observation conservée)");});
 
 /* ---- n° 9 : impression et PDF. Impression dans le geste, vrai bouton « Enregistrer en PDF » partout ---- */
 function iosLike(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
-function printNow(){if(DOCFIT.over.length&&!confirm("Ne tient pas sur une page : "+DOCFIT.over.join(", ")+".\nImprimer quand même (rien n'est masqué, le texte peut déborder) ?"))return;if(state.lastPrint)state.lastPrint.sent=true;try{window.print();}catch(e){alert("Impression impossible : "+((e&&e.message)||e)+"\nUtilisez « Enregistrer en PDF ».");}}
+/* 17/10/2026 (essai réel) : l'impression part toujours du PDF, jamais de la page web (ni bandeau, ni en-tête Safari, ni page vide),
+   et seulement sur un toucher du médecin. iPhone, iPad : menu Partager (Imprimer, Phomemo) ; ordinateur : impression du PDF. */
+function printNow(){if(iosLike()||isPhone()){pdfSend();return;}if(PDFJOB.file){pdfPrintFile(PDFJOB.file);return;}PDFJOB.wantPrint=true;pdfStatus("Préparation du PDF… l'impression suivra");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
+function pdfPrintFile(f){if(state.lastPrint)state.lastPrint.sent=true;window.__pdfprint=(window.__pdfprint||0)+1;const u=URL.createObjectURL(f);let fr=document.getElementById("pdfprint");if(fr)fr.remove();
+  fr=document.createElement("iframe");fr.id="pdfprint";fr.title="PDF à imprimer";fr.style.cssText="position:fixed;right:0;bottom:0;width:2px;height:2px;border:0;opacity:0;pointer-events:none";
+  fr.onload=()=>{setTimeout(()=>{try{fr.contentWindow.focus();fr.contentWindow.print();}catch(e){try{window.open(u,"_blank");}catch(x){pdfDownload(f);}}},250);};fr.src=u;document.body.appendChild(fr);setTimeout(()=>URL.revokeObjectURL(u),600000);}
 function pdfSave(){ /* dans le geste : PDF prêt → partage (iPhone, iPad) ou téléchargement ; sinon préparation puis téléchargement automatique */
   if(PDFJOB.file){if(iosLike())pdfSend();else pdfDownload(PDFJOB.file);return;}
   PDFJOB.wantDl=true;pdfStatus("Préparation du PDF…");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
@@ -16814,7 +16911,7 @@ function docList(a){a=a.filter(Boolean);return a.length<2?(a[0]||""):a.slice(0,-
 function docPresc(c){const parts=[];const lc=x=>/^[A-ZÀ-Ý][a-zà-ÿ'’\-]+(?=[\s,(]|$)/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x;if(c.bio.length)parts.push("un bilan biologique ("+c.bio.map(lc).join(" ; ")+")");if(c.ecgPresc)parts.push("un ECG");c.img.forEach(x=>parts.push(lc(x)));
   if(c.kine)parts.push("une rééducation par kinésithérapie");if(c.ergo)parts.push("un bilan d'ergothérapie");if(c.ide)parts.push("des soins infirmiers");if(c.med.length)parts.push("un traitement ("+c.med.join(", ")+")");return parts;}
 /* résumé des éléments dictés ou saisis, à la place d'un renvoi au compte rendu (non imprimé) */
-function docObsSummary(){const o=state.obs||{};const b=[];if(o.hist)b.push(String(o.hist).replace(/[.\s]+$/,""));
+function docObsSummary(){const o=state.obs||{};const b=[]; /* 17/10/2026 : jamais la dictée brute ni l'histoire libre ; constantes, examen, diagnostic seulement (la dictée reste dans le compte rendu) */
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:"/min",spo2:" %",temp:" °C",eva:"/10"}[k]));if(cst.length)b.push("constantes : "+cst.join(", "));
   SYSTEMS.forEach(([k,l])=>{if(o[k]&&String(o[k]).trim())b.push(l.toLowerCase()+" : "+String(o[k]).replace(/[.\s]+$/,""));});if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
 const DOC_FALLBACK="sont à votre disposition sur simple demande";
@@ -16951,7 +17048,7 @@ function tourCardHTML(){const lieu=(state.cot&&state.cot.lieu)==="visite";const 
   const pref=navPref();const names={waze:"Waze",maps:"Maps",plans:"Plans"};const km=v=>String(Math.round(v*10)/10).replace(".",",");
   const legOf=s=>TOUR.order.includes(s.id)?TOUR.legs[TOUR.order.indexOf(s.id)]:null;
   const alt=`<span class="hint">Autre appli :</span>${["waze","maps","plans"].filter(a=>a!==pref).map(a=>`<button type="button" class="lc" data-navpref="${a}">${names[a]}</button>`).join("")}`;
-  const add=`<div class="tc-add"><input id="tc_addr" placeholder="Ajouter une visite (adresse)" autocomplete="off" inputmode="text"><div class="sugg" id="tc_sugg"></div><button type="button" class="btn s" id="tc_add">＋</button><div class="hint tp-impact" id="tc_impact"></div><label class="btn s tc-shots" for="tc_shots" title="Captures d'écran des fiches de régulation : adresse, initiale, téléphone, motif lus sur l'appareil">📷</label><input type="file" id="tc_shots" accept="image/*" multiple hidden><button type="button" class="btn s tc-shots" data-fpaste title="Coller les fiches (texte copié par le raccourci iOS ou sur Android)">📋</button></div>`;
+  const add=`<div class="tc-add"><span class="tc-addv"><input id="tc_addr" placeholder="Ajouter une visite (adresse)" autocomplete="off" inputmode="text"><div class="sugg" id="tc_sugg"></div><button type="button" class="btn s" id="tc_add">＋</button><div class="hint tp-impact" id="tc_impact"></div></span><span class="tc-photo"><label class="btn s tc-shots" for="tc_shots" title="Captures d'écran des fiches de régulation : adresse, initiale, téléphone, motif lus sur l'appareil">📷</label><input type="file" id="tc_shots" accept="image/*" multiple hidden></span><span class="tc-fiche"><button type="button" class="btn s tc-shots" data-fpaste title="Coller les fiches (texte copié par le raccourci iOS ou sur Android)">📋</button></span></div>`;
   const reopen=VALID.hist.length?` · <button type="button" class="lc tc-reopen" id="tc_reopen" title="Revenir à un patient validé ou mis de côté">↩ ${VALID.last&&!state.patient?"Rouvrir "+esc(VALID.last.patient||"le dernier patient"):"Patients validés ("+VALID.hist.length+")"}</button>`:"";
   const foot=`<div class="tc-foot">${n?n+" arrêt"+(n>1?"s":"")+" restant"+(n>1?"s":""):"dernier arrêt"}${TOUR.total&&n?" · "+km(TOUR.total.km)+" km · "+TOUR.total.min+" min":""}${reopen}</div>`;
   const s=cur||next;const step=!cur?1:(cur.tArr?(state.lastPrint?4:3):2);const stepL={1:"tournée prête",2:"en route",3:"sur place",4:"fin de visite"}[step];
@@ -17043,7 +17140,7 @@ function xpOn(){try{return lsGet("sos_xp",true)!==false;}catch(e){return true;}}
 function xpActive(){return xpOn()&&!state.view;}
 /* ---- c. âge : enfant (< 15 ans), adulte, sujet âgé (65 ans et plus) ---- */
 function xpAgeCls(){const a=ageY();if(!a)return "";return a.y<15?"enfant":a.y>=65?"age":"adulte";}
-function packAgeCls(n){if(/sujet âgé|gériatr|personne âgée/i.test(n))return "age";if(/adulte/i.test(n))return "adulte";if(/nourrisson|enfant|bébé|pédiatr|néonat/i.test(n))return "enfant";return "tous";}
+function packAgeCls(n){const i=PACKS.findIndex(p=>p.n===n);if(i>=0)return packAgeRange(PACKS[i]);if(/sujet âgé|gériatr|personne âgée/i.test(n))return "age";if(/adulte/i.test(n))return "adulte";if(/nourrisson|enfant|bébé|pédiatr|néonat/i.test(n))return "enfant";return "tous";}
 function packAgeOk(i){const n=PACKS[i].n;const a=ageY();
   if(state.sexe==="h"&&/grossesse|enceinte|post-partum|allaitement|— femme\b/i.test(n))return false;
   if(a&&a.y<12&&/grossesse|enceinte|post-partum|contracep|ménopause/i.test(n))return false;
@@ -17054,13 +17151,15 @@ function packRank(i,words){const p=PACKS[i];const n=norm(p.n),k=norm(p.k||"");le
   const cls=xpAgeCls(),pc=packAgeCls(p.n);if(cls&&pc===cls)sc+=cls==="age"?3:2;
   const a=ageY();if(a&&a.y>=2&&/nourrisson|moins de 3 mois/i.test(p.n))sc-=3;
   if(/^Certificat/.test(p.n))sc-=1;return sc-n.length/400;}
-function xpCandidates(q){const words=norm(String(q||"").trim()).split(/[\s,;\/]+/).filter(w=>w.length>1);if(!words.length)return {ok:[],other:[]};
+function xpCandidates(q){const mc=xpMccOrFreq(q);if(mc)return {ok:mc.list.filter(i=>packAgeOk(i)),other:mc.list.filter(i=>!packAgeOk(i)),mcc:mc.r};
+  const words=norm(String(q||"").trim()).split(/[\s,;\/]+/).filter(w=>w.length>1);if(!words.length)return {ok:freqPacks(),other:[],freq:true};
   let L=PACKS.map((_,i)=>({i,s:packRank(i,words)})).filter(x=>x.s>=0);
   if(!L.length&&words.length>1)L=PACKS.map((_,i)=>({i,s:Math.max(...words.map(w=>packRank(i,[w])))})).filter(x=>x.s>=0);
-  L.sort((a,b)=>b.s-a.s);return {ok:L.filter(x=>packAgeOk(x.i)).map(x=>x.i),other:L.filter(x=>!packAgeOk(x.i)).map(x=>x.i)};}
+  L.sort((a,b)=>b.s-a.s);const ok=L.filter(x=>packAgeOk(x.i)).map(x=>x.i);if(!ok.length)return {ok:freqPacks(),other:L.map(x=>x.i),freq:true};return {ok,other:L.filter(x=>!packAgeOk(x.i)).map(x=>x.i)};}
 function xpStop(){return TOUR.current?tourStop(TOUR.current):null;}
 function xpMotif(){const s=xpStop();return String(state.xpMotif!=null?state.xpMotif:(s&&s.motif)||"").trim();}
 function xpProposed(){if(state.xpPick!=null&&PACKS[state.xpPick])return state.xpPick;const c=xpCandidates(xpMotif());return c.ok.length?c.ok[0]:null;}
+function xpMccOrFreq(q){const r=mccFind(q);if(r){const L=mccPacks(r);if(L.length)return {r,list:L,freq:false};}return null;}
 function xpVisite(){return !!(state.cot&&state.cot.lieu==="visite");}
 function xpAge(ddn){const d=anonParseDDN?anonParseDDN(ddn):null;if(!d)return "";try{return anonAge(d,new Date());}catch(e){return "";}}
 /* ---- b. signes de gravité de la fiche : une ligne, jamais bloquante ---- */
@@ -17078,7 +17177,8 @@ function xpPending(p){const why=[];if(!p)return why;if(!state.patient)why.push("
   try{const al=ciPending(checkAlerts(p.s));if(al.length)why.push(al.length>1?al.length+" alertes à décider":"1 alerte à décider");}catch(e){}
   try{if(ciLegal(p).length)why.push("règle de forme ou ligne incomplète");}catch(e){}
   if(xpMeds(p).some(m=>m.miss))why.push("dose au poids : poids manquant");
-  if(XP.over&&XP.key===xpKey())why.push("document trop long");return why;}
+  if(cstAbnormal().length)why.push("constante à vérifier");
+  return why;}
 function xpCot(){try{const c=state.cot;const a=ageY();const r=cotCompute({ts:Date.now(),lieu:c.lieu,ecg:c.ecg,km:c.km,age:a?a.y:null,extra:[],minus:[]});return r.codes.map(x=>x.c).join(" + ")+" = "+fmtEur(r.total);}catch(e){return "";}}
 /* ---- documents préparés d'avance (PDF prêt au toucher : Safari exige un partage dans le geste) ---- */
 function xpKey(){try{return JSON.stringify([state.sel,state.off,state.lo,state.gs,state.extra,state.libre,state.f,state.edits,state.patient,state.ddn,state.poids,state.sexe,state.date,state.allergies,state.tt,state.grossesse,state.allait,state.cachet,state.nodoc,state.lettres,state.obs,state.cst,state.actions,state.copat,state.ciOver,state.photos&&state.photos.length,TESTMODE,PRINT2UP,IDENT.on,state.cot]);}catch(e){return "x"+Math.random();}}
@@ -17143,18 +17243,21 @@ function xpHomeHTML(){const L=tourOrdered().filter(s=>!s.done&&s.id!==TOUR.curre
    <div class="xp-acts"><label class="btn s" for="xp_shots">📷 Ajouter des fiches</label><input type="file" id="xp_shots" accept="image/*" multiple hidden><button type="button" class="btn s" id="xp_new">＋ Patient</button></div>
    ${L.length?`<div class="xp-list">${L.map(xpRowHTML).join("")}</div>`:`<div class="hint">Aucun patient en attente : « 📷 Ajouter des fiches » (captures de la régulation) ou « ＋ Patient ».</div>`}${tpNewHTML()}</section>`;}
 function xpPropHTML(){const q=xpMotif();const c=xpCandidates(q);const pi=xpProposed();
+  const lst0=c.freq||c.mcc?`<div class="xp-cands">${c.ok.slice(1,8).map(i=>`<button type="button" class="xp-cand" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")}</div>`:"";
   const lst=XP.list?`<div class="xp-other"><input id="xp_q" value="${esc(q)}" placeholder="Motif, symptôme, organe" autocomplete="off"><div class="xp-cands">${c.ok.slice(0,15).map(i=>`<button type="button" class="xp-cand" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")||'<span class="hint">Aucune fiche pour ce motif et cet âge.</span>'}</div>
     ${c.other.length?`<button type="button" class="lc" id="xp_others">${XP.others?"▾":"▸"} Autres âges (${c.other.length})</button>${XP.others?`<div class="xp-cands">${c.other.slice(0,15).map(i=>`<button type="button" class="xp-cand alt" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")}</div>`:""}`:""}</div>`:"";
+  const tag=c.mcc?`<div class="hint">Régulation « ${esc(c.mcc.code)} » = ${esc(c.mcc.lib||"")}</div>`:c.freq?`<div class="hint">${q?"« "+esc(q)+" » non reconnu : ":""}fiches fréquentes ${({enfant:"chez l'enfant",adulte:"chez l'adulte",age:"chez le sujet âgé"})[xpAgeCls()||"adulte"]}</div>`:"";
   if(pi==null)return `<div class="xp-prop none"><div class="hint">${q?"Aucune fiche proposée pour « "+esc(q)+" » à cet âge.":"Motif à préciser."}</div><button type="button" class="btn s" id="xp_list">Choisir une fiche</button>${lst}</div>`;
   const g=xpGravite(PACKS[pi]);
-  return `<div class="xp-prop"><div class="xp-lbl">Fiche proposée${xpAgeCls()?" · "+({enfant:"enfant",adulte:"adulte",age:"sujet âgé"}[xpAgeCls()]):""}</div><div class="xp-pn">${esc(PACKS[pi].n)}</div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
-   <div class="xp-acts"><button type="button" class="btn p big" id="xp_ok" data-xpok="${pi}">✓ Confirmer la fiche</button><button type="button" class="btn s" id="xp_list">Autre fiche</button></div>${lst}</div>`;}
+  return `<div class="xp-prop">${tag}<div class="xp-lbl">Fiche proposée${xpAgeCls()?" · "+({enfant:"enfant",adulte:"adulte",age:"sujet âgé"}[xpAgeCls()]):""}</div><div class="xp-pn">${esc(PACKS[pi].n)}</div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
+   <div class="xp-acts"><button type="button" class="btn p big" id="xp_ok" data-xpok="${pi}">✓ Confirmer la fiche</button><button type="button" class="btn s" id="xp_list">Autre fiche</button></div>${XP.list?"":lst0}${lst}</div>`;}
 function xpHeadHTML(){const s=xpStop();const age=ageLabel();const vis=xpVisite();
   const tel=s&&s.tel&&favHas("x:call");const nav=vis&&s&&s.lat&&favHas("x:nav");
-  return `<div class="xp-who"><b>${esc(state.patient||(s?stopName(s):"Nouveau patient"))}</b>${age?` · ${esc(age)}`:""}${state.sexe?` · ${state.sexe==="f"?"femme":"homme"}`:""}${xpMotif()?`<span class="xp-rm">Motif : ${esc(xpMotif())}</span>`:""}</div>
+  return `<div class="xp-who"><b>${esc(state.patient||(s?stopName(s):"Nouveau patient"))}</b>${age?` · ${esc(age)}`:""}${state.sexe?` · ${state.sexe==="f"?"femme":"homme"}`:""}${xpMotif()?`<span class="xp-rm">Motif : ${esc(xpMotif())}${(()=>{const r=mccFind(xpMotif());return r&&r.lib?" — "+esc(r.lib):"";})()}</span>`:""}</div>
    ${tel||nav?`<div class="xp-acts">${nav?`<span class="xp-n"><a class="btn s" target="_blank" rel="noopener" href="${navUrl(navPref(),s)}">🧭 Naviguer</a>${favStar("x:nav","Naviguer")}</span>`:""}${tel?`<span class="xp-n"><a class="btn s" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>${favStar("x:call","Appeler")}</span>`:""}</div>`:""}`;}
 function xpManualHTML(){return `<div class="xp-id"><label>Nom<input id="xp_nom" value="${esc(state.patient)}" placeholder="NOM Prénom" autocomplete="off"></label><label>Naissance<input id="xp_ddn" value="${esc(state.ddn)}" placeholder="jjmmaaaa" inputmode="numeric"></label><label class="w">Motif<input id="xp_motif" value="${esc(xpMotif())}" placeholder="fièvre, chute, lombalgie…" autocomplete="off"></label></div>`;}
-function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];const need=cls==="enfant"||xpNeedsW(p);
+function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
+  if(!state.sexe)H.push(`<span class="xp-n xp-sex" role="group" aria-label="Sexe du patient"><span class="hint">Sexe :</span><button type="button" class="btn s" data-xpsex="f">Femme</button><button type="button" class="btn s" data-xpsex="h">Homme</button></span>`);const need=cls==="enfant"||xpNeedsW(p);
   if(need||favHas("f:f_poids"))H.push(`<label class="xp-f${!state.poids&&need?" need":""}">Poids (kg)${need&&cls!=="enfant"?' <span class="hint">dose au poids</span>':""}<input id="xp_poids" value="${esc(state.poids)}" inputmode="decimal" placeholder="kg"></label>${need?"":favStar("f:f_poids","Poids")}`);
   if(favHas("f:f_gross")&&state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>${favStar("f:f_gross","Grossesse")}</span>`);
   if(favHas("x:cem")&&cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>${favStar("x:cem","Certificat enfant malade")}</span>`);}
@@ -17162,7 +17265,7 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];const ne
   const cd=certPacks().length?certDurHTML("xp_jours"):"";
   return (H.length?`<div class="xp-fields">${H.join("")}</div>`:"")+cd;}
 /* alertes : fixées dans l'Express (jamais bloquantes) */
-function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=ageMismatchHTML();}catch(e){}
+function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}let am="";try{am=cstAbnormalHTML()+ageMismatchHTML();}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
   return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — poids manquant":""}</div>`).join("")}</div>`:""}
@@ -17209,6 +17312,7 @@ function xpBind(){document.body.classList.toggle("xpmode",!!(xpActive()&&documen
   const sh=q("xp_shots");if(sh)sh.onchange=()=>{if(sh.files.length)fichesFromFiles(sh.files);};
   document.querySelectorAll("[data-xpopen]").forEach(a=>a.onclick=()=>{xpOpenStop(a.dataset.xpopen);}); /* le lien de navigation s'ouvre dans le même toucher (visite) */
 }
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpsex]");if(b){state.sexe=b.dataset.xpsex;render();}});
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpset]");if(!b)return;lsSet("sos_xp",!xpOn());render();toast(xpOn()?"Express visite activé":"Express visite désactivé : écran complet");});
 /* ===================== 17/10/2026 (h) — FAVORIS → EXPRESS =====================
    Chaque élément du mode complet porte une étoile : ☆ l'ajoute à l'Express, ★ l'en retire. Rangés par profil, chiffrés
@@ -17226,7 +17330,11 @@ const FAV_RULES=[
   [".docact",()=>"sec:act",()=>"Actions faites"],
   [".sheet",e=>{const c=e.querySelector("[data-sheet]");const p=currentPack();if(!c||!p)return "";const sh=p.s[+c.dataset.sheet];return sh?"doc:"+sh.k:"";},e=>{const l=e.querySelector(".hd label");return l?l.textContent.trim():"Document";}],
   [".lettres",()=>"doc:lettres",()=>"Courriers"],
-  ["details.opt[data-opt]",e=>"sec:"+e.dataset.opt,e=>{const t=e.querySelector(".ot");return t?t.textContent.trim():"";}],
+  /* 17/10/2026 : « Plus d'options » de la tournée : une étoile par bouton, pas pour le groupe */
+  ["#tc_drive",()=>"btn:tc_drive",()=>"Mode voiture"],["#tc_view",()=>"btn:tc_view",()=>"Tournée"],["#tc_free",()=>"btn:tc_free",()=>"Libérer"],[".tc-more #tc_valid",()=>"btn:tc_valid",()=>"Valider le patient"],
+  ["[data-navpref]",e=>"btn:nav-"+e.dataset.navpref,e=>e.textContent.trim()],[".tc-more .tc-row2 > a.btn",()=>"btn:tc_navmore",()=>"Naviguer"],
+  [".tc-addv",()=>"btn:tc_addvisit",()=>"Ajouter une visite"],[".tc-photo",()=>"btn:tc_photo",()=>"Photo des fiches"],[".tc-fiche",()=>"btn:tc_fiche",()=>"Coller les fiches"],
+  ["details.opt[data-opt]:not([data-opt=tcmore])",e=>"sec:"+e.dataset.opt,e=>{const t=e.querySelector(".ot");return t?t.textContent.trim():"";}],
   ["#fin",()=>"btn:fin",()=>"Fin de consultation"],
   ["#go_only",()=>"btn:go_only",()=>"Imprimer"]];
 /* éléments rendus par l'Express lui-même (version compacte) ; les autres favoris sont les éléments du mode complet, déplacés */
@@ -17243,11 +17351,11 @@ function favStar(k,lbl){const on=favHas(k);return `<button type="button" class="
 /* étoiles sur le mode complet, puis favoris amenés dans l'Express s'ils s'appliquent */
 function favApply(){if(!xpActive())return;const m=$("#main");if(!m)return;const xp=m.querySelector(":scope > .xp");
   FAV_RULES.forEach(([sel,key,lab])=>{m.querySelectorAll(sel).forEach(e=>{if(e.closest(".xp")||e.dataset.fav)return;const k=key(e);if(!k)return;e.dataset.fav=k;e.classList.add("hasfav");
-    const host=e.matches("details")?e.querySelector("summary"):e;if(!host)return;host.insertAdjacentHTML(e.matches("button")?"afterend":"beforeend",favStar(k,lab(e)));});});
+    const host=e.matches("details")?e.querySelector("summary"):e;if(!host)return;host.insertAdjacentHTML(e.matches("button,a")?"afterend":"beforeend",favStar(k,lab(e)));});});
   const zone=xp&&xp.querySelector("#xp_favs");if(!zone)return;
   favKeys().filter(k=>!FAV_NATIVE.has(k)).forEach(k=>{const e=m.querySelector(`[data-fav="${CSS.escape(k)}"]`);if(!e||e.closest(".xp"))return;
     const st=(e.getAttribute("style")||"").replace(/\s/g,"");if(e.hidden||/display:none/.test(st))return;  /* ne s'applique pas ici */
-    const star=e.matches("button")?e.nextElementSibling:null;zone.appendChild(e);e.classList.add("infav");if(star&&star.classList.contains("favstar"))zone.appendChild(star);});
+    const star=e.matches("button,a")?e.nextElementSibling:null;zone.appendChild(e);e.classList.add("infav");if(star&&star.classList.contains("favstar"))zone.appendChild(star);});
   zone.hidden=!zone.children.length;}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest(".favstar[data-favk]");if(b){ev.preventDefault();ev.stopPropagation();favToggle(b.dataset.favk);return;}
   const r=ev.target.closest&&ev.target.closest("[data-xpreset]");if(r){favReset();}},true);
@@ -17628,16 +17736,39 @@ const PDFJOB={run:0,file:null,want:false,busy:false,n:0,done:0,err:""};
 function pdfStatus(msg){const el=$("#pdf_st"),b=$("#pb_send");
   if(el)el.textContent=msg!==undefined?msg:(PDFJOB.err?PDFJOB.err:PDFJOB.file?"PDF A4 prêt — "+PDFJOB.n+" page"+(PDFJOB.n>1?"s":"")+", une par document":PDFJOB.busy?"Préparation du PDF… "+PDFJOB.done+"/"+PDFJOB.n:"");
   if(b){b.classList.toggle("ready",!!PDFJOB.file);b.classList.toggle("wait",!PDFJOB.file&&PDFJOB.busy);b.textContent=PDFJOB.file?(PDFJOB.want?"PDF prêt — toucher pour envoyer":"Envoyer à l'imprimante"):PDFJOB.busy?"Préparation… "+PDFJOB.done+"/"+(PDFJOB.n||"?"):"Envoyer à l'imprimante";}}
-function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
+function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.wantPrint=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
 function pdfScale(){return 2;}
-function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const reserve=pg.querySelector(".stamp")?34*mm:pg.querySelector(".sig")?32*mm:4*mm;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8"];let used="";
-  /* 17/10/2026 : mesure de la hauteur réelle du texte (le cadre s'étire toujours jusqu'au bas de la page : l'ancienne mesure
-     concluait toujours « ne tient pas » et sortait chaque PDF en 8,5 pt). Police réduite seulement si besoin (9 pt, 8,5 pt en dernier recours pour garder le cachet libre) ; au-delà : signalé. */
-  const A4=297*mm;const fit=()=>{const ft=fr.getBoundingClientRect().top;let bot=ft;[...fr.children].forEach(c=>{if(c.matches&&c.matches(".stamp,.sig,.specwm"))return;const r=c.getBoundingClientRect();if(r.height)bot=Math.max(bot,r.bottom);});
-    const inner=bot-ft+(parseFloat(getComputedStyle(fr).paddingBottom)||0);const grow=Math.max(0,pg.getBoundingClientRect().height-A4);const avail=fr.clientHeight-grow-reserve;return inner<=avail+1;};
+function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7"];let used="";
+  /* 17/10/2026 (essai réel) : la zone réservée est celle du cachet ou de la signature réellement posés (la hauteur dépend de l'image),
+     et non plus une marge fixe de 34 mm ; police réduite jusqu'à 9 pt ; au-delà, pdfSplit fait passer la suite sur une page de plus. */
+  const fit=()=>{const ft=fr.getBoundingClientRect().top;let bot=ft;[...fr.children].forEach(c=>{if(c.matches&&c.matches(".stamp,.sig,.specwm"))return;const r=c.getBoundingClientRect();if(r.height)bot=Math.max(bot,r.bottom);});
+    const fb=fr.getBoundingClientRect().bottom-(parseFloat(getComputedStyle(fr).paddingBottom)||0);let limit=fb-2*mm;
+    pg.querySelectorAll(".stamp,.sig").forEach(z=>{const r=z.getBoundingClientRect();if(r.height)limit=Math.min(limit,r.top-3*mm);});
+    return bot<=limit+0.5;};
   let okf=false;for(const s of steps){pg.classList.remove("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8");if(s)pg.classList.add(s);used=s;if(fit()){okf=true;break;}}
   try{pg.dataset.pdfover=okf?"":"1";}catch(e){}
   return used;}
+/* Document trop long même à 9 pt : la fin passe sur une page de plus ; le cachet (ou la signature) seulement sur la dernière page */
+function pdfLeaves(pg){const fr=pg.querySelector(".frame");if(!fr)return [];return [...fr.querySelectorAll("li,p,h3,tr,div,pre")].filter(e=>!e.closest(".stamp,.sig,.specwm,.meta")&&!e.matches(".stamp,.sig,.specwm,.meta")&&!e.querySelector("li,p,h3,tr,div,pre")&&e.textContent.trim());}
+function pdfSplitLong(pg){/* un long paragraphe (ou une puce de liste non numérotée) est coupé en phrases pour pouvoir passer sur la page suivante */
+  pdfLeaves(pg).forEach(e=>{if(e.children.length||e.textContent.length<260||(e.tagName==="LI"&&e.parentElement&&e.parentElement.tagName==="OL")||!/^(P|LI|DIV)$/.test(e.tagName))return;
+    const parts=e.textContent.match(/[^.;!?]+[.;!?]+["»)]?\s*|[^.;!?]+$/g)||[e.textContent];if(parts.length<2)return;const chunks=[];let cur="";parts.forEach(x=>{if((cur+x).length>220&&cur){chunks.push(cur);cur=x;}else cur+=x;});if(cur)chunks.push(cur);if(chunks.length<2)return;
+    chunks.forEach((t,i)=>{const c=e.cloneNode(false);c.textContent=t.trim();if(i>0){c.style.marginTop="0";if(e.tagName==="LI")c.style.listStyleType="none";}if(i<chunks.length-1)c.style.marginBottom="0";e.before(c);});e.remove();});}
+function pdfSplit(pg,stage){pdfSplitLong(pg);const L1=pdfLeaves(pg);if(L1.length<2)return null;const p2=pg.cloneNode(true);
+  const zs=[...pg.querySelectorAll(".stamp,.sig")];zs.forEach(z=>z.style.display="none");
+  const fits=()=>{pdfFit(pg);return pg.dataset.pdfover!=="1";};
+  /* au moins une ligne passe sur la page suivante, qui porte le cachet */
+  let k=L1.length;const hidden=[];let okk=false;while(k>1){k--;L1[k].style.display="none";hidden.push(L1[k]);if(fits()){okk=true;break;}}
+  if(!okk){hidden.forEach(e=>e.style.display="");zs.forEach(z=>z.style.display="");pdfFit(pg);return null;}
+  zs.forEach(z=>z.remove());pg.classList.add("pdfcont");hidden.forEach(e=>e.remove());
+  const L2=pdfLeaves(p2);const keep=new Set(L2.slice(k));
+  /* numérotation des listes conservée sur la page suivante */
+  p2.querySelectorAll("ol").forEach(ol=>{const lis=[...ol.children].filter(x=>x.tagName==="LI");const gone=lis.filter(li=>!keep.has(li)&&!li.querySelector("li")).length;if(gone)ol.setAttribute("start",String((parseInt(ol.getAttribute("start"),10)||1)+gone));});
+  L2.slice(0,k).forEach(e=>e.remove());
+  p2.querySelectorAll(".frame ul,.frame ol").forEach(x=>{if(!x.querySelector("li"))x.remove();});
+  const h=p2.querySelector("h2");if(h&&!/\(suite\)$/.test(h.textContent))h.textContent=h.textContent+" (suite)";
+  const h1=pg.querySelector("h2");if(h1&&!pg.querySelector(".pdfnext")){const n=document.createElement("p");n.className="pdfnext";n.textContent="Suite page suivante.";n.style.cssText="text-align:right;font-style:italic;margin-top:2mm";const fr=pg.querySelector(".frame");if(fr)fr.appendChild(n);pdfFit(pg);}
+  return p2;}
 function blobBytes(blob){return new Promise((ok,ko)=>{if(blob.arrayBuffer){blob.arrayBuffer().then(b=>ok(new Uint8Array(b)),ko);return;}const r=new FileReader();r.onload=()=>ok(new Uint8Array(r.result));r.onerror=()=>ko(r.error);r.readAsArrayBuffer(blob);});}
 function canvasJpeg(canvas,q){return new Promise((ok,ko)=>{try{if(canvas.toBlob){canvas.toBlob(b=>{if(b)blobBytes(b).then(ok,ko);else ko(new Error("image vide"));},"image/jpeg",q);return;}const d=canvas.toDataURL("image/jpeg",q);const s=atob(d.split(",")[1]);const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);ok(u);}catch(e){ko(e);}});}
 async function pdfRenderPages(html,onProgress,cancelled){
@@ -17650,13 +17781,15 @@ async function pdfRenderPages(html,onProgress,cancelled){
     stage.innerHTML="";const pg=pages[i];stage.appendChild(pg);
     const imgs=[...pg.querySelectorAll("img")];await Promise.all(imgs.map(im=>im.complete?Promise.resolve():new Promise(r=>{im.onload=im.onerror=r;})));
     try{await Promise.all(imgs.map(im=>im.decode().catch(()=>{})));}catch(e){}
-    const fit=pdfFit(pg);
+    let fit=pdfFit(pg);
+    if(pg.dataset.pdfover==="1"&&!pg.classList.contains("sheet2")){const nx=pdfSplit(pg,stage);if(nx){pages.splice(i+1,0,nx);fit=pdfFit(pg);}}
     const canvas=await html2canvas(pg,{scale,backgroundColor:"#ffffff",logging:false,useCORS:false,allowTaint:false,windowWidth:1200,windowHeight:1700,scrollX:0,scrollY:0,imageTimeout:20000,
       ignoreElements:el=>!!(el&&el.nodeType===1&&(el.id==="print"||el.id==="lock"||el.id==="aipanel"||el.id==="thememenu"||(el.classList&&el.classList.contains("app")))),
       onclone:doc=>{const w=doc.getElementById("pdfwrap");if(w)w.style.cssText="position:absolute;left:0;top:0;width:auto;height:auto;overflow:visible;z-index:1";const b=doc.body;if(b){b.style.background="#fff";}}});
     if(cancelled&&cancelled())throw new Error("annulé");
     const jpg=await canvasJpeg(canvas,0.86);
-    out.push({jpg,w:canvas.width,h:canvas.height,fit,over:pg.dataset.pdfover==="1"});
+    const zr=(()=>{const z=pg.querySelector(".stamp")||pg.querySelector(".sig");if(!z)return null;const a=pg.getBoundingClientRect(),b=z.getBoundingClientRect();return [b.left-a.left,b.top-a.top,b.width,b.height];})();
+    out.push({jpg,w:canvas.width,h:canvas.height,fit,over:pg.dataset.pdfover==="1",zone:zr,pw:pg.getBoundingClientRect().width,hasStamp:!!pg.querySelector(".stamp"),title:(pg.querySelector("h2")||{}).textContent||""});
     try{canvas.width=1;canvas.height=1;}catch(e){}
     if(onProgress)onProgress(i+1,pages.length);
   }
@@ -17692,6 +17825,7 @@ async function pdfPrepare(out){
     PDFJOB.file=new File([bytes],name,{type:"application/pdf"});PDFJOB.n=pages.length;PDFJOB.busy=false;pdfStatus();
     if(PDFJOB.wantDl){PDFJOB.wantDl=false;if(iosLike())pdfStatus("PDF prêt : touchez « Enregistrer le PDF »");else pdfDownload(PDFJOB.file);}
     if(PDFJOB.want){try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}}
+    if(PDFJOB.wantPrint&&!iosLike()&&!isPhone()){PDFJOB.wantPrint=false;pdfPrintFile(PDFJOB.file);const ap=PDFJOB.afterPrint;PDFJOB.afterPrint=null;if(ap)setTimeout(ap,400);}
   }catch(e){if(run!==PDFJOB.run)return;PDFJOB.busy=false;PDFJOB.err="PDF impossible : "+((e&&e.message)||e)+" — utiliser « Impression iOS »";pdfStatus();const f=$("#pb_ios");if(f)f.hidden=false;}
 }
 function pdfDownload(f){try{const u=URL.createObjectURL(f);const a=document.createElement("a");a.href=u;a.download=f.name;a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u);},60000);if(state.lastPrint)state.lastPrint.sent=true;pdfStatus(iosLike()?"PDF enregistré — l'ouvrir avec Phomemo.":"PDF enregistré dans Téléchargements.");}catch(e){pdfStatus("Partage impossible : "+((e&&e.message)||e));}}
@@ -18191,7 +18325,11 @@ function parseFiche(txt){
   const keep=(l,i)=>!ment.has(i);const lines0=lines;
   const cand=lines.slice(from,di>0?di:lines.length).filter((l,k)=>keep(l,from+k)).filter(l=>{pre.lastIndex=0;const clean=l.replace(/[^0-9A-Za-zÀ-ÿ' ,.\-\/]/g," ").replace(/\s+/g," ").trim();return !/(adresse|b[aâ]t\.?\s*:|t[eé]l)/i.test(l)&&!/\d{5}/.test(l)&&!/^[0-9 .,]+$/.test(clean)&&!pre.test(l)&&!(r.addr&&clean.length>3&&r.addr.toUpperCase().includes(clean.toUpperCase().replace(/,$/,"")));});
   pre.lastIndex=0;
-  const mi=cand.findIndex(l=>l.replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").trim().length>=2&&l.length<=32&&l===l.toUpperCase());
+  /* 17/10/2026 (essai réel : « SAINT-HILAIRE-SAINT- » lu comme motif) : une ligne de commune ou d'adresse n'est jamais un motif */
+  const ADDRLIKE=/^(?:SAINT|SAINTE|ST|STE|LA|LE|LES|SUR|SOUS|EN|AUX?)\b[- ]|-\s*$|\b(?:RUE|AVENUE|AV|BD|BOULEVARD|CHEMIN|ALL[ÉE]E|ROUTE|IMPASSE|PLACE|QUAI|R[ÉE]SIDENCE|LIEU-DIT|LOTISSEMENT)\b/i;
+  const isCommune=l=>{const c=l.replace(/[^A-Za-zÀ-ÿ' -]/g,"").trim();if(!c)return false;if(ADDRLIKE.test(c))return true;if(r.addr&&r.addr.toUpperCase().includes(c.toUpperCase().slice(0,Math.min(c.length,12))))return true;if(r.cpRaw||/\d{5}/.test(r.addr||"")){const ci=lines0.indexOf(l);const prev=lines0[ci-1]||"";if(/\d{5}|-\s*$/.test(prev)&&/^[A-ZÀ-Ý' -]+$/.test(c))return true;}return false;};
+  const mccHit=cand.findIndex(l=>!!mccFind(l));
+  const mi=mccHit>=0?mccHit:cand.findIndex(l=>l.replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").trim().length>=2&&l.length<=32&&l===l.toUpperCase()&&!isCommune(l));
   if(mi<0&&ai>0&&ddnIdx>=0&&ddnIdx<ai){/* motif placé avant l'adresse (fiche « Intervention » puis « Adresse patient ») */
     const hd=/^(intervention|informations? patient|t[eé]l|adresse|police|pompiers|samu)\b/i;const c2=lines0.slice(ddnIdx+1,ai).filter((l,k)=>!ment.has(ddnIdx+1+k)&&!hd.test(l)&&!/\d{2}\/\d{2}\/\d{4}/.test(l)&&!/\d{2}:\d{2}/.test(l)&&(pre.lastIndex=0,!pre.test(l)));pre.lastIndex=0;
     const m2=c2.findIndex(l=>l.replace(/[^A-Za-zÀ-ÿ' ]/g,"").trim().length>=4&&l.length<=32&&l===l.toUpperCase());if(m2>=0){r.motif=c2[m2].replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").replace(/\s+/g," ").trim();r.note=[c2.slice(m2+1).join(" "),cand.join(" ")].filter(Boolean).join(" ").trim();r.note=r.note.replace(/\s+/g," ").trim();return r;}}

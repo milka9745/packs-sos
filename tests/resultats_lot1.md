@@ -26,8 +26,8 @@
 - OK — iphone n°7 coffre photos chiffré (AES-GCM), aucune image en clair
 - OK — iphone n°7 après fermeture : les 12 photos reviennent
 - OK — iphone n°7 stockage presque plein : refus expliqué avec la limite exacte (Mo libres)
-- OK — iphone n°9 aperçu : boutons Envoyer, Enregistrer le PDF, Impression visibles
-- OK — iphone n°9 « Impression » ouvre la fenêtre d'impression
+- OK — iphone n°9 aperçu : boutons Envoyer (PDF) et Enregistrer le PDF visibles ; plus d'impression de la page web
+- OK — iphone n°9 jamais d'impression de la page web (17/10/2026)
 - OK — iphone n°9 « Enregistrer en PDF » produit un vrai fichier PDF
 - OK — iphone aucune erreur JS
 - OK — pc n°5 carte Dictée visible sans fiche choisie
@@ -56,9 +56,9 @@
 - OK — pc n°7 coffre photos chiffré (AES-GCM), aucune image en clair
 - OK — pc n°7 après fermeture : les 12 photos reviennent
 - OK — pc n°7 stockage presque plein : refus expliqué avec la limite exacte (Mo libres)
-- OK — pc n°9 « Imprimer » ouvre la fenêtre d'impression sans Ctrl+P
+- OK — pc n°9 « Imprimer » imprime le PDF (jamais la page web), sans Ctrl+P
 - OK — pc n°9 aperçu : chaque bouton entièrement cliquable (barres sans chevauchement)
-- OK — pc n°9 bouton « Imprimer » de l'aperçu
+- OK — pc n°9 bouton « Imprimer » du bas : PDF
 - OK — pc n°9 « Enregistrer en PDF » produit un vrai fichier PDF
 - OK — pc aucune erreur JS
 - OK — 375 px normal jour : carte Dictée sans débordement horizontal

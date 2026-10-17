@@ -1,9 +1,9 @@
 {
-  "version": "41l",
+  "version": "41m",
   "date": "2026-10-17",
   "notes": [
-    "Express visite et favoris : toucher le patient, confirmer la fiche, dicter, « Imprimer et valider » ; étoile ☆ pour composer votre Express.",
-    "Certificats avec durée : 1 jour par défaut, − / +, « du … au … inclus » imprimé et noté au compte rendu.",
-    "Cotation : « VG + MU » ; ECG 14,77 € et, en visite, supplément YYYY490 9,60 €."
+    "Impression toujours depuis le PDF, sur un toucher : cachet jamais recouvert (la suite passe sur une page de plus), plus de page vide ni de bandeau.",
+    "Fiche adulte chez l'enfant : alerte et médicaments adultes décochés ; « Aide à l'interprétation » jamais imprimée ; courrier sans dictée brute, accordé au sexe.",
+    "Régulation : DLMINF reconnu (tableau des abréviations modifiable), jamais l'adresse comme motif ; « reste de l'examen normal » insère l'examen type, surligné."
   ]
 }

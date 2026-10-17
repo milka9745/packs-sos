@@ -46,7 +46,7 @@ async def run(b,w,h,th,big,label,shots):
     page.on("popup",lambda pg:asyncio.ensure_future(pg.close()))
     await unlock(page,"xp"+label.replace(" ","")[:10])
     await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();localStorage.removeItem('sos_xp');")
-    await page.evaluate(STOPS); await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};"); await page.wait_for_timeout(400)
+    await page.evaluate(STOPS); await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};0"); await page.wait_for_timeout(400)
     L=label+" : "; tag=label.replace(" ","-")
     # accueil : liste des patients de la régulation
     ok(L+"accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »",await page.locator(".xp-home [data-xpopen]").count()==3 and await page.locator("label[for=xp_shots]").count()==1 and await page.locator("#xp_new").count()==1)
@@ -97,8 +97,12 @@ async def run(b,w,h,th,big,label,shots):
         r=await ready(page)
         ok(L+f"{vid} documents préparés d'avance (PDF prêt avant le toucher)",r)
         pr0=await page.evaluate("window.__pr||0")
+        cur0=await page.evaluate("TOUR.current")
         await tap(page,g,"#xp_go","🖨 Imprimer et valider")
-        await page.wait_for_timeout(900)
+        for _ in range(60):  # ordinateur : le PDF est fabriqué puis imprimé, la validation suit
+            if await page.evaluate("TOUR.current")!=cur0: break
+            await page.wait_for_timeout(250)
+        await page.wait_for_timeout(500)
         t=await page.evaluate("(document.getElementById('xptoast')||{}).textContent||''")
         ok(L+f"{vid} g. toast « CR copié · prêt à coller dans MCC » + Annuler",("CR copié · prêt à coller dans MCC" in t) and ("Annuler" in t),t)
         clip=await page.evaluate("navigator.clipboard.readText().catch(()=>'')")
@@ -106,7 +110,7 @@ async def run(b,w,h,th,big,label,shots):
         ok(L+f"{vid} 2. pas d'écran récapitulatif après validation",await page.evaluate("state.view")!="valid")
         nxt=await page.evaluate("TOUR.current||''")
         ok(L+f"{vid} patient suivant ouvert ({'tournée terminée' if n==2 else 'v'+str(n+2)})",nxt==("" if n==2 else "v"+str(n+2)),[nxt,await page.evaluate("({view:state.view,printing:document.body.classList.contains('printing'),ci:!!document.getElementById('ciover'),pat:state.patient,xt:(document.getElementById('toast')||{}).textContent})")])
-        if not mob: ok(L+f"{vid} ordinateur : impression lancée",await page.evaluate("window.__pr||0")>pr0)
+        if not mob: ok(L+f"{vid} ordinateur : impression du PDF lancée (jamais la page web)",await page.evaluate("window.__pdfprint||0")>0 and await page.evaluate("window.__pr||0")==0)
         jr=await page.evaluate("JOURNAL.length")
         gest[vid]=len(g.g)
         ok(L+f"{vid} gestes : {len(g.g)} ({', '.join(x[1] for x in g.g)})",len(g.g)<=(5 if kid else 4))
@@ -188,7 +192,10 @@ async def extras(b,w,h,label):
     for _ in range(80):
         if await page.evaluate("xpReady()||(!isPhone()&&!iosLike())"): break
         await page.wait_for_timeout(250)
-    await page.click("#xp_go"); await page.wait_for_timeout(900)
+    await page.click("#xp_go")
+    for _ in range(60):
+        if await page.evaluate("state.patient")!="DURAND Paul": break
+        await page.wait_for_timeout(250)
     v=await page.evaluate("state.patient")
     ok(L+"2. après « Imprimer et valider » : patient validé, écran libéré",v!="DURAND Paul",v)
     await page.click("#xp_undo"); await page.wait_for_timeout(500)

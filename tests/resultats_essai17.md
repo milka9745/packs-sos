@@ -1,0 +1,112 @@
+# Tests de l'essai réel du 17/10/2026 (points 4 à 8)
+
+- OK — iphone jour : 4. « Aide à l'interprétation » et « Aide-mémoire » jamais dans les documents imprimés ni le PDF
+- OK — iphone jour : 4. la feuille reste visible à l'écran (mode complet)
+- OK — iphone jour : 5. courrier : la dictée brute et l'histoire libre ne sont jamais recopiées
+- OK — iphone jour : 5. courrier : champs structurés repris (constantes, examen)
+- OK — iphone jour : 5. patiente : accords au féminin (pas de « le/la », « né(e) »)
+- OK — iphone jour : 5. la dictée brute reste dans le compte rendu (MCC)
+- OK — iphone jour : 5. TA 150/10 signalée comme constante à vérifier
+- OK — iphone jour : 5. alerte visible à l'écran avant impression
+- OK — iphone jour : 5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer
+- OK — iphone jour : 5. patient : accords au masculin
+- OK — iphone jour : 6. « DLMINF » reconnu comme motif
+- OK — iphone jour : 6. jamais la commune (« SAINT-HILAIRE-SAINT- », « MESMIN ») comme motif
+- OK — iphone jour : 6. DLMINF adulte : entorse de cheville, contusion, tendinopathie, TVP selon le terrain
+- OK — iphone jour : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
+- OK — iphone jour : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
+- OK — iphone jour : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone jour : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone jour : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
+- OK — iphone jour : 7. plus d'étoile sur le groupe entier
+- OK — iphone jour : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone jour : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
+- OK — iphone jour : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
+- OK — iphone jour : 8. texte inséré surligné et modifiable avant validation
+- OK — iphone jour : 8. modifiable d'un toucher : la modification est gardée
+- OK — iphone jour : 8. sans la phrase : rien n'est inséré (et l'insertion non modifiée est retirée), la modification du médecin est gardée
+- OK — iphone jour : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
+- OK — iphone jour : aucune erreur JS
+- OK — iphone nuit : 4. « Aide à l'interprétation » et « Aide-mémoire » jamais dans les documents imprimés ni le PDF
+- OK — iphone nuit : 4. la feuille reste visible à l'écran (mode complet)
+- OK — iphone nuit : 5. courrier : la dictée brute et l'histoire libre ne sont jamais recopiées
+- OK — iphone nuit : 5. courrier : champs structurés repris (constantes, examen)
+- OK — iphone nuit : 5. patiente : accords au féminin (pas de « le/la », « né(e) »)
+- OK — iphone nuit : 5. la dictée brute reste dans le compte rendu (MCC)
+- OK — iphone nuit : 5. TA 150/10 signalée comme constante à vérifier
+- OK — iphone nuit : 5. alerte visible à l'écran avant impression
+- OK — iphone nuit : 5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer
+- OK — iphone nuit : 5. patient : accords au masculin
+- OK — iphone nuit : 6. « DLMINF » reconnu comme motif
+- OK — iphone nuit : 6. jamais la commune (« SAINT-HILAIRE-SAINT- », « MESMIN ») comme motif
+- OK — iphone nuit : 6. DLMINF adulte : entorse de cheville, contusion, tendinopathie, TVP selon le terrain
+- OK — iphone nuit : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
+- OK — iphone nuit : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
+- OK — iphone nuit : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone nuit : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone nuit : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
+- OK — iphone nuit : 7. plus d'étoile sur le groupe entier
+- OK — iphone nuit : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone nuit : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
+- OK — iphone nuit : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
+- OK — iphone nuit : 8. texte inséré surligné et modifiable avant validation
+- OK — iphone nuit : 8. modifiable d'un toucher : la modification est gardée
+- OK — iphone nuit : 8. sans la phrase : rien n'est inséré (et l'insertion non modifiée est retirée), la modification du médecin est gardée
+- OK — iphone nuit : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
+- OK — iphone nuit : aucune erreur JS
+- OK — iphone grand texte : 4. « Aide à l'interprétation » et « Aide-mémoire » jamais dans les documents imprimés ni le PDF
+- OK — iphone grand texte : 4. la feuille reste visible à l'écran (mode complet)
+- OK — iphone grand texte : 5. courrier : la dictée brute et l'histoire libre ne sont jamais recopiées
+- OK — iphone grand texte : 5. courrier : champs structurés repris (constantes, examen)
+- OK — iphone grand texte : 5. patiente : accords au féminin (pas de « le/la », « né(e) »)
+- OK — iphone grand texte : 5. la dictée brute reste dans le compte rendu (MCC)
+- OK — iphone grand texte : 5. TA 150/10 signalée comme constante à vérifier
+- OK — iphone grand texte : 5. alerte visible à l'écran avant impression
+- OK — iphone grand texte : 5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer
+- OK — iphone grand texte : 5. patient : accords au masculin
+- OK — iphone grand texte : 6. « DLMINF » reconnu comme motif
+- OK — iphone grand texte : 6. jamais la commune (« SAINT-HILAIRE-SAINT- », « MESMIN ») comme motif
+- OK — iphone grand texte : 6. DLMINF adulte : entorse de cheville, contusion, tendinopathie, TVP selon le terrain
+- OK — iphone grand texte : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
+- OK — iphone grand texte : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
+- OK — iphone grand texte : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — iphone grand texte : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone grand texte : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
+- OK — iphone grand texte : 7. plus d'étoile sur le groupe entier
+- OK — iphone grand texte : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone grand texte : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
+- OK — iphone grand texte : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
+- OK — iphone grand texte : 8. texte inséré surligné et modifiable avant validation
+- OK — iphone grand texte : 8. modifiable d'un toucher : la modification est gardée
+- OK — iphone grand texte : 8. sans la phrase : rien n'est inséré (et l'insertion non modifiée est retirée), la modification du médecin est gardée
+- OK — iphone grand texte : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
+- OK — iphone grand texte : aucune erreur JS
+- OK — ordinateur : 4. « Aide à l'interprétation » et « Aide-mémoire » jamais dans les documents imprimés ni le PDF
+- OK — ordinateur : 4. la feuille reste visible à l'écran (mode complet)
+- OK — ordinateur : 5. courrier : la dictée brute et l'histoire libre ne sont jamais recopiées
+- OK — ordinateur : 5. courrier : champs structurés repris (constantes, examen)
+- OK — ordinateur : 5. patiente : accords au féminin (pas de « le/la », « né(e) »)
+- OK — ordinateur : 5. la dictée brute reste dans le compte rendu (MCC)
+- OK — ordinateur : 5. TA 150/10 signalée comme constante à vérifier
+- OK — ordinateur : 5. alerte visible à l'écran avant impression
+- OK — ordinateur : 5. Express : constante aberrante → l'aperçu s'ouvre au lieu d'imprimer
+- OK — ordinateur : 5. patient : accords au masculin
+- OK — ordinateur : 6. « DLMINF » reconnu comme motif
+- OK — ordinateur : 6. jamais la commune (« SAINT-HILAIRE-SAINT- », « MESMIN ») comme motif
+- OK — ordinateur : 6. DLMINF adulte : entorse de cheville, contusion, tendinopathie, TVP selon le terrain
+- OK — ordinateur : 6. DLMINF enfant : boiterie de l'enfant en tête, pas de tendinopathie
+- OK — ordinateur : 6. motif non reconnu : Fréquents de l'âge, jamais une liste vide
+- OK — ordinateur : 6. tableau modifiable : nouvelle abréviation prise en compte
+- OK — ordinateur : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — ordinateur : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
+- OK — ordinateur : 7. plus d'étoile sur le groupe entier
+- OK — ordinateur : 7. « Mode voiture » seul ajouté à l'Express
+- OK — ordinateur : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
+- OK — ordinateur : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
+- OK — ordinateur : 8. texte inséré surligné et modifiable avant validation
+- OK — ordinateur : 8. modifiable d'un toucher : la modification est gardée
+- OK — ordinateur : 8. sans la phrase : rien n'est inséré (et l'insertion non modifiée est retirée), la modification du médecin est gardée
+- OK — ordinateur : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
+- OK — ordinateur : aucune erreur JS
+
+108/108 tests OK

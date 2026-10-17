@@ -133,20 +133,23 @@ async def run(width,label):
         ok(L+"n°7 stockage presque plein : refus expliqué avec la limite exacte (Mo libres)",any("presque plein" in m and "Mo libres" in m for m in dialogs),dialogs[-1:] )
         await page.evaluate("phSpace=PHOTO._sp;")
         # ---------- n° 9 : impression et PDF ----------
-        await page.evaluate("window.__pr=0;window.print=()=>{window.__pr++;};")
+        await page.evaluate("window.__pr=0;window.print=()=>{window.__pr++;};0")
         await page.evaluate("Object.assign(state,{patient:'TEST Fictif',ddn:'01/01/1980'});state.photos=[];render();")
         if width<500:
             await page.click("#go_top"); await page.wait_for_timeout(1200)
-            ok(L+"n°9 aperçu : boutons Envoyer, Enregistrer le PDF, Impression visibles",all([await page.locator(s).is_visible() for s in ["#pb_send","#pb_pdf","#pb_ios"]]))
-            await page.click("#pb_ios"); await page.wait_for_timeout(200)
-            ok(L+"n°9 « Impression » ouvre la fenêtre d'impression",await page.evaluate("window.__pr")>=1)
+            ok(L+"n°9 aperçu : boutons Envoyer (PDF) et Enregistrer le PDF visibles ; plus d'impression de la page web",all([await page.locator(s).is_visible() for s in ["#pb_send","#pb_pdf"]]) and await page.locator("#pb_ios").count()==0)
+            ok(L+"n°9 jamais d'impression de la page web (17/10/2026)",await page.evaluate("window.__pr")==0)
         else:
             await page.click("#go_only"); await page.wait_for_timeout(1200)
-            ok(L+"n°9 « Imprimer » ouvre la fenêtre d'impression sans Ctrl+P",await page.evaluate("window.__pr")>=1)
+            await page.click("#pb_print2")
+            for _ in range(40):
+                if await page.evaluate("window.__pdfprint||0"): break
+                await page.wait_for_timeout(250)
+            ok(L+"n°9 « Imprimer » imprime le PDF (jamais la page web), sans Ctrl+P",await page.evaluate("window.__pdfprint||0")>=1 and await page.evaluate("window.__pr")==0)
             hit=await page.evaluate("['pb_print2','pb_pdf2','pb_valid2','pb_back2','pb_print','pb_pdf','pb_valid','pb_back'].map(id=>{const e=document.getElementById(id);if(!e)return id+':absent';const r=e.getBoundingClientRect();const pts=[[r.left+4,r.top+4],[r.left+r.width/2,r.top+r.height/2],[r.right-4,r.bottom-4]];return pts.every(([x,y])=>{const h=document.elementFromPoint(x,y);return h&&(h===e||e.contains(h));})?'':id;}).filter(Boolean)")
             ok(L+"n°9 aperçu : chaque bouton entièrement cliquable (barres sans chevauchement)",not hit,hit)
-            await page.click("#pb_print2"); await page.wait_for_timeout(200)
-            ok(L+"n°9 bouton « Imprimer » de l'aperçu",await page.evaluate("window.__pr")>=2)
+            await page.click("#pb_print"); await page.wait_for_timeout(600)
+            ok(L+"n°9 bouton « Imprimer » du bas : PDF",await page.evaluate("window.__pdfprint||0")>=2 and await page.evaluate("window.__pr")==0)
         try:
             async with page.expect_download(timeout=90000) as dl:
                 await page.click("#pb_pdf")

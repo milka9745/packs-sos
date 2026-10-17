@@ -14,6 +14,7 @@ SHIM='''<script>/* VERSION TEST : stockage séparé de l'outil de garde (préfix
 S.getItem=function(x){return g.call(this,P+x);};S.setItem=function(x,v){return s.call(this,P+x,v);};S.removeItem=function(x){return r.call(this,P+x);};
 S.clear=function(){for(var i=this.length-1;i>=0;i--){var y=k.call(this,i);if(y&&y.indexOf(P)===0)r.call(this,y);}};window.__PACKS_TEST__=true;}catch(e){}})();</script>'''
 BADGE='''<style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
+@media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
 #testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style>'''
 BADGE_BODY='<div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST</div>'
 

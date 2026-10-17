@@ -20,7 +20,7 @@
 - OK — iphone : tarif modifié, enregistré
 - OK — iphone : aucun code U, MDN, MDI, MM ni F dans les tarifs
 - OK — iphone : écran Express : cotation de l'heure (« VG + VRD »), jamais « U » seul
-- OK — iphone : journal : codes de l'acte (VG+MU) affichés, jamais « U »
+- OK — iphone : journal : codes de l'acte (VG+VRD) affichés, jamais « U »
 - OK — iphone : aucune erreur JS
 - OK — ordinateur : visite en journée, adulte : VG + MU
 - OK — ordinateur : visite en journée + MD : VG + MD (MU retiré)
@@ -42,7 +42,7 @@
 - OK — ordinateur : tarif modifié, enregistré
 - OK — ordinateur : aucun code U, MDN, MDI, MM ni F dans les tarifs
 - OK — ordinateur : écran Express : cotation de l'heure (« VG + VRD »), jamais « U » seul
-- OK — ordinateur : journal : codes de l'acte (VG+MU) affichés, jamais « U »
+- OK — ordinateur : journal : codes de l'acte (VG+VRD) affichés, jamais « U »
 - OK — ordinateur : aucune erreur JS
 - OK — migration des tarifs : ancienne valeur par défaut 14,26 → 14,77 ; U → MU ; YYYY490 ajouté
 - OK — migration des tarifs : montant personnalisé (15,00) conservé ; U → MU ; YYYY490 ajouté

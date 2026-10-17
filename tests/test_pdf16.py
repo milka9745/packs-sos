@@ -38,7 +38,7 @@ PAGES="""()=>[...document.querySelectorAll('#print .page')].map((pg,i)=>{const f
   return {i,t:h?h.textContent:'',hit,clipped,over:pg.dataset.over||'',fit:pg.dataset.fit||'',txt:fr?fr.innerText:''};})"""
 
 async def preview(page,width):
-    await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;}")
+    await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};0")
     await page.click("#go_top" if width<500 else "#go_only"); await page.wait_for_timeout(1500)
 
 async def back(page):
@@ -82,7 +82,7 @@ async def run(width,label):
         ph=alltxt[alltxt.find("J'ai prescrit"):].split(".")[0] if "J'ai prescrit" in alltxt else ""
         ok(L+"n°3 action cochée : « revu les médicaments » et « ont été revus » apparaissent","revu les médicaments" in alltxt and "ont été revus" in alltxt)
         ok(L+"n°3 liste des examens exacte : CRP décochée absente, HbA1c cochée présente","CRP" not in ph and "HbA1c" in ph,ph[:300])
-        ok(L+"n°3 éléments dictés repris à la place du renvoi au compte rendu","Éléments recueillis ce jour" in alltxt and "relevée par sa fille" in alltxt)
+        ok(L+"n°3 (17/10) pas de renvoi au compte rendu, et jamais la dictée ni l'histoire libre recopiées dans le courrier","compte rendu joint" not in alltxt.lower() and "relevée par sa fille" not in alltxt)
         ok(L+"n°1 après modification : toujours aucun chevauchement du cachet",all(not x["hit"] for x in pg) and all(not x["clipped"] for x in pg))
         await back(page)
         # 1. contenu trop long : police réduite, sinon alerte ; jamais masqué
@@ -97,7 +97,7 @@ async def run(width,label):
         await page.evaluate("""()=>{const p=currentPack();const si=p.s.findIndex(s=>s.k==='cons');state.libre[si]=Array(60).fill("Consigne très longue de test pour dépasser une page même en petite police.").join(" ");render();}""")
         dialogs.clear(); await preview(page,width); pg=await page.evaluate(PAGES); c=[x for x in pg if x["t"].startswith("Consignes")]
         warn=await page.evaluate("(document.querySelector('#print .fitwarn')||{}).textContent||''")
-        ok(L+"n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué",c and c[0]["over"] and not c[0]["clipped"] and "ne tient pas sur une page" in warn,{k:(c[0][k] if c else None) for k in ("over","clipped")})
+        ok(L+"n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué",c and c[0]["over"] and not c[0]["clipped"] and "ne tient pas sur une page" in warn and "page de plus" in warn,{k:(c[0][k] if c else None) for k in ("over","clipped")})
         await back(page)
         # 4. fiche « sujet âgé » chez un patient de moins de 65 ans
         await page.evaluate(SETUP,[CHUTE]); await page.evaluate("Object.assign(state,{ddn:'01/01/1974'});render();"); await page.wait_for_timeout(200)
