@@ -1,6 +1,6 @@
 /* VERSION TEST (dossier test/) : cache séparé, ne touche jamais au cache de l'outil de garde */
-/* Packs SOS — service worker (packs-sos-v41m) : fonctionnement hors ligne ; les cartes, BAN, OSRM et l'API ne passent jamais par le cache */
-const CACHE="packs-sos-test-41m-test";
+/* Packs SOS — service worker (packs-sos-v41n) : fonctionnement hors ligne ; les cartes, BAN, OSRM et l'API ne passent jamais par le cache */
+const CACHE="packs-sos-test-41n-test";
 const FILES=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./apple-touch-icon.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(FILES.map(f=>c.add(new Request(f,{cache:"reload"})).catch(()=>{})))));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>/^packs-sos-test-/.test(k)&&k!==CACHE).map(k=>caches.delete(k)))));}); /* pas de clients.claim() : la première page reste non contrôlée, sans rechargement surprise ; la mise à jour passe par skipWaiting (bouton « Mettre à jour ») */
