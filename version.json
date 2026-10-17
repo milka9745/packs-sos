@@ -1,9 +1,8 @@
 {
-  "version": "41g",
-  "date": "2026-10-16",
+  "version": "41k",
+  "date": "2026-10-17",
   "notes": [
-    "Hors connexion : bandeau « rien n'est perdu », avec ce qui marche sans réseau et ce qui attend le réseau.",
-    "Demande IA hors connexion mise en attente, chiffrée ; au retour du réseau, « Voir ce qui part » : rien ne part tout seul.",
-    "Clé API Claude chiffrée dans le profil : la phrase maître suffit sur un autre appareil ; jamais affichée, remplaçable d'un geste."
+    "PDF iPhone : les documents sortent de nouveau en taille normale (ils partaient tous en petite police, 8,5 pt).",
+    "La police n'est réduite que si le document ne tient pas sur la page, jamais sous 9 pt, et le cachet reste libre."
   ]
 }
