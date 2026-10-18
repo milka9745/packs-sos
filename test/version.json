@@ -1,9 +1,9 @@
 {
-  "version": "41q-test",
+  "version": "41r-test",
   "date": "2026-10-18",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Examen complet (réglage activé par défaut) : les appareils non dictés reçoivent l'examen normal type de la fiche, surligné, validé en un seul geste « ✓ Examen complet » ; chaque appareil se retire d'un toucher.",
-    "Jamais « non renseigné », « non effectué » ni « RAS ? » au compte rendu ; le texte dicté n'est jamais modifié ; signe de gravité : alerte à l'écran seulement."
+    "Version de test : plus aucun filigrane « VERSION TEST » sur les documents imprimés ; ordonnances utilisables à votre discrétion.",
+    "Le bandeau rouge et la pastille TEST restent seulement à l'écran (jamais imprimés)."
   ]
 }

@@ -1964,9 +1964,8 @@ html[data-vivid] #tc_arrive:not(.act-now),html[data-vivid] #fin:not(.act-now){fo
 </style>
 <style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
 @media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
-.page .testwm{position:absolute;left:-10%;right:-10%;top:42%;text-align:center;font:900 40px Arial,sans-serif;letter-spacing:2px;color:rgba(208,2,27,.16);transform:rotate(-28deg);pointer-events:none;z-index:5;white-space:nowrap}
 #testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style></head>
-<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41q</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
+<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41r</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -16368,7 +16367,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41q",branch:"test",date:"18/10 08:30"};
+const APP_BUILD={v:"41r",branch:"test",date:"18/10 17:41"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -18150,8 +18149,7 @@ function identScreen(mode,msg){
 }
 function toast(t){try{let x=document.getElementById("toast");if(!x){x=document.createElement("div");x.id="toast";document.body.appendChild(x);}x.textContent=t;x.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>x.classList.remove("on"),2600);}catch(e){}}
 /* Feuilles : en-tête, signature, mode SPÉCIMEN */
-function pageHead(){return '<div class="testwm" aria-hidden="true">VERSION TEST — NE PAS UTILISER</div>'+pageHead0();}
-function pageHead0(){
+function pageHead(){
   if(!IDENT.on)return `<div class="ph"><img src="${LOGO}" alt="SOS Médecins Orléans"><div class="dr"><b>SPÉCIMEN — NON SIGNÉ</b><i>Profil du prescripteur non activé</i></div></div>`;
   return `<div class="ph"><img src="${LOGO}" alt="SOS Médecins Orléans"><div class="dr"><b>${esc(DOCTOR.nom)}</b><i>${esc(DOCTOR.adeli)}</i>${DOCTOR.assoc.length?`<span>En association avec :</span>${DOCTOR.assoc.map(a=>"<span>"+esc(a)+"</span>").join("")}`:""}</div></div>`;
 }
