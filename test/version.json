@@ -1,9 +1,9 @@
 {
-  "version": "41s-test",
+  "version": "41t-test",
   "date": "2026-10-18",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Fiche réservée à un sexe (grossesse, gynécologie / prostate, testicule, gynécomastie…) appliquée au mauvais sexe : alerte rouge et impression bloquée ; le sexe n'est plus jamais deviné d'après la fiche ; lignes réservées jamais imprimées pour l'autre sexe.",
-    "Mémo médecin (indications, critères) affiché à l'écran, jamais imprimé, sur tout le catalogue ; « né(e) » remplacé par « date de naissance » si le sexe n'est pas renseigné ; ligne libre : nom commercial en majuscules."
+    "RCP appliqués : BACTRIM 7 jours au maximum chez l'enfant de moins de 2 ans (otite, otite-conjonctivite).",
+    "Fiche réservée à un sexe (grossesse, gynécologie / prostate, testicule, gynécomastie…) appliquée au mauvais sexe : alerte rouge et impression bloquée ; le sexe n'est plus jamais deviné d'après la fiche ; lignes réservées jamais imprimées pour l'autre sexe."
   ]
 }
