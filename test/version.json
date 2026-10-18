@@ -1,9 +1,9 @@
 {
-  "version": "41r-test",
+  "version": "41s-test",
   "date": "2026-10-18",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Version de test : plus aucun filigrane « VERSION TEST » sur les documents imprimés ; ordonnances utilisables à votre discrétion.",
-    "Le bandeau rouge et la pastille TEST restent seulement à l'écran (jamais imprimés)."
+    "Fiche réservée à un sexe (grossesse, gynécologie / prostate, testicule, gynécomastie…) appliquée au mauvais sexe : alerte rouge et impression bloquée ; le sexe n'est plus jamais deviné d'après la fiche ; lignes réservées jamais imprimées pour l'autre sexe.",
+    "Mémo médecin (indications, critères) affiché à l'écran, jamais imprimé, sur tout le catalogue ; « né(e) » remplacé par « date de naissance » si le sexe n'est pas renseigné ; ligne libre : nom commercial en majuscules."
   ]
 }
