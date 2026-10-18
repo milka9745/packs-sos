@@ -1,0 +1,76 @@
+# Tests pipettes dose-poids (18/10/2026)
+
+- OK — iphone · Express : ZITHROMAX 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — iphone · Express : ZITHROMAX 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — iphone · Express : ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — iphone · Express : ZITHROMAX 40 kg : alerte à l'écran (au-delà de la pipette de 25 kg)
+- OK — iphone · Express : ZITHROMAX 40 kg : ml et mg sur l'ordonnance et dans les conseils patient
+- OK — iphone · Express : angine 40 kg : comprimé ZITHROMAX non proposé sous 45 kg (RCP)
+- OK — iphone · Express : angine 50 kg : ZITHROMAX 250 mg comprimé en option 1, suspension en option 2
+- OK — iphone · Express : DOLIPRANE 10 kg : « 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) »
+- OK — iphone · Express : DOLIPRANE 17 kg (au-dessus de la pipette de 13 kg) : jamais « dose-poids », forme adaptée au poids
+- OK — iphone · Express : DOLIPRANE suspension à 20 kg : « 12,5 ml, soit 300 mg », pas de dose-poids
+- OK — iphone · Express : CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml (soit 1500 mg) », jamais « dose-poids »
+- OK — iphone · Express : CLAMOXYL angine 45 kg : « 10 ml (soit 1000 mg) » matin et soir
+- OK — iphone · Express : ADVILMED 20 kg : dose-poids ; 28 kg : ml et mg, au-delà de la pipette
+- OK — iphone · Express : ORELOX angine 30 kg : « 12,5 ml, soit 100 mg (dose maximale) » matin et soir
+- OK — iphone · Express : toutes les fiches × 5 poids : jamais « dose-poids » au-delà de l'étendue de la pipette
+- OK — iphone · Express : toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg
+- OK — iphone · Express : fiche angine modifiée : « à relire »
+- OK — iphone · Express : aucune erreur JS
+- OK — iphone · mode complet : ZITHROMAX 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — iphone · mode complet : ZITHROMAX 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — iphone · mode complet : ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — iphone · mode complet : ZITHROMAX 40 kg : alerte à l'écran (au-delà de la pipette de 25 kg)
+- OK — iphone · mode complet : ZITHROMAX 40 kg : ml et mg sur l'ordonnance et dans les conseils patient
+- OK — iphone · mode complet : angine 40 kg : comprimé ZITHROMAX non proposé sous 45 kg (RCP)
+- OK — iphone · mode complet : angine 50 kg : ZITHROMAX 250 mg comprimé en option 1, suspension en option 2
+- OK — iphone · mode complet : DOLIPRANE 10 kg : « 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) »
+- OK — iphone · mode complet : DOLIPRANE 17 kg (au-dessus de la pipette de 13 kg) : jamais « dose-poids », forme adaptée au poids
+- OK — iphone · mode complet : DOLIPRANE suspension à 20 kg : « 12,5 ml, soit 300 mg », pas de dose-poids
+- OK — iphone · mode complet : CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml (soit 1500 mg) », jamais « dose-poids »
+- OK — iphone · mode complet : CLAMOXYL angine 45 kg : « 10 ml (soit 1000 mg) » matin et soir
+- OK — iphone · mode complet : ADVILMED 20 kg : dose-poids ; 28 kg : ml et mg, au-delà de la pipette
+- OK — iphone · mode complet : ORELOX angine 30 kg : « 12,5 ml, soit 100 mg (dose maximale) » matin et soir
+- OK — iphone · mode complet : toutes les fiches × 5 poids : jamais « dose-poids » au-delà de l'étendue de la pipette
+- OK — iphone · mode complet : toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg
+- OK — iphone · mode complet : fiche angine modifiée : « à relire »
+- OK — iphone · mode complet : aucune erreur JS
+- OK — ordinateur · Express : ZITHROMAX 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — ordinateur · Express : ZITHROMAX 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — ordinateur · Express : ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — ordinateur · Express : ZITHROMAX 40 kg : alerte à l'écran (au-delà de la pipette de 25 kg)
+- OK — ordinateur · Express : ZITHROMAX 40 kg : ml et mg sur l'ordonnance et dans les conseils patient
+- OK — ordinateur · Express : angine 40 kg : comprimé ZITHROMAX non proposé sous 45 kg (RCP)
+- OK — ordinateur · Express : angine 50 kg : ZITHROMAX 250 mg comprimé en option 1, suspension en option 2
+- OK — ordinateur · Express : DOLIPRANE 10 kg : « 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) »
+- OK — ordinateur · Express : DOLIPRANE 17 kg (au-dessus de la pipette de 13 kg) : jamais « dose-poids », forme adaptée au poids
+- OK — ordinateur · Express : DOLIPRANE suspension à 20 kg : « 12,5 ml, soit 300 mg », pas de dose-poids
+- OK — ordinateur · Express : CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml (soit 1500 mg) », jamais « dose-poids »
+- OK — ordinateur · Express : CLAMOXYL angine 45 kg : « 10 ml (soit 1000 mg) » matin et soir
+- OK — ordinateur · Express : ADVILMED 20 kg : dose-poids ; 28 kg : ml et mg, au-delà de la pipette
+- OK — ordinateur · Express : ORELOX angine 30 kg : « 12,5 ml, soit 100 mg (dose maximale) » matin et soir
+- OK — ordinateur · Express : toutes les fiches × 5 poids : jamais « dose-poids » au-delà de l'étendue de la pipette
+- OK — ordinateur · Express : toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg
+- OK — ordinateur · Express : fiche angine modifiée : « à relire »
+- OK — ordinateur · Express : aucune erreur JS
+- OK — ordinateur · mode complet : ZITHROMAX 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — ordinateur · mode complet : ZITHROMAX 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — ordinateur · mode complet : ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — ordinateur · mode complet : ZITHROMAX 40 kg : alerte à l'écran (au-delà de la pipette de 25 kg)
+- OK — ordinateur · mode complet : ZITHROMAX 40 kg : ml et mg sur l'ordonnance et dans les conseils patient
+- OK — ordinateur · mode complet : angine 40 kg : comprimé ZITHROMAX non proposé sous 45 kg (RCP)
+- OK — ordinateur · mode complet : angine 50 kg : ZITHROMAX 250 mg comprimé en option 1, suspension en option 2
+- OK — ordinateur · mode complet : DOLIPRANE 10 kg : « 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) »
+- OK — ordinateur · mode complet : DOLIPRANE 17 kg (au-dessus de la pipette de 13 kg) : jamais « dose-poids », forme adaptée au poids
+- OK — ordinateur · mode complet : DOLIPRANE suspension à 20 kg : « 12,5 ml, soit 300 mg », pas de dose-poids
+- OK — ordinateur · mode complet : CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml (soit 1500 mg) », jamais « dose-poids »
+- OK — ordinateur · mode complet : CLAMOXYL angine 45 kg : « 10 ml (soit 1000 mg) » matin et soir
+- OK — ordinateur · mode complet : ADVILMED 20 kg : dose-poids ; 28 kg : ml et mg, au-delà de la pipette
+- OK — ordinateur · mode complet : ORELOX angine 30 kg : « 12,5 ml, soit 100 mg (dose maximale) » matin et soir
+- OK — ordinateur · mode complet : toutes les fiches × 5 poids : jamais « dose-poids » au-delà de l'étendue de la pipette
+- OK — ordinateur · mode complet : toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg
+- OK — ordinateur · mode complet : fiche angine modifiée : « à relire »
+- OK — ordinateur · mode complet : aucune erreur JS
+
+72/72 tests OK

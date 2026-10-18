@@ -43,7 +43,7 @@ async def main():
                         on=[x for x in r["L"] if x["on"] and x["k"]=="med"]
                         ok(L+f"OMA 9 mois 8 kg ({lieu}) : antibiotique d'emblée avant 2 ans (pack à risque)",r["risk"] and amox and amox[0]["on"],[x["t"] for x in on])
                         s=amox[0]["s"] if amox else ""
-                        m=re.search(r"(\d+(?:,\d+)?) ml matin et soir",s)
+                        m=re.search(r"(\d+(?:,\d+)?) ml (?:\(soit [\d,]+ mg\) )?matin et soir",s)
                         ml=float(m.group(1).replace(",",".")) if m else 0
                         mgkgj=ml*100*2/8
                         ok(L+f"OMA 9 mois 8 kg ({lieu}) : amoxicilline {ml} ml × 2 = {mgkgj:.1f} mg/kg/j (80 à 90), 10 jours, maximum indiqué",80<=mgkgj<=90 and "pendant 10 jours" in s and "15 ml" in s,s)
@@ -52,7 +52,7 @@ async def main():
                         ok(L+f"OMA 9 mois ({lieu}) : CILOXADEX absent des documents imprimés","CILOXADEX" not in r["printed"])
                         ok(L+f"OMA ({lieu}) : patiente « née le », jamais « né(e) »","née le" in r["printed"] and "né(e)" not in r["printed"],r["printed"][:200])
                     # dose : 80 à 90 mg/kg/j de 5 à 35 kg, jamais plus de 3 g/j
-                    d=await page.evaluate("()=>{const R=[];for(let k=5;k<=40;k++){state.poids=String(k);const p=currentPack();const si=p.s.findIndex(s=>s.k==='med');const x=resolve(p.s[si],si).find(y=>y.t.startsWith('CLAMOXYL'));const m=/(\\d+(?:,\\d+)?) ml matin/.exec(x.fill.s);const ml=m?parseFloat(m[1].replace(',','.')):0;R.push([k,ml,Math.round(ml*200/k*10)/10,ml*200]);}state.poids='8';return R;}")
+                    d=await page.evaluate("()=>{const R=[];for(let k=5;k<=40;k++){state.poids=String(k);const p=currentPack();const si=p.s.findIndex(s=>s.k==='med');const x=resolve(p.s[si],si).find(y=>y.t.startsWith('CLAMOXYL'));const m=/(\\d+(?:,\\d+)?) ml (?:\\(soit [\\d,]+ mg\\) )?matin/.exec(x.fill.s);const ml=m?parseFloat(m[1].replace(',','.')):0;R.push([k,ml,Math.round(ml*200/k*10)/10,ml*200]);}state.poids='8';return R;}")
                     bad=[x for x in d if not ((80<=x[2]<=90) or x[3]==3000) or x[3]>3000]
                     ok(L+"amoxicilline de 5 à 40 kg : 80 à 90 mg/kg/j, 3 g par jour au maximum",not bad,bad[:5])
                     # otite externe à 9 mois : CILOXADEX bloqué (RCP : à partir de 1 an), motif affiché

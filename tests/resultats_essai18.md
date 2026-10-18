@@ -1,0 +1,82 @@
+# Essai du 18/10/2026 (22 mois, 13 kg, otite-conjonctivite) — webkit
+
+- OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, sans-allergie : AUGMENTIN seul antibiotique coché
+- OK — webkit iPhone · mode complet : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : sans-allergie : question « Allergie grave ? » absente
+- OK — webkit iPhone · mode complet : sans-allergie : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · mode complet : sans-allergie : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · mode complet : sans-allergie : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · mode complet : OMA enfant 22 mois 13 kg (visite), sans-allergie : CLAMOXYL retenu, 10 jours
+- OK — webkit iPhone · mode complet : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · mode complet : sans-allergie : pas d'alerte « ne tient pas sur une page » (documents courts)
+- OK — webkit iPhone · mode complet : sans-allergie : ordonnance imprimée sans « seringue graduée en kg » à côté d'une dose en ml, sans note médecin
+- OK — webkit iPhone · mode complet : sans-allergie : PDF, aucune ligne de texte sous le cachet (2 page(s))
+- OK — webkit iPhone · mode complet : sans-allergie : PDF A4 (ratio 1,414), marges de 8 mm blanches en haut, à droite, à gauche et en bas
+- OK — webkit iPhone · mode complet : sans-allergie : bouton « 🖨 Imprimer » présent sur iPhone
+- OK — webkit iPhone · mode complet : sans-allergie : impression = partage iOS du PDF seul (application/pdf), jamais la page web
+- OK — webkit iPhone · mode complet : sans-allergie : la page web elle-même ne s'imprime pas (seul le message renvoyant au PDF)
+- OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, allergie-sans-gravite : ORELOX seul antibiotique coché
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : question « Allergie grave ? » affichée
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · mode complet : OMA enfant 22 mois 13 kg (visite), allergie-sans-gravite : ORELOX retenu, 10 jours
+- OK — webkit iPhone · mode complet : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : pas d'alerte « ne tient pas sur une page » (documents courts)
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : ordonnance imprimée sans « seringue graduée en kg » à côté d'une dose en ml, sans note médecin
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : PDF, aucune ligne de texte sous le cachet (2 page(s))
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : PDF A4 (ratio 1,414), marges de 8 mm blanches en haut, à droite, à gauche et en bas
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : bouton « 🖨 Imprimer » présent sur iPhone
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : impression = partage iOS du PDF seul (application/pdf), jamais la page web
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : la page web elle-même ne s'imprime pas (seul le message renvoyant au PDF)
+- OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, allergie-grave : BACTRIM seul antibiotique coché
+- OK — webkit iPhone · mode complet : allergie-grave : BACTRIM en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : allergie-grave : question « Allergie grave ? » affichée
+- OK — webkit iPhone · mode complet : allergie-grave : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · mode complet : allergie-grave : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · mode complet : allergie-grave : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · mode complet : OMA enfant 22 mois 13 kg (visite), allergie-grave : BACTRIM retenu, 10 jours
+- OK — webkit iPhone · mode complet : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · mode complet : allergie-grave : pas d'alerte « ne tient pas sur une page » (documents courts)
+- OK — webkit iPhone · mode complet : allergie-grave : ordonnance imprimée sans « seringue graduée en kg » à côté d'une dose en ml, sans note médecin
+- OK — webkit iPhone · mode complet : allergie-grave : PDF, aucune ligne de texte sous le cachet (2 page(s))
+- OK — webkit iPhone · mode complet : allergie-grave : PDF A4 (ratio 1,414), marges de 8 mm blanches en haut, à droite, à gauche et en bas
+- OK — webkit iPhone · mode complet : allergie-grave : bouton « 🖨 Imprimer » présent sur iPhone
+- OK — webkit iPhone · mode complet : allergie-grave : impression = partage iOS du PDF seul (application/pdf), jamais la page web
+- OK — webkit iPhone · mode complet : allergie-grave : la page web elle-même ne s'imprime pas (seul le message renvoyant au PDF)
+- OK — webkit iPhone · mode complet : un geste « Oui » : allergie grave enregistrée, BACTRIM retenu
+- OK — webkit iPhone · mode complet : un geste « Non » : ORELOX retenu
+- OK — webkit iPhone · mode complet : toutes les fiches (13, 22, 30 kg) : jamais deux formes galéniques sur une ligne cochée
+- OK — webkit iPhone · mode complet : aucune erreur JS
+- OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, sans-allergie : AUGMENTIN seul antibiotique coché
+- OK — webkit iPhone · Express : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : sans-allergie : question « Allergie grave ? » absente
+- OK — webkit iPhone · Express : sans-allergie : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · Express : sans-allergie : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · Express : sans-allergie : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · Express : OMA enfant 22 mois 13 kg (visite), sans-allergie : CLAMOXYL retenu, 10 jours
+- OK — webkit iPhone · Express : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, allergie-sans-gravite : ORELOX seul antibiotique coché
+- OK — webkit iPhone · Express : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : allergie-sans-gravite : question « Allergie grave ? » affichée
+- OK — webkit iPhone · Express : allergie-sans-gravite : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · Express : allergie-sans-gravite : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · Express : allergie-sans-gravite : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · Express : OMA enfant 22 mois 13 kg (visite), allergie-sans-gravite : ORELOX retenu, 10 jours
+- OK — webkit iPhone · Express : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, allergie-grave : BACTRIM seul antibiotique coché
+- OK — webkit iPhone · Express : allergie-grave : BACTRIM en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : allergie-grave : question « Allergie grave ? » affichée
+- OK — webkit iPhone · Express : allergie-grave : AERIUS proposé en option décochée (si allergie avérée)
+- OK — webkit iPhone · Express : allergie-grave : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
+- OK — webkit iPhone · Express : allergie-grave : fiche otite-conjonctivite « à relire »
+- OK — webkit iPhone · Express : OMA enfant 22 mois 13 kg (visite), allergie-grave : BACTRIM retenu, 10 jours
+- OK — webkit iPhone · Express : OMA enfant : fiche « à relire »
+- OK — webkit iPhone · Express : question « Allergie grave ? » visible dans l'Express sans ouvrir « Plus »
+- OK — webkit iPhone · Express : un geste « Oui » : allergie grave enregistrée, BACTRIM retenu
+- OK — webkit iPhone · Express : un geste « Non » : ORELOX retenu
+- OK — webkit iPhone · Express : toutes les fiches (13, 22, 30 kg) : jamais deux formes galéniques sur une ligne cochée
+- OK — webkit iPhone · Express : aucune erreur JS
+
+78/78 tests OK

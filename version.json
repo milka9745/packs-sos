@@ -1,9 +1,9 @@
 {
-  "version": "41o",
-  "date": "2026-10-17",
+  "version": "41p",
+  "date": "2026-10-18",
   "notes": [
-    "OMA de l'enfant de moins de 2 ans : amoxicilline 80 à 90 mg/kg/j en 2 prises, 10 jours, d'emblée ; gouttes seulement en option (aérateurs, otorrhée).",
-    "CILOXADEX bloqué sous l'âge du RCP (1 an dans l'otite externe, 6 mois sur aérateurs), avec le motif affiché.",
-    "« née » / « né » selon le sexe, sexe manquant signalé ; boutons jamais tronqués sur iPhone ; filigrane TEST sur /test/ seulement."
+    "Otite et otite-conjonctivite de l'enfant : antibiotique selon l'allergie (AUGMENTIN, ORELOX, ou BACTRIM si allergie grave) avec la question « Allergie grave ? » en un geste ; AERIUS seulement en option.",
+    "Suspensions : « dose-poids » seulement dans l'étendue de la pipette, sinon ml et mg et « dose maximale » ; toujours ml et mg, aussi dans les conseils.",
+    "Impression : seul le PDF s'imprime (jamais la page web), numéros de lignes lisibles, une seule forme par ligne. Fiches modifiées « à relire »."
   ]
 }
