@@ -11,11 +11,12 @@
 - OK — iphone jour : v1 d. « Arrêt de travail fait » visible, non coché
 - OK — iphone jour : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
 - OK — iphone jour : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v1 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone jour : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone jour : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone jour : v1 2. pas d'écran récapitulatif après validation
 - OK — iphone jour : v1 patient suivant ouvert (v2)
-- OK — iphone jour : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone jour : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone jour : v2 patient ouvert
 - OK — iphone jour : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
 - OK — iphone jour : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
@@ -27,11 +28,12 @@
 - OK — iphone jour : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
 - OK — iphone jour : a. dose au poids affichée (17 kg)
 - OK — iphone jour : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v2 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone jour : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone jour : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone jour : v2 2. pas d'écran récapitulatif après validation
 - OK — iphone jour : v2 patient suivant ouvert (v3)
-- OK — iphone jour : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone jour : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone jour : v3 patient ouvert
 - OK — iphone jour : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
 - OK — iphone jour : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
@@ -42,11 +44,12 @@
 - OK — iphone jour : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
 - OK — iphone jour : courrier prêt (fiche avec orientation)
 - OK — iphone jour : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone jour : v3 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone jour : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone jour : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone jour : v3 2. pas d'écran récapitulatif après validation
 - OK — iphone jour : v3 patient suivant ouvert (tournée terminée)
-- OK — iphone jour : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone jour : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone jour : journal : 3 patients
 - OK — iphone jour : g. secours : « Recopier le CR » dans « Patients validés »
 - OK — iphone jour : « Patients validés » : bouton « Recopier le CR »
@@ -63,11 +66,12 @@
 - OK — iphone nuit : v1 d. « Arrêt de travail fait » visible, non coché
 - OK — iphone nuit : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
 - OK — iphone nuit : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v1 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone nuit : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone nuit : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone nuit : v1 2. pas d'écran récapitulatif après validation
 - OK — iphone nuit : v1 patient suivant ouvert (v2)
-- OK — iphone nuit : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone nuit : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone nuit : v2 patient ouvert
 - OK — iphone nuit : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
 - OK — iphone nuit : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
@@ -79,11 +83,12 @@
 - OK — iphone nuit : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
 - OK — iphone nuit : a. dose au poids affichée (17 kg)
 - OK — iphone nuit : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v2 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone nuit : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone nuit : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone nuit : v2 2. pas d'écran récapitulatif après validation
 - OK — iphone nuit : v2 patient suivant ouvert (v3)
-- OK — iphone nuit : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone nuit : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone nuit : v3 patient ouvert
 - OK — iphone nuit : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
 - OK — iphone nuit : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
@@ -94,11 +99,12 @@
 - OK — iphone nuit : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
 - OK — iphone nuit : courrier prêt (fiche avec orientation)
 - OK — iphone nuit : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone nuit : v3 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone nuit : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone nuit : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone nuit : v3 2. pas d'écran récapitulatif après validation
 - OK — iphone nuit : v3 patient suivant ouvert (tournée terminée)
-- OK — iphone nuit : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone nuit : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone nuit : journal : 3 patients
 - OK — iphone nuit : g. secours : « Recopier le CR » dans « Patients validés »
 - OK — iphone nuit : « Patients validés » : bouton « Recopier le CR »
@@ -115,11 +121,12 @@
 - OK — iphone grand texte : v1 d. « Arrêt de travail fait » visible, non coché
 - OK — iphone grand texte : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
 - OK — iphone grand texte : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v1 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone grand texte : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone grand texte : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone grand texte : v1 2. pas d'écran récapitulatif après validation
 - OK — iphone grand texte : v1 patient suivant ouvert (v2)
-- OK — iphone grand texte : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone grand texte : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone grand texte : v2 patient ouvert
 - OK — iphone grand texte : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
 - OK — iphone grand texte : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
@@ -131,11 +138,12 @@
 - OK — iphone grand texte : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
 - OK — iphone grand texte : a. dose au poids affichée (17 kg)
 - OK — iphone grand texte : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v2 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone grand texte : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone grand texte : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone grand texte : v2 2. pas d'écran récapitulatif après validation
 - OK — iphone grand texte : v2 patient suivant ouvert (v3)
-- OK — iphone grand texte : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone grand texte : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone grand texte : v3 patient ouvert
 - OK — iphone grand texte : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
 - OK — iphone grand texte : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
@@ -146,11 +154,12 @@
 - OK — iphone grand texte : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
 - OK — iphone grand texte : courrier prêt (fiche avec orientation)
 - OK — iphone grand texte : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — iphone grand texte : v3 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — iphone grand texte : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — iphone grand texte : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — iphone grand texte : v3 2. pas d'écran récapitulatif après validation
 - OK — iphone grand texte : v3 patient suivant ouvert (tournée terminée)
-- OK — iphone grand texte : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — iphone grand texte : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — iphone grand texte : journal : 3 patients
 - OK — iphone grand texte : g. secours : « Recopier le CR » dans « Patients validés »
 - OK — iphone grand texte : « Patients validés » : bouton « Recopier le CR »
@@ -166,12 +175,13 @@
 - OK — ordinateur : v1 d. « Arrêt de travail fait » visible, non coché
 - OK — ordinateur : v1 a. résumé d'une ligne par médicament coché (2), au-dessus du bouton
 - OK — ordinateur : v1 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v1 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — ordinateur : v1 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — ordinateur : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v1 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v1 patient suivant ouvert (v2)
 - OK — ordinateur : v1 ordinateur : impression du PDF lancée (jamais la page web)
-- OK — ordinateur : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — ordinateur : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : v2 patient ouvert
 - OK — ordinateur : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
 - OK — ordinateur : c. 4 ans, « fièvre » : Fièvre — enfant en tête, aucune fiche adulte proposée
@@ -183,12 +193,13 @@
 - OK — ordinateur : v2 a. résumé d'une ligne par médicament coché (1), au-dessus du bouton
 - OK — ordinateur : a. dose au poids affichée (17 kg)
 - OK — ordinateur : v2 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v2 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — ordinateur : v2 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — ordinateur : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v2 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v2 patient suivant ouvert (v3)
 - OK — ordinateur : v2 ordinateur : impression du PDF lancée (jamais la page web)
-- OK — ordinateur : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — ordinateur : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : v3 patient ouvert
 - OK — ordinateur : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
 - OK — ordinateur : b. signes de gravité de la fiche visibles sur l'écran patient (une ligne)
@@ -199,12 +210,13 @@
 - OK — ordinateur : v3 a. résumé d'une ligne par médicament coché (0), au-dessus du bouton
 - OK — ordinateur : courrier prêt (fiche avec orientation)
 - OK — ordinateur : v3 documents préparés d'avance (PDF prêt avant le toucher)
+- OK — ordinateur : v3 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé
 - OK — ordinateur : v3 g. toast « CR copié · prêt à coller dans MCC » + Annuler
 - OK — ordinateur : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v3 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v3 patient suivant ouvert (tournée terminée)
 - OK — ordinateur : v3 ordinateur : impression du PDF lancée (jamais la page web)
-- OK — ordinateur : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), ✓ Examen complet, 🖨 Imprimer et valider)
+- OK — ordinateur : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : journal : 3 patients
 - OK — ordinateur : g. secours : « Recopier le CR » dans « Patients validés »
 - OK — ordinateur : « Patients validés » : bouton « Recopier le CR »
@@ -224,7 +236,7 @@
 - OK — iphone : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
 - OK — iphone : PDF : trop long même en dernier recours (8,5 pt) → signalé (l'Express ouvre alors l'aperçu)
 - OK — iphone : « Plus » : dossier complet replié (identité, fiches, feuilles)
-- OK — iphone : examen complet non validé : « Imprimer et valider » montre l'encadré, patient non validé
+- OK — iphone : validation : 1er toucher ne valide pas (confirmation demandée)
 - OK — iphone : 2. après « Imprimer et valider » : patient validé, écran libéré
 - OK — iphone : 2. « Annuler » (10 s) : le patient revient tel quel
 - OK — iphone : aucune erreur JS
@@ -241,11 +253,11 @@
 - OK — ordinateur : PDF : page courte en taille normale (plus de 8,5 pt systématique)
 - OK — ordinateur : PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement
 - OK — ordinateur : PDF : trop long même en dernier recours (8,5 pt) → signalé (l'Express ouvre alors l'aperçu)
-- OK — ordinateur : examen complet non validé : « Imprimer et valider » montre l'encadré, patient non validé
+- OK — ordinateur : validation : 1er toucher ne valide pas (confirmation demandée)
 - OK — ordinateur : 2. après « Imprimer et valider » : patient validé, écran libéré
 - OK — ordinateur : 2. « Annuler » (10 s) : le patient revient tel quel
 - OK — ordinateur : aucune erreur JS
 
-245/245 tests OK
+257/257 tests OK
 
 Gestes : {"iphone jour": {"v1": 5, "v2": 6, "v3": 5}, "iphone nuit": {"v1": 5, "v2": 6, "v3": 5}, "iphone grand texte": {"v1": 5, "v2": 6, "v3": 5}, "ordinateur": {"v1": 5, "v2": 6, "v3": 5}}

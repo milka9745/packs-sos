@@ -1,9 +1,9 @@
 {
-  "version": "41r",
+  "version": "41s",
   "date": "2026-10-18",
   "notes": [
-    "Version de test : plus aucun filigrane « VERSION TEST » sur les documents imprimés ; ordonnances utilisables à votre discrétion.",
-    "Le bandeau rouge et la pastille TEST restent seulement à l'écran (jamais imprimés).",
-    "Examen complet (réglage activé par défaut) : les appareils non dictés reçoivent l'examen normal type de la fiche, surligné, validé en un seul geste « ✓ Examen complet » ; chaque appareil se retire d'un toucher."
+    "Fiche réservée à un sexe (grossesse, gynécologie / prostate, testicule, gynécomastie…) appliquée au mauvais sexe : alerte rouge et impression bloquée ; le sexe n'est plus jamais deviné d'après la fiche ; lignes réservées jamais imprimées pour l'autre sexe.",
+    "Mémo médecin (indications, critères) affiché à l'écran, jamais imprimé, sur tout le catalogue ; « né(e) » remplacé par « date de naissance » si le sexe n'est pas renseigné ; ligne libre : nom commercial en majuscules.",
+    "Valider un patient demande une confirmation (2e toucher) ; « Tournée » dans les favoris de l'Express."
   ]
 }

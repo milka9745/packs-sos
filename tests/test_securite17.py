@@ -36,7 +36,7 @@ SWEEP="""async(range)=>{const res=[];const sleep=ms=>new Promise(r=>setTimeout(r
   for(const i of idx){const p0=PACKS[i];const nm=p0.n;const kid=/enfant|nourrisson|bébé|pédiatr/i.test(nm);const old=/âgé|gériatr|chute/i.test(nm);
     try{const e=document.getElementById('ciover');if(e)e.remove();}catch(e){}
     document.body.classList.remove('printing');document.getElementById('print').innerHTML='';try{pdfCancel();}catch(e){}
-    Object.assign(state,{sel:i,obs:{},cst:{},actions:{},lo:{},gs:{},off:{},extra:{},libre:{},f:{},tt:[],copat:[],ciOver:null,patient:kid?'PETIT Lou':'MARTIN Jeanne',ddn:kid?'01/01/2019':(old?'03/04/1938':'05/06/1975'),date:'17/10/2026',sexe:/prostat|testic|homme/i.test(nm)?'m':'f',poids:kid?'20':'',grossesse:false,allait:false,photos:[]});
+    Object.assign(state,{sel:i,obs:{},cst:{},actions:{},lo:{},gs:{},off:{},extra:{},libre:{},f:{},tt:[],copat:[],ciOver:null,patient:kid?'PETIT Lou':'MARTIN Jeanne',ddn:kid?'01/01/2019':(old?'03/04/1938':'05/06/1975'),date:'17/10/2026',sexe:(typeof packSex==='function'&&packSex(PACKS[i]))||'f',poids:kid?'20':'',grossesse:false,allait:false,photos:[]});
     try{autoAgePack();}catch(e){}
     let blocked='',ci=0;
     try{await printPack();}catch(e){blocked='exception : '+e.message;}

@@ -77,11 +77,12 @@ async def run(b,w,h,th,big,label):
       await page.evaluate(STOPS); await page.evaluate("xpOpenStop('v1')"); await page.wait_for_timeout(300)
       await page.evaluate("()=>{const d=document.getElementById('xp_plus');if(d)d.open=true;document.querySelectorAll('details.tc-more').forEach(x=>x.open=true);}"); await page.wait_for_timeout(200)
       ks=await page.evaluate("[...document.querySelectorAll('.tc-more .favstar')].map(s=>s.dataset.favk)")
-      want=["btn:tc_drive","btn:tc_view","btn:tc_free","btn:tc_addvisit","btn:tc_photo","btn:tc_fiche"]
+      want=["btn:tc_drive","btn:tc_free","btn:tc_addvisit","btn:tc_photo","btn:tc_fiche"]  # 18/10/2026 : « Tournée » est dans l'Express par défaut
+      ok(L+"7. « Tournée » dans les favoris de l'Express par défaut (18/10)",await page.locator(".xp #xp_favs #tc_view").count()==1)
       ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)",all(k in ks for k in want) and any(k.startswith("btn:nav-") for k in ks),ks)
       ok(L+"7. plus d'étoile sur le groupe entier",await page.locator('.favstar[data-favk="sec:tcmore"]').count()==0)
       await page.locator('.tc-more .favstar[data-favk="btn:tc_drive"]').first.click(); await page.wait_for_timeout(400)
-      ok(L+"7. « Mode voiture » seul ajouté à l'Express",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==0)
+      ok(L+"7. « Mode voiture » ajouté à l'Express (seul en plus de « Tournée »)",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_free").count()==0)
       await page.evaluate("favReset()")
     # 8 — « reste de l'examen normal »
     await page.evaluate("localStorage.setItem('sos_excomplet','0')")  # 18/10 : comportement du réglage « Examen complet » désactivé (activé : test_examen18.py)

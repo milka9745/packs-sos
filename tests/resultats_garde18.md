@@ -1,0 +1,85 @@
+# Garde du 18/10/2026 — vérifications
+
+- OK — PC · mode complet : 1. Gynécomastie chez une femme : alerte rouge « réservée aux hommes » à l'écran
+- OK — PC · mode complet : 1. Gynécomastie chez une femme : aucun document produit (blocage)
+- OK — PC · mode complet : 1. impression bloquée avec message
+- OK — PC · mode complet : 1. fiche grossesse chez un homme : bloquée
+- OK — PC · mode complet : 1. Gynécomastie chez un homme : documents produits, pas d'alerte
+- OK — PC · mode complet : 1. sexe non renseigné : alerte avec bouton « Homme »
+- OK — PC · mode complet : 1. un toucher : sexe fixé à homme
+- OK — PC · mode complet : 1. fiche mixte, homme : jamais d'ovule ni de crème vaginale imprimés
+- OK — PC · mode complet : 1. fiche mixte, femme : jamais de PSA imprimé
+- OK — PC · mode complet : 1. dépistage IST, homme : aucune ligne « (femme) » ni auto-prélèvement vaginal seul
+- OK — PC · mode complet : 1. tout le catalogue : jamais une ligne réservée imprimée pour l'autre sexe
+- OK — PC · mode complet : 2. tout le catalogue × 3 profils (2988 lignes imprimées) : aucun mémo médecin
+- OK — PC · mode complet : 2. « Gynécomastie » : aucun mémo médecin imprimé (gynécomastie vraie, adipomastie, différencier, tumeur testiculaire)
+- OK — PC · mode complet : 2. « Hyperprolactinémie — bilan » : aucun mémo médecin imprimé (femme en âge de procréer, hypothyroïdie, adénome suspecté)
+- OK — PC · mode complet : 2. « Angine — enfant (TROD positif) » : aucun mémo médecin imprimé (indiqué, allergie aux pénicillines, RCP)
+- OK — PC · mode complet : 2. « Syndrome otite-conjonctivite — enfant » : aucun mémo médecin imprimé (indiqué, seringue graduée, allergie grave)
+- OK — PC · mode complet : 2. écran : le mémo médecin reste visible (grisé, « jamais imprimé »)
+- OK — PC · mode complet : 2. utile au patient gardé : « (soit 350 mg d'amoxicilline) », DCI, « (ou équivalent) »
+- OK — PC · mode complet : 4. sexe non renseigné : jamais « né(e) » (formule neutre « date de naissance »)
+- OK — PC · mode complet : 4. patiente : « née le »
+- OK — PC · mode complet : 5. ligne libre : nom commercial en majuscules, majuscule initiale
+- OK — PC · mode complet : 5. ligne libre : majuscule initiale, DCI et mots inconnus tels quels
+- OK — PC · mode complet : validation : 1er toucher = demande de confirmation, 2e toucher = validé (jamais de fenêtre système)
+- OK — PC · mode complet : Tournée dans les favoris de l'Express par défaut
+- OK — PC · mode complet : aucune erreur JS
+- OK — PC · Express : 1. Gynécomastie chez une femme : alerte rouge « réservée aux hommes » à l'écran
+- OK — PC · Express : 1. Gynécomastie chez une femme : aucun document produit (blocage)
+- OK — PC · Express : 1. impression bloquée avec message
+- OK — PC · Express : 1. Express : « Imprimer et valider » renvoie à la vérification (fiche réservée)
+- OK — PC · Express : 1. fiche grossesse chez un homme : bloquée
+- OK — PC · Express : 1. Gynécomastie chez un homme : documents produits, pas d'alerte
+- OK — PC · Express : 1. sexe non renseigné : alerte avec bouton « Homme »
+- OK — PC · Express : 1. un toucher : sexe fixé à homme
+- OK — PC · Express : 1. fiche mixte, homme : jamais d'ovule ni de crème vaginale imprimés
+- OK — PC · Express : 1. fiche mixte, femme : jamais de PSA imprimé
+- OK — PC · Express : 1. dépistage IST, homme : aucune ligne « (femme) » ni auto-prélèvement vaginal seul
+- OK — PC · Express : 1. tout le catalogue : jamais une ligne réservée imprimée pour l'autre sexe
+- OK — PC · Express : 2. tout le catalogue × 3 profils (2988 lignes imprimées) : aucun mémo médecin
+- OK — PC · Express : 2. « Gynécomastie » : aucun mémo médecin imprimé (gynécomastie vraie, adipomastie, différencier, tumeur testiculaire)
+- OK — PC · Express : 2. « Hyperprolactinémie — bilan » : aucun mémo médecin imprimé (femme en âge de procréer, hypothyroïdie, adénome suspecté)
+- OK — PC · Express : 2. « Angine — enfant (TROD positif) » : aucun mémo médecin imprimé (indiqué, allergie aux pénicillines, RCP)
+- OK — PC · Express : 2. « Syndrome otite-conjonctivite — enfant » : aucun mémo médecin imprimé (indiqué, seringue graduée, allergie grave)
+- OK — PC · Express : 2. utile au patient gardé : « (soit 350 mg d'amoxicilline) », DCI, « (ou équivalent) »
+- OK — PC · Express : 4. sexe non renseigné : jamais « né(e) » (formule neutre « date de naissance »)
+- OK — PC · Express : 4. patiente : « née le »
+- OK — PC · Express : 5. ligne libre : majuscule initiale, DCI et mots inconnus tels quels
+- OK — PC · Express : validation : 1er toucher = demande de confirmation, 2e toucher = validé (jamais de fenêtre système)
+- OK — PC · Express : Tournée dans les favoris de l'Express par défaut
+- OK — PC · Express : aucune erreur JS
+- OK — PC Chrome 100 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : aucune erreur JS
+- OK — PC Chrome 125 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : aucune erreur JS
+- OK — PC Chrome 150 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : aucune erreur JS
+- OK — PC Edge 125 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : aucune erreur JS
+- OK — iPhone WebKit : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — iPhone WebKit : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — iPhone WebKit : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
+- OK — iPhone WebKit : aucune erreur JS
+
+81/81 tests OK

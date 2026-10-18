@@ -568,7 +568,7 @@ details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!impor
 .xp .xp-favs{display:flex;flex-direction:column;gap:8px;margin:8px 0;padding:8px;border:1px dashed #E0A800;border-radius:12px}.xp .xp-favs[hidden]{display:none}
 .xp .xp-favs .infav{margin:0}
 .xp .xp-alerts{margin:6px 0}
-.obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
+.obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.val-armed{background:#E0A800!important;color:#111!important;border-color:#E0A800!important;font-weight:800!important}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
 .algrave{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}.algrave.need{background:rgba(224,168,0,.18);outline:1px solid rgba(224,168,0,.6)}.algrave .btn.on{background:var(--acc,#2b6cb0);color:#fff;border-color:transparent}.algrave-c{margin-left:8px}.xp .xp-al{font-size:14.5px;padding:5px 8px;margin:3px 0;border-radius:8px;background:rgba(224,168,0,.14);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xp .xp-al.ci{background:rgba(200,40,40,.14);color:var(--bad,#b00);font-weight:700}.xp .xp-al.open{white-space:normal}
 
 .xp{border:2px solid var(--line2);border-radius:14px;padding:12px;margin:8px 0 10px;background:var(--panel,transparent)}
@@ -3080,7 +3080,7 @@ const PACKS_V4 = [
 
 /* ---------- IST ---------- */
 {n:"Dépistage IST complet",k:"ist dépistage mst vih syphilis chlamydia gonocoque hépatite rapport non protégé partenaire",s:[
- {k:"bio",l:["Sérologie VIH (test combiné antigène p24 et anticorps), avec accord du patient.","Sérologie syphilis (TPHA-VDRL ou test tréponémique).","Sérologie hépatite B (Ag HBs, anticorps anti-HBc, anti-HBs).","Sérologie hépatite C (anticorps).","PCR Chlamydia trachomatis et Neisseria gonorrhoeae sur premier jet d'urine (homme) ou auto-prélèvement vaginal (femme).",{t:"PCR Chlamydia trachomatis et Neisseria gonorrhoeae sur prélèvement pharyngé et anal (rapports oraux ou anaux).",opt:true},{t:"PCR Mycoplasma genitalium et Trichomonas vaginalis sur le même prélèvement (symptômes persistants).",opt:true},{t:"Sérologie hépatite A (IgG) avant vaccination (homme ayant des rapports avec des hommes).",opt:true},HCG_F,"Contrôle à 6 semaines après le rapport à risque pour la sérologie VIH et la syphilis si le premier prélèvement est précoce.",RET_BIO]},
+ {k:"bio",l:["Sérologie VIH (test combiné antigène p24 et anticorps), avec accord du patient.","Sérologie syphilis (TPHA-VDRL ou test tréponémique).","Sérologie hépatite B (Ag HBs, anticorps anti-HBc, anti-HBs).","Sérologie hépatite C (anticorps).","{homme}PCR Chlamydia trachomatis et Neisseria gonorrhoeae sur premier jet d'urine.","{femme}PCR Chlamydia trachomatis et Neisseria gonorrhoeae sur auto-prélèvement vaginal.",{t:"PCR Chlamydia trachomatis et Neisseria gonorrhoeae sur prélèvement pharyngé et anal (rapports oraux ou anaux).",opt:true},{t:"PCR Mycoplasma genitalium et Trichomonas vaginalis sur le même prélèvement (symptômes persistants).",opt:true},{t:"Sérologie hépatite A (IgG) avant vaccination (homme ayant des rapports avec des hommes).",opt:true},HCG_F,"Contrôle à 6 semaines après le rapport à risque pour la sérologie VIH et la syphilis si le premier prélèvement est précoce.",RET_BIO]},
  {k:"med",l:[{t:"DOXYCYCLINE 100 mg comprimé : 1 comprimé matin et soir au cours des repas avec un grand verre d'eau pendant 7 jours, sans s'allonger dans l'heure qui suit (Chlamydia confirmé ou urétrite). Photosensibilisant.",opt:true},{t:"CEFTRIAXONE 1 g injectable : 1 injection intramusculaire unique (gonocoque confirmé ou urétrite purulente), par un infirmier.",opt:true},{t:"ERYTHROCINE 500 mg comprimé : 1 comprimé 4 fois par jour pendant 14 jours (alternative à la doxycycline en cas de grossesse ou d'allergie).",opt:true},{t:"Préservatifs masculins : 1 boîte de 12, remboursés.",opt:true}]},
  {k:"cons",l:["Les infections sexuellement transmissibles sont souvent sans symptôme ; le dépistage prescrit couvre les principales et un contrôle à 6 semaines peut être nécessaire.","Rapports protégés par préservatif jusqu'aux résultats et jusqu'à 7 jours après la fin d'un traitement, pour vous et vos partenaires.","Informer vos partenaires des 60 derniers jours pour qu'ils se fassent dépister et traiter ; un traitement du partenaire sans dépistage est possible.","En cas de rapport à risque datant de moins de 48 heures : un traitement préventif du VIH (TPE) est possible en urgence au service des urgences ou au CeGIDD.","Vaccinations à proposer : hépatite B, hépatite A, papillomavirus, Mpox selon la situation.","Reconsulter avec les résultats ; en cas de symptômes (écoulement, brûlures urinaires, ulcération, éruption, douleurs pelviennes), consulter sans attendre."]},
  {k:"let",l:["À l'attention du CeGIDD ou du médecin infectiologue.",LET_HEAD,"Je vous adresse {patient}, que j'ai examiné(e) ce jour pour un dépistage des infections sexuellement transmissibles dans le contexte décrit dans le compte rendu joint.","J'ai prescrit les sérologies et PCR de première intention et donné les conseils de prévention et d'information des partenaires.","Je vous le/la confie pour le traitement et le suivi en cas de positivité, la prophylaxie pré-exposition si elle est indiquée, et les vaccinations.",LET_RES,...COURRIER_FIN]}]},
@@ -4677,7 +4677,7 @@ const PACKS_V40_B5=[
  {k:"dm",l:[{t:"Attelle de genou d'immobilisation en extension (genouillère de repos 0°) : 1 unité, à porter selon la douleur pendant 7 à 10 jours.",grp:"att"},
   {t:"Genouillère ligamentaire articulée : 1 unité, à porter le jour pendant 3 semaines.",grp:"att"},
   {t:CANNES,opt:true}]},
- {k:"img",l:["Radiographie du genou de face et de profil, si un critère d'Ottawa est présent (âge ≥ 55 ans, douleur de la tête de la fibula ou isolée de la rotule, flexion impossible à 90°, appui impossible sur 4 pas)."]},
+ {k:"img",l:["Radiographie du genou de face et de profil, pour traumatisme du genou (critère d'Ottawa présent : âge ≥ 55 ans, douleur de la tête de la fibula ou isolée de la rotule, flexion impossible à 90°, appui impossible sur 4 pas)."]},
  {k:"kine",l:[{t:"Rééducation du genou : 10 séances, renforcement du quadriceps et proprioception, à débuter dès la diminution de la douleur.",opt:true}]},
  {k:"cons",l:[GLACE,"Appui selon la douleur avec les cannes si besoin ; marcher dès que possible.","Reconsulter dans 7 à 10 jours pour réexaminer le genou (laxité plus facile à examiner quand le gonflement a diminué) ; plus tôt si le genou se bloque, se dérobe ou gonfle beaucoup, en cas de fièvre ou de mollet douloureux."]},
 
@@ -6823,10 +6823,18 @@ function examValidate(silent){const ks=Object.keys(state.obsAuto||{}).filter(exa
   state.examTrace={ts:Date.now(),auto:ks.map(sysLab),rm:Object.keys(state.examRm||{}).filter(k=>state.examRm[k]).map(sysLab)};
   try{const p=currentPack();if(p)journalUpsert(p);}catch(e){}if(!silent){render();toast("Examen complet validé");}}
 /* avant toute validation du patient : examen complet non validé → 1er toucher : encadré montré ; 2e toucher (8 s) : examen et patient validés. Jamais de fenêtre système. */
-function examGate(){if(!(excOn()&&currentPack()&&examPending()))return true;
-  if(examGate._w&&Date.now()-examGate._w<8000){examGate._w=0;examValidate(true);return true;}
-  examGate._w=Date.now();const bx=document.querySelector(".obsauto.exc");if(bx){try{bx.scrollIntoView({block:"center",behavior:"smooth"});}catch(e){}bx.classList.add("flash");setTimeout(()=>bx.classList.remove("flash"),1600);}
-  toast("Examen complet à valider : touchez « ✓ Examen complet », ou touchez de nouveau pour valider l'examen et le patient");return false;}
+/* 18/10/2026 (demande du médecin) : valider un patient demande une confirmation — 1er toucher : le bouton devient « Confirmer », 2e toucher (6 s) : validé.
+   Jamais de fenêtre système. Examen complet en attente : signalé au 1er toucher, validé avec le patient au 2e. */
+const VAL_BTNS=["#xp_go","#pb_valid","#pb_valid2","#tc_valid","#tr_valid"];
+function valDisarm(){valGate._w=0;VAL_BTNS.forEach(sel=>document.querySelectorAll(sel).forEach(b=>{if(b.dataset.lbl0!==undefined){b.innerHTML=b.dataset.lbl0;delete b.dataset.lbl0;}b.classList.remove("val-armed");}));}
+function valGate(){const now=Date.now();
+  if(valGate._w&&now-valGate._w<6000){valDisarm();if(excOn()&&currentPack()&&examPending())examValidate(true);return true;}
+  valGate._w=now;const exP=excOn()&&currentPack()&&examPending();
+  VAL_BTNS.forEach(sel=>document.querySelectorAll(sel).forEach(b=>{if(b.dataset.lbl0===undefined)b.dataset.lbl0=b.innerHTML;b.classList.add("val-armed");b.textContent=sel==="#xp_go"?"✓ Confirmer : imprimer et valider":"✓ Confirmer la validation";}));
+  if(exP){const bx=document.querySelector(".obsauto.exc");if(bx){bx.classList.add("flash");setTimeout(()=>bx.classList.remove("flash"),1600);}}
+  toast(exP?"Touchez de nouveau pour confirmer : l'examen complet surligné sera validé avec le patient":"Touchez de nouveau pour confirmer la validation du patient");
+  clearTimeout(valGate._t);valGate._t=setTimeout(()=>{if(valGate._w&&Date.now()-valGate._w>=5900)valDisarm();},6000);return false;}
+function examGate(){return valGate();}
 function examTraceTxt(t){if(!t)return "";const h=new Date(t.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});return "Examen complet validé à "+h+(t.auto.length?" — normaux types : "+t.auto.join(", "):"")+(t.rm.length?" — retirés : "+t.rm.join(", "):"");}
 /* gravité : signe dicté (non nié) ; élément cité dans la gravité de la fiche mais absent de l'examen */
 const GRAV_POS_RE=/nuque\s+(?:un\s+peu\s+|légèrement\s+|très\s+)?raide|raideur\s+(?:de\s+(?:la\s+)?)?nuque|syndrome\s+méningé|signes?\s+méningés?|purpura|marbrures?|cyanose|tirage|geignement|battement\s+des\s+ailes\s+du\s+nez|convulsi\w*|somnolen\w*|léthargi\w*|hypotoni\w*|fontanelle\s+bombée|déshydraté\w*|mastoïdite|décollement\s+du\s+pavillon|paralysie\s+faciale|troubles?\s+de\s+(?:la\s+)?conscience|temps\s+de\s+recoloration\s+(?:allongé|supérieur)|TRC\s*(?:allongé|>\s*3)|déficit\s+moteur\s+(?!des)\w*/gi;
@@ -6938,7 +6946,7 @@ function letData(p){const o=state.obs||{};const a=ageY();const A=letAccord();
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
   examAutoFill();const exam=SYSTEMS.map(([k,l])=>[l,obsVal(k).replace(/[.;\s]+$/,"")]).filter(x=>x[1]);
   const faits=[];if(state.f&&state.f.ecg)faits.push("ECG : "+String(state.f.ecg).trim().replace(/[.;\s]+$/,""));if(state.f&&state.f.lesions)faits.push("lésions constatées : "+String(state.f.lesions).replace(/\n/g," ").trim().replace(/[.;\s]+$/,""));if((state.photos||[]).length)faits.push(state.photos.length+" photographie(s) avec l'accord du patient");
-  const sheets=p.s.map((sh,si)=>({sh,si,lines:state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>({s:printClean(x.fill.s),jr:!!x.jr}))})).filter(x=>x.lines.length);
+  const sheets=p.s.map((sh,si)=>({sh,si,lines:state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>({s:PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s,sh.k):x.fill.s,jr:!!x.jr}))})).filter(x=>x.lines.length);
   const get=k=>sheets.filter(x=>x.sh.k===k).flatMap(x=>x.lines);
   const short=s=>s.split(/ : |, pour |, à réaliser| — /)[0].replace(/\s*\([^)]*\)/g,"").trim();
   const meds=get("med").map(x=>x.jr?short(x.s)+" (ordonnance sécurisée manuscrite)":x.s);
@@ -7175,10 +7183,10 @@ function saInfo(){if(!state.grossesse)return null;const raw=(state.sa||"").trim(
 function saText(){const i=saInfo();return i?i.sa+" SA"+(i.ddr&&i.days?" + "+i.days+" j":"")+", "+i.tri:"";}
 /* Logique automatique à la sélection d'un pack : coche ce qui découle du motif, sans jamais décocher. */
 const PACK_FLAGS=[
- [/grossesse|enceinte|\bSA\b|accouch/i,st=>{if(!st.grossesse){st.grossesse=true;st.sexe="f";return "Grossesse cochée d'après le pack";}}],
- [/allaitement|crevasses|engorgement|mastite/i,st=>{if(!st.allait){st.allait=true;st.sexe="f";return "Allaitement coché d'après le pack";}}],
- [/— femme|femme$|mycose vaginale|vaginose|ménopause|endométriose|contraception|infertilité|\bIVG\b|cystite simple|pyélonéphrite aiguë simple/i,st=>{if(!st.sexe){st.sexe="f";return "Sexe : femme (d'après le pack)";}}],
- [/— homme|homme$|prostat|érection|gynécomastie|hypogonadisme|urétrite/i,st=>{if(!st.sexe){st.sexe="h";return "Sexe : homme (d'après le pack)";}}],
+ /* 18/10/2026 (garde du 18/10, critique) : une fiche ne change JAMAIS le sexe du patient (une fiche grossesse choisie chez un homme le rendait « femme » sans alerte ;
+    une fiche d'urétrite ou de gynécomastie fixait « homme » chez une femme au sexe non renseigné). Sexe inconnu ou contraire : alerte et blocage (sexMismatchHTML). */
+ [/grossesse|enceinte|\bSA\b|accouch/i,st=>{if(!st.grossesse&&st.sexe==="f"){st.grossesse=true;return "Grossesse cochée d'après le pack";}}],
+ [/allaitement|crevasses|engorgement|mastite/i,st=>{if(!st.allait&&st.sexe==="f"){st.allait=true;return "Allaitement coché d'après le pack";}}],
  [/à domicile|\bHAD\b|palliatif|décès/i,st=>{if(st.cot.lieu!=="visite"){st.cot.lieu="visite";return "Cotation : visite à domicile";}}],
 ];
 function autoFlagsFromPack(){const idx=selIdx();idx.forEach(i=>{if(state.ui.flagged[i])return;state.ui.flagged[i]=1;const n=PACKS[i].n;PACK_FLAGS.forEach(([re,fn])=>{if(re.test(n)){const msg=fn(state);if(msg)state.autoNotes.push(msg);}});});
@@ -7189,11 +7197,12 @@ function riskMode(){ if(state.risk==="r") return true; if(state.risk==="s") retu
   if(a&&a.y<2&&selIdx().some(i=>/^Otite moyenne aiguë — enfant|^Syndrome otite-conjonctivite/.test(PACKS[i].n)))return true;
   return state.cot.lieu==="visite"||!!(a&&a.y>=75)||!!state.grossesse; }
 function expand(sh,si){
-  const out=[];
+  const out=[];const _sxn=[];
   sh.l.forEach((l,li)=>{
     const o = typeof l==="string"?{t:l}:l;
     if(o.sr==="r"&&!riskMode()) return; if(o.sr==="s"&&riskMode()) return;
     {const pw=parseFloat(String(state.poids||"").replace(",","."));if(o.wmin&&!(pw>=o.wmin))return;if(o.wmax&&pw>o.wmax)return;} /* forme selon le poids (18/10/2026) */
+    if(state.sexe){const ls=lineSex(o,sh.k,(()=>{try{const c=currentPack();return c&&c.merged?false:!!packSex(c);}catch(e){return false;}})());if(ls&&ls!==state.sexe){_sxn.push("ligne réservée "+sexLab(ls)+" retirée : "+String(o.t).replace(/^(\{[^}]*\})+/,"").split(" :")[0].slice(0,50));return;}}
     if(/\{homme\}/.test(o.t)&&state.sexe==="f") return;
     if(/\{femme\}/.test(o.t)&&state.sexe==="h") return;
     if(state.allergie && o.alt){
@@ -7216,7 +7225,7 @@ function expand(sh,si){
     seenTxt.add(norm(t)); if(m) seenMed.add(key);
     res.push(Object.assign({},x,{t}));
   }
-  ADAPT_NOTES[si]=notes;
+  ADAPT_NOTES[si]=notes.concat(_sxn);
   return res;
 }
 /* Lignes retenues d'une feuille, avec leur statut */
@@ -7224,9 +7233,52 @@ function expand(sh,si){
 const DNOTE_RE=/\s*\((?:(?:si |en cas de |sur avis|autoris|ferritine|nausées|antécéd|patient|allerg|diab|indiqu|préférer|hors |sauf |alternative|à discuter|si besoin de|en relais|en l'absence|si échec|si intolérance|chez le|chez la|ou si )[^()]*|[^()]*(?:antécéd|ferritine|antiépilept|diabèt|insuffisance rénale|hors AMM|non remboursé|sur avis|en relais|si échec|si intolérance|contre-indiqu|déconseill|tube neural|Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|scores?\b|seuils?\b|critères?\b|µmol|mmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes|terrain|indication|vérifier|dernier recours|premier choix|convention|recommandation|approvisionnement|objectif|[≥≤<>])[^()]*)\)/gi;
 /* 16/10/2026 : critères réservés au médecin (score, seuil, DFG, QT, AMM, indication, terrain) jamais imprimés, sur toutes les ordonnances */
 const PRINT_CLEAN_K=["med","dm","ide","kine","para","podo","bio","img","spe"];
+
+/* 18/10/2026 (garde du 18/10) — chaque ligne d'une prescription = « texte imprimé » + « mémo médecin ».
+   Toute parenthèse est un mémo médecin (affiché à l'écran, jamais imprimé), sauf ce qui sert au patient ou au pharmacien :
+   conversion (« soit … »), dose, quantité, durée, horaire, DCI ou classe du médicament, précision d'un dosage biologique, sigle, « ou équivalent », « type … ».
+   « pour <indication> : <raisonnement> » : l'indication courte est gardée, le raisonnement est un mémo. */
+const MEMO_FIRST=/^(?:si|sauf|selon|en cas|à discuter|alternative|en l'absence|hors\s|chez\s)\b|\b(?:suspicion|suspect\w*|éliminer|différencier|distinguer|cause|étiolog\w*|tumeur\w*|cancer|atteinte|syndrome|maladie|femme|homme|enfant|adulte|âgé|terrain|indiqu\w*|indication|cardiopathie|antécédents?|grossesse|procréer|origine|polyglobulie|anémie|vraie|adipomastie|critères?|score|seuil|avant\s+mise|cellulite|grave|sévère|compliqu\w*|échec|second\s+choix|première\s+intention|deuxième\s+intention|mg\/kg|par\s+kilo|contre-indiqu\w*|déconseill\w*|clairance|DFG|insuffisance|AMM|RCP|à\s+corriger|insuffisante?|VEMS|comorbidit\w*|hospitalisation|endémie|souvent|élimination|confirmée?|probable|primo-infection|surinfection|intertrigo|teigne|giardiase|oxyurose|Microsporum|muguet|seringue|pipette|cuillère-mesure)\b|(?:après|plus\s+de|moins\s+de|à\s+partir\s+de)\s+\d+\s*(?:ans?|mois)\b|[≥≤<>]|\s:\s/i;
+const PK_UNIT=/(?:^|[\s,(])(?:±\s*)?\d|\b(?:mg|ml|µg|mcg|g|kg|UI|°C|cm|mm|jours?|semaines?|mois|heures?|minutes?|comprimés?|gélules?|sachets?|bouffées?|doses?|fois|prises?|mesures|paires|déterminations|flacons?|unidoses?|boîtes?|ampoules?|pulvérisations?|injections?)\b/i;
+const PK_WORD=/^(?:soit\b|ou\b|type\b|marque\b|ex\.|dont\b|matin|le matin|soir|à jeun|au coucher|contrôle|pulsée|tulle|antiseptique|émollient|antalgique|antibiotique|antihistaminique|anti-inflammatoire|dermocorticoïde|laxatif|antiacide|gratuit|article\b|ALD\b|ex-|dispersé|dilué|à avaler|à croquer|à sucer|à laisser|une cuillère|bain d'oreille|et lors|masque|embout|coque|bracelet|effet immédiat|à la charge du patient|dans la journée|ongle|visage|tronc|membres?\b|cuir chevelu|plis|pieds?\b|mains?\b)/i;
+const PK_PATIENT=/\b(?:inefficacité|diminue l'efficacité|colore|contient|se lever|en se levant|prévenir|ne pas|pas d'alcool|éviter|attention|somnolence|au volant|conduite|se rincer|jamais plus|sinon|lentilles)\b/i;
+const PK_LAB=/(?:-OH|\banti-|\bTPO\b|TRAb|\bAg\b|\bAc\b|HBs|HBc|Ig[AGME]\b|CKD|TPHA|VDRL|PCR|natrém|kaliém|calcém|natriur|kaliur|chlorur|cholest|HDL|LDL|triglyc|ferrit|glycém|HbA1c|\bNFS\b|plaquettes|créatin|ASAT|ALAT|GGT|\bPAL\b|bilirub|\bTSH\b|\bT[34]\b|\bCRP\b|\bVS\b|BNP|tropon|D-dimères|\bINR\b|\bTCA\b|fibrin|albumin|protéin|urée|phosph|magnés|vitamine|B12|folates|p24|antigène|anticorps|sérologie|tréponém|combiné|IgE|macroprolactine|PEG|corrigée|lipidique|libre|sodium|potassium|chlore|bicarbonat|hydroxybutyrate|cétonémie|hormone|hématocrite|testostérone|VGM|EBNA|VCA|recherche\s+de\s+(?:kystes|parasites|sang)|examen\s+(?:cytobactériologique|direct|parasitologique|mycologique)|culture|grattage|prélèvement)/i;
+const DCI_SUF=/(?:ine|ïne|ole|one|ide|ate|ane|ène|ème|ère|yl|ol|il|ique|ium|mab|pril|sartan|olol|statine|azépam|prazole|cilline|mycine|cycline|floxacine|azole|tidine|dipine|triptan|sétron|lukast|gliptine|gliflozine|parine|xaban|gatran)$/i;
+const NOT_DCI=/^(?:angine|urine|vaccine|routine|origine|poitrine|cuisine|machine|piscine|médecine|marine|semaine|fontaine|guide|aide|vide|rapide|humide|stérile|pommade|crème|solution|zone|ligne|veine|racine|toxine|protéine|hormone|coque|plaque|lésion|cavité|caféine)$/i;
+let _dciW=null,_dciK="";
+function dciWords(){const k=PACKS.length+"|"+(typeof BDPM!=="undefined"&&BDPM&&BDPM.ts||0);if(_dciW&&_dciK===k)return _dciW;let w;try{w=aiMedWords();}catch(e){w=new Set();}_dciK=k;return _dciW=w;}
+function isDciList(t){const W=dciWords();const toks=t.split(/[\s,+\/\-]+/).filter(Boolean);let n=0,ok=0;for(const x0 of toks){const x=x0.replace(/[.;:]+$/,"");let k;try{k=anonNorm(x);}catch(e){k=x.toLowerCase();}
+    if(/^(et|de|du|des|la|le|les|acide|sodique|potassique|base|à|a|en|l|d|solvant|sous-citrate|olamine|trométamol|bismuth|chlorhydrate|magnésium|calcium|sel)$/i.test(k))continue;n++;if(W.has(k)||(DCI_SUF.test(x)&&!NOT_DCI.test(x)&&x.length>5))ok++;}
+  return n>0&&ok===n;}
+/* k : feuille. Médicament, biologie, imagerie : liste blanche. Kinésithérapie, soins infirmiers, dispositifs, paramédical : le protocole est gardé, seuls les critères du prescripteur partent. */
+function parenKeep(c,k){const t=String(c||"").trim();if(!t)return false;
+  if(/^soit\b/i.test(t))return true;
+  if(/\d+\s*%/.test(t)&&!/DFG|VEMS|clairance|contre-indiqu|FEVG/i.test(t))return true;
+  if(["kine","ide","dm","podo","para","spe"].includes(k||"")){try{DNOTE_RE.lastIndex=0;if(DNOTE_RE.test("("+t+")"))return false;}catch(e){}return !/^(?:si|sauf|indiqu)|\b(?:indiqué|indication|critères?|score|seuil|contre-indiqu\w*|antécédents?|suspicion|éliminer|différencier)\b/i.test(t);}
+  if(PK_PATIENT.test(t)&&!/^(?:si|sauf|indiqu)/i.test(t)&&!/contre-indiqu|déconseill|DFG|clairance/i.test(t))return true;
+  if(MEMO_FIRST.test(t))return false;
+  if(PK_WORD.test(t))return true;
+  if(PK_UNIT.test(t))return true;
+  if(PK_LAB.test(t))return true;
+  if(/^[A-ZÀ-Ý0-9][A-ZÀ-Ý0-9 \-+\/,.'’]{0,40}$/.test(t))return true; /* sigle ou marques : MAPA, ORL, TPHA-VDRL, XÉMOSE, DEXERYL */
+  if(isDciList(t))return true; /* DCI : (ibuprofène), (cotrimoxazole), (amoxicilline-acide clavulanique) */
+  return false;}
+const POUR_MEMO=/(,\s*pour\s+[^:;.()]{2,60}?)\s*:\s*((?:différencier|distinguer|éliminer|rechercher une cause|confirmer)[^.;]*)/gi;
+function memoSplit(s,k){s=String(s==null?"":s);const m=[];
+  const dn=x=>{try{DNOTE_RE.lastIndex=0;return DNOTE_RE.test("("+x+")");}catch(e){return false;}};
+  let p=s.replace(/\s*\(([^()]*)\)/g,(all,c)=>{
+    if(/;/.test(c)){const parts=c.split(/\s*;\s*/).filter(Boolean);const keep=[];parts.forEach(x=>{if(parenKeep(x,k)&&!dn(x))keep.push(x);else m.push(x.trim());});return keep.length?" ("+keep.join(" ; ")+")":"";}
+    if(parenKeep(c,k))return all;m.push(c.trim());return "";});
+  p=p.replace(POUR_MEMO,(all,a,b)=>{m.push(b.trim());return a;});
+  try{DNOTE_RE.lastIndex=0;p=p.replace(DNOTE_RE,x=>{m.push(x.trim().replace(/^\(|\)$/g,""));return "";});}catch(e){}
+  p=p.replace(/\s{2,}/g," ").replace(/\s+([.,;])/g,"$1").replace(/,\s*\./g,".").replace(/,\s*$/,"").trim();
+  return {p,m};}
 function hasDnote(s){DNOTE_RE.lastIndex=0;return DNOTE_RE.test(s);}
-function printClean(s){return String(s).replace(DNOTE_RE,"").replace(/\s{2,}/g," ").replace(/\s+([.,;])/g,"$1").trim();}
-function screenNote(s){return esc(s).replace(/\s*\((?:(?:si |en cas de |sur avis|autoris|ferritine|nausées|antécéd|patient|allerg|diab|indiqu|préférer|hors |sauf |alternative|à discuter|si besoin de|en relais|en l'absence|si échec|si intolérance|chez le|chez la|ou si )[^()]*|[^()]*(?:antécéd|ferritine|antiépilept|diabèt|insuffisance rénale|hors AMM|non remboursé|sur avis|en relais|si échec|si intolérance|contre-indiqu|déconseill|tube neural)[^()]*)\)/gi,m=>'<span class="dnote" title="Note pour le médecin, non imprimée">'+m+'</span>');}
+function printClean(s,k){return memoSplit(s,k||"med").p;}
+function screenNote(s,k){s=String(s==null?"":s);const out=[];let last=0;const re=/\s*\(([^()]*)\)/g;let mm;
+  while((mm=re.exec(s))){out.push(esc(s.slice(last,mm.index)));out.push(parenKeep(mm[1],k)?esc(mm[0]):'<span class="dnote" title="Mémo médecin, jamais imprimé">'+esc(mm[0])+'</span>');last=mm.index+mm[0].length;}
+  out.push(esc(s.slice(last)));const h=out.join("");
+  return h.replace(/(,\s*pour\s+[^:;.()<]{2,60}?)(\s*:\s*(?:différencier|distinguer|éliminer|rechercher une cause|confirmer)[^.;<]*)/gi,(a,x,y)=>x+'<span class="dnote" title="Mémo médecin, jamais imprimé">'+y+'</span>');}
 /* 17/10/2026 (essai réel : fiche adulte appliquée à une enfant de 3 ans) — tranche d'âge de chaque ligne de médicament :
    « tous » si la dose suit l'âge ou le poids (gabarits enfant) ou si la ligne vise l'enfant ; « adulte » si la dose est fixe (mg, g, %, comprimé…) ;
    chez l'enfant (< 15 ans), une ligne « adulte » est décochée par défaut et signalée ; le médecin peut la recocher. */
@@ -7463,7 +7515,7 @@ function sexAccord(t){t=String(t==null?"":t);const f=state.sexe==="f",h=state.se
     .replace(/\bpatient\(e\)/g,"patiente").replace(/\(e\)/g,"e").replace(/\(ne\)/g,"ne").replace(/\(le\)/g,"le").replace(/\bdu patient\b/g,"de la patiente").replace(/\bau patient\b/g,"à la patiente")
     .replace(/\b([Ll])e patient\b/g,(m,a)=>a==="L"?"La patiente":"la patiente").replace(/\b([Cc])e patient\b/g,(m,a)=>a==="C"?"Cette patiente":"cette patiente").replace(/\bIl n'a\b/g,"Elle n'a");
   return t.replace(/\b([Ll])e\/la\b/g,(m,a)=>a==="L"?"Le":"le").replace(/\b([Ii])l\/elle\b/g,(m,a)=>a==="I"?"Il":"il").replace(/\b([Ll])ui\/elle\b/g,(m,a)=>a==="L"?"Lui":"lui").replace(/\bpatient\(e\)/g,"patient").replace(/\((?:e|ne|le)\)/g,"");}
-function neLe(){return state.sexe==="f"?"née le ":state.sexe==="h"?"né le ":"né(e) le ";}
+function neLe(){return state.sexe==="f"?"née le ":state.sexe==="h"?"né le ":"date de naissance : ";} /* 18/10/2026 : jamais « né(e) » ; sexe inconnu → formule neutre */
 /* constantes aberrantes (faute de dictée ou de saisie) : signalées à l'écran avant impression, jamais bloquantes */
 function cstAbnormal(){const c=state.cst||{};const out=[];const num=v=>parseFloat(String(v).replace(",","."));
   if(c.ta){const m=/(\d{2,3})\s*[\/-]\s*(\d{1,3})/.exec(String(c.ta));if(!m)out.push("TA « "+c.ta+" » illisible");else{const a=+m[1],b=+m[2];if(a<60||a>260||b<30||b>150||b>=a)out.push("TA "+a+"/"+b+" mmHg");}}
@@ -16077,7 +16129,7 @@ function renderCore(){XP.dict=false;
         : `<input type="checkbox" data-line="${x.key}" ${x.on?"checked":""}>`;
       const del=x.extra!==undefined?` <button class="del" data-del="${si}" data-i="${x.extra}" type="button" title="Retirer">×</button>`:"";
       const edb=` <button type="button" class="edl${x.fill.edited?" on":""}" data-ed="${si}" data-k="${esc(x.key)}" title="${x.fill.edited?"Texte modifié pour ce patient — clic pour rétablir":"Modifier le texte de cette ligne pour ce patient"}">${x.fill.edited?"↺":"✎"}</button>`;
-      items+=`<li class="${miss.length?"gone":""}${x.on?"":" off"}${x.fill.edited?" edited":""}" data-li="${si}|${esc(x.key)}">${ctrl} <span class="lt">${sh.k==="med"?screenNote(s):esc(s)}</span>${edb}${del}${(sh.k==="med"&&x.on)?ansmBadge(s):""}${x.jr?' <span class="pcd" title="Jamais imprimée : inscrite au journal et au compte rendu si cochée">journal + CR</span>':""}</li>`;
+      items+=`<li class="${miss.length?"gone":""}${x.on?"":" off"}${x.fill.edited?" edited":""}" data-li="${si}|${esc(x.key)}">${ctrl} <span class="lt">${PRINT_CLEAN_K.includes(sh.k)?screenNote(s,sh.k):esc(s)}</span>${edb}${del}${(sh.k==="med"&&x.on)?ansmBadge(s):""}${x.jr?' <span class="pcd" title="Jamais imprimée : inscrite au journal et au compte rendu si cochée">journal + CR</span>':""}</li>`;
     });
     const libre=(T.txt&&sh.k!=="cert")?"":`<div class="libre"><input data-libre="${si}" id="fl_${si}" value="${esc(state.libre[si]||"")}" autocomplete="off" placeholder="${({med:"Ajouter : tape un médicament (vento, augm…) ou un texte libre, puis Entrée",img:"Ajouter un examen : radio main droite, écho abdo, IRM genou…",bio:"Ajouter : TSH, D-dimères, bilan préop, grossesse…",kine:"Ajouter : kiné respiratoire, orthophonie, transport, infirmier…",para:"Ajouter : kiné, orthophonie, orthoptie, transport, infirmier…",ide:"Ajouter : IM, SC, sang, pansement, insuline, perf, pilulier…",dm:"Ajouter : bas de contention, collier, attelle, nébuliseur…",cert:"Ajouter un certificat : sport, école, report, voyage…"})[sh.k]||"Ajouter une ligne, puis Entrée"}"><div class="sugg" id="sg_${si}"></div></div>`;
     html+=`<div class="sheet" style="--c:${T.c}"><div class="hd"><label><input type="checkbox" data-sheet="${si}" ${on?"checked":""}> ${T.t}</label><span class="tp">${T.lbl}</span><button class="mini" data-all="${si}" type="button">Tout cocher</button><button class="mini" data-clear="${si}" type="button">Tout décocher</button></div><ul class="lines">${items}</ul>${libre}</div>`;
@@ -16102,7 +16154,7 @@ function renderCore(){XP.dict=false;
   const warn=missing.size?`<div class="warn">Pour imprimer sans trou, renseigne : ${[...missing].join(", ")}. Les lignes barrées seraient retirées de la feuille.</div>`:"";
   const alerts=checkAlerts(p.s);
   const thesList=thesAlerts(p.s);const thesBox=thesBoxHTML(thesList);const alerts2=alerts.filter(x=>!/^(⛔|⚠) /.test(x));
-  const alertBox=cstAbnormalHTML()+(!state.sexe&&(state.ddn||p.s.some(sh=>["let","cert"].includes(sh.k)))?`<div class="alert sexmiss">Sexe du patient non renseigné : les documents porteront « né(e) » et les accords en « (e) ». Précisez-le (champ « Sexe »).</div>`:"")+ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
+  const alertBox=cstAbnormalHTML()+(!state.sexe&&(state.ddn||p.s.some(sh=>["let","cert"].includes(sh.k)))?`<div class="alert sexmiss">Sexe du patient non renseigné : les documents porteront « date de naissance » (jamais « né(e) ») et les accords en « (e) ». Précisez-le (champ « Sexe »).</div>`:"")+sexMismatchHTML()+ageMismatchHTML()+(alerts2.length?`<div class="alert"><b>Vérifier avant d'imprimer</b><ul>${alerts2.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")+thesBox;
   const adaptAll=[...new Set([...(state.autoNotes||[]),...Object.values(ADAPT_NOTES).flat()])];
   const adaptBox=adaptAll.length?`<div class="adapt">Adapté automatiquement à l'âge et au poids : ${adaptAll.map(esc).join(" · ")}</div>`:"";
   const multiNote=p.merged?`<div class="hint" style="margin:0 0 10px;display:none">Packs combinés : les lignes identiques n'apparaissent qu'une fois ; antibiotiques et antalgiques de palier 2 forment un seul choix. Le bouton – dans la liste retire un pack.</div>`:"";
@@ -16143,13 +16195,13 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   document.querySelectorAll("[data-f]").forEach(e=>{e.oninput=()=>{state.f[e.dataset.f]=e.value;softRender();};});
   document.querySelectorAll("[data-libre]").forEach(e=>{
     const si=e.dataset.libre, box=$("#sg_"+si);
-    const addLine=t=>{(state.extra[si]=state.extra[si]||[]).push(t);state.libre[si]="";render();const n=$("#fl_"+si);if(n)n.focus();};
+    const addLine=(t,free)=>{if(free)t=normFreeLine(t);(state.extra[si]=state.extra[si]||[]).push(t);state.libre[si]="";render();const n=$("#fl_"+si);if(n)n.focus();};
     const show=()=>{const q=norm(e.value.trim());box.innerHTML="";if(q.length<2)return;const kind=currentPack().s[si].k;const cat=catFor(kind);const words=q.split(/\s+/);const hay=m=>norm(m.n+" "+(m.k||"")+" "+(m.a||""));const tok=m=>hay(m).split(/[^a-z0-9]+/);const list=cat.filter(m=>words.every(w=>kind==="ide"?tok(m).some(a=>a.startsWith(w)):hay(m).includes(w))).slice(0,10);
       const anticoag=isAnticoagPatient();if(anticoag&&list.some(m=>m.ci==="anticoag")){cat.filter(m=>/sous-cutanée/.test(m.n)&&!list.includes(m)).reverse().forEach(m=>list.unshift(m));}list.sort((x,y)=>((anticoag&&x.ci==="anticoag")?1:0)-((anticoag&&y.ci==="anticoag")?1:0));
       list.forEach(m=>{const t=(m.e!==undefined&&m.e!==null)?medLine(m):m.a;const b=document.createElement("button");b.type="button";const ci=anticoag&&m.ci==="anticoag";b.className="sg"+(ci?" ci":"");b.innerHTML="<b>"+esc(m.n)+(ci?' <span class="cib">Contre-indiqué : patient sous anticoagulant → voie sous-cutanée</span>':"")+"</b><small>"+esc(fill(t).s.slice(0,110))+"</small>";b.onmousedown=ev=>{ev.preventDefault();if(ci)toast("Contre-indiqué sous anticoagulant (hématome) : voie sous-cutanée proposée. Ligne ajoutée : vous déciderez à l'impression.");addLine(t);};box.appendChild(b);});};
     e.oninput=()=>{state.libre[si]=e.value;show();};
     e.onfocus=show; e.onblur=()=>setTimeout(()=>{box.innerHTML="";},150);
-    e.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();const f=box.querySelector(".sg:not(.ci)")||box.querySelector(".sg");const q=e.value.trim();if(f)f.onmousedown(ev);else if(q)addLine(q);}if(ev.key==="Escape")box.innerHTML="";};
+    e.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();const f=box.querySelector(".sg:not(.ci)")||box.querySelector(".sg");const q=e.value.trim();if(f)f.onmousedown(ev);else if(q)addLine(q,true);}if(ev.key==="Escape")box.innerHTML="";};
   });
   document.querySelectorAll("[data-ed]").forEach(b=>{b.onclick=()=>{const si=b.dataset.ed,key=b.dataset.k;state.edits=state.edits||{};
     if(b.classList.contains("on")){delete state.edits[si][key];render();return;}
@@ -16248,6 +16300,7 @@ function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":
 
 async function printPack(){try{xpCancelBuild();}catch(e){}
   const p=currentPack(); if(!p){toast("Choisissez d'abord une fiche (motif) : rien à imprimer pour l'instant.");return;}
+  {const sc=sexConflict();if(sc.length){toast("Impression bloquée : fiche « "+sc[0].p.n+" » réservée "+sexLab(sc[0].sx)+". Changez de fiche ou corrigez le sexe.");render();return;}}
   const alerts=checkAlerts(p.s);
   const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack());return;} /* 16/10/2026 : Packs conseille, le médecin décide */
   if(!state.patient&&!p.nopatient){alert("Renseigne le nom du patient avant d'imprimer.");$("#f_patient").focus();return;}
@@ -16271,6 +16324,7 @@ function withExtra(c,fn){
   return r;
 }
 function buildPages(p,withAnnex){
+  if(sexConflict().length)return {out:"",removed:[]}; /* 18/10/2026 : fiche réservée à l'autre sexe → aucun document */
   let out="", removed=[];
   p.s.forEach((sh,si)=>{
     if(state.off[si]) return;
@@ -16279,7 +16333,7 @@ function buildPages(p,withAnnex){
     const all=resolve(sh,si);
     all.filter(x=>x.on&&x.fill.miss.length).forEach(x=>removed.push(T.lbl+" : "+x.t.replace(/\{[^}]*\}/g,"…")+" — manque : "+x.fill.miss.join(", ")));
     const DOCK=["let","cons","cert"].includes(sh.k)||!!T.txt;const dctx=DOCK?docCtx(p):null;
-    let items=all.filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>({t:PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s):x.fill.s,src:x.src}));
+    let items=all.filter(x=>x.on&&!x.fill.miss.length&&!x.jr).map(x=>({t:PRINT_CLEAN_K.includes(sh.k)?printClean(x.fill.s,sh.k):x.fill.s,src:x.src}));
     if(DOCK)items=items.map(x=>({t:sexAccord(docFact(x.t,dctx)),src:x.src})).filter(x=>x.t);
     if(sh.k==="cons"){const dl=medDoseLines(p);if(dl.length)items=[...dl.map(t=>({t,src:items.length?items[0].src:undefined})),...items];} /* 18/10/2026 : doses en ml et en mg aussi dans les conseils */
     const lines=items.map(x=>x.t);
@@ -16328,7 +16382,7 @@ async function finishPrint(p,out,removed){
   document.body.classList.add("printing");
   const back=()=>{pdfCancel();document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";};
   const _pb=$("#pb_back");if(_pb)_pb.onclick=back;const _pb2=$("#pb_back2");if(_pb2)_pb2.onclick=back;
-  const _valid=()=>{back();patientValidate();};["#pb_valid","#pb_valid2"].forEach(id=>{const b=$(id);if(b)b.onclick=_valid;});
+  const _valid=()=>{if(!valGate())return;back();patientValidate(true);};["#pb_valid","#pb_valid2"].forEach(id=>{const b=$(id);if(b)b.onclick=_valid;});
   const _print=printNow;PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;
   if(phone){$("#pb_send").onclick=pdfSend;$("#pb_pdf").onclick=pdfSave;}
   else{$("#pb_print").onclick=_print;$("#pb_print2").onclick=_print;$("#pb_pdf").onclick=pdfSave;$("#pb_pdf2").onclick=pdfSave;}
@@ -16361,7 +16415,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41r",branch:"main",date:"18/10 17:41"};
+const APP_BUILD={v:"41s",branch:"main",date:"18/10 20:16"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16616,6 +16670,19 @@ function aiMedWords(){const key=[PACKS.length,BDPM&&BDPM.ts||0,ANSM&&ANSM.ts||0]
   try{if(BDPM&&BDPM.rows)BDPM.rows.forEach(r=>addW(first(brandKey(String(r).split("|")[0]))));}catch(e){}
   try{if(ANSM&&ANSM.fw)Object.keys(ANSM.fw).forEach(addW);}catch(e){}
   _aiMedKey=key;return _aiMed=s;}
+/* 18/10/2026 : ligne en texte libre — majuscule initiale ; nom commercial reconnu dans la base (intégrée, catalogue, BDPM importée) écrit en majuscules ; DCI et autres mots tels quels */
+let _brW=null,_brK="";
+function brandWords(){const key=[PACKS.length,BDPM&&BDPM.ts||0].join("|");if(_brW&&_brK===key)return _brW;const b=new Set(),d=new Set();const n=w=>{try{return anonNorm(w).replace(/[.,;:]+$/,"");}catch(e){return String(w).toLowerCase();}};const first=k=>String(k||"").trim().split(/\s+/)[0];
+  const dci=t=>String(t||"").split(/[\s,()+\/]+/).forEach(w=>{const k=n(w);if(k.length>=3)d.add(k);});
+  try{Object.values(BUILTIN_BRAND).forEach(a=>(a||[]).forEach(dci));}catch(e){}try{DRUGBASE.forEach(x=>dci(x.d));}catch(e){}try{THES_NAMES.forEach(dci);}catch(e){}
+  const add=w=>{const k=n(w);if(k.length>=4&&!/^\d/.test(k)&&!d.has(k))b.add(k);};
+  try{BUILTIN_KEYS.forEach(k=>add(first(k)));}catch(e){}try{DRUGBASE.forEach(x=>add(first(brandKey(x.n)||x.n)));}catch(e){}try{MEDS.forEach(m=>{const f=first(m.n);if(f===f.toUpperCase())add(f);});}catch(e){}
+  try{if(BDPM&&BDPM.rows)BDPM.rows.forEach(r=>add(first(brandKey(String(r).split("|")[0]))));}catch(e){}
+  ["pour","avec","sans","matin","soir","jour","jours","dans","plus","gelule","comprime","sachet","creme","pommade","solution","sirop","flacon","boite"].forEach(x=>b.delete(x));
+  _brK=key;return _brW=b;}
+function normFreeLine(t){let s=String(t||"").replace(/\s+/g," ").trim();if(!s)return s;const B=brandWords();
+  s=s.replace(/[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*/g,w=>{let k;try{k=anonNorm(w);}catch(e){k=w.toLowerCase();}return B.has(k)?w.toUpperCase():w;});
+  return s.charAt(0).toUpperCase()+s.slice(1);}
 let _aiCour=null;
 function aiCourants(){aiLexique();return _aiCour;}
 function aiLexique(){if(_aiLex)return _aiLex;const s=new Set(),c=new Set();const add=t=>{(String(t||"").match(/[A-Za-zÀ-ÖØ-öø-ÿŒœ][A-Za-zÀ-ÖØ-öø-ÿŒœ'’\-]+/g)||[]).forEach(w=>{const k=anonNorm(w);s.add(k);k.split(/[-']/).forEach(x=>x.length>1&&s.add(x));if(w===w.toLowerCase())c.add(k);});};_aiCour=c;
@@ -17039,6 +17106,29 @@ function ageMismatch(){const a=ageY();if(!a)return [];const child=a.y<15;const o
     const m=/\s+—\s+(adulte|enfant|nourrisson)$/i.exec(p.n);if(!m)return;const v=m[1].toLowerCase();
     if(child&&v==="adulte"||!child&&(v==="enfant"||v==="nourrisson")){const base=p.n.replace(AGE_VAR_RE,"");const want=child?(a.m<24?["nourrisson","enfant"]:["enfant","nourrisson"]):["adulte"];
       let j=-1;for(const w of want){j=PACKS.findIndex(q=>q.n===base+" — "+w);if(j>=0)break;}out.push({i,j,from:p.n,to:j>=0?PACKS[j].n:""});}});return out;}
+/* ===== 18/10/2026 (garde du 18/10, CRITIQUE) — fiches et lignes réservées à un sexe =====
+   Fiche (attribut « sexe » ou nom) appliquée au mauvais sexe : alerte rouge et impression bloquée. Sexe non renseigné : alerte, un toucher pour le fixer.
+   Ligne réservée (attribut « sexe », libellé « (femme) » / « (homme) », ou contenu : test de grossesse, ovule, frottis… / PSA, prostate, testicule…) : jamais proposée ni imprimée pour l'autre sexe. */
+const SEX_PACK_F=/grossesse|enceinte|contracep|pilule|vagin|vulv|gynéco(?!mastie)|métrorragie|douleur pelvienne|dysménor|\brègles\b|ménopause|endométr|salping|post-partum|allaitement|mastite|\bIVG\b|— femme\b/i;
+const SEX_PACK_H=/gynécomastie|masculin|andropause|testic|\bbourses?\b|orchi|épididym|prostat|balanite|phimosis|érection|érectile|— homme\b/i;
+const SEX_PACK_MIX=/homme\s*\/\s*femme|femme\s*\/\s*homme|selon le sexe|couple|\bIST\b/i;
+function packSex(p){if(!p)return "";if(p.sexe==="h"||p.sexe==="f")return p.sexe;const n=p.n||"";if(SEX_PACK_MIX.test(n))return "";if(SEX_PACK_H.test(n))return "h";if(SEX_PACK_F.test(n))return "f";return "";}
+/* contenu : seulement le début de la ligne (ce qui est prescrit), sur les feuilles de prescription, hors fiches déjà réservées */
+const SEX_HEAD_F=/^(?:test\s+(?:urinaire\s+)?de\s+grossesse|b[ée]ta-?hcg\s+urinaires?|frottis\s+(?:cervico|du\s+col)|test\s+HPV|échographie\s+(?:pelvienne|endovaginale|obstétricale)|suivi\s+de\s+grossesse|[A-ZÀ-Ý0-9][A-ZÀ-Ý0-9 ,.%\/-]*\bovules?\b)/i;
+const SEX_HEAD_H=/^(?:PSA\b|dosage\s+du\s+PSA|échographie\s+(?:testiculaire|scrotale|des\s+bourses|prostatique|de\s+la\s+prostate)|spermogramme)/i;
+function lineSex(o,k,packHas){if(!o)return "";if(o.sexe==="h"||o.sexe==="f")return o.sexe;const t=String(o.t||"");if(!PRINT_CLEAN_K.includes(k||"")&&k!=="cons")return "";
+  {let lh=false,lf=false;const re=/\((?:chez\s+(?:l'|la\s+|le\s+))?(homme|garçon|femme|fille)\b([^()]*)\)/gi;let m;
+   while((m=re.exec(t))){const rest=m[2]||"";if(/\b(?:homme|garçon|femme|fille|enfant|adolescent|nourrisson)\b|\bou\b/i.test(rest.replace(/\bhommes\b/i,"")))continue;if(/homme|garçon/i.test(m[1]))lh=true;else lf=true;}
+   if(lh&&!lf)return "h";if(lf&&!lh)return "f";}
+  if(packHas||!PRINT_CLEAN_K.includes(k||""))return "";
+  const head=t.replace(/^(\{[^}]*\})+/,"").trim();if(SEX_HEAD_F.test(head))return "f";if(SEX_HEAD_H.test(head))return "h";return "";}
+function sexLab(x){return x==="h"?"aux hommes":"aux femmes";}
+function sexPacks(){return selIdx().map(i=>PACKS[i]).filter(Boolean).map(p=>({p,sx:packSex(p)})).filter(x=>x.sx);}
+function sexConflict(){if(!state.sexe)return [];return sexPacks().filter(x=>x.sx!==state.sexe);}
+function sexMismatchHTML(){const c=sexConflict();const u=state.sexe?[]:sexPacks();
+  return c.map(x=>`<div class="alert ci sexmis" role="alert"><b>⛔ Fiche « ${esc(x.p.n)} » réservée ${sexLab(x.sx)}, ${state.sexe==="f"?"patiente femme":"patient homme"}.</b> Impression bloquée : changez de fiche, ou corrigez le sexe si l'erreur est là. <button type="button" class="btn s sm" data-sexfix="${x.sx}">Le patient est ${x.sx==="h"?"un homme":"une femme"}</button></div>`).join("")
+   +u.map(x=>`<div class="alert sexmis"><b>Fiche « ${esc(x.p.n)} » réservée ${sexLab(x.sx)} : sexe du patient non renseigné.</b> <button type="button" class="btn s sm" data-sexfix="${x.sx}">${x.sx==="h"?"Homme":"Femme"}</button></div>`).join("");}
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-sexfix]");if(!b)return;state.sexe=b.dataset.sexfix;if(state.sexe==="h"){state.grossesse=false;state.allait=false;}state.gs={};render();toast(state.sexe==="h"?"Sexe : homme":"Sexe : femme");});
 function ageMismatchHTML(){const mm=ageMismatch();if(!mm.length)return "";const a=ageY();const age=a.m<24?a.m+" mois":a.y+" ans";
   return mm.map(x=>`<div class="alert agemis"><b>Fiche « ${esc(x.from)} » pour un patient de ${esc(age)}.</b> ${x.old?"Cette fiche vise les patients de 65 ans et plus : vérifiez qu'elle convient.":x.adult?"Fiche prévue pour l'adulte : "+(x.meds&&x.meds.length?"médicaments non adaptés à l'âge décochés ("+x.meds.map(esc).join(", ")+") ; ":"")+"vérifiez aussi rééducation, examens et consignes avant d'imprimer.":"Les doses suivent l'âge et le poids réels ; le compte rendu ne reprend pas la variante d'âge."}${x.to?` <button type="button" class="btn p sm" data-agesw="${x.i}|${x.j}">Passer à « ${esc(x.to)} »</button>`:""}</div>`).join("");}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-agesw]");if(!b)return;const [i,j]=b.dataset.agesw.split("|").map(Number);let cur=selIdx().filter(x=>x!==i&&x!==j);cur.push(j);state.sel=cur.length===1?cur[0]:cur;state.off={};state.lo={};state.gs={};state.edits={};state.extra={};render();try{search($("#q").value);}catch(e){}toast("Fiche adaptée à l'âge : "+PACKS[j].n+" (observation conservée)");});
@@ -17331,7 +17421,7 @@ function xpAge(ddn){const d=anonParseDDN?anonParseDDN(ddn):null;if(!d)return "";
 function xpGravite(p){if(!p)return "";const m=p.s.find(s=>s.k==="memo");if(!m)return "";const L=m.l.map(l=>typeof l==="string"?l:l.t);
   let g=L.find(t=>/^Gravit/i.test(t))||"";
   if(!g){/* fiches sans ligne « Gravité : » : premier critère d'orientation (→ 15, → urgences) ou de gravité du mémo */
-    const cl=L.join(" ; ").replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").split(/\s*;\s*|(?<=\.)\s+(?=[A-ZÀ-Ý])/);g=cl.find(t=>/→\s*(?:le\s*)?(?:15|urgences|SAMU|SMUR)|gravit|grave/i.test(t))||"";}
+    const cl=L.join(" ; ").replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").split(/\s*;\s*|(?<=\.)\s+(?=[A-ZÀ-Ý])/);g=cl.find(t=>/→\s*(?:le\s*)?(?:15|urgences|SAMU|SMUR)|gravit|\bgrave\b/i.test(t))||"";}
   return g.replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").replace(/^Gravit[ée]\s*(?:et orientation)?\s*:\s*/i,"").trim();}
 /* ---- a. résumé d'une ligne par médicament (nom, dose, rythme, durée) ; dose au poids toujours visible ---- */
 function xpMeds(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}
@@ -17339,6 +17429,7 @@ function xpMeds(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=
     let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{agemin:[^}]*\}/g,"").replace(/\{[^}]*\}/g,"…")).trim();out.push({t,w,miss,why:miss?x.fill.miss.join(", "):""});});});return out;}
 function xpNeedsW(p){if(!p)return false;return p.s.some(sh=>sh.k==="med"&&sh.l.some(l=>{const t=typeof l==="string"?l:l.t;return XP_WRE.test(t)||XP_ANTICOAG.test(t);}));}
 function xpPending(p){const why=[];if(!p)return why;if(!state.patient)why.push("nom du patient");
+  {const sc=sexConflict();if(sc.length)why.push("fiche réservée "+sexLab(sc[0].sx)+" (impression bloquée)");}
   try{const al=ciPending(checkAlerts(p.s));if(al.length)why.push(al.length>1?al.length+" alertes à décider":"1 alerte à décider");}catch(e){}
   try{if(ciLegal(p).length)why.push("règle de forme ou ligne incomplète");}catch(e){}
   {const M=xpMeds(p).filter(m=>m.miss);if(M.some(m=>/^poids/.test(m.why)))why.push("dose au poids : poids manquant");if(M.some(m=>/âge/.test(m.why)))why.push("médicament sous l'âge minimal");}
@@ -17373,7 +17464,7 @@ function xpToast(msg,undo){let x=document.getElementById("xptoast");if(!x){x=doc
   const u=x.querySelector("#xp_undo");if(u)u.onclick=()=>{x.classList.remove("on");patientUndo();};
   clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),undo?10000:3500);}
 function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche.");return;}
-  {const why0=xpPending(p);if(!why0.length&&!examGate())return;}
+  {const why0=xpPending(p);if(!why0.length&&!valGate())return;}
   const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
   const why=xpPending(p);
   if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack();return;}
@@ -17390,7 +17481,7 @@ function xpAfterPrint(){if(!XP.auto)return;XP.auto=false;const p=currentPack();t
 function xpValidate(p,n,txt,cp,printed){
   if(!printed){if(!TESTMODE){try{journalUpsert(p);for(const c of (state.copat||[]).filter(c=>c.patient))withExtra(c,pk=>journalUpsert(pk));}catch(e){}}}
   state.lastPrint={n:n||state.lastPrint&&state.lastPrint.n||0,sent:true,ts:Date.now()};
-  const who=state.patient||"patient";patientValidate();
+  const who=state.patient||"patient";patientValidate(true);
   try{if(VALID.hist[0]){VALID.hist[0].crTxt=txt;validSave();}}catch(e){}
   XP.file=null;XP.key="";
   patientNext();VALID.undoUntil=Date.now()+10000;try{const t=document.getElementById("toast");if(t)t.classList.remove("on");}catch(e){}xpToast(cp+" · "+who+" validé",true);}
@@ -17434,7 +17525,7 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
 /* alertes : fixées dans l'Express (jamais bloquantes) */
 function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}
   try{L.push(...examGravAlerts(p));}catch(e){}
-  try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « né(e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
+  try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=sexMismatchHTML()+cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « date de naissance » et accords en « (e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale|gravité/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
   return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — "+esc(/^poids/.test(m.why)?"poids manquant":"non imprimé : "+m.why):""}</div>`).join("")}</div>`:""}
@@ -17488,7 +17579,7 @@ document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.clos
    (sur l'appareil avec la clé du journal, dans profil.json avec la phrase maître). Un favori n'apparaît que si le choix précédent l'appelle
    (élément absent ou masqué dans le mode complet → absent de l'Express). Sécurité fixée, sans étoile : gravité, résumé des doses, alertes,
    poids si enfant ou dose au poids. */
-const FAV_DEFAULT=["x:nav","x:call","f:f_gross","x:cem","sec:at","x:docs","sec:cot","x:dict"];
+const FAV_DEFAULT=["x:nav","x:call","f:f_gross","x:cem","sec:at","x:docs","sec:cot","x:dict","btn:tc_view"];
 const FAV={keys:null};
 const FAV_RULES=[
   [".pcard .patient > div",e=>{const i=e.querySelector("input,select");return i&&i.id?"f:"+i.id:"";},e=>{const l=e.querySelector("label");return l?l.childNodes[0].textContent.trim():"";}],
@@ -17508,12 +17599,14 @@ const FAV_RULES=[
   ["#go_only",()=>"btn:go_only",()=>"Imprimer"]];
 /* éléments rendus par l'Express lui-même (version compacte) ; les autres favoris sont les éléments du mode complet, déplacés */
 const FAV_NATIVE=new Set(["x:nav","x:call","f:f_gross","x:cem","sec:at","x:docs","sec:cot","x:dict","f:f_poids"]);
-function favKeys(){return FAV.keys||FAV_DEFAULT;}
+function favKeys(){return (FAV.keys||FAV_DEFAULT).filter(k=>!/^mig:/.test(k));}
 function favHas(k){return favKeys().includes(k);}
 function favProf(){try{return IDENT.on&&IDENT.kitId?IDENT.kitId:"specimen";}catch(e){return "specimen";}}
-async function favLoad(){try{const v=await secGet("sos_xpfav_"+favProf(),null);FAV.keys=Array.isArray(v)?v.filter(x=>typeof x==="string"):null;}catch(e){FAV.keys=null;}}
+async function favLoad(){try{const v=await secGet("sos_xpfav_"+favProf(),null);FAV.keys=Array.isArray(v)?v.filter(x=>typeof x==="string"):null;
+  if(FAV.keys&&!FAV.keys.includes("mig:tour18")){if(!FAV.keys.includes("btn:tc_view"))FAV.keys.push("btn:tc_view");FAV.keys.push("mig:tour18");favSave();} /* 18/10/2026 : « Tournée » ajoutée une fois à l'Express */
+  }catch(e){FAV.keys=null;}}
 function favSave(){try{if(FAV.keys)secSet("sos_xpfav_"+favProf(),FAV.keys);else secRemove("sos_xpfav_"+favProf());}catch(e){}}
-function favToggle(k){const L=favKeys().slice();const i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);FAV.keys=L;favSave();render();
+function favToggle(k){const L=favKeys().slice();const i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);FAV.keys=L.concat(["mig:tour18"]);favSave();render();
   toast(i>=0?"Retiré de l'Express":"Ajouté à l'Express (affiché quand il s'applique)");}
 function favReset(){FAV.keys=null;favSave();render();toast("Express par défaut rétabli");}
 function favStar(k,lbl){const on=favHas(k);return `<button type="button" class="favstar${on?" on":""}" data-favk="${esc(k)}" aria-pressed="${on}" title="${on?"Retirer de l'Express":"Ajouter à l'Express"}" aria-label="${esc((on?"Retirer de l'Express : ":"Ajouter à l'Express : ")+(lbl||k))}">${on?"★":"☆"}</button>`;}
@@ -18276,8 +18369,8 @@ function tourNextStop(){const l=tourOrdered().filter(s=>s.id!==TOUR.current);try
 function stateSnapshot(){const {view,jg,dq,dopen,rm,tedit,...rest}=state;return draftClean(rest);}
 async function validLoad(){try{let h=await secGet("sos_validhist",null);if(!Array.isArray(h)){const v=await secGet("sos_lastvalid",null);h=v?[v]:[];}VALID.hist=h.filter(v=>v&&v.snap&&Date.now()-v.ts<12*3600*1000);}catch(e){VALID.hist=[];}VALID.last=VALID.hist.find(x=>!x.pending)||null;}
 function validSave(){if(!VALID.hist.length){secRemove("sos_validhist");secRemove("sos_lastvalid");return;}let h=VALID.hist;try{if(JSON.stringify(h).length>1500000)h=h.map((v,i)=>i<2?v:Object.assign({},v,{snap:Object.assign({},v.snap,{photos:[]})}));}catch(e){}if(SEC.key){secPut("sos_validhist",h).catch(()=>secSet("sos_validhist",h));}else secSet("sos_validhist",h);secRemove("sos_lastvalid");}
-function patientValidate(){
-  if(!examGate())return;
+function patientValidate(confirmed){
+  if(confirmed!==true&&!valGate())return;valDisarm();
   const p=currentPack();const snap=stateSnapshot();
   const stop=TOUR.current?tourStop(TOUR.current):null;
   if(state.patient&&!TESTMODE){try{const has=JOURNAL.some(x=>norm(x.patient)===norm(state.patient)&&Date.now()-x.ts<2*3600*1000);if(!has)journalUpsert(p||{n:(state.cot&&state.cot.lieu==="visite")?"Visite":"Consultation"});}catch(e){}}

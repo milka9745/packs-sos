@@ -94,12 +94,13 @@ async def run(b,w,h,th,big,label,shots):
         if vid=="v3": ok(L+"courrier prêt (fiche avec orientation)","Courrier prêt" in await page.inner_text(".xp"))
         await page.evaluate("()=>{const f=document.getElementById('f_dict');f.value='Observation dictée de test, examen rassurant.';f.dispatchEvent(new Event('input',{bubbles:true}));}"); g.add("dictée","dicter (micro du clavier)")
         if shots and n<2: await page.screenshot(path=os.path.join(OUT,f"express-apres-{tag}-{vid}-3-fiche-confirmee.png"))
-        if await page.locator("#oa_ok").count(): await tap(page,g,"#oa_ok","✓ Examen complet")  # 18/10/2026 : geste unique demandé par le médecin
         r=await ready(page)
         ok(L+f"{vid} documents préparés d'avance (PDF prêt avant le toucher)",r)
         pr0=await page.evaluate("window.__pr||0")
         cur0=await page.evaluate("TOUR.current")
         await tap(page,g,"#xp_go","🖨 Imprimer et valider")
+        ok(L+f"{vid} 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé","Confirmer" in await page.inner_text("#xp_go") and await page.evaluate("TOUR.current")==cur0)
+        await tap(page,g,"#xp_go","✓ Confirmer : imprimer et valider")  # 18/10/2026 : validation confirmée (demande du médecin)
         for _ in range(60):  # ordinateur : le PDF est fabriqué puis imprimé, la validation suit
             if await page.evaluate("TOUR.current")!=cur0: break
             await page.wait_for_timeout(250)
@@ -193,13 +194,8 @@ async def extras(b,w,h,label):
     for _ in range(80):
         if await page.evaluate("xpReady()||(!isPhone()&&!iosLike())"): break
         await page.wait_for_timeout(250)
-    if await page.locator("#oa_ok").count():  # 18/10/2026 : examen complet non validé → le 1er toucher ne valide pas le patient
-        await page.click("#xp_go"); await page.wait_for_timeout(600)
-        ok(L+"examen complet non validé : « Imprimer et valider » montre l'encadré, patient non validé",await page.evaluate("state.patient")=="DURAND Paul" and not await page.evaluate("state.examOK"))
-        await page.click("#oa_ok"); await page.wait_for_timeout(400)
-        for _ in range(40):
-            if await page.evaluate("xpReady()||(!isPhone()&&!iosLike())"): break
-            await page.wait_for_timeout(250)
+    await page.click("#xp_go"); await page.wait_for_timeout(600)  # 18/10/2026 : 1er toucher = confirmation demandée
+    ok(L+"validation : 1er toucher ne valide pas (confirmation demandée)",await page.evaluate("state.patient")=="DURAND Paul")
     await page.click("#xp_go")
     for _ in range(60):
         if await page.evaluate("state.patient")!="DURAND Paul": break

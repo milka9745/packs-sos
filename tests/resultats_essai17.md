@@ -19,9 +19,10 @@
 - OK — iphone jour : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
 - OK — iphone jour : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone jour : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone jour : 7. « Tournée » dans les favoris de l'Express par défaut (18/10)
 - OK — iphone jour : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone jour : 7. plus d'étoile sur le groupe entier
-- OK — iphone jour : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone jour : 7. « Mode voiture » ajouté à l'Express (seul en plus de « Tournée »)
 - OK — iphone jour : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
 - OK — iphone jour : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
 - OK — iphone jour : 8. texte inséré surligné et modifiable avant validation
@@ -48,9 +49,10 @@
 - OK — iphone nuit : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
 - OK — iphone nuit : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone nuit : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone nuit : 7. « Tournée » dans les favoris de l'Express par défaut (18/10)
 - OK — iphone nuit : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone nuit : 7. plus d'étoile sur le groupe entier
-- OK — iphone nuit : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone nuit : 7. « Mode voiture » ajouté à l'Express (seul en plus de « Tournée »)
 - OK — iphone nuit : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
 - OK — iphone nuit : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
 - OK — iphone nuit : 8. texte inséré surligné et modifiable avant validation
@@ -77,9 +79,10 @@
 - OK — iphone grand texte : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
 - OK — iphone grand texte : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — iphone grand texte : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — iphone grand texte : 7. « Tournée » dans les favoris de l'Express par défaut (18/10)
 - OK — iphone grand texte : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — iphone grand texte : 7. plus d'étoile sur le groupe entier
-- OK — iphone grand texte : 7. « Mode voiture » seul ajouté à l'Express
+- OK — iphone grand texte : 7. « Mode voiture » ajouté à l'Express (seul en plus de « Tournée »)
 - OK — iphone grand texte : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
 - OK — iphone grand texte : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
 - OK — iphone grand texte : 8. texte inséré surligné et modifiable avant validation
@@ -106,9 +109,10 @@
 - OK — ordinateur : 6. liste « Autre fiche » / recherche du mode complet : DLMINF → fiches du tableau en tête
 - OK — ordinateur : 6. recherche du mode complet : rien de reconnu → fiches fréquentes, jamais une liste vide
 - OK — ordinateur : 6. tableau des abréviations dans le Journal (modifiable)
+- OK — ordinateur : 7. « Tournée » dans les favoris de l'Express par défaut (18/10)
 - OK — ordinateur : 7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)
 - OK — ordinateur : 7. plus d'étoile sur le groupe entier
-- OK — ordinateur : 7. « Mode voiture » seul ajouté à l'Express
+- OK — ordinateur : 7. « Mode voiture » ajouté à l'Express (seul en plus de « Tournée »)
 - OK — ordinateur : 8. ce qui est dicté n'est pas modifié (ORL : tympan bombé)
 - OK — ordinateur : 8. examen normal inséré pour les appareils non dictés, adapté à l'enfant
 - OK — ordinateur : 8. texte inséré surligné et modifiable avant validation
@@ -117,4 +121,4 @@
 - OK — ordinateur : 8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle
 - OK — ordinateur : aucune erreur JS
 
-116/116 tests OK
+120/120 tests OK
