@@ -568,6 +568,7 @@ details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!impor
 .xp .xp-favs{display:flex;flex-direction:column;gap:8px;margin:8px 0;padding:8px;border:1px dashed #E0A800;border-radius:12px}.xp .xp-favs[hidden]{display:none}
 .xp .xp-favs .infav{margin:0}
 .xp .xp-alerts{margin:6px 0}
+.obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
 .algrave{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}.algrave.need{background:rgba(224,168,0,.18);outline:1px solid rgba(224,168,0,.6)}.algrave .btn.on{background:var(--acc,#2b6cb0);color:#fff;border-color:transparent}.algrave-c{margin-left:8px}.xp .xp-al{font-size:14.5px;padding:5px 8px;margin:3px 0;border-radius:8px;background:rgba(224,168,0,.14);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xp .xp-al.ci{background:rgba(200,40,40,.14);color:var(--bad,#b00);font-weight:700}.xp .xp-al.open{white-space:normal}
 
 .xp{border:2px solid var(--line2);border-radius:14px;padding:12px;margin:8px 0 10px;background:var(--panel,transparent)}
@@ -6699,8 +6700,8 @@ const SYS_NORM_ENFANT={gen:"Bon état général, enfant conscient, réactif, ton
   cut:"Peau sans lésion, pas de purpura, pas de signe de déshydratation.",
   loco:"Marche sans boiterie, mobilité articulaire conservée et indolore, pas de point douloureux osseux.",
   neuro:"Conscient, réactif, contact adapté à l'âge ; motricité des quatre membres normale et symétrique ; nuque souple, pas de syndrome méningé."};
-function sysNormal(k){const a=ageY();const child=a&&a.y<15;let t=child&&SYS_NORM_ENFANT[k]?SYS_NORM_ENFANT[k]:((SYSTEMS.find(x=>x[0]===k)||[])[2]||"");
-  if(k==="neuro"&&a&&a.m<18)t+=" Fontanelle antérieure normotendue.";if(state.sexe==="f")t=t.replace(/\bpatient conscient\b/,"patiente consciente");return t;}
+function sysNormal(k){const a=ageY();const child=!!(a&&a.y<15);let t=(child?EXAM_NORM.enfant[k]:EXAM_NORM.adulte[k])||"";if(!t)return "";
+  if(k==="neuro"&&a&&a.m<18)t+=" Fontanelle antérieure normotendue.";if(state.sexe==="f")t=t.replace(/\bconscient et orienté\b/,"consciente et orientée");return t;}
 function normSystemsFor(p){const tpl=p?obsTemplate(p):{focus:[]};const base=["gen","cv","resp","abdo"];const f=(tpl.focus||[]).filter(k=>SYSTEMS.some(x=>x[0]===k));return [...new Set(["gen",...(f.length?f:base.concat(["neuro"])),...(f.length?["cv","resp"]:[])])];}
 function parseDictation(txt){
   const restNormal0=NORM_PHRASE_RE.test(txt);
@@ -6743,17 +6744,109 @@ function applyDictation(noRender){
   if(r.poids&&!state.poids) state.poids=r.poids;
   /* insertions précédentes retirées (la phrase a pu être effacée) ; ce qui est dicté ou saisi n'est jamais touché */
   state.obsAuto=state.obsAuto||{};Object.keys(state.obsAuto).forEach(k=>{if(state.obsAuto[k]&&state.obs[k]===state.obsAuto[k])delete state.obs[k];});state.obsAuto={};
-  Object.keys(r.obs).forEach(k=>{ state.obs[k]=r.obs[k]; });
-  if(r.restNormal){normSystemsFor(currentPack()).forEach(k=>{if(r.obs[k]||String(state.obs[k]||"").trim())return;const t=sysNormal(k);if(t){state.obs[k]=t;state.obsAuto[k]=t;}});}
+  Object.keys(r.obs).forEach(k=>{ state.obs[k]=r.obs[k]; if(state.examRm)delete state.examRm[k]; });
+  examAutoFill();
+  if(r.restNormal&&!excOn()){normSystemsFor(currentPack()).forEach(k=>{if(r.obs[k]||String(state.obs[k]||"").trim())return;const t=sysNormal(k);if(t){state.obs[k]=t;state.obsAuto[k]=t;}});}
   if(!noRender)render();
 }
 /* sans quitter le champ de dictée (le clavier reste ouvert) : insertion appliquée et encadré mis à jour sur place */
 function dictAutoNormal(){applyDictation(true);const html=obsAutoHTML();document.querySelectorAll(".obsauto").forEach(x=>x.remove());if(html)document.querySelectorAll("#dictcard .dict-act2").forEach(a=>a.insertAdjacentHTML("beforebegin",html));try{draftSaveSoon();}catch(e){}}
-function obsAutoHTML(){const A=state.obsAuto||{};const ks=Object.keys(A).filter(k=>A[k]&&state.obs[k]===A[k]);if(!ks.length)return "";
-  return `<div class="obsauto" role="status"><b>Examen normal inséré</b> <span class="hint">(« reste de l'examen normal » dicté) — vérifiez, modifiez d'un toucher, ou retirez :</span>${ks.map(k=>`<label class="oa-row"><span>${esc((SYSTEMS.find(x=>x[0]===k)||[])[1]||k)}</span><textarea class="oa-ta" data-oa="${k}" rows="2">${esc(state.obs[k])}</textarea><button type="button" class="lc" data-oadel="${k}">Retirer</button></label>`).join("")}<button type="button" class="btn s sm" id="oa_ok">✓ Valider l'examen inséré</button></div>`;}
+function obsAutoHTML(){const p=currentPack();const A=state.obsAuto||{};
+  if(excOn()&&p){examAutoFill();const ks=examSystemsFor(p);const all=SYSTEMS.map(x=>x[0]).filter(k=>ks.includes(k)||obsClean(state.obs[k]));const ok=!!state.examOK;
+    const rows=all.map(k=>{const lab=esc(sysLab(k));const v=obsClean(state.obs[k]);
+      if(state.examRm&&state.examRm[k]&&!v)return `<div class="oa-row rm"><span>${lab} <em class="hint">retiré : absent du compte rendu</em></span><button type="button" class="lc" data-oaadd="${k}">Remettre</button></div>`;
+      if(!v)return "";
+      if(examAuto(k))return `<label class="oa-row${ok?" ok":""}"><span>${lab}${ok?"":' <em class="oa-tag">normal type · à valider</em>'}</span><textarea class="oa-ta${ok?" ok":""}" data-oa="${k}" rows="${Math.max(2,Math.ceil(v.length/(isPhone()?24:60))+(isPhone()?1:0))}">${esc(v)}</textarea><button type="button" class="lc" data-oadel="${k}">Retirer</button></label>`;
+      return `<div class="oa-row dict"><span>${lab} <em class="hint">dicté</em></span><div class="oa-dict">${esc(v)}</div></div>`;}).join("");
+    const grav=examGravAlerts(p).map(t=>`<div class="alert oa-grav">${esc(t)}</div>`).join("");const pend=examPending();
+    return `<div class="obsauto exc${pend?"":" done"}" role="status"><b>Examen complet</b> <span class="hint">${pend?"normaux types de la fiche surlignés : modifiez ou retirez d'un toucher, puis validez en un seul geste":"validé"+(state.examTrace?" à "+new Date(state.examTrace.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"")}</span>${grav}${rows}${pend?`<button type="button" class="btn p" id="oa_ok">✓ Examen complet</button>`:""}<label class="exc-set hint"><input type="checkbox" data-excset checked> Examen complet par défaut</label></div>`;}
+  const ks=Object.keys(A).filter(k=>A[k]&&state.obs[k]===A[k]);const off=p?`<label class="exc-set exc-off hint"><input type="checkbox" data-excset> Examen complet par défaut (désactivé : appareil non dicté = absent du compte rendu)</label>`:"";if(!ks.length)return off;
+  return off+`<div class="obsauto" role="status"><b>Examen normal inséré</b> <span class="hint">(« reste de l'examen normal » dicté) — vérifiez, modifiez d'un toucher, ou retirez :</span>${ks.map(k=>`<label class="oa-row"><span>${esc(sysLab(k))}</span><textarea class="oa-ta" data-oa="${k}" rows="2">${esc(state.obs[k])}</textarea><button type="button" class="lc" data-oadel="${k}">Retirer</button></label>`).join("")}<button type="button" class="btn s sm" id="oa_ok">✓ Valider l'examen inséré</button></div>`;}
 document.addEventListener("input",ev=>{const t=ev.target;if(!t.matches||!t.matches("[data-oa]"))return;const k=t.dataset.oa;state.obs[k]=t.value;if(state.obsAuto)delete state.obsAuto[k];t.classList.add("edited");try{draftSaveSoon();}catch(e){}});
-document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const d=t.closest("[data-oadel]");if(d){const k=d.dataset.oadel;if(state.obsAuto&&state.obs[k]===state.obsAuto[k])delete state.obs[k];if(state.obsAuto)delete state.obsAuto[k];render();return;}
-  if(t.closest("#oa_ok")){state.obsAuto={};render();toast("Examen inséré validé");}});
+document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const d=t.closest("[data-oadel]");if(d){const k=d.dataset.oadel;if(state.obsAuto&&state.obs[k]===state.obsAuto[k])delete state.obs[k];if(state.obsAuto)delete state.obsAuto[k];state.examRm=state.examRm||{};if(excOn())state.examRm[k]=true;render();return;}
+  const ad=t.closest("[data-oaadd]");if(ad){const k=ad.dataset.oaadd;if(state.examRm)delete state.examRm[k];render();return;}
+  if(t.closest("#oa_ok")){if(excOn()&&currentPack()){examValidate();return;}state.obsAuto={};render();toast("Examen inséré validé");}});
+document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.matches||!t.matches("[data-excset]"))return;excSet(t.checked);
+  if(!t.checked){const A=state.obsAuto||{};Object.keys(A).forEach(k=>{if(state.obs[k]===A[k])delete state.obs[k];});state.obsAuto={};state.examOK=false;try{if(String(state.obs.dict||"").trim()&&NORM_PHRASE_RE.test(state.obs.dict))applyDictation(true);}catch(e){}}
+  render();toast(t.checked?"Examen complet par défaut : activé":"Examen complet par défaut : désactivé (appareil vide = absent du compte rendu)");});
+
+/* ===================== 18/10/2026 — EXAMEN COMPLET (décision du médecin : il fait toujours un examen complet) =====================
+   Réglage « Examen complet » (activé par défaut) : tout appareil de la fiche ni dicté ni saisi reçoit l'examen normal type (EXAM_NORM),
+   surligné à l'écran jusqu'au geste unique « ✓ Examen complet » ; chaque appareil se retire d'un toucher (absent du compte rendu, sans mention) ;
+   ce qui est dicté n'est jamais modifié ; jamais de surlignage au PDF ni au compte rendu ; validation tracée au journal.
+   Réglage désactivé : appareil vide = absent du compte rendu. Jamais « non renseigné », « non effectué », « non examiné », « RAS ? » ni libellé seul.
+   Signe de gravité dicté, ou élément de gravité de la fiche non noté : alerte à l'écran avant validation, jamais écrite au compte rendu. */
+const EXC_KEY="sos_excomplet";
+function excOn(){try{return localStorage.getItem(EXC_KEY)!=="0";}catch(e){return true;}}
+function excSet(on){try{localStorage.setItem(EXC_KEY,on?"1":"0");}catch(e){}}
+/* normaux types : courts, gestes réellement faits en visite ou en consultation (liste soumise à relecture : docs/EXAMEN-NORMAUX-TYPES.md) */
+const EXAM_NORM={
+ adulte:{gen:"Bon état général, conscient et orienté, bien coloré.",
+  cv:"Bruits du cœur réguliers, sans souffle ; pas d'œdème des membres inférieurs ; mollets souples et indolores.",
+  resp:"Murmure vésiculaire symétrique, sans râle ; pas de signe de lutte.",
+  orl:"Tympans normaux, pharynx sans anomalie, pas d'adénopathie cervicale.",
+  abdo:"Abdomen souple, dépressible et indolore, sans défense ; fosses lombaires libres.",
+  neuro:"Pas de déficit moteur des quatre membres ; pupilles symétriques et réactives ; nuque souple.",
+  cut:"Peau sans éruption ni purpura.",
+  loco:"Mobilités articulaires conservées et indolores, pas d'articulation inflammatoire ; rachis indolore."},
+ enfant:{gen:"Bon état général, enfant réactif et tonique, bien coloré, bien hydraté.",
+  cv:"Bruits du cœur réguliers, sans souffle ; temps de recoloration cutanée inférieur à 3 secondes.",
+  resp:"Murmure vésiculaire symétrique, sans râle ; pas de signe de lutte respiratoire.",
+  orl:"Tympans normaux des deux côtés, pharynx sans anomalie, pas d'adénopathie cervicale.",
+  abdo:"Abdomen souple et indolore, sans masse ni hépatosplénomégalie.",
+  neuro:"Contact adapté à l'âge ; nuque souple ; pas de déficit moteur.",
+  cut:"Peau sans éruption ni purpura, pas de signe de déshydratation.",
+  loco:"Marche sans boiterie, mobilités conservées et indolores."}};
+function sysLab(k){return (SYSTEMS.find(x=>x[0]===k)||[])[1]||k;}
+/* appareils examinés par défaut : général, cardio-vasculaire, pulmonaire, abdomen, neurologique, cutané ; ORL chez l'enfant ; + ceux mis en avant par la fiche */
+function examSystemsFor(p){const a=ageY();const child=!!(a&&a.y<15);const tpl=p?obsTemplate(p):{focus:[]};const s=new Set(["gen","cv","resp","abdo","neuro","cut"]);if(child)s.add("orl");(tpl.focus||[]).forEach(k=>s.add(k));return SYSTEMS.map(x=>x[0]).filter(k=>s.has(k));}
+/* mentions vides : jamais au compte rendu (une phrase ou un membre de phrase réduit à « non renseigné », « non effectué », « RAS ? », ou au seul libellé, est retiré) */
+const OBS_VOID_RE=/^(?:(?:non\s+(?:renseign|effectu|examin|fait|réalis|realis|précis|precis|évalu|evalu|dict|recherch|explor|vu\b|test|retrouv|not|document|disponib)\S*|pas\s+(?:examin|fait|renseign|effectu)\S*|ras\s*\?|\?+|n\.?\s?a\.?|n\.?\s?c\.?|néant|-+|…+|\.+|à\s+(?:préciser|compléter|voir|faire))\s*(?:[\/,]|\bou\b|\bet\b)?\s*)+$/i;
+const SYS_LABEL_RE=/^(?:examen\s+)?(?:général|générale|etat général|cardio(?:-vasculaire)?|cardiaque|cv|pulmonaire|pulmo|respiratoire|abdomen|abdominal|abdo|orl|cutané|peau|locomoteur|ostéo-articulaire|neuro(?:logique)?|examen(?:\s+clinique)?)\s*:\s*/i;
+function obsClean(v){let s=String(v==null?"":v).replace(/\s+/g," ").trim();if(!s)return "";
+  const parts=s.split(/(?<=[.;])\s+/);const keep=parts.map(x=>x.trim()).filter(x=>{let y=x.replace(/[.;:]+$/,"").trim();for(let i=0;i<2;i++)y=y.replace(SYS_LABEL_RE,"").trim();
+    if(!y)return false;if(OBS_VOID_RE.test(y))return false;if(SYSTEMS.some(([k,l])=>norm(y)===norm(l))||/^(neuro|cardio|pulmo|abdo|orl|peau|examen)$/i.test(y))return false;return true;});
+  return keep.join(" ").trim();}
+function obsVal(k){if(examAuto(k)&&!state.examOK)return "";return obsClean(state.obs&&state.obs[k]);}
+function examAuto(k){const A=state.obsAuto||{};return !!(A[k]&&state.obs&&state.obs[k]===A[k]);}
+function examPending(){return Object.keys(state.obsAuto||{}).some(k=>examAuto(k))&&!state.examOK;}
+function examAutoFill(){try{if(typeof SEC!=="undefined"&&!SEC.unlocked)return;const p=currentPack();state.obs=state.obs||{};state.obsAuto=state.obsAuto||{};state.examRm=state.examRm||{};const A=state.obsAuto;
+  if(!excOn()||!p)return;
+  const want=new Set(examSystemsFor(p));let changed=false;
+  Object.keys(A).forEach(k=>{if(state.obs[k]!==A[k]){delete A[k];return;} /* modifié par le médecin : devient saisi */
+    if(!want.has(k)||state.examRm[k]){delete state.obs[k];delete A[k];changed=true;return;}
+    const t=sysNormal(k);if(t&&t!==A[k]){state.obs[k]=t;A[k]=t;changed=true;}});
+  want.forEach(k=>{if(state.examRm[k]||A[k])return;if(obsClean(state.obs[k]))return; /* dicté ou saisi : jamais modifié */
+    const t=sysNormal(k);if(!t)return;state.obs[k]=t;A[k]=t;changed=true;});
+  if(changed)state.examOK=false;}catch(e){console.warn("examen complet",e);}}
+function examValidate(silent){const ks=Object.keys(state.obsAuto||{}).filter(examAuto);state.examOK=true;
+  state.examTrace={ts:Date.now(),auto:ks.map(sysLab),rm:Object.keys(state.examRm||{}).filter(k=>state.examRm[k]).map(sysLab)};
+  try{const p=currentPack();if(p)journalUpsert(p);}catch(e){}if(!silent){render();toast("Examen complet validé");}}
+/* avant toute validation du patient : examen complet non validé → 1er toucher : encadré montré ; 2e toucher (8 s) : examen et patient validés. Jamais de fenêtre système. */
+function examGate(){if(!(excOn()&&currentPack()&&examPending()))return true;
+  if(examGate._w&&Date.now()-examGate._w<8000){examGate._w=0;examValidate(true);return true;}
+  examGate._w=Date.now();const bx=document.querySelector(".obsauto.exc");if(bx){try{bx.scrollIntoView({block:"center",behavior:"smooth"});}catch(e){}bx.classList.add("flash");setTimeout(()=>bx.classList.remove("flash"),1600);}
+  toast("Examen complet à valider : touchez « ✓ Examen complet », ou touchez de nouveau pour valider l'examen et le patient");return false;}
+function examTraceTxt(t){if(!t)return "";const h=new Date(t.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});return "Examen complet validé à "+h+(t.auto.length?" — normaux types : "+t.auto.join(", "):"")+(t.rm.length?" — retirés : "+t.rm.join(", "):"");}
+/* gravité : signe dicté (non nié) ; élément cité dans la gravité de la fiche mais absent de l'examen */
+const GRAV_POS_RE=/nuque\s+(?:un\s+peu\s+|légèrement\s+|très\s+)?raide|raideur\s+(?:de\s+(?:la\s+)?)?nuque|syndrome\s+méningé|signes?\s+méningés?|purpura|marbrures?|cyanose|tirage|geignement|battement\s+des\s+ailes\s+du\s+nez|convulsi\w*|somnolen\w*|léthargi\w*|hypotoni\w*|fontanelle\s+bombée|déshydraté\w*|mastoïdite|décollement\s+du\s+pavillon|paralysie\s+faciale|troubles?\s+de\s+(?:la\s+)?conscience|temps\s+de\s+recoloration\s+(?:allongé|supérieur)|TRC\s*(?:allongé|>\s*3)|déficit\s+moteur\s+(?!des)\w*/gi;
+function gravPos(txt){txt=String(txt||"");const out=[];let m;const re=new RegExp(GRAV_POS_RE.source,"gi");
+  while((m=re.exec(txt))){const cl=txt.slice(Math.max(0,m.index-60),m.index).split(/[.;,]/).pop();if(/\b(pas|sans|absence|ni|aucun\w*|non|ne)\b/i.test(cl))continue;out.push(m[0].toLowerCase());}return [...new Set(out)];}
+const GRAV_CHECK=[["purpura",/purpura/i,/purpura/i],["raideur de nuque (syndrome méningé)",/méning|nuque|raideur/i,/nuque|méning/i],
+  ["conscience, réactivité",/conscien|somnol|léthargi|comportement|réactiv|hypoton|aréactif/i,/conscien|réacti|somnol|tonique|hypoton|léthargi|contact|orienté/i],
+  ["signes de lutte respiratoire",/lutte|tirage|détresse|polypn|cyanose|geignement/i,/lutte|tirage|polypn|cyanose|geignement|dyspn/i],
+  ["hydratation",/déshydrat/i,/hydrat/i],["mastoïde (rétro-auriculaire)",/mastoïd|rétro-auriculaire|pavillon/i,/mastoïd|rétro-auriculaire|pavillon/i],
+  ["hémodynamique (TRC, marbrures)",/choc|marbr|TRC|recoloration|hémodynam|hypotension/i,/hémodynam|recoloration|TRC|marbr|pouls/i]];
+function examGravMemo(p){if(!p)return "";const m=p.s.filter(sh=>sh.k==="memo").flatMap(sh=>sh.l.map(l=>typeof l==="string"?l:(l&&l.t)||""));return m.filter(t=>/gravit/i.test(t)).join(" ");}
+function examGrav(p){p=p||currentPack();if(!p)return {pos:[],miss:[],memo:""};const o=state.obs||{};
+  const dict=SYSTEMS.map(([k])=>examAuto(k)?"":obsClean(o[k])).concat([o.hist||""]).join(" . ");
+  const all=SYSTEMS.map(([k])=>obsClean(o[k])).join(" . ")+" "+Object.keys(state.cst||{}).filter(k=>state.cst[k]&&/ta|fc/.test(k)).map(()=>"pouls").join(" ");
+  const memo=examGravMemo(p);const pos=gravPos(dict);
+  const miss=memo?GRAV_CHECK.filter(([l,trig,note])=>trig.test(memo)&&!note.test(all)).map(x=>x[0]):[];
+  const ml=memo.replace(/^.*?(Gravité\s*:)/i,"$1");return {pos,miss,memo:ml.length>260?ml.slice(0,257)+"…":ml};}
+function examGravAlerts(p){const g=examGrav(p);const L=[];
+  if(g.pos.length)L.push("⚠ Signe de gravité noté : "+g.pos.join(", ")+(g.memo?" — fiche : "+g.memo:""));
+  if(g.miss.length)L.push("⚠ Élément de gravité de la fiche non noté à l'examen : "+g.miss.join(", ")+" (à examiner et noter ; jamais écrit au compte rendu)");return L;}
 function obsHTML(p){
   const tpl=obsTemplate(p); const o=state.obs;
   const cst=[["ta","TA","mmHg"],["fc","FC","/min"],["spo2","SpO2","%"],["temp","T°","°C"],["fr","FR","/min"],["gly","Glycémie","g/l"],["eva","EVA","/10"]];
@@ -6766,8 +6859,8 @@ function obsHTML(p){
   html+=`<div class="obs-sys">`;
   SYSTEMS.forEach(([k,l,norm])=>{
     const focus=tpl.focus.includes(k); const val=o[k]!==undefined?o[k]:""; const isNorm=val===norm; const sugg=focus?(tpl[k]||norm):norm;
-    const auto=!!(state.obsAuto&&state.obsAuto[k]&&state.obsAuto[k]===val);
-    html+=`<div class="sys${focus?" focus":""}${auto?" autoins":""}"><div class="sys-hd"><b>${l}</b>${auto?'<span class="oa-tag">inséré · à valider</span>':""}<button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${esc("Non renseigné : omis du compte rendu. Suggestion : "+sugg)}">${esc(val)}</textarea></div>`;
+    const auto=!!(state.obsAuto&&state.obsAuto[k]&&state.obsAuto[k]===val)&&!(excOn()&&state.examOK);
+    html+=`<div class="sys${focus?" focus":""}${auto?" autoins":""}"><div class="sys-hd"><b>${l}</b>${auto?'<span class="oa-tag">inséré · à valider</span>':""}<button class="mini${isNorm?" on":""}" data-norm="${k}" type="button">Normal</button>${focus&&tpl[k]?`<button class="mini" data-tpl="${k}" type="button">Proposé</button>`:""}</div><textarea data-obs="${k}" rows="${focus?3:1}" placeholder="${esc("Vide : absent du compte rendu. Suggestion : "+sugg)}">${esc(val)}</textarea></div>`;
   });
   html+=`</div>`;
   html+=`<div class="obs-row"><label>Hypothèse diagnostique</label><input data-obs="hyp" value="${esc(o.hyp||"")}" placeholder="${esc(tpl.hyp||p.n)}"></div>`;
@@ -6777,14 +6870,14 @@ function obsHTML(p){
 }
 function buildCR(p){return specimenText(buildCR0(p));}
 function buildCR0(p){
-  const tpl=obsTemplate(p); const o=state.obs; const a=ageY();
+  examAutoFill();const tpl=obsTemplate(p); const o=state.obs; const a=ageY();
   const now=new Date(); const hhmm=now.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
   const pat=[state.patient, state.ddn?neLe()+normDate(state.ddn):"", a?a.y+" ans":"", state.poids?state.poids+" kg":""].filter(Boolean).join(", ");
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","Glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
   const D=!!o.dictated;
   const hist=o.hist||""; let hyp=(o.hyp||diagName(p)).trim().replace(/[.;\s]+$/,""); hyp=hyp.charAt(0).toUpperCase()+hyp.slice(1);
   const temp=parseFloat((state.cst.temp||"").replace(",","."));
-  const exam=SYSTEMS.map(([k,l,norm])=>{let v=o[k]!==undefined?String(o[k]).trim():""; /* correctif 8 : un appareil non saisi, non dicté et non validé n'apparaît pas */ if(k==="gen"&&temp>=38&&/apyrétique/.test(v)) v=v.replace("apyrétique","fébrile à "+state.cst.temp+" °C"); return [l,v,v!==norm&&!!v];}).filter(x=>x[1]);
+  const exam=SYSTEMS.map(([k,l,norm])=>{let v=obsVal(k); /* correctif 8 : un appareil non saisi, non dicté et non validé n'apparaît pas */ if(k==="gen"&&temp>=38&&/apyrétique/.test(v)) v=v.replace("apyrétique","fébrile à "+state.cst.temp+" °C"); return [l,v,v!==norm&&!!v&&!examAuto(k)];}).filter(x=>x[1]);
   const normalLike=v=>/\b(normal|normale|normaux|sans anomalie|sans particularité|bon état général|souple|indolore|clair|libre|conservé|symétrique|réactives)\b/i.test(v)&&!/anormal|pas normal|douloureu|défense|déficit|sibil|crépit|rouge|œdème|oedème|pultac|purulent|bomb|positif/i.test(v);
   const abn=exam.filter(x=>x[2]&&!normalLike(x[1])).map(x=>x[0]+" : "+x[1]);
   const sheets=p.s.map((sh,si)=>({sh,lines:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>x.fill.s+(x.jr?" (ordonnance sécurisée rédigée à la main, non imprimée)":""))})).filter(x=>x.lines.length&&!state.off[p.s.indexOf(x.sh)]);
@@ -6800,7 +6893,7 @@ function buildCR0(p){
   const hist0=hist.replace(/\.$/,"").replace(/^(vient pour|consulte pour|motif\s*:?|se présente pour|amené pour|amenée pour)\s*/i,"");
   let res="Consultation pour "+(hist0?hist0.charAt(0).toLowerCase()+hist0.slice(1):diagName(p).toLowerCase())+". ";
   res+=cst?"Constantes : "+cst+". ":"";
-  res+=abn.length?"Examen : "+abn.map(x=>x.replace(/\.$/,"")).join(" ; ")+(exam.length>abn.length?" ; sans anomalie sur les autres appareils examinés. ":". "):(exam.length?"Examen sans anomalie sur les appareils examinés. ":"Examen clinique non renseigné dans l'observation. ");
+  res+=abn.length?"Anomalies à l'examen : "+abn.map(x=>x.replace(/\.$/,"")).join(" ; ")+(exam.length>abn.length?" ; sans anomalie sur les autres appareils examinés. ":". "):(exam.length?"Examen sans anomalie sur les appareils examinés. ":"");
   res+="Diagnostic retenu : "+hyp+". ";
   res+=meds.length?"Traitement : "+medNames+". ":"";
   res+=(bio.length||img.length)?"Examens complémentaires prescrits. ":"";
@@ -6811,7 +6904,7 @@ function buildCR0(p){
   const atcd=[o.atcd, (state.allergies||[]).length?"Allergies : "+allergiesText():(state.allergie?"Allergie aux pénicillines":""), state.grossesse?"Grossesse en cours"+(saText()?" ("+saText()+")":""):"", state.allait?"Allaitement en cours":""].filter(Boolean).join(" ; ");
   if(atcd){ L.push("ANTÉCÉDENTS"); L.push(atcd); L.push(""); }
   if(state.tt.length){ L.push("TRAITEMENTS EN COURS"); L.push(state.tt.join(", ")); L.push(""); }
-  if(cst||exam.length){ L.push("EXAMEN CLINIQUE"); if(cst) L.push("Constantes : "+cst+"."); exam.forEach(([l,v])=>L.push(l+" : "+v)); if(state.f.lesions) L.push("Lésions constatées : "+state.f.lesions.replace(/\n/g," ").replace(/[.;\s]+$/,"")+"."); if(state.photos.length) L.push("Documentation photographique : "+state.photos.length+" cliché(s) réalisé(s) ce jour avec l'accord du patient, joint(s) au dossier."); L.push(""); }
+  if(cst||exam.length){ L.push("EXAMEN CLINIQUE"); if(cst) L.push("Constantes : "+cst+"."); if(exam.length) L.push("Examen : "+exam.map(([l,v])=>l+" : "+v.replace(/[.;\s]+$/,"")+".").join(" ")); if(state.f.lesions) L.push("Lésions constatées : "+state.f.lesions.replace(/\n/g," ").replace(/[.;\s]+$/,"")+"."); if(state.photos.length) L.push("Documentation photographique : "+state.photos.length+" cliché(s) réalisé(s) ce jour avec l'accord du patient, joint(s) au dossier."); L.push(""); }
   if(o.docs){ L.push("DOCUMENTS ET RÉSULTATS CONSULTÉS"); o.docs.split(/\n+/).filter(Boolean).forEach(x=>L.push("- "+x.replace(/[.;\s]+$/,"")+".")); L.push(""); }
   if(bio.length||img.length||spe.length){ L.push("EXAMENS COMPLÉMENTAIRES PRESCRITS"); bio.forEach(x=>L.push("- Biologie : "+x)); img.forEach(x=>L.push("- Imagerie : "+x)); spe.forEach(x=>L.push("- Examen spécialisé : "+x)); L.push(""); }
   L.push("INTERPRÉTATION"); L.push(hyp+"."); if(o.raison) L.push(o.raison); L.push("");
@@ -6843,7 +6936,7 @@ function letData(p){const o=state.obs||{};const a=ageY();const A=letAccord();
   const al=(state.allergies||[]).length?allergiesText():(state.allergie?"pénicillines":"");
   const terrain=[state.grossesse?"grossesse en cours"+(saText()?" ("+saText()+")":""):"",state.allait?"allaitement en cours":""].filter(Boolean).join(", ");
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["fr","FR"],["gly","glycémie capillaire"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:" /min",spo2:" %",temp:" °C",fr:" /min",gly:" g/l",eva:"/10"}[k])).join(", ");
-  const exam=SYSTEMS.map(([k,l])=>[l,o[k]!==undefined?String(o[k]).trim().replace(/[.;\s]+$/,""):""]).filter(x=>x[1]);
+  examAutoFill();const exam=SYSTEMS.map(([k,l])=>[l,obsVal(k).replace(/[.;\s]+$/,"")]).filter(x=>x[1]);
   const faits=[];if(state.f&&state.f.ecg)faits.push("ECG : "+String(state.f.ecg).trim().replace(/[.;\s]+$/,""));if(state.f&&state.f.lesions)faits.push("lésions constatées : "+String(state.f.lesions).replace(/\n/g," ").trim().replace(/[.;\s]+$/,""));if((state.photos||[]).length)faits.push(state.photos.length+" photographie(s) avec l'accord du patient");
   const sheets=p.s.map((sh,si)=>({sh,si,lines:state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&!x.fill.miss.length).map(x=>({s:printClean(x.fill.s),jr:!!x.jr}))})).filter(x=>x.lines.length);
   const get=k=>sheets.filter(x=>x.sh.k===k).flatMap(x=>x.lines);
@@ -6923,7 +7016,7 @@ function bindObs(p){
       if(ev.key==="ArrowUp") go(i-1);
     };
   });
-  document.querySelectorAll("[data-obs]").forEach(e=>e.oninput=()=>{state.obs[e.dataset.obs]=e.value; if(e.tagName==="TEXTAREA"){const k=e.dataset.obs;const sys=SYSTEMS.find(s=>s[0]===k);const b=document.querySelector(`[data-norm="${k}"]`);if(sys&&b)b.classList.toggle("on",e.value===sys[2]);}});
+  document.querySelectorAll("[data-obs]").forEach(e=>e.oninput=()=>{state.obs[e.dataset.obs]=e.value; if(state.obsAuto&&state.obsAuto[e.dataset.obs]!==undefined){delete state.obsAuto[e.dataset.obs];e.closest(".sys")&&e.closest(".sys").classList.remove("autoins");} if(e.tagName==="TEXTAREA"){const k=e.dataset.obs;const sys=SYSTEMS.find(s=>s[0]===k);const b=document.querySelector(`[data-norm="${k}"]`);if(sys&&b)b.classList.toggle("on",e.value===sys[2]);}});
   document.querySelectorAll("[data-norm]").forEach(b=>b.onclick=()=>{const k=b.dataset.norm;const sys=SYSTEMS.find(s=>s[0]===k);state.obs[k]=sys[2];const ta=document.querySelector(`textarea[data-obs="${k}"]`);if(ta)ta.value=sys[2];document.querySelectorAll(`[data-norm="${k}"]`).forEach(x=>x.classList.add("on"));});
   document.querySelectorAll("[data-tpl]").forEach(b=>b.onclick=()=>{const k=b.dataset.tpl;const tpl=obsTemplate(p);state.obs[k]=tpl[k];const ta=document.querySelector(`textarea[data-obs="${k}"]`);if(ta)ta.value=tpl[k];document.querySelectorAll(`[data-norm="${k}"]`).forEach(x=>x.classList.remove("on"));});
   const flash=(b,txt)=>{const o=b.textContent;b.textContent=txt;setTimeout(()=>b.textContent=o,1500);};
@@ -7641,7 +7734,7 @@ function journalUpsert(p){
   let e=JOURNAL.find(x=>norm(x.patient)===key&&now-x.ts<2*3600*1000);
   const _ct=cotTimes(now);
   if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
-  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
+  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;if(state.examTrace){e.exam=state.examTrace;e.notes=[...(e.notes||[]).filter(x=>!/^Examen complet validé/.test(x)),examTraceTxt(state.examTrace)];}{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
   if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
   journalSave();
 }
@@ -16148,7 +16241,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){state.lettres={};state.obsAuto={};state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){state.lettres={};state.obsAuto={};state.examRm={};state.examOK=false;state.examTrace=null;state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -16268,7 +16361,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41p",branch:"main",date:"18/10 07:24"};
+const APP_BUILD={v:"41q",branch:"main",date:"18/10 08:15"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16551,7 +16644,7 @@ TÂCHE : le médecin a dicté en vrac. Range la dictée en observation. Clés du
 "poids": poids en kg dicté (chaîne) sinon "" ; "sexe": "h", "f" ou "" ; "grossesse": booléen ; "allaitement": booléen ; "allergie_penicilline": booléen ; "allergies": liste des allergies dictées ;
 "traitements": traitements habituels dictés (nom tel que dicté, sans ajouter de dose) ;
 "cst": {"ta":"","fc":"","spo2":"","temp":"","fr":"","gly":"","eva":""} avec seulement les valeurs dictées (TA au format 130/80) ;
-"obs": {"hist":"histoire de la maladie, factuelle, au présent","atcd":"antécédents dictés","hyp":"diagnostic retenu, court","trace":"échanges, avis, informations données, si dictés", APPAREILS} où APPAREILS = une clé par appareil examiné (liste fournie) avec la description dictée ; omets les appareils non examinés et toute rubrique non dictée ;
+"obs": {"hist":"histoire de la maladie, factuelle, au présent","atcd":"antécédents dictés","hyp":"diagnostic retenu, court","trace":"échanges, avis, informations données, si dictés", APPAREILS} où APPAREILS = une clé par appareil (liste fournie) avec la description dictée, mot pour mot quand c'est possible ; pour un appareil absent de la dictée, renvoie la chaîne vide "" : n'écris JAMAIS « non renseigné », « non effectué », « non examiné », « non fait », « RAS », « normal », « sans particularité » ni aucune mention qui n'est pas dictée, et ne recopie jamais le seul nom de l'appareil (le logiciel complète lui-même les appareils vides selon le réglage du médecin) ; une rubrique non dictée est "" ;
 "remarques": vigilances courtes (contre-indication, interaction, donnée importante manquante), sinon [].`;
 const AI_SYS_CR=AI_SYS_COMMUN+`
 TÂCHE : relecture de sécurité médico-légale du compte rendu, avant validation par le médecin. Ce qui protège, c'est ce qui est écrit : complet, factuel, horodaté, sans contradiction. Clés du JSON :
@@ -16647,7 +16740,7 @@ function aiBack(t,opt){opt=opt||{};const R=AI.res;const s=String(t||"").trim();i
 function aiShowResult(){const R=AI.res,out=document.getElementById("ai_out");if(!R||!out)return;const j=R.j;
   if(R.kind==="obs")return aiShowObs(j,out);if(R.kind==="doc")return aiShowDoc(j,out);return aiShowCR(j,out);}
 function aiShowObs(j,out){const R=AI.res;const packs=(j.packs||[]).map(n=>PACKS.findIndex(p=>p.n===n)).filter(i=>i>=0);const rows=[],rej=[];const obs={};
-  Object.entries(j.obs||{}).forEach(([k,v])=>{if(!v||!(["hist","atcd","hyp","trace"].includes(k)||SYSTEMS.some(s=>s[0]===k)))return;const b=aiBack(v);if(b.ok)obs[k]=b.text;else rej.push((k)+" ("+b.why+")");});
+  Object.entries(j.obs||{}).forEach(([k,v])=>{if(!v||!(["hist","atcd","hyp","trace"].includes(k)||SYSTEMS.some(s=>s[0]===k)))return;if(SYSTEMS.some(s=>s[0]===k)){v=obsClean(v);if(!v)return;}else if(OBS_VOID_RE.test(String(v).trim().replace(/[.;:]+$/,"")))return;const b=aiBack(v);if(b.ok)obs[k]=b.text;else rej.push((k)+" ("+b.why+")");});
   const cst={};Object.entries(j.cst||{}).forEach(([k,v])=>{if(v&&aiFactGuard(R.sent,String(v)).ok)cst[k]=String(v);});
   const tt=(j.traitements||[]).map(t=>aiBack(t)).filter(b=>b.ok).map(b=>b.text),al=(j.allergies||[]).map(t=>aiBack(t)).filter(b=>b.ok).map(b=>b.text);
   const poids=j.poids&&aiFactGuard(R.sent,String(j.poids)).ok?String(j.poids):"";
@@ -16666,7 +16759,7 @@ function aiApplyObs(){const A=AI.res&&AI.res.apply;if(!A)return;
   if(A.poids)state.poids=A.poids.replace(/[^\d.,]/g,"");if(A.sexe==="h"||A.sexe==="f")state.sexe=A.sexe;if(A.grossesse){state.grossesse=true;state.sexe="f";}if(A.allait){state.allait=true;state.sexe="f";}if(A.pen)state.allergie=true;
   A.al.forEach(x=>{state.allergies=state.allergies||[];if(x&&!state.allergies.some(y=>allergyKey(y)===allergyKey(x)))state.allergies.push(x);if(/p[ée]nicillin/i.test(x))state.allergie=true;});
   A.tt.forEach(t=>{if(t&&!state.tt.some(x=>norm(x)===norm(t)))state.tt.push(t);});Object.entries(A.cst).forEach(([k,v])=>{state.cst[k]=v;});
-  if(Object.keys(A.obs).length){state.obs.dictated=true;Object.entries(A.obs).forEach(([k,v])=>{state.obs[k]=v;});state.obsOpen=true;}
+  if(Object.keys(A.obs).length){state.obs.dictated=true;Object.entries(A.obs).forEach(([k,v])=>{state.obs[k]=v;if(state.obsAuto)delete state.obsAuto[k];if(state.examRm)delete state.examRm[k];});state.obsOpen=true;}
   aiLog("obs","observation rangée par l'IA",Object.keys(A.obs).join(", "));try{autoAgePack();}catch(e){}if(!state.t0)state.t0=Date.now();
   const el=document.getElementById("aipanel");if(el)el.remove();render();}
 function aiLog(f,quoi,detail){state.aiLog=state.aiLog||[];state.aiLog.push({ts:Date.now(),f,quoi,detail:String(detail||"").slice(0,400)});}
@@ -16899,7 +16992,7 @@ function dictCardHTML(inXp){if(XP.dict&&!inXp)return "";const n=DICTH.length;con
    ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">Répartir dans l'observation</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span></div>
    ${!p&&String((state.obs&&state.obs.dict)||"").trim()?'<div class="hint">Choisissez une fiche (motif) : l\'observation rangée apparaîtra dessous. La dictée est gardée.</div>':""}</section>`;}
 function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;clearTimeout(dictCardBind._t);
-    if(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length)dictCardBind._t=setTimeout(dictAutoNormal,1500);};}
+    if(!excOn()&&(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length))dictCardBind._t=setTimeout(dictAutoNormal,1500);};}
   const g=document.getElementById("dict_go2");if(g)g.onclick=()=>{if(!String(state.obs.dict||"").trim()){t&&t.focus();return;}if(currentPack())state.obsOpen=true;applyDictation();try{aiAutoObs();}catch(e){}toast(currentPack()?"Dictée répartie dans l'observation":"Dictée gardée : choisissez une fiche");};
   const h=document.getElementById("dict_hist");if(h)h.onclick=dictHistScreen;draftSavedUI();}
 /* « 🎙 Dicter » de la tournée : focus immédiat dans le geste (sinon l'iPhone n'ouvre pas le clavier) ; à défaut, le grand champ Dictée */
@@ -16985,7 +17078,7 @@ function docPresc(c){const parts=[];const lc=x=>/^[A-ZÀ-Ý][a-zà-ÿ'’\-]+(?=
 /* résumé des éléments dictés ou saisis, à la place d'un renvoi au compte rendu (non imprimé) */
 function docObsSummary(){const o=state.obs||{};const b=[]; /* 17/10/2026 : jamais la dictée brute ni l'histoire libre ; constantes, examen, diagnostic seulement (la dictée reste dans le compte rendu) */
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:"/min",spo2:" %",temp:" °C",eva:"/10"}[k]));if(cst.length)b.push("constantes : "+cst.join(", "));
-  SYSTEMS.forEach(([k,l])=>{if(o[k]&&String(o[k]).trim())b.push(l.toLowerCase()+" : "+String(o[k]).replace(/[.\s]+$/,""));});if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
+  SYSTEMS.forEach(([k,l])=>{const v=obsVal(k);if(v)b.push(l.toLowerCase()+" : "+v.replace(/[.\s]+$/,""));});if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
 const DOC_FALLBACK="sont à votre disposition sur simple demande";
 function docFact(text,c){let t=String(text||"");const presc=docPresc(c);
   /* « J'ai prescrit … » : réécrit avec ce qui est réellement coché (examens, soins, traitements), et « revu les médicaments » seulement si fait */
@@ -17280,6 +17373,7 @@ function xpToast(msg,undo){let x=document.getElementById("xptoast");if(!x){x=doc
   const u=x.querySelector("#xp_undo");if(u)u.onclick=()=>{x.classList.remove("on");patientUndo();};
   clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),undo?10000:3500);}
 function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche.");return;}
+  {const why0=xpPending(p);if(!why0.length&&!examGate())return;}
   const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
   const why=xpPending(p);
   if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack();return;}
@@ -17339,8 +17433,9 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
   return (H.length?`<div class="xp-fields">${H.join("")}</div>`:"")+cd;}
 /* alertes : fixées dans l'Express (jamais bloquantes) */
 function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}
+  try{L.push(...examGravAlerts(p));}catch(e){}
   try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « né(e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
-  if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
+  if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale|gravité/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
   return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — "+esc(/^poids/.test(m.why)?"poids manquant":"non imprimé : "+m.why):""}</div>`).join("")}</div>`:""}
    ${favHas("x:docs")?`<div class="xp-line xp-n">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${favStar("x:docs","Documents")}</div>`:""}${favHas("sec:cot")?(()=>{const c=xpCot();return c?`<div class="xp-line xp-n"><span class="hint">Cotation ${esc(c)}</span>${favStar("sec:cot","Cotation")}</div>`:"";})():""}`;}
@@ -17387,7 +17482,7 @@ function xpBind(){document.body.classList.toggle("xpmode",!!(xpActive()&&documen
   document.querySelectorAll("[data-xpopen]").forEach(a=>a.onclick=()=>{xpOpenStop(a.dataset.xpopen);}); /* le lien de navigation s'ouvre dans le même toucher (visite) */
 }
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpsex]");if(b){state.sexe=b.dataset.xpsex;render();}});
-document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpset]");if(!b)return;lsSet("sos_xp",!xpOn());render();toast(xpOn()?"Express visite activé":"Express visite désactivé : écran complet");});
+document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-xpset]");if(!b){const m=ev.target.closest&&ev.target.closest("[data-excmenu]");if(m){excSet(!excOn());if(!excOn()){const A=state.obsAuto||{};Object.keys(A).forEach(k=>{if(state.obs[k]===A[k])delete state.obs[k];});state.obsAuto={};state.examOK=false;}render();toast(excOn()?"Examen complet : activé":"Examen complet : désactivé");}return;}lsSet("sos_xp",!xpOn());render();toast(xpOn()?"Express visite activé":"Express visite désactivé : écran complet");});
 /* ===================== 17/10/2026 (h) — FAVORIS → EXPRESS =====================
    Chaque élément du mode complet porte une étoile : ☆ l'ajoute à l'Express, ★ l'en retire. Rangés par profil, chiffrés
    (sur l'appareil avec la clé du journal, dans profil.json avec la phrase maître). Un favori n'apparaît que si le choix précédent l'appelle
@@ -17771,7 +17866,7 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
+function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();try{examAutoFill();}catch(e){}renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><span class="appver" title="${esc(appVerFull())}" aria-label="Version ${esc(appVerFull())}">${esc(appVer())}</span><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
@@ -18182,12 +18277,13 @@ function stateSnapshot(){const {view,jg,dq,dopen,rm,tedit,...rest}=state;return 
 async function validLoad(){try{let h=await secGet("sos_validhist",null);if(!Array.isArray(h)){const v=await secGet("sos_lastvalid",null);h=v?[v]:[];}VALID.hist=h.filter(v=>v&&v.snap&&Date.now()-v.ts<12*3600*1000);}catch(e){VALID.hist=[];}VALID.last=VALID.hist.find(x=>!x.pending)||null;}
 function validSave(){if(!VALID.hist.length){secRemove("sos_validhist");secRemove("sos_lastvalid");return;}let h=VALID.hist;try{if(JSON.stringify(h).length>1500000)h=h.map((v,i)=>i<2?v:Object.assign({},v,{snap:Object.assign({},v.snap,{photos:[]})}));}catch(e){}if(SEC.key){secPut("sos_validhist",h).catch(()=>secSet("sos_validhist",h));}else secSet("sos_validhist",h);secRemove("sos_lastvalid");}
 function patientValidate(){
+  if(!examGate())return;
   const p=currentPack();const snap=stateSnapshot();
   const stop=TOUR.current?tourStop(TOUR.current):null;
   if(state.patient&&!TESTMODE){try{const has=JOURNAL.some(x=>norm(x.patient)===norm(state.patient)&&Date.now()-x.ts<2*3600*1000);if(!has)journalUpsert(p||{n:(state.cot&&state.cot.lieu==="visite")?"Visite":"Consultation"});}catch(e){}}
   const e=JOURNAL.slice().reverse().find(x=>state.patient&&norm(x.patient)===norm(state.patient)&&Date.now()-x.ts<2*3600*1000);
   const cot=e?cotCompute(e):null;const lp=state.lastPrint||null;
-  const v={ts:Date.now(),patient:state.patient||"",ddn:state.ddn||"",pack:p?p.n:"",sheets:lp?lp.n:0,sent:!!(lp&&lp.sent),cr:!!state.crCopied,cot:cot?{codes:cot.codes.map(x=>x.c),total:cot.total}:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap};
+  const v={ts:Date.now(),exam:state.examTrace||null,patient:state.patient||"",ddn:state.ddn||"",pack:p?p.n:"",sheets:lp?lp.n:0,sent:!!(lp&&lp.sent),cr:!!state.crCopied,cot:cot?{codes:cot.codes.map(x=>x.c),total:cot.total}:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap};
   if(stop){stop.done=true;stop.doneTs=Date.now();if(stop.tArr)stop.dur=Math.round((stop.doneTs-stop.tArr)/60000);delete stop.cur;TOUR.order=TOUR.order.filter(x=>x!==stop.id);TOUR.lastDone=stop.id;TOUR.current="";tourSave();try{tpGeoStop();}catch(x){}}
   if(e){e.tFin=Date.now();if(stop&&stop.tArr&&!e.tArr)e.tArr=stop.tArr;if(stop&&stop.calls&&stop.calls.length)e.appels=stop.calls.map(c=>({ts:c.ts,annonce:c.annonce,masque:!!c.masque}));try{journalSave();}catch(x){}}
   validPush(v);VALID.undoUntil=Date.now()+8000;state.view="valid";render();

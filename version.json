@@ -1,9 +1,9 @@
 {
-  "version": "41p",
+  "version": "41q",
   "date": "2026-10-18",
   "notes": [
-    "Otite et otite-conjonctivite de l'enfant : antibiotique selon l'allergie (AUGMENTIN, ORELOX, ou BACTRIM si allergie grave) avec la question « Allergie grave ? » en un geste ; AERIUS seulement en option.",
-    "Suspensions : « dose-poids » seulement dans l'étendue de la pipette, sinon ml et mg et « dose maximale » ; toujours ml et mg, aussi dans les conseils.",
-    "Impression : seul le PDF s'imprime (jamais la page web), numéros de lignes lisibles, une seule forme par ligne. Fiches modifiées « à relire »."
+    "Examen complet (réglage activé par défaut) : les appareils non dictés reçoivent l'examen normal type de la fiche, surligné, validé en un seul geste « ✓ Examen complet » ; chaque appareil se retire d'un toucher.",
+    "Jamais « non renseigné », « non effectué » ni « RAS ? » au compte rendu ; le texte dicté n'est jamais modifié ; signe de gravité : alerte à l'écran seulement.",
+    "Validation de l'examen tracée au journal. Liste des normaux types à relire."
   ]
 }

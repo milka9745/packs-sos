@@ -84,6 +84,7 @@ async def run(b,w,h,th,big,label):
       ok(L+"7. « Mode voiture » seul ajouté à l'Express",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==0)
       await page.evaluate("favReset()")
     # 8 — « reste de l'examen normal »
+    await page.evaluate("localStorage.setItem('sos_excomplet','0')")  # 18/10 : comportement du réglage « Examen complet » désactivé (activé : test_examen18.py)
     D="Fièvre depuis hier. Tympan droit bombé, rouge. Reste de l'examen normal."
     await page.evaluate(SETP,{"n":"Otite moyenne aiguë — enfant","pat":{"patient":"PETIT Lou","ddn":"01/03/2022","sexe":"f","poids":"16"},"obs":{"dict":D}})
     await page.evaluate("applyDictation()"); await page.wait_for_timeout(200)
@@ -106,6 +107,7 @@ async def run(b,w,h,th,big,label):
     await page.evaluate("applyDictation()")
     o=await page.evaluate("({resp:state.obs.resp,auto:Object.keys(state.obsAuto||{})})")
     ok(L+"8. « examen normal par ailleurs » : l'anomalie dictée est gardée telle quelle","crépitants" in (o["resp"] or "") and "resp" not in o["auto"] and len(o["auto"])>=1,o)
+    await page.evaluate("localStorage.setItem('sos_excomplet','1')")
     ok(L+"aucune erreur JS",not errors,errors[:2])
     await ctx.close()
 async def main():

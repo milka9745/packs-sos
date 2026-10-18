@@ -130,7 +130,7 @@
 - OK — iphone mise à jour : jamais de rechargement automatique pendant une consultation
 - OK — iphone correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif
 - OK — iphone correctif 7 : le co-patient n'hérite pas des antécédents, traitements ni de la grossesse
-- OK — iphone correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits
+- OK — iphone correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits, et jamais « non renseigné » (règle du 18/10)
 - OK — iphone correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu
 - OK — iphone correctif 1 : « Commencer » ouvre un dossier propre prérempli (nom, naissance, motif, téléphone, adresse) et met de côté le patient précédent
 - OK — iphone correctif 4 : bouton d'appel visible hors menu replié
@@ -263,7 +263,7 @@
 - OK — pc impression : NICOPATCHLIB imprimé avec la consigne de pose, sans le critère Fagerström
 - OK — pc correctif 7 : aucun pack n'injecte « tique » ou une histoire d'un autre motif
 - OK — pc correctif 7 : le co-patient n'hérite pas des antécédents, traitements ni de la grossesse
-- OK — pc correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits
+- OK — pc correctif 8 : sans validation, aucun examen, évolution ni accord présentés comme faits, et jamais « non renseigné » (règle du 18/10)
 - OK — pc correctif 8 : après validation explicite « Normal », l'examen figure au compte rendu
 - OK — pc correctif 1 : « Commencer » ouvre un dossier propre prérempli (nom, naissance, motif, téléphone, adresse) et met de côté le patient précédent
 - OK — pc correctif 4 : bouton d'appel visible hors menu replié

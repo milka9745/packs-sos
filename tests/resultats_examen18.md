@@ -1,0 +1,76 @@
+# Examen complet (18/10/2026)
+
+- OK — Express · sans IA : référence : ORL = texte dicté, intact, non surligné
+- OK — Express · sans IA : référence : Général, Cardio, Pulmonaire, Abdomen, Neuro, Cutané = normaux types surlignés
+- OK — Express · sans IA : neuro absent de la dictée → normal type inséré
+- OK — Express · sans IA : un seul bouton « ✓ Examen complet »
+- OK — Express · sans IA : « Retirer » Cutané : absent du compte rendu, sans mention
+- OK — Express · sans IA : validé d'un geste : plus de surlignage, plus de bouton
+- OK — Express · sans IA : compte rendu : un seul paragraphe « Examen : … », texte dicté intact
+- OK — Express · sans IA : compte rendu : jamais « non renseigné », « non effectué », « non examiné », « RAS ? » ni libellé seul, ni surlignage
+- OK — Express · sans IA : validation tracée au journal (heure, normaux types, appareil retiré)
+- OK — Express · sans IA : PDF : aucun surlignage ni mention vide
+- OK — Express · sans IA : neuro dicté anormal : phrase dictée conservée, aucun normal ajouté
+- OK — Express · sans IA : neuro dicté anormal : alerte de gravité de la fiche à l'écran
+- OK — Express · sans IA : alerte de gravité jamais écrite au compte rendu
+- OK — Express · sans IA : réglage désactivé : seuls les appareils dictés, aucune ligne pour les champs vides
+- OK — Express · sans IA : réglage désactivé : jamais de mention vide ni « Examen clinique non renseigné »
+- OK — Express · sans IA : réglage désactivé, aucun examen dicté : ni rubrique d'examen vide ni « non renseigné »
+- OK — Express · sans IA : validation sans « ✓ » : 1er toucher montre l'examen, 2e toucher valide examen et patient (tracé)
+- OK — Express · sans IA : aucune erreur JS
+- OK — Express · avec IA : référence : ORL = texte dicté, intact, non surligné
+- OK — Express · avec IA : référence : Général, Cardio, Pulmonaire, Abdomen, Neuro, Cutané = normaux types surlignés
+- OK — Express · avec IA : neuro absent de la dictée (IA : « non renseigné / non effectué ») → normal type inséré
+- OK — Express · avec IA : un seul bouton « ✓ Examen complet »
+- OK — Express · avec IA : « Retirer » Cutané : absent du compte rendu, sans mention
+- OK — Express · avec IA : validé d'un geste : plus de surlignage, plus de bouton
+- OK — Express · avec IA : compte rendu : un seul paragraphe « Examen : … », texte dicté intact
+- OK — Express · avec IA : compte rendu : jamais « non renseigné », « non effectué », « non examiné », « RAS ? » ni libellé seul, ni surlignage
+- OK — Express · avec IA : validation tracée au journal (heure, normaux types, appareil retiré)
+- OK — Express · avec IA : PDF : aucun surlignage ni mention vide
+- OK — Express · avec IA : neuro dicté anormal : phrase dictée conservée, aucun normal ajouté
+- OK — Express · avec IA : neuro dicté anormal : alerte de gravité de la fiche à l'écran
+- OK — Express · avec IA : alerte de gravité jamais écrite au compte rendu
+- OK — Express · avec IA : réglage désactivé : seuls les appareils dictés, aucune ligne pour les champs vides
+- OK — Express · avec IA : réglage désactivé : jamais de mention vide ni « Examen clinique non renseigné »
+- OK — Express · avec IA : réglage désactivé, aucun examen dicté : ni rubrique d'examen vide ni « non renseigné »
+- OK — Express · avec IA : validation sans « ✓ » : 1er toucher montre l'examen, 2e toucher valide examen et patient (tracé)
+- OK — Express · avec IA : aucune erreur JS
+- OK — mode complet · sans IA : référence : ORL = texte dicté, intact, non surligné
+- OK — mode complet · sans IA : référence : Général, Cardio, Pulmonaire, Abdomen, Neuro, Cutané = normaux types surlignés
+- OK — mode complet · sans IA : neuro absent de la dictée → normal type inséré
+- OK — mode complet · sans IA : un seul bouton « ✓ Examen complet »
+- OK — mode complet · sans IA : « Retirer » Cutané : absent du compte rendu, sans mention
+- OK — mode complet · sans IA : validé d'un geste : plus de surlignage, plus de bouton
+- OK — mode complet · sans IA : compte rendu : un seul paragraphe « Examen : … », texte dicté intact
+- OK — mode complet · sans IA : compte rendu : jamais « non renseigné », « non effectué », « non examiné », « RAS ? » ni libellé seul, ni surlignage
+- OK — mode complet · sans IA : validation tracée au journal (heure, normaux types, appareil retiré)
+- OK — mode complet · sans IA : PDF : aucun surlignage ni mention vide
+- OK — mode complet · sans IA : neuro dicté anormal : phrase dictée conservée, aucun normal ajouté
+- OK — mode complet · sans IA : neuro dicté anormal : alerte de gravité de la fiche à l'écran
+- OK — mode complet · sans IA : alerte de gravité jamais écrite au compte rendu
+- OK — mode complet · sans IA : réglage désactivé : seuls les appareils dictés, aucune ligne pour les champs vides
+- OK — mode complet · sans IA : réglage désactivé : jamais de mention vide ni « Examen clinique non renseigné »
+- OK — mode complet · sans IA : réglage désactivé, aucun examen dicté : ni rubrique d'examen vide ni « non renseigné »
+- OK — mode complet · sans IA : validation sans « ✓ » : 1er toucher montre l'examen, 2e toucher valide examen et patient (tracé)
+- OK — mode complet · sans IA : aucune erreur JS
+- OK — mode complet · avec IA : référence : ORL = texte dicté, intact, non surligné
+- OK — mode complet · avec IA : référence : Général, Cardio, Pulmonaire, Abdomen, Neuro, Cutané = normaux types surlignés
+- OK — mode complet · avec IA : neuro absent de la dictée (IA : « non renseigné / non effectué ») → normal type inséré
+- OK — mode complet · avec IA : un seul bouton « ✓ Examen complet »
+- OK — mode complet · avec IA : « Retirer » Cutané : absent du compte rendu, sans mention
+- OK — mode complet · avec IA : validé d'un geste : plus de surlignage, plus de bouton
+- OK — mode complet · avec IA : compte rendu : un seul paragraphe « Examen : … », texte dicté intact
+- OK — mode complet · avec IA : compte rendu : jamais « non renseigné », « non effectué », « non examiné », « RAS ? » ni libellé seul, ni surlignage
+- OK — mode complet · avec IA : validation tracée au journal (heure, normaux types, appareil retiré)
+- OK — mode complet · avec IA : PDF : aucun surlignage ni mention vide
+- OK — mode complet · avec IA : neuro dicté anormal : phrase dictée conservée, aucun normal ajouté
+- OK — mode complet · avec IA : neuro dicté anormal : alerte de gravité de la fiche à l'écran
+- OK — mode complet · avec IA : alerte de gravité jamais écrite au compte rendu
+- OK — mode complet · avec IA : réglage désactivé : seuls les appareils dictés, aucune ligne pour les champs vides
+- OK — mode complet · avec IA : réglage désactivé : jamais de mention vide ni « Examen clinique non renseigné »
+- OK — mode complet · avec IA : réglage désactivé, aucun examen dicté : ni rubrique d'examen vide ni « non renseigné »
+- OK — mode complet · avec IA : validation sans « ✓ » : 1er toucher montre l'examen, 2e toucher valide examen et patient (tracé)
+- OK — mode complet · avec IA : aucune erreur JS
+
+72/72 tests OK
