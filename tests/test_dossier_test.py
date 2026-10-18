@@ -58,7 +58,7 @@ async def main():
             ok("test/ : version de la branche ia",ver.endswith("-test"),ver)
             ok("test/ : Express présent (branche ia)",await page.evaluate("typeof xpHTML==='function'"))
             wm=await page.evaluate("()=>{newPatient();Object.assign(state,{patient:'DURAND Paul',ddn:'14/05/1975',sexe:'h'});state.sel=PACKS.findIndex(p=>p.n==='Rhinopharyngite — adulte');return buildPages(currentPack(),true).out.split('VERSION TEST').length-1;}")
-            ok("test/ : filigrane « VERSION TEST » sur chaque document",wm>=1,wm)
+            ok("test/ : aucun filigrane sur les documents (décision du 18/10/2026)",wm==0,wm)
             await page.click("#more_btn"); await page.wait_for_timeout(300)
             jm=await page.evaluate("(document.querySelector('#jmenu .jm-ver')||{}).textContent||''")
             ok("test/ : menu ⋯ « v… · test · date » (numéro distinct de l'outil de garde)"," · test · " in jm and jm.startswith("v41") and "41k" not in jm,jm)
