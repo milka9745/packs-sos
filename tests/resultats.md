@@ -118,7 +118,7 @@
 - OK — iphone bloc 15 : énurésie à 10 ans, desmopressine 120 µg le soir avec restriction hydrique (RCP MINIRINMELT)
 - OK — iphone bloc 15 : fer chez l'enfant de 8 ans, 1 comprimé par jour (RCP TARDYFERON)
 - OK — iphone bloc 15 : chaque fiche ◇ rappelle le cadre premier recours (dépannage puis orientation)
-- OK — iphone réglages de tournée : aucun recalcul pendant la saisie, appliqués à la validation, la vue ne bouge pas
+- ÉCHEC — iphone réglages de tournée : aucun recalcul pendant la saisie, appliqués à la validation, la vue ne bouge pas — {'during': {'renders': 0, 'fin': '', 'top': 0}, 'after': {'fin': '23:00', 'marge': 15, 'open': True, 'shift': 181, 'st': 'Aucun changement'}}
 - OK — iphone alerte d'attente : une seule ligne compacte « 3 patients attendent depuis plus de 2 h », repliée, liste sans doublon
 - OK — iphone journal : sommaire en haut (gardes et patients, sécurité, identité, sauvegarde…), lien qui amène à la partie, boutons haut et bas
 - OK — iphone affichage Garde par défaut : actions principales pleines et vives, une seule mise en avant (Naviguer puis Je suis arrivé), choix Garde / Premium dans le menu
@@ -136,7 +136,7 @@
 - OK — iphone correctif 4 : bouton d'appel visible hors menu replié
 - OK — iphone correctif 6 : libellé initiale · âge · rue
 - OK — iphone correctif 3 : la cotation suit l'heure de l'acte (19:50 = VG+MU, pas VRN), arrivée et acte enregistrés
-- OK — iphone correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée
+- ÉCHEC — iphone correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée — {'order': ['c', 'b', 'a', 'd', 'e'], 'calls': [{'n': 5, 'hasDest': True, 'last': {'lat': 47.9, 'lon': 1.9}}], 'eta': True, 'late': True}
 - OK — iphone correctif 10 : 2 documents par A4 en option (désactivée par défaut), jamais pour une ordonnance
 - OK — iphone correctif 10 : documents courts regroupés, document trop long remis en pleine page (jamais tronqué)
 - OK — iphone bronchiolite nuit : feuilles rendues
@@ -269,10 +269,10 @@
 - OK — pc correctif 4 : bouton d'appel visible hors menu replié
 - OK — pc correctif 6 : libellé initiale · âge · rue
 - OK — pc correctif 3 : la cotation suit l'heure de l'acte (19:50 = VG+MU, pas VRN), arrivée et acte enregistrés
-- OK — pc correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée
+- ÉCHEC — pc correctif 9 : prioritaire, puis créneau horaire, puis les autres ; arrivée imposée en fin de tournée ; heure estimée — {'order': ['c', 'b', 'a', 'd', 'e'], 'calls': [{'n': 5, 'hasDest': True, 'last': {'lat': 47.9, 'lon': 1.9}}], 'eta': True, 'late': True}
 - OK — pc correctif 10 : 2 documents par A4 en option (désactivée par défaut), jamais pour une ordonnance
 - OK — pc correctif 10 : documents courts regroupés, document trop long remis en pleine page (jamais tronqué)
 - OK — pc bronchiolite nuit : feuilles rendues
 - OK — pc aucune erreur JS
 
-274/274 tests OK
+271/274 tests OK

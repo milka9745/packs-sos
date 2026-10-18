@@ -67,7 +67,8 @@ async def main():
                     s=on(r,atb)
                     exp={"AUGMENTIN":"3,5 ml (soit 350 mg d'amoxicilline) 3 fois par jour","ORELOX":"1 dose-poids 13 kg (soit 6,5 ml, 52 mg) matin et soir","BACTRIM":"5 ml (soit 200 mg de sulfaméthoxazole) matin et soir"}[atb]
                     mx={"AUGMENTIN":"sans dépasser 10 ml par prise","ORELOX":"sans dépasser 400 mg par jour","BACTRIM":"sans dépasser 10 ml par prise"}[atb]
-                    ok(L+f"{tag} : {atb} en ml et en mg, dose maximale, 10 jours (moins de 2 ans)",exp in s and mx in s and "pendant 10 jours" in s,s[:260])
+                    dur="pendant 7 jours" if atb=="BACTRIM" else "pendant 10 jours"  # 18/10/2026 : BACTRIM selon le RCP (7 jours au maximum)
+                    ok(L+f"{tag} : {atb} en ml et en mg, dose maximale, durée ({dur}, moins de 2 ans)",exp in s and mx in s and dur in s,s[:260])
                     ok(L+f"{tag} : question « Allergie grave ? » {'affichée' if al else 'absente'}",r["q"]==al,r["q"])
                     aer=[y for y in r["L"] if y["t"].startswith("AERIUS")]
                     ok(L+f"{tag} : AERIUS proposé en option décochée (si allergie avérée)",aer and not aer[0]["on"] and "si allergie avérée" in aer[0]["s"],aer)
@@ -75,7 +76,7 @@ async def main():
                     ok(L+f"{tag} : fiche otite-conjonctivite « à relire »",r["st"] and "à relire" in r["st"][-1],r["st"])
                     ro=await page.evaluate(SETUP,{"n":N_OMA,"al":al,"g":g})
                     so=[y["t"] for y in ro["L"] if y["on"] and y["t"].split(" ")[0] in ("AUGMENTIN","ORELOX","BACTRIM","CLAMOXYL")]
-                    ok(L+f"OMA enfant 22 mois 13 kg (visite), {tag} : {atb_oma} retenu, 10 jours",so and len(so)==1 and so[0].startswith(atb_oma) and "pendant 10 jours" in on(ro,atb_oma),so)
+                    ok(L+f"OMA enfant 22 mois 13 kg (visite), {tag} : {atb_oma} retenu, 10 jours",so and len(so)==1 and so[0].startswith(atb_oma) and ("pendant 7 jours" if atb_oma=="BACTRIM" else "pendant 10 jours") in on(ro,atb_oma),so)
                     ok(L+f"OMA enfant : fiche « à relire »",ro["st"] and "à relire" in ro["st"][-1],ro["st"])
                     if xp: continue
                     # aperçu et PDF de la fiche otite-conjonctivite

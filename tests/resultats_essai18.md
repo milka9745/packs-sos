@@ -1,7 +1,7 @@
 # Essai du 18/10/2026 (22 mois, 13 kg, otite-conjonctivite) — webkit
 
 - OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, sans-allergie : AUGMENTIN seul antibiotique coché
-- OK — webkit iPhone · mode complet : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, durée (pendant 10 jours, moins de 2 ans)
 - OK — webkit iPhone · mode complet : sans-allergie : question « Allergie grave ? » absente
 - OK — webkit iPhone · mode complet : sans-allergie : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · mode complet : sans-allergie : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
@@ -16,7 +16,7 @@
 - OK — webkit iPhone · mode complet : sans-allergie : impression = partage iOS du PDF seul (application/pdf), jamais la page web
 - OK — webkit iPhone · mode complet : sans-allergie : la page web elle-même ne s'imprime pas (seul le message renvoyant au PDF)
 - OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, allergie-sans-gravite : ORELOX seul antibiotique coché
-- OK — webkit iPhone · mode complet : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, durée (pendant 10 jours, moins de 2 ans)
 - OK — webkit iPhone · mode complet : allergie-sans-gravite : question « Allergie grave ? » affichée
 - OK — webkit iPhone · mode complet : allergie-sans-gravite : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · mode complet : allergie-sans-gravite : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
@@ -31,7 +31,7 @@
 - OK — webkit iPhone · mode complet : allergie-sans-gravite : impression = partage iOS du PDF seul (application/pdf), jamais la page web
 - OK — webkit iPhone · mode complet : allergie-sans-gravite : la page web elle-même ne s'imprime pas (seul le message renvoyant au PDF)
 - OK — webkit iPhone · mode complet : otite-conjonctivite 22 mois 13 kg, allergie-grave : BACTRIM seul antibiotique coché
-- OK — webkit iPhone · mode complet : allergie-grave : BACTRIM en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · mode complet : allergie-grave : BACTRIM en ml et en mg, dose maximale, durée (pendant 7 jours, moins de 2 ans)
 - OK — webkit iPhone · mode complet : allergie-grave : question « Allergie grave ? » affichée
 - OK — webkit iPhone · mode complet : allergie-grave : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · mode complet : allergie-grave : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
@@ -50,7 +50,7 @@
 - OK — webkit iPhone · mode complet : toutes les fiches (13, 22, 30 kg) : jamais deux formes galéniques sur une ligne cochée
 - OK — webkit iPhone · mode complet : aucune erreur JS
 - OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, sans-allergie : AUGMENTIN seul antibiotique coché
-- OK — webkit iPhone · Express : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : sans-allergie : AUGMENTIN en ml et en mg, dose maximale, durée (pendant 10 jours, moins de 2 ans)
 - OK — webkit iPhone · Express : sans-allergie : question « Allergie grave ? » absente
 - OK — webkit iPhone · Express : sans-allergie : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · Express : sans-allergie : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
@@ -58,7 +58,7 @@
 - OK — webkit iPhone · Express : OMA enfant 22 mois 13 kg (visite), sans-allergie : CLAMOXYL retenu, 10 jours
 - OK — webkit iPhone · Express : OMA enfant : fiche « à relire »
 - OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, allergie-sans-gravite : ORELOX seul antibiotique coché
-- OK — webkit iPhone · Express : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : allergie-sans-gravite : ORELOX en ml et en mg, dose maximale, durée (pendant 10 jours, moins de 2 ans)
 - OK — webkit iPhone · Express : allergie-sans-gravite : question « Allergie grave ? » affichée
 - OK — webkit iPhone · Express : allergie-sans-gravite : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · Express : allergie-sans-gravite : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
@@ -66,7 +66,7 @@
 - OK — webkit iPhone · Express : OMA enfant 22 mois 13 kg (visite), allergie-sans-gravite : ORELOX retenu, 10 jours
 - OK — webkit iPhone · Express : OMA enfant : fiche « à relire »
 - OK — webkit iPhone · Express : otite-conjonctivite 22 mois 13 kg, allergie-grave : BACTRIM seul antibiotique coché
-- OK — webkit iPhone · Express : allergie-grave : BACTRIM en ml et en mg, dose maximale, 10 jours (moins de 2 ans)
+- OK — webkit iPhone · Express : allergie-grave : BACTRIM en ml et en mg, dose maximale, durée (pendant 7 jours, moins de 2 ans)
 - OK — webkit iPhone · Express : allergie-grave : question « Allergie grave ? » affichée
 - OK — webkit iPhone · Express : allergie-grave : AERIUS proposé en option décochée (si allergie avérée)
 - OK — webkit iPhone · Express : allergie-grave : une seule forme galénique par ligne (pas de « (ou suppositoire) »)
