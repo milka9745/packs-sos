@@ -1,4 +1,6 @@
-# État du catalogue — 20/10/2026 (branche ia, v41v ; sommaire version 1 du 14/10/2026)
+# État du catalogue — 20/10/2026 (branche ia, v41x ; sommaire version 1 du 14/10/2026)
+
+**Mise à jour après le bloc 16 (20/10/2026, v41x) : 264 fiches complètes sur 264.** Le bloc 16 a créé « Érythème fessier — nourrisson » et mis au format catalogue (consignes, mémo, statut « non relue (bloc 16, version 1) ») les 5 fiches incomplètes ci-dessous (29, 76, 150, 203, 252). Le tableau qui suit est l'état constaté **avant** ce bloc, conservé pour mémoire.
 
 **264 fiches au sommaire** : 258 complètes, 5 incomplètes, 1 absentes. **398 fiches dans l'application**, dont 138 hors sommaire (anciennes fiches de base, fiches « à la carte », variantes adulte / enfant comptées séparément).
 
@@ -65,7 +67,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 | 26 | Pneumothorax, pleurésie suspectés | ★ | complète ⚠ à vérifier | Pneumothorax / pleurésie — suspicion | non relue |
 | 27 | Coqueluche | ★ | complète | Coqueluche — cas et entourage | modifiée, à relire |
 | 28 | Hémoptysie | ★ | complète | Hémoptysie — orientation | non relue |
-| 29 | Apnée du sommeil suspectée | ★ | incomplète | Apnées du sommeil — bilan | sans statut (ancienne fiche) |
+| 29 | Apnée du sommeil suspectée | ★ | complète (bloc 16) | Apnées du sommeil — bilan | non relue (bloc 16) |
 | 30 | Insuffisance respiratoire chronique, oxygène | ★ | complète ⚠ à vérifier | Oxygénothérapie à domicile — prescription | non relue |
 | 31 | Sevrage tabagique | ★ ◇ | complète | Sevrage tabagique | non relue |
 
@@ -127,7 +129,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 | 73 | Occlusion suspectée | ★ | complète | Occlusion intestinale suspectée | non relue |
 | 74 | Pancréatite aiguë suspectée | ★ | complète | Pancréatite aiguë suspectée | non relue |
 | 75 | Ictère, hépatite | ★ | complète | Ictère / hépatite — bilan | non relue |
-| 76 | Oxyurose, parasitose digestive | ★ | incomplète ⚠ à vérifier | Parasitose digestive | sans statut (ancienne fiche) |
+| 76 | Oxyurose, parasitose digestive | ★ | complète (bloc 16) | Parasitose digestive | non relue (bloc 16) |
 | 77 | Diarrhée du voyageur, diarrhée sous antibiotique | ★ | complète | Diarrhée du voyageur / diarrhée sous antibiotique | non relue |
 | 78 | Hernie inguinale ou ombilicale | ★ ◇ | complète | Hernie inguinale ou ombilicale | non relue |
 
@@ -226,7 +228,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 | 147 | Contusion, traumatisme bénin | ★★★ | complète | Contusion — traumatisme bénin | non relue |
 | 148 | Fracture de côte | ★ | complète | Fracture de côte | non relue |
 | 149 | Épaule douloureuse | ★★ | complète | Épaule douloureuse | non relue |
-| 150 | Épicondylite, tendinopathies | ★ | incomplète ⚠ à vérifier | Épicondylite — tennis elbow | sans statut (ancienne fiche) |
+| 150 | Épicondylite, tendinopathies | ★ | complète (bloc 16) | Épicondylite — tennis elbow | non relue (bloc 16) |
 | 151 | Crise de goutte | ★★ | complète | Crise de goutte | non relue |
 | 152 | Monoarthrite aiguë (arthrite septique) | ★ | complète | Monoarthrite aiguë — arthrite septique suspectée | non relue |
 | 153 | Chute et douleur de hanche du sujet âgé | ★★ | complète | Douleur de hanche après chute — sujet âgé | non relue |
@@ -294,7 +296,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 | 200 | Hyperglycémie, diabète déséquilibré | ★★ | complète | Hyperglycémie — diabète déséquilibré | non relue |
 | 201 | Hypoglycémie | ★★ | complète | Hypoglycémie | non relue |
 | 202 | Pied diabétique, plaie du diabétique | ★ | complète | Pied diabétique — plaie infectée | non relue |
-| 203 | Dysthyroïdie | ★ | incomplète | Dysthyroïdie — bilan avancé et suivi | sans statut (ancienne fiche) |
+| 203 | Dysthyroïdie | ★ | complète (bloc 16) | Dysthyroïdie — bilan avancé et suivi | non relue (bloc 16) |
 | 204 | Déshydratation, hyponatrémie du sujet âgé | ★★ | complète | Déshydratation du sujet âgé | non relue |
 | 205 | Hyperkaliémie sur bilan | ★ | complète | Hyperkaliémie | non relue |
 | 206 | Corticothérapie, insuffisance surrénale | ★ | complète | Insuffisance surrénale et corticothérapie au long cours | non relue |
@@ -317,7 +319,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 | 218 | Pleurs et coliques du nourrisson | ★ | complète | Pleurs et coliques — nourrisson | non relue |
 | 219 | Convulsion fébrile | ★★ | complète | Convulsion fébrile simple — enfant | non relue |
 | 220 | Éruption fébrile de l'enfant (roséole, scarlatine, pied-main-bouche) | ★★ | complète | Éruption fébrile de l'enfant — orientation | non relue |
-| 221 | Érythème fessier | ★ | absente | proche : partiel : « Candidose buccale / du siège — nourrisson » (candidose seulement) |  |
+| 221 | Érythème fessier | ★ | complète (bloc 16) | Érythème fessier — nourrisson | non relue (bloc 16) |
 | 222 | Douleur abdominale de l'enfant (invagination) | ★ | complète | Douleur abdominale de l'enfant — orientation | non relue |
 | 223 | Boiterie de l'enfant | ★ | complète | Boiterie de l'enfant | modifiée, à relire |
 | 224 | Traumatisme de l'enfant, pronation douloureuse | ★★ | complète | Traumatisme de l'enfant — pronation douloureuse | modifiée, à relire |
@@ -368,7 +370,7 @@ Lecture : *complète* = fiche présente avec consignes patient, mémo et ligne d
 |---|---|---|---|---|---|
 | 250 | Arrêt de travail : durées indicatives par motif | ★★★ | complète | module « Arrêt de travail » (durées par motif, AT_DUREES, certificat) | module de l'application |
 | 251 | Certificat descriptif de lésions (ITT en blanc) | ★★ | complète | Certificat descriptif de lésions | non relue |
-| 252 | Certificat de décès, constat de décès | ★★ | incomplète ⚠ à vérifier | Décès à domicile — aide-mémoire | non relue |
+| 252 | Certificat de décès, constat de décès | ★★ | complète (bloc 16) | Décès à domicile — aide-mémoire | non relue (bloc 16) |
 | 253 | Certificat enfant malade, absence | ★★ | complète ⚠ à vérifier | Certificat — enfant malade | non relue |
 | 254 | Accident du travail (certificat médical initial) | ★★ | complète | Accident du travail — certificat médical initial | non relue |
 | 255 | Bon de transport | ★★ | complète | Bon de transport | non relue |

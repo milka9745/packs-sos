@@ -1,0 +1,66 @@
+# Tests bloc 16 — complément (6 fiches)
+
+- OK — iphone bloc 16 : 6 packs chargés
+- OK — iphone bloc 16 : anciennes fiches remplacées, aucun doublon
+- OK — iphone bloc 16 : un seul mémo par fiche avec la ligne « non relue (bloc 16, version 1) »
+- OK — iphone bloc 16 : consignes patient (3 lignes au moins) sur les 6 fiches
+- OK — iphone bloc 16 : aucun mémo médecin (RCP, CRAT, ANSM, contre-indication, rupture, remboursement) sur les documents imprimés
+- OK — iphone bloc 16 : pas de parenthèses imbriquées sur les lignes imprimées
+- OK — iphone scores : une seule règle d'Ottawa du genou (doublon v41w retiré)
+- OK — iphone parasitose, 3 ans : FLAGYL suspension 5 ml (125 mg) matin et soir (RCP 250 mg par jour)
+- OK — iphone parasitose : ZENTEL en options décochées (rupture et tension ANSM)
+- OK — iphone parasitose : FLUVERMAL comprimé coché par défaut, même dose adulte et enfant
+- OK — iphone parasitose, enfant : FLAGYL 250 mg comprimé (ligne adulte) absent, une seule ligne FLAGYL (suspension RCP)
+- OK — iphone parasitose, enfant de 3 ans : mémo grossesse retiré de l'écran (règle sexe/âge), ligne conservée
+- OK — iphone parasitose : HELMINTOX 1 cuillère-mesure de 2,5 ml par 10 kg (RCP 2021), 2e prise à 3 semaines
+- OK — iphone parasitose, 7 ans : FLAGYL suspension 5 ml (125 mg) 3 fois par jour (RCP 375 mg par jour)
+- OK — iphone parasitose, 12 ans : FLAGYL suspension 10 ml (250 mg) matin et soir (RCP 500 mg par jour)
+- OK — iphone parasitose, 12 ans : COMBANTRIN (6 ans et plus) non bloqué
+- OK — iphone parasitose, 4 mois : COMBANTRIN bloqué (âge ≥ 6 ans), ZENTEL bloqué (≥ 1 an)
+- OK — iphone parasitose, homme 40 ans : FLUVERMAL comprimé coché, FLAGYL 250 mg présent, formes enfant (suspensions FLUVERMAL, FLAGYL, ZENTEL) retirées
+- OK — iphone parasitose, homme : aucun mémo grossesse à l'écran, lignes conservées
+- OK — iphone parasitose, femme 40 ans : mémo grossesse et allaitement (CRAT) affiché sur FLUVERMAL
+- OK — iphone érythème fessier : BEPANTHEN coché, MITOSYL et PEVARYL en option décochée
+- OK — iphone érythème fessier : MITOSYL imprimé « 3 jours au maximum » sans le mémo (vitamine A, non remboursé)
+- OK — iphone épicondylite : paracétamol en premier (ameli 2026), AINS en option
+- OK — iphone épicondylite, 40 ans : VOLTARENE EMULGEL 3 à 4 fois par jour 7 jours (RCP 2025), non bloqué
+- OK — iphone épicondylite, 10 ans : VOLTARENE EMULGEL bloqué (RCP : 15 ans et plus)
+- OK — iphone épicondylite : durée d'arrêt indicative = aménagement du poste, pas de durée CNAM
+- OK — iphone dysthyroïdie : propranolol ½ comprimé (20 mg) 3 fois par jour imprimé sans le mémo (RCP 10 à 40 mg, contre-indications)
+- OK — iphone dysthyroïdie : propranolol en option décochée
+- OK — iphone apnées du sommeil : enfant → avis ORL au mémo, pas d'enregistrement prescrit
+- OK — iphone décès à domicile : fiche sans patient, aide-mémoire en 7 étapes, feuille conseils à la famille (déclaration 24 heures)
+- OK — iphone aucune erreur JS
+- OK — pc bloc 16 : 6 packs chargés
+- OK — pc bloc 16 : anciennes fiches remplacées, aucun doublon
+- OK — pc bloc 16 : un seul mémo par fiche avec la ligne « non relue (bloc 16, version 1) »
+- OK — pc bloc 16 : consignes patient (3 lignes au moins) sur les 6 fiches
+- OK — pc bloc 16 : aucun mémo médecin (RCP, CRAT, ANSM, contre-indication, rupture, remboursement) sur les documents imprimés
+- OK — pc bloc 16 : pas de parenthèses imbriquées sur les lignes imprimées
+- OK — pc scores : une seule règle d'Ottawa du genou (doublon v41w retiré)
+- OK — pc parasitose, 3 ans : FLAGYL suspension 5 ml (125 mg) matin et soir (RCP 250 mg par jour)
+- OK — pc parasitose : ZENTEL en options décochées (rupture et tension ANSM)
+- OK — pc parasitose : FLUVERMAL comprimé coché par défaut, même dose adulte et enfant
+- OK — pc parasitose, enfant : FLAGYL 250 mg comprimé (ligne adulte) absent, une seule ligne FLAGYL (suspension RCP)
+- OK — pc parasitose, enfant de 3 ans : mémo grossesse retiré de l'écran (règle sexe/âge), ligne conservée
+- OK — pc parasitose : HELMINTOX 1 cuillère-mesure de 2,5 ml par 10 kg (RCP 2021), 2e prise à 3 semaines
+- OK — pc parasitose, 7 ans : FLAGYL suspension 5 ml (125 mg) 3 fois par jour (RCP 375 mg par jour)
+- OK — pc parasitose, 12 ans : FLAGYL suspension 10 ml (250 mg) matin et soir (RCP 500 mg par jour)
+- OK — pc parasitose, 12 ans : COMBANTRIN (6 ans et plus) non bloqué
+- OK — pc parasitose, 4 mois : COMBANTRIN bloqué (âge ≥ 6 ans), ZENTEL bloqué (≥ 1 an)
+- OK — pc parasitose, homme 40 ans : FLUVERMAL comprimé coché, FLAGYL 250 mg présent, formes enfant (suspensions FLUVERMAL, FLAGYL, ZENTEL) retirées
+- OK — pc parasitose, homme : aucun mémo grossesse à l'écran, lignes conservées
+- OK — pc parasitose, femme 40 ans : mémo grossesse et allaitement (CRAT) affiché sur FLUVERMAL
+- OK — pc érythème fessier : BEPANTHEN coché, MITOSYL et PEVARYL en option décochée
+- OK — pc érythème fessier : MITOSYL imprimé « 3 jours au maximum » sans le mémo (vitamine A, non remboursé)
+- OK — pc épicondylite : paracétamol en premier (ameli 2026), AINS en option
+- OK — pc épicondylite, 40 ans : VOLTARENE EMULGEL 3 à 4 fois par jour 7 jours (RCP 2025), non bloqué
+- OK — pc épicondylite, 10 ans : VOLTARENE EMULGEL bloqué (RCP : 15 ans et plus)
+- OK — pc épicondylite : durée d'arrêt indicative = aménagement du poste, pas de durée CNAM
+- OK — pc dysthyroïdie : propranolol ½ comprimé (20 mg) 3 fois par jour imprimé sans le mémo (RCP 10 à 40 mg, contre-indications)
+- OK — pc dysthyroïdie : propranolol en option décochée
+- OK — pc apnées du sommeil : enfant → avis ORL au mémo, pas d'enregistrement prescrit
+- OK — pc décès à domicile : fiche sans patient, aide-mémoire en 7 étapes, feuille conseils à la famille (déclaration 24 heures)
+- OK — pc aucune erreur JS
+
+62/62 tests OK
