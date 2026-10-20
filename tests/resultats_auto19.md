@@ -1,0 +1,124 @@
+# Parcours automatisé avec l'IA (20/10/2026)
+
+- OK — iPhone · Express : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
+- OK — iPhone · Express : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — iPhone · Express : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
+- OK — iPhone · Express : 1. requête sans identité (nom, téléphone, adresse retirés)
+- OK — iPhone · Express : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
+- OK — iPhone · Express : 1. aucun examen ni constante inventés (appareil « pulmonaire » et température renvoyés par l'IA écartés en mode téléphone)
+- OK — iPhone · Express : 1. fiche proposée d'après le Pack, synthèse visible avec ce qu'il faudra vérifier sur place, analyse gardée sur l'arrêt
+- OK — iPhone · Express : 1. compte rendu : section « contre-appel téléphonique, patient non examiné », aucune section d'examen clinique
+- OK — iPhone · Express : 2. dictée en visite → une requête avec les deux parties (contre-appel rapporté + dictée après examen)
+- OK — iPhone · Express : 2. continuité : contre-appel conservé, examen constaté ajouté, histoire actualisée, température constatée reprise
+- OK — iPhone · Express : 5. correction manuelle (antécédents) jamais écrasée par l'IA
+- OK — iPhone · Express : 2. compte rendu : contre-appel à part, puis examen clinique constaté
+- OK — iPhone · Express : dictée jamais perdue : texte ajouté dans le champ (sans événement) repris à l'écran suivant
+- OK — iPhone · Express : 7. changement de patient pendant la requête : la réponse n'est attribuée ni appliquée au nouveau patient
+- OK — iPhone · Express : dictées récentes : la dictée du patient précédent reste reprenable (48 h)
+- OK — iPhone · Express : 3. consultation : une dictée déclenche la préparation automatique (une seule requête)
+- OK — iPhone · Express : 4. le Pack SOS Médecins est transmis à l'IA : liste des fiches dans les consignes, « Lombalgie aiguë » incluse
+- OK — iPhone · Express : 3. synthèse affichée : fiche, observation, examens, courriers, aide sociale, suivi, à vérifier
+- OK — iPhone · Express : 8. avant « Appliquer » : fiche seulement proposée, aucun courrier activé, rien validé
+- OK — iPhone · Express : 3. « Appliquer la synthèse » (un geste) : fiche confirmée, fiche sociale complémentaire, courriers préparés, examen coché ou ajouté
+- OK — iPhone · Express : 4. l'ordonnance vient de la fiche du Pack : aucune ligne de traitement écrite par l'IA
+- OK — iPhone · Express : 3. courrier au spécialiste : la question préparée par la synthèse y figure, l'IA n'écrit pas le courrier
+- OK — iPhone · Express : 8. après application : toujours rien de validé (impression et « Valider » restent vos gestes)
+- OK — iPhone · Express : 9. documents prêts à imprimer : ordonnance et courriers produits
+- OK — iPhone · Express : 8. validation : 1er toucher demande confirmation, 2e toucher valide ; jamais sans geste
+- OK — iPhone · Express : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
+- OK — iPhone · Express : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
+- OK — iPhone · Express : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
+- OK — iPhone · Express : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — iPhone · Express : 10. aucune erreur JS
+- OK — iPhone · mode complet : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
+- OK — iPhone · mode complet : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — iPhone · mode complet : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
+- OK — iPhone · mode complet : 1. requête sans identité (nom, téléphone, adresse retirés)
+- OK — iPhone · mode complet : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
+- OK — iPhone · mode complet : 1. aucun examen ni constante inventés (appareil « pulmonaire » et température renvoyés par l'IA écartés en mode téléphone)
+- OK — iPhone · mode complet : 1. fiche proposée d'après le Pack, synthèse visible avec ce qu'il faudra vérifier sur place, analyse gardée sur l'arrêt
+- OK — iPhone · mode complet : 1. compte rendu : section « contre-appel téléphonique, patient non examiné », aucune section d'examen clinique
+- OK — iPhone · mode complet : 2. dictée en visite → une requête avec les deux parties (contre-appel rapporté + dictée après examen)
+- OK — iPhone · mode complet : 2. continuité : contre-appel conservé, examen constaté ajouté, histoire actualisée, température constatée reprise
+- OK — iPhone · mode complet : 5. correction manuelle (antécédents) jamais écrasée par l'IA
+- OK — iPhone · mode complet : 2. compte rendu : contre-appel à part, puis examen clinique constaté
+- OK — iPhone · mode complet : dictée jamais perdue : texte ajouté dans le champ (sans événement) repris à l'écran suivant
+- OK — iPhone · mode complet : 7. changement de patient pendant la requête : la réponse n'est attribuée ni appliquée au nouveau patient
+- OK — iPhone · mode complet : dictées récentes : la dictée du patient précédent reste reprenable (48 h)
+- OK — iPhone · mode complet : 3. consultation : une dictée déclenche la préparation automatique (une seule requête)
+- OK — iPhone · mode complet : 4. le Pack SOS Médecins est transmis à l'IA : liste des fiches dans les consignes, « Lombalgie aiguë » incluse
+- OK — iPhone · mode complet : 3. synthèse affichée : fiche, observation, examens, courriers, aide sociale, suivi, à vérifier
+- OK — iPhone · mode complet : 8. avant « Appliquer » : fiche seulement proposée, aucun courrier activé, rien validé
+- OK — iPhone · mode complet : 3. « Appliquer la synthèse » (un geste) : fiche confirmée, fiche sociale complémentaire, courriers préparés, examen coché ou ajouté
+- OK — iPhone · mode complet : 4. l'ordonnance vient de la fiche du Pack : aucune ligne de traitement écrite par l'IA
+- OK — iPhone · mode complet : 3. courrier au spécialiste : la question préparée par la synthèse y figure, l'IA n'écrit pas le courrier
+- OK — iPhone · mode complet : 8. après application : toujours rien de validé (impression et « Valider » restent vos gestes)
+- OK — iPhone · mode complet : 9. documents prêts à imprimer : ordonnance et courriers produits
+- OK — iPhone · mode complet : 8. validation : 1er toucher demande confirmation, 2e toucher valide ; jamais sans geste
+- OK — iPhone · mode complet : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
+- OK — iPhone · mode complet : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
+- OK — iPhone · mode complet : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
+- OK — iPhone · mode complet : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — iPhone · mode complet : 10. aucune erreur JS
+- OK — tablette · Express : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
+- OK — tablette · Express : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — tablette · Express : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
+- OK — tablette · Express : 1. requête sans identité (nom, téléphone, adresse retirés)
+- OK — tablette · Express : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
+- OK — tablette · Express : 1. aucun examen ni constante inventés (appareil « pulmonaire » et température renvoyés par l'IA écartés en mode téléphone)
+- OK — tablette · Express : 1. fiche proposée d'après le Pack, synthèse visible avec ce qu'il faudra vérifier sur place, analyse gardée sur l'arrêt
+- OK — tablette · Express : 1. compte rendu : section « contre-appel téléphonique, patient non examiné », aucune section d'examen clinique
+- OK — tablette · Express : 2. dictée en visite → une requête avec les deux parties (contre-appel rapporté + dictée après examen)
+- OK — tablette · Express : 2. continuité : contre-appel conservé, examen constaté ajouté, histoire actualisée, température constatée reprise
+- OK — tablette · Express : 5. correction manuelle (antécédents) jamais écrasée par l'IA
+- OK — tablette · Express : 2. compte rendu : contre-appel à part, puis examen clinique constaté
+- OK — tablette · Express : dictée jamais perdue : texte ajouté dans le champ (sans événement) repris à l'écran suivant
+- OK — tablette · Express : 7. changement de patient pendant la requête : la réponse n'est attribuée ni appliquée au nouveau patient
+- OK — tablette · Express : dictées récentes : la dictée du patient précédent reste reprenable (48 h)
+- OK — tablette · Express : 3. consultation : une dictée déclenche la préparation automatique (une seule requête)
+- OK — tablette · Express : 4. le Pack SOS Médecins est transmis à l'IA : liste des fiches dans les consignes, « Lombalgie aiguë » incluse
+- OK — tablette · Express : 3. synthèse affichée : fiche, observation, examens, courriers, aide sociale, suivi, à vérifier
+- OK — tablette · Express : 8. avant « Appliquer » : fiche seulement proposée, aucun courrier activé, rien validé
+- OK — tablette · Express : 3. « Appliquer la synthèse » (un geste) : fiche confirmée, fiche sociale complémentaire, courriers préparés, examen coché ou ajouté
+- OK — tablette · Express : 4. l'ordonnance vient de la fiche du Pack : aucune ligne de traitement écrite par l'IA
+- OK — tablette · Express : 3. courrier au spécialiste : la question préparée par la synthèse y figure, l'IA n'écrit pas le courrier
+- OK — tablette · Express : 8. après application : toujours rien de validé (impression et « Valider » restent vos gestes)
+- OK — tablette · Express : 9. documents prêts à imprimer : ordonnance et courriers produits
+- OK — tablette · Express : 8. validation : 1er toucher demande confirmation, 2e toucher valide ; jamais sans geste
+- OK — tablette · Express : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
+- OK — tablette · Express : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
+- OK — tablette · Express : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
+- OK — tablette · Express : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — tablette · Express : 10. aucune erreur JS
+- OK — PC · mode complet : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
+- OK — PC · mode complet : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — PC · mode complet : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
+- OK — PC · mode complet : 1. requête sans identité (nom, téléphone, adresse retirés)
+- OK — PC · mode complet : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
+- OK — PC · mode complet : 1. aucun examen ni constante inventés (appareil « pulmonaire » et température renvoyés par l'IA écartés en mode téléphone)
+- OK — PC · mode complet : 1. fiche proposée d'après le Pack, synthèse visible avec ce qu'il faudra vérifier sur place, analyse gardée sur l'arrêt
+- OK — PC · mode complet : 1. compte rendu : section « contre-appel téléphonique, patient non examiné », aucune section d'examen clinique
+- OK — PC · mode complet : 2. dictée en visite → une requête avec les deux parties (contre-appel rapporté + dictée après examen)
+- OK — PC · mode complet : 2. continuité : contre-appel conservé, examen constaté ajouté, histoire actualisée, température constatée reprise
+- OK — PC · mode complet : 5. correction manuelle (antécédents) jamais écrasée par l'IA
+- OK — PC · mode complet : 2. compte rendu : contre-appel à part, puis examen clinique constaté
+- OK — PC · mode complet : dictée jamais perdue : texte ajouté dans le champ (sans événement) repris à l'écran suivant
+- OK — PC · mode complet : 7. changement de patient pendant la requête : la réponse n'est attribuée ni appliquée au nouveau patient
+- OK — PC · mode complet : dictées récentes : la dictée du patient précédent reste reprenable (48 h)
+- OK — PC · mode complet : 3. consultation : une dictée déclenche la préparation automatique (une seule requête)
+- OK — PC · mode complet : 4. le Pack SOS Médecins est transmis à l'IA : liste des fiches dans les consignes, « Lombalgie aiguë » incluse
+- OK — PC · mode complet : 3. synthèse affichée : fiche, observation, examens, courriers, aide sociale, suivi, à vérifier
+- OK — PC · mode complet : 8. avant « Appliquer » : fiche seulement proposée, aucun courrier activé, rien validé
+- OK — PC · mode complet : 3. « Appliquer la synthèse » (un geste) : fiche confirmée, fiche sociale complémentaire, courriers préparés, examen coché ou ajouté
+- OK — PC · mode complet : 4. l'ordonnance vient de la fiche du Pack : aucune ligne de traitement écrite par l'IA
+- OK — PC · mode complet : 3. courrier au spécialiste : la question préparée par la synthèse y figure, l'IA n'écrit pas le courrier
+- OK — PC · mode complet : 8. après application : toujours rien de validé (impression et « Valider » restent vos gestes)
+- OK — PC · mode complet : 9. documents prêts à imprimer : ordonnance et courriers produits
+- OK — PC · mode complet : 8. validation : 1er toucher demande confirmation, 2e toucher valide ; jamais sans geste
+- OK — PC · mode complet : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
+- OK — PC · mode complet : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
+- OK — PC · mode complet : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
+- OK — PC · mode complet : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — PC · mode complet : 10. aucune erreur JS
+
+120/120 tests OK

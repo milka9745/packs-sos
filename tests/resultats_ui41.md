@@ -9,7 +9,7 @@
 - OK — 375 px texte normal jour : pastille « activé » sur fond vert plein, « désactivé » sans fond
 - OK — 375 px texte normal jour : aucune ligne du menu écrasée ni rognée
 - OK — 375 px texte normal jour : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
-- OK — 375 px texte normal jour : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px texte normal jour : toucher : petit choix à 5 entrées (synthèse en tête), dans l'écran
 - OK — 375 px texte normal jour : petit choix IA : aucune ligne rognée
 - OK — 375 px texte normal jour : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px texte normal jour : clé saisie : reste sur « Aucun », choix du mode affiché
@@ -28,7 +28,7 @@
 - OK — 375 px texte normal nuit : pastille « activé » sur fond vert plein, « désactivé » sans fond
 - OK — 375 px texte normal nuit : aucune ligne du menu écrasée ni rognée
 - OK — 375 px texte normal nuit : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
-- OK — 375 px texte normal nuit : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px texte normal nuit : toucher : petit choix à 5 entrées (synthèse en tête), dans l'écran
 - OK — 375 px texte normal nuit : petit choix IA : aucune ligne rognée
 - OK — 375 px texte normal nuit : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px texte normal nuit : clé saisie : reste sur « Aucun », choix du mode affiché
@@ -47,7 +47,7 @@
 - OK — 375 px grand texte jour : pastille « activé » sur fond vert plein, « désactivé » sans fond
 - OK — 375 px grand texte jour : aucune ligne du menu écrasée ni rognée
 - OK — 375 px grand texte jour : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
-- OK — 375 px grand texte jour : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px grand texte jour : toucher : petit choix à 5 entrées (synthèse en tête), dans l'écran
 - OK — 375 px grand texte jour : petit choix IA : aucune ligne rognée
 - OK — 375 px grand texte jour : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px grand texte jour : clé saisie : reste sur « Aucun », choix du mode affiché
@@ -66,7 +66,7 @@
 - OK — 375 px grand texte nuit : pastille « activé » sur fond vert plein, « désactivé » sans fond
 - OK — 375 px grand texte nuit : aucune ligne du menu écrasée ni rognée
 - OK — 375 px grand texte nuit : bouton IA dans la carte Patient (écran principal), « Aucun », gris, 44 px
-- OK — 375 px grand texte nuit : toucher : petit choix à 4 entrées, dans l'écran
+- OK — 375 px grand texte nuit : toucher : petit choix à 5 entrées (synthèse en tête), dans l'écran
 - OK — 375 px grand texte nuit : petit choix IA : aucune ligne rognée
 - OK — 375 px grand texte nuit : sans clé : propose de la saisir, actions IA inactives
 - OK — 375 px grand texte nuit : clé saisie : reste sur « Aucun », choix du mode affiché

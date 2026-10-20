@@ -14,8 +14,8 @@
 - OK — iphone appel direct sans l'écran : refusé
 - OK — iphone Partiel : l'écran « Ce qui part » s'ouvre, rien n'est parti
 - OK — iphone Annuler : rien n'est parti
-- OK — iphone Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
-- OK — iphone Complet : un seul envoi, seulement après « Envoyer »
+- OK — iphone Complet (20/10/2026) : envoi automatique après pseudonymisation sur l'appareil, sans écran intermédiaire
+- OK — iphone Complet : un seul envoi, sans identité
 - OK — iphone après l'envoi, le verrou est refermé
 - OK — iphone hors connexion : IA en « Aucun »
 - OK — iphone aucune erreur JS
@@ -31,8 +31,8 @@
 - OK — pc appel direct sans l'écran : refusé
 - OK — pc Partiel : l'écran « Ce qui part » s'ouvre, rien n'est parti
 - OK — pc Annuler : rien n'est parti
-- OK — pc Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
-- OK — pc Complet : un seul envoi, seulement après « Envoyer »
+- OK — pc Complet (20/10/2026) : envoi automatique après pseudonymisation sur l'appareil, sans écran intermédiaire
+- OK — pc Complet : un seul envoi, sans identité
 - OK — pc après l'envoi, le verrou est refermé
 - OK — pc hors connexion : IA en « Aucun »
 - OK — pc aucune erreur JS

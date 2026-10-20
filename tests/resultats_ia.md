@@ -38,7 +38,8 @@
 - OK — iphone courrier : traitement repris de la fiche par Packs
 - OK — iphone reformulation acceptée, faits conservés
 - OK — iphone raisonnement ajouté au compte rendu
-- OK — iphone Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
+- OK — iphone Complet (20/10/2026) : dictée envoyée automatiquement après pseudonymisation, une seule requête, sans identité, sans écran intermédiaire
+- OK — iphone Complet avec réglage « écran à chaque fois » : « Ce qui part » ouvert, rien n'est parti
 - OK — iphone mode Aucun en un geste
 - OK — iphone aucune erreur JS
 - OK — pc version 41
@@ -79,8 +80,9 @@
 - OK — pc courrier : traitement repris de la fiche par Packs
 - OK — pc reformulation acceptée, faits conservés
 - OK — pc raisonnement ajouté au compte rendu
-- OK — pc Complet : « Ce qui part » ouvert automatiquement, rien n'est parti
+- OK — pc Complet (20/10/2026) : dictée envoyée automatiquement après pseudonymisation, une seule requête, sans identité, sans écran intermédiaire
+- OK — pc Complet avec réglage « écran à chaque fois » : « Ce qui part » ouvert, rien n'est parti
 - OK — pc mode Aucun en un geste
 - OK — pc aucune erreur JS
 
-82/82 tests OK
+84/84 tests OK

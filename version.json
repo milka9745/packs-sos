@@ -1,9 +1,9 @@
 {
-  "version": "41t",
-  "date": "2026-10-18",
+  "version": "41u",
+  "date": "2026-10-20",
   "notes": [
-    "RCP appliqués : BACTRIM 7 jours au maximum chez l'enfant de moins de 2 ans (otite, otite-conjonctivite).",
-    "Fiche réservée à un sexe (grossesse, gynécologie / prostate, testicule, gynécomastie…) appliquée au mauvais sexe : alerte rouge et impression bloquée ; le sexe n'est plus jamais deviné d'après la fiche ; lignes réservées jamais imprimées pour l'autre sexe.",
-    "Mémo médecin (indications, critères) affiché à l'écran, jamais imprimé, sur tout le catalogue ; « né(e) » remplacé par « date de naissance » si le sexe n'est pas renseigné ; ligne libre : nom commercial en majuscules."
+    "Une seule dictée suffit : observation, fiche proposée (Pack), examens, courriers, aide sociale, suivi et alertes sont préparés automatiquement, dans un écran de synthèse à valider ; l'ordonnance vient toujours de la fiche.",
+    "Contre-appel téléphonique : dictez ce que le patient rapporte avant de partir ; l'IA l'analyse à part de l'examen, et tout est repris à la visite (compte rendu : « éléments rapportés, patient non examiné »).",
+    "Réglages persistants (Journal → Assistant IA) : préparation automatique, envoi après pseudonymisation sans écran intermédiaire ; dictée jamais perdue à un changement d'écran ; corrections manuelles jamais écrasées."
   ]
 }

@@ -84,10 +84,13 @@ async def main():
                 ok(L+"Annuler : rien n'est parti",not anth() and await page.evaluate("AI.pending===null"))
                 # 5. Complet : préparation automatique, jamais d'envoi automatique
                 await page.evaluate("AI.cfg.mode='complet';aiSave();state.obs.dict='Douleur lombaire depuis hier';state.obsOpen=true;state.aiCrAuto=false;render();"); await page.wait_for_timeout(300)
-                await page.click("#dict_go"); await page.wait_for_timeout(400)
-                ok(L+"Complet : « Ce qui part » ouvert automatiquement, rien n'est parti",await page.locator("#aisend").count()==1 and not anth())
-                await page.click("#ai_send"); await page.wait_for_timeout(800)
-                ok(L+"Complet : un seul envoi, seulement après « Envoyer »",len(api)==1 and "Dupont" not in api[0])
+                await page.click("#dict_go")
+                for _ in range(30):
+                    if anth(): break
+                    await page.wait_for_timeout(150)
+                await page.wait_for_timeout(500)
+                ok(L+"Complet (20/10/2026) : envoi automatique après pseudonymisation sur l'appareil, sans écran intermédiaire",await page.locator("#aisend").count()==0 and anth())
+                ok(L+"Complet : un seul envoi, sans identité",len(api)==1 and "Dupont" not in api[0])
                 ok(L+"après l'envoi, le verrou est refermé",await page.evaluate("AI._go")==False)
                 # 6. Hors connexion : passage en « Aucun »
                 await ctx.set_offline(True); await page.wait_for_timeout(200)
