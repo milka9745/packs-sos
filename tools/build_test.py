@@ -13,10 +13,15 @@ SHIM='''<script>/* VERSION TEST : stockage séparé de l'outil de garde (préfix
 (function(){try{var P="pst:",S=Storage.prototype,g=S.getItem,s=S.setItem,r=S.removeItem,k=S.key;
 S.getItem=function(x){return g.call(this,P+x);};S.setItem=function(x,v){return s.call(this,P+x,v);};S.removeItem=function(x){return r.call(this,P+x);};
 S.clear=function(){for(var i=this.length-1;i>=0;i--){var y=k.call(this,i);if(y&&y.indexOf(P)===0)r.call(this,y);}};window.__PACKS_TEST__=true;}catch(e){}})();</script>'''
-BADGE='''<style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
-@media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
-#testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style>'''
-BADGE_BODY='<div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · '+V.replace("-test","")+'</div>'
+BADGE='''<style>/* 21/10/2026 (v41y) : bandeau TEST en haut, sous la barre d'état ; la page réserve une marge égale à sa hauteur (jamais sur un bouton ni une ligne de texte) */
+html{--testh:18px}
+#testbadge{position:fixed;left:0;right:0;top:0;height:calc(env(safe-area-inset-top,0px) + var(--testh));background:#D0021B;color:#fff;z-index:2147483646;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;font:800 11px/18px system-ui,sans-serif;letter-spacing:.6px;box-sizing:border-box}
+body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
+.jbar.phone{top:var(--testh)!important}body:not(.phone) .jbar{top:calc(var(--updh,0px) + var(--testh))!important}
+#updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
+#main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
+@media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style>'''
+BADGE_BODY='<div id="testbadge" aria-hidden="true">TEST · '+V.replace("-test","")+'</div>'
 
 s=open(os.path.join(ROOT,"index.html"),encoding="utf-8").read()
 def rep(a,b,n=1,regex=False):

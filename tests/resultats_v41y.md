@@ -1,0 +1,106 @@
+# Tests v41y — mode voiture, fiche proposée, impact, secteurs, bandeaux, badge TEST
+
+- OK — iPhone jour : thème appliqué : day
+- OK — iPhone jour : tournée : impact affiché pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)
+- OK — iPhone jour : tournée : deux adresses différentes → impacts différents, trajets réels (pas de mention « estimation »)
+- OK — iPhone jour : secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; texte « 1 visite déjà prévue »
+- OK — iPhone jour : impact : une seule fonction d'estimation — heure annoncée avant intégration = « Fin prévue » après intégration
+- OK — iPhone jour : secteurs : après intégration, la puce Orléans passe à 2 et la demande n'est plus « nouvelle »
+- OK — iPhone jour : impact : point d'arrivée = cabinet → « +N min → arrivée au cabinet HH h MM »
+- OK — iPhone jour : impact hors ligne (sans trajets fournis) : vol d'oiseau majoré, signalé « estimation »
+- OK — iPhone jour : voiture : tous les boutons en fond plein, hauteur ≥ 64 px, texte ≥ 22 px gras, contraste ≥ 4,5
+- OK — iPhone jour : voiture : Naviguer et Itinéraire en bleu, même couleur pour le patient actuel et le suivant
+- OK — iPhone jour : voiture : Appeler en vert, identique pour les deux patients
+- OK — iPhone jour : voiture : « Je suis arrivé » en or plein, le plus gros bouton
+- OK — iPhone jour : voiture : Quitter en gris sombre avec contour fin
+- OK — iPhone jour : voiture : cadre or autour du patient actuel
+- OK — iPhone jour : voiture : ligne « Fin prévue » présente
+- OK — iPhone jour : fiche proposée : « O INTERVENTION » → aucune fiche (none), « lombalgie » → Lombalgie aiguë
+- OK — iPhone jour : fiche proposée : motif non clinique → bloc masqué, seul « Choisir une fiche » reste
+- OK — iPhone jour : fiche proposée : « lombalgie » → Lombalgie aiguë
+- OK — iPhone jour : écran Patient (motif « O INTERVENTION » de la régulation) : aucune fiche proposée à l'écran
+- OK — iPhone jour : bandeau : visible puis disparu de lui-même après 4 s
+- OK — iPhone jour : bandeau : effacé au changement d'écran
+- OK — iPhone jour : bandeau : un seul à la fois (le nouveau remplace l'ancien)
+- OK — iPhone jour : aucune erreur JS
+- OK — iPhone nuit : thème appliqué : night
+- OK — iPhone nuit : tournée : impact affiché pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)
+- OK — iPhone nuit : tournée : deux adresses différentes → impacts différents, trajets réels (pas de mention « estimation »)
+- OK — iPhone nuit : secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; texte « 1 visite déjà prévue »
+- OK — iPhone nuit : impact : une seule fonction d'estimation — heure annoncée avant intégration = « Fin prévue » après intégration
+- OK — iPhone nuit : secteurs : après intégration, la puce Orléans passe à 2 et la demande n'est plus « nouvelle »
+- OK — iPhone nuit : impact : point d'arrivée = cabinet → « +N min → arrivée au cabinet HH h MM »
+- OK — iPhone nuit : impact hors ligne (sans trajets fournis) : vol d'oiseau majoré, signalé « estimation »
+- OK — iPhone nuit : voiture : tous les boutons en fond plein, hauteur ≥ 64 px, texte ≥ 22 px gras, contraste ≥ 4,5
+- OK — iPhone nuit : voiture : Naviguer et Itinéraire en bleu, même couleur pour le patient actuel et le suivant
+- OK — iPhone nuit : voiture : Appeler en vert, identique pour les deux patients
+- OK — iPhone nuit : voiture : « Je suis arrivé » en or plein, le plus gros bouton
+- OK — iPhone nuit : voiture : Quitter en gris sombre avec contour fin
+- OK — iPhone nuit : voiture : cadre or autour du patient actuel
+- OK — iPhone nuit : voiture : ligne « Fin prévue » présente
+- OK — iPhone nuit : fiche proposée : « O INTERVENTION » → aucune fiche (none), « lombalgie » → Lombalgie aiguë
+- OK — iPhone nuit : fiche proposée : motif non clinique → bloc masqué, seul « Choisir une fiche » reste
+- OK — iPhone nuit : fiche proposée : « lombalgie » → Lombalgie aiguë
+- OK — iPhone nuit : écran Patient (motif « O INTERVENTION » de la régulation) : aucune fiche proposée à l'écran
+- OK — iPhone nuit : bandeau : visible puis disparu de lui-même après 4 s
+- OK — iPhone nuit : bandeau : effacé au changement d'écran
+- OK — iPhone nuit : bandeau : un seul à la fois (le nouveau remplace l'ancien)
+- OK — iPhone nuit : aucune erreur JS
+- OK — iPhone grand texte : thème appliqué : day
+- OK — iPhone grand texte : tournée : impact affiché pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)
+- OK — iPhone grand texte : tournée : deux adresses différentes → impacts différents, trajets réels (pas de mention « estimation »)
+- OK — iPhone grand texte : secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; texte « 1 visite déjà prévue »
+- OK — iPhone grand texte : impact : une seule fonction d'estimation — heure annoncée avant intégration = « Fin prévue » après intégration
+- OK — iPhone grand texte : secteurs : après intégration, la puce Orléans passe à 2 et la demande n'est plus « nouvelle »
+- OK — iPhone grand texte : impact : point d'arrivée = cabinet → « +N min → arrivée au cabinet HH h MM »
+- OK — iPhone grand texte : impact hors ligne (sans trajets fournis) : vol d'oiseau majoré, signalé « estimation »
+- OK — iPhone grand texte : voiture : tous les boutons en fond plein, hauteur ≥ 64 px, texte ≥ 22 px gras, contraste ≥ 4,5
+- OK — iPhone grand texte : voiture : Naviguer et Itinéraire en bleu, même couleur pour le patient actuel et le suivant
+- OK — iPhone grand texte : voiture : Appeler en vert, identique pour les deux patients
+- OK — iPhone grand texte : voiture : « Je suis arrivé » en or plein, le plus gros bouton
+- OK — iPhone grand texte : voiture : Quitter en gris sombre avec contour fin
+- OK — iPhone grand texte : voiture : cadre or autour du patient actuel
+- OK — iPhone grand texte : voiture : ligne « Fin prévue » présente
+- OK — iPhone grand texte : fiche proposée : « O INTERVENTION » → aucune fiche (none), « lombalgie » → Lombalgie aiguë
+- OK — iPhone grand texte : fiche proposée : motif non clinique → bloc masqué, seul « Choisir une fiche » reste
+- OK — iPhone grand texte : fiche proposée : « lombalgie » → Lombalgie aiguë
+- OK — iPhone grand texte : écran Patient (motif « O INTERVENTION » de la régulation) : aucune fiche proposée à l'écran
+- OK — iPhone grand texte : bandeau : visible puis disparu de lui-même après 4 s
+- OK — iPhone grand texte : bandeau : effacé au changement d'écran
+- OK — iPhone grand texte : bandeau : un seul à la fois (le nouveau remplace l'ancien)
+- OK — iPhone grand texte : aucune erreur JS
+- OK — PC : thème appliqué : day
+- OK — PC : tournée : impact affiché pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)
+- OK — PC : tournée : deux adresses différentes → impacts différents, trajets réels (pas de mention « estimation »)
+- OK — PC : secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; texte « 1 visite déjà prévue »
+- OK — PC : impact : une seule fonction d'estimation — heure annoncée avant intégration = « Fin prévue » après intégration
+- OK — PC : secteurs : après intégration, la puce Orléans passe à 2 et la demande n'est plus « nouvelle »
+- OK — PC : impact : point d'arrivée = cabinet → « +N min → arrivée au cabinet HH h MM »
+- OK — PC : impact hors ligne (sans trajets fournis) : vol d'oiseau majoré, signalé « estimation »
+- OK — PC : voiture : tous les boutons en fond plein, hauteur ≥ 64 px, texte ≥ 22 px gras, contraste ≥ 4,5
+- OK — PC : voiture : Naviguer et Itinéraire en bleu, même couleur pour le patient actuel et le suivant
+- OK — PC : voiture : Appeler en vert, identique pour les deux patients
+- OK — PC : voiture : « Je suis arrivé » en or plein, le plus gros bouton
+- OK — PC : voiture : Quitter en gris sombre avec contour fin
+- OK — PC : voiture : cadre or autour du patient actuel
+- OK — PC : voiture : ligne « Fin prévue » présente
+- OK — PC : fiche proposée : « O INTERVENTION » → aucune fiche (none), « lombalgie » → Lombalgie aiguë
+- OK — PC : fiche proposée : motif non clinique → bloc masqué, seul « Choisir une fiche » reste
+- OK — PC : fiche proposée : « lombalgie » → Lombalgie aiguë
+- OK — PC : écran Patient (motif « O INTERVENTION » de la régulation) : aucune fiche proposée à l'écran
+- OK — PC : bandeau : visible puis disparu de lui-même après 4 s
+- OK — PC : bandeau : effacé au changement d'écran
+- OK — PC : bandeau : un seul à la fois (le nouveau remplace l'ancien)
+- OK — PC : aucune erreur JS
+- OK — iPhone : badge TEST (Tournée) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — iPhone : badge TEST (Tournée, après défilement) : la barre du haut reste sous le badge
+- OK — iPhone : badge TEST (Patient) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — iPhone : badge TEST (Mode voiture) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — iPhone : badge : aucune erreur JS
+- OK — PC : badge TEST (Tournée) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — PC : badge TEST (Tournée, après défilement) : la barre du haut reste sous le badge
+- OK — PC : badge TEST (Patient) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — PC : badge TEST (Mode voiture) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte
+- OK — PC : badge : aucune erreur JS
+
+102/102 tests OK

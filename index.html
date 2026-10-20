@@ -625,6 +625,15 @@ body.xpmode #go_top{display:none}
 .drive .dv-b{min-height:64px!important;height:auto!important;font-size:20px!important;padding:6px 10px!important;white-space:normal!important}
 .drive>.dv-time{font-size:20px!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1));max-height:calc(100dvh / var(--appz,1));box-sizing:border-box}
+/* 21/10/2026 (v41y) : mode voiture — tous les boutons en fond plein (sélecteurs #main… : prioritaires sur le design « premium » à contours et sur les tailles réduites des petits écrans), couleurs par fonction (bleu naviguer, vert appeler, or « Je suis arrivé », gris sombre quitter), hauteur ≥ 64 px, texte ≥ 22 px gras, contraste ≥ 4,5:1 jour et nuit ; cadre or du patient actuel conservé */
+:root{--dv-nav:#2B67E0;--dv-nav-on:#FFFFFF;--dv-call:#167A46;--dv-call-on:#FFFFFF;--dv-arr:#B8963E;--dv-arr-on:#111111;--dv-quit:#3A3F4B;--dv-quit-on:#FFFFFF;--dv-quit-line:#8A8F9A}
+html[data-theme=night]{--dv-nav:#2B67E0;--dv-nav-on:#FFFFFF;--dv-call:#167A46;--dv-call-on:#FFFFFF;--dv-arr:#C8A75E;--dv-arr-on:#111111;--dv-quit:#3A3F4B;--dv-quit-on:#FFFFFF;--dv-quit-line:#8A8F9A}
+#main .drive .dv-b,#main .drive .dv-q{border:0!important;border-radius:14px!important;min-height:64px!important;height:auto!important;font-size:22px!important;font-weight:800!important;line-height:1.15!important;padding:8px 12px!important;white-space:normal!important;display:flex!important;align-items:center;justify-content:center;text-align:center;text-decoration:none;box-shadow:none!important}
+#main .drive .dv-b.dv-nav{background:var(--dv-nav)!important;color:var(--dv-nav-on)!important}
+#main .drive .dv-b.dv-call{background:var(--dv-call)!important;color:var(--dv-call-on)!important}
+#main .drive .dv-b.dv-arr{background:var(--dv-arr)!important;color:var(--dv-arr-on)!important;min-height:80px!important;font-size:26px!important}
+#main .drive .dv-q{background:var(--dv-quit)!important;color:var(--dv-quit-on)!important;border:1px solid var(--dv-quit-line)!important;flex:0 0 auto;padding:8px 16px!important}
+#main .drive .dv-b:hover,#main .drive .dv-q:hover{filter:brightness(1.07)}
 @media (orientation:landscape) and (max-height:500px){
   .drive .dv-zone.now .dv-btns{grid-template-columns:repeat(3,minmax(0,1fr))!important}.drive .dv-zone.now .dv-b{font-size:17px!important;padding:4px 6px!important}.drive .dv-b{min-height:60px!important;font-size:18px!important}
   .drive .dv-addr{font-size:clamp(22px,4.2vw,30px)!important}.drive .dv-zone.next .dv-btns{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}}
@@ -16468,7 +16477,7 @@ function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":
 
 async function printPack(){try{xpCancelBuild();}catch(e){}
   const p=currentPack(); if(!p){toast("Choisissez d'abord une fiche (motif) : rien à imprimer pour l'instant.");return;}
-  {const sc=sexConflict();if(sc.length){toast("Impression bloquée : fiche « "+sc[0].p.n+" » réservée "+sexLab(sc[0].sx)+". Changez de fiche ou corrigez le sexe.");render();return;}}
+  {const sc=sexConflict();if(sc.length){render();toast("Impression bloquée : fiche « "+sc[0].p.n+" » réservée "+sexLab(sc[0].sx)+". Changez de fiche ou corrigez le sexe.");return;}}
   const alerts=checkAlerts(p.s);
   const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack());return;} /* 16/10/2026 : Packs conseille, le médecin décide */
   if(!state.patient&&!p.nopatient){alert("Renseigne le nom du patient avant d'imprimer.");$("#f_patient").focus();return;}
@@ -16583,7 +16592,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41x",branch:"main",date:"20/10 15:31"};
+const APP_BUILD={v:"41y",branch:"main",date:"21/10 00:39"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -17601,16 +17610,17 @@ function ciTrace(){return (state.ciOver||[]).filter(o=>!o.dup).map(o=>"Alerte pa
 /* ---- n° 4 : nouvelles demandes pendant la tournée, visibles, situées, intégrées au meilleur endroit, regroupées par secteur ---- */
 function tpInProgress(){return !!(TOUR.current||TOUR.stops.some(s=>s.done)||TOUR.started);}
 function tpSector(s){if(!s)return "";if(s.city)return s.city;const m=/\b\d{5}\s+([A-ZÀ-Ýa-zà-ÿ' -]+)$/.exec(s.addr||"");return m?m[1].trim():"";}
-function tpSectorCount(s){const k=norm(tpSector(s));if(!k)return 0;return tourRemaining().filter(x=>x.id!==s.id&&norm(tpSector(x))===k).length;}
+function tpSectorPool(){return TOUR.stops.filter(x=>!x.done&&!x.isNew);} /* v41y : visites non faites de la tournée ; demandes non intégrées exclues ; même compte pour la puce et le texte */
+function tpSectorCount(s){const k=norm(tpSector(s));if(!k)return 0;return tpSectorPool().filter(x=>x.id!==s.id&&norm(tpSector(x))===k).length;}
 function tpNewList(){return TOUR.stops.filter(s=>s.isNew&&!s.done&&s.id!==TOUR.current);}
-function tpNewHTML(){const L=tpNewList();if(!L.length)return "";
-  return `<div class="tp-new" role="status">${L.map(s=>{const sec=tpSector(s),n=tpSectorCount(s);let imp="";try{imp=s.lat?tpImpact({lat:s.lat,lon:s.lon,label:s.label||s.addr}):"";}catch(e){}
-    return `<div class="tp-newrow"><div><b>🆕 Nouvelle demande</b> · ${esc(stopName(s,s.addr))}<div class="hint">${esc(s.label||s.addr)}${sec?" · secteur <b>"+esc(sec)+"</b>"+(n?" ("+n+" visite"+(n>1?"s":"")+" déjà prévue"+(n>1?"s":"")+" dans ce secteur)":""):""}${imp?" · "+esc(imp):""}${!s.lat?" · adresse en cours de localisation":""}</div></div>
+function tpNewHTML(){const L=tpNewList();if(!L.length)return "";try{setTimeout(tpImpactRefineAll,0);}catch(e){} /* v41y : impact affiné avec les trajets réels dès que la page est affichée */
+  return `<div class="tp-new" role="status">${L.map(s=>{const sec=tpSector(s),n=tpSectorCount(s);let imp="";try{imp=s.lat?tpImpactText(tpImpactCalc({id:s.id,lat:s.lat,lon:s.lon,label:s.label||s.addr,motif:s.motif||""})):"";}catch(e){}
+    return `<div class="tp-newrow"><div><b>🆕 Nouvelle demande</b> · ${esc(stopName(s,s.addr))}<div class="hint">${esc(s.label||s.addr)}${sec?" · secteur <b>"+esc(sec)+"</b>"+(n?" ("+n+" visite"+(n>1?"s":"")+" déjà prévue"+(n>1?"s":"")+" dans ce secteur)":""):""}${imp?` · <span class="tp-imp" data-tpimp="${esc(s.id)}">${esc(imp)}</span>`:""}${!s.lat?" · adresse en cours de localisation":""}</div></div>
      <div class="tp-newbtn">${s.tel?`<a class="btn s sm" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞</a>`:""}<button type="button" class="btn p sm" data-tpins="${esc(s.id)}">Intégrer au mieux</button><button type="button" class="lc" data-tplater="${esc(s.id)}">En fin de tournée</button></div></div>`;}).join("")}</div>`;}
 /* meilleure place : celle qui retarde le moins la fin de tournée (plan Packs, priorités et créneaux compris) ; trajets recalculés ensuite */
 async function tpInsertBest(id){const s=tourStop(id);if(!s)return;if(!s.lat){try{const g=await geocode(s.addr);Object.assign(s,{lat:g.lat,lon:g.lon,label:g.label,city:g.city});delete s.err;}catch(e){toast("Adresse introuvable : intégrée en fin de tournée");}}
   const list=tourOrdered().filter(x=>x.id!==TOUR.current&&x.id!==s.id);let bi=list.length;
-  if(s.lat){let best=null;for(let i=0;i<=list.length;i++){try{const p=tpPlan({add:{id:"_new",addr:s.label||s.addr,lat:s.lat,lon:s.lon,motif:s.motif||""},addAt:i});if(!best||p.arr<best.arr){best=p;bi=i;}}catch(e){}}}
+  if(s.lat){let legs=null;try{legs=await tpImpactLegs({id:s.id,lat:s.lat,lon:s.lon});}catch(e){}try{const r=tpImpactCalc({id:s.id,lat:s.lat,lon:s.lon,label:s.label||s.addr,motif:s.motif||""},legs);if(r)bi=r.at;}catch(e){}} /* v41y : même rang que l'impact affiché */
   const ids=list.map(x=>x.id);ids.splice(bi,0,s.id);TOUR.order=ids;s.isNew=false;await tpLegsRefresh();tpEtaApply();tourSave();render();
   const before=bi>0?stopName(list[bi-1]):"la visite en cours";toast("Intégrée après « "+before+" »"+(tpSector(s)?" · secteur "+tpSector(s):""));}
 async function tpLegsRefresh(){const order=TOUR.order.map(tourStop).filter(Boolean);const legs=[];let prev=null;try{prev=TOUR.current?tourStop(TOUR.current):await tourStart();}catch(e){prev=null;}let km=0,min=0,est=false;
@@ -17649,13 +17659,13 @@ function tourCardHTML(){const lieu=(state.cot&&state.cot.lieu)==="visite";const 
   return `<section class="tcard step${step}">${head}${tpNewHTML()}${tpBannerHTML()}${main}${nextLine}${more}</section>`;}
 
 /* ---- n° 3 et n° 12 : mode voiture — patient actuel et suivant ; adresse lisible (22 à 34 px, 3 lignes au plus, complète d'un toucher), accès, puis gros boutons ; zones sûres iOS ---- */
-function renderDrive(){const m=$("#main");if(!m)return;const cur=TOUR.current?tourStop(TOUR.current):null;const p=tpPlan();const ordered=tourOrdered().filter(s=>s.id!==TOUR.current);
+function renderDrive(){const m=$("#main");if(!m)return;const cur=TOUR.current?tourStop(TOUR.current):null;const p=tpEndTime();const ordered=tourOrdered().filter(s=>s.id!==TOUR.current); /* v41y : même estimation que l'impact d'une demande */
   const now=cur||ordered[0]||null;const nx=cur?ordered[0]:ordered[1];const pref=navPref();const names={waze:"Waze",maps:"Maps",plans:"Plans"};
   const st=p.target?(p.ok?`<span class="dv-ok">Avance ${tpDur(-p.delta)}</span>`:`<span class="dv-ko">⚠ Retard ${tpDur(p.delta)}</span>`):"";
   const acc=s=>{const a=[s.bat].filter(Boolean);try{const ac=tpAcces(s);Object.keys(TP_ACCES_LBL).filter(x=>ac[x]).forEach(x=>a.push(TP_ACCES_LBL[x]));}catch(e){}return a.join(" · ");};
   const zone=(s,lbl,isNow)=>{const ac=acc(s);return `<section class="dv-zone ${isNow?"now":"next"}"><div class="dv-lbl">${lbl}<span class="dv-who"> · ${esc(stopName(s))}</span></div>
     <button type="button" class="${isNow?"dv-addr":"dv-addr2"}" data-dvfull title="Toucher : adresse complète">${esc(s.label||s.addr)}</button>${ac?`<div class="dv-acc">${esc(ac)}</div>`:""}${isNow&&p.eta[s.id]?`<div class="dv-time dv-eta">Sur place vers ${fmtH(p.eta[s.id])}</div>`:""}
-    <div class="dv-btns">${s.lat?`<a class="btn p dv-b" target="_blank" rel="noopener" href="${navUrl(pref,s)}">🧭 ${isNow?"Naviguer · "+names[pref]:"Itinéraire"}</a>`:""}${s.tel?`<a class="btn p dv-b" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>`:`<span class="dv-notel">pas de numéro</span>`}${isNow&&cur&&!cur.tArr?`<button type="button" class="btn p dv-b" id="dv_arr">✓ Je suis arrivé</button>`:""}${isNow&&!cur?`<button type="button" class="btn p dv-b" id="dv_begin">▶ Commencer cette visite</button>`:""}</div></section>`;};
+    <div class="dv-btns">${s.lat?`<a class="btn p dv-b dv-nav" target="_blank" rel="noopener" href="${navUrl(pref,s)}">🧭 ${isNow?"Naviguer · "+names[pref]:"Itinéraire"}</a>`:""}${s.tel?`<a class="btn p dv-b dv-call" href="tel:${esc(s.tel)}" data-tpcall="${esc(s.id)}">📞 Appeler</a>`:`<span class="dv-notel">pas de numéro</span>`}${isNow&&cur&&!cur.tArr?`<button type="button" class="btn p dv-b dv-arr" id="dv_arr">✓ Je suis arrivé</button>`:""}${isNow&&!cur?`<button type="button" class="btn p dv-b dv-arr" id="dv_begin">▶ Commencer cette visite</button>`:""}</div></section>`;};
   m.innerHTML=`<div class="drive"><div class="dv-top"><b>🚗 Mode voiture</b>${st}<button type="button" class="btn s dv-q" id="dv_quit">Quitter</button></div>
    ${now?zone(now,cur?"Patient actuel":"Prochaine visite",true):`<div class="dv-lbl">Tournée terminée</div>`}${nx?zone(nx,"Patient suivant",false):""}${tpNewHTML()}
    <div class="dv-time">Fin prévue ${fmtH(p.arr)}</div><div class="hint dv-safe">Manipulations véhicule à l'arrêt.</div></div>`;
@@ -17672,7 +17682,7 @@ window.addEventListener("resize",()=>{if(state&&state.view==="drive")dvFit();});
 /* appel depuis la fiche patient (arrêt en cours ou téléphone de la note d'honoraires) */
 function patCallHTML(){const c=TOUR.current?tourStop(TOUR.current):null;const tel=(c&&c.tel)||(state.nh&&state.nh.tel)||"";if(!tel)return "";return `<a class="btn p sm pcall" href="tel:${esc(tel)}" ${c&&c.tel?`data-tpcall="${esc(c.id)}"`:""} title="Appeler le patient">📞 Appeler</a>`;}
 
-function tpSectorsHTML(){const g={};tourRemaining().filter(x=>x.id!==TOUR.current).forEach(x=>{const k=tpSector(x)||"secteur inconnu";g[k]=(g[k]||0)+1;});const e=Object.entries(g).sort((a,b)=>b[1]-a[1]);if(e.length<2)return "";
+function tpSectorsHTML(){const g={};tpSectorPool().forEach(x=>{const k=tpSector(x)||"secteur inconnu";g[k]=(g[k]||0)+1;});const e=Object.entries(g).sort((a,b)=>b[1]-a[1]);if(e.length<2)return "";
   return `<div class="tp-sectors"><span class="hint">Secteurs :</span>${e.map(([k,v])=>`<span class="chip">${esc(k)} · ${v}</span>`).join("")}<span class="hint">« Optimiser » regroupe les visites d'un même secteur.</span></div>`;}
 
 /* ---- n° 6 : hors connexion — ce qui marche sans réseau, ce qui attend ; demandes IA mises en attente, jamais envoyées seules ----
@@ -17732,8 +17742,11 @@ function packRank(i,words){const p=PACKS[i];const n=norm(p.n),k=norm(p.k||"");le
   const cls=xpAgeCls(),pc=packAgeCls(p.n);if(cls&&pc===cls)sc+=cls==="age"?3:2;
   const a=ageY();if(a&&a.y>=2&&/nourrisson|moins de 3 mois/i.test(p.n))sc-=3;
   if(/^Certificat/.test(p.n))sc-=1;return sc-n.length/400;}
+/* 21/10/2026 (v41y) : termes de régulation sans contenu clinique, retirés des mots-clés ; motif sans mot clinique → aucune fiche proposée */
+const XP_REG_STOP=/^(o|intervention|interv|visite|visites|vad|domicile|deplacement|deplacements|urgence|urgences|sos|consultation|consultations|consult)$/;
 function xpCandidates(q){const mc=xpMccOrFreq(q);if(mc)return {ok:mc.list.filter(i=>packAgeOk(i)),other:mc.list.filter(i=>!packAgeOk(i)),mcc:mc.r};
-  const words=norm(String(q||"").trim()).split(/[\s,;\/]+/).filter(w=>w.length>1);if(!words.length)return {ok:freqPacks(),other:[],freq:true};
+  const raw=norm(String(q||"").trim()).split(/[\s,;\/]+/).filter(Boolean);const words=raw.filter(w=>w.length>1&&!XP_REG_STOP.test(w));
+  if(!words.length){if(raw.some(w=>XP_REG_STOP.test(w)))return {ok:[],other:[],none:true};return {ok:freqPacks(),other:[],freq:true};}
   let L=PACKS.map((_,i)=>({i,s:packRank(i,words)})).filter(x=>x.s>=0);
   if(!L.length&&words.length>1)L=PACKS.map((_,i)=>({i,s:Math.max(...words.map(w=>packRank(i,[w])))})).filter(x=>x.s>=0);
   L.sort((a,b)=>b.s-a.s);const ok=L.filter(x=>packAgeOk(x.i)).map(x=>x.i);if(!ok.length)return {ok:freqPacks(),other:L.map(x=>x.i),freq:true};return {ok,other:L.filter(x=>!packAgeOk(x.i)).map(x=>x.i)};}
@@ -17785,10 +17798,10 @@ function xpBtnUI(){const b=document.getElementById("xp_go");if(!b)return;const p
   if(st)st.textContent=why.length?"À vérifier avant d'imprimer : "+why.join(", ")+" → l'aperçu s'ouvre.":(isPhone()||iosLike())?(xpReady()?XP.n+" document"+(XP.n>1?"s":"")+" prêt"+(XP.n>1?"s":"")+" (PDF A4).":XP.busy?"Préparation des documents…":"Documents en préparation."):"Impression puis patient suivant.";}
 /* ---- g. compte rendu copié dans le geste, sans confirmation ---- */
 function xpCRText(p){let txt="";try{txt=buildCR(p);const ex=(state.copat||[]).filter(c=>c.patient);for(const c of ex)txt+="\n\n==================================\n\n"+withExtra(c,pk=>buildCR(pk));}catch(e){}return txt;}
-function xpToast(msg,undo){let x=document.getElementById("xptoast");if(!x){x=document.createElement("div");x.id="xptoast";x.setAttribute("role","status");document.body.appendChild(x);}
+function xpToast(msg,undo){try{toastHide();}catch(e){}let x=document.getElementById("xptoast");if(!x){x=document.createElement("div");x.id="xptoast";x.setAttribute("role","status");document.body.appendChild(x);}
   x.innerHTML=`<span>${esc(msg)}</span>${undo?`<button type="button" class="btn s sm" id="xp_undo">Annuler</button>`:""}`;x.classList.add("on");
   const u=x.querySelector("#xp_undo");if(u)u.onclick=()=>{x.classList.remove("on");patientUndo();};
-  clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),undo?10000:3500);}
+  clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),4000);}
 function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche.");return;}
   {const why0=xpPending(p);if(!why0.length&&!valGate())return;}
   const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
@@ -17831,6 +17844,7 @@ function xpPropHTML(){const q=xpMotif();const c=xpCandidates(q);const pi=xpPropo
   const lst=XP.list?`<div class="xp-other"><input id="xp_q" value="${esc(q)}" placeholder="Motif, symptôme, organe" autocomplete="off"><div class="xp-cands">${c.ok.slice(0,15).map(i=>`<button type="button" class="xp-cand" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")||'<span class="hint">Aucune fiche pour ce motif et cet âge.</span>'}</div>
     ${c.other.length?`<button type="button" class="lc" id="xp_others">${XP.others?"▾":"▸"} Autres âges (${c.other.length})</button>${XP.others?`<div class="xp-cands">${c.other.slice(0,15).map(i=>`<button type="button" class="xp-cand alt" data-xppick="${i}">${esc(PACKS[i].n)}</button>`).join("")}</div>`:""}`:""}</div>`:"";
   const tag=c.mcc?`<div class="hint">Régulation « ${esc(c.mcc.code)} » = ${esc(c.mcc.lib||"")}</div>`:c.freq?`<div class="hint">${q?"« "+esc(q)+" » non reconnu : ":""}fiches fréquentes ${({enfant:"chez l'enfant",adulte:"chez l'adulte",age:"chez le sujet âgé"})[xpAgeCls()||"adulte"]}</div>`:"";
+  if(pi==null&&c.none)return `<div class="xp-prop none"><button type="button" class="btn s" id="xp_list">Choisir une fiche</button>${lst}</div>`; /* v41y : motif de régulation sans contenu clinique : bloc masqué */
   if(pi==null)return `<div class="xp-prop none"><div class="hint">${q?"Aucune fiche proposée pour « "+esc(q)+" » à cet âge.":"Motif à préciser."}</div><button type="button" class="btn s" id="xp_list">Choisir une fiche</button>${lst}</div>`;
   const g=xpGravite(PACKS[pi]);
   return `<div class="xp-prop">${tag}<div class="xp-lbl">Fiche proposée${xpAgeCls()?" · "+({enfant:"enfant",adulte:"adulte",age:"sujet âgé"}[xpAgeCls()]):""}</div><div class="xp-pn">${esc(PACKS[pi].n)}</div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
@@ -18211,7 +18225,7 @@ function renderTour(){const m=$("#main");const ordered=tourOrdered().filter(s=>s
   $("#tr_opt").onclick=()=>tourOptimize();
   try{unreadBind();}catch(e){}
   {const trb=$("#tr_begin");if(trb)trb.onclick=tourBegin;const dv=$("#tr_drive");if(dv)dv.onclick=()=>{state.view="drive";render();};try{tpSettingsBind();}catch(e){}}
-  let picked=null;banAttach($("#tr_addr"),$("#tr_sugg"),g=>{picked=g;const ib=$("#tr_impact");if(ib)ib.textContent=tpImpact(g);});$("#tr_addr").addEventListener("input",()=>{picked=null;const ib=$("#tr_impact");if(ib)ib.textContent="";});
+  let picked=null;banAttach($("#tr_addr"),$("#tr_sugg"),g=>{picked=g;const ib=$("#tr_impact");if(ib)tpImpact(g,ib);});$("#tr_addr").addEventListener("input",()=>{picked=null;const ib=$("#tr_impact");if(ib)ib.textContent="";});
   const add=()=>{const s=tourAdd($("#tr_addr").value,$("#tr_lbl").value,$("#tr_prio").checked,picked);if(!s)return;render();tourOptimize();};
   $("#tr_add").onclick=add;$("#tr_addr").onkeydown=ev=>{if(ev.key==="Enter"&&!$("#tr_sugg").children.length)add();};$("#tr_lbl").onkeydown=ev=>{if(ev.key==="Enter")add();};
   $("#tr_clear").onclick=()=>{if(!confirm("Vider la tournée (arrêts faits compris) ?"))return;TOUR.stops=[];TOUR.order=[];TOUR.legs=[];TOUR.total=null;TOUR.current="";TOUR.lastDone="";state.tedit="";tourSave();render();};
@@ -18297,7 +18311,7 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}try{dictSyncFromDOM();}catch(e){}if(!state.ck)state.ck=hexRand(4);parkAside();try{examAutoFill();}catch(e){}renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
+function render(){try{const sk=String(state.view||"")+"|"+String(state.sel)+"|"+String(state.patient||"");if(render._sk!==undefined&&render._sk!==sk)toastHide();render._sk=sk;}catch(e){}if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}try{dictSyncFromDOM();}catch(e){}if(!state.ck)state.ck=hexRand(4);parkAside();try{examAutoFill();}catch(e){}renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><span class="appver" title="${esc(appVerFull())}" aria-label="Version ${esc(appVerFull())}">${esc(appVer())}</span><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
@@ -18326,7 +18340,7 @@ function phoneBind(){
   document.querySelectorAll("[data-navpref]").forEach(b=>b.onclick=()=>{try{localStorage.setItem("sos_nav",b.dataset.navpref);}catch(e){}render();});
   const tv=$("#tc_view");if(tv)tv.onclick=()=>{state.view="tour";render();};
   const tg=$("#tc_geo");if(tg)tg.onclick=()=>tourOptimize();
-  const ta=$("#tc_addr");if(ta){let picked=null;banAttach(ta,$("#tc_sugg"),g=>{picked=g;const ib=$("#tc_impact");if(ib)ib.textContent=tpImpact(g);});ta.addEventListener("input",()=>{picked=null;});
+  const ta=$("#tc_addr");if(ta){let picked=null;banAttach(ta,$("#tc_sugg"),g=>{picked=g;const ib=$("#tc_impact");if(ib)tpImpact(g,ib);});ta.addEventListener("input",()=>{picked=null;});
     const add=()=>{const s=tourAdd(ta.value,"",false,picked);if(!s)return;render();tourOptimize();};$("#tc_add").onclick=add;ta.onkeydown=ev=>{if(ev.key==="Enter"&&!$("#tc_sugg").children.length)add();};}
 }
 document.addEventListener("click",ev=>{const menu=document.getElementById("jmenu");if(!menu||menu.hidden)return;const t=ev.target;if(t.closest&&(t.closest("#jmenu")||t.closest("#more_btn")))return;menu.hidden=true;const mb=document.getElementById("more_btn");if(mb)mb.setAttribute("aria-expanded","false");});
@@ -18572,7 +18586,9 @@ function identScreen(mode,msg){
       }catch(e){m.textContent=(e&&e.message)||"échec";$("#kt_ok").disabled=false;}};
   }
 }
-function toast(t){try{let x=document.getElementById("toast");if(!x){x=document.createElement("div");x.id="toast";document.body.appendChild(x);}x.textContent=t;x.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>x.classList.remove("on"),2600);}catch(e){}}
+/* 21/10/2026 (v41y) : un seul bandeau à la fois, disparition après 4 s et à tout changement d'écran (render) */
+function toastHide(){try{["toast","xptoast"].forEach(id=>{const x=document.getElementById(id);if(x)x.classList.remove("on");});clearTimeout(toast._t);clearTimeout(xpToast._t);}catch(e){}}
+function toast(t){try{toastHide();let x=document.getElementById("toast");if(!x){x=document.createElement("div");x.id="toast";document.body.appendChild(x);}x.textContent=t;x.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>x.classList.remove("on"),4000);}catch(e){}}
 /* Feuilles : en-tête, signature, mode SPÉCIMEN */
 function pageHead(){
   if(!IDENT.on)return `<div class="ph"><img src="${LOGO}" alt="SOS Médecins Orléans"><div class="dr"><b>SPÉCIMEN — NON SIGNÉ</b><i>Profil du prescripteur non activé</i></div></div>`;
@@ -19042,7 +19058,10 @@ function tpMed(a){if(!a.length)return null;const b=a.slice().sort((x,y)=>x-y),h=
 function tpVisits(){const lim=Date.now()-90*86400000;return (typeof JOURNAL!=="undefined"?JOURNAL:[]).filter(e=>e&&e.ts>lim&&e.lieu==="visite"&&tpJDur(e)!=null);}
 function tpWords(t){return norm(t||"").split(/[^a-z0-9]+/).filter(w=>w.length>=4);}
 function tpLearned(motif,vis){vis=vis||tpVisits();const ws=tpWords(motif);if(ws.length){const m=vis.filter(e=>{const p=norm(e.pack||"");return ws.some(w=>p.includes(w));}).map(tpJDur);if(m.length>=3)return {min:tpMed(m),src:"motif ("+m.length+" visites)"};}
-  const all=vis.map(tpJDur);if(all.length>=5)return {min:tpMed(all),src:"journal ("+all.length+" visites)"};return {min:20,src:"20 min par défaut"};}
+  const f=tpFicheMin(motif);if(f)return {min:f,src:"durée de la fiche"};const all=vis.map(tpJDur);if(all.length>=5)return {min:tpMed(all),src:"journal ("+all.length+" visites)"};return {min:20,src:"20 min par défaut"};}
+/* v41y : durée de visite écrite au mémo de la fiche probable (« Durée de visite N min »), sinon 20 min */
+function tpFicheMin(motif){try{const ws=tpWords(motif);if(!ws.length)return 0;let best=-1,bi=-1;PACKS.forEach((p,i)=>{let sc=-1;try{sc=packRank(i,ws);}catch(e){}if(sc>best){best=sc;bi=i;}});if(bi<0)return 0;const m=PACKS[bi].s.find(sh=>sh.k==="memo");if(!m)return 0;
+  for(const l of m.l){const t=typeof l==="string"?l:(l&&l.t)||"";const mm=/Durée de visite\s*(\d{1,3})(?:\s*(?:à|-)\s*(\d{1,3}))?\s*min/i.exec(t);if(mm)return mm[2]?Math.round((+mm[1]+ +mm[2])/2):+mm[1];}return 0;}catch(e){return 0;}}
 function tpRhythm(vis){vis=vis||tpVisits();const d0=new Date();d0.setHours(0,0,0,0);const today=vis.filter(e=>e.ts>=d0.getTime());if(!today.length)return 1;
   const r=today.map(e=>tpJDur(e)/tpLearned(e.pack,vis.filter(x=>x!==e)).min).filter(x=>isFinite(x)&&x>0);if(!r.length)return 1;const k=Math.min(1,r.length/3);return Math.max(0.6,Math.min(1.8,1+(tpMed(r)-1)*k));}
 function tpVisitMin(s,vis,rh){const l=tpLearned(s.motif||s.pack||"",vis);return Math.round(l.min*(rh==null?tpRhythm(vis):rh)+tpExtra(s));}
@@ -19050,15 +19069,17 @@ function tpDeadline(){const c=tpCfg();if(!/^\d{1,2}:\d{2}$/.test(c.fin||""))retu
 function tpDestPt(){if(TOUR.dest==="cabinet")return TOUR.base&&TOUR.base.lat?TOUR.base:null;if(TOUR.dest==="adresse"&&TOUR.destGeo&&TOUR.destGeo.lat)return TOUR.destGeo;return null;}
 /* point 1 : plan horaire — heure prévue à chaque arrêt, arrivée finale, rythme à tenir, visites à rendre si l'objectif est intenable */
 function tpPlan(opt){opt=opt||{};const now=opt.now||Date.now();const vis=tpVisits(),rh=tpRhythm(vis);const cur=TOUR.current?tourStop(TOUR.current):null;
-  const skip=new Set(opt.skip||[]);let list=tourOrdered().filter(s=>s.id!==TOUR.current&&!skip.has(s.id));if(opt.add)list=list.slice(0,opt.addAt).concat([opt.add]).concat(list.slice(opt.addAt));
+  const skip=new Set(opt.skip||[]);let list=tourOrdered().filter(s=>s.id!==TOUR.current&&!skip.has(s.id)&&!(s.isNew&&!s.done)); /* v41y : une demande non intégrée n'est pas dans le plan (sinon son ajout ne coûtait que la durée de visite) */ if(opt.add)list=list.slice(0,opt.addAt).concat([opt.add]).concat(list.slice(opt.addAt));
   let t=now,travel=0,est=false,pos=null,visits=0;const eta={};
   if(cur&&!cur.done){if(cur.tArr){const left=Math.max(5,tpVisitMin(cur,vis,rh)-(now-cur.tArr)/60000);t+=left*60000;}else{const lm=cur.legMin!=null?cur.legMin:20;t+=tpLegMin(lm,t)*60000;travel+=lm;eta[cur.id]=t;t+=tpVisitMin(cur,vis,rh)*60000;}visits++;pos=cur.lat?cur:null;}
   if(!pos){const st=TOUR.origin==="position"&&TOUR.pos?TOUR.pos:(TOUR.base&&TOUR.base.lat?TOUR.base:null);pos=st;}
   list.forEach((s,i)=>{let leg=null;const oi=TOUR.order.indexOf(s.id);const prevId=i?list[i-1].id:(cur?cur.id:null);
-    if(!opt.add&&!skip.size&&oi>=0&&TOUR.legs[oi]&&!TOUR.est&&(oi===0?true:TOUR.order[oi-1]===prevId))leg={min:TOUR.legs[oi].min,km:TOUR.legs[oi].km};
+    const lk=(prevId||"_start")+"|"+s.id; /* v41y : trajets connus réutilisés même avec un ajout ; trajets fournis (OSRM) pour la demande */
+    if(opt.legs&&opt.legs[lk])leg={min:opt.legs[lk].min,km:opt.legs[lk].km};
+    else if(oi>=0&&TOUR.legs[oi]&&!TOUR.est&&(oi===0?(prevId==null||(cur&&prevId===cur.id)):TOUR.order[oi-1]===prevId))leg={min:TOUR.legs[oi].min,km:TOUR.legs[oi].km};
     if(!leg){leg=pos&&s.lat?tpCrow(pos,s):{min:15,km:0,est:true};est=est||!!leg.est;}
     const lm=tpLegMin(leg.min||0,t);t+=lm*60000;travel+=lm;eta[s.id]=t;t+=tpVisitMin(s,vis,rh)*60000;visits++;if(s.lat)pos=s;});
-  const dest=tpDestPt();if(dest&&pos){const dl=(!opt.add&&!skip.size&&TOUR.destLeg&&!TOUR.est)?TOUR.destLeg:tpCrow(pos,dest);est=est||!!dl.est;const lm=tpLegMin(dl.min||0,t);t+=lm*60000;travel+=lm;}
+  const dest=tpDestPt();if(dest&&pos){const lastId=list.length?list[list.length-1].id:(cur?cur.id:null);const dk=(lastId||"_start")+"|_dest";const dl=(opt.legs&&opt.legs[dk])?opt.legs[dk]:((TOUR.destLeg&&!TOUR.est&&lastId&&lastId===TOUR.order[TOUR.order.length-1])?TOUR.destLeg:tpCrow(pos,dest));est=est||!!dl.est;const lm=tpLegMin(dl.min||0,t);t+=lm*60000;travel+=lm;}
   const dl=tpDeadline(),c=tpCfg();const target=dl?dl-(+c.marge||0)*60000:null;
   const per=target&&visits?Math.floor(((target-now)/60000-travel)/visits):null;
   return {now,arr:t,eta,travel:Math.round(travel),visits,target,deadline:dl,ok:target?t<=target:null,delta:target?Math.round((t-target)/60000):null,per,est:est||!!TOUR.est,rh};}
@@ -19089,9 +19110,24 @@ function tpRefresh(){const b=document.getElementById("tp_banner");if(b){const h=
   if(state.view==="drive")renderDrive();}
 setInterval(()=>{try{if(document.visibilityState==="visible"&&TOUR.stops.length)tpRefresh();}catch(e){}},30000);
 /* point 3 : impact d'une visite sur l'heure d'arrivée avant de l'ajouter (meilleure place par détour à vol d'oiseau) */
-function tpImpact(geo){if(!geo||geo.lat==null)return "";const base=tpPlan();const list=tourOrdered().filter(s=>s.id!==TOUR.current);const fake={id:"_new",addr:geo.label||"",lat:geo.lat,lon:geo.lon,motif:""};
-  let best=null;for(let i=0;i<=list.length;i++){const p=tpPlan({add:fake,addAt:i});if(!best||p.arr<best.arr)best=p;}
-  const d=Math.round((best.arr-base.arr)/60000);return `Impact : +${d} min → arrivée ${fmtH(best.arr)} ${best.target?(best.ok?"✓":"⚠ objectif "+fmtH(best.deadline)+" dépassé"):""}${best.est?" (estimation)":""}`;}
+/* 21/10/2026 (v41y) : une seule estimation (tpEndTime) pour l'impact d'une demande et la « Fin prévue » du mode voiture.
+   Impact = détour réel de l'insertion au meilleur rang (trajets OSRM déjà en place, sinon vol d'oiseau majoré signalé « estimation ») + durée prévue de la visite (durée de la fiche probable, sinon 20 min). */
+function tpEndTime(opt){return tpPlan(opt);}
+function tpImpactCalc(geo,legs,now){if(!geo||geo.lat==null)return null;const o0=legs?{legs}:{};if(now)o0.now=now;const base=tpEndTime(o0);const list=tourOrdered().filter(s=>s.id!==TOUR.current&&s.id!==geo.id);const fake={id:"_new",addr:geo.label||geo.addr||"",lat:geo.lat,lon:geo.lon,motif:geo.motif||""};
+  let best=null,bi=0;for(let i=0;i<=list.length;i++){const o={add:fake,addAt:i};if(legs)o.legs=legs;if(now)o.now=now;const p=tpEndTime(o);if(!best||p.arr<best.arr){best=p;bi=i;}}
+  return {d:Math.max(0,Math.round((best.arr-base.arr)/60000)),arr:best.arr,at:bi,est:!!best.est,target:best.target,ok:best.ok,deadline:best.deadline,dest:TOUR.dest==="cabinet"&&tpDestPt()?"cabinet":(TOUR.dest==="adresse"&&tpDestPt()?"adresse":"")};}
+function tpImpactText(r){if(!r)return "";const where=r.dest==="cabinet"?"arrivée au cabinet ":(r.dest==="adresse"?"arrivée ":"fin de tournée ");return "+"+r.d+" min → "+where+fmtH(r.arr)+(r.target&&!r.ok?" ⚠ objectif "+fmtH(r.deadline)+" dépassé":"")+(r.est?" · estimation":"");}
+function tpImpact(geo,el){const t=tpImpactText(tpImpactCalc(geo));if(el){el.textContent=t;tpImpactRefine(geo,el);}return t;}
+async function osrmMatrix(points){const c=points.map(p=>p.lon+","+p.lat).join(";");const r=await fetch("https://router.project-osrm.org/table/v1/driving/"+c+"?annotations=distance,duration");const j=await r.json();if(j.code!=="Ok")throw new Error("distances indisponibles");return {km:(j.distances||[]).map(row=>row.map(m=>m==null?null:m/1000)),min:(j.durations||[]).map(row=>row.map(x=>x==null?null:x/60))};}
+const TP_IMPC={};
+async function tpImpactLegs(geo){if(!geo||geo.lat==null||navigator.onLine===false)return null;const cur=TOUR.current?tourStop(TOUR.current):null;const list=tourOrdered().filter(s=>s.id!==TOUR.current&&s.id!==geo.id);
+  const start=cur&&cur.lat!=null?cur:(TOUR.origin==="position"&&TOUR.pos?TOUR.pos:(TOUR.base&&TOUR.base.lat?TOUR.base:null));
+  const pts=[{id:"_new",lat:geo.lat,lon:geo.lon}];if(start)pts.push({id:start===cur?cur.id:"_start",lat:start.lat,lon:start.lon});list.forEach(x=>{if(x.lat!=null)pts.push({id:x.id,lat:x.lat,lon:x.lon});});const dest=tpDestPt();if(dest)pts.push({id:"_dest",lat:dest.lat,lon:dest.lon});
+  const key=pts.map(p=>p.id+":"+p.lat+","+p.lon).join(";");const cch=TP_IMPC[key];if(cch&&Date.now()-cch.ts<300000)return cch.legs;
+  const m=await osrmMatrix(pts);const legs={};pts.forEach((a,i)=>pts.forEach((b,j)=>{if(i===j||(a.id!=="_new"&&b.id!=="_new")||a.id==="_dest"||b.id==="_start")return;const mn=m.min[i]&&m.min[i][j];if(mn==null)return;legs[a.id+"|"+b.id]={min:mn,km:(m.km[i]&&m.km[i][j])||0};}));
+  TP_IMPC[key]={ts:Date.now(),legs};return legs;}
+async function tpImpactRefine(geo,el){try{const legs=await tpImpactLegs(geo);if(!legs||!el||!el.isConnected)return;const r=tpImpactCalc(geo,legs);if(r)el.textContent=tpImpactText(r);}catch(e){}}
+function tpImpactRefineAll(){try{document.querySelectorAll("[data-tpimp]").forEach(el=>{const st=tourStop(el.dataset.tpimp);if(st&&st.lat!=null)tpImpactRefine({id:st.id,lat:st.lat,lon:st.lon,label:st.label||st.addr,motif:st.motif||""},el);});}catch(e){}}
 function tpImpactBind(input,box){if(!input||!box)return;input.addEventListener("input",()=>{box.textContent="";});}
 /* point 11 : « Je suis arrivé » — heure d'arrivée (= heure de l'acte par défaut), chronomètre, « sur place », dictée du résumé de l'appel */
 function tpArrive(){const s=TOUR.current?tourStop(TOUR.current):null;if(!s)return;const now=Date.now();s.tArr=now;delete TOUR.near;tourSave();

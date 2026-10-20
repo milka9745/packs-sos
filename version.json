@@ -1,9 +1,9 @@
 {
-  "version": "41x",
-  "date": "2026-10-20",
+  "version": "41y",
+  "date": "2026-10-21",
   "notes": [
-    "Catalogue complet : 264 fiches sur 264. Bloc 16 : érythème fessier du nourrisson (nouvelle fiche) ; parasitoses digestives, épicondylite, apnées du sommeil, dysthyroïdie et décès à domicile remises au format (consignes, mémo, statut « non relue »).",
-    "Grossesse et allaitement : avis du CRAT affiché à l'écran sur chaque ligne concernée, jamais imprimé, avec l'écart du RCP.",
-    "Correctif : la règle d'Ottawa du genou apparaissait deux fois dans les scores (v41w) ; une seule désormais."
+    "Mode voiture : tous les boutons en fond plein, couleurs par fonction (bleu Naviguer, vert Appeler, or « Je suis arrivé », gris Quitter), gros et lisibles jour et nuit.",
+    "Tournée : l'impact d'une nouvelle demande est calculé par adresse avec les trajets réels (+N min → fin de tournée ou arrivée au cabinet), même estimation que la « Fin prévue » du mode voiture ; la puce de secteur ne compte que les visites de la tournée.",
+    "Fiche proposée : un motif de régulation sans contenu clinique (« O INTERVENTION », « VAD »…) ne propose plus de fiche ; les bandeaux disparaissent après 4 s et au changement d'écran ; badge TEST en haut de l'écran."
   ]
 }
