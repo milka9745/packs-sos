@@ -572,6 +572,13 @@ details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!impor
 .xp .xp-favs{display:flex;flex-direction:column;gap:8px;margin:8px 0;padding:8px;border:1px dashed #E0A800;border-radius:12px}.xp .xp-favs[hidden]{display:none}
 .xp .xp-favs .infav{margin:0}
 .xp .xp-alerts{margin:6px 0}
+.aisyn{border:2px solid #7C5CBF;border-radius:14px;padding:10px 12px;margin:8px 0;background:rgba(124,92,191,.08)}.aisyn.err{border-color:var(--bad,#b00)}
+.aisyn .aisyn-sec{margin:8px 0;padding:6px 0;border-top:1px solid rgba(124,92,191,.25)}.aisyn .aisyn-t{font-weight:800;font-size:13px;letter-spacing:.3px;text-transform:uppercase;opacity:.85;margin-bottom:4px}
+.aisyn .aisyn-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;font-size:15px;line-height:1.3}.aisyn .aisyn-row input{width:22px;height:22px;flex:none;margin-top:1px}.aisyn .aisyn-row small{display:block;font-weight:400;opacity:.8;font-size:13px}.aisyn .aisyn-row.off span{opacity:.5;text-decoration:line-through}
+.aisyn .aisyn-sec.alert{background:rgba(200,40,40,.12);border-radius:8px;padding:6px 10px}.aisyn .aisyn-sec.warn{background:rgba(224,168,0,.14);border-radius:8px;padding:6px 10px}.aisyn ul{margin:4px 0 0;padding-left:20px}.aisyn li{margin:2px 0}
+.aisyn .aisyn-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}.aisyn .aisyn-act .btn{min-height:48px;font-size:17px;font-weight:800}
+.aitel{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.aitel .aitel-sum{width:100%;font-size:14px;line-height:1.35;padding:6px 8px;border-radius:8px;background:rgba(124,92,191,.1)}
+.xp-tel textarea.interro,textarea.interro{width:100%;box-sizing:border-box;font:inherit;font-size:16px;line-height:1.35;min-height:72px}.aist{margin-left:6px;color:#7C5CBF;font-weight:700}
 .obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.val-armed{background:#E0A800!important;color:#111!important;border-color:#E0A800!important;font-weight:800!important}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
 .algrave{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}.algrave.need{background:rgba(224,168,0,.18);outline:1px solid rgba(224,168,0,.6)}.algrave .btn.on{background:var(--acc,#2b6cb0);color:#fff;border-color:transparent}.algrave-c{margin-left:8px}.xp .xp-al{font-size:14.5px;padding:5px 8px;margin:3px 0;border-radius:8px;background:rgba(224,168,0,.14);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xp .xp-al.ci{background:rgba(200,40,40,.14);color:var(--bad,#b00);font-weight:700}.xp .xp-al.open{white-space:normal}
 
@@ -1965,7 +1972,7 @@ html[data-vivid] #tc_arrive:not(.act-now),html[data-vivid] #fin:not(.act-now){fo
 <style>#testbadge{position:fixed;left:0;right:0;top:0;height:4px;background:#D0021B;z-index:2147483646;pointer-events:none}
 @media print{#testbadge,#testpill{display:none!important}@page{margin:0}}
 #testpill{position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:2147483646;pointer-events:none;background:#D0021B;color:#fff;font:800 11px/1 system-ui,sans-serif;letter-spacing:.6px;padding:4px 7px;border-radius:6px;opacity:.92}</style></head>
-<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41t</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
+<body><div id="testbadge" aria-hidden="true"></div><div id="testpill" aria-hidden="true">TEST · 41u</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -6750,7 +6757,7 @@ function applyDictation(noRender){
   if(r.poids&&!state.poids) state.poids=r.poids;
   /* insertions précédentes retirées (la phrase a pu être effacée) ; ce qui est dicté ou saisi n'est jamais touché */
   state.obsAuto=state.obsAuto||{};Object.keys(state.obsAuto).forEach(k=>{if(state.obsAuto[k]&&state.obs[k]===state.obsAuto[k])delete state.obs[k];});state.obsAuto={};
-  Object.keys(r.obs).forEach(k=>{ state.obs[k]=r.obs[k]; if(state.examRm)delete state.examRm[k]; });
+  state.obsLocal=state.obsLocal||{};Object.keys(r.obs).forEach(k=>{ if(state.obsEdited&&state.obsEdited[k])return; /* 20/10/2026 : correction manuelle jamais écrasée */ state.obs[k]=r.obs[k];state.obsLocal[k]=r.obs[k]; if(state.examRm)delete state.examRm[k]; });
   examAutoFill();
   if(r.restNormal&&!excOn()){normSystemsFor(currentPack()).forEach(k=>{if(r.obs[k]||String(state.obs[k]||"").trim())return;const t=sysNormal(k);if(t){state.obs[k]=t;state.obsAuto[k]=t;}});}
   if(!noRender)render();
@@ -6768,7 +6775,7 @@ function obsAutoHTML(){const p=currentPack();const A=state.obsAuto||{};
     return `<div class="obsauto exc${pend?"":" done"}" role="status"><b>Examen complet</b> <span class="hint">${pend?"normaux types de la fiche surlignés : modifiez ou retirez d'un toucher, puis validez en un seul geste":"validé"+(state.examTrace?" à "+new Date(state.examTrace.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"")}</span>${grav}${rows}${pend?`<button type="button" class="btn p" id="oa_ok">✓ Examen complet</button>`:""}<label class="exc-set hint"><input type="checkbox" data-excset checked> Examen complet par défaut</label></div>`;}
   const ks=Object.keys(A).filter(k=>A[k]&&state.obs[k]===A[k]);const off=p?`<label class="exc-set exc-off hint"><input type="checkbox" data-excset> Examen complet par défaut (désactivé : appareil non dicté = absent du compte rendu)</label>`:"";if(!ks.length)return off;
   return off+`<div class="obsauto" role="status"><b>Examen normal inséré</b> <span class="hint">(« reste de l'examen normal » dicté) — vérifiez, modifiez d'un toucher, ou retirez :</span>${ks.map(k=>`<label class="oa-row"><span>${esc(sysLab(k))}</span><textarea class="oa-ta" data-oa="${k}" rows="2">${esc(state.obs[k])}</textarea><button type="button" class="lc" data-oadel="${k}">Retirer</button></label>`).join("")}<button type="button" class="btn s sm" id="oa_ok">✓ Valider l'examen inséré</button></div>`;}
-document.addEventListener("input",ev=>{const t=ev.target;if(!t.matches||!t.matches("[data-oa]"))return;const k=t.dataset.oa;state.obs[k]=t.value;if(state.obsAuto)delete state.obsAuto[k];t.classList.add("edited");try{draftSaveSoon();}catch(e){}});
+document.addEventListener("input",ev=>{const t=ev.target;if(!t.matches||!t.matches("[data-oa]"))return;const k=t.dataset.oa;state.obs[k]=t.value;(state.obsEdited=state.obsEdited||{})[k]=true;if(state.obsAuto)delete state.obsAuto[k];t.classList.add("edited");try{draftSaveSoon();}catch(e){}});
 document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;const d=t.closest("[data-oadel]");if(d){const k=d.dataset.oadel;if(state.obsAuto&&state.obs[k]===state.obsAuto[k])delete state.obs[k];if(state.obsAuto)delete state.obsAuto[k];state.examRm=state.examRm||{};if(excOn())state.examRm[k]=true;render();return;}
   const ad=t.closest("[data-oaadd]");if(ad){const k=ad.dataset.oaadd;if(state.examRm)delete state.examRm[k];render();return;}
   if(t.closest("#oa_ok")){if(excOn()&&currentPack()){examValidate();return;}state.obsAuto={};render();toast("Examen inséré validé");}});
@@ -6914,6 +6921,7 @@ function buildCR0(p){
   res+=let_.length?"Avis spécialisé demandé. ":"";
   if(cons.length) res+="Consignes de surveillance et de reconsultation remises.";
   L.push(res); L.push("");
+  {const tel=String(o.tel||"").replace(/\s+/g," ").trim();if(tel){const hh=o.telTs?new Date(o.telTs).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"";L.push("CONTRE-APPEL TÉLÉPHONIQUE"+(hh?" ("+hh+")":"")+" — ÉLÉMENTS RAPPORTÉS PAR LE PATIENT OU SON ENTOURAGE, PATIENT NON EXAMINÉ À CE STADE");L.push(tel);L.push("");}} /* 20/10/2026 : rapporté ≠ constaté */
   if(hist){ L.push("CHRONOLOGIE / HISTOIRE DE LA MALADIE"); L.push(hist); L.push(""); }
   const atcd=[o.atcd, (state.allergies||[]).length?"Allergies : "+allergiesText():(state.allergie?"Allergie aux pénicillines":""), state.grossesse?"Grossesse en cours"+(saText()?" ("+saText()+")":""):"", state.allait?"Allaitement en cours":""].filter(Boolean).join(" ; ");
   if(atcd){ L.push("ANTÉCÉDENTS"); L.push(atcd); L.push(""); }
@@ -6969,7 +6977,8 @@ function letSpecialiste(p){const d=letData(p);const L=letState();const dk=(L.sp&
   const P=[head,"Cher confrère, chère consœur,"];
   P.push("Je vous adresse "+(d.id||d.A.le)+", "+d.A.vu+" ce jour "+d.lieu+" de garde pour "+d.motif.replace(/[.;\s]+$/,"")+".");
   const t=letTerrainTxt(d);if(t)P.push(t);const e=letExamTxt(d);if(e)P.push(e);const pr=letPrescTxt(d);if(pr)P.push(pr);
-  const Q=[];if(d.diag)Q.push("Le tableau vous paraît-il compatible avec "+d.diag.charAt(0).toLowerCase()+d.diag.slice(1)+" ?");else Q.push("Quel diagnostic retenez-vous devant ce tableau ?");
+  const Q=[];if(L.sp&&L.sp.question)Q.push(String(L.sp.question).replace(/[.;\s]+$/,"")+(/\?$/.test(String(L.sp.question).trim())?"":" ?")); /* 20/10/2026 : question préparée par la synthèse IA, validée par le médecin */
+  if(d.diag)Q.push("Le tableau vous paraît-il compatible avec "+d.diag.charAt(0).toLowerCase()+d.diag.slice(1)+" ?");else Q.push("Quel diagnostic retenez-vous devant ce tableau ?");
   if(d.meds.length)Q.push("La prise en charge débutée vous paraît-elle adaptée ?");if(urg)Q.push("Une surveillance hospitalière vous paraît-elle nécessaire ?");
   P.push("Je souhaiterais avoir votre avis sur les points suivants :");Q.forEach((q,i)=>P.push((i+1)+". "+q));
   P.push("Je vous laisse juge des explorations et de la suite de la prise en charge.");
@@ -7030,7 +7039,7 @@ function bindObs(p){
       if(ev.key==="ArrowUp") go(i-1);
     };
   });
-  document.querySelectorAll("[data-obs]").forEach(e=>e.oninput=()=>{state.obs[e.dataset.obs]=e.value; if(state.obsAuto&&state.obsAuto[e.dataset.obs]!==undefined){delete state.obsAuto[e.dataset.obs];e.closest(".sys")&&e.closest(".sys").classList.remove("autoins");} if(e.tagName==="TEXTAREA"){const k=e.dataset.obs;const sys=SYSTEMS.find(s=>s[0]===k);const b=document.querySelector(`[data-norm="${k}"]`);if(sys&&b)b.classList.toggle("on",e.value===sys[2]);}});
+  document.querySelectorAll("[data-obs]").forEach(e=>e.oninput=()=>{state.obs[e.dataset.obs]=e.value;(state.obsEdited=state.obsEdited||{})[e.dataset.obs]=true; if(state.obsAuto&&state.obsAuto[e.dataset.obs]!==undefined){delete state.obsAuto[e.dataset.obs];e.closest(".sys")&&e.closest(".sys").classList.remove("autoins");} if(e.tagName==="TEXTAREA"){const k=e.dataset.obs;const sys=SYSTEMS.find(s=>s[0]===k);const b=document.querySelector(`[data-norm="${k}"]`);if(sys&&b)b.classList.toggle("on",e.value===sys[2]);}});
   document.querySelectorAll("[data-norm]").forEach(b=>b.onclick=()=>{const k=b.dataset.norm;const sys=SYSTEMS.find(s=>s[0]===k);state.obs[k]=sys[2];const ta=document.querySelector(`textarea[data-obs="${k}"]`);if(ta)ta.value=sys[2];document.querySelectorAll(`[data-norm="${k}"]`).forEach(x=>x.classList.add("on"));});
   document.querySelectorAll("[data-tpl]").forEach(b=>b.onclick=()=>{const k=b.dataset.tpl;const tpl=obsTemplate(p);state.obs[k]=tpl[k];const ta=document.querySelector(`textarea[data-obs="${k}"]`);if(ta)ta.value=tpl[k];document.querySelectorAll(`[data-norm="${k}"]`).forEach(x=>x.classList.remove("on"));});
   const flash=(b,txt)=>{const o=b.textContent;b.textContent=txt;setTimeout(()=>b.textContent=o,1500);};
@@ -16074,7 +16083,7 @@ function scoresUI(p){
 function scoresCR(p){const list=scoresFor(p);const L=[];list.forEach(s=>{const ans=state.scores&&state.scores[s.id];if(!ans||!scoreDone(s,ans))return;const tot=scoreTotal(s,ans);const r=s.calc(tot,ans);const det=(s.it||[]).filter(([k])=>ans[k]).map(([,l])=>l.toLowerCase()).join(", ");L.push("- "+s.n+" : "+tot+" ("+r.txt+")"+(det?" ; critères présents : "+det:""));});return L;}
 
 function opt(key,title,summary,body){const open=!!state.ui.opt[key];return `<details class="opt" data-opt="${key}" ${open?"open":""}><summary><span class="ot">${esc(title)}</span><span class="os">${esc(summary)}</span></summary><div class="ob">${body}</div></details>`;}
-function renderCore(){XP.dict=false;
+function renderCore(){XP.dict=false;XP.syn=false;
   if(state.view==="drugs"){renderDrugs();return;}
   if(state.view==="drive"){renderDrive();return;}
   try{autoFlagsFromPack();}catch(e){}
@@ -16113,7 +16122,7 @@ function renderCore(){XP.dict=false;
   <div class="tt"><label>Traitements en cours</label><div class="chips" id="tt_chips">${state.tt.map((t,i)=>`<span class="chip">${esc(t)}<button type="button" data-ttdel="${i}">×</button></span>`).join("")}<input id="f_tt" autocomplete="off" placeholder="${state.tt.length?"Ajouter…":"Tape un médicament habituel (AVK, metformine…) puis Entrée — déclenche les alertes d'interaction"}"></div><div class="sugg" id="sg_tt"></div></div>${isPhone()?copatUI:""}${pmoreClose()}</section>${isPhone()?'<div id="aside_slot"></div>':""}`;
   const p=currentPack();
   if(!p){
-    m.innerHTML=head+dictCardHTML()+(isPhone()?`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Fin de consultation » copie le compte rendu et ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare le PDF A4 pour Phomemo.</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
+    m.innerHTML=head+dictCardHTML()+aiSynthHTML()+(isPhone()?`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Fin de consultation » copie le compte rendu et ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare le PDF A4 pour Phomemo.</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
     <p>Un clic sur un pack l'ajoute ; un second clic (ou ×) le retire ; plusieurs packs se cumulent sans doublon. Chaque pack regroupe les feuilles nécessaires : ordonnance de médicaments, biologie, imagerie, kinésithérapie, dispositifs médicaux, consignes. Tu coches ou décoches chaque ligne (les lignes à puce ronde sont des choix : une seule est retenue), tu renseignes le nom du patient, et <kbd>Imprimer le pack</kbd> sort une page par feuille sur le modèle SOS Médecins Orléans.</p>
     <p>Le poids sert aux doses enfant ; la date de naissance sert aux doses selon l'âge. Coche « Allergie aux pénicillines » pour remplacer l'antibiotique par trois alternatives au choix. Chaque feuille a une ligne libre en bas et des boutons tout cocher / tout décocher.</p><p>Sur iPhone : « Imprimer » ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare un PDF A4 (une page par feuille) et ouvre le menu Partager pour Phomemo.</p></div>`);
     bind();return;
@@ -16171,9 +16180,9 @@ function renderCore(){XP.dict=false;
   const sheetsHTML=`<div class="sheets">${html}</div>${lettresHTML(p)}`;
   if(isPhone()){
     const dockPhone=`<div class="act dock phone"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only" title="Imprimer le pack">Imprimer · ${nSheets}${alerts.length?` <b class="red">⚠ ${alerts.length}</b>`:""}</button></div>`;
-    m.innerHTML=head+dictCardHTML()+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+docActHTML(p)+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
+    m.innerHTML=head+dictCardHTML()+aiSynthHTML()+titleHTML+multiNote+extra+warn+advBox+adaptBox+alertBox+docActHTML(p)+obsHTML(p)+sheetsHTML+extraOpts+dockPhone;
   }else{
-    m.innerHTML=head+dictCardHTML()+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+docActHTML(p)+
+    m.innerHTML=head+dictCardHTML()+aiSynthHTML()+titleHTML+copatUI+multiNote+extra+extraOpts+warn+advBox+adaptBox+alertBox+docActHTML(p)+
      `<div class="act dock"><button class="btn p big" id="fin">✓ Fin de consultation</button><button class="btn s" id="go_only">Imprimer</button><button class="btn s" id="go" title="Imprimer et copier le compte rendu">Imprimer + CR</button><button class="btn newp" id="new">＋ Nouveau patient</button><span class="count">${nSheets} feuille(s)${alerts.length?` · <b class="red">${alerts.length} alerte(s)</b>`:""}</span></div><button class="fab" id="go2" type="button" title="Imprimer">🖨️ Imprimer</button>`+obsHTML(p)+sheetsHTML+`
    <p class="hint">Coche ou décoche chaque ligne ; une puce ronde = un choix parmi plusieurs. Impression : A4, marges « aucune », échelle 100 %. Chaque feuille tient sur une page.</p>`;
   }
@@ -16299,7 +16308,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){state.lettres={};state.obsAuto={};state.examRm={};state.examOK=false;state.examTrace=null;state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){try{dictSyncFromDOM();dictHistNote();}catch(e){}state.aiPlan=null;state.obsEdited={};state.obsAI={};state.obsLocal={};AI._planHash="";AI._planNext=null;if(AI.res&&AI.res.kind==="plan")AI.res=null;DICT.n++;state.ck=hexRand(4);state.lettres={};state.obsAuto={};state.examRm={};state.examOK=false;state.examTrace=null;state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -16421,7 +16430,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41t",branch:"test",date:"18/10 23:56"};
+const APP_BUILD={v:"41u",branch:"test",date:"20/10 10:22"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16633,8 +16642,9 @@ function aiFactGuard(src,out,strict){const a=aiNums(src),b=aiNums(out);const add
 /*ANON-END*/
 /* ===== v41 — Assistant IA facultatif (CDC § 7) : modes Aucun / Partiel / Complet, anonymisation locale, écran « Ce qui part », réintégration sur l'appareil, consommation et plafond =====
    Jamais sur le chemin critique : pack, doses et documents restent instantanés et hors ligne. Les posologies viennent des fiches, jamais de l'IA. */
-const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande",doc:"demande"},cap:10,alert:80,alerted:""},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],res:null};
-const AI_FN={obs:"Dictée → observation",cr:"Compte rendu",let:"Courrier",doc:"Document ou image"};
+const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande",doc:"demande"},cap:10,alert:80,alerted:"",auto:"on",send:"auto"},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],res:null};
+/* 20/10/2026 : cfg.auto = « après une dictée, préparer automatiquement » (on/off) ; cfg.send = « envoi automatique après pseudonymisation sur l'appareil » (auto) ou « écran Ce qui part à chaque fois » (ecran). Réglages persistants (chiffrés avec la clé). */
+const AI_FN={obs:"Dictée → observation",plan:"Dictée → synthèse",cr:"Compte rendu",let:"Courrier",doc:"Document ou image"};
 const AI_MODEL={redac:"claude-sonnet-5-5",tri:"claude-haiku-5-5"};          /* Sonnet pour rédiger, Haiku pour trier et tester */
 const AI_PRICE={"claude-sonnet-5-5":[2,10,0.2,2.5],"claude-haiku-5-5":[0.1,0.5,0.01,0.125]}; /* $ par million de jetons : entrée, sortie, lecture du cache, écriture du cache */
 const AI_USD_EUR=0.92;                                                         /* taux indicatif */
@@ -16719,6 +16729,21 @@ TÂCHE : le médecin a dicté en vrac. Range la dictée en observation. Clés du
 "cst": {"ta":"","fc":"","spo2":"","temp":"","fr":"","gly":"","eva":""} avec seulement les valeurs dictées (TA au format 130/80) ;
 "obs": {"hist":"histoire de la maladie, factuelle, au présent","atcd":"antécédents dictés","hyp":"diagnostic retenu, court","trace":"échanges, avis, informations données, si dictés", APPAREILS} où APPAREILS = une clé par appareil (liste fournie) avec la description dictée, mot pour mot quand c'est possible ; pour un appareil absent de la dictée, renvoie la chaîne vide "" : n'écris JAMAIS « non renseigné », « non effectué », « non examiné », « non fait », « RAS », « normal », « sans particularité » ni aucune mention qui n'est pas dictée, et ne recopie jamais le seul nom de l'appareil (le logiciel complète lui-même les appareils vides selon le réglage du médecin) ; une rubrique non dictée est "" ;
 "remarques": vigilances courtes (contre-indication, interaction, donnée importante manquante), sinon [].`;
+/* 20/10/2026 — une seule dictée → observation structurée ET préparation du travail documentaire (le médecin valide tout).
+   Le texte transmis distingue « CONTRE-APPEL TÉLÉPHONIQUE » (rapporté, patient non examiné) et « EN PRÉSENCE DU PATIENT » (dictée du médecin après examen). */
+const AI_SYS_PLAN=AI_SYS_OBS+`
+PRÉPARATION DU TRAVAIL DOCUMENTAIRE (tu prépares, le médecin décide et valide) — clés supplémentaires du même objet JSON :
+"justification": une phrase par fiche de "packs", dans le même ordre, fondée sur ce qui est transmis ;
+"examens": examens complémentaires utiles si la situation le justifie, sinon [] : [{"t":"libellé court, sans valeur ni posologie","pourquoi":"…"}] ;
+"courrier_mt": booléen — un courrier au médecin traitant est utile (suivi, résultats à récupérer, maladie chronique, patient vulnérable) ;
+"courrier_sp": null, ou {"dest":"spécialité ou urgences","question":"la question posée au confrère","pourquoi":"…"} si un avis spécialisé ou une orientation est justifié ;
+"social": null, ou {"besoin":"…","orientation":"…","pourquoi":"…"} si un besoin d'aide sociale ou de maintien à domicile apparaît (isolement, perte d'autonomie, aidant épuisé, précarité, soins palliatifs) ;
+"suivi": points de surveillance et de reconsultation propres à cette situation, courts, sans posologie, sinon [] ;
+"manques": informations importantes manquantes pour décider (constantes, antécédents, allergies, traitements, poids chez l'enfant, examen non fait), sinon [] ;
+"alertes": signes de gravité ou situations à risque présents dans ce qui est transmis, sinon [].
+Sources : les fiches de la LISTE (catalogue du médecin) sont la référence ; tu n'inventes aucune recommandation absente des fiches, et tu signales dans "remarques" toute contradiction que tu identifies avec une recommandation récente (HAS, sociétés savantes, RCP) sans la présenter comme vérifiée.
+SITUATION « contre-appel téléphonique » (partie CONTRE-APPEL présente, partie EN PRÉSENCE absente) : tout est rapporté par le patient ou un proche, rien n'est examiné : les APPAREILS restent "", "cst" reste vide sauf valeur chiffrée explicitement rapportée, "hist" commence par « Au téléphone, » ; "manques" liste ce qu'il faudra vérifier sur place.
+Quand les deux parties existent : "hist" réunit le rapporté (« Au téléphone, … ») puis le constaté ; seuls les éléments de la partie EN PRÉSENCE vont dans les APPAREILS.`;
 const AI_SYS_CR=AI_SYS_COMMUN+`
 TÂCHE : relecture de sécurité médico-légale du compte rendu, avant validation par le médecin. Ce qui protège, c'est ce qui est écrit : complet, factuel, horodaté, sans contradiction. Clés du JSON :
 "manques": liste courte de ce qui manque au dossier, formulé comme un rappel au médecin (signes de gravité recherchés non notés comme négatifs, consignes de reconsultation non tracées, refus du patient non écrit, choix hors recommandation sans justification, points de traçabilité de la fiche non renseignés) ; [] si rien ;
@@ -16731,12 +16756,19 @@ TÂCHE : relecture de sécurité médico-légale du compte rendu, avant validati
 function aiPacksList(){return PACKS.map(p=>p.n).join("\n");}
 function aiMemoPoints(p){if(!p)return [];const m=p.s.find(sh=>sh.k==="memo");if(!m)return [];return m.l.map(l=>typeof l==="string"?l:l.t).filter(t=>/tra[çc]abilit|v[ée]rification|bloquant|documenter|gravit[ée]|reconsult/i.test(t)).slice(0,12);}
 function aiPrepare(kind,opt){opt=opt||{};
-  const eff=aiEffective();const offq=aiOfflineOnly();if(eff.mode==="aucun"&&!offq){alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return null;}
+  const eff=aiEffective();const offq=aiOfflineOnly();if(eff.mode==="aucun"&&!offq){if(opt.silent){aiStatus("IA coupée"+(eff.why?" : "+eff.why:""));return null;}alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return null;}
   const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}  /* masquages manuels : propres à ce patient */
   const ctx=aiAnonCtx();const p=currentPack();let system,parts,build,maxT,fns;
   if(kind==="obs"){const d=String(opt.dictee||"").trim();if(!d){alert("Dictée vide.");return null;}
     system=AI_SYS_OBS+"\n\nAPPAREILS (clés d'examen) : "+SYSTEMS.map(([k,l])=>k+" = "+l).join(" ; ")+"\n\nLISTE DES FICHES :\n"+aiPacksList();
     parts=[aiClinique(),d];build=a=>"CONTEXTE CLINIQUE (sans identité)\n"+a[0]+"\n\nDICTÉE DU MÉDECIN\n"+a[1];maxT=1800;fns=["obs"];}
+  else if(kind==="plan"){const tel=String(opt.tel||"").trim(),d=String(opt.dictee||"").trim();if(!tel&&!d)return null;
+    const situ=opt.src==="tel"?"contre-appel téléphonique avant la visite (le patient n'a pas encore été vu)":opt.src==="visite"?"visite à domicile":"consultation au cabinet";
+    const hh=opt.telTs?new Date(opt.telTs).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"";
+    system=AI_SYS_PLAN+"\n\nAPPAREILS (clés d'examen) : "+SYSTEMS.map(([k,l])=>k+" = "+l).join(" ; ")+"\n\nLISTE DES FICHES :\n"+aiPacksList();
+    parts=[aiClinique(),tel,d];
+    build=a=>"SITUATION : "+situ+"\n\nCONTEXTE CLINIQUE (sans identité)\n"+a[0]+(a[1].trim()?"\n\nCONTRE-APPEL TÉLÉPHONIQUE (éléments rapportés par le patient ou un proche"+(hh?", à "+hh:"")+" ; patient non examiné)\n"+a[1]:"")+(a[2].trim()?"\n\nEN PRÉSENCE DU PATIENT (dictée du médecin "+(opt.src==="visite"?"en visite":"en consultation")+", après examen)\n"+a[2]:"");
+    maxT=2600;fns=["plan"];}
   else{if(!p){alert("Choisis d'abord une fiche : le compte rendu et le courrier partent de la consultation en cours.");return null;}
     const cr=String(buildCR0(p)).split("\n").filter(l=>!/^Patient : /.test(l)).join("\n");const wantCR=opt.cr!==false,wantLet=!!opt.let;
     system=AI_SYS_CR;parts=[aiClinique(),cr,String(opt.demande||"").trim()];
@@ -16750,7 +16782,9 @@ function aiPrepare(kind,opt){opt=opt||{};
   const leaks=anonLeaks(user,ctx);const model=AI_MODEL.redac;
   const est=aiEur(model,{input_tokens:Math.round((system.length+user.length)/3.2),output_tokens:Math.round(maxT*0.5)});
   AI.pending={kind,opt,fns,ctx,system,user,map:an.map,items:an.items,leaks,model,maxT,est,pid:state.t0||Date.now()};
-  if(offq){aiqAdd(AI.pending);AI.pending=null;return null;} /* n° 6 : hors connexion, mise en attente sur l'appareil */
+  if(offq){aiqAdd(AI.pending);AI.pending=null;if(opt.silent)aiStatus("hors connexion : demande gardée sur l'appareil");return null;} /* n° 6 : hors connexion, mise en attente sur l'appareil */
+  /* 20/10/2026 : envoi automatique (réglage « send: auto ») après pseudonymisation sur l'appareil, seulement si aucun fragment d'identité ne subsiste ; sinon l'écran « Ce qui part » est forcé */
+  if(opt.silent&&aiSendAuto()&&!leaks.length){aiStatus("envoi…");aiSend();return AI.pending;}
   aiSendScreen();return AI.pending;}
 
 /* ---- Écran « Ce qui part » : le texte exact, ce qui a été retiré, le coût ; rien ne part sans « Envoyer » ---- */
@@ -16799,9 +16833,11 @@ async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=docume
   try{const content=P.user; /* 17/10/2026 B4 : texte seul, jamais d'image */
     AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
     if(P.qid)aiqDel(P.qid);AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
+    if(P.kind==="plan"){AI.busy=false;aiPlanReceive(j,P);aiPlanNext();return;}
     if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
-  catch(e){if(el){const a=document.createElement("div");a.className="alert";a.textContent=e.message||String(e);el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}}
-  AI.busy=false;}
+  catch(e){const msg=e.message||String(e);if(el){const a=document.createElement("div");a.className="alert";a.textContent=msg;el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}
+    if(P.kind==="plan"&&!el){aiPlanError(msg,P);}}
+  AI.busy=false;aiPlanNext();}
 
 /* ---- Réintégration et garde-fous sur la réponse ---- */
 /* Texte reçu → identité remise ; refusé s'il reste un jeton inconnu, s'il crée un nombre absent de l'envoi ou s'il contient une posologie non dictée */
@@ -16812,12 +16848,15 @@ function aiBack(t,opt){opt=opt||{};const R=AI.res;const s=String(t||"").trim();i
   return {ok:true,text:r.text,doses};}
 function aiShowResult(){const R=AI.res,out=document.getElementById("ai_out");if(!R||!out)return;const j=R.j;
   if(R.kind==="obs")return aiShowObs(j,out);if(R.kind==="doc")return aiShowDoc(j,out);return aiShowCR(j,out);}
-function aiShowObs(j,out){const R=AI.res;const packs=(j.packs||[]).map(n=>PACKS.findIndex(p=>p.n===n)).filter(i=>i>=0);const rows=[],rej=[];const obs={};
+/* garde-fous communs (identité réintégrée, nombres absents de l'envoi écartés, posologies jamais appliquées) — observation seule et synthèse */
+function aiExtractObs(j,R){const packs=(j.packs||[]).map(n=>PACKS.findIndex(p=>p.n===n)).filter(i=>i>=0);const rej=[];const obs={};
   Object.entries(j.obs||{}).forEach(([k,v])=>{if(!v||!(["hist","atcd","hyp","trace"].includes(k)||SYSTEMS.some(s=>s[0]===k)))return;if(SYSTEMS.some(s=>s[0]===k)){v=obsClean(v);if(!v)return;}else if(OBS_VOID_RE.test(String(v).trim().replace(/[.;:]+$/,"")))return;const b=aiBack(v);if(b.ok)obs[k]=b.text;else rej.push((k)+" ("+b.why+")");});
   const cst={};Object.entries(j.cst||{}).forEach(([k,v])=>{if(v&&aiFactGuard(R.sent,String(v)).ok)cst[k]=String(v);});
   const tt=(j.traitements||[]).map(t=>aiBack(t)).filter(b=>b.ok).map(b=>b.text),al=(j.allergies||[]).map(t=>aiBack(t)).filter(b=>b.ok).map(b=>b.text);
   const poids=j.poids&&aiFactGuard(R.sent,String(j.poids)).ok?String(j.poids):"";
-  R.apply={packs,obs,cst,tt,al,poids,sexe:j.sexe,grossesse:!!j.grossesse,allait:!!j.allaitement,pen:!!j.allergie_penicilline};
+  return {packs,obs,cst,tt,al,poids,sexe:j.sexe,grossesse:!!j.grossesse,allait:!!j.allaitement,pen:!!j.allergie_penicilline,rej};}
+function aiShowObs(j,out){const R=AI.res;const rows=[];const A=aiExtractObs(j,R);const {packs,obs,cst,tt,al,poids,rej}=A;
+  R.apply=A;
   if(packs.length)rows.push("<b>Fiche</b> : "+packs.map(i=>esc(PACKS[i].n)).join(" + "));
   const f=[];if(poids)f.push("poids "+esc(poids)+" kg");if(j.sexe)f.push(j.sexe==="f"?"femme":"homme");if(j.grossesse)f.push("grossesse");if(j.allaitement)f.push("allaitement");if(j.allergie_penicilline)f.push("allergie aux pénicillines");if(al.length)f.push("allergies : "+al.map(esc).join(", "));if(f.length)rows.push("<b>Patient</b> : "+f.join(", "));
   if(tt.length)rows.push("<b>Traitements en cours</b> : "+tt.map(esc).join(", "));
@@ -16856,7 +16895,7 @@ function aiShowCR(j,out){const R=AI.res;const H=[];R.acc={};
   out.querySelectorAll("[data-acc]").forEach(b=>b.onclick=()=>{if(aiAccept(b.dataset.acc)){b.disabled=true;b.textContent="Ajouté ✓";}});}
 /* Toute modification acceptée est tracée (state.aiLog), jamais silencieuse */
 function aiAccept(id){const R=AI.res,a=R&&R.acc[id];if(!a)return false;
-  if(id.startsWith("rf")){const cur=state.obs[a.k]||"";let i=cur.indexOf(a.av);if(i<0)i=norm(cur).indexOf(norm(a.av));if(i<0)return false;state.obs[a.k]=cur.slice(0,i)+a.ap+cur.slice(i+a.av.length);aiLog("cr","reformulation acceptée",a.av+" → "+a.ap);}
+  if(id.startsWith("rf")){const cur=state.obs[a.k]||"";let i=cur.indexOf(a.av);if(i<0)i=norm(cur).indexOf(norm(a.av));if(i<0)return false;state.obs[a.k]=cur.slice(0,i)+a.ap+cur.slice(i+a.av.length);(state.obsEdited=state.obsEdited||{})[a.k]=true;aiLog("cr","reformulation acceptée",a.av+" → "+a.ap);}
   else if(id==="raison"){state.obs.raison=a.text;aiLog("cr","raisonnement ajouté",a.text);}
   else if(id==="info"){state.obs.trace=[state.obs.trace,a.text].filter(Boolean).join(" ; ");aiLog("cr","information ajoutée",a.text);}
   else if(id==="let"){const p=currentPack();const si=p?p.s.findIndex(sh=>sh.k==="let"):-1;if(si<0){alert("La fiche n'a pas de feuille Courrier : utilisez Copier.");return false;}a.lines.forEach(l=>(state.extra[si]=state.extra[si]||[]).push(l));aiLog("let","courrier ajouté","");}
@@ -16868,21 +16907,131 @@ function aiOpen(tab){if(document.getElementById("aipanel"))return;if(tab)AI.tab=
   const el=document.createElement("div");el.id="aipanel";const t=AI.tab;const p=currentPack();
   const body=eff.mode==="aucun"?`<div class="aires">IA coupée${eff.why?" : "+esc(eff.why):" (mode Aucun)"}. Packs fonctionne sans IA : rien n'est envoyé, rien n'est facturé.</div>`:
    `<div class="aitabs">${tabs.map(f=>`<button type="button" data-aitab="${f}" class="${t===f?"on":""}">${AI_FN[f]}</button>`).join("")}</div>
-   ${t==="obs"?`<textarea id="ai_in" rows="5" placeholder="Dictez en vrac : âge, poids, symptômes, constantes, examen, diagnostic (micro du clavier). Pas de posologie : elles viennent de la fiche.">${esc(state.obs.dict||"")}</textarea>`
+   ${t==="obs"?`<textarea id="ai_in" data-pk="${esc(dictPk())}" rows="5" placeholder="Dictez en vrac : âge, poids, symptômes, constantes, examen, diagnostic (micro du clavier). Pas de posologie : elles viennent de la fiche.">${esc(state.obs.dict||"")}</textarea>`
     :t==="cr"?`<div class="hint">Relit le compte rendu de la consultation en cours${p?" (« "+esc(p.n)+" »)":""} : manques, formulation neutre, raisonnement, information donnée. Rien n'est modifié sans votre accord.</div>${aiFn("let")!=="off"?`<label class="hint"><input type="checkbox" id="ai_withlet" ${p&&p.s.some(sh=>sh.k==="let")?"checked":""}> Courrier dans le même envoi</label><textarea id="ai_in" rows="2" placeholder="Courrier : à qui, quelle question (facultatif)"></textarea>`:""}`
     :t==="doc"?`<div class="hint">Photo ou capture d'écran d'un document (biologie, compte rendu, ordonnance). Le document est <b>lu sur l'appareil</b> ; seul le texte, pseudonymisé, part après l'écran « Ce qui part », <b>jamais l'image</b>. Sans lecture locale réussie, rien ne part. Les PDF : faites une capture de la page.</div><label class="btn p" for="ai_file">Importer une photo ou une capture</label><input type="file" id="ai_file" accept="image/*" style="display:none">`
     :`<textarea id="ai_in" rows="3" placeholder="À qui, quelle question : « ORL, otites à répétition, avis pour aérateurs »"></textarea><div class="hint">Le traitement est ajouté par Packs depuis la fiche, jamais rédigé par l'IA.</div>`}
    ${t==="doc"?"":`<div class="aiact"><button type="button" class="btn p" id="ai_go">${offq?"Mettre en attente":"Voir ce qui part"}</button><span class="hint">${offq?"Hors connexion : préparée et anonymisée sur l'appareil, proposée à l'écran « Ce qui part » au retour du réseau.":"Rien ne part avant l'écran de contrôle."}</span></div>`}`;
   el.innerHTML=`<div class="aibox"><div class="aihd"><b>✦ Assistant IA</b>${aiModeHTML()}<button type="button" class="btn s sm" id="ai_conso">Consommation</button><button type="button" class="btn s sm" id="ai_close">Fermer</button></div>
-   <div class="hint">Facultatif. Identité, adresse, téléphone, NIR et dates retirés sur l'appareil avant tout envoi, remis ici au retour. ${eff.mode==="partiel"?"Partiel : réglage par fonction dans Journal → Assistant IA.":eff.mode==="complet"?"Complet : l'écran de contrôle s'ouvre de lui-même après la dictée et la copie du compte rendu.":""}</div>${body}<div id="ai_out"></div></div>`;
+   <div class="hint">Facultatif. Identité, adresse, téléphone, NIR et dates retirés sur l'appareil avant tout envoi, remis ici au retour. ${eff.mode==="partiel"?"Partiel : réglage par fonction dans Journal → Assistant IA.":eff.mode==="complet"?"Complet : préparation automatique après la dictée (synthèse à valider) ; envoi après pseudonymisation selon le réglage « Envoi » (Journal → Assistant IA).":""}</div>${body}<div id="ai_out"></div></div>`;
   document.body.appendChild(el);
   el.querySelector("#ai_close").onclick=()=>el.remove();el.onclick=ev=>{if(ev.target===el)el.remove();};el.querySelector("#ai_conso").onclick=aiConsoScreen;
   el.querySelectorAll("[data-aitab]").forEach(b=>b.onclick=()=>{AI.tab=b.dataset.aitab;AI.res=null;el.remove();aiOpen();});
   const go=el.querySelector("#ai_go");if(go)go.onclick=()=>{const v=(el.querySelector("#ai_in")||{}).value||"";if(t==="obs")aiPrepare("obs",{dictee:v});else if(t==="cr"){const wl=el.querySelector("#ai_withlet");aiPrepare("cr",{cr:true,let:!!(wl&&wl.checked),demande:v});}else aiPrepare("cr",{cr:false,let:true,demande:v});};
   const fi=el.querySelector("#ai_file");if(fi)fi.onchange=()=>{const f=fi.files&&fi.files[0];fi.value="";if(f)aiDocImport(f);};
   if(AI.res&&(AI.res.kind==="obs"?t==="obs":AI.res.kind==="doc"?t==="doc":(t==="cr"||t==="let")))aiShowResult();}
-/* Complet : déclenchement automatique de l'écran de contrôle (jamais d'envoi automatique) */
-function aiAutoObs(){if(aiFn("obs")==="auto"&&(state.obs.dict||"").trim())aiPrepare("obs",{dictee:state.obs.dict});}
+/* ===================== 20/10/2026 — UNE SEULE DICTÉE : PRÉPARATION AUTOMATIQUE, SYNTHÈSE À VALIDER =====================
+   Contre-appel (téléphone) ou dictée en visite / consultation → pseudonymisation sur l'appareil → une seule requête → observation rangée,
+   fiche proposée (le Pack SOS Médecins est la référence : l'ordonnance vient de la fiche, jamais de l'IA), examens, courriers, aide sociale,
+   suivi, alertes, manques → écran de synthèse → le médecin garde, retire, applique ; la validation finale reste la sienne.
+   Jamais : écraser une correction manuelle, appliquer à un autre patient, valider un document, envoyer deux fois le même texte. */
+function aiAutoOn(){return (aiAvailable()||aiOfflineOnly())&&AI.cfg.auto!=="off";} /* hors connexion : la demande est préparée et mise en attente sur l'appareil */
+function aiSendAuto(){return AI.cfg.send!=="ecran";}
+function aiConsultKey(){if(!state.ck)state.ck=hexRand(4);return state.ck;}
+function aiStatus(t){AI._st=t||"";document.querySelectorAll(".aist").forEach(e=>{e.textContent=AI._st?"✦ "+AI._st:"";});}
+function aiPlanNext(){const n=AI._planNext;if(!n)return;AI._planNext=null;setTimeout(()=>{try{aiAutoFlow(n.src,n.opt);}catch(e){}},80);}
+function aiAutoFlow(src,opt){opt=opt||{};const s=src==="tel"?(opt.stop||xpStop()):null;
+  const tel=src==="tel"?String(s&&s.interro||"").trim():String(state.obs&&state.obs.tel||"").trim();
+  const d=src==="tel"?"":String(state.obs&&state.obs.dict||"").trim();
+  if(src==="tel"&&!s)return false;if(!tel&&!d)return false;if((src==="tel"?tel:d).length<15)return false;
+  if(!opt.manual&&!aiAutoOn())return false;
+  if(!aiAvailable()&&!aiOfflineOnly()){if(opt.manual)toast("IA indisponible : "+(aiEffective().why||"mode Aucun"));return false;}
+  const hash=[src,tel,d].join("\u0001");if(!opt.manual&&AI._planHash===hash)return false;
+  if(AI.busy){AI._planNext={src,opt};return false;}
+  AI._planHash=hash;const ck=aiConsultKey();
+  const P=aiPrepare("plan",{src,tel,dictee:d,telTs:src==="tel"?(s.interroTs||0):(state.obs.telTs||0),stopId:s?s.id:(TOUR.current||""),silent:!opt.manual||aiSendAuto(),ck,hash,who:state.patient||""});
+  if(P)aiStatus(src==="tel"?"analyse du contre-appel…":"préparation…");return !!P;}
+function aiPlanError(msg,P){aiStatus("");const o=P.opt||{};if(o.ck&&o.ck!==state.ck)return;state.aiPlan={ts:Date.now(),phase:o.src||"",ck:state.ck,err:msg,packs:[],examens:[],suivi:[],manques:[],alertes:[],remarques:[],rej:[]};aiLog("plan","échec IA (rien n'est modifié)",msg);render();toast("IA : "+msg+" — la dictée est conservée");}
+function aiPlanReceive(j,P){aiStatus("");const o=P.opt||{};const R={kind:"plan",fns:P.fns,j,map:P.map,sent:P.user,src:P.user,pid:P.pid};AI.res=R;
+  /* verrou patient : la réponse ne s'applique qu'à la consultation qui l'a demandée (clé de consultation + nom) */
+  const stop=o.stopId?tourStop(o.stopId):null;
+  if(o.ck&&o.ck!==state.ck){if(o.src==="tel"&&stop){const pl=aiPlanBuild(j,P,R);stop.ai=pl;stop.aiHash=o.hash;tourSave();toast("Analyse du contre-appel gardée sur la fiche de "+(stopName(stop)||"l'arrêt"));}else{toast("Réponse IA reçue pour un autre patient : ignorée");aiLog("plan","réponse ignorée (autre patient)","");}return;}
+  if((o.who||"")!==(state.patient||"")&&o.src!=="tel"){toast("Réponse IA reçue pour un autre patient : ignorée");aiLog("plan","réponse ignorée (autre patient)","");return;}
+  const plan=aiPlanBuild(j,P,R);
+  const A=plan.A;delete plan.A;
+  aiApplyObsSafe(A,o.src);
+  if(plan.packs.length&&state.sel===null&&state.xpPick==null)state.xpPick=plan.packs[0].i;
+  state.aiPlan=plan;
+  if(o.src==="tel"&&stop){stop.ai=Object.assign({},plan,{ck:""});stop.aiHash=o.hash;stop.aiTs=plan.ts;tourSave();}
+  aiLog("plan","synthèse IA reçue ("+(o.src||"")+")",plan.packs.map(x=>x.n).join(", "));
+  render();toast(o.src==="tel"?"Contre-appel analysé : synthèse à valider":"Synthèse IA prête : à valider");}
+function aiPlanBuild(j,P,R){const o=P.opt||{};const A=aiExtractObs(j,R);if(o.src==="tel"){SYSTEMS.forEach(([k])=>{delete A.obs[k];});A.cst={};}
+  const back=t=>{const b=aiBack(t,{noDose:true});return b.ok?b.text:"";};
+  const list=a=>(Array.isArray(a)?a:[]).map(x=>typeof x==="string"?back(x):"").filter(Boolean);
+  const just=Array.isArray(j.justification)?j.justification:(j.justification?[j.justification]:[]);
+  const packs=A.packs.map((i,k)=>({i,n:PACKS[i].n,why:back(String(just[k]||"")),kept:k===0}));
+  const examens=(Array.isArray(j.examens)?j.examens:[]).map(x=>x&&typeof x==="object"?{t:back(String(x.t||"")),why:back(String(x.pourquoi||"")),kept:true}:null).filter(x=>x&&x.t&&!AI_POSO_RE.test(x.t));
+  const mt=j.courrier_mt?{kept:true,why:""}:null;
+  let sp=null;if(j.courrier_sp&&typeof j.courrier_sp==="object"&&j.courrier_sp.dest){const dk=aiDestKey(back(String(j.courrier_sp.dest||"")));sp={kept:true,dest:dk.dest,destLbl:dk.lbl,autre:dk.autre||"",question:back(String(j.courrier_sp.question||"")),why:back(String(j.courrier_sp.pourquoi||""))};}
+  let social=null;if(j.social&&typeof j.social==="object"&&(j.social.besoin||j.social.orientation)){social={kept:true,besoin:back(String(j.social.besoin||"")),orientation:back(String(j.social.orientation||"")),why:back(String(j.social.pourquoi||""))};social.pack=aiSocialPack(social);}
+  return {ts:Date.now(),phase:o.src||"",ck:state.ck,who:o.who||"",hash:o.hash||"",sent:P.user,packs,examens,mt,sp,social,
+    suivi:list(j.suivi).map(t=>({t,kept:false})),manques:list(j.manques),alertes:list(j.alertes),remarques:list(j.remarques),hyp:A.obs.hyp||"",rej:A.rej||[],applied:0,hidden:false,A};}
+/* application immédiate de ce qui est dicté (observation, constantes, terrain) — jamais sur un champ corrigé à la main, jamais en écrasant une saisie */
+function aiApplyObsSafe(A,src){state.obs=state.obs||{};const E=state.obsEdited||{};const prevAI=state.obsAI||{};const prevL=state.obsLocal||{};state.obsAI=state.obsAI||{};let n=0;
+  Object.entries(A.obs||{}).forEach(([k,v])=>{if(E[k])return;const cur=String(state.obs[k]||"").trim();if(cur&&cur!==prevAI[k]&&cur!==prevL[k]&&!(state.obsAuto&&state.obsAuto[k]===cur)&&!(k==="hist"&&/^Régulation : /.test(cur)))return;
+    state.obs[k]=v;state.obsAI[k]=v;if(state.obsAuto)delete state.obsAuto[k];if(state.examRm)delete state.examRm[k];n++;});
+  if(n)state.obs.dictated=true;
+  if(A.poids&&!state.poids)state.poids=String(A.poids).replace(/[^\d.,]/g,"");
+  if((A.sexe==="h"||A.sexe==="f")&&!state.sexe)state.sexe=A.sexe;
+  if(A.grossesse&&state.sexe!=="h"&&!state.grossesse){state.grossesse=true;state.sexe="f";}if(A.allait&&state.sexe!=="h"&&!state.allait){state.allait=true;state.sexe="f";}
+  if(A.pen&&!state.allergie){state.allergie=true;state.allergies=state.allergies||[];if(!state.allergies.some(x=>/p[ée]nicillin/i.test(x)))state.allergies.push("Pénicillines");}
+  (A.al||[]).forEach(x=>{state.allergies=state.allergies||[];if(x&&!state.allergies.some(y=>allergyKey(y)===allergyKey(x)))state.allergies.push(x);if(/p[ée]nicillin/i.test(x))state.allergie=true;});
+  (A.tt||[]).forEach(t=>{if(t&&!state.tt.some(x=>norm(x)===norm(t)))state.tt.push(t);});
+  if(src!=="tel")Object.entries(A.cst||{}).forEach(([k,v])=>{if(!state.cst[k])state.cst[k]=v;});
+  try{autoAgePack();}catch(e){}if(!state.t0)state.t0=Date.now();}
+function aiDestKey(d){const n=norm(d||"");if(!n)return {dest:"autre",lbl:"spécialiste",autre:""};for(const [k,l] of LET_DESTS){if(k==="autre")continue;const kk=k==="orl"?"orl":k.slice(0,5);if(n.includes(kk)||n.includes(norm(l).slice(0,6)))return {dest:k,lbl:l,autre:""};}return {dest:"autre",lbl:d,autre:d};}
+function aiSocialPack(so){const t=norm([so.besoin,so.orientation,so.why].join(" "));const find=re=>{const i=PACKS.findIndex(p=>re.test(p.n));return i>=0&&packAgeOk(i)?i:null;};
+  if(/palliat|fin de vie/.test(t))return find(/^Soins palliatifs/);if(/\bhad\b|hospitalisation a domicile/.test(t))return find(/^HAD/);if(/aidant|demence|alzheimer|neurocognit/.test(t))return find(/^Démence/);
+  if(/autonomie|maintien|isol|aide a domicile|ssiad|\bapa\b|repas|dependance|chute|seul/.test(t))return find(/^Altération de l'état général — maintien/);return null;}
+/* ligne de la fiche qui correspond à un examen proposé (biologie, imagerie, examen spécialisé) */
+function aiMatchLine(p,t,kinds){const W=norm(t).split(/[^a-z0-9]+/).filter(w=>w.length>=4&&!/^(avec|sans|pour|dans|bilan|dosage|recherche|examen|faire|pratiquer|realiser|controle|dans|urgence)$/.test(w));if(!W.length||!p)return null;let best=null;
+  p.s.forEach((sh,si)=>{if(!kinds.includes(sh.k)||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}r.forEach(x=>{const h=norm(x.t);const nn=W.filter(w=>h.includes(w)).length;const sc=nn/W.length;if(sc>=0.6&&(!best||sc>best.sc))best={si,key:x.key,grp:x.grp,txt:x.t.replace(/^(\{[^}]*\})+/,"").slice(0,90),sc,on:x.on};});});return best;}
+function aiSynthApply(){const P=state.aiPlan;if(!P||P.ck!==state.ck||P.applied)return;const log=[];
+  const kp=P.packs.filter(x=>x.kept&&PACKS[x.i]);
+  if(state.sel===null&&kp.length){const i=kp[0].i;state.sel=kp.length===1?i:kp.map(x=>x.i);state.off={};state.lo={};state.gs={};state.edits={};state.f={};state.libre={};state.extra={};state.xpPick=null;XP.list=false;try{autoAgePack();}catch(e){}if(!state.t0)state.t0=Date.now();try{xpArriveQuiet();}catch(e){}log.push("fiche"+(kp.length>1?"s":"")+" « "+kp.map(x=>PACKS[x.i].n).join(" + ")+" »");}
+  if(P.social&&P.social.kept&&P.social.pack!=null&&PACKS[P.social.pack]&&currentPack()){const idx=selIdx();if(!idx.includes(P.social.pack)){idx.push(P.social.pack);state.sel=idx.length===1?idx[0]:idx;log.push("fiche complémentaire « "+PACKS[P.social.pack].n+" »");}}
+  const L=letState();if(P.mt&&P.mt.kept){L.mt=Object.assign({},L.mt||{},{on:true});log.push("courrier au médecin traitant");}
+  if(P.sp&&P.sp.kept){L.sp=Object.assign({},L.sp||{},{on:true,dest:P.sp.dest||"autre",autre:P.sp.autre||"",question:P.sp.question||""});log.push("courrier au spécialiste ("+(P.sp.destLbl||P.sp.dest)+")");}
+  const p=currentPack();
+  if(p){P.examens.filter(x=>x.kept).forEach(x=>{const m=aiMatchLine(p,x.t,["bio","img","spe"]);if(m){if(m.grp)state.gs[m.si+":"+m.grp]=m.key;else state.lo[m.key]=true;x.match=m.txt;}else{const si=p.s.findIndex(sh=>sh.k===(/radio|écho|echo|scanner|irm|imagerie|doppler/i.test(x.t)?"img":"bio"));if(si>=0){(state.extra[si]=state.extra[si]||[]).push(normFreeLine(x.t));x.added=true;}}log.push("examen : "+x.t);});
+    P.suivi.filter(x=>x.kept).forEach(x=>{const si=p.s.findIndex(sh=>sh.k==="cons");if(si>=0){(state.extra[si]=state.extra[si]||[]).push(x.t);log.push("suivi : "+x.t);}});}
+  P.applied=Date.now();aiLog("plan","synthèse appliquée par le médecin",log.join(" ; "));render();toast("Synthèse appliquée : vérifiez les feuilles, puis imprimez et validez");}
+function aiSynthHTML(inXp){if(XP.syn&&!inXp)return "";const P=state.aiPlan;if(!P||P.ck!==state.ck||P.hidden)return "";if(inXp)XP.syn=true;
+  const h=new Date(P.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});const ph={tel:"contre-appel téléphonique",visite:"visite",cabinet:"consultation"}[P.phase]||"";
+  if(P.err)return `<section class="pcard aisyn err" id="aisyn"><div class="pcard-h"><span class="stepn">✦</span><b>Synthèse IA</b><span class="hint">${esc(ph)} · ${h}</span></div><div class="alert">IA indisponible : ${esc(P.err)}. La dictée est conservée ; Packs fonctionne sans IA (fiche par le motif, observation locale). <button type="button" class="lc" data-airetry="1">Réessayer</button> <button type="button" class="lc" data-aisynhide="1">Fermer</button></div></section>`;
+  const applied=!!P.applied;const sel=selIdx();
+  const chk=(k,i,on)=>`<input type="checkbox" data-aik="${k}" data-aii="${i}" ${on?"checked":""} ${applied?"disabled":""}>`;
+  const row=(k,i,x,lbl,why)=>`<label class="aisyn-row${x.kept?"":" off"}">${chk(k,i,x.kept)}<span><b>${esc(lbl)}</b>${why?`<small>${esc(why)}</small>`:""}</span></label>`;
+  const sec=(t,body,cls)=>`<div class="aisyn-sec${cls?" "+cls:""}"><div class="aisyn-t">${t}</div>${body}</div>`;
+  let H="";
+  if(P.packs.length)H+=sec("Fiche"+(P.packs.length>1?"s":"")+" proposée"+(P.packs.length>1?"s":""),P.packs.map((x,i)=>row("packs",i,x,x.n+(sel.includes(x.i)?" ✓ confirmée":""),x.why)).join("")+`<small class="hint">L'ordonnance vient de la fiche (doses et durées validées) ; l'IA n'écrit aucune ligne de traitement.</small>`);
+  else H+=sec("Fiche",`<small class="hint">Aucune fiche reconnue : choisissez-la par le motif.</small>`);
+  H+=sec("Observation",`<small>${P.phase==="tel"?"Éléments rapportés par téléphone rangés dans l'histoire (« Au téléphone, … ») ; aucun examen, aucune constante inventée.":"Rangée dans l'observation (histoire, antécédents, appareils dictés) ; les champs que vous avez corrigés à la main ne sont pas touchés."}${P.hyp?" Hypothèse : <b>"+esc(P.hyp)+"</b>.":""}${P.rej&&P.rej.length?` <span class="aiwarn">Écarté (garde-fou) : ${esc(P.rej.join(" · "))}</span>`:""}</small>`);
+  if(P.examens.length)H+=sec("Examens complémentaires",P.examens.map((x,i)=>row("examens",i,x,x.t+(x.match?" — ligne de la fiche":x.added?" — ajouté à la fiche":""),x.why)).join(""));
+  if(P.mt||P.sp)H+=sec("Courriers",(P.mt?row("mt",0,P.mt,"Médecin traitant (compte rendu de garde)",P.mt.why):"")+(P.sp?row("sp",0,P.sp,"Spécialiste : "+(P.sp.destLbl||P.sp.dest)+(P.sp.question?" — « "+P.sp.question+" »":""),P.sp.why):""));
+  if(P.social)H+=sec("Aide sociale",row("social",0,P.social,[P.social.besoin,P.social.orientation].filter(Boolean).join(" → ")+(P.social.pack!=null&&PACKS[P.social.pack]?" (fiche « "+PACKS[P.social.pack].n+" » en complément)":""),P.social.why));
+  if(P.suivi.length)H+=sec("Suivi",P.suivi.map((x,i)=>row("suivi",i,x,x.t,"")).join("")+`<small class="hint">Les consignes de la fiche sont imprimées ; cochez pour ajouter ces points.</small>`);
+  if(P.alertes.length)H+=`<div class="aisyn-sec alert"><b>Alertes</b><ul>${P.alertes.map(t=>"<li>"+esc(t)+"</li>").join("")}</ul></div>`;
+  if(P.manques.length)H+=`<div class="aisyn-sec warn"><b>À vérifier${P.phase==="tel"?" sur place":""}</b><ul>${P.manques.map(t=>"<li>"+esc(t)+"</li>").join("")}</ul></div>`;
+  if(P.remarques.length)H+=`<div class="aisyn-sec"><b>Vigilances</b><ul>${P.remarques.map(t=>"<li>"+esc(t)+"</li>").join("")}</ul></div>`;
+  const act=applied?`<div class="aisyn-act"><span class="hint">Appliquée à ${new Date(P.applied).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})} : tout reste modifiable dans les feuilles ; rien n'est validé sans « Imprimer et valider ».</span><button type="button" class="lc" data-aisynhide="1">Masquer</button></div>`
+   :`<div class="aisyn-act"><button type="button" class="btn p" id="aisyn_apply">✓ Appliquer la synthèse</button><button type="button" class="lc" data-aisynhide="1">Ignorer</button><span class="hint">Appliquer = fiche confirmée, examens et courriers cochés préparés. La validation finale reste la vôtre (impression, « Valider »).</span></div>`;
+  return `<section class="pcard aisyn" id="aisyn"><div class="pcard-h"><span class="stepn">✦</span><b>Synthèse IA — à valider</b><span class="hint">${esc(ph)} · ${h} · <button type="button" class="lc" data-aisynsent="1">ce qui est parti</button></span></div>${H}${act}</section>`;}
+document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.matches||!t.matches("[data-aik]"))return;const P=state.aiPlan;if(!P)return;const k=t.dataset.aik,i=+t.dataset.aii;const it=(k==="mt"||k==="sp"||k==="social")?P[k]:(P[k]||[])[i];if(it)it.kept=t.checked;const r=t.closest(".aisyn-row");if(r)r.classList.toggle("off",!t.checked);try{draftSaveSoon();}catch(e){}});
+document.addEventListener("click",ev=>{const t=ev.target;if(!t||!t.closest)return;
+  if(t.closest("#aisyn_apply")){aiSynthApply();return;}
+  const hd=t.closest("[data-aisynhide]");if(hd){if(state.aiPlan)state.aiPlan.hidden=true;render();return;}
+  const rt=t.closest("[data-airetry]");if(rt){const P=state.aiPlan;AI._planHash="";aiAutoFlow(P&&P.phase?P.phase:(xpVisite()?"visite":"cabinet"),{manual:true});return;}
+  const sh=t.closest("[data-aisynshow]");if(sh){if(state.aiPlan)state.aiPlan.hidden=false;render();return;}
+  const st=t.closest("[data-aisynsent]");if(st){const P=state.aiPlan;if(!P)return;let el=document.getElementById("aisend");if(!el){el=document.createElement("div");el.id="aisend";document.body.appendChild(el);}
+    el.innerHTML=`<div class="aibox"><div class="aihd"><b>Ce qui est parti</b><span class="hint">pseudonymisé sur l'appareil · modèle ${esc(AI_MODEL.redac)}</span></div><div class="aisent">${aiSentHTML(P.sent||"")}</div><div class="aiact"><button type="button" class="btn s" id="ai_cancel">Fermer</button></div></div>`;el.querySelector("#ai_cancel").onclick=()=>el.remove();el.onclick=e=>{if(e.target===el)el.remove();};return;}
+  const at=t.closest("[data-aitel]");if(at){const s=tourStop(at.dataset.aitel);if(!s)return;try{dictSyncFromDOM();}catch(e){}AI._planHash="";if(!aiAutoFlow("tel",{stop:s,manual:true}))toast(String(s.interro||"").trim().length<15?"Dictez d'abord ce que le patient rapporte.":"Analyse impossible pour l'instant.");return;}});
+/* contre-appel : boîte d'analyse sous le champ d'interrogatoire (tournée et Express) */
+function aiTelBoxHTML(s){if(!s)return "";const on=aiAvailable()||aiOfflineOnly();const a=s.ai;const busy=AI.busy&&AI.pending===null&&AI._st;const cur=TOUR.current===s.id;
+  const sum=a&&!cur?`<div class="aitel-sum">${a.packs&&a.packs.length?`<b>Fiche proposée :</b> ${esc(a.packs[0].n)}${a.packs[0].why?" — "+esc(a.packs[0].why):""}<br>`:""}${a.manques&&a.manques.length?`<b>À vérifier sur place :</b> ${esc(a.manques.join(" · "))}<br>`:""}${a.alertes&&a.alertes.length?`<b class="aiwarn">Alertes :</b> ${esc(a.alertes.join(" · "))}`:""}</div>`:(a&&cur?`<small class="hint">Analysé à ${new Date(a.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})} : synthèse ci-dessous.</small>`:"");
+  return `<div class="aitel">${on?`<button type="button" class="btn s sm" data-aitel="${esc(s.id)}" ${busy?"disabled":""}>${busy?"Analyse…":a?"✦ Réanalyser le contre-appel":"✦ Analyser le contre-appel"}</button>`:`<span class="hint">IA coupée : l'analyse se fera avec la dictée sur place.</span>`}<small class="hint">Éléments rapportés par téléphone, jamais un examen ; repris à part dans le compte rendu et dans l'observation au démarrage de la visite.</small>${sum}</div>`;}
+/* Complet : déclenchement automatique (préparation complète si le réglage « après une dictée » est actif, sinon écran de contrôle comme avant) */
+function aiAutoObs(){if(aiAutoOn()){aiAutoFlow(xpVisite()?"visite":"cabinet");return;}if(aiFn("obs")==="auto"&&(state.obs.dict||"").trim())aiPrepare("obs",{dictee:state.obs.dict});}
 function aiAutoCR(){const p=currentPack();if(!p||aiFn("cr")!=="auto"||state.aiCrAuto)return;state.aiCrAuto=true;aiPrepare("cr",{cr:true,let:aiFn("let")==="auto"&&p.s.some(sh=>sh.k==="let")});}
 function aiObsBtnHTML(){return aiFn("cr")==="off"&&aiFn("let")==="off"?"":`<button class="btn ai" id="ai_crbtn" type="button">✦ Relecture IA</button>`;}
 
@@ -16897,7 +17046,7 @@ function aiPop(anchor,showMode){aiPopClose();const e=aiEffective();const off=e.m
   const act=(id,lbl,w)=>`<button type="button" role="menuitem" data-aipa="${id}" ${w?"disabled":""}>${lbl}${w?`<small>${esc(w)}</small>`:""}</button>`;
   let h=`<div class="aiphd">✦ IA · <b>${{aucun:"Aucun",partiel:"Partiel",complet:"Complet"}[e.mode]}</b>${e.why?`<small>${esc(e.why)}</small>`:""}</div>`;
   if(!AI.key)h+=`<div class="aipkey"><b>Aucune clé API</b><small>Elle est rangée chiffrée sur cet appareil (et, profil publié, chiffrée par la phrase maître pour vos autres appareils). L'IA reste sur « Aucun » tant que vous ne changez pas le mode.</small><input id="aip_key" type="password" placeholder="sk-ant-…" autocomplete="off" autocapitalize="none"><button type="button" class="btn p sm" id="aip_save">Enregistrer la clé</button><small id="aip_st"></small></div>`;
-  h+=act("obs","Analyser la dictée",why("obs"))+act("cr","Relire le compte rendu",why("cr")||(!p?"choisissez d'abord une fiche":""))+act("let","Rédiger le courrier",why("let")||(!p?"choisissez d'abord une fiche":""))+act("mode","Changer le mode","");
+  h+=act("plan","Préparer la synthèse (observation, fiche, documents)",why("obs")||(String(state.obs.dict||state.obs.tel||"").trim().length<15?"dictez d'abord":""))+act("obs","Analyser la dictée (observation seule)",why("obs"))+act("cr","Relire le compte rendu",why("cr")||(!p?"choisissez d'abord une fiche":""))+act("let","Rédiger le courrier",why("let")||(!p?"choisissez d'abord une fiche":""))+act("mode","Changer le mode","");
   if(showMode)h+=`<div class="aipmode">${aiModeHTML()}<small>Aucun : zéro envoi. Partiel : à la demande. Complet : l'écran « Ce qui part » s'ouvre de lui-même.</small></div>`;
   h+=`<small class="aipfoot">Rien n'est envoyé sans l'écran « Ce qui part ».</small>`;
   m.innerHTML=h;document.body.appendChild(m);
@@ -16907,6 +17056,7 @@ function aiPop(anchor,showMode){aiPopClose();const e=aiEffective();const off=e.m
   m.querySelectorAll("[data-aipa]").forEach(b=>b.onclick=ev=>{ev.stopPropagation();const k=b.dataset.aipa;
     if(k==="mode"){aiPop(anchor,true);return;}
     aiPopClose();
+    if(k==="plan"){try{dictSyncFromDOM();}catch(e){}AI._planHash="";if(String(state.obs.dict||"").trim().length>=15)aiAutoFlow(xpVisite()?"visite":"cabinet",{manual:true});else if(String(state.obs.tel||"").trim().length>=15)aiAutoFlow("tel",{stop:xpStop(),manual:true});else aiOpen("obs");return;}
     if(k==="obs"){const d=String(state.obs.dict||"").trim();if(d)aiPrepare("obs",{dictee:d});else aiOpen("obs");}
     else if(k==="cr")aiPrepare("cr",{cr:true,let:false});
     else if(k==="let")aiOpen("let");});
@@ -17032,6 +17182,18 @@ function aiShowDoc(j,out){const R=AI.res;R.acc={};const H=[];const meds=aiMedWor
 /* ===================== 16/10/2026 — LOT 1 (registre docs/CORRECTIONS-2026-10-16.md) ===================== */
 /* ---- n° 10 : aucune perte de saisie. Sauvegarde chiffrée à chaque frappe (et avant de quitter), restauration automatique, dictées récentes ---- */
 const DRAFT={saved:0,t:0};
+/* 20/10/2026 — DICTÉE JAMAIS PERDUE : la valeur vivante des champs de dictée (grand champ, panneau IA, contre-appel) est reprise dans l'état avant tout nouveau rendu
+   (la dictée iPhone n'émet pas toujours « input » avant un changement d'écran) et versée aux « Dictées récentes » avant tout changement de patient. */
+const DICT={n:0};
+function dictPk(){return String(state.t0||"cur")+":"+DICT.n+":"+(state.ck||"");}
+/* seuls les champs touchés par l'utilisateur depuis leur affichage sont repris (un champ affiché mais périmé ne doit jamais écraser l'état) */
+document.addEventListener("focusin",ev=>{const t=ev.target;if(t&&t.matches&&t.matches("#f_dict,#ai_in,textarea[data-interro]"))t.__touched=true;},true);
+document.addEventListener("input",ev=>{const t=ev.target;if(t&&t.matches&&t.matches("#f_dict,#ai_in,textarea[data-interro]"))t.__touched=true;},true);
+function dictSyncFromDOM(){try{const pk=dictPk();state.obs=state.obs||{};
+  const t=document.getElementById("f_dict");if(t&&t.__touched&&t.dataset.pk===pk&&typeof t.value==="string"&&t.value!==(state.obs.dict||"")){state.obs.dict=t.value;draftSaveSoon();}
+  const a=document.getElementById("ai_in");if(a&&a.__touched&&a.dataset.pk===pk&&a.value.trim()&&a.value!==(state.obs.dict||"")){state.obs.dict=a.value;draftSaveSoon();}
+  document.querySelectorAll("textarea[data-interro]").forEach(i=>{if(!i.__touched)return;const s=tourStop(i.dataset.interro);if(s&&i.value!==(s.interro||"")){s.interro=i.value;s.interroTs=Date.now();if(TOUR.current===s.id){state.obs.tel=i.value;state.obs.telTs=s.interroTs;}tourSave();}});
+ }catch(e){}}
 /* le brouillon ne contient jamais les images : elles sont dans le coffre photos chiffré (n° 7) */
 function draftClean(o){const c=JSON.parse(JSON.stringify(o));if(Array.isArray(c.photos))c.photos=c.photos.map(p=>({id:p.id||"",cap:p.cap||"",kb:p.kb||0}));if(Array.isArray(c.copat))c.copat.forEach(x=>{if(x&&Array.isArray(x.photos))x.photos=x.photos.map(p=>({id:p.id||"",cap:p.cap||""}));});return c;}
 function draftSaveNow(){try{if(!SEC.unlocked)return;const {view,jg,...rest}=state;secSet("sos_draft",{ts:Date.now(),state:draftClean(rest)});dictHistNote();DRAFT.saved=Date.now();draftSavedUI();}catch(e){console.warn("brouillon",e);}}
@@ -17061,12 +17223,14 @@ function dictHistScreen(){let el=document.getElementById("dicth");if(!el){el=doc
 function dictCardHTML(inXp){if(XP.dict&&!inXp)return "";const n=DICTH.length;const p=currentPack();
   return `<section class="pcard dictcard" id="dictcard"><div class="pcard-h"><span class="stepn">🎙</span><b>Dictée</b><span class="pcard-ai">${aiMainHTML()}</span></div>
    <div class="hint dict-how">Touchez le champ, puis le micro 🎤 du clavier iPhone. Interrompre : touchez ailleurs ; reprendre : touchez de nouveau le champ. Enregistrée à chaque mot, chiffrée.</div>
-   <textarea id="f_dict" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
-   ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">Répartir dans l'observation</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span></div>
+   <textarea id="f_dict" data-pk="${esc(dictPk())}" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
+   ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">${aiAutoOn()?"✦ Préparer (observation, fiche, documents)":"Répartir dans l'observation"}</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span><span class="aist hint">${AI._st?"✦ "+esc(AI._st):""}</span>${state.aiPlan&&state.aiPlan.hidden&&state.aiPlan.ck===state.ck?`<button type="button" class="lc" data-aisynshow="1">Synthèse IA ▸</button>`:""}</div>
    ${!p&&String((state.obs&&state.obs.dict)||"").trim()?'<div class="hint">Choisissez une fiche (motif) : l\'observation rangée apparaîtra dessous. La dictée est gardée.</div>':""}</section>`;}
 function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;clearTimeout(dictCardBind._t);
-    if(!excOn()&&(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length))dictCardBind._t=setTimeout(dictAutoNormal,1500);};}
-  const g=document.getElementById("dict_go2");if(g)g.onclick=()=>{if(!String(state.obs.dict||"").trim()){t&&t.focus();return;}if(currentPack())state.obsOpen=true;applyDictation();try{aiAutoObs();}catch(e){}toast(currentPack()?"Dictée répartie dans l'observation":"Dictée gardée : choisissez une fiche");};
+    if(!excOn()&&(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length))dictCardBind._t=setTimeout(dictAutoNormal,1500);};
+    /* 20/10/2026 : fin de dictée (le champ est quitté avec un texte modifié) → préparation automatique, une seule fois par texte */
+    t.onchange=()=>{state.obs=state.obs||{};state.obs.dict=t.value;if(!aiAutoOn()||String(t.value||"").trim().length<15)return;clearTimeout(dictCardBind._a);dictCardBind._a=setTimeout(()=>{try{applyDictation(true);}catch(e){}try{aiAutoFlow(xpVisite()?"visite":"cabinet");}catch(e){}try{draftSaveNow();}catch(e){}},600);};}
+  const g=document.getElementById("dict_go2");if(g)g.onclick=()=>{if(!String(state.obs.dict||"").trim()){t&&t.focus();return;}if(currentPack())state.obsOpen=true;applyDictation();try{aiAutoObs();}catch(e){}toast(aiAutoOn()?"Dictée rangée ; préparation IA en cours":currentPack()?"Dictée répartie dans l'observation":"Dictée gardée : choisissez une fiche");};
   const h=document.getElementById("dict_hist");if(h)h.onclick=dictHistScreen;draftSavedUI();}
 /* « 🎙 Dicter » de la tournée : focus immédiat dans le geste (sinon l'iPhone n'ouvre pas le clavier) ; à défaut, le grand champ Dictée */
 function tpDictate(){const d=document.getElementById("tc_interro_box");const t=document.getElementById("tc_interro");const cur=TOUR.current?tourStop(TOUR.current):null;
@@ -17319,7 +17483,7 @@ function tourCardHTML(){const lieu=(state.cot&&state.cot.lieu)==="visite";const 
    <div class="tc-km">${s.km!=null?km(s.km)+" km du cabinet"+(cur?" (cotation)":""):""}${s.err?` <span class="chip hors">${esc(s.err)}</span>`:(!s.lat?' <span class="chip">adresse en attente de localisation</span>':"")}</div>`;
   const navA=s.lat?`<a class="btn p tc-nav big" target="_blank" rel="noopener" href="${navUrl(pref,s)}">🧭 Naviguer · ${names[pref]}</a>`:`<button type="button" class="btn p tc-nav big" id="tc_geo">Localiser l'adresse</button>`;
   let main="";
-  if(step===1)main=`${tpCallMain(s)}<div class="tc-main"><button type="button" class="btn p tc-nav big" id="tc_begin" title="La visite démarre : dossier, adresse, navigation, kilomètres de la cotation">▶ Commencer · itinéraire${(!TOUR.computed&&n>1)?" (ordre optimal)":""}</button><button type="button" class="btn s big" id="tc_drive">🚗 Mode voiture</button></div><div class="hint tc-help">${TOUR_BEGIN_HELP}</div>`;
+  if(step===1)main=`${tpCallMain(s)}<div class="tc-main"><button type="button" class="btn p tc-nav big" id="tc_begin" title="La visite démarre : dossier, adresse, navigation, kilomètres de la cotation">▶ Commencer · itinéraire${(!TOUR.computed&&n>1)?" (ordre optimal)":""}</button><button type="button" class="btn s big" id="tc_drive">🚗 Mode voiture</button></div>${interroHTML(s)}<div class="hint tc-help">${TOUR_BEGIN_HELP}</div>`;
   if(step===2)main=`${TOUR.near===cur.id?`<div class="tp-near">Tu es arrivé ? <button type="button" class="btn p sm" id="tc_near_yes">Oui</button> <button type="button" class="lc" id="tc_near_no">Pas encore</button></div>`:""}${tpCallMain(cur)}<div class="tc-main">${navA}<button type="button" class="btn p tp-arrive big" id="tc_arrive">✓ Je suis arrivé</button><button type="button" class="btn s big" id="tc_dict">🎙 Dictée</button></div>${interroHTML(cur)}`;
   if(step===3)main=`<div class="tp-onsite"><b id="tc_chrono">Sur place depuis ${tpDur((Date.now()-cur.tArr)/60000)}</b> <span class="hint">arrivée ${fmtH(cur.tArr)} (heure de l'acte par défaut)</span></div><div class="tc-main"><button type="button" class="btn p big" id="tc_dict">🎙 Dictée de l'observation</button><button type="button" class="btn p big" id="tc_rx">📋 Prescriptions</button>${aiMainHTML()}</div>${cur.tel?`<div class="tc-row2 tp-call"><a class="btn s" href="tel:${esc(cur.tel)}" data-tpcall="${esc(cur.id)}">📞 Appeler</a></div>`:""}`;
   if(step===4)main=`<div class="tc-main"><button type="button" class="btn p big" id="tc_valid" title="Valider ce patient : l'arrêt passe en fait, la visite suivante démarre">✓ Valider · patient suivant</button>${next&&next.tel?`<a class="btn s big" href="tel:${esc(next.tel)}" data-tpcall="${esc(next.id)}">📞 Appeler le suivant</a>`:""}<button type="button" class="btn s big" id="tc_reprint">🖨 Réimprimer</button></div>`;
@@ -17531,6 +17695,7 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
 /* alertes : fixées dans l'Express (jamais bloquantes) */
 function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}
   try{L.push(...examGravAlerts(p));}catch(e){}
+  try{const P=state.aiPlan;if(P&&P.ck===state.ck&&!P.err)(P.alertes||[]).forEach(t=>L.push("⚠ IA : "+t));}catch(e){}
   try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=sexMismatchHTML()+cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « date de naissance » et accords en « (e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale|gravité/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
@@ -17541,12 +17706,16 @@ function xpHTML(){if(!xpActive())return "";const p=currentPack();const s=xpStop(
   const manual=!s;
   let dict="";if(favHas("x:dict")){XP.dict=true;dict=dictCardHTML(true).replace('<span class="pcard-ai">','<span class="pcard-ai">'+favStar("x:dict","Dictée"));}
   const favz=`<div class="xp-favs" id="xp_favs" hidden></div>`;
-  if(!p)return `<section class="xp xp-s1">${xpHeadHTML()}${manual?xpManualHTML():""}<div id="xp_prop">${xpPropHTML()}</div>${favz}${dict}${xpPlusHint()}</section>`;
+  if(!p)return `<section class="xp xp-s1">${xpHeadHTML()}${manual?xpManualHTML():""}${xpTelHTML(s)}<div id="xp_prop">${xpPropHTML()}</div>${aiSynthHTML(true)}${favz}${dict}${xpPlusHint()}</section>`;
   const g=xpGravite(p);
   return `<section class="xp xp-s2">${xpHeadHTML()}<div class="xp-fiche"><span class="xp-pn">${esc(p.n)}</span><button type="button" class="lc" id="xp_change">changer</button></div>${g?`<div class="xp-grav" title="${esc(g)}">⚠ ${esc(g)}</div>`:""}
-   ${xpAlertsHTML(p)}${xpFieldsHTML(p)}${xpDocsHTML(p)}${favz}${dict}
+   ${xpAlertsHTML(p)}${xpTelHTML(s)}${aiSynthHTML(true)}${xpFieldsHTML(p)}${xpDocsHTML(p)}${favz}${dict}
    <div class="xp-print"><button type="button" class="btn p big" id="xp_go">🖨 Imprimer et valider</button><div class="hint" id="xp_gost"></div></div>${xpPlusHint()}</section>`;}
 function xpPlusHint(){return "";}
+/* 20/10/2026 : contre-appel dans l'Express (avant l'arrivée) — même champ que la tournée, même arrêt */
+function xpTelHTML(s){if(!s||s.tArr||!(s.tel||s.tel2||s.interro))return "";const has=!!String(s.interro||"").trim();const hh=s.interroTs?new Date(s.interroTs).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"";
+  return `<details class="opt xp-tel" ${has||(state.ui&&state.ui.xpTel)?"open":""} data-xptel="1"><summary><span class="ot">📞 Contre-appel</span><span class="os">${has?"dicté"+(hh?" à "+hh:"")+(s.ai?" · analysé":""):"dicter ce que le patient rapporte, avant d'arriver"}</span></summary><div class="ob"><textarea class="interro" data-interro="${esc(s.id)}" rows="3" placeholder="Contre-appel : symptômes rapportés, depuis quand, antécédents, traitements, allergies, poids de l'enfant. Jamais un examen.">${esc(s.interro||"")}</textarea>${aiTelBoxHTML(s)}</div></details>`;}
+document.addEventListener("toggle",ev=>{const d=ev.target;if(d&&d.matches&&d.matches("details[data-xptel]")){state.ui=state.ui||{};state.ui.xpTel=d.open;}},true);
 function xpBarsInMenu(){try{return isPhone()&&xpActive()&&!state.view;}catch(e){return false;}}
 /* « Plus » : tout le reste de l'écran (dossier complet), replié sur iPhone */
 function xpWrap(){const m=$("#main");if(!m||!isPhone()||!xpActive())return;const x=m.querySelector(":scope > .xp");if(!x)return;
@@ -17647,8 +17816,13 @@ function aiKeyTail(){return AI.key?"se termine par …"+AI.key.slice(-4):"";}
 function aiSettingsHTML(){const sel=f=>`<label>${AI_FN[f]} <select data-aifn="${f}">${[["auto","automatique"],["demande","à la demande"],["off","coupée"]].map(([v,l])=>`<option value="${v}" ${AI.cfg.fn[f]===v?"selected":""}>${l}</option>`).join("")}</select></label>`;
   return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée sur cet appareil</b>, jamais affichée en clair ; avec un profil activé, elle part aussi <b>chiffrée par la phrase maître dans profil.json</b> (« Publier le profil ») : sur vos autres appareils, la phrase maître suffit. La sécurité de la clé dépend alors de la solidité de la phrase. Jamais dans la sauvegarde ni la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026).</div>
  <div class="aiset"><input id="ai_key" type="password" placeholder="${AI.key?"Coller une nouvelle clé pour remplacer":"sk-ant-…"}" value="" autocomplete="off" autocapitalize="none"><button type="button" class="btn p" id="ai_savekey">${AI.key?"Remplacer":"Enregistrer"}</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?"Clé enregistrée (chiffrée, "+aiKeyTail()+")"+(AI.cfg.mode==="aucun"?". IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":""):"Aucune clé"}</span>${AI.key&&IDENT.on?'<button type="button" class="btn s" id="ai_pub">Publier le profil avec la clé</button>':""}</div>
- ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement, l'envoi reste validé à l'écran « Ce qui part ».":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>`;}
+ ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement après la dictée.":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>${aiAutoSettingsHTML()}`;}
+function aiAutoSettingsHTML(){if(AI.cfg.mode==="aucun")return "";return `<div class="nhopts aifns aiauto"><label>Après une dictée <select data-aiauto><option value="on" ${AI.cfg.auto!=="off"?"selected":""}>préparer automatiquement (observation, fiche, documents, synthèse)</option><option value="off" ${AI.cfg.auto==="off"?"selected":""}>seulement à la demande</option></select></label>
+ <label>Envoi <select data-aisend><option value="auto" ${AI.cfg.send!=="ecran"?"selected":""}>automatique après pseudonymisation sur l'appareil</option><option value="ecran" ${AI.cfg.send==="ecran"?"selected":""}>écran « Ce qui part » à chaque fois</option></select></label>
+ <span class="hint">Automatique : identité, dates et lieux retirés sur l'appareil (pseudonymisation validée par le DPO le 15/10/2026), puis envoi sans écran intermédiaire ; la synthèse revient à l'écran, à valider. L'écran « Ce qui part » reste forcé si un fragment d'identité subsiste, hors connexion ou au plafond. Rien n'est validé ni imprimé sans votre geste.</span></div>`;}
 function aiBindSettings(){const k=$("#ai_key");if(!k)return;
+  document.querySelectorAll("[data-aiauto]").forEach(e=>e.onchange=()=>{AI.cfg.auto=e.value;aiSave();toast(e.value==="off"?"Préparation IA : à la demande":"Préparation IA automatique après la dictée");});
+  document.querySelectorAll("[data-aisend]").forEach(e=>e.onchange=()=>{AI.cfg.send=e.value;aiSave();toast(e.value==="ecran"?"Écran « Ce qui part » à chaque envoi":"Envoi automatique après pseudonymisation");});
   $("#ai_savekey").onclick=()=>{const v=k.value.trim();if(!v){$("#ai_setst").textContent=AI.key?"Collez la nouvelle clé pour remplacer l'ancienne.":"Collez d'abord la clé.";return;}const old=AI.key;AI.key=v;if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key=old;return;}k.value="";render();toast(old?"Clé API remplacée"+(IDENT.on?" · publiez le profil pour vos autres appareils":""):"Clé API enregistrée (chiffrée)");};
   const pb=$("#ai_pub");if(pb)pb.onclick=()=>{const x=$("#id_export");if(x)x.click();};
   $("#ai_test").onclick=async()=>{const v=k.value.trim();const old=AI.key;if(v)AI.key=v;if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){if(v)AI.key=old;$("#ai_setst").textContent="Échec : "+(e.message||e);}};
@@ -17965,7 +18139,7 @@ function journalNav(){document.querySelectorAll(".jfab").forEach(x=>x.remove());
   nav.querySelectorAll("[data-jnav]").forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jnav);if(t)t.scrollIntoView({block:"start"});});
   const f=document.createElement("div");f.className="jfab";f.innerHTML=`<button type="button" aria-label="Haut du journal" id="jf_up">${ICO_UP}</button><button type="button" aria-label="Bas du journal" id="jf_down">${ICO_DOWN}</button>`;document.body.appendChild(f);
   document.getElementById("jf_up").onclick=()=>head.scrollIntoView({block:"start",behavior:"smooth"});document.getElementById("jf_down").onclick=()=>{const l=m.lastElementChild;if(l)l.scrollIntoView({block:"end",behavior:"smooth"});};}
-function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}parkAside();try{examAutoFill();}catch(e){}renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
+function render(){if(location.hash==="#coller"&&!window.__colDone&&typeof SEC!=="undefined"&&SEC.unlocked){window.__colDone=1;state.view="tour";try{history.replaceState(null,"",location.pathname);}catch(e){}setTimeout(()=>toast("Touche « 📋 Coller les fiches » pour créer les arrêts"),300);}try{dictSyncFromDOM();}catch(e){}if(!state.ck)state.ck=hexRand(4);parkAside();try{examAutoFill();}catch(e){}renderCore();try{phoneLayout();}catch(e){}try{xpWrap();favApply();xpBind();}catch(e){console.warn("express",e);}try{visApply();}catch(e){}try{journalNav();}catch(e){}try{designApply();}catch(e){}try{updOnRender();}catch(e){}try{netUI();}catch(e){}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-sr]");if(!b)return;state.risk=b.dataset.sr;state.gs={};render();});
 function phoneTopbar(p0){const tn=tourRemaining().length;const jn=JOURNAL.filter(e=>gardeKey(e.ts)===gardeKey(Date.now())).length;
   return `<div class="jbar phone${TESTMODE?" test":""}"><button type="button" class="btn newp" id="new2" title="Nouveau patient">＋<span class="lbl"> Patient</span></button><span id="chrono" class="chrono" title="Temps écoulé pour ce patient (objectif 5 à 6 minutes)"></span><span class="pat-tag-slot">${patTagHTML()}</span>${TESTMODE?`<button type="button" class="testpill" id="testpill" title="Mode test : rien n'est enregistré dans le journal. Toucher pour revenir en mode réel.">TEST</button>`:""}<span class="jsp"></span>${(()=>{const c=TOUR.current?tourStop(TOUR.current):null;return c&&c.tel?`<a class="btn s" id="call_top" href="tel:${esc(c.tel)}" data-call="${esc(c.id)}" title="Appeler le patient en cours" aria-label="Appeler le patient en cours">📞</a>`:"";})()}<button type="button" class="btn p${p0?"":" idle"}" id="go_top" title="${p0?"Imprimer le pack":"Choisissez d'abord une fiche (motif)"}"><span class="ico">🖨 </span>Imprimer</button><span class="appver" title="${esc(appVerFull())}" aria-label="Version ${esc(appVerFull())}">${esc(appVer())}</span><button type="button" class="btn ghost more" id="more_btn" aria-haspopup="true" aria-expanded="false" title="Plus d'options">⋯</button>
@@ -18662,19 +18836,25 @@ function fichesDone(added,failed,dups,consults,nUnread){dups=dups||[];consults=c
 /* Appel du patient depuis l'arrêt en cours, puis interrogatoire dicté au retour dans l'app */
 function callStop(s){if(!s||!s.tel)return;s.called=Date.now();TOUR.callBack=s.id;tourSave();}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState!=="visible"||!TOUR.callBack)return;const s=tourStop(TOUR.callBack);TOUR.callBack="";if(!s||!s.called||Date.now()-s.called>30*60*1000||TOUR.current!==s.id)return;
-  setTimeout(()=>{const d=document.getElementById("tc_interro_box");if(d){d.open=true;const t=document.getElementById("tc_interro");if(t){t.focus();t.scrollIntoView({block:"center"});}}},300);});
+  setTimeout(()=>{const x=document.querySelector(".xp textarea[data-interro]");if(x){const d=x.closest("details");if(d)d.open=true;x.focus();x.scrollIntoView({block:"center"});return;}const d=document.getElementById("tc_interro_box");if(d){d.open=true;const t=document.getElementById("tc_interro");if(t){t.focus();t.scrollIntoView({block:"center"});}}},300);});
 function interroHTML(s){if(!s)return "";const has=!!(s.tel||s.tel2||s.interro||s.motif||s.note);if(!has)return "";
   return `<details class="opt tc-interro" id="tc_interro_box" ${s.interro?"open":""}><summary><span class="ot">Régulation et interrogatoire</span><span class="os">${esc([s.motif,s.nom?s.nom:"",s.ddn?"né(e) le "+s.ddn:""].filter(Boolean).join(" · ")||"dicter avant d'arriver")}</span></summary><div class="ob">
    ${s.motif||s.note?`<div class="hint" style="margin:0 0 6px">${s.motif?"<b>"+esc(s.motif)+"</b> — ":""}${esc(s.note||"")}</div>`:""}
    ${s.tel||s.tel2?`<div class="tc-row2" style="margin:0 0 8px">${s.tel?`<a class="btn p" href="tel:${esc(s.tel)}" data-call="${esc(s.id)}">📞 Appeler ${esc(s.tel.replace(/(\d{2})(?=\d)/g,"$1 "))}</a>`:""}${s.tel2?`<a class="btn s" href="tel:${esc(s.tel2)}" data-call="${esc(s.id)}">📞 Appelant</a>`:""}</div>`:""}
-   <textarea id="tc_interro" rows="3" placeholder="Interrogatoire téléphonique : dicte avec le micro du clavier (histoire, antécédents, traitements). Repris dans l'observation au démarrage de la visite.">${esc(s.interro||"")}</textarea>
+   <textarea id="tc_interro" class="interro" data-interro="${esc(s.id)}" rows="3" placeholder="Contre-appel : dictez ce que le patient ou son entourage rapporte (symptômes, depuis quand, antécédents, traitements, allergies, poids de l'enfant). Jamais un examen : il sera dicté sur place.">${esc(s.interro||"")}</textarea>
+   ${aiTelBoxHTML(s)}
    <div class="hint" style="margin:4px 0 0">Numéro masqué : Réglages iPhone → Apps → Téléphone → « Afficher mon numéro » désactivé (un lien d'appel ne peut pas ajouter #31#).</div></div></details>`;}
-function interroBind(s){const t=document.getElementById("tc_interro");if(t&&s){let tm=0;t.oninput=()=>{s.interro=t.value;clearTimeout(tm);tm=setTimeout(()=>{tourSave();if(TOUR.current===s.id&&state.obs){const h=obsPrefill(s);if(h)state.obs.hist=h;}},400);};}
+/* 20/10/2026 : contre-appel — saisie déléguée (tournée et Express), gardée sur l'arrêt ET dans l'observation du patient en cours (à part de l'examen) ; fin de dictée → analyse IA automatique */
+document.addEventListener("input",ev=>{const t=ev.target;if(!t||!t.matches||!t.matches("textarea[data-interro]"))return;const s=tourStop(t.dataset.interro);if(!s)return;s.interro=t.value;s.interroTs=Date.now();
+  if(TOUR.current===s.id&&state.obs){state.obs.tel=t.value;state.obs.telTs=s.interroTs;}clearTimeout(t.__tm);t.__tm=setTimeout(()=>{tourSave();try{draftSaveSoon();}catch(e){}},400);});
+document.addEventListener("change",ev=>{const t=ev.target;if(!t||!t.matches||!t.matches("textarea[data-interro]"))return;const s=tourStop(t.dataset.interro);if(!s)return;s.interro=t.value;s.interroTs=Date.now();tourSave();
+  if(String(t.value||"").trim().length>=15&&aiAutoOn()){clearTimeout(t.__ta);t.__ta=setTimeout(()=>{try{aiAutoFlow("tel",{stop:s});}catch(e){}},600);}});
+function interroBind(s){
   document.querySelectorAll("[data-call]").forEach(a=>a.addEventListener("click",()=>callStop(tourStop(a.dataset.call))));
   const fs=document.getElementById("tc_shots");if(fs)fs.onchange=()=>{if(fs.files.length)fichesFromFiles(fs.files);};
   const ts=document.getElementById("tr_shots");if(ts)ts.onchange=()=>{if(ts.files.length)fichesFromFiles(ts.files);};
   const tp=document.getElementById("tr_paste_ok");if(tp)tp.onclick=()=>{const ta=document.getElementById("tr_paste");if(ta&&ta.value.trim()){fichesFromText(ta.value);ta.value="";}};}
-function obsPrefill(s){return [s.motif?"Régulation : "+s.motif:"",s.note||"",s.interro?"Interrogatoire téléphonique : "+s.interro:""].filter(Boolean).join(" — ");}
+function obsPrefill(s){return [s.motif?"Régulation : "+s.motif:"",s.note||""].filter(Boolean).join(" — ");} /* 20/10/2026 : le contre-appel va dans state.obs.tel (rapporté), jamais mêlé à l'histoire ni à l'examen */
 /* ===================== v40 (16/10/2026) — TOURNÉE : arrivée à l'heure, durées apprises, impact, attente, accès, pointe, fin de garde, conduite, bilan, appel, « Je suis arrivé », hors ligne =====================
    Tout est calculé sur l'appareil. Seules des coordonnées partent vers OSRM (jamais nom, motif ni téléphone). */
 const TP_DEF={fin:"",marge:10,attente:120,pointe:20,finMode:60,geo:false,ex:{etage:5,digicode:2,ehpad:10,parking:5}};
@@ -18806,6 +18986,10 @@ function stopRue(s){const x=String((s&&(s.label||s.addr))||"");return x.split(/,
 function stopName(s,fb){if(!s)return fb||"";const nom=(s.nom||"").trim();const ini=nom?nom[0].toUpperCase()+".":(s.lbl||"");const mo=s.ddn?ageFromDdn(s.ddn):null;const age=mo==null?"":(mo<24?mo+" mois":Math.floor(mo/12)+" ans");const parts=[ini,age,stopRue(s)].filter(Boolean);return parts.length?parts.join(" · "):(fb||s.label||s.addr||"");}
 /* au démarrage de la visite : nom, naissance et histoire pré-remplis depuis la fiche */
 function stopPrefill(s){if(!s)return;if(s.nom&&!state.patient)state.patient=s.nom;if(s.ddn&&!state.ddn)state.ddn=s.ddn;state.obs=state.obs||{};const h=obsPrefill(s);if(h&&!(state.obs.hist||"").trim())state.obs.hist=h;
+  /* 20/10/2026 : continuité contre-appel → visite : éléments rapportés par téléphone et synthèse IA du contre-appel repris, à part de l'examen */
+  if(!state.ck)state.ck=hexRand(4);
+  if(s.interro&&!(state.obs.tel||"").trim()){state.obs.tel=s.interro;state.obs.telTs=s.interroTs||0;}
+  if(s.ai&&(!state.aiPlan||state.aiPlan.fromStop!==s.id)){state.aiPlan=Object.assign({},s.ai,{ck:state.ck,fromStop:s.id,applied:0,hidden:false});try{const pk=s.ai.packs&&s.ai.packs[0];if(pk&&PACKS[pk.i]&&state.sel===null&&state.xpPick==null)state.xpPick=pk.i;}catch(e){}}
   state.nh=state.nh||nhDefault();if(s.tel&&!state.nh.tel)state.nh.tel=s.tel;const ad=[s.label||s.addr,s.bat].filter(Boolean).join(", ");if(ad&&!state.nh.adresse)state.nh.adresse=ad;}
 
 themeApply();
