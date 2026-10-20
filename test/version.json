@@ -1,9 +1,9 @@
 {
-  "version": "41w-test",
+  "version": "41x-test",
   "date": "2026-10-20",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "IA : chaque envoi est validé à l'écran « Ce qui part » (un toucher « Envoyer ») ; l'envoi automatique est désactivé tant que la validation du DPO et l'hébergement du fournisseur restent à confirmer ; la préparation reste automatique.",
-    "Règle d'Ottawa du genou dans les scores (aide à la décision, compte rendu), jamais imprimée sur l'ordonnance."
+    "Catalogue complet : 264 fiches sur 264. Bloc 16 : érythème fessier du nourrisson (nouvelle fiche) ; parasitoses digestives, épicondylite, apnées du sommeil, dysthyroïdie et décès à domicile remises au format (consignes, mémo, statut « non relue »).",
+    "Grossesse et allaitement : avis du CRAT affiché à l'écran sur chaque ligne concernée, jamais imprimé, avec l'écart du RCP."
   ]
 }
