@@ -35,9 +35,13 @@ async def unlock(page,uid,xp):
         pg=page.get_by_text("Pas de garde",exact=True)
         if await pg.count(): await pg.first.click(); await page.wait_for_timeout(300)
     except Exception: pass
+SCREENS=[]
 async def wait_sent(page,sent,n,ms=8000):
+    # 20/10/2026 : l'envoi automatique est désactivé (DPO / HDS à confirmer) : l'écran « Ce qui part » s'ouvre de lui-même, le médecin touche « Envoyer »
     for _ in range(ms//150):
         if len(sent)>=n: return True
+        if await page.locator("#aisend #ai_send:enabled").count():
+            SCREENS.append(1); await page.click("#aisend #ai_send")
         await page.wait_for_timeout(150)
     return False
 async def dictate(page,sel,text):
@@ -69,8 +73,8 @@ async def main():
                 await ctx.route("https://api.anthropic.com/**",handle)
                 page=await ctx.new_page(); errors=[]; dialogs=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:(dialogs.append(d.message),asyncio.ensure_future(d.accept())))
                 await unlock(page,"au"+("x" if xp else "c")+label[:2],xp)
-                await page.evaluate(f"AI.key={json.dumps(KEY)};AI.cfg.mode='complet';AI.cfg.auto='on';AI.cfg.send='auto';aiSave();render();"); await page.wait_for_timeout(300)
-                ok(L+"réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation",await page.evaluate("aiAutoOn()&&aiSendAuto()"))
+                await page.evaluate(f"AI.key={json.dumps(KEY)};AI.cfg.mode='complet';AI.cfg.auto='on';AI.cfg.send='ecran';aiSave();render();"); await page.wait_for_timeout(300)
+                ok(L+"réglages persistants : IA complet, préparation automatique ; envoi automatique indisponible (DPO / HDS à confirmer), validation à l'écran",await page.evaluate("aiAutoOn()&&!aiSendAuto()&&AI.cfg.send==='ecran'"))
                 # ---------- 1. contre-appel téléphonique ----------
                 sid=await page.evaluate(STOP); await page.wait_for_timeout(300)
                 n0=len(sent)
@@ -79,7 +83,7 @@ async def main():
                     manques=["Examen des tympans sur place","État d'hydratation et comportement"],suivi=["Reconsulter si la fièvre persiste au-delà de 48 heures"],alertes=[])))
                 await dictate(page,"textarea[data-interro]",TEL)
                 got=await wait_sent(page,sent,n0+1)
-                ok(L+"1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire",got and await page.locator("#aisend").count()==0,(got,len(sent)))
+                ok(L+"1. contre-appel dicté → requête préparée automatiquement, envoyée après « Envoyer » sur l'écran « Ce qui part »",got and SCREENS and await page.locator("#aisend").count()==0,(got,len(sent),len(SCREENS)))
                 body=sent[-1]["body"] if sent else ""
                 ok(L+"1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »","CONTRE-APPEL TÉLÉPHONIQUE" in body and "EN PRÉSENCE DU PATIENT" not in body and "SITUATION : contre-appel" in body,body[-400:])
                 ok(L+"1. requête sans identité (nom, téléphone, adresse retirés)",not any(x in body for x in ["PETIT","Lou","0612345678","Lilas"]),[x for x in ["PETIT","Lou","0612345678","Lilas"] if x in body])
@@ -177,13 +181,13 @@ async def main():
                 await page.click("#aisend #ai_send"); got=await wait_sent(page,sent,n0+1); await page.wait_for_timeout(700)
                 st=await page.evaluate("({pick:state.xpPick!=null?PACKS[state.xpPick].n:null,hist:state.obs.hist||'',q:AIQ.list.length})")
                 ok(L+"6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée",got and st["pick"]=="Bronchite aiguë" and "Toux sèche" in st["hist"] and st["q"]==q0,st)
-                # ---------- réglage « écran Ce qui part à chaque fois » ----------
-                await page.evaluate("AI.cfg.send='ecran';aiSave();newPatient();Object.assign(state,{patient:'BERNARD Luc',ddn:'02/02/1980',sexe:'h'});state.cot.lieu='consultation';state.cot.auto=false;render();")
+                # ---------- envoi automatique impossible même si le réglage est forcé (DPO / HDS à confirmer) ----------
+                await page.evaluate("AI.cfg.send='auto';aiSave();newPatient();Object.assign(state,{patient:'BERNARD Luc',ddn:'02/02/1980',sexe:'h'});state.cot.lieu='consultation';state.cot.auto=false;render();")
                 n0=len(sent)
                 await dictate(page,"#f_dict","Mal de gorge depuis 2 jours avec fièvre à 38,5, amygdales rouges avec points blancs, pas de toux.")
                 await page.wait_for_timeout(1200)
-                ok(L+"réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer",len(sent)==n0 and await page.locator("#aisend #ai_send").count()==1)
-                await page.click("#aisend #ai_cancel"); await page.evaluate("AI.cfg.send='auto';aiSave();")
+                ok(L+"envoi automatique verrouillé (AI_SEND_AUTO_ALLOWED=false) : même « auto » forcé, rien ne part sans le bouton Envoyer",len(sent)==n0 and await page.locator("#aisend #ai_send").count()==1 and not await page.evaluate("aiSendAuto()"))
+                await page.click("#aisend #ai_cancel"); await page.evaluate("AI.cfg.send='ecran';aiSave();")
                 # ---------- 10. compatibilité ----------
                 ok(L+"10. aucune erreur JS",not errors,errors[:3])
                 await ctx.close()

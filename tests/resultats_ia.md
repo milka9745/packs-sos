@@ -38,8 +38,8 @@
 - OK — iphone courrier : traitement repris de la fiche par Packs
 - OK — iphone reformulation acceptée, faits conservés
 - OK — iphone raisonnement ajouté au compte rendu
-- OK — iphone Complet (20/10/2026) : dictée envoyée automatiquement après pseudonymisation, une seule requête, sans identité, sans écran intermédiaire
-- OK — iphone Complet avec réglage « écran à chaque fois » : « Ce qui part » ouvert, rien n'est parti
+- OK — iphone Complet : requête préparée et pseudonymisée automatiquement, « Ce qui part » ouvert, rien n'est parti sans « Envoyer » (envoi automatique désactivé, DPO / HDS à confirmer)
+- OK — iphone Complet : après « Envoyer », une seule requête, sans identité, synthèse reçue
 - OK — iphone mode Aucun en un geste
 - OK — iphone aucune erreur JS
 - OK — pc version 41
@@ -80,8 +80,8 @@
 - OK — pc courrier : traitement repris de la fiche par Packs
 - OK — pc reformulation acceptée, faits conservés
 - OK — pc raisonnement ajouté au compte rendu
-- OK — pc Complet (20/10/2026) : dictée envoyée automatiquement après pseudonymisation, une seule requête, sans identité, sans écran intermédiaire
-- OK — pc Complet avec réglage « écran à chaque fois » : « Ce qui part » ouvert, rien n'est parti
+- OK — pc Complet : requête préparée et pseudonymisée automatiquement, « Ce qui part » ouvert, rien n'est parti sans « Envoyer » (envoi automatique désactivé, DPO / HDS à confirmer)
+- OK — pc Complet : après « Envoyer », une seule requête, sans identité, synthèse reçue
 - OK — pc mode Aucun en un geste
 - OK — pc aucune erreur JS
 

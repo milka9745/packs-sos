@@ -97,6 +97,11 @@ async def main():
                 st=await page.evaluate("({cur:TOUR.current,pat:state.patient,done:tourStop('"+ids[0]+"').done})")
                 ok(L+"12.2 « Patient suivant » : arrêt précédent fait, visite suivante ouverte (MARTIN Jeanne)",st["cur"]==ids[1] and st["pat"]=="MARTIN Jeanne" and st["done"],st)
                 ok(L+"pastille patient : NOM P. · âge · rue",re.match(r"^MARTIN J\. · \d+ ans · ",await page.evaluate("patLabel()")),await page.evaluate("patLabel()"))
+                # ---------- 5 (cahier 20/10) : règle d'Ottawa du genou = aide à la décision (compte rendu), jamais sur l'ordonnance ----------
+                g=await page.evaluate("""()=>{const i=PACKS.findIndex(p=>p.n==='Gonalgie / traumatisme du genou');newPatient();Object.assign(state,{patient:'DURAND Paul',ddn:'14/05/1975',sexe:'h'});state.cot.lieu='consultation';state.cot.auto=false;state.sel=i;
+                  const sc=scoresFor(PACKS[i]).map(s=>s.id);state.scores={ottawa_gn:{age55:0,fib:0,rot:1,flex:0,appui:0}};render();const cr=buildCR0(PACKS[i]);const d=document.createElement('div');d.innerHTML=buildPages(PACKS[i],true).out;
+                  const ordo=[...d.querySelectorAll('.page')].filter(x=>/^Ordonnance/.test((x.querySelector('h2')||{}).textContent||'')).map(x=>x.innerText).join(' ');return {sc,cr:cr.includes('Ottawa'),ordo:/Ottawa|fibula|rotule|55 ans/i.test(ordo),screen:(document.querySelector('#main')||{}).innerText.includes('Ottawa')};}""")
+                ok(L+"Ottawa genou : règle proposée à l'écran avec la fiche, reprise au compte rendu, jamais imprimée sur l'ordonnance","ottawa_gn" in g["sc"] and g["cr"] and not g["ordo"] and g["screen"],g)
                 ok(L+"aucune fenêtre système, aucune erreur JS",not dialogs and not errors,(dialogs[:2],errors[:3]))
                 await ctx.close()
             await b.close()

@@ -12,6 +12,7 @@
 - OK — PC · mode complet : 12.5 heure de l'acte corrigée à la main (08:10) : cotation recalculée sur ce geste, version 3
 - OK — PC · mode complet : 12.2 « Patient suivant » : arrêt précédent fait, visite suivante ouverte (MARTIN Jeanne)
 - OK — PC · mode complet : pastille patient : NOM P. · âge · rue
+- OK — PC · mode complet : Ottawa genou : règle proposée à l'écran avec la fiche, reprise au compte rendu, jamais imprimée sur l'ordonnance
 - OK — PC · mode complet : aucune fenêtre système, aucune erreur JS
 - OK — iPhone · Express : 12.3 identification : NOM + initiale du prénom · âge · rue (plus seulement l'initiale)
 - OK — iPhone · Express : 12.3 liste des patients (Express) : DUPONT J. et MARTIN J. distingués
@@ -21,4 +22,4 @@
 - OK — iPhone · Express : 12.5 Express : confirmer la fiche enregistre l'arrivée, annoncée (heure de l'acte modifiable)
 - OK — iPhone · Express : aucune erreur JS
 
-20/20 tests OK
+21/21 tests OK

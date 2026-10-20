@@ -148,17 +148,15 @@ async def run(width,height,label):
         ok(L+"raisonnement ajouté au compte rendu","Tableau typique sans signe de gravité" in cr)
         await page.evaluate("document.getElementById('aipanel')&&document.getElementById('aipanel').remove()")
         # 8. Mode Complet : l'écran de contrôle s'ouvre seul après la dictée, sans envoi
-        await page.evaluate("AI.cfg.mode='complet';AI.cfg.send='auto';aiSave();state.obs.dict='Douleur lombaire depuis J2';state.obsOpen=true;render();"); await page.wait_for_timeout(300)
-        n1=len(sent); await page.click("#dict_go")
+        await page.evaluate("AI.cfg.mode='complet';aiSave();state.obs.dict='Douleur lombaire depuis J2';state.obsOpen=true;render();"); await page.wait_for_timeout(300)
+        n1=len(sent); await page.click("#dict_go"); await page.wait_for_timeout(900)
+        ok(L+"Complet : requête préparée et pseudonymisée automatiquement, « Ce qui part » ouvert, rien n'est parti sans « Envoyer » (envoi automatique désactivé, DPO / HDS à confirmer)",await page.locator("#aisend").count()==1 and len(sent)==n1 and "Dupont" not in await page.inner_text("#ai_sent"))
+        await page.click("#ai_send")
         for _ in range(30):
             if len(sent)>n1: break
             await page.wait_for_timeout(150)
         await page.wait_for_timeout(500)
-        ok(L+"Complet (20/10/2026) : dictée envoyée automatiquement après pseudonymisation, une seule requête, sans identité, sans écran intermédiaire",len(sent)==n1+1 and "Dupont" not in sent[-1]["body"] and await page.locator("#aisend").count()==0 and await page.evaluate("!!state.aiPlan"),(len(sent)-n1,await page.locator("#aisend").count()))
-        await page.evaluate("AI.cfg.send='ecran';aiSave();AI._planHash='';state.obs.dict='Douleur lombaire depuis J2, irradiant à droite';render();"); await page.wait_for_timeout(200)
-        n1=len(sent); await page.click("#dict_go"); await page.wait_for_timeout(900)
-        ok(L+"Complet avec réglage « écran à chaque fois » : « Ce qui part » ouvert, rien n'est parti",await page.locator("#aisend").count()==1 and len(sent)==n1)
-        await page.click("#ai_cancel"); await page.evaluate("AI.cfg.send='auto';aiSave();")
+        ok(L+"Complet : après « Envoyer », une seule requête, sans identité, synthèse reçue",len(sent)==n1+1 and "Dupont" not in sent[-1]["body"] and await page.evaluate("!!state.aiPlan"),(len(sent)-n1))
         # 9. Mode en un geste depuis le menu ⋯ (téléphone) ou le panneau
         if width<500:
             await page.click("#more_btn"); await page.wait_for_timeout(200)

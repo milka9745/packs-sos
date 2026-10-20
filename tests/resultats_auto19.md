@@ -1,7 +1,7 @@
 # Parcours automatisé avec l'IA (20/10/2026)
 
-- OK — iPhone · Express : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
-- OK — iPhone · Express : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — iPhone · Express : réglages persistants : IA complet, préparation automatique ; envoi automatique indisponible (DPO / HDS à confirmer), validation à l'écran
+- OK — iPhone · Express : 1. contre-appel dicté → requête préparée automatiquement, envoyée après « Envoyer » sur l'écran « Ce qui part »
 - OK — iPhone · Express : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
 - OK — iPhone · Express : 1. requête sans identité (nom, téléphone, adresse retirés)
 - OK — iPhone · Express : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
@@ -28,10 +28,10 @@
 - OK — iPhone · Express : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
 - OK — iPhone · Express : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
 - OK — iPhone · Express : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
-- OK — iPhone · Express : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — iPhone · Express : envoi automatique verrouillé (AI_SEND_AUTO_ALLOWED=false) : même « auto » forcé, rien ne part sans le bouton Envoyer
 - OK — iPhone · Express : 10. aucune erreur JS
-- OK — iPhone · mode complet : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
-- OK — iPhone · mode complet : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — iPhone · mode complet : réglages persistants : IA complet, préparation automatique ; envoi automatique indisponible (DPO / HDS à confirmer), validation à l'écran
+- OK — iPhone · mode complet : 1. contre-appel dicté → requête préparée automatiquement, envoyée après « Envoyer » sur l'écran « Ce qui part »
 - OK — iPhone · mode complet : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
 - OK — iPhone · mode complet : 1. requête sans identité (nom, téléphone, adresse retirés)
 - OK — iPhone · mode complet : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
@@ -58,10 +58,10 @@
 - OK — iPhone · mode complet : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
 - OK — iPhone · mode complet : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
 - OK — iPhone · mode complet : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
-- OK — iPhone · mode complet : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — iPhone · mode complet : envoi automatique verrouillé (AI_SEND_AUTO_ALLOWED=false) : même « auto » forcé, rien ne part sans le bouton Envoyer
 - OK — iPhone · mode complet : 10. aucune erreur JS
-- OK — tablette · Express : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
-- OK — tablette · Express : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — tablette · Express : réglages persistants : IA complet, préparation automatique ; envoi automatique indisponible (DPO / HDS à confirmer), validation à l'écran
+- OK — tablette · Express : 1. contre-appel dicté → requête préparée automatiquement, envoyée après « Envoyer » sur l'écran « Ce qui part »
 - OK — tablette · Express : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
 - OK — tablette · Express : 1. requête sans identité (nom, téléphone, adresse retirés)
 - OK — tablette · Express : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
@@ -88,10 +88,10 @@
 - OK — tablette · Express : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
 - OK — tablette · Express : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
 - OK — tablette · Express : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
-- OK — tablette · Express : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — tablette · Express : envoi automatique verrouillé (AI_SEND_AUTO_ALLOWED=false) : même « auto » forcé, rien ne part sans le bouton Envoyer
 - OK — tablette · Express : 10. aucune erreur JS
-- OK — PC · mode complet : réglages persistants : IA complet, préparation automatique, envoi automatique après pseudonymisation
-- OK — PC · mode complet : 1. contre-appel dicté → requête envoyée automatiquement, sans écran intermédiaire
+- OK — PC · mode complet : réglages persistants : IA complet, préparation automatique ; envoi automatique indisponible (DPO / HDS à confirmer), validation à l'écran
+- OK — PC · mode complet : 1. contre-appel dicté → requête préparée automatiquement, envoyée après « Envoyer » sur l'écran « Ce qui part »
 - OK — PC · mode complet : 1. requête : partie « CONTRE-APPEL TÉLÉPHONIQUE » seule, aucune partie « EN PRÉSENCE »
 - OK — PC · mode complet : 1. requête sans identité (nom, téléphone, adresse retirés)
 - OK — PC · mode complet : 1. observation téléphonique structurée : histoire « Au téléphone, … », éléments rapportés gardés à part
@@ -118,7 +118,7 @@
 - OK — PC · mode complet : 6. hors connexion : rien n'est envoyé, la demande est gardée sur l'appareil, la dictée est conservée, rien n'est validé
 - OK — PC · mode complet : 6. retour du réseau : la demande en attente est reproposée à l'écran « Ce qui part »
 - OK — PC · mode complet : 6. envoi au retour du réseau : synthèse appliquée au bon patient, file vidée
-- OK — PC · mode complet : réglage « écran Ce qui part à chaque fois » : rien ne part sans le bouton Envoyer
+- OK — PC · mode complet : envoi automatique verrouillé (AI_SEND_AUTO_ALLOWED=false) : même « auto » forcé, rien ne part sans le bouton Envoyer
 - OK — PC · mode complet : 10. aucune erreur JS
 
 120/120 tests OK

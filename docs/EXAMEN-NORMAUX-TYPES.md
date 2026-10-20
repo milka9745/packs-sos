@@ -45,3 +45,22 @@ Pour une patiente : « consciente et orientée ».
 - Réglage désactivé (menu ⋯ ou case dans l'encadré) : appareil vide = absent du compte rendu.
 - Jamais « non renseigné », « non effectué », « non examiné », « RAS ? », ni libellé seul.
 - Signe de gravité dicté, ou élément de gravité de la fiche non noté : alerte à l'écran, jamais au compte rendu.
+
+## Relecture du 20/10/2026 (proposition, non intégrée dans l'application)
+
+Rappel du fonctionnement vérifié dans le code : un normal type n'entre au compte rendu qu'après le geste « ✓ Examen complet » (ou la confirmation de la validation du patient, qui l'inclut) ; avant ce geste il est surligné « à valider » à l'écran et absent des documents ; un appareil dicté n'est jamais remplacé. Rien n'est présenté comme examiné sans ce geste.
+
+### ORL de l'enfant — point d'attention demandé
+Texte actuel : « Tympans normaux des deux côtés, pharynx sans anomalie, pas d'adénopathie cervicale. »
+Proposition : « Tympans normaux des deux côtés (reliefs et triangle lumineux vus), pharynx et amygdales sans anomalie, pas de rhinorrhée purulente, pas d'adénopathie cervicale. »
+Raison : chez l'enfant, un tympan « normal » suppose qu'il a été vu (bouchon de cérumen fréquent) ; l'examen ORL de garde comprend aussi le nez (rhinorrhée) et les amygdales. Si le tympan n'a pas pu être vu, le normal type ne doit pas être gardé : le retirer d'un toucher (« Retirer »), ou dicter « tympan droit non vu (cérumen) ».
+Variante nourrisson (< 2 ans), à discuter : ajouter « fontanelle antérieure normotendue » (déjà ajouté automatiquement à l'appareil neurologique avant 18 mois, pas à l'ORL).
+
+### ORL de l'adulte
+Texte actuel inchangé. Proposition facultative : « … pas d'adénopathie cervicale ; pas de douleur à la pression des sinus » seulement pour les fiches respiratoires et ORL (sinusite), pas en défaut.
+
+### Autres appareils (pas de changement proposé)
+Général, cardio-vasculaire, pulmonaire, abdomen, neurologique, cutané, ostéo-articulaire : formulations courtes correspondant aux gestes réellement faits en visite ; le temps de recoloration cutanée chez l'enfant et l'absence de signe de lutte respiratoire sont les deux points utiles à conserver.
+
+### Décision attendue
+Valider ou corriger les deux textes ORL ci-dessus ; l'application n'est modifiée qu'après votre réponse (statut de la liste : à relire par le médecin).
