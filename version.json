@@ -1,9 +1,9 @@
 {
-  "version": "41u",
+  "version": "41v",
   "date": "2026-10-20",
   "notes": [
-    "Une seule dictée suffit : observation, fiche proposée (Pack), examens, courriers, aide sociale, suivi et alertes sont préparés automatiquement, dans un écran de synthèse à valider ; l'ordonnance vient toujours de la fiche.",
-    "Contre-appel téléphonique : dictez ce que le patient rapporte avant de partir ; l'IA l'analyse à part de l'examen, et tout est repris à la visite (compte rendu : « éléments rapportés, patient non examiné »).",
-    "Réglages persistants (Journal → Assistant IA) : préparation automatique, envoi après pseudonymisation sans écran intermédiaire ; dictée jamais perdue à un changement d'écran ; corrections manuelles jamais écrasées."
+    "Patients mieux identifiés (NOM + initiale du prénom, âge, rue), numéro de téléphone visible sur « Appeler », mode voiture et tournée à portée de l'Express.",
+    "Rouvrir une visite validée ne l'efface plus : la validation initiale est conservée, la revalidation est versionnée et tracée au journal ; heure d'arrivée ou d'acte corrigée reprise à la validation.",
+    "Arrivée enregistrée annoncée à l'écran (heure de l'acte modifiable) ; écran « Patient validé » sans « né(e) » ; note de sécurité sur la clé API dans les réglages."
   ]
 }

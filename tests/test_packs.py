@@ -385,7 +385,7 @@ async def run(width,height,label):
               const p1=getComputedStyle(document.documentElement).getPropertyValue('--pat-d').trim();newPatient();state.patient='MARTIN Léa';state.ddn='02/02/2022';render();await w(50);const p2=getComputedStyle(document.documentElement).getPropertyValue('--pat-d').trim();
               const res={mv,mc,bv,bc,tag:tag?tag.textContent:'',tagIn:!!(tr&&tr.top>=0&&tr.top<160&&tr.right<=W+1),outline:pco,tagTop:tr?Math.round(tr.top):null,pdiff:p1!==p2,sw:document.documentElement.scrollWidth<=W};
               state.patient='';state.ddn='';render();res.off=!document.documentElement.classList.contains('pat-on');return res;}""",th)
-            if not (r["mv"]=="visite" and r["mc"]=="consult" and r["bv"]!=r["bc"] and r["tag"].startswith("D. · ") and r["tagIn"] and r["outline"]=="solid" and r["pdiff"] and r["sw"] and r["off"]): vis.append((th,r))
+            if not (r["mv"]=="visite" and r["mc"]=="consult" and r["bv"]!=r["bc"] and re.match(r"^[A-ZÀ-Þ' -]+ [A-ZÀ-Þ]\. · ",r["tag"]) and r["tagIn"] and r["outline"]=="solid" and r["pdiff"] and r["sw"] and r["off"]): vis.append((th,r))
         await page.evaluate("THEME.mode='auto';themeApply();state.cot=cotDefault();render();")
         ok(label+" repères visuels : Visite et Consultation de couleurs distinctes, patient encadré et nommé « initiale · âge » en haut, couleur différente par patient (jour et nuit)",not vis,vis)
         gr=await page.evaluate("""()=>{const h=VALID.hist;VALID.hist=[{ts:Date.now(),patient:'TEST Gris',pack:'',snap:{}},{ts:Date.now(),patient:'TEST Côté',pending:true,pack:'',snap:{}}];validListScreen();const rows=[...document.querySelectorAll('#lock .vrow')];const ok=rows.length===2&&rows.every(r=>r.classList.contains('pat-off')&&/grayscale/.test(getComputedStyle(r).filter));VALID.hist=h;identClose();return ok;}""")
@@ -523,7 +523,7 @@ async def run(width,height,label):
         r4=await page.evaluate("""()=>{const a=[...document.querySelectorAll('a[href^="tel:0612345678"]')];return {n:a.length,outside:a.some(x=>!x.closest('details')),visible:a.some(x=>!x.closest('details')&&x.getBoundingClientRect().width>0)};}""")
         ok(label+" correctif 4 : bouton d'appel visible hors menu replié",r4["outside"] and r4["visible"],r4)
         r6=await page.evaluate("({n:stopName(tourStop('t_cahier')),card:(document.querySelector('.tcard .tc-name')||{}).textContent||''})")
-        ok(label+" correctif 6 : libellé initiale · âge · rue",r6["n"].startswith("D. · ") and " ans · " in r6["n"] and r6["n"].endswith("Rue de Bourgogne") and r6["n"] in r6["card"],r6)
+        ok(label+" correctif 6 (20/10 : NOM P.) : libellé nom · initiale · âge · rue",r6["n"].startswith("DUPONT J. · ") and " ans · " in r6["n"] and r6["n"].endswith("Rue de Bourgogne") and r6["n"] in r6["card"],r6)
         await page.evaluate("()=>{TOUR.stops=TOUR.stops.filter(x=>x.id!=='t_cahier');TOUR.current='';tourSave();newPatient();}")
         # Cahier des corrections — point 3
         r3=await page.evaluate("""()=>{const v=new Date(2026,9,14,20,5).getTime(),a=new Date(2026,9,14,19,50).getTime();const avec=cotCompute({ts:v,tActe:a,lieu:'visite',extra:[],minus:[]}).codes.map(x=>x.c);const sans=cotCompute({ts:v,lieu:'visite',extra:[],minus:[]}).codes.map(x=>x.c);
