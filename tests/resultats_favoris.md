@@ -1,6 +1,9 @@
 # Tests favoris → Express (17/10/2026)
 
 - OK — iphone jour : Express par défaut : pas d'« Allergies »
+- OK — iphone jour : étoiles ★ masquées par défaut, lien « ✎ Favoris » dans l'en-tête Express
+- OK — iphone jour : ✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)
+- OK — iphone jour : « Terminé » : étoiles de nouveau masquées, favoris inchangés
 - OK — iphone jour : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
 - OK — iphone jour : sécurité fixée, sans étoile : gravité, doses, alertes
 - OK — iphone jour : ☆ « Allergies » : ajouté à l'Express (★)
@@ -16,8 +19,12 @@
 - OK — iphone jour : poids de l'enfant fixé, sans étoile
 - OK — iphone jour : « Revenir à l'Express par défaut » : jeu de départ rétabli
 - OK — iphone jour : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone jour : bouton « Modifier les favoris de l'Express (★) » dans ⋯ (21/10)
 - OK — iphone jour : aucune erreur JS
 - OK — iphone nuit : Express par défaut : pas d'« Allergies »
+- OK — iphone nuit : étoiles ★ masquées par défaut, lien « ✎ Favoris » dans l'en-tête Express
+- OK — iphone nuit : ✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)
+- OK — iphone nuit : « Terminé » : étoiles de nouveau masquées, favoris inchangés
 - OK — iphone nuit : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
 - OK — iphone nuit : sécurité fixée, sans étoile : gravité, doses, alertes
 - OK — iphone nuit : ☆ « Allergies » : ajouté à l'Express (★)
@@ -33,8 +40,12 @@
 - OK — iphone nuit : poids de l'enfant fixé, sans étoile
 - OK — iphone nuit : « Revenir à l'Express par défaut » : jeu de départ rétabli
 - OK — iphone nuit : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone nuit : bouton « Modifier les favoris de l'Express (★) » dans ⋯ (21/10)
 - OK — iphone nuit : aucune erreur JS
 - OK — iphone grand texte : Express par défaut : pas d'« Allergies »
+- OK — iphone grand texte : étoiles ★ masquées par défaut, lien « ✎ Favoris » dans l'en-tête Express
+- OK — iphone grand texte : ✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)
+- OK — iphone grand texte : « Terminé » : étoiles de nouveau masquées, favoris inchangés
 - OK — iphone grand texte : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
 - OK — iphone grand texte : sécurité fixée, sans étoile : gravité, doses, alertes
 - OK — iphone grand texte : ☆ « Allergies » : ajouté à l'Express (★)
@@ -50,8 +61,12 @@
 - OK — iphone grand texte : poids de l'enfant fixé, sans étoile
 - OK — iphone grand texte : « Revenir à l'Express par défaut » : jeu de départ rétabli
 - OK — iphone grand texte : bouton « Revenir à l'Express par défaut » dans ⋯
+- OK — iphone grand texte : bouton « Modifier les favoris de l'Express (★) » dans ⋯ (21/10)
 - OK — iphone grand texte : aucune erreur JS
 - OK — ordinateur : Express par défaut : pas d'« Allergies »
+- OK — ordinateur : étoiles ★ masquées par défaut, lien « ✎ Favoris » dans l'en-tête Express
+- OK — ordinateur : ✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)
+- OK — ordinateur : « Terminé » : étoiles de nouveau masquées, favoris inchangés
 - OK — ordinateur : chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)
 - OK — ordinateur : sécurité fixée, sans étoile : gravité, doses, alertes
 - OK — ordinateur : ☆ « Allergies » : ajouté à l'Express (★)
@@ -71,4 +86,4 @@
 - OK — profil : autre appareil : favoris retrouvés après la phrase maître, rangés sous ce profil
 - OK — profil : aucune erreur JS
 
-70/70 tests OK
+85/85 tests OK

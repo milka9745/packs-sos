@@ -82,6 +82,7 @@ async def run(b,w,h,th,big,label):
       ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)",all(k in ks for k in want) and any(k.startswith("btn:nav-") for k in ks),ks)
       ok(L+"7. plus d'étoile sur le groupe entier",await page.locator('.favstar[data-favk="sec:tcmore"]').count()==0)
       ok(L+"7. « Mode voiture » et « Tournée » dans l'Express par défaut (20/10)",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==1)
+      await page.evaluate("if(!FAV.edit)favEditSet(true)"); await page.wait_for_timeout(250)  # 21/10/2026 : étoiles visibles seulement en mode « Modifier les favoris »
       await page.locator('.tc-more .favstar[data-favk="btn:tc_free"]').first.click(); await page.wait_for_timeout(400)
       ok(L+"7. « Libérer » ajouté à l'Express d'une étoile (seul en plus)",await page.locator(".xp #xp_favs #tc_free").count()==1 and await page.locator(".xp #xp_favs #tc_addvisit, .xp #xp_favs .tc-addv").count()==0)
       await page.evaluate("favReset()")

@@ -29,6 +29,7 @@ async def relock(page,uid):
 
 OPEN_PLUS="""()=>{const d=document.getElementById('xp_plus');if(d)d.open=true;document.querySelectorAll('#main details.pmore,#main .pcard details').forEach(x=>x.open=true);}"""
 async def star(page,key):
+    await page.evaluate("if(!FAV.edit)favEditSet(true)"); await page.wait_for_timeout(250)  # 21/10/2026 : étoiles visibles seulement en mode « Modifier les favoris »
     await page.evaluate(OPEN_PLUS); await page.wait_for_timeout(150)
     loc=page.locator(f'#main .favstar[data-favk="{key}"]').first
     await loc.scroll_into_view_if_needed(); await loc.click(); await page.wait_for_timeout(400)
@@ -45,6 +46,12 @@ async def run(b,w,h,th,big,label):
     L=label+" : "; tag=label.replace(" ","-")
     await page.evaluate("xpOpenStop('v1')"); await page.wait_for_timeout(300); await page.click("#xp_ok"); await page.wait_for_timeout(500)
     ok(L+"Express par défaut : pas d'« Allergies »",await page.locator(".xp .tt.al").count()==0)
+    # 21/10/2026 : étoiles masquées hors du mode « Modifier les favoris » ; démarquage facile (✎ Favoris → ★ → Terminé)
+    ok(L+"étoiles ★ masquées par défaut, lien « ✎ Favoris » dans l'en-tête Express",await page.locator("#main .favstar:visible").count()==0 and await page.locator("#xp_favedit").count()==1 and await page.locator("#favbar").count()==0)
+    await page.click("#xp_favedit"); await page.wait_for_timeout(350)
+    ok(L+"✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)",await page.locator("#favbar").count()==1 and await page.locator("#main .favstar:visible").count()>0 and await page.locator(".xp .favstar.on:visible").count()>0)
+    await page.click("#fav_done"); await page.wait_for_timeout(350)
+    ok(L+"« Terminé » : étoiles de nouveau masquées, favoris inchangés",await page.locator("#main .favstar:visible").count()==0 and await page.locator("#favbar").count()==0 and await page.locator(".xp #xp_favs #tc_view").count()==1)
     ok(L+"chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)",await page.evaluate("""(()=>{const k=[...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk);return ['f:f_al','f:f_tt','f:f_date','sec:cot','sec:pho','sec:nh','btn:fin'].every(x=>k.includes(x))&&k.some(x=>x.startsWith('doc:'));})()"""),await page.evaluate("[...new Set([...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk))]"))
     ok(L+"sécurité fixée, sans étoile : gravité, doses, alertes",await page.locator(".xp .xp-grav .favstar, .xp .xp-meds .favstar, .xp .xp-alerts .favstar").count()==0 and await page.locator(".xp .xp-meds").count()==1)
     # ajouter « Allergies »
@@ -62,6 +69,7 @@ async def run(b,w,h,th,big,label):
     await page.evaluate("newPatient();xpOpenStop('v1');"); await page.wait_for_timeout(300); await page.click("#xp_ok"); await page.wait_for_timeout(500)
     ok(L+"document favori absent quand la fiche ne l'a pas (rhinopharyngite)",await page.locator('.xp [data-fav="doc:kine"]').count()==0 and await page.locator(".xp #xp_favs .tt.al").count()==1)
     # retrait d'un élément par défaut (arrêt de travail) puis de l'Allergie
+    await page.evaluate("if(!FAV.edit)favEditSet(true)"); await page.wait_for_timeout(250)
     await page.locator('.xp .favstar[data-favk="sec:at"]').click(); await page.wait_for_timeout(300)
     ok(L+"élément par défaut retirable (« Arrêt de travail fait »)",await page.locator(".xp #xp_at").count()==0)
     # persistance après rechargement
@@ -75,6 +83,7 @@ async def run(b,w,h,th,big,label):
     await page.wait_for_timeout(300)
     if await page.locator("#xp_ok").count(): await page.click("#xp_ok"); await page.wait_for_timeout(400)
     ok(L+"après rechargement : « Allergies » toujours dans l'Express",await page.locator(".xp #xp_favs .tt.al").count()==1)
+    await page.evaluate("if(!FAV.edit)favEditSet(true)"); await page.wait_for_timeout(250)
     await page.locator('.xp .favstar[data-favk="f:f_al"]').first.click(); await page.wait_for_timeout(400)
     ok(L+"★ « Allergies » : retiré de l'Express",await page.locator(".xp .tt.al").count()==0 and "f:f_al" not in await page.evaluate("FAV.keys"))
     # poids : fixé chez l'enfant (sans étoile)
@@ -86,6 +95,7 @@ async def run(b,w,h,th,big,label):
     if mob:
         await page.click("#more_btn"); await page.wait_for_timeout(300)
         ok(L+"bouton « Revenir à l'Express par défaut » dans ⋯",await page.locator("#jmenu [data-xpreset]").is_visible())
+        ok(L+"bouton « Modifier les favoris de l'Express (★) » dans ⋯ (21/10)",await page.locator("#jmenu [data-favedit]").count()==1)
         await page.click("#more_btn"); await page.wait_for_timeout(200)
     ok(L+"aucune erreur JS",not errors,errors[:2])
     await ctx.close()

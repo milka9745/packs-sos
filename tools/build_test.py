@@ -46,7 +46,8 @@ s=re.sub(r"(<body[^>]*>)",lambda m:m.group(1)+BADGE_BODY,s,count=1)
 open(os.path.join(OUT,"index.html"),"w",encoding="utf-8",newline="").write(s)
 
 w=open(os.path.join(ROOT,"sw.js"),encoding="utf-8").read()
-w=re.sub(r'const CACHE="[^"]+";','const CACHE="packs-sos-test-'+V+'";',w)
+BUILD=datetime.datetime.now().strftime("%m%d%H%M")  # 21/10/2026 : un cache par construction du canal de test (même version, nouveau contenu → rafraîchi)
+w=re.sub(r'const CACHE="[^"]+";','const CACHE="packs-sos-test-'+V+'-'+BUILD+'";',w)
 w=w.replace("ks.filter(k=>/^packs-sos-v\\d+[a-z]?$/.test(k)&&k!==CACHE)","ks.filter(k=>/^packs-sos-test-/.test(k)&&k!==CACHE)")
 assert "packs-sos-test-" in w and "/^packs-sos-test-/" in w
 w="/* VERSION TEST (dossier test/) : cache séparé, ne touche jamais au cache de l'outil de garde */\n"+w
