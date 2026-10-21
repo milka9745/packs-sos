@@ -1,9 +1,9 @@
 {
-  "version": "41y-test",
+  "version": "41z-test",
   "date": "2026-10-21",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Mode voiture : tous les boutons en fond plein, couleurs par fonction (bleu Naviguer, vert Appeler, or « Je suis arrivé », gris Quitter), gros et lisibles jour et nuit.",
-    "Tournée : l'impact d'une nouvelle demande est calculé par adresse avec les trajets réels (+N min → fin de tournée ou arrivée au cabinet), même estimation que la « Fin prévue » du mode voiture ; la puce de secteur ne compte que les visites de la tournée."
+    "Documents du patient : « Scanner » (pages enchaînées, recadrées, redressées, en noir et blanc, chiffrées) et « Documents » (photos et PDF, plusieurs à la fois), à côté de la dictée, en visite comme en consultation.",
+    "Analyse sur l'appareil, sans IA : type et date du document, biologie avec normes et DFG, médicaments des ordonnances, conclusion des courriers, antécédents, vaccins ; propositions à accepter d'un geste, alertes croisées avant l'ordonnance, résumé du patient en une page."
   ]
 }
