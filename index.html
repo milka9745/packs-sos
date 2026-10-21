@@ -634,6 +634,12 @@ html[data-theme=night]{--dv-nav:#2B67E0;--dv-nav-on:#FFFFFF;--dv-call:#167A46;--
 #main .drive .dv-b.dv-arr{background:var(--dv-arr)!important;color:var(--dv-arr-on)!important;min-height:80px!important;font-size:26px!important}
 #main .drive .dv-q{background:var(--dv-quit)!important;color:var(--dv-quit-on)!important;border:1px solid var(--dv-quit-line)!important;flex:0 0 auto;padding:8px 16px!important}
 #main .drive .dv-b:hover,#main .drive .dv-q:hover{filter:brightness(1.07)}
+/* 21/10/2026 (v41z) : mots à confirmer, choix par mot, progression de la réponse IA, anonymisation à la volée */
+.aidoubt{background:#FFE08A!important;color:#111!important;border-bottom:2px solid #D08700;border-radius:3px;padding:0 2px;cursor:pointer}html[data-theme=night] .aidoubt{background:#E0B84A!important;color:#111!important}
+.aidoubts .lc{font-weight:700;text-decoration:underline}.aiact .lc{margin-left:4px}
+#aiwchoice{position:fixed;z-index:10050;background:var(--panel);color:var(--ink);border:1px solid var(--line2);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:8px;display:flex;flex-direction:column;gap:6px;max-width:min(92vw,320px)}#aiwchoice .btn{text-align:left}
+#aiprog{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translateX(-50%);z-index:10040;width:min(94vw,560px)}#aiprog .aiprog-in{background:var(--panel);color:var(--ink);border:1px solid var(--gold);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:10px 12px}#aiprog .aiprog-hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#aiprog .aiprog-hd .btn{margin-left:auto}#aiprog .aiprog-txt{font-size:12px;color:var(--muted);white-space:pre-wrap;max-height:4.5em;overflow:hidden}
+.anonlive{display:block;margin-top:4px}.anonlive.bad{color:var(--bad);font-weight:700}.aiact .btn.big{min-height:48px;font-size:16px}.alert.aifail{margin:8px 0}
 @media (orientation:landscape) and (max-height:500px){
   .drive .dv-zone.now .dv-btns{grid-template-columns:repeat(3,minmax(0,1fr))!important}.drive .dv-zone.now .dv-b{font-size:17px!important;padding:4px 6px!important}.drive .dv-b{min-height:60px!important;font-size:18px!important}
   .drive .dv-addr{font-size:clamp(22px,4.2vw,30px)!important}.drive .dv-zone.next .dv-btns{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}}
@@ -16622,6 +16628,7 @@ function updGo(){if(updInConsult()&&!confirm("Une consultation est en cours. Met
 function updOnRender(){if(!UPD.ready)return;const m=updMain();if(m&&!UPD.wasMain&&UPD.collapsed)UPD.collapsed=false;UPD.wasMain=m;if(UPD.pendingReload&&m&&!updInConsult()){window.__reloading=1;location.reload();return;}updRender();}
 
 /*ANON-BEGIN — v41 : anonymisation locale avant tout envoi à l'IA. Fonctions pures, sans DOM ; testées sous Node (tests/test_anon.js). */
+/*ANON-START*/
 const ANON_MOIS=["janvier","fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre"];
 const ANON_MOIS_RE="janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[ûu]t|septembre|octobre|novembre|d[ée]cembre";
 /* Mots qui gardent leur majuscule sans être des noms de personne : mots courants, éponymes médicaux, sigles, intitulés du compte rendu */
@@ -16673,7 +16680,7 @@ function anonNameWords(arr){const out=[];(arr||[]).forEach(x=>String(x||"").spli
 /* ctx : {patient, nom, prenom, ddn, ref (Date ou "jj/mm/aaaa"), adresse, tel, nir, autres:[noms à masquer], masquer:[mots en plus], garder:[mots à laisser], lexique:Set(mots des fiches normalisés), courants:Set(mots écrits en minuscules dans les fiches), medicaments:Set(noms de spécialités et DCI normalisés)}
    → {text, map:{jeton:original}, items:[{cat, orig, tok}]} */
 function anonymize(text,ctx){
-  ctx=ctx||{};const ref=ctx.ref instanceof Date?ctx.ref:(anonParseDDN(ctx.ref)||new Date());const ddn=anonParseDDN(ctx.ddn);
+  const _t0=performance.now();ctx=ctx||{};const strict=!!ctx.strict; /* 21/10/2026 : mode strict = « Tout masquer davantage » */const ref=ctx.ref instanceof Date?ctx.ref:(anonParseDDN(ctx.ref)||new Date());const ddn=anonParseDDN(ctx.ddn);
   const cour=ctx.courants||new Set(); /* mots écrits en minuscules dans les fiches : seuls eux peuvent être un mot courant homonyme du nom */
   const med=ctx.medicaments||new Set(); /* noms de médicaments : gardés avec leur majuscule, jamais utilisés pour démasquer le nom du patient */
   const lex=ctx.lexique||new Set();const garder=new Set((ctx.garder||[]).map(anonNorm));
@@ -16689,7 +16696,7 @@ function anonymize(text,ctx){
   const cap1=l=>l.split("|").map(w=>/^[a-zà-ÿ]/.test(w)?"["+w[0]+w[0].toUpperCase()+"]"+w.slice(1):w).join("|");
   /* 0. établissement de soins : nom gardé en clair (consigne), protégé pendant les autres passes */
   const keep=[];
-  R(new RegExp("(?<![\\p{L}])(?:CHRU|CHU|CHR|CHD|CHS|CH|EPSM|SSR|"+cap1("centre hospitalier(?:[ \\t]+(?:régional|universitaire|départemental|spécialisé|intercommunal))*|hôpital|hopital|polyclinique|clinique|maternité|institut")+")[ \\t]+"+ART+"?"+NOMLIEU,"gu"),m=>{keep.push(m);return "[[§"+(keep.length-1)+"]]";});
+  R(anonRx("(?<![\\p{L}])(?:CHRU|CHU|CHR|CHD|CHS|CH|EPSM|SSR|"+cap1("centre hospitalier(?:[ \\t]+(?:régional|universitaire|départemental|spécialisé|intercommunal))*|hôpital|hopital|polyclinique|clinique|maternité|institut")+")[ \\t]+"+ART+"?"+NOMLIEU,"gu"),m=>{keep.push(m);return "[[§"+(keep.length-1)+"]]";});
   /* 1. courriel, NIR, téléphone */
   R(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g,m=>tok("COURRIEL",m));
   R(/\b[12][\s.]?\d{2}[\s.]?(?:0[1-9]|1[0-2]|[2-9]\d)[\s.]?(?:\d{2}|2[AaBb])[\s.]?\d{3}[\s.]?\d{3}(?:[\s.]?\d{2})?\b/g,m=>tok("NIR",m));
@@ -16699,36 +16706,41 @@ function anonymize(text,ctx){
   const jTok=(m,dt)=>{const a=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()),b=new Date(ref.getFullYear(),ref.getMonth(),ref.getDate());const n=Math.round((a-b)/864e5);return tok("DATE",m,n===0?"J0":(n>0?"J+"+n:"J"+n),"J|"+dt.getTime()+"|"+anonNorm(m));};
   const inYear=(d,mo,y)=>{let dt=anonDateOf(d,mo,y?(+y<100?+y+2000:+y):ref.getFullYear());if(dt&&!y&&dt-ref>45*864e5)dt=anonDateOf(d,mo,ref.getFullYear()-1);return dt;};
   /* intervalles : « du 2 au 9 septembre 2026 », « entre le 3 et le 5/10 » → « du [[J-43]] au [[J-36]] » */
-  R(new RegExp("\\b(du|entre le|entre)(\\s+)(1er|\\d{1,2})(\\s+)(au|et le|et)(\\s+)((1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?)\\b","gi"),(m,a,s1,d1,s2,b,s3,whole,d2,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo))+1;const n=x=>x==="1er"?1:+x;const t1=inYear(n(d1),mi,y),t2=inYear(n(d2),mi,y);if(!t1||!t2)return m;return a+s1+jTok(d1,t1)+s2+b+s3+jTok(whole,t2);});
+  R(anonRx("\\b(du|entre le|entre)(\\s+)(1er|\\d{1,2})(\\s+)(au|et le|et)(\\s+)((1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?)\\b","gi"),(m,a,s1,d1,s2,b,s3,whole,d2,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo))+1;const n=x=>x==="1er"?1:+x;const t1=inYear(n(d1),mi,y),t2=inYear(n(d2),mi,y);if(!t1||!t2)return m;return a+s1+jTok(d1,t1)+s2+b+s3+jTok(whole,t2);});
   R(/\b(du|entre le|entre)(\s+)(\d{1,2})(\s+)(au|et le|et)(\s+)((\d{1,2})\s?[\/.]\s?(\d{1,2})(?:\s?[\/.]\s?(\d{4}|\d{2}))?)\b/gi,(m,a,s1,d1,s2,b,s3,whole,d2,mo,y)=>{const t1=inYear(+d1,+mo,y),t2=inYear(+d2,+mo,y);if(!t1||!t2)return m;return a+s1+jTok(d1,t1)+s2+b+s3+jTok(whole,t2);});
   R(/\b(\d{4})-(\d{2})-(\d{2})\b/g,(m,y,mo,d)=>dateTok(m,anonDateOf(d,mo,y)));
   R(/\b(\d{1,2})\s?[\/.\-]\s?(\d{1,2})\s?[\/.\-]\s?(\d{4}|\d{2})\b/g,(m,d,mo,y)=>dateTok(m,anonDateOf(d,mo,y)));
-  R(new RegExp("\\b(1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?\\b","gi"),(m,d,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo));let yy=y?+y:ref.getFullYear();let dt=anonDateOf(d==="1er"?1:d,mi+1,yy);if(dt&&!y&&dt-ref>45*864e5)dt=anonDateOf(d==="1er"?1:d,mi+1,yy-1);return dateTok(m,dt);});
-  R(new RegExp("\\b((?:en|de|d'|depuis|à partir de|fin|début|mi-)\\s*)("+ANON_MOIS_RE+")\\s+(\\d{4})\\b","gi"),(m,pre,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo));const dt=anonDateOf(15,mi+1,y);return pre+tok("DATE",m.slice(pre.length),anonRel(dt,ref).replace(/^J[+-]?\d+$/,"ce mois-ci"));});
+  R(anonRx("\\b(1er|\\d{1,2})\\s+("+ANON_MOIS_RE+")(?:\\s+(\\d{4}))?\\b","gi"),(m,d,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo));let yy=y?+y:ref.getFullYear();let dt=anonDateOf(d==="1er"?1:d,mi+1,yy);if(dt&&!y&&dt-ref>45*864e5)dt=anonDateOf(d==="1er"?1:d,mi+1,yy-1);return dateTok(m,dt);});
+  R(anonRx("\\b((?:en|de|d'|depuis|à partir de|fin|début|mi-)\\s*)("+ANON_MOIS_RE+")\\s+(\\d{4})\\b","gi"),(m,pre,mo,y)=>{const mi=ANON_MOIS.indexOf(anonNorm(mo));const dt=anonDateOf(15,mi+1,y);return pre+tok("DATE",m.slice(pre.length),anonRel(dt,ref).replace(/^J[+-]?\d+$/,"ce mois-ci"));});
   R(/\b((?:le|du|au|depuis le|dès le|jusqu'au|vu le|né le|née le|nee le|ne le)\s+)(\d{1,2})\s?[\/.]\s?(\d{1,2})\b(?!\s?[\/.]\s?\d)/gi,(m,pre,d,mo)=>{let dt=anonDateOf(d,mo,ref.getFullYear());if(dt&&dt-ref>45*864e5)dt=anonDateOf(d,mo,ref.getFullYear()-1);return dt?pre+dateTok(m.slice(pre.length),dt):m;});
   if(ddn){const dd=anonDigits(ctx.ddn);if(dd.length>=6)R(new RegExp("\\b"+dd+"\\b","g"),m=>tok("NAISSANCE",m,"ÂGE : "+anonAge(ddn,ref)));
     R(/\b((?:né|née|nee|ne)e?\s+en\s+)(\d{4})\b/gi,(m,pre,y)=>{if(+y!==ddn.getFullYear())return m;const p0=pre.replace(/en\s+$/i,"");return p0+tok("NAISSANCE",m.slice(p0.length),"ÂGE : "+anonAge(ddn,ref));});}
   /* 3. numéros longs (dossier, RPPS, sécurité sociale mal dictée), codes d'accès */
   R(/\b\d(?:[ .-]?\d){8,}\b/g,m=>tok("NUMÉRO",m));
+  /* 21/10/2026 (I.4) : numéro de dossier, IPP, RPPS, ADELI, FINESS, contrat : jamais en clair ; année seule (« AVC en 2019 ») : relative */
+  R(/\b((?:n[°o]\s*|num[ée]ro\s+(?:de\s+)?|dossier\s+(?:n[°o]\s*)?|ipp\s*|rpps\s*|adeli\s*|finess\s*|identifiant\s*|matricule\s*|contrat\s*):?\s*)(\d[\d .\-\/]{3,}\d)\b/gi,(m,pre,n)=>pre+tok("NUMÉRO",n));
+  R(/\b((?:19[2-9]|20[0-4])\d)\b(?!\s*(?:mg|ml|µg|mcg|g|ui|u|%|mmhg|kcal|cal|cm|mm|km|m²|m2|h|j|€|pas|cp|calories)\b)/gi,(m,y)=>{const yy=+y;const ry=ref.getFullYear();if(yy>ry+1)return m;const n=ry-yy;return tok("DATE",m,n<=0?"cette année":"il y a "+n+" an"+(n>1?"s":""),"Y|"+yy);});
   R(/\b(digicode|code porte|code d'entrée|code d'entree|code de la porte|code)\s*:?\s*([0-9]{2,}[A-Za-z]?|[A-Za-z][0-9]{2,})\b/gi,(m,k,c)=>k+" "+tok("CODE",c));
   /* 4. adresse : celle de la tournée, puis toute adresse dictée */
   /* la ville connue reste en clair : seule la partie précise (voie, lieu-dit, établissement) est cherchée telle quelle */
   const sansVille=a=>{let x=String(a||"").trim();const m=/^(.*?)[,\s]*\b\d{5}\s+(.+)$/.exec(x);if(m&&anonVille(m[2].trim()))x=m[1];else{const p=x.split(/,/);if(p.length>1&&anonVille(p[p.length-1].trim()))x=p.slice(0,-1).join(",");}return x.replace(/[,\s]+$/,"").trim();};
   [].concat(ctx.adresse||[]).map(sansVille).filter(a=>a.length>=5).sort((a,b)=>b.length-a.length).forEach(a=>{R(new RegExp(anonEsc(a).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));const v=a.split(/,/)[0].trim();if(v.length>=8&&v!==a)R(new RegExp(anonEsc(v).replace(/\s+/g,"\\s+"),"gi"),m=>tok("ADRESSE",m));});
   const voie="(?:rue|avenue|av\\.?|boulevard|bd|bld|place|pl\\.|allée|allee|impasse|imp\\.|chemin|route|rte|quai|cours|square|résidence|residence|lotissement|faubourg|fbg|passage|sentier|voie|hameau|cité|cite|mail|esplanade|promenade|rond-point|lieu-dit|lieudit|chaussée|venelle|ruelle|clos|domaine|parc)";
-  R(new RegExp("\\b\\d{1,4}\\s?(?:bis|ter|quater|[a-d])?\\s*,?\\s+"+voie+"\\b[^,.;:\\n()]{0,60}","gi"),m=>tok("ADRESSE",m.trim())+(/\s$/.test(m)?" ":""));
-  R(new RegExp("\\b"+voie+"\\s+(?:de\\s+la\\s+|de\\s+l'|de\\s+l’|du\\s+|des\\s+|de\\s+|d'|d’|la\\s+|le\\s+|les\\s+)?["+ANON_U+"0-9][\\p{L}'’\\-]*(?:\\s+(?:de\\s+la\\s+|de\\s+|du\\s+|des\\s+|d'|la\\s+|le\\s+)?["+ANON_U+"][\\p{L}'’\\-]*)*","gu"),m=>tok("ADRESSE",m));
-  R(new RegExp("\\b(?:F-)?\\d{5}\\s+(?:["+ANON_U+"][a-zà-öø-ÿ]{2,}|["+ANON_U+"]{3,})(?:[\\s-]+(?:sur|sous|en|de|la|le|les|lès|lez|aux|du|["+ANON_U+"][\\p{L}'’]+))*","gu"),m=>{if(/\b(?:UI|MG|ML)\b/.test(m))return m;const c=/^((?:F-)?\d{5})(\s+)(.+)$/.exec(m);return c&&anonVille(c[3])?tok("CODE POSTAL",c[1])+c[2]+c[3]:tok("ADRESSE",m);});
+  R(anonRx("\\b\\d{1,4}\\s?(?:bis|ter|quater|[a-d])?\\s*,?\\s+"+voie+"\\b[^,.;:\\n()]{0,60}","gi"),m=>tok("ADRESSE",m.trim())+(/\s$/.test(m)?" ":""));
+  R(anonRx("\\b"+voie+"\\s+(?:de\\s+la\\s+|de\\s+l'|de\\s+l’|du\\s+|des\\s+|de\\s+|d'|d’|la\\s+|le\\s+|les\\s+)?["+ANON_U+"0-9][\\p{L}'’\\-]*(?:\\s+(?:de\\s+la\\s+|de\\s+|du\\s+|des\\s+|d'|la\\s+|le\\s+)?["+ANON_U+"][\\p{L}'’\\-]*)*","gu"),m=>tok("ADRESSE",m));
+  R(anonRx("\\b(?:F-)?\\d{5}\\s+(?:["+ANON_U+"][a-zà-öø-ÿ]{2,}|["+ANON_U+"]{3,})(?:[\\s-]+(?:sur|sous|en|de|la|le|les|lès|lez|aux|du|["+ANON_U+"][\\p{L}'’]+))*","gu"),m=>{if(/\b(?:UI|MG|ML)\b/.test(m))return m;const c=/^((?:F-)?\d{5})(\s+)(.+)$/.exec(m);return c&&anonVille(c[3])?tok("CODE POSTAL",c[1])+c[2]+c[3]:tok("ADRESSE",m);});
   /* 4 bis. lieux précis : EHPAD, école, stade, commerce, employeur… (type lisible, nom masqué) et quartiers */
-  R(new RegExp("(?<![\\p{L}])("+cap1(ANON_LIEUX)+")([ \\t]+)(?!(?:M\\.|Mme|Mlle|Madame|Monsieur|Mademoiselle|Dr|Docteur|Pr)\\b)("+ART+"?"+NOMLIEU+")","gu"),(m,t,sp,nm)=>t+sp+tok("LIEU",nm));
-  R(new RegExp("(^|[^\\p{L}])((?:à|de|du|quartier)[ \\t]+)?("+ANON_QUARTIERS+")(?![\\p{L}])","gu"),(m,pre,de,q)=>pre+(de||"")+tok("LIEU",q));
+  R(anonRx("(?<![\\p{L}])("+cap1(ANON_LIEUX)+")([ \\t]+)(?!(?:M\\.|Mme|Mlle|Madame|Monsieur|Mademoiselle|Dr|Docteur|Pr)\\b)("+ART+"?"+NOMLIEU+")","gu"),(m,t,sp,nm)=>t+sp+tok("LIEU",nm));
+  R(anonRx("(^|[^\\p{L}])((?:à|de|du|quartier)[ \\t]+)?("+ANON_QUARTIERS+")(?![\\p{L}])","gu"),(m,pre,de,q)=>pre+(de||"")+tok("LIEU",q));
+  /* 21/10/2026 (I.2) : établissements, enseignes et lieux connus de l'agglomération (dictionnaire embarqué) */
+  s=anonOutside(s,p=>p.replace(ANON_ETAB_RX,m=>{const k=anonNorm(m).replace(/[\s-]+/g," ");if(!ANON_ETAB_SET.has(k)&&!ANON_ETAB_SET.has(k.replace(/ /g,"-")))return m;if(!/\s/.test(m.trim())&&!/^[A-ZÀ-Þ]/.test(m.trim()))return m;return tok("LIEU",m);}));
   /* 5. identité connue : patient, autres patients, médecin, proches nommés */
   const sp=ctx.nom||ctx.prenom?{nom:anonNameWords([ctx.nom]),prenom:anonNameWords([ctx.prenom])}:anonSplitName(ctx.patient);
   const nomW=new Set(anonNameWords(sp.nom).map(anonNorm)),preW=new Set(anonNameWords(sp.prenom).map(anonNorm));
   const autres=(ctx.autres||[]).map(x=>typeof x==="string"?{n:x,cat:"PERSONNE"}:x).filter(x=>x&&x.n);
   const autW={};autres.forEach(a=>anonNameWords([a.n]).forEach(w=>{const k=anonNorm(w);if(!nomW.has(k)&&!preW.has(k))autW[k]=a;}));
   const isStop=w=>ANON_GARDER.has(anonNorm(w))&&anonNorm(w).length<=3;
-  const wordRe=new RegExp("["+ANON_L+"][\\p{L}'’\\-]*","gu");
+  const wordRe=anonRx("["+ANON_L+"][\\p{L}'’\\-]*","gu");
   /* regroupe les mots consécutifs reconnus en un seul jeton */
   const runs=(p,classify)=>{const ms=[...p.matchAll(wordRe)];if(!ms.length)return p;let out="",last=0,i=0;
     while(i<ms.length){const c=classify(ms[i][0],ms[i].index,p);if(!c){i++;continue;}let j=i,end=ms[i].index+ms[i][0].length;const cats=[c];
@@ -16736,7 +16748,7 @@ function anonymize(text,ctx){
       const orig=p.slice(ms[i].index,end);out+=p.slice(last,ms[i].index)+c.make(orig,cats);last=end;i=j+1;}
     return out+p.slice(last);};
   const nameCls=(w)=>{const parts=[w,...w.split(/[’']/).slice(1)];for(const x of parts){const k=anonNorm(x);if(isStop(x)&&x!==x.toUpperCase())return null;
-      if((nomW.has(k)||preW.has(k))&&x===x.toLowerCase()&&(cour.has(k)||ANON_GARDER.has(k)))continue; /* « blanc », « rose » en minuscules : mot courant, pas le nom */
+      if((nomW.has(k)||preW.has(k))&&x===x.toLowerCase()&&(cour.has(k)||ANON_GARDER.has(k))&&!strict)continue; /* « blanc », « rose » en minuscules : mot courant, pas le nom (signalé comme doute ; masqué en mode strict) */
       if(nomW.has(k)||preW.has(k))return {grp:"pat",k,make:(orig,cs)=>{const ks=cs.map(c=>c.k);const allN=ks.every(z=>nomW.has(z)),allP=ks.every(z=>preW.has(z));const elid=/^[dl][’']/i.test(orig)&&!nomW.has(anonNorm(orig))&&!preW.has(anonNorm(orig))?orig.slice(0,2):"";const o=orig.slice(elid.length);return elid+tok("PATIENT",o,allN?"NOM DU PATIENT":allP?"PRÉNOM DU PATIENT":"PATIENT");}};
       if(autW[k]){const a=autW[k];return {grp:"aut"+a.n,make:(orig)=>{const elid=/^[dl][’']/i.test(orig)&&!autW[anonNorm(orig)]?orig.slice(0,2):"";return elid+tok(a.cat,orig.slice(elid.length),a.cat==="PERSONNE"?undefined:a.cat);}};}}
     return null;};
@@ -16745,8 +16757,8 @@ function anonymize(text,ctx){
   const pers=[];
   const capWords="((?:["+ANON_U+"][\\p{L}'’\\-]+(?:[ \\t]+|(?=[\\s.,;:!?)]|$))){1,3})";
   const relRe=ANON_REL.split("|").map(w=>"["+w[0]+w[0].toUpperCase()+"]"+w.slice(1)).join("|");
-  R(new RegExp("(\\b(?:"+ANON_CIV+")\\s+)"+capWords,"gu"),(m,pre,nm)=>{const n=nm.trim();if(!n||ANON_GARDER.has(anonNorm(n))&&anonNorm(n).length<=3)return m;pers.push(n);return pre+tok("PERSONNE",n)+(/\s$/.test(nm)?" ":"");});
-  R(new RegExp("(\\b(?:"+relRe+")\\s*,?\\s+(?:(?:"+ANON_CIV+")\\s+)?)"+capWords,"gu"),(m,pre,nm)=>{const n=nm.trim();if(!/^[A-ZÀ-ÞŒ]/.test(n)||ANON_GARDER.has(anonNorm(n.split(/\s+/)[0])))return m;pers.push(n);return pre+tok("PERSONNE",n)+(/\s$/.test(nm)?" ":"");});
+  R(anonRx("(\\b(?:"+ANON_CIV+")\\s+)"+capWords,"gu"),(m,pre,nm)=>{const n=nm.trim();if(!n||ANON_GARDER.has(anonNorm(n))&&anonNorm(n).length<=3)return m;pers.push(n);return pre+tok("PERSONNE",n)+(/\s$/.test(nm)?" ":"");});
+  R(anonRx("(\\b(?:"+relRe+")\\s*,?\\s+(?:(?:"+ANON_CIV+")\\s+)?)"+capWords,"gu"),(m,pre,nm)=>{const n=nm.trim();if(!/^[A-ZÀ-ÞŒ]/.test(n)||ANON_GARDER.has(anonNorm(n.split(/\s+/)[0])))return m;pers.push(n);return pre+tok("PERSONNE",n)+(/\s$/.test(nm)?" ":"");});
   /* les mêmes personnes citées ailleurs sans civilité */
   const persW={};pers.forEach(n=>n.split(/\s+/).forEach(w=>{w=w.replace(/\.$/,"");if(w.length>=2&&!ANON_GARDER.has(anonNorm(w)))persW[anonNorm(w)]=n;}));
   if(Object.keys(persW).length)s=anonOutside(s,p=>runs(p,w=>{const n=persW[anonNorm(w)];return n?{grp:"p"+n,make:o=>tok("PERSONNE",o)}:null;}));
@@ -16754,19 +16766,21 @@ function anonymize(text,ctx){
   const mq=new Set((ctx.masquer||[]).map(anonNorm).filter(Boolean));
   if(mq.size)s=anonOutside(s,p=>runs(p,w=>mq.has(anonNorm(w))?{grp:"mq",make:o=>tok("MASQUÉ",o)}:null));
   /* 8. noms propres restants : majuscule hors début de phrase (ou mot inconnu en début de phrase), capitales inconnues */
-  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(anonVille(k))return true;if(ANON_NOMS.has(k)&&!garder.has(k))return false;return ANON_GARDER.has(k)||lex.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
+  const known=w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");if(anonVille(k))return true;if(ANON_NOMS.has(k)&&!garder.has(k))return false;if(strict)return ANON_GARDER.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w));return ANON_GARDER.has(k)||lex.has(k)||med.has(k)||med.has(k.replace(/s$/,""))||garder.has(k)||garder.has(anonNorm(w))||lex.has(k.replace(/s$/,""))||lex.has(k.replace(/-/g," "));};
   s=anonOutside(s,(p,seg)=>runs(p,(w,idx,str)=>{
-    if(!new RegExp("^["+ANON_U+"]").test(w))return null;
-    const core=w.replace(/^[dlj][’']/i,"");if(core.length<2||!new RegExp("^["+ANON_U+"]").test(core))return null;
+    if(!anonRx("^["+ANON_U+"]").test(w))return null;
+    const core=w.replace(/^[dlj][’']/i,"");if(core.length<2||!anonRx("^["+ANON_U+"]").test(core))return null;
     if(/^[A-Z]{1,3}\d*$/.test(core))return null;                         /* sigle court : TA, FC, ECG */
     if(known(core)||core.split("-").every(known))return null;
     /* début de phrase : un mot à terminaison de mot courant ou médical (Neutropénie, Hospitalisée, Dyspnée) n'est pas un nom, sauf prénom ou nom fréquent */
     const before=str.slice(0,idx).replace(/[ \t]+$/,"");const start=before?/[.!?:;\n•\-–—(«"]$/.test(before):seg===0;
-    if(start&&core!==core.toUpperCase()&&!ANON_NOMS.has(anonNorm(core))&&ANON_SUFFIXE.test(anonNorm(core)))return null;
+    if(start&&!strict&&core!==core.toUpperCase()&&!ANON_NOMS.has(anonNorm(core))&&ANON_SUFFIXE.test(anonNorm(core)))return null;
     return {grp:"np",make:o=>{const el=/^[dlj][’']/i.test(o)?o.slice(0,2):"";return el+tok("NOM PROPRE",o.slice(el.length));}};
   }));
+  if(strict)R(/\b\d{4,}\b(?!\s*(?:mg|ml|µg|mcg|g|ui|u|%|mmhg|kcal|cal|cm|mm|km|m²|m2|h|j|€|pas|cp)\b)/gi,m=>tok("NUMÉRO",m)); /* strict : tout nombre d'au moins 4 chiffres */
   s=s.replace(/\[\[§(\d+)\]\]/g,(m,i)=>keep[+i]);   /* établissements de soins remis en clair */
-  return {text:s,map,items};
+  const _ms=performance.now()-_t0;anonymize._ms=_ms;
+  return {text:s,map,items,ms:_ms};
 }
 /* Contrôle final avant envoi : aucun fragment d'identité ne doit subsister. → liste des fuites [{cat, frag}] */
 function anonLeaks(text,ctx){
@@ -16789,6 +16803,11 @@ function anonLeaks(text,ctx){
   const di=t.match(new RegExp("\\b(?:du|entre le|entre)\\s+(?:1er|\\d{1,2})\\s+(?:au|et le|et)\\s+(?:1er|\\d{1,2})\\s*(?:"+ANON_MOIS_RE+"|[\\/.]\\s?\\d{1,2})","gi"))||[];di.forEach(x=>leaks.push({cat:"intervalle de dates",frag:x}));
   if(/(?:(?:\+|00)33|\b0)[1-9](?:[\s.-]?\d{2}){4}\b/.test(t))leaks.push({cat:"téléphone",frag:"numéro de téléphone"});
   if(/[\w.+-]+@[\w-]+\.[\w.-]+/.test(t))leaks.push({cat:"courriel",frag:"adresse électronique"});
+  /* 21/10/2026 (I.1) — second contrôle indépendant : formes approchées de l'identité (faute d'une lettre, mot coupé, mots collés), sur le texte en minuscules sans accents ; chiffres espacés ou à points déjà réunis (runs) */
+  {const H=(S,k)=>!!(S&&typeof S.has==="function"&&S.has(k));const idW=[...new Set(words.map(w=>anonNorm(w).replace(/[^a-z0-9']/g,"")).filter(w=>w.length>=4&&!ANON_GARDER.has(w)))];const toks=nt.trim().split(/\s+/).filter(Boolean);const tset=new Set(toks);
+   idW.forEach(w=>{if(w.length>=5&&!tset.has(w))toks.forEach(t=>{if(t.length>=5&&t!==w&&!H(cour,t)&&!H(lex,t)&&!ANON_GARDER.has(t)&&anonLev1(t,w))leaks.push({cat:"nom (forme approchée)",frag:t});});
+     for(let i=0;i+1<toks.length;i++){if(toks[i].length>=2&&toks[i+1].length>=2&&toks[i]+toks[i+1]===w)leaks.push({cat:"nom (coupé)",frag:toks[i]+" "+toks[i+1]});}
+     toks.forEach(t=>{if(t.length>w.length+1&&t.includes(w)&&!H(lex,t)&&!H(cour,t)&&!ANON_GARDER.has(t)&&idW.some(o=>o!==w&&t.includes(o)))leaks.push({cat:"nom (collé)",frag:t});});});}
   const seen=new Set();return leaks.filter(l=>{const k=l.cat+"|"+l.frag;if(seen.has(k))return false;seen.add(k);return true;});
 }
 /* Réintégration sur l'appareil : chaque jeton reprend sa valeur d'origine. Jeton inconnu → signalé, jamais laissé dans un document. */
@@ -16801,10 +16820,42 @@ function aiDoseGuard(text){const found=[];const sents=String(text||"").split(/(?
 /* Un fait ne se crée pas : tout nombre ou horaire de la réponse doit exister dans ce qui a été envoyé ; aucun nombre envoyé ne doit disparaître d'une reformulation. */
 function aiNums(s){return (String(s||"").replace(/\[\[[^\]]*\]\]/g," ").replace(/[\p{L}]+\d[\p{L}\d]*/gu," ").match(/\d+(?:[.,]\d+)?/g)||[]).map(x=>x.replace(",","."));}
 function aiFactGuard(src,out,strict){const a=aiNums(src),b=aiNums(out);const added=[...new Set(b.filter(x=>!a.includes(x)))];const missing=strict?[...new Set(a.filter(x=>!b.includes(x)))]:[];return {ok:!added.length&&!missing.length,added,missing};}
+/* ===== 21/10/2026 (v41z, demande globale I) — anonymisation plus solide : dictionnaires embarqués, second contrôle indépendant, doutes à confirmer, mode strict ===== */
+/* distance d'édition ≤ 1 (une lettre en plus, en moins ou changée) */
+function anonLev1(a,b){if(a===b)return true;const la=a.length,lb=b.length;if(Math.abs(la-lb)>1)return false;let i=0,j=0,d=0;while(i<la&&j<lb){if(a[i]===b[j]){i++;j++;continue;}if(++d>1)return false;if(la>lb)i++;else if(la<lb)j++;else{i++;j++;}}return d+(la-i)+(lb-j)<=1;}
+/* expressions compilées une seule fois (II.6) : même motif → même objet */
+const _anonRx={};let _anonRxN=0;
+function anonRx(src,flags){const k=(flags||"")+"|"+src;let r=_anonRx[k];if(!r){if(_anonRxN>400){for(const x in _anonRx)delete _anonRx[x];_anonRxN=0;}r=_anonRx[k]=new RegExp(src,flags||"");_anonRxN++;}return r;}
+/* prénoms et noms de famille fréquents (complément, France) */
+("alexis alexandra amandine anais anaïs angele angélique antonin arnaud aurelien aurélien axel baptiste bastien benjamin benoit bruno carole caroline cedric cédric charlotte chantal christian christiane claire corinne cyril damien delphine denis didier dominique edith elise élise elodie émilie emmanuel eric estelle fabien fabienne fabrice florent florian franck gaelle gaël gaétan gilles guillaume gwenaelle helene hélène herve hugo ines jacky jean-pierre jean-claude jean-luc jean-marc jean-michel jean-paul jeremy jérémy jessica joel joël johanna jonathan josiane justine karine laetitia laura laure laurent lionel loic loïc lucas ludovic lydie magali manon marc marcel marion marlene martine mathilde mathieu maxence melanie mélanie mickael mickaël morgane myriam nadege nadia nathan noemie noémie oceane pascal pascale paulette pauline philippe pierrick quentin raymond regis régis remi rémi richard roland romain roxane sabine sabrina samuel sandra sarah serge severine simon solene stephane sylvain thierry thibault thibaut tiphaine tony valentin valentine vanessa victor vincent virginie xavier yann yannick yohann yvan yvonne zoe zoé " +
+ "adam amine ayoub bilal hamza ilyes imane ines karim khadija lina mehdi meriem mohammed moussa nadir nour omar rayan salma samir sofiane soraya yacine yasmina youssef zakaria " +
+ "allard andre barre bazin beaumont bellanger berger bernard bertin besnard billard blin blondel bodin bonnet bouchet boulet bourdon bourgeois bourquin brault briand brossard brunel buisson cadiou carlier chapuis chartier chauvin chauvet chevalier clement collin cordier cornu couturier dauphin delahaye delaunay delmas delorme descamps desprez devaux dubosc duchemin duhamel dumoulin dupre durieux duvivier ferreira fischer fleury foucher fouquet gaudin gauthier gay gillet godard gosselin goujon grandjean gros guichard guillet guyon hamon hardy hoarau humbert jacob jacquot jean joubert jourdan julien lacombe lagarde lamy langlois laporte laurent lebrun lecoq leduc lefort legendre legros lejeune lelievre lemaitre lenoir leroux levy lombard loiseau lucas maillot marchal marechal marie marquet martel masse mathieu maurice menard michaud michel monnier moreau morvan navarro nguyen nicolas olivier pages paris parmentier pasquier pelletier perrier petitjean philippe picard pichon pineau pinto pons potier pruvost rabier raynaud regnier remy renard richard rodrigues rossi rouge roussel sauvage schmitt seguin silva tanguy teixeira tessier thibault thomas toussaint vallet vidal vigneron vincent voisin weber").split(/\s+/).forEach(w=>ANON_NOMS.add(anonNorm(w)));
+/* communes du Loiret : en clair (consigne du 15/10/2026 étendue au département) ; tout autre lieu précis reste masqué */
+("amilly ardon artenay ascoux ascheres-le-marche autruy-sur-juine auvilliers-en-gatinais auxy baccon barville-en-gatinais batilly-en-gatinais batilly-en-puisaye baule bazoches-les-gallerandes bazoches-sur-le-betz beauchamps-sur-huillard beaugency beaulieu-sur-loire beaune-la-rolande bellegarde boesses boigny-sur-bionne boiscommun boismorand bondaroy bonnee bonny-sur-loire bordeaux-en-gatinais bou bouilly-en-gatinais boulay-les-barres bouzonville-aux-bois bouzy-la-foret boynes bray-saint-aignan breteau briare briarres-sur-essonne bricy bromeilles bucy-le-roi bucy-saint-liphard la-bussiere cepoy cercottes cerdon cesarville-dossainville chailly-en-gatinais chaingy chalette-sur-loing chambon-la-foret champoulet chanteau chantecoq la-chapelle-onzerain la-chapelle-saint-mesmin la-chapelle-saint-sepulcre la-chapelle-sur-aveyron chapelon le-charme charmont-en-beauce charsonville chateauneuf-sur-loire chateau-renard chatenoy chatillon-coligny chatillon-le-roi chatillon-sur-loire chaussy checy chevannes chevillon-sur-huillard chevilly chevry-sous-le-bignon chilleurs-aux-bois chuelles clery-saint-andre coinces combleux combreux conflans-sur-loing corbeilles corquilleroy cortrat coudroy coullons coulmiers courcelles courcy-aux-loges la-cour-marigny courtemaux courtempierre courtenay cravant crottes-en-pithiverais dadonville dammarie-en-puisaye dammarie-sur-loing dampierre-en-burly darvoy desmonts dimancheville donnery dordives douchy-montcorbon dry echilleuses egry engenville epieds-en-beauce erceville ervauville escrennes escrignelles estouy faronville faverelles fay-aux-loges feins-en-gatinais ferolles ferrieres-en-gatinais fleury-les-aubrais fontenay-sur-loing foucherolles freville-du-gatinais gaubertin gemigny germigny-des-pres gidy gien girolles givraines gondreville grangermont greneville-en-beauce griselles guigneville guilly gy-les-nonains huetre huisseau-sur-mauves ingrannes ingre intville-la-guetard isdes jargeau jouy-en-pithiverais jouy-le-potier juranville laas ladon lailly-en-val langesse leouville ligny-le-ribault lion-en-beauce lion-en-sullias lombreuil lorcy lorris loury louzouer mainvilliers malesherbes le-malesherbois manchecourt marcilly-en-villette mardie mareau-aux-bois mareau-aux-pres marigny-les-usages marsainvilliers melleroy menestreau-en-villette merinville messas meung-sur-loire mezieres-en-gatinais mezieres-lez-clery migneres mignerette montargis montbarrois montbouy montcresson montereau montigny montliard mormant-sur-vernisson le-moulinet-sur-solin moulon nancray-sur-rimarde nargis nesploy neuville-aux-bois la-neuville-sur-essonne neuvy-en-sullias nevoy nibelle nogent-sur-vernisson noyers oison olivet ondreville-sur-essonne orleans ormes orveau-bellesauve orville oussoy-en-gatinais ousson-sur-loire outarville ouvrouer-les-champs ouzouer-des-champs ouzouer-sous-bellegarde ouzouer-sur-loire ouzouer-sur-trezee pannecieres pannes patay paucourt pers-en-gatinais pierrefitte-es-bois pithiviers pithiviers-le-vieil poilly-lez-gien prefontaines presnoy pressigny-les-pins puiseaux quiers-sur-bezonde ramoulu rebrechien rouvray-sainte-croix rouvres-saint-jean rozieres-en-beauce ruan saint-aignan-des-gues saint-aignan-le-jaillard saint-ay saint-benoit-sur-loire saint-brisson-sur-loire saint-cyr-en-val saint-denis-de-l'hotel saint-denis-en-val saint-firmin-des-bois saint-firmin-sur-loire saint-florent saint-germain-des-pres saint-gondon saint-hilaire-les-andresis saint-hilaire-saint-mesmin saint-hilaire-sur-puiseaux saint-jean-de-braye saint-jean-de-la-ruelle saint-jean-le-blanc saint-loup-des-vignes saint-loup-de-gonois saint-lye-la-foret saint-martin-d'abbat saint-martin-sur-ocre saint-maurice-sur-aveyron saint-maurice-sur-fessard saint-michel saint-pere-sur-loire saint-pryve-saint-mesmin saint-sigismond sainte-genevieve-des-bois sandillon santeau saran sceaux-du-gatinais seichebrieres la-selle-en-hermoy la-selle-sur-le-bied semoy sennely sermaises sigloy solterre sougy sully-la-chapelle sully-sur-loire sury-aux-bois tavers thignonville thimory thorailles thou tigy tivernon tournoisis trainou treilles-en-gatinais trigueres trinay vannes-sur-cosson varennes-changy vennecy vieilles-maisons-sur-joudry vienne-en-val viglain villamblain villemandeur villemoutiers villemurlin villeneuve-sur-conie villereau villevoques villorceau vimory vitry-aux-loges vrigny yevre-la-ville").split(/\s+/).forEach(v=>ANON_VILLES.add(anonNorm(v)));
+/* établissements, enseignes et lieux connus de l'agglomération (masqués même sans mot de type ; nom d'un seul mot : seulement avec une majuscule). À compléter dans « Toujours masquer ». */
+const ANON_ETAB=["korian","orpea","domusvi","colisee","emera","les jardins d'arcadie","les senioriales","lycee pothier","lycee benjamin-franklin","lycee jean-zay","lycee voltaire","lycee charles-peguy","lycee sainte-croix","lycee saint-euverte","lycee gaudier-brzeska","lycee maurice-genevoix","lycee jacques-monod","lycee francois-villon","college jean-rostand","college etienne-dolet","college anne-frank","college jeanne-d'arc","college saint-paul","college alain-fournier","college pierre-de-coubertin","college andre-malraux","college montesquieu","college pierre-mendes-france","universite d'orleans","campus de la source","iut d'orleans","place d'arc","cap saran","centre commercial auchan","auchan","carrefour","leclerc","intermarche","super u","hyper u","lidl","aldi","monoprix","franprix","casino","decathlon","ikea","leroy merlin","castorama","bricomarche","darty","fnac","kiabi","mcdonald's","mcdo","burger king","kfc","quick","subway","flunch","buffalo grill","zenith d'orleans","palais des sports","parc floral","parc pasteur","jardin des plantes","gare des aubrais","gare d'orleans","aquarium","pole emploi","france travail"].map(anonNorm);
+const ANON_ETAB_SET=new Set(ANON_ETAB);
+const ANON_ETAB_RX=(()=>{const cl={a:"[aàâä]",e:"[eéèêë]",i:"[iîï]",o:"[oôö]",u:"[uùûü]",c:"[cç]"};const one=n=>n.split("").map(ch=>ch===" "?"[\\s-]+":ch==="-"?"[\\s-]+":ch==="'"?"[’']":cl[ch]?cl[ch]:ch.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("");return new RegExp("(?<![\\p{L}])(?:"+ANON_ETAB.slice().sort((a,b)=>b.length-a.length).map(one).join("|")+")(?![\\p{L}])","giu");})();
+/* doutes (I.5) : mots laissés en clair qui méritent une confirmation — majuscule inconnue des dictionnaires, ressemblance avec le nom, homonyme du nom, numéro, année */
+function anonDoubts(an,ctx){ctx=ctx||{};const out=[],seen=new Set();const t=String(an&&an.text||"");const H=(s,k)=>!!(s&&typeof s.has==="function"&&s.has(k));
+  const lex=ctx.lexique,med=ctx.medicaments,cour=ctx.courants;const garder=new Set((ctx.garder||[]).map(anonNorm));
+  const sp=ctx.nom||ctx.prenom?{nom:[ctx.nom],prenom:[ctx.prenom]}:anonSplitName(ctx.patient);
+  const idW=anonNameWords([...(sp.nom||[]),...(sp.prenom||[]),...(ctx.autres||[]).map(x=>typeof x==="string"?x:x&&x.n)]).map(w=>anonNorm(w).replace(/[^a-z0-9']/g,"")).filter(w=>w.length>=4); /* les homonymes de mots courants (Petit, Blanc) restent des mots du nom : à confirmer */
+  const push=(w,why)=>{const k=anonNorm(w);if(seen.has(k)||garder.has(k))return;seen.add(k);out.push({w,why});};
+  anonOutside(t,p=>{(p.match(/[\p{L}][\p{L}'’\-]*|\d{5,}/gu)||[]).forEach(w=>{const k=anonNorm(w).replace(/^[dlj]'/,"");
+    if(/^\d{5,}$/.test(w)){push(w,"numéro");return;}
+    if(k.length<3||anonVille(k)||H(med,k)||H(med,k.replace(/s$/,"")))return;
+    if(w.length>=2&&w===w.toUpperCase()&&/^[A-ZÀ-Þ][A-ZÀ-Þ'’\-]*$/.test(w))return; /* intitulés en capitales de la requête (CONTRE-APPEL, DEMANDE…) : un nom en capitales est masqué par ailleurs */
+    const near=idW.find(n=>k===n||(k.length>=5&&anonLev1(k,n))||(k.length>=6&&n.length>=6&&(k.includes(n)||n.includes(k))));
+    if(near){push(w,k===near?"homonyme du nom":"ressemble au nom");return;}
+    if(ANON_GARDER.has(k))return;
+    if(/^[A-ZÀ-Þ]/.test(w)&&!/^[A-Z]{1,3}\d*$/.test(w)&&!H(lex,k)&&!H(lex,k.replace(/s$/,""))&&!H(lex,k.replace(/-/g," ")))push(w,"majuscule inconnue");});return p;});
+  (t.replace(/\[\[[^\]]*\]\]/g," ").match(/\b(?:19|20)\d{2}\b/g)||[]).forEach(y=>push(y,"année"));
+  return out;}
 /*ANON-END*/
 /* ===== v41 — Assistant IA facultatif (CDC § 7) : modes Aucun / Partiel / Complet, anonymisation locale, écran « Ce qui part », réintégration sur l'appareil, consommation et plafond =====
    Jamais sur le chemin critique : pack, doses et documents restent instantanés et hors ligne. Les posologies viennent des fiches, jamais de l'IA. */
-const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande",doc:"demande"},cap:10,alert:80,alerted:"",auto:"on",send:"ecran"},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],res:null};
+const AI={key:"",cfg:{mode:"aucun",fn:{obs:"demande",cr:"demande",let:"demande",doc:"demande"},cap:10,alert:80,alerted:"",auto:"on",send:"ecran",alwaysMask:[],alwaysKeep:[]},busy:false,tab:"obs",use:[],pending:null,masquer:[],garder:[],okw:[],strict:false,res:null,ctl:null,stopped:false,perf:[]};
 /* 20/10/2026 : cfg.auto = « après une dictée, préparer automatiquement » (on/off) ; cfg.send = « envoi automatique après pseudonymisation sur l'appareil » (auto) ou « écran Ce qui part à chaque fois » (ecran). Réglages persistants (chiffrés avec la clé). */
 const AI_FN={obs:"Dictée → observation",plan:"Dictée → synthèse",cr:"Compte rendu",let:"Courrier",doc:"Document ou image"};
 const AI_MODEL={redac:"claude-sonnet-5-5",tri:"claude-haiku-5-5"};          /* Sonnet pour rédiger, Haiku pour trier et tester */
@@ -16869,7 +16920,7 @@ function aiLexique(){if(_aiLex)return _aiLex;const s=new Set(),c=new Set();const
 function aiAnonCtx(){const stop=(typeof TOUR!=="undefined"&&TOUR.current)?tourStop(TOUR.current):null;const nh=state.nh||{};
   const doc=String(DOCTOR.nom||"").replace(/^(Docteur|Dr\.?)\s+/i,"");
   const autres=[...(state.copat||[]).map(c=>c&&c.patient).filter(Boolean).map(n=>({n,cat:"AUTRE PATIENT"})),...(stop&&stop.nom&&norm(stop.nom)!==norm(state.patient||"")?[{n:stop.nom,cat:"AUTRE PATIENT"}]:[]),...(doc&&!/SP[ÉE]CIMEN/i.test(doc)?[{n:doc,cat:"MÉDECIN"}]:[]),...(DOCTOR.assoc||[]).map(a=>({n:String(a).replace(/^(Docteurs?|Drs?\.?)\s+/i,""),cat:"MÉDECIN"})),...(nh.temoin?[{n:nh.temoin,cat:"PERSONNE"}]:[])];
-  return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:AI.masquer,garder:AI.garder,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
+  return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:[...AI.masquer,...((AI.cfg.alwaysMask||[]))],garder:[...AI.garder,...((AI.cfg.alwaysKeep||[]))],strict:!!AI.strict,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
 /* Données cliniques sans identité : l'âge remplace la date de naissance */
 function ageLabel(){const a=ageY();if(!a)return "";if(a.m<24)return a.m+" mois";return a.y+" ans";}
 function aiAgeText(){const d=anonParseDDN(state.ddn);return d?anonAge(d,anonParseDDN(normDate(state.date))||new Date()):"";}
@@ -16919,7 +16970,7 @@ function aiPacksList(){return PACKS.map(p=>p.n).join("\n");}
 function aiMemoPoints(p){if(!p)return [];const m=p.s.find(sh=>sh.k==="memo");if(!m)return [];return m.l.map(l=>typeof l==="string"?l:l.t).filter(t=>/tra[çc]abilit|v[ée]rification|bloquant|documenter|gravit[ée]|reconsult/i.test(t)).slice(0,12);}
 function aiPrepare(kind,opt){opt=opt||{};
   const eff=aiEffective();const offq=aiOfflineOnly();if(eff.mode==="aucun"&&!offq){if(opt.silent){aiStatus("IA coupée"+(eff.why?" : "+eff.why:""));return null;}alert("IA coupée"+(eff.why?" : "+eff.why:"")+". Rien n'est envoyé.");return null;}
-  const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}  /* masquages manuels : propres à ce patient */
+  const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];AI.okw=[];AI.strict=false;}  /* masquages manuels : propres à ce patient */
   const ctx=aiAnonCtx();const p=currentPack();let system,parts,build,maxT,fns;
   if(kind==="obs"){const d=String(opt.dictee||"").trim();if(!d){alert("Dictée vide.");return null;}
     system=AI_SYS_OBS+"\n\nAPPAREILS (clés d'examen) : "+SYSTEMS.map(([k,l])=>k+" = "+l).join(" ; ")+"\n\nLISTE DES FICHES :\n"+aiPacksList();
@@ -16941,66 +16992,138 @@ function aiPrepare(kind,opt){opt=opt||{};
   /* jetons du patient toujours réintégrables, même si son nom n'apparaît pas dans le texte envoyé */
   {const sp=anonSplitName(state.patient||"");const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(an.map[k]===undefined)an.map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom.join(" ")||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom.join(" ")||state.patient||dflt);}
   const outParts=an.text.split(SEP);const user=build(outParts);
-  const leaks=anonLeaks(user,ctx);const model=AI_MODEL.redac;
+  const leaks=anonLeaks(user,ctx);const model=aiModelFor(kind,fns);const doubts=anonDoubts({text:user},ctx);anonPerfAdd(an.ms||0,parts.join(SEP).length,false);
   const est=aiEur(model,{input_tokens:Math.round((system.length+user.length)/3.2),output_tokens:Math.round(maxT*0.5)});
-  AI.pending={kind,opt,fns,ctx,system,user,map:an.map,items:an.items,leaks,model,maxT,est,pid:state.t0||Date.now()};
+  AI.pending={kind,opt,fns,ctx,system,user,map:an.map,items:an.items,leaks,doubts,anonMs:an.ms||0,model,maxT,est,pid:state.t0||Date.now()};
   if(offq){aiqAdd(AI.pending);AI.pending=null;if(opt.silent)aiStatus("hors connexion : demande gardée sur l'appareil");return null;} /* n° 6 : hors connexion, mise en attente sur l'appareil */
   /* 20/10/2026 : envoi automatique (réglage « send: auto ») après pseudonymisation sur l'appareil, seulement si aucun fragment d'identité ne subsiste ; sinon l'écran « Ce qui part » est forcé */
-  if(opt.silent&&aiSendAuto()&&!leaks.length){aiStatus("envoi…");aiSend();return AI.pending;}
+  if(opt.silent&&aiSendAuto()&&!leaks.length&&!aiDoubtsLeft(AI.pending).length){aiStatus("envoi…");aiSend();return AI.pending;}
   aiSendScreen();return AI.pending;}
 
-/* ---- Écran « Ce qui part » : le texte exact, ce qui a été retiré, le coût ; rien ne part sans « Envoyer » ---- */
-function aiSentHTML(u){return String(u).split(/(\[\[[^\]]*\]\])/).map((p,i)=>i%2?`<mark class="aitok" data-tok="${esc(p.slice(2,-2))}">${esc(p)}</mark>`:p.split(/([\p{L}][\p{L}'’\-]+)/u).map((q,k)=>k%2?`<span class="aiw" data-w="${esc(q)}">${esc(q)}</span>`:esc(q)).join("")).join("");}
+/* ===== 21/10/2026 (v41z, demande globale II et III) — anonymisation à la volée (worker), écran « Ce qui part » avec doutes à confirmer et mode strict, modèles par étape, réponse en flux bornée (40 s + 20 s), consommation détaillée ===== */
+const AI_BOUNDS={t1:40000,t2:20000,total:60000}; /* III.10 : premier essai 40 s ; une seule relance sur le modèle rapide, 20 s ; 60 s au total, puis arrêt net ; aucune boucle */
+function aiModelFor(kind,fns){return (kind==="cr"&&(fns||[]).includes("let"))?AI_MODEL.redac:AI_MODEL.tri;} /* III.8 : rapide pour l'observation, les suggestions et la relecture ; complet pour le courrier et le compte rendu */
+function aiModelLabel(m){return /haiku/i.test(m)?"Haiku (rapide)":/sonnet/i.test(m)?"Sonnet (complet)":String(m||"");}
+function aiNetWeak(){try{const c=navigator.connection;if(!c)return "";if(/slow-2g|2g/.test(String(c.effectiveType||"")))return c.effectiveType;if(c.downlink&&c.downlink<0.5)return c.downlink+" Mb/s";}catch(e){}return "";}
+/* ---- worker d'anonymisation : même code que l'écran « Ce qui part » (bloc ANON-START … ANON-END), dictionnaires envoyés une fois ---- */
+let _anonW=null,_anonWInit=false,_anonWCb={},_anonWId=0;
+function anonWorker(){if(_anonW!==null)return _anonW;try{if(typeof Worker==="undefined"||typeof Blob==="undefined")return _anonW=false;const src=[...document.scripts].map(s=>s.textContent||"").find(t=>t.includes("/*ANON-START*/")&&t.includes("/*ANON-END*/"));if(!src)return _anonW=false;
+  const code=src.slice(src.indexOf("/*ANON-START*/"),src.indexOf("/*ANON-END*/"));
+  const glue=";var DICT={};self.onmessage=function(e){var d=e.data;if(d.init){DICT={};['lexique','courants','medicaments'].forEach(function(k){DICT[k]=new Set(d.init[k]||[]);});return;}try{var c=Object.assign({},d.ctx,DICT);var t0=performance.now();var an=anonymize(d.text,c);var leaks=anonLeaks(an.text,c);var doubts=anonDoubts(an,c);self.postMessage({id:d.id,ok:true,ms:performance.now()-t0,n:an.items.length,leaks:leaks.map(function(l){return l.cat+' « '+l.frag+' »';}),doubts:doubts.length});}catch(err){self.postMessage({id:d.id,ok:false,err:String(err&&err.message||err)});}};";
+  _anonW=new Worker(URL.createObjectURL(new Blob([code+glue],{type:"text/javascript"})));_anonW.onmessage=e=>{const r=e.data||{};const cb=_anonWCb[r.id];delete _anonWCb[r.id];if(cb)cb(r);};_anonW.onerror=()=>{};return _anonW;}catch(e){return _anonW=false;}}
+function anonAsync(text,ctx){return new Promise(res=>{const w=anonWorker();const sync=()=>{const t0=performance.now();try{const an=anonymize(text,ctx);const leaks=anonLeaks(an.text,ctx);const doubts=anonDoubts(an,ctx);res({ok:true,ms:performance.now()-t0,n:an.items.length,leaks:leaks.map(l=>l.cat+" « "+l.frag+" »"),doubts:doubts.length,sync:true});}catch(e){res({ok:false,err:String(e&&e.message||e)});}};
+  if(!w)return sync();
+  if(!_anonWInit){_anonWInit=true;try{w.postMessage({init:{lexique:[...(ctx.lexique||[])],courants:[...(ctx.courants||[])],medicaments:[...(ctx.medicaments||[])]}});}catch(e){_anonW=false;return sync();}}
+  const id=++_anonWId;const c=Object.assign({},ctx);delete c.lexique;delete c.courants;delete c.medicaments;const guard=setTimeout(()=>{if(_anonWCb[id]){delete _anonWCb[id];sync();}},4000);_anonWCb[id]=r=>{clearTimeout(guard);res(r);};
+  try{w.postMessage({id,text,ctx:c});}catch(e){clearTimeout(guard);delete _anonWCb[id];_anonW=false;sync();}});}
+function anonPerfAdd(ms,chars,live){AI.perf=AI.perf||[];AI.perf.push({ts:Date.now(),ms:Math.round(ms*10)/10,chars,live:!!live});if(AI.perf.length>200)AI.perf.splice(0,AI.perf.length-200);}
+function aiPerfLine(){const P=(AI.perf||[]);if(!P.length)return "aucune mesure";const ms=P.map(x=>x.ms).sort((a,b)=>a-b);const med=ms[Math.floor(ms.length/2)],max=ms[ms.length-1];const ch=Math.round(P.reduce((a,x)=>a+x.chars,0)/P.length);return "médiane "+Math.round(med)+" ms, maximum "+Math.round(max)+" ms pour "+ch+" caractères en moyenne ("+P.length+" mesure"+(P.length>1?"s":"")+", cet appareil)";}
+/* anonymisation à la volée pendant la dictée (II.6) : résultat affiché sous le champ, rien n'est envoyé */
+function anonLiveSoon(text){clearTimeout(anonLiveSoon._t);anonLiveSoon._t=setTimeout(()=>anonLive(text),500);}
+async function anonLive(text){const el=document.getElementById("dict_anon");if(!el)return;const t=String(text||"");if(t.trim().length<10){el.textContent="";el.classList.remove("bad");return;}
+  let ctx;try{ctx=aiAnonCtx();}catch(e){return;}const r=await anonAsync(t,ctx);const cur=document.getElementById("dict_anon");if(!cur||!r.ok)return;anonPerfAdd(r.ms,t.length,true);
+  cur.textContent=(r.leaks.length?"⚠ identité encore lisible : "+r.leaks.slice(0,3).join(", ")+" — ":"✓ ")+r.n+" élément"+(r.n>1?"s":"")+" masqué"+(r.n>1?"s":"")+(r.doubts?" · "+r.doubts+" à confirmer":"")+" · "+Math.round(r.ms)+" ms";cur.classList.toggle("bad",!!r.leaks.length);}
+/* ---- réglages : listes personnelles (I.3), mémorisées chiffrées avec la clé ---- */
+function aiPersoSettingsHTML(){return `<div class="nhopts aiperso"><label>Toujours masquer <input id="ai_amask" value="${esc((AI.cfg.alwaysMask||[]).join(", "))}" placeholder="confrères, régulateurs, établissements…" autocomplete="off"></label><label>Toujours garder <input id="ai_akeep" value="${esc((AI.cfg.alwaysKeep||[]).join(", "))}" placeholder="abréviations, médicaments…" autocomplete="off"></label><button type="button" class="btn s sm" id="ai_perso">Enregistrer</button><span class="hint">Listes personnelles (séparées par des virgules), mémorisées chiffrées sur l'appareil ; le nom du patient, ses proches et ses numéros sont toujours masqués.</span></div>`;}
+/* ---- Écran « Ce qui part » (II.7, I.5) : texte masqué, jetons en surbrillance, mots à confirmer, un seul bouton « Envoyer » ---- */
+function aiSentHTML(u,doubts){const dset=new Set((doubts||[]).map(d=>anonNorm(d.w)));return String(u).split(/(\[\[[^\]]*\]\])/).map((p,i)=>i%2?`<mark class="aitok" data-tok="${esc(p.slice(2,-2))}">${esc(p)}</mark>`:p.split(/([\p{L}][\p{L}'’\-]+|\d{4,})/u).map((q,k)=>k%2?(dset.has(anonNorm(q))?`<mark class="aidoubt aiw" data-w="${esc(q)}" title="À confirmer : toucher">${esc(q)}</mark>`:`<span class="aiw" data-w="${esc(q)}">${esc(q)}</span>`):esc(q)).join("")).join("");}
+function aiDoubtsLeft(P){return (P&&P.doubts||[]).filter(d=>!AI.okw.some(k=>anonNorm(k)===anonNorm(d.w)));}
+function aiWordChoice(ev,w,isTok,redo){let pop=document.getElementById("aiwchoice");if(pop)pop.remove();pop=document.createElement("div");pop.id="aiwchoice";
+  const add=(k,lbl)=>`<button type="button" class="btn s sm" data-wc="${k}">${lbl}</button>`;
+  pop.innerHTML=`<div class="hint">« ${esc(w)} »</div>${isTok?add("garder","Rendre en clair (ce patient)"):add("masquer","Masquer (ce patient)")+add("garder","Garder (ce patient)")}${add("tmasquer","Toujours masquer")}${add("tgarder","Toujours garder")}${add("x","Fermer")}`;
+  document.body.appendChild(pop);try{const r=ev.target.getBoundingClientRect();pop.style.left=Math.max(6,Math.min(window.innerWidth-pop.offsetWidth-6,r.left))+"px";pop.style.top=Math.max(6,Math.min(window.innerHeight-pop.offsetHeight-6,r.bottom+6))+"px";}catch(e){}
+  const nrm=anonNorm(w);const words=String(w).split(/\s+/).filter(Boolean);const same=(a,b)=>anonNorm(a)===anonNorm(b);
+  pop.querySelectorAll("[data-wc]").forEach(b=>b.onclick=()=>{const k=b.dataset.wc;pop.remove();
+    if(k==="masquer"){AI.garder=AI.garder.filter(x=>!words.some(y=>same(x,y)));AI.okw=AI.okw.filter(x=>anonNorm(x)!==nrm);words.forEach(x=>{if(!AI.masquer.some(y=>same(x,y)))AI.masquer.push(x);});}
+    else if(k==="garder"){AI.masquer=AI.masquer.filter(x=>!words.some(y=>same(x,y)));if(isTok)words.forEach(x=>{if(!AI.garder.some(y=>same(x,y)))AI.garder.push(x);});if(!AI.okw.some(x=>anonNorm(x)===nrm))AI.okw.push(w);}
+    else if(k==="tmasquer"){AI.cfg.alwaysMask=AI.cfg.alwaysMask||[];words.forEach(x=>{if(!AI.cfg.alwaysMask.some(y=>same(x,y)))AI.cfg.alwaysMask.push(x);});AI.cfg.alwaysKeep=(AI.cfg.alwaysKeep||[]).filter(x=>!words.some(y=>same(x,y)));AI.garder=AI.garder.filter(x=>!words.some(y=>same(x,y)));AI.okw=AI.okw.filter(x=>anonNorm(x)!==nrm);aiSave();}
+    else if(k==="tgarder"){AI.cfg.alwaysKeep=AI.cfg.alwaysKeep||[];words.forEach(x=>{if(!AI.cfg.alwaysKeep.some(y=>same(x,y)))AI.cfg.alwaysKeep.push(x);});AI.cfg.alwaysMask=(AI.cfg.alwaysMask||[]).filter(x=>!words.some(y=>same(x,y)));AI.masquer=AI.masquer.filter(x=>!words.some(y=>same(x,y)));if(!AI.okw.some(x=>anonNorm(x)===nrm))AI.okw.push(w);aiSave();}
+    else return;redo();});
+  setTimeout(()=>{const off=e=>{if(!pop.contains(e.target)){pop.remove();document.removeEventListener("click",off,true);}};document.addEventListener("click",off,true);},0);}
 function aiSendScreen(){const P=AI.pending;if(!P)return;let el=document.getElementById("aisend");if(!el){el=document.createElement("div");el.id="aisend";document.body.appendChild(el);}
   const eff=aiEffective(),off=navigator.onLine===false,month=aiMonthCost(),cap=+AI.cfg.cap||0,overCap=cap>0&&month+P.est>cap;
   const cats={};P.items.forEach(i=>{(cats[i.cat]=cats[i.cat]||[]).push(i);});
-  const blocked=P.leaks.length||off||eff.mode==="aucun"||overCap;
-  el.innerHTML=`<div class="aibox"><div class="aihd"><b>Ce qui part</b><span class="hint">${esc(P.fns.map(f=>AI_FN[f]).join(" + "))} · modèle ${esc(P.model)} · environ ${fmtEur(P.est)} (mois : ${fmtEur(month)}${cap?" sur "+fmtEur(cap):""})</span></div>
-   <div class="hint">Rien n'est parti. Destinataire : API Anthropic (Claude). Le texte ci-dessous est envoyé <b>mot pour mot</b>, avec les consignes fixes. Touchez un mot pour le masquer en plus ; touchez un jeton « NOM PROPRE » pour le rendre.</div>
+  const doubts=aiDoubtsLeft(P);const weak=aiNetWeak();
+  const blocked=P.leaks.length||doubts.length||off||eff.mode==="aucun"||overCap;
+  el.innerHTML=`<div class="aibox"><div class="aihd"><b>Ce qui part</b><span class="hint">${esc(P.fns.map(f=>AI_FN[f]).join(" + "))} · ${esc(aiModelLabel(P.model))} · environ ${fmtEur(P.est)} (mois : ${fmtEur(month)}${cap?" sur "+fmtEur(cap):""})${P.anonMs?" · anonymisé en "+Math.round(P.anonMs)+" ms":""}</span></div>
+   <div class="hint">Rien n'est parti. Destinataire : API Anthropic (Claude). Le texte ci-dessous part <b>mot pour mot</b> avec les consignes fixes. <mark class="aitok">[[jeton]]</mark> = retiré avant envoi, remis sur l'appareil au retour ; <mark class="aidoubt">mot</mark> = à confirmer d'un toucher ; touchez tout autre mot pour le masquer en plus.</div>
    ${P.leaks.length?`<div class="alert">Envoi bloqué : fragment d'identité encore présent (${P.leaks.map(l=>esc(l.cat)+" « "+esc(l.frag)+" »").join(", ")}). Touchez le mot pour le masquer.</div>`:""}
-   ${off?`<div class="alert">Hors connexion : aucun envoi possible. ${P.qid?"La demande reste en attente.":"« Mettre en attente » la garde chiffrée sur l'appareil ; elle vous sera reproposée ici au retour du réseau."}</div>`:""}${overCap?`<div class="alert">Plafond mensuel : cet envoi le dépasserait. Modifiez le plafond dans Consommation.</div>`:""}${eff.mode==="aucun"&&!off?`<div class="alert">IA coupée${eff.why?" : "+esc(eff.why):""}.</div>`:""}
+   ${doubts.length?`<div class="alert aidoubts">À confirmer mot par mot (${doubts.length}) : ${doubts.map(d=>`<button type="button" class="lc" data-dw="${esc(d.w)}">${esc(d.w)}</button> <small>${esc(d.why)}</small>`).join(" · ")}</div>`:""}
+   ${off?`<div class="alert">Hors connexion : aucun envoi possible. ${P.qid?"La demande reste en attente.":"« Mettre en attente » la garde chiffrée sur l'appareil ; elle vous sera reproposée ici au retour du réseau."}</div>`:""}${overCap?`<div class="alert">Plafond mensuel : cet envoi le dépasserait. Modifiez le plafond dans Consommation.</div>`:""}${eff.mode==="aucun"&&!off?`<div class="alert">IA coupée${eff.why?" : "+esc(eff.why):""}.</div>`:""}${weak?`<div class="hint">Connexion faible (${esc(weak)}) : texte seul, réponse peut-être plus lente ; 60 s au maximum.</div>`:""}
    <div class="aiitems"><b>Retiré avant envoi, réintégré ensuite sur l'appareil</b> (${P.items.length})${P.items.length?"<ul>"+Object.entries(cats).map(([c,l])=>`<li><i>${esc(c.toLowerCase())}</i> : ${l.map(i=>esc(i.orig)+" → <code>[["+esc(i.tok)+"]]</code>").join(" · ")}</li>`).join("")+"</ul>":" : rien à retirer."}</div>
    ${P.img?`<div class="aiimgbox"><b>Image envoyée, exactement</b> <span class="hint">(ré-encodée sur l'appareil, sans métadonnées ni position ; ${P.edits} zone(s) recadrée(s) ou masquée(s), vérifiée(s) par la lecture locale${P.ocrOk?"":" — lecture locale indisponible, vérification manuelle seulement"})</span><img class="aiimg" src="${P.img}" alt="Image exacte envoyée"></div>`:""}
-   <div class="aisent" id="ai_sent">${aiSentHTML(P.user)}</div>
+   <div class="aisent" id="ai_sent">${aiSentHTML(P.user,doubts)}</div>
    <details class="aisys"><summary>Consignes fixes envoyées avec (aucune donnée patient)</summary><pre>${esc(P.system.length>3000?P.system.slice(0,3000)+"\n… (liste des fiches de Packs)":P.system)}</pre></details>
-   <div class="aiact"><button type="button" class="btn p" id="ai_send" ${blocked?"disabled":""}>Envoyer</button>${off&&!P.qid&&P.kind!=="doc"?`<button type="button" class="btn p" id="ai_queue">Mettre en attente</button>`:""}<button type="button" class="btn s" id="ai_cancel">Annuler</button>${AI.masquer.length||AI.garder.length?`<button type="button" class="btn s" id="ai_reset">Revenir au masquage automatique</button>`:""}</div></div>`;
+   <div class="aiact"><button type="button" class="btn p big" id="ai_send" ${blocked?"disabled":""}>${P.failed?"Réessayer":"Envoyer"}</button><button type="button" class="lc" id="ai_strict">${AI.strict?"Masquage normal":"Tout masquer davantage"}</button>${off&&!P.qid&&P.kind!=="doc"?`<button type="button" class="lc" id="ai_queue">Mettre en attente</button>`:""}${AI.masquer.length||AI.garder.length||AI.okw.length?`<button type="button" class="lc" id="ai_reset">Revenir au masquage automatique</button>`:""}<button type="button" class="lc" id="ai_cancel">Annuler</button></div></div>`;
   const redo=()=>P.kind==="doc"?aiDocPrepare():aiPrepare(P.kind,P.opt);
-  el.querySelectorAll(".aiw").forEach(s=>s.onclick=()=>{const w=s.dataset.w;AI.garder=AI.garder.filter(x=>anonNorm(x)!==anonNorm(w));if(!AI.masquer.includes(w))AI.masquer.push(w);redo();});
-  el.querySelectorAll(".aitok").forEach(s=>s.onclick=()=>{const t=s.dataset.tok;const it=P.items.find(i=>i.tok===t);if(!it||it.cat!=="NOM PROPRE")return;it.orig.split(/\s+/).forEach(w=>AI.garder.push(w));AI.masquer=AI.masquer.filter(x=>!it.orig.split(/\s+/).some(w=>anonNorm(w)===anonNorm(x)));redo();});
+  el.querySelectorAll(".aiw").forEach(s=>s.onclick=ev=>{ev.stopPropagation();aiWordChoice(ev,s.dataset.w,false,redo);});
+  el.querySelectorAll(".aitok").forEach(s=>s.onclick=ev=>{const t=s.dataset.tok;const it=P.items.find(i=>i.tok===t);if(!it||!["NOM PROPRE","LIEU","MASQUÉ"].includes(it.cat))return;ev.stopPropagation();aiWordChoice(ev,it.orig,true,redo);});
+  el.querySelectorAll("[data-dw]").forEach(b=>b.onclick=ev=>{ev.stopPropagation();aiWordChoice(ev,b.dataset.dw,false,redo);});
   el.querySelector("#ai_cancel").onclick=()=>{AI.pending=null;el.remove();};
+  el.querySelector("#ai_strict").onclick=()=>{AI.strict=!AI.strict;redo();};
   const qb=el.querySelector("#ai_queue");if(qb)qb.onclick=()=>{aiqAdd(P);AI.pending=null;el.remove();};
-  const rs=el.querySelector("#ai_reset");if(rs)rs.onclick=()=>{AI.masquer=[];AI.garder=[];redo();};
+  const rs=el.querySelector("#ai_reset");if(rs)rs.onclick=()=>{AI.masquer=[];AI.garder=[];AI.okw=[];AI.strict=false;redo();};
   el.querySelector("#ai_send").onclick=aiSend;}
 
-/* ---- Envoi : dernier contrôle, appel, coût, réintégration locale ---- */
-async function aiCall(f,model,system,user,maxTokens,pid){
+/* ---- Envoi : dernier contrôle, appel borné, coût, réintégration locale ---- */
+function aiRetriable(e){const m=String(e&&e.message||e);return !/refus|déclin|401|403|400|clé API|Envoi refusé|Arrêt demandé|Hors connexion|Coupure réseau|tronqué/i.test(m);}
+function aiProgress(f,model,maxTokens){let el=document.getElementById("aiprog");if(!el){el=document.createElement("div");el.id="aiprog";document.body.appendChild(el);}const t0=Date.now();let chars=0,retry=false,mdl=model,last="";
+  const draw=()=>{if(!el.isConnected)return;const s=Math.round((Date.now()-t0)/1000);const pct=Math.min(96,Math.round(chars/((maxTokens||1500)*3.2)*100));el.innerHTML=`<div class="aiprog-in"><div class="aiprog-hd"><b>✦ ${esc(AI_FN[f]||f)}</b> · ${esc(aiModelLabel(mdl))}${retry?" · relance":""} · ${s} s sur ${Math.round(AI_BOUNDS.total/1000)} s au plus<button type="button" class="btn s sm" id="aiprog_stop">Arrêter</button></div><div class="aibar"><span style="width:${pct}%"></span></div><div class="aiprog-txt">${last?esc(last.slice(-240)):"réponse en cours…"}</div></div>`;const b=el.querySelector("#aiprog_stop");if(b)b.onclick=()=>{AI.stopped=true;try{if(AI.ctl)AI.ctl.abort(new Error("Arrêt demandé : rien n'est modifié."));}catch(e){}};};
+  draw();const tick=setInterval(draw,1000);
+  return {update:(t,m)=>{chars=t.length;last=t;if(m)mdl=m;draw();},retry:(m)=>{retry=true;mdl=m;chars=0;last="";draw();},end:()=>{clearInterval(tick);el.remove();}};}
+async function aiCallStream(f,model,system,user,maxTokens,pid,opt){opt=opt||{};
+  const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:opt.signal,headers:{"content-type":"application/json","x-api-key":AI.key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model,max_tokens:maxTokens||1500,stream:true,system:[{type:"text",text:system,cache_control:{type:"ephemeral"}}],messages:[{role:"user",content:user}],output_config:{effort:"low"}})});
+  if(!r.ok){let e="";try{const j=await r.json();e=(j.error&&(j.error.type+" : "+j.error.message))||r.status;}catch(_){e=String(r.status);}if(r.status===401)throw new Error("Clé API refusée (401) : vérifiez la clé dans Journal → Assistant IA.");throw new Error(e);}
+  const meta=opt.meta||{};const fin=()=>Object.assign({},meta,{ms:performance.now()-(meta.t0||performance.now())});
+  const ctype=String(r.headers.get("content-type")||"");
+  if(!r.body||!r.body.getReader||/application\/json/.test(ctype)){const j=await r.json();aiRecord(f,j.model||model,j.usage,pid,fin());if(j.stop_reason==="refusal")throw new Error("Le modèle a décliné la demande. Rien n'est modifié.");if(j.stop_reason==="max_tokens")throw new Error("Réponse tronquée. Rien n'est modifié : réessayez.");return (j.content||[]).filter(x=>x.type==="text").map(x=>x.text).join("\n");}
+  const reader=r.body.getReader();const dec=new TextDecoder();let buf="",text="",usage={},stop="",mdl=model;
+  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+    while((i=buf.indexOf("\n\n"))>=0){const ev=buf.slice(0,i);buf=buf.slice(i+2);const data=ev.split("\n").filter(l=>l.startsWith("data:")).map(l=>l.slice(5).trim()).join("");if(!data||data==="[DONE]")continue;let j;try{j=JSON.parse(data);}catch(e){continue;}
+      if(j.type==="message_start"&&j.message){usage=Object.assign({},j.message.usage||{});mdl=j.message.model||model;}
+      else if(j.type==="content_block_delta"&&j.delta&&typeof j.delta.text==="string"){text+=j.delta.text;if(opt.onDelta)opt.onDelta(text);}
+      else if(j.type==="message_delta"){if(j.delta&&j.delta.stop_reason)stop=j.delta.stop_reason;if(j.usage)usage=Object.assign({},usage,j.usage);}
+      else if(j.type==="error")throw new Error((j.error&&j.error.message)||"erreur de flux");}}
+  aiRecord(f,mdl,usage,pid,fin());
+  if(stop==="refusal")throw new Error("Le modèle a décliné la demande. Rien n'est modifié.");
+  if(stop==="max_tokens")throw new Error("Réponse tronquée. Rien n'est modifié : réessayez.");
+  if(stop!=="end_turn"&&stop!=="stop_sequence")throw new Error("Réponse incomplète : rien n'est modifié.");
+  return text;}
+/* un seul appel par étape, borné : 40 s, puis une seule relance sur le modèle rapide (même travail complet) dans les 20 s restantes ; 60 s au total ; coupure réseau = arrêt immédiat ; jamais de résultat partiel */
+async function aiCall(f,model,system,user,maxTokens,pid,meta){
   if(f!=="test"){if(AI._go!==true)throw new Error("Envoi refusé : il ne part que depuis l'écran « Ce qui part ».");AI._go=false;}
   if(navigator.onLine===false)throw new Error("Hors connexion : rien n'a été envoyé.");
   if(!AI.key)throw new Error("Aucune clé API.");
   if(!hasCrypto||!SEC.key)throw new Error("Chiffrement indisponible : IA coupée.");
-  const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"content-type":"application/json","x-api-key":AI.key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-    body:JSON.stringify({model,max_tokens:maxTokens||1500,system:[{type:"text",text:system,cache_control:{type:"ephemeral"}}],messages:[{role:"user",content:user}],output_config:{effort:"low"}})});
-  if(!r.ok){let e="";try{const j=await r.json();e=(j.error&&(j.error.type+" : "+j.error.message))||r.status;}catch(_){e=String(r.status);}if(r.status===401)throw new Error("Clé API refusée (401) : vérifiez la clé dans Journal → Assistant IA.");throw new Error(e);}
-  const j=await r.json();aiRecord(f,j.model||model,j.usage,pid);
-  if(j.stop_reason==="refusal")throw new Error("Le modèle a décliné la demande. Rien n'est modifié.");
-  if(j.stop_reason==="max_tokens")throw new Error("Réponse tronquée. Rien n'est modifié : réessayez.");
-  return (j.content||[]).filter(x=>x.type==="text").map(x=>x.text).join("\n");}
-function aiRecord(f,model,usage,pid){const ts=Date.now();const eur=aiEur(model,usage);AI.use.push({ts,f,model,in:+(usage&&usage.input_tokens)||0,out:+(usage&&usage.output_tokens)||0,cr:+(usage&&usage.cache_read_input_tokens)||0,cw:+(usage&&usage.cache_creation_input_tokens)||0,eur,pid:pid||0,gk:(typeof gardeKey==="function"?gardeKey(ts):"")});aiUseSave();
-  const cap=+AI.cfg.cap||0,mk=aiMonthKey(),m=aiMonthCost();if(cap&&m>=cap*(+AI.cfg.alert||80)/100&&AI.cfg.alerted!==mk){AI.cfg.alerted=mk;aiSave();setTimeout(()=>alert("Consommation IA : "+fmtEur(m)+" ce mois-ci, plafond "+fmtEur(cap)+". "+(m>=cap?"Plafond atteint : l'IA passe en Aucun jusqu'au mois prochain.":"Le plafond approche.")),50);}}
-function aiJson(txt){const m=String(txt||"").match(/\{[\s\S]*\}/);if(!m)throw new Error("Réponse inattendue : rien n'est modifié.");return JSON.parse(m[0]);}
+  meta=meta||{};const t0=performance.now();AI.stopped=false;const prog=f==="test"?null:aiProgress(f,model,maxTokens);
+  const attempt=async(m,ms,retry)=>{const ctl=new AbortController();AI.ctl=ctl;const timer=setTimeout(()=>{try{ctl.abort(new Error("Délai dépassé ("+Math.round(ms/1000)+" s) : rien n'est modifié."));}catch(e){ctl.abort();}},ms);const onOff=()=>{try{ctl.abort(new Error("Coupure réseau : arrêt immédiat, rien n'est modifié."));}catch(e){ctl.abort();}};window.addEventListener("offline",onOff);
+    try{return await aiCallStream(f,m,system,user,maxTokens,pid,{signal:ctl.signal,onDelta:t=>{if(prog)prog.update(t,m);},meta:Object.assign({},meta,{retry:retry?1:0,t0:performance.now()})});}
+    catch(e){if(ctl.signal.aborted){const rs=ctl.signal.reason;throw rs instanceof Error?rs:new Error(AI.stopped?"Arrêt demandé : rien n'est modifié.":"Délai dépassé : rien n'est modifié.");}throw e;}
+    finally{clearTimeout(timer);window.removeEventListener("offline",onOff);AI.ctl=null;}};
+  try{try{return await attempt(model,AI_BOUNDS.t1,false);}
+    catch(e1){if(AI.stopped||navigator.onLine===false||!aiRetriable(e1))throw e1;
+      const left=Math.min(AI_BOUNDS.t2,AI_BOUNDS.total-(performance.now()-t0));if(left<Math.min(2000,AI_BOUNDS.t2/2))throw new Error("Délai dépassé ("+Math.round(AI_BOUNDS.total/1000)+" s) : rien n'est modifié.");
+      if(prog)prog.retry(AI_MODEL.tri);try{aiLog(f,"relance sur le modèle rapide",String(e1&&e1.message||e1));}catch(e){}
+      try{return await attempt(AI_MODEL.tri,left,true);}catch(e2){throw new Error(String(e2&&e2.message||e2).replace(/\s*:\s*rien n'est modifié\.?$/i,"")+" après une relance : rien n'est modifié.");}}}
+  finally{if(prog)prog.end();}}
 async function aiSend(){const P=AI.pending;if(!P||AI.busy)return;const el=document.getElementById("aisend");
   const leaks=anonLeaks(P.user,P.ctx);if(leaks.length){P.leaks=leaks;aiSendScreen();return;}
+  if(aiDoubtsLeft(P).length){aiSendScreen();return;}
   if(aiEffective().mode==="aucun"||navigator.onLine===false){aiSendScreen();return;}
   AI.busy=true;const b=el&&el.querySelector("#ai_send");if(b){b.disabled=true;b.textContent="Envoi…";}
   try{const content=P.user; /* 17/10/2026 B4 : texte seul, jamais d'image */
-    AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid);const j=aiJson(raw);
+    AI._go=true;const raw=await aiCall(P.fns[0],P.model,P.system,content,P.maxT,P.pid,{anonMs:P.anonMs||0});const j=aiJson(raw);
     if(P.qid)aiqDel(P.qid);AI.res={kind:P.kind,fns:P.fns,j,map:P.map,sent:P.user,src:P.kind==="doc"?(P.img?P.ocr:P.user):P.user,img:!!P.img,pid:P.pid};if(P.kind==="doc")DOC.cv=null;if(el)el.remove();AI.pending=null;
     if(P.kind==="plan"){AI.busy=false;aiPlanReceive(j,P);aiPlanNext();return;}
     if(!document.getElementById("aipanel"))aiOpen(P.kind==="obs"?"obs":P.kind==="doc"?"doc":P.fns.includes("cr")?"cr":"let");aiShowResult();}
-  catch(e){const msg=e.message||String(e);if(el){const a=document.createElement("div");a.className="alert";a.textContent=msg;el.querySelector(".aibox").appendChild(a);}if(b){b.disabled=false;b.textContent="Envoyer";}
-    if(P.kind==="plan"&&!el){aiPlanError(msg,P);}}
+  catch(e){const msg=e.message||String(e);P.failed=true;try{aiLog(P.fns[0],"échec IA (rien n'est modifié)",msg);}catch(_){}
+    if(el&&el.isConnected){aiSendScreen();const a=document.createElement("div");a.className="alert aifail";a.textContent=msg+(/rien n'est modifié/i.test(msg)?"":" Rien n'est modifié.");const act=el.querySelector(".aiact");if(act)act.insertAdjacentElement("beforebegin",a);}
+    if(P.kind==="plan"&&!(el&&el.isConnected)){aiPlanError(msg,P);}}
   AI.busy=false;aiPlanNext();}
-
+function aiRecord(f,model,usage,pid,meta){meta=meta||{};const ts=Date.now();const eur=aiEur(model,usage);AI.use.push({ts,f,model,in:+(usage&&usage.input_tokens)||0,out:+(usage&&usage.output_tokens)||0,cr:+(usage&&usage.cache_read_input_tokens)||0,cw:+(usage&&usage.cache_creation_input_tokens)||0,eur,pid:pid||0,gk:(typeof gardeKey==="function"?gardeKey(ts):""),ms:Math.round(+meta.ms||0),am:Math.round(+meta.anonMs||0),retry:meta.retry?1:0});aiUseSave();
+  const cap=+AI.cfg.cap||0,mk=aiMonthKey(),m=aiMonthCost();if(cap&&m>=cap*(+AI.cfg.alert||80)/100&&AI.cfg.alerted!==mk){AI.cfg.alerted=mk;aiSave();setTimeout(()=>alert("Consommation IA : "+fmtEur(m)+" ce mois-ci, plafond "+fmtEur(cap)+". "+(m>=cap?"Plafond atteint : l'IA passe en Aucun jusqu'au mois prochain.":"Le plafond approche.")),50);}}
+function aiJson(txt){const m=String(txt||"").match(/\{[\s\S]*\}/);if(!m)throw new Error("Réponse inattendue : rien n'est modifié.");return JSON.parse(m[0]);}
 /* ---- Réintégration et garde-fous sur la réponse ---- */
 /* Texte reçu → identité remise ; refusé s'il reste un jeton inconnu, s'il crée un nombre absent de l'envoi ou s'il contient une posologie non dictée */
 function aiBack(t,opt){opt=opt||{};const R=AI.res;const s=String(t||"").trim();if(!s)return {ok:false,text:"",why:"vide"};
@@ -17310,7 +17433,7 @@ async function aiDocPrepare(){if(!DOC.cv||aiDocWhy())return;const eff=aiEffectiv
   if(f.found.length||lk.length){DOC.flag=[...new Set([...f.found,...lk.map(l=>l.frag)])];DOC.flagBoxes=f.boxes;DOC.status="Envoi bloqué tant que ces éléments restent lisibles.";aiDocScreen();return;}
   if(!ocrOk){DOC.read=false;DOC.status="Lecture locale impossible : rien ne part.";aiDocScreen();return;}
   if(read.text.trim().length<10){DOC.chars=0;DOC.status="Presque aucun texte lu : rien ne part (l'image n'est jamais envoyée).";aiDocScreen();return;}
-  const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];}
+  const pk=String(state.t0||"cur");if(AI._pk!==pk){AI._pk=pk;AI.masquer=[];AI.garder=[];AI.okw=[];AI.strict=false;}
   const SEP="\n§§§\n";const an=anonymize([aiClinique(),read.text.trim()].join(SEP),ctx);aiPatientTokens(an.map);const parts=an.text.split(SEP);
   const user="CONTEXTE CLINIQUE (sans identité)\n"+parts[0]+"\n\nDOCUMENT : texte lu sur l'appareil puis anonymisé\n"+parts[1];
   const model=AI_MODEL.redac;
@@ -17389,9 +17512,9 @@ function dictCardHTML(inXp){if(XP.dict&&!inXp)return "";const n=DICTH.length;con
   return `<section class="pcard dictcard" id="dictcard"><div class="pcard-h"><span class="stepn">🎙</span><b>Dictée</b><span class="pcard-ai">${aiMainHTML()}</span></div>
    <div class="hint dict-how">Touchez le champ, puis le micro 🎤 du clavier iPhone. Interrompre : touchez ailleurs ; reprendre : touchez de nouveau le champ. Enregistrée à chaque mot, chiffrée.</div>
    <textarea id="f_dict" data-pk="${esc(dictPk())}" rows="6" placeholder="Dictez en vrac : motif, histoire, antécédents, traitements, constantes, examen, diagnostic…" autocapitalize="sentences">${esc((state.obs&&state.obs.dict)||"")}</textarea>
-   ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">${aiAutoOn()?"✦ Préparer (observation, fiche, documents)":"Répartir dans l'observation"}</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="dsaved hint"></span><span class="aist hint">${AI._st?"✦ "+esc(AI._st):""}</span>${state.aiPlan&&state.aiPlan.hidden&&state.aiPlan.ck===state.ck?`<button type="button" class="lc" data-aisynshow="1">Synthèse IA ▸</button>`:""}</div>
+   ${obsAutoHTML()}<div class="dict-act2"><button type="button" class="btn p" id="dict_go2">${aiAutoOn()?"✦ Préparer (observation, fiche, documents)":"Répartir dans l'observation"}</button>${n?`<button type="button" class="btn s" id="dict_hist">↺ Dictées récentes (${n})</button>`:""}<span class="hint anonlive" id="dict_anon"></span><span class="dsaved hint"></span><span class="aist hint">${AI._st?"✦ "+esc(AI._st):""}</span>${state.aiPlan&&state.aiPlan.hidden&&state.aiPlan.ck===state.ck?`<button type="button" class="lc" data-aisynshow="1">Synthèse IA ▸</button>`:""}</div>
    ${!p&&String((state.obs&&state.obs.dict)||"").trim()?'<div class="hint">Choisissez une fiche (motif) : l\'observation rangée apparaîtra dessous. La dictée est gardée.</div>':""}</section>`;}
-function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;clearTimeout(dictCardBind._t);
+function dictCardBind(){const t=document.getElementById("f_dict");if(t){t.oninput=()=>{state.obs=state.obs||{};state.obs.dict=t.value;try{anonLiveSoon(t.value);}catch(e){}clearTimeout(dictCardBind._t);
     if(!excOn()&&(NORM_PHRASE_RE.test(t.value)||Object.keys(state.obsAuto||{}).length))dictCardBind._t=setTimeout(dictAutoNormal,1500);};
     /* 20/10/2026 : fin de dictée (le champ est quitté avec un texte modifié) → préparation automatique, une seule fois par texte */
     t.onchange=()=>{state.obs=state.obs||{};state.obs.dict=t.value;if(!aiAutoOn()||String(t.value||"").trim().length<15)return;clearTimeout(dictCardBind._a);dictCardBind._a=setTimeout(()=>{try{applyDictation(true);}catch(e){}try{aiAutoFlow(xpVisite()?"visite":"cabinet");}catch(e){}try{draftSaveNow();}catch(e){}},600);};}
@@ -17719,6 +17842,7 @@ document.addEventListener("click",ev=>{const t=ev.target;if(!t.closest)return;
   const d=t.closest("[data-aiqdel]");if(d){if(confirm("Retirer cette demande IA en attente ? (la dictée reste dans l'observation)"))aiqDel(d.dataset.aiqdel);}});
 window.addEventListener("online",()=>netUI());
 window.addEventListener("offline",()=>netUI());
+window.addEventListener("online",()=>{setTimeout(()=>{try{if(!SEC.unlocked||AI.pending||AI.busy||document.getElementById("aisend"))return;const q=AIQ.list.find(x=>aiqSame(x));if(q){toast("Réseau revenu : la demande en attente est proposée à l'écran « Ce qui part »");aiqOpen(q.id);}}catch(e){}},800);});
 /* ===================== 17/10/2026 — EXPRESS VISITE : « un choix → tout s'enchaîne » =====================
    1. toucher le patient (liste de la régulation) → identité, âge, motif, fiche proposée ; en visite, la navigation part du même toucher ;
    2. confirmer la fiche → arrivée notée, pack selon l'âge et le terrain, doses calculées, documents préparés, cotation calculée ;
@@ -17978,6 +18102,8 @@ function aiConsoScreen(){let el=document.getElementById("aiconso");if(!el){el=do
    ${cap?`<div class="aibar"><span style="width:${Math.min(100,tot/cap*100).toFixed(0)}%" class="${tot>=cap?"over":tot>=cap*(+AI.cfg.alert||80)/100?"warn":""}"></span></div>`:""}
    <table class="jtab"><thead><tr><th>Par usage</th><th class="r">Mois</th></tr></thead><tbody>${grp("f",f=>AI_FN[f]||(f==="test"?"Test de la clé":f))}</tbody></table>
    <table class="jtab"><thead><tr><th>Par modèle</th><th class="r">Mois</th></tr></thead><tbody>${grp("model",m=>m)}</tbody></table>
+   <table class="jtab"><thead><tr><th>Derniers envois</th><th>Modèle</th><th class="r">Anonymisation</th><th class="r">Réponse</th><th class="r">Coût</th></tr></thead><tbody>${AI.use.slice(-12).reverse().map(u=>`<tr><td>${esc(new Date(u.ts).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}))} · ${esc(AI_FN[u.f]||(u.f==="test"?"Test de la clé":u.f))}${u.retry?" (relance)":""}</td><td>${esc(aiModelLabel(u.model))}</td><td class="r">${u.am?u.am+" ms":"—"}</td><td class="r">${u.ms?(u.ms/1000).toFixed(1).replace(".",",")+" s":"—"}</td><td class="r">${fmtEur(u.eur)}</td></tr>`).join("")||'<tr><td colspan="5" class="hint">aucun envoi</td></tr>'}</tbody></table>
+   <div class="hint">Anonymisation sur l'appareil : ${esc(aiPerfLine())} ; objectif moins de 100 ms pour 2 000 caractères. Réponse : 40 s au plus, puis une seule relance sur le modèle rapide (20 s), 60 s au total.</div>
    <div class="nhopts"><label>Plafond mensuel <input id="ac_cap" inputmode="decimal" value="${esc(String(AI.cfg.cap||"").replace(".",","))}" style="width:80px"> €</label><label>Alerte à <input id="ac_alert" inputmode="numeric" value="${esc(String(AI.cfg.alert||80))}" style="width:60px"> %</label><button type="button" class="btn s sm" id="ac_save">Enregistrer</button></div>
    <div class="hint">Calcul sur l'appareil à partir des jetons facturés (tarif Anthropic en dollars, ${String(AI_USD_EUR).replace(".",",")} € le dollar, indicatif). Aucune donnée identifiante : date, fonction, modèle, jetons, coût. Au plafond, l'IA passe en Aucun jusqu'au mois suivant. Cible : moins de 10 € par mois en mode Complet.</div></div>`;
   el.querySelector("#ac_close").onclick=()=>el.remove();el.onclick=ev=>{if(ev.target===el)el.remove();};
@@ -17988,13 +18114,14 @@ function aiKeyTail(){return AI.key?"se termine par …"+AI.key.slice(-4):"";}
 function aiSettingsHTML(){const sel=f=>`<label>${AI_FN[f]} <select data-aifn="${f}">${[["auto","automatique"],["demande","à la demande"],["off","coupée"]].map(([v,l])=>`<option value="${v}" ${AI.cfg.fn[f]===v?"selected":""}>${l}</option>`).join("")}</select></label>`;
   return `<h2 class="jsec">Assistant IA (facultatif)</h2><div class="hint">Clé API personnelle rangée <b>chiffrée sur cet appareil</b>, jamais affichée en clair ; avec un profil activé, elle part aussi <b>chiffrée par la phrase maître dans profil.json</b> (« Publier le profil ») : sur vos autres appareils, la phrase maître suffit. La sécurité de la clé dépend alors de la solidité de la phrase. Jamais dans la sauvegarde ni la synchronisation. Avant tout envoi, identité, date de naissance (remplacée par l'âge), adresse, téléphone, NIR, noms propres et dates exactes (remplacées par des dates relatives) sont retirés sur l'appareil, puis remis au retour. Hors connexion ou au plafond, l'IA passe en Aucun. Pseudonymisation validée par le DPO de l'association (15/10/2026). <b>Limite actuelle :</b> la clé reste dans ce navigateur (chiffrée) et l'envoi part directement vers l'API : adapté à un usage personnel ; la pseudonymisation seule ne vaut pas conformité HDS. Pour plusieurs médecins ou une garantie d'hébergement, un relais côté serveur gardant la clé sera nécessaire (docs/FEUILLE-DE-ROUTE.md).</div>
  <div class="aiset"><input id="ai_key" type="password" placeholder="${AI.key?"Coller une nouvelle clé pour remplacer":"sk-ant-…"}" value="" autocomplete="off" autocapitalize="none"><button type="button" class="btn p" id="ai_savekey">${AI.key?"Remplacer":"Enregistrer"}</button><button type="button" class="btn s" id="ai_test">Tester</button>${AI.key?'<button type="button" class="btn s" id="ai_delkey" style="color:var(--bad)">Retirer la clé</button>':""}<span class="hint" id="ai_setst">${AI.key?"Clé enregistrée (chiffrée, "+aiKeyTail()+")"+(AI.cfg.mode==="aucun"?". IA toujours sur « Aucun » : choisissez Partiel ou Complet pour l'utiliser.":""):"Aucune clé"}</span>${AI.key&&IDENT.on?'<button type="button" class="btn s" id="ai_pub">Publier le profil avec la clé</button>':""}</div>
- ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement après la dictée.":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>${aiAutoSettingsHTML()}`;}
+ ${aiModeHTML()}<div class="nhopts aifns">${AI.cfg.mode==="partiel"?sel("obs")+sel("cr")+sel("let")+sel("doc"):`<span class="hint">${AI.cfg.mode==="complet"?"Complet : tout est préparé automatiquement après la dictée.":"Aucun : zéro envoi, zéro coût."}</span>`}<button type="button" class="btn s sm" id="ai_conso2">Consommation : ${fmtEur(aiMonthCost())} ce mois${AI.cfg.cap?" / "+fmtEur(+AI.cfg.cap):""}</button></div>${aiAutoSettingsHTML()}${aiPersoSettingsHTML()}`;}
 function aiAutoSettingsHTML(){if(AI.cfg.mode==="aucun")return "";return `<div class="nhopts aifns aiauto"><label>Après une dictée <select data-aiauto><option value="on" ${AI.cfg.auto!=="off"?"selected":""}>préparer automatiquement (observation, fiche, documents, synthèse)</option><option value="off" ${AI.cfg.auto==="off"?"selected":""}>seulement à la demande</option></select></label>
  <label>Envoi <select data-aisend ${AI_SEND_AUTO_ALLOWED?"":"disabled"}><option value="ecran" ${!AI_SEND_AUTO_ALLOWED||AI.cfg.send==="ecran"?"selected":""}>écran « Ce qui part » à chaque fois (validation manuelle)</option>${AI_SEND_AUTO_ALLOWED?`<option value="auto" ${AI.cfg.send!=="ecran"?"selected":""}>automatique après pseudonymisation sur l'appareil</option>`:""}</select></label>
  <span class="hint">${AI_SEND_AUTO_ALLOWED?"Automatique : identité, dates et lieux retirés sur l'appareil (pseudonymisation validée par le DPO le 15/10/2026), puis envoi sans écran intermédiaire ; la synthèse revient à l'écran, à valider.":"Envoi automatique indisponible tant que la validation du DPO et l'hébergement de données de santé du fournisseur d'IA restent à confirmer : la requête est préparée et pseudonymisée automatiquement, vous la validez d'un toucher (« Envoyer »)."} L'écran « Ce qui part » reste forcé si un fragment d'identité subsiste, hors connexion ou au plafond. Rien n'est validé ni imprimé sans votre geste.</span></div>`;}
 function aiBindSettings(){const k=$("#ai_key");if(!k)return;
   document.querySelectorAll("[data-aiauto]").forEach(e=>e.onchange=()=>{AI.cfg.auto=e.value;aiSave();toast(e.value==="off"?"Préparation IA : à la demande":"Préparation IA automatique après la dictée");});
   document.querySelectorAll("[data-aisend]").forEach(e=>e.onchange=()=>{AI.cfg.send=e.value;aiSave();toast(e.value==="ecran"?"Écran « Ce qui part » à chaque envoi":"Envoi automatique après pseudonymisation");});
+  {const pp=$("#ai_perso");if(pp)pp.onclick=()=>{const sp=v=>String(v||"").split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean);AI.cfg.alwaysMask=sp($("#ai_amask").value);AI.cfg.alwaysKeep=sp($("#ai_akeep").value);if(aiSave())toast("Listes personnelles enregistrées (chiffrées)");else toast("Chiffrement indisponible : listes non enregistrées");};}
   $("#ai_savekey").onclick=()=>{const v=k.value.trim();if(!v){$("#ai_setst").textContent=AI.key?"Collez la nouvelle clé pour remplacer l'ancienne.":"Collez d'abord la clé.";return;}const old=AI.key;AI.key=v;if(!aiSave()){$("#ai_setst").textContent="Chiffrement indisponible : clé non enregistrée.";AI.key=old;return;}k.value="";render();toast(old?"Clé API remplacée"+(IDENT.on?" · publiez le profil pour vos autres appareils":""):"Clé API enregistrée (chiffrée)");};
   const pb=$("#ai_pub");if(pb)pb.onclick=()=>{const x=$("#id_export");if(x)x.click();};
   $("#ai_test").onclick=async()=>{const v=k.value.trim();const old=AI.key;if(v)AI.key=v;if(!AI.key){$("#ai_setst").textContent="Collez d'abord la clé.";return;}$("#ai_setst").textContent="Test…";try{const t=await aiCall("test",AI_MODEL.tri,"Réponds par le seul mot OK.","Test",10,0);aiSave();$("#ai_setst").textContent="Connexion réussie · réponse : "+t.trim().slice(0,20);}catch(e){if(v)AI.key=old;$("#ai_setst").textContent="Échec : "+(e.message||e);}};

@@ -82,7 +82,7 @@
 - OK — iphone tournée point 0 : phrase d'aide sous « Commencer la tournée »
 - OK — iphone tournée point 1 : arrivée prévue ✓ ou ⚠, rythme à tenir, alerte vive et visites à rendre (la plus éloignée d'abord)
 - OK — iphone tournée point 4 : patient en attente depuis plus de 2 h signalé
-- OK — iphone tournée point 2 : durée apprise par motif sur le journal (40 min), 20 min par défaut
+- OK — iphone tournée point 2 : durée apprise par motif sur le journal (40 min), sinon durée de la fiche probable (otite : 15 min au mémo), sinon 20 min (v41y)
 - OK — iphone tournée points 3, 5, 6 : impact avant ajout, minutes d'accès (cochées ou lues dans la fiche), majoration en heure de pointe
 - OK — iphone tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
 - OK — iphone tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation
@@ -222,7 +222,7 @@
 - OK — pc tournée point 0 : phrase d'aide sous « Commencer la tournée »
 - OK — pc tournée point 1 : arrivée prévue ✓ ou ⚠, rythme à tenir, alerte vive et visites à rendre (la plus éloignée d'abord)
 - OK — pc tournée point 4 : patient en attente depuis plus de 2 h signalé
-- OK — pc tournée point 2 : durée apprise par motif sur le journal (40 min), 20 min par défaut
+- OK — pc tournée point 2 : durée apprise par motif sur le journal (40 min), sinon durée de la fiche probable (otite : 15 min au mémo), sinon 20 min (v41y)
 - OK — pc tournée points 3, 5, 6 : impact avant ajout, minutes d'accès (cochées ou lues dans la fiche), majoration en heure de pointe
 - OK — pc tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées
 - OK — pc tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation

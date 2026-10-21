@@ -87,7 +87,7 @@ async def run(width,height,label):
         ok(L+"naissance remplacée par l'âge, date par J-2","[[ÂGE : 41 ans]]" in txt and "[[J-2]]" in txt,txt[:300])
         items=await page.inner_text(".aiitems")
         ok(L+"liste de ce qui est retiré affichée sur l'appareil","Dupont" in items and "Lilas" in items)
-        await page.locator("#ai_sent .aiw",has_text="Toux").first.click(); await page.wait_for_timeout(300)
+        await page.locator("#ai_sent .aiw",has_text="Toux").first.click(); await page.wait_for_selector("#aiwchoice",timeout=2000); await page.click("#aiwchoice [data-wc=masquer]"); await page.wait_for_timeout(300) # v41z : choix par mot
         txt=await page.inner_text("#ai_sent")
         ok(L+"mot masqué à la main sur l'écran de contrôle","Toux" not in txt and "[[MASQUÉ 1]]" in txt)
         # 4. Envoi simulé, réintégration, garde-fous
@@ -99,7 +99,7 @@ async def run(width,height,label):
         ok(L+"requête sans aucune donnée identifiante",not any(x in body for x in IDENT),[x for x in IDENT if x in body])
         ok(L+"clé envoyée seulement dans l'en-tête",sent and sent[0]["headers"].get("x-api-key")==KEY and KEY not in body)
         jb=json.loads(body) if body else {}
-        ok(L+"consignes fixes en cache, Sonnet pour rédiger",jb.get("model")=="claude-sonnet-5-5" and jb.get("system",[{}])[0].get("cache_control",{}).get("type")=="ephemeral")
+        ok(L+"consignes fixes en cache, Haiku pour les observations (v41z)",jb.get("model")=="claude-haiku-5-5" and jb.get("system",[{}])[0].get("cache_control",{}).get("type")=="ephemeral")
         out=await page.inner_text("#ai_out")
         ok(L+"identité réintégrée sur l'appareil","Marie-Claire décrit" in out and "13/10/2026" in out,out[:300])
         ok(L+"constante inventée écartée (SpO2 99 absente de la dictée)","Écarté" in out and await page.evaluate("!AI.res.apply.cst.spo2&&!AI.res.apply.obs.gen"))
@@ -111,7 +111,7 @@ async def run(width,height,label):
         ok(L+"trace de la modification par l'IA",await page.evaluate("(state.aiLog||[]).length")>=1)
         # 5. Consommation
         use=await page.evaluate("AI.use.map(u=>({f:u.f,eur:u.eur,model:u.model,keys:Object.keys(u)}))")
-        ok(L+"coût enregistré sans donnée identifiante",len(use)==1 and use[0]["eur"]>0 and set(use[0]["keys"])<={"ts","f","model","in","out","cr","cw","eur","pid","gk"},use)
+        ok(L+"coût enregistré sans donnée identifiante",len(use)==1 and use[0]["eur"]>0 and set(use[0]["keys"])<={"ts","f","model","in","out","cr","cw","eur","pid","gk","ms","am","retry"},use)
         await page.evaluate("aiConsoScreen()"); await page.wait_for_timeout(200)
         ct=await page.inner_text("#aiconso")
         ok(L+"écran Consommation : jour, garde, mois, par usage, par modèle, par patient",all(x in ct for x in ["Aujourd'hui","Garde en cours","Mois","Par usage","Par modèle","Coût moyen par patient","Plafond mensuel"]))

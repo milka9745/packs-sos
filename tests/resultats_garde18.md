@@ -11,7 +11,7 @@
 - OK — PC · mode complet : 1. fiche mixte, femme : jamais de PSA imprimé
 - OK — PC · mode complet : 1. dépistage IST, homme : aucune ligne « (femme) » ni auto-prélèvement vaginal seul
 - OK — PC · mode complet : 1. tout le catalogue : jamais une ligne réservée imprimée pour l'autre sexe
-- OK — PC · mode complet : 2. tout le catalogue × 3 profils (2988 lignes imprimées) : aucun mémo médecin
+- OK — PC · mode complet : 2. tout le catalogue × 3 profils (2948 lignes imprimées) : aucun mémo médecin
 - OK — PC · mode complet : 2. « Gynécomastie » : aucun mémo médecin imprimé (gynécomastie vraie, adipomastie, différencier, tumeur testiculaire)
 - OK — PC · mode complet : 2. « Hyperprolactinémie — bilan » : aucun mémo médecin imprimé (femme en âge de procréer, hypothyroïdie, adénome suspecté)
 - OK — PC · mode complet : 2. « Angine — enfant (TROD positif) » : aucun mémo médecin imprimé (indiqué, allergie aux pénicillines, RCP)
@@ -37,7 +37,7 @@
 - OK — PC · Express : 1. fiche mixte, femme : jamais de PSA imprimé
 - OK — PC · Express : 1. dépistage IST, homme : aucune ligne « (femme) » ni auto-prélèvement vaginal seul
 - OK — PC · Express : 1. tout le catalogue : jamais une ligne réservée imprimée pour l'autre sexe
-- OK — PC · Express : 2. tout le catalogue × 3 profils (2988 lignes imprimées) : aucun mémo médecin
+- OK — PC · Express : 2. tout le catalogue × 3 profils (2948 lignes imprimées) : aucun mémo médecin
 - OK — PC · Express : 2. « Gynécomastie » : aucun mémo médecin imprimé (gynécomastie vraie, adipomastie, différencier, tumeur testiculaire)
 - OK — PC · Express : 2. « Hyperprolactinémie — bilan » : aucun mémo médecin imprimé (femme en âge de procréer, hypothyroïdie, adénome suspecté)
 - OK — PC · Express : 2. « Angine — enfant (TROD positif) » : aucun mémo médecin imprimé (indiqué, allergie aux pénicillines, RCP)
