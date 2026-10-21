@@ -143,7 +143,9 @@ SET_PATIENT="()=>{newPatient();Object.assign(state,{patient:'DURAND Martine',ddn
 STATUS_RE=r"()=>/enregistrée|non enregistrée|illisible|reprenez|vide|floue/.test(DOCS.status)"
 async def scan(page,img):
     await page.evaluate("()=>{if(!DOCS.scan)DOCS.scan={id:null,n:0};DOCS.status='';}")
-    t0=time.time(); await page.set_input_files("#doc_scan",img); await page.wait_for_function(STATUS_RE,timeout=30000)
+    t0=time.time(); await page.set_input_files("#doc_scan",img)
+    await page.wait_for_selector("#scanprev #scan_ok",timeout=30000); await page.click("#scan_ok")  # 21/10/2026 (retour 2) : aperçu avec 4 coins, puis validation
+    await page.wait_for_function(STATUS_RE,timeout=30000)
     return (await page.evaluate("()=>DOCS.status"), time.time()-t0)
 async def finish(page):
     n=await page.evaluate("()=>docsList().length"); t0=time.time(); await page.evaluate("()=>docScanFinish()")
@@ -184,7 +186,7 @@ async def main():
             pc=await place(); await page.evaluate("()=>{state.cot.lieu='visite';render();}"); pv=await place()
             await page.evaluate("()=>{state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');render();}"); pp=await place(); await page.evaluate("()=>{state.sel=null;state.cot.lieu='consultation';render();}")
             ok("IV.15 / IX.38 : « Scanner » et « Documents » à côté de la dictée, mêmes boutons au même endroit en consultation, en visite et sur une fiche",
-               all(x["after"] and x["btns"]==["doc_scan_btn","doc_import_btn"] and "Scanner" in x["scanTxt"] and "Documents" in x["impTxt"] for x in (pc,pv,pp)),(pc,pv,pp))
+               all(x["after"] and x["btns"]==["doc_scan_btn","doc_import_btn"] and "Scanner" in x["scanTxt"] and "Importer un scan" in x["impTxt"] for x in (pc,pv,pp)),(pc,pv,pp))
             # ---------- IV.16 : scan en rafale, recadrage, redressement, noir et blanc, chiffrement, pages illisibles ----------
             s0,t=await scan(page,F["bio0.jpg"]); TIMES["scan page"]=t; await finish(page)
             d0=await page.evaluate("()=>{const d=docsList()[0];return {type:d.type,date:d.ana.date,pages:d.pages.length,kb:d.pages[0].kb,cropped:d.pages[0].cropped,ocr:d.pages[0].ocrMs,ms:d.pages[0].ms,words:d.pages[0].words,n:d.ana.labs&&d.ana.labs.n};}")
