@@ -18,7 +18,7 @@
 - OK — iphone un seul envoi
 - OK — iphone requête sans aucune donnée identifiante
 - OK — iphone clé envoyée seulement dans l'en-tête
-- OK — iphone consignes fixes en cache, Sonnet pour rédiger
+- OK — iphone consignes fixes en cache, Haiku pour les observations (v41z)
 - OK — iphone identité réintégrée sur l'appareil
 - OK — iphone constante inventée écartée (SpO2 99 absente de la dictée)
 - OK — iphone posologie proposée par l'IA jamais appliquée
@@ -60,7 +60,7 @@
 - OK — pc un seul envoi
 - OK — pc requête sans aucune donnée identifiante
 - OK — pc clé envoyée seulement dans l'en-tête
-- OK — pc consignes fixes en cache, Sonnet pour rédiger
+- OK — pc consignes fixes en cache, Haiku pour les observations (v41z)
 - OK — pc identité réintégrée sur l'appareil
 - OK — pc constante inventée écartée (SpO2 99 absente de la dictée)
 - OK — pc posologie proposée par l'IA jamais appliquée

@@ -15,7 +15,7 @@
 - OK — I.5 : confirmation d'un toucher (« Garder ») → envoi possible
 - OK — I.3 : « Toujours masquer » mémorisé et appliqué aussitôt
 - OK — I.5 : « Tout masquer davantage » (mode strict) actif, au moins autant d'éléments masqués
-- OK — III.12 : hors connexion la demande est gardée ; au retour du réseau, « Ce qui part » est reproposé
+- OK — III.12 : hors connexion la demande est gardée ; au retour du réseau elle est proposée dans le bandeau (« Voir ce qui part »), rien n'est envoyé ni ouvert tout seul, un toucher ouvre « Ce qui part »
 - OK — III.13 : écran Consommation — derniers envois avec modèle, anonymisation, réponse et coût
 - OK — aucune erreur JS
 
