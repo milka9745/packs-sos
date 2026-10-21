@@ -1,29 +1,29 @@
 # Tests sécurité du 17/10/2026 (B1 à B4), toutes les fiches
 
-- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : « J'ai prescrit » cite tous les examens cochés
-- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : « J'ai prescrit » ne cite aucun examen non coché
-- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : phrases contrôlées
-- OK — B3 courriers (133 fiches avec courrier et examens sur 398, réglage par défaut puis cases inversées) : aucune erreur JS
+- OK — B3 courriers (133 fiches avec courrier et examens sur 399, réglage par défaut puis cases inversées) : « J'ai prescrit » cite tous les examens cochés
+- OK — B3 courriers (133 fiches avec courrier et examens sur 399, réglage par défaut puis cases inversées) : « J'ai prescrit » ne cite aucun examen non coché
+- OK — B3 courriers (133 fiches avec courrier et examens sur 399, réglage par défaut puis cases inversées) : phrases contrôlées
+- OK — B3 courriers (133 fiches avec courrier et examens sur 399, réglage par défaut puis cases inversées) : aucune erreur JS
 - OK — ordinateur : identité fictive avec cachet (en mémoire)
-- OK — ordinateur (398 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
-- OK — ordinateur (398 fiches) : B2 aucune fenêtre système bloquante pendant l'impression
-- OK — ordinateur (398 fiches) : B1 aucun texte sous le cachet ou la signature, sur tous les documents
-- OK — ordinateur (398 fiches) : B1 aucun texte masqué
-- OK — ordinateur (398 fiches) : B1 document trop long : toujours signalé à l'écran avant impression
-- OK — ordinateur (398 fiches) : B3 « médicaments revus » jamais imprimé si l'action n'est ni cochée ni dictée
-- OK — ordinateur (398 fiches) : B3 aucun renvoi à un compte rendu joint (non imprimé)
-- OK — ordinateur (398 fiches) : documents sans trou (« à compléter », crochet, gabarit non résolu)
-- OK — ordinateur (398 fiches) : aucune erreur JS
+- OK — ordinateur (399 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
+- OK — ordinateur (399 fiches) : B2 aucune fenêtre système bloquante pendant l'impression
+- OK — ordinateur (399 fiches) : B1 aucun texte sous le cachet ou la signature, sur tous les documents
+- OK — ordinateur (399 fiches) : B1 aucun texte masqué
+- OK — ordinateur (399 fiches) : B1 document trop long : toujours signalé à l'écran avant impression
+- OK — ordinateur (399 fiches) : B3 « médicaments revus » jamais imprimé si l'action n'est ni cochée ni dictée
+- OK — ordinateur (399 fiches) : B3 aucun renvoi à un compte rendu joint (non imprimé)
+- OK — ordinateur (399 fiches) : documents sans trou (« à compléter », crochet, gabarit non résolu)
+- OK — ordinateur (399 fiches) : aucune erreur JS
 - OK — iphone jour : identité fictive avec cachet (en mémoire)
-- OK — iphone jour (398 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
-- OK — iphone jour (398 fiches) : B2 aucune fenêtre système bloquante pendant l'impression
-- OK — iphone jour (398 fiches) : B1 aucun texte sous le cachet ou la signature, sur tous les documents
-- OK — iphone jour (398 fiches) : B1 aucun texte masqué
-- OK — iphone jour (398 fiches) : B1 document trop long : toujours signalé à l'écran avant impression
-- OK — iphone jour (398 fiches) : B3 « médicaments revus » jamais imprimé si l'action n'est ni cochée ni dictée
-- OK — iphone jour (398 fiches) : B3 aucun renvoi à un compte rendu joint (non imprimé)
-- OK — iphone jour (398 fiches) : documents sans trou (« à compléter », crochet, gabarit non résolu)
-- OK — iphone jour (398 fiches) : aucune erreur JS
+- OK — iphone jour (399 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
+- OK — iphone jour (399 fiches) : B2 aucune fenêtre système bloquante pendant l'impression
+- OK — iphone jour (399 fiches) : B1 aucun texte sous le cachet ou la signature, sur tous les documents
+- OK — iphone jour (399 fiches) : B1 aucun texte masqué
+- OK — iphone jour (399 fiches) : B1 document trop long : toujours signalé à l'écran avant impression
+- OK — iphone jour (399 fiches) : B3 « médicaments revus » jamais imprimé si l'action n'est ni cochée ni dictée
+- OK — iphone jour (399 fiches) : B3 aucun renvoi à un compte rendu joint (non imprimé)
+- OK — iphone jour (399 fiches) : documents sans trou (« à compléter », crochet, gabarit non résolu)
+- OK — iphone jour (399 fiches) : aucune erreur JS
 - OK — iphone nuit grand texte : identité fictive avec cachet (en mémoire)
 - OK — iphone nuit grand texte (45 fiches) : B2 aucune fiche bloquée à l'impression (alertes : maintien possible)
 - OK — iphone nuit grand texte (45 fiches) : B2 aucune fenêtre système bloquante pendant l'impression

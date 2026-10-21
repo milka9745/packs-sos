@@ -1,9 +1,9 @@
 {
-  "version": "41y",
+  "version": "41z",
   "date": "2026-10-21",
   "notes": [
-    "Mode voiture : tous les boutons en fond plein, couleurs par fonction (bleu Naviguer, vert Appeler, or « Je suis arrivé », gris Quitter), gros et lisibles jour et nuit.",
-    "Tournée : l'impact d'une nouvelle demande est calculé par adresse avec les trajets réels (+N min → fin de tournée ou arrivée au cabinet), même estimation que la « Fin prévue » du mode voiture ; la puce de secteur ne compte que les visites de la tournée.",
-    "Fiche proposée : un motif de régulation sans contenu clinique (« O INTERVENTION », « VAD »…) ne propose plus de fiche ; les bandeaux disparaissent après 4 s et au changement d'écran ; badge TEST en haut de l'écran."
+    "Documents du patient : « Scanner » (pages enchaînées, recadrées, redressées, en noir et blanc, chiffrées) et « Documents » (photos et PDF, plusieurs à la fois), à côté de la dictée, en visite comme en consultation.",
+    "Analyse sur l'appareil, sans IA : type et date du document, biologie avec normes et DFG, médicaments des ordonnances, conclusion des courriers, antécédents, vaccins ; propositions à accepter d'un geste, alertes croisées avant l'ordonnance, résumé du patient en une page.",
+    "Avant d'imprimer : ce qui manque en une ligne, questions qui restent à poser, scores pré-remplis ; anonymisation plus solide et plus rapide, réponse de l'IA en moins de 60 secondes ou rien."
   ]
 }

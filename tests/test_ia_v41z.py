@@ -132,8 +132,8 @@ async def main():
             await page.wait_for_timeout(400)
             q=await page.evaluate("AIQ.list.length")
             await page.evaluate("()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});window.dispatchEvent(new Event('online'));}")
-            await page.wait_for_selector("#aisend",timeout=5000)
-            ok("III.12 : hors connexion la demande est gardée ; au retour du réseau, « Ce qui part » est reproposé",q==1,q)
+            await page.wait_for_selector("#netbar [data-aiqgo]",timeout=5000); sent0=len(MOCK["calls"]); await page.click("#netbar [data-aiqgo]"); await page.wait_for_selector("#aisend",timeout=5000)
+            ok("III.12 : hors connexion la demande est gardée ; au retour du réseau elle est proposée dans le bandeau (« Voir ce qui part »), rien n'est envoyé ni ouvert tout seul, un toucher ouvre « Ce qui part »",q==1 and len(MOCK["calls"])==sent0,(q,len(MOCK["calls"])-sent0))
             await page.evaluate("()=>{AI.pending=null;const e=document.getElementById('aisend');if(e)e.remove();AIQ.list=[];aiqSave();}")
             # ---------- consommation ----------
             await page.evaluate("aiConsoScreen()"); await page.wait_for_selector("#aiconso",timeout=2000)
