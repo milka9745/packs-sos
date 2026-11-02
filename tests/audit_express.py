@@ -79,7 +79,7 @@ async def visit(page,vid,first,fiche_re,extra):
     screens.append(await R.shot("fiche-choisie"))
     for e in extra: await e(page,R)
     screens.append(await R.shot("avant-impression"))
-    await R.tap("#go_top","🖨 Imprimer (aperçu)")
+    await R.tap("#fin","🖨 Imprimer (aperçu)")
     if await page.locator("#ciover").count():
         await R.tap("#ci_keep","Je maintiens"); await R.tap("#ci_print","Imprimer malgré l'alerte")
     await page.wait_for_selector("#print .page",timeout=8000)

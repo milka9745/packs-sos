@@ -39,7 +39,7 @@ PAGES="""()=>[...document.querySelectorAll('#print .page')].map((pg,i)=>{const f
 
 async def preview(page,width):
     await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};0")
-    await page.click("#go_top" if width<500 else "#go_only"); await page.wait_for_timeout(1500)
+    await page.click("#fin, #tc_reprint"); await page.wait_for_timeout(1500)  # 02/11/2026 : après une 1re impression, la barre propose « Réimprimer »
 
 async def back(page):
     await page.evaluate("document.body.classList.remove('printing');document.getElementById('print').innerHTML='';pdfCancel();render();")

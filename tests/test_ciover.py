@@ -42,16 +42,14 @@ async def run(width,label):
         # bouton Imprimer sans fiche : explication, jamais grisé muet
         if width<500:
             await page.evaluate("newPatient();render();"); await page.wait_for_timeout(200)
-            dis=await page.evaluate("document.getElementById('go_top').disabled")
-            await page.click("#go_top"); await page.wait_for_timeout(200)
-            t=await page.evaluate("(document.getElementById('toast')||{}).textContent||''")
-            ok(L+"« Imprimer » sans fiche : actif, explique quoi faire",not dis and "Choisissez d'abord une fiche" in t,t)
+            t=await page.evaluate("()=>({fin:!!document.getElementById('fin'),fiche:!!document.querySelector('#fdock #fa_fiche')})")
+            ok(L+"sans fiche : pas de bouton « Imprimer » ; la barre propose « Choisir la fiche » (02/11/2026)",not t["fin"] and t["fiche"],t)
         si=await page.evaluate(SETUP); await page.wait_for_timeout(300)
         al=await page.evaluate("checkAlerts(currentPack().s)")
         ok(L+"renouvellement ESCITALOPRAM + HALOPÉRIDOL : contre-indication détectée",any("CONTRE-INDICATION" in a for a in al),al[:2])
         await page.evaluate("window.__pr=0;window.print=()=>{window.__pr++;};0")
         dialogs.clear()
-        await page.click("#go_top" if width<500 else "#go_only"); await page.wait_for_timeout(500)
+        await page.click("#fin"); await page.wait_for_timeout(500)
         ok(L+"aucune fenêtre « Imprimer quand même ? » (plus de blocage par confirm)",not dialogs,dialogs[:1])
         ok(L+"écran « Avant d'imprimer » : motif, source, alternative",await page.locator("#ciover .cicard.ci").count()>=1 and "Thésaurus" in await page.inner_text("#ciover") and "Proposé" in await page.inner_text("#ciover"))
         ok(L+"une même contre-indication affichée une seule fois, sans libellé répété",await page.locator("#ciover .cicard.ci").count()==1 and not (await page.inner_text("#ciover .cicard.ci .cimot")).startswith("CONTRE-INDICATION"))
@@ -83,12 +81,12 @@ async def run(width,label):
         ok(L+"compte rendu : alerte passée outre, source et motif (traçabilité)","DÉCISIONS DE PRESCRIPTION" in cr and "psychiatre" in cr and "Thésaurus" in cr,[l for l in cr.split("\n") if "outre" in l][:1])
         j=await page.evaluate("JOURNAL.length?JOURNAL[JOURNAL.length-1].notes||[]:[]")
         ok(L+"journal : alerte et motif inscrits",any("psychiatre" in x and "outre" in x for x in j),j[-2:])
-        dialogs.clear(); await page.click("#go_top" if width<500 else "#go_only"); await page.wait_for_timeout(800)
+        dialogs.clear(); await page.click("#fin, #tc_reprint"); await page.wait_for_timeout(800)  # 02/11/2026 : après impression, la barre propose « Réimprimer »
         ok(L+"réimpression : décision déjà prise, pas de nouvel écran",await page.locator("#ciover").count()==0 and await page.locator("#print .page").count()>0)
         await page.evaluate("document.body.classList.remove('printing');document.getElementById('print').innerHTML='';pdfCancel();render();")
         # règle légale de forme : stupéfiant → à faire, sans bloquer le reste
         await page.evaluate("""()=>{newPatient();Object.assign(state,{patient:'TEST Lombalgie',ddn:'01/01/1940',date:'16/10/2026'});state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');render();const p=currentPack();p.s.forEach((sh,si)=>resolve(sh,si).forEach(x=>{if(x.jr)state.lo[x.key]=true;}));render();}""")
-        await page.click("#go_top" if width<500 else "#go_only"); await page.wait_for_timeout(600)
+        await page.click("#fin"); await page.wait_for_timeout(600)
         if await page.locator("#ciover").count():
             ok(L+"stupéfiant : la règle de forme est expliquée dans l'écran d'alerte",await page.locator("#ciover .cicard.legal").count()==1)
             await page.click("#ci_keep"); await page.click("#ci_print"); await page.wait_for_timeout(1500)

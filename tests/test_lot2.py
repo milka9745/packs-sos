@@ -32,8 +32,9 @@ TOURSET="""()=>{newPatient();TOUR.stops=[
   {id:'v2',addr:'5 avenue de Verdun, 45140 Saint-Jean-de-la-Ruelle',label:'5 Avenue de Verdun 45140 Saint-Jean-de-la-Ruelle',lat:47.9080,lon:1.8650,city:'Saint-Jean-de-la-Ruelle',nom:'PETIT Lou',ddn:'01/01/2018',tel:'0622222222',ts:2,done:false},
   {id:'v3',addr:'2 rue Nationale, 45140 Saint-Jean-de-la-Ruelle',label:'2 Rue Nationale 45140 Saint-Jean-de-la-Ruelle',lat:47.9100,lon:1.8700,city:'Saint-Jean-de-la-Ruelle',nom:'ROUX Max',ddn:'01/01/1990',ts:3,done:false}];
   TOUR.order=['v1','v2','v3'];TOUR.legs=[{km:2,min:6},{km:4,min:9},{km:1,min:3}];TOUR.current='';TOUR.computed=Date.now();tourSave();state.cot.lieu='visite';state.cot.auto=false;render();}"""
-MAIN="""()=>{const c=document.querySelector('.tcard');if(!c)return null;const m=c.querySelector('.tc-main');const vis=e=>e&&e.getBoundingClientRect().width>0&&!e.closest('details:not([open])');
-  return {step:(c.className.match(/step(\\d)/)||[])[1]||'',main:m?[...m.querySelectorAll('a,button')].filter(vis).map(e=>e.id||e.textContent.trim().slice(0,24)):[],calls:[...c.querySelectorAll('[data-tpcall]')].filter(vis).map(e=>e.dataset.tpcall),more:!!c.querySelector('details.tc-more:not([open])'),txt:c.innerText};}"""
+# 02/11/2026 (lot 1) : les actions de l'étape sont dans la barre fixe du bas (#fdock, 3 au plus) ; appels secondaires dans « Plus » de la carte
+MAIN="""()=>{const c=document.querySelector('.tcard');const m=document.getElementById('fdock');if(!c||!m)return null;
+  return {step:(c.className.match(/step(\\d)/)||[])[1]||'',fil:m.dataset.fil,main:[...m.querySelectorAll('.fa')].map(e=>e.id||e.textContent.trim().slice(0,24)),calls:[...document.querySelectorAll('#fdock [data-tpcall],#fdock [data-tpmask],.tc-more [data-tpcall],.tc-more [data-tpmask]')].map(e=>e.dataset.tpcall||e.dataset.tpmask),more:!!c.querySelector('details.tc-more:not([open])'),txt:c.innerText};}"""
 
 async def run(width,label,big=False,th="day",shots=True):
     async with async_playwright() as p:
@@ -46,13 +47,13 @@ async def run(width,label,big=False,th="day",shots=True):
         await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();")
         await page.evaluate(TOURSET); await page.wait_for_timeout(300)
         c=await page.evaluate(MAIN)
-        ok(L+"n°1 étape 1 « tournée prête » : 2 à 4 actions principales (appel, commencer · itinéraire, mode voiture)",c and c["step"]=="1" and 2<=len(c["main"])<=4 and "tc_begin" in c["main"] and "tc_drive" in c["main"] and "v1" in c["calls"] and c["more"],c and {k:c[k] for k in ("step","main","calls","more")})
+        ok(L+"n°1 étape 1 « Demande » : 3 actions (fiches, appel masqué, lancer la tournée) ; mode voiture dans « Plus »",c and c["step"]=="1" and c["fil"]=="demande" and len(c["main"])==3 and c["main"][2]=="tc_begin" and "v1" in c["calls"] and c["more"] and await page.locator(".tc-more #tc_drive").count()==1,c and {k:c[k] for k in ("step","main","calls","more")})
         if shots: await page.locator(".tcard").screenshot(path=os.path.join(OUT,f"{label}-lot2-etape1-{'grand' if big else 'normal'}-{th}.png"))
         await page.click("#tc_begin"); await page.wait_for_timeout(500)
         c=await page.evaluate(MAIN)
-        ok(L+"n°1 étape 2 « en route » : naviguer, je suis arrivé, dictée (+ appel)",c and c["step"]=="2" and len(c["main"])<=4 and "tc_arrive" in c["main"] and "tc_dict" in c["main"] and any("Naviguer" in x for x in c["main"]),c and {k:c[k] for k in ("step","main")})
+        ok(L+"n°1 étape 2 « En route » : naviguer, appeler, je suis arrivé",c and c["step"]=="2" and c["fil"]=="route" and len(c["main"])==3 and c["main"][2]=="tc_arrive" and c["main"][0]=="fa_nav",c and {k:c[k] for k in ("step","main")})
         ok(L+"n°2 appel du patient en cours et du suivant visibles (un toucher)","v1" in c["calls"] and "v2" in c["calls"],c["calls"])
-        ok(L+"n°2 appel depuis la fiche patient",await page.locator(".pcard .pcall[href='tel:0611111111']").count()==1)
+        ok(L+"n°2 appel du patient en cours : un seul bouton, dans la barre",await page.locator("#fdock [href='tel:0611111111']").count()==1 and await page.locator(".pcard .pcall").count()==0)
         if shots: await page.locator(".tcard").screenshot(path=os.path.join(OUT,f"{label}-lot2-etape2-{'grand' if big else 'normal'}-{th}.png"))
         # n° 3 : mode voiture
         await page.evaluate("state.view='drive';render();"); await page.wait_for_timeout(300)
@@ -63,12 +64,12 @@ async def run(width,label,big=False,th="day",shots=True):
         if shots: await page.screenshot(path=os.path.join(OUT,f"{label}-lot2-voiture-{'grand' if big else 'normal'}-{th}.png"),full_page=True)
         await page.click("#dv_arr"); await page.wait_for_timeout(500)
         c=await page.evaluate(MAIN)
-        ok(L+"n°1 étape 3 « sur place » : dictée, prescriptions, IA (sans navigation)",c and c["step"]=="3" and "tc_dict" in c["main"] and "tc_rx" in c["main"] and not any("Naviguer" in x for x in c["main"]) and len(c["main"])<=4,c and {k:c[k] for k in ("step","main")})
-        await page.evaluate("document.activeElement&&document.activeElement.blur()"); await page.click("#tc_dict"); await page.wait_for_timeout(200)
+        ok(L+"n°1 étape 3 « Sur place » : scanner, dicter, choisir la fiche (sans navigation)",c and c["step"]=="3" and c["main"]==["fa_scan","fa_dict","fa_fiche"],c and {k:c[k] for k in ("step","main")})
+        await page.evaluate("document.activeElement&&document.activeElement.blur()"); await page.click("#fdock #fa_dict"); await page.wait_for_timeout(200)
         ok(L+"n°1 « Dictée » sur place : grand champ prêt pour le micro du clavier",await page.evaluate("document.activeElement&&document.activeElement.id")=="f_dict")
         await page.evaluate("state.sel=PACKS.findIndex(p=>p.n==='Grippe / syndrome viral — adulte');state.lastPrint={n:2,sent:true,ts:Date.now()};render();"); await page.wait_for_timeout(300)
         c=await page.evaluate(MAIN)
-        ok(L+"n°1 étape 4 « fin de visite » : valider · patient suivant, appeler le suivant, réimprimer",c and c["step"]=="4" and "tc_valid" in c["main"] and "tc_reprint" in c["main"] and "v2" in c["calls"],c and {k:c[k] for k in ("step","main","calls")})
+        ok(L+"n°1 étape 5 « Sortie » : courrier, réimprimer, valider · patient suivant ; appeler le suivant dans « Plus »",c and c["step"]=="4" and c["main"]==["fa_let","tc_reprint","tc_valid"] and "v2" in c["calls"],c and {k:c[k] for k in ("step","main","calls")})
         if shots: await page.locator(".tcard").screenshot(path=os.path.join(OUT,f"{label}-lot2-etape4-{'grand' if big else 'normal'}-{th}.png"))
         # n° 4 : nouvelle demande pendant la tournée
         await page.evaluate("""()=>{tourAdd('8 rue Charles Beauhaire, 45140 Saint-Jean-de-la-Ruelle','Mme N',false,{lat:47.9090,lon:1.8680,label:'8 Rue Charles Beauhaire 45140 Saint-Jean-de-la-Ruelle',city:'Saint-Jean-de-la-Ruelle'});const s=TOUR.stops[TOUR.stops.length-1];s.tel='0633333333';s.nom='NOUVEAU Test';tourSave();render();}""")
@@ -91,7 +92,7 @@ async def run(width,label,big=False,th="day",shots=True):
         # cabinet : mêmes étapes visibles (iPhone)
         if width<500:
             await page.evaluate("newPatient();state.cot.lieu='cabinet';state.cot.auto=false;render();"); await page.wait_for_timeout(200)
-            ok(L+"n°1 consultation au cabinet : étapes Patient → Dictée → Fiche → Imprimer → Validé",await page.locator(".steps.cab li").count()==5)
+            ok(L+"n°1 consultation au cabinet : barre « Consultation · étape 1 sur 3 » (scanner, dicter, choisir la fiche)",(await page.inner_text("#fdock .fd-st")).startswith("Consultation · étape 1 sur 3") and await page.locator("#fdock #fa_fiche").count()==1)
         ow=await page.evaluate("document.documentElement.scrollWidth<=document.documentElement.clientWidth")
         ok(L+"aucun débordement horizontal",ow)
         ok(L+"aucune erreur JS",not errors,errors[:3])

@@ -63,7 +63,7 @@ async def run(width,height,label):
         ok(label+" bascule S/R visible",await page.locator(".srtog").count()==1)
         ns=await page.evaluate("document.querySelector('.title .sub').textContent"); ok(label+" cystite simple : 2 feuilles à imprimer (memo non comptée)",ns.startswith("2 "),ns)
         await page.screenshot(path=f"{OUT}/{label}-cystite-simple.png",full_page=True)
-        await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(400)
+        await page.evaluate("()=>{const b=document.querySelector('#fdock [data-sr=r]');if(b)b.click();}"); await page.wait_for_timeout(400)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" cystite à risque : FURADANTINE cochée (HAS), OROKEN en option",any("FURADANTINE" in x["t"] and x["on"] for x in med) and any("OROKEN" in x["t"] and not x["on"] for x in med),[x["t"][:30] for x in med if x["on"]])
         ok(label+" cystite à risque : 6 alternatives radio",sum(1 for x in med if any(k in x["t"] for k in ["OROKEN","FURADANTINE","MONURIL","BACTRIM","CLAMOXYL","SELEXID"]))>=6)
@@ -137,7 +137,7 @@ async def run(width,height,label):
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" gastro adulte : VOGALÈNE LYOC coché, suppositoire en alternative",any("VOGALÈNE LYOC" in x["t"] and x["on"] for x in med) and any("suppositoire sécable" in x["t"] and not x["on"] for x in med))
         ok(label+" gastro adulte simple : pas d'antibiotique",not any("AZITHROMYCINE" in x["t"] for x in med))
-        await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(300)
+        await page.evaluate("()=>{const b=document.querySelector('#fdock [data-sr=r]');if(b)b.click();}"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" gastro adulte à risque : suspension des médicaments + 4 antibiotiques en option (DIFICLIR hospitalier)",any("suspendre le diurétique" in x["t"] for x in med) and sum(1 for x in med if any(k in x["t"] for k in ["AZITHROMYCINE","CIFLOX","BACTRIM","FLAGYL"]))==4)
         await page.screenshot(path=f"{OUT}/{label}-gastro-risque.png",full_page=True)
@@ -171,7 +171,7 @@ async def run(width,height,label):
         await pick(page,"crépitants","Pneumopathie aiguë — adulte")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" PAC simple : CLAMOXYL coché, pas d'AUGMENTIN",any("CLAMOXYL" in x["t"] and x["on"] for x in med) and not any("AUGMENTIN" in x["t"] for x in med),[x["t"][:40] for x in med if x["on"]])
-        await page.click(".srtog [data-sr=r]"); await page.wait_for_timeout(300)
+        await page.evaluate("()=>{const b=document.querySelector('#fdock [data-sr=r]');if(b)b.click();}"); await page.wait_for_timeout(300)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" PAC à risque : AUGMENTIN coché",any("AUGMENTIN" in x["t"] and x["on"] for x in med),[(x["on"],x["t"][:100]) for x in med])
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;render();"); await page.wait_for_timeout(300)
@@ -297,7 +297,7 @@ async def run(width,height,label):
             await page.wait_for_timeout(200)
             await page.locator("#tc_begin" if where=="main" else "#tr_begin").first.click()
             await page.wait_for_timeout(900)
-            r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=c&&[...c.querySelectorAll('a')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
+            r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=[...document.querySelectorAll('.tcard a,#fdock a')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
             ok(label+f" tournée point 0 ({where}) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »",r0["cur"]=="r1" and r0["p"]=="DUPONT Jean" and r0["ddn"]=="01/01/1946" and r0["tel"]=="0612345678" and "Bourgogne" in (r0["adr"] or "") and "fièvre" in (r0["hist"] or "") and r0["inView"] and r0["nav"],r0)
             await page.evaluate(TRESET)
         await page.evaluate(TSET)
@@ -316,10 +316,10 @@ async def run(width,height,label):
         r7=await page.evaluate("""()=>{const d=new Date(Date.now()+20*60000);tpCfg().fin=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');TOUR.dest='cabinet';const fm=tpFinMode();const nx=tourNextStop();return {fm,nx:nx&&nx.id,far:tpOnWay(tourStop('r3'))};}""")
         ok(label+" tournée point 7 : mode fin de garde, seules les visites sur le chemin du retour sont proposées",r7["fm"] and r7["nx"]!="r3" and r7["far"] is False,r7)
         r11=await page.evaluate("""async()=>{TOUR.dest='';tpCfg().fin='';tourUse('r1');render();await new Promise(r=>setTimeout(r,100));const btn=document.getElementById('tc_arrive');const big=btn&&btn.getBoundingClientRect().height>=50;btn&&btn.click();await new Promise(r=>setTimeout(r,100));const s=tourStop('r1');
-           const res={big,tArr:!!s.tArr,hArr:state.cot.hArr===fmtHM(s.tArr),chrono:!!document.getElementById('tc_chrono'),onsite:/sur place/.test(document.querySelector('.tcard').innerText),dict:!!document.getElementById('tc_dict')};
+           const res={big,tArr:!!s.tArr,hArr:state.cot.hArr===fmtHM(s.tArr),chrono:!!document.getElementById('tc_chrono'),onsite:/sur place/.test(document.querySelector('.tcard').innerText),dict:!!document.getElementById('fa_dict')};
            s.tArr=Date.now()-25*60000;state.patient='TEST Tournée';patientValidate(true);res.dur=tourStop('r1').dur;state.view='';return res;}""")
         ok(label+" tournée point 11 : « Je suis arrivé » (grand bouton) enregistre l'arrivée = heure de l'acte, chrono, « sur place », dictée ; durée réelle à la validation",r11["big"] and r11["tArr"] and r11["hArr"] and r11["chrono"] and r11["onsite"] and r11["dict"] and r11["dur"]==25,r11)
-        r10=await page.evaluate("""async()=>{tourUse('r2');render();await new Promise(r=>setTimeout(r,100));const t=document.querySelector('.tcard');const a=t.querySelector('[data-tpcall]');const m=t.querySelector('[data-tpmask]');const memo=t.querySelector('.tp-memo');a&&a.addEventListener('click',e=>e.preventDefault(),{once:true});a&&a.click();const s=tourStop('r2');
+        r10=await page.evaluate("""async()=>{tourUse('r2');render();await new Promise(r=>setTimeout(r,100));const t=document.querySelector('.tcard');const a=document.querySelector('#fdock [data-tpcall]');const m=t.querySelector('[data-tpmask]');const memo=t.querySelector('.tp-memo');a&&a.addEventListener('click',e=>e.preventDefault(),{once:true});a&&a.click();const s=tourStop('r2');
            return {call:!!a,mask:!!m,memo:!!memo&&!memo.open&&/Annoncer l'arrivée vers/.test(memo.textContent),log:(s.calls||[]).length===1&&!!s.calls[0].annonce,sms:!/sms:/i.test(t.innerHTML)};}""")
         ok(label+" tournée point 10 : appel (et masqué), mémo fixe replié, heure d'appel et heure annoncée enregistrées, aucun SMS",all(r10.values()),r10)
         r8=await page.evaluate("""()=>{state.view='drive';render();const d=document.querySelector('.drive');const fs=d?parseFloat(getComputedStyle(d.querySelector('.dv-addr')).fontSize):0;const txt=d?d.innerText:'';state.view='tour';render();const bil=/Bilan de garde/.test(document.body.innerText)&&/Visites faites/.test(document.querySelector('.tp-bilan').textContent);state.view='';render();return {fs,fin:/Fin prévue/.test(txt),bil};}""")
@@ -466,11 +466,11 @@ async def run(width,height,label):
         # Affichage : Garde (défaut, actions principales vives, une seule mise en avant) / Premium, choix dans le menu ⋯
         ga=await page.evaluate("""async()=>{const w=ms=>new Promise(r=>setTimeout(r,ms));const save=JSON.stringify({s:TOUR.stops,o:TOUR.order,c:TOUR.current});window.__tO4=window.tourOptimize;window.tourOptimize=async()=>{};
           TOUR.stops=[{id:'g1',addr:'x',nom:'GARDE Test',ddn:'01/01/1950',lat:47.9,lon:1.9,label:'1 rue Test 45000 Orléans',done:false,ts:Date.now()}];TOUR.order=['g1'];state.sel=null;state.view='';state.cot=cotDefault();state.cot.lieu='visite';tourUse('g1');render();await w(80);
-          const def=DESIGN;const now1=[...document.querySelectorAll('.act-now')].map(x=>x.textContent.trim());const vact=[...document.querySelectorAll('.vact')].filter(b=>b.offsetParent).length;const nav=document.querySelector('.tcard .tc-nav');const bg=nav?getComputedStyle(nav).backgroundColor:'';
-          nav.addEventListener('click',e=>e.preventDefault(),{once:true});nav.click();await w(120);const now2=[...document.querySelectorAll('.act-now')].map(x=>x.textContent.trim());
+          const def=DESIGN;const now1=[...document.querySelectorAll('.act-now')].map(x=>x.textContent.trim());const vact=[...document.querySelectorAll('.vact')].filter(b=>b.offsetParent).length;const nav=document.querySelector('#fdock .tc-nav');const bg=nav?getComputedStyle(nav).backgroundColor:'';
+          nav.addEventListener('click',e=>e.preventDefault(),{once:true});nav.click();await w(120);const drive=state.view==='drive';state.view='';render();await w(50);const now2=[...document.querySelectorAll('.act-now')].map(x=>x.textContent.trim());
           const mp=document.querySelector('[data-dset="premium"]'),mg=document.querySelector('[data-dset="garde"]');const menu=isPhone()?(!!mp&&!!mg):true;if(mp)mp.click();else{DESIGN='premium';render();}await w(80);const prem=DESIGN==='premium'&&document.querySelectorAll('.vact').length===0;const mg2=document.querySelector('[data-dset="garde"]');if(mg2)mg2.click();else{DESIGN='garde';render();}await w(50);
-          const r=JSON.parse(save);TOUR.current=r.c;TOUR.stops=r.s;TOUR.order=r.o;window.tourOptimize=window.__tO4;state.cot=cotDefault();newPatient();render();return {def,now1,now2,vact,bg,menu,prem,back:DESIGN};}""")
-        ok(label+" affichage Garde par défaut : actions principales pleines et vives, une seule mise en avant (Naviguer puis Je suis arrivé), choix Garde / Premium dans le menu",ga["def"]=="garde" and len(ga["now1"])==1 and "Naviguer" in ga["now1"][0] and len(ga["now2"])==1 and "arrivé" in ga["now2"][0] and ga["vact"]>=3 and ga["bg"] not in ("rgba(0, 0, 0, 0)","transparent") and ga["menu"] and ga["prem"] and ga["back"]=="garde",ga)
+          const r=JSON.parse(save);TOUR.current=r.c;TOUR.stops=r.s;TOUR.order=r.o;window.tourOptimize=window.__tO4;state.cot=cotDefault();newPatient();render();return {def,now1,now2,vact,bg,menu,prem,drive,back:DESIGN};}""")
+        ok(label+" affichage Garde par défaut : actions principales pleines et vives, une seule mise en avant (Naviguer puis Je suis arrivé), choix Garde / Premium dans le menu",ga["def"]=="garde" and len(ga["now1"])==1 and "Naviguer" in ga["now1"][0] and len(ga["now2"])==1 and "arrivé" in ga["now2"][0] and ga["vact"]>=3 and ga["bg"] not in ("rgba(0, 0, 0, 0)","transparent") and ga["menu"] and ga["prem"] and ga["drive"] and ga["back"]=="garde",ga)
         # Impression : critères réservés au médecin jamais imprimés (16/10/2026)
         rv=await page.evaluate("""()=>{const W=/Fagerstr|CHA2DS2|HAS-BLED|Cockcroft|clairance|\bDFG\b|\bQTc?\b|\bAMM\b|\bscores?\b|\bseuils?\b|critères?|µmol|ml\/min|\bFEVG\b|\bIPS\b|index de pression|cigarettes par jour|terrain|indication/i;const ORD=["med","dm","ide","kine","para","podo"],EX=["bio","img","spe"];const out=[];
           for(const p of PACKS)for(const sh of p.s){if(!ORD.includes(sh.k)&&!EX.includes(sh.k))continue;for(const l of sh.l||[]){const o=typeof l==="string"?{t:l}:l;if(o.jr)continue;for(const t of [o.t,...(o.alt||[])]){if(typeof t!=="string")continue;const c=printClean(t);const hit=ORD.includes(sh.k)?W.test(c):(c.match(/\([^()]*\)/g)||[]).some(x=>W.test(x));if(hit)out.push(p.n+" : "+c.slice(0,80));}}}return out;}""")

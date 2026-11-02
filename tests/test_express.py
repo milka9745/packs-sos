@@ -49,7 +49,7 @@ async def run(b,w,h,th,big,label,shots):
     await page.evaluate(STOPS); await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};0"); await page.wait_for_timeout(400)
     L=label+" : "; tag=label.replace(" ","-")
     # accueil : liste des patients de la régulation
-    ok(L+"accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »",await page.locator(".xp-home [data-xpopen]").count()==3 and await page.locator("label[for=xp_shots]").count()==1 and await page.locator("#xp_new").count()==1)
+    ok(L+"accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »",await page.locator(".xp-home [data-xpopen]").count()==3 and await page.locator("#fdock label[for=fa_shots]").count()==1 and await page.locator("#xp_new").count()==1)
     href=await page.get_attribute(".xp-home [data-xpopen]","href")
     ok(L+"f. en visite, toucher le patient lance la navigation (même geste)",bool(href) and ("waze" in href or "maps" in href),href)
     if mob:

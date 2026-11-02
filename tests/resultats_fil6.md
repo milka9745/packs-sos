@@ -1,0 +1,277 @@
+# Lot 1 (02/11/2026) — parcours en 6 états, barre fixe de 3 actions
+
+- OK — iPhone jour : 1. Demande : barre à l'état « demande »
+- OK — iPhone jour : 1. Demande : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 1. Demande : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée
+- OK — iPhone jour : 1 → 2 Lancer la tournée : passage en moins de 2 s
+- OK — iPhone jour : 2. En route : barre à l'état « route »
+- OK — iPhone jour : 2. En route : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 2. En route : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)
+- OK — iPhone jour : 2 → 3 Je suis arrivé : passage en moins de 2 s
+- OK — iPhone jour : 3. Sur place : barre à l'état « place »
+- OK — iPhone jour : 3. Sur place : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 3. Sur place : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 3. Sur place : Scanner · Dicter · Choisir la fiche, aux mêmes places
+- OK — iPhone jour : 3. « Choisir la fiche » place le curseur dans la recherche
+- OK — iPhone jour : 3 → 4 fiche choisie : passage en moins de 2 s
+- OK — iPhone jour : 4. Prise en charge : barre à l'état « pec »
+- OK — iPhone jour : 4. Prise en charge : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 4. Prise en charge : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 4. Prise en charge : Examen complet · Pack simple/à risque · Imprimer
+- OK — iPhone jour : 4. bascule Pack simple ⇄ à risque depuis la barre
+- OK — iPhone jour : 4. « Examen complet » valide l'examen en un geste
+- OK — iPhone jour : 4. « Imprimer » ouvre l'aperçu (pas de barre d'étape par-dessus) et copie le compte rendu
+- OK — iPhone jour : aperçu → 5 retour : passage en moins de 2 s
+- OK — iPhone jour : 5. Sortie : barre à l'état « sortie »
+- OK — iPhone jour : 5. Sortie : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 5. Sortie : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 5. Sortie : Courrier · Réimprimer · Valider · patient suivant
+- OK — iPhone jour : 5. Valider : 1er toucher = confirmation (rien n'est validé seul)
+- OK — iPhone jour : 5. 2e toucher : patient validé, arrêt fait, journal de test intact
+- OK — iPhone jour : Patient suivant → 2 (visite suivante) : passage en moins de 2 s
+- OK — iPhone jour : Patient suivant : la visite suivante est en cours
+- OK — iPhone jour : nouvelle demande → 6 Entre deux en moins de 2 s
+- OK — iPhone jour : 6. Entre deux : barre à l'état « entre »
+- OK — iPhone jour : 6. Entre deux : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone jour : 6. Entre deux : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone jour : 6. Entre deux : Rendre à la régulation · En fin de tournée · Insérer au mieux ; impact affiché
+- OK — iPhone jour : 6 → 2 Insérer au mieux : passage en moins de 3 s
+- OK — iPhone jour : 6. demande insérée dans la tournée (plus « nouvelle »)
+- OK — iPhone jour : messages (toasts) au-dessus de la barre, jamais dessus
+- OK — iPhone jour : 6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, retour à l'état précédent
+- OK — iPhone jour : Naviguer : écran conduite ouvert automatiquement
+- OK — iPhone jour : aucune erreur JavaScript
+- OK — iPhone nuit : 1. Demande : barre à l'état « demande »
+- OK — iPhone nuit : 1. Demande : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 1. Demande : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée
+- OK — iPhone nuit : 1 → 2 Lancer la tournée : passage en moins de 2 s
+- OK — iPhone nuit : 2. En route : barre à l'état « route »
+- OK — iPhone nuit : 2. En route : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 2. En route : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)
+- OK — iPhone nuit : 2 → 3 Je suis arrivé : passage en moins de 2 s
+- OK — iPhone nuit : 3. Sur place : barre à l'état « place »
+- OK — iPhone nuit : 3. Sur place : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 3. Sur place : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 3. Sur place : Scanner · Dicter · Choisir la fiche, aux mêmes places
+- OK — iPhone nuit : 3. « Choisir la fiche » place le curseur dans la recherche
+- OK — iPhone nuit : 3 → 4 fiche choisie : passage en moins de 2 s
+- OK — iPhone nuit : 4. Prise en charge : barre à l'état « pec »
+- OK — iPhone nuit : 4. Prise en charge : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 4. Prise en charge : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 4. Prise en charge : Examen complet · Pack simple/à risque · Imprimer
+- OK — iPhone nuit : 4. bascule Pack simple ⇄ à risque depuis la barre
+- OK — iPhone nuit : 4. « Examen complet » valide l'examen en un geste
+- OK — iPhone nuit : 4. « Imprimer » ouvre l'aperçu (pas de barre d'étape par-dessus) et copie le compte rendu
+- OK — iPhone nuit : aperçu → 5 retour : passage en moins de 2 s
+- OK — iPhone nuit : 5. Sortie : barre à l'état « sortie »
+- OK — iPhone nuit : 5. Sortie : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 5. Sortie : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 5. Sortie : Courrier · Réimprimer · Valider · patient suivant
+- OK — iPhone nuit : 5. Valider : 1er toucher = confirmation (rien n'est validé seul)
+- OK — iPhone nuit : 5. 2e toucher : patient validé, arrêt fait, journal de test intact
+- OK — iPhone nuit : Patient suivant → 2 (visite suivante) : passage en moins de 2 s
+- OK — iPhone nuit : Patient suivant : la visite suivante est en cours
+- OK — iPhone nuit : nouvelle demande → 6 Entre deux en moins de 2 s
+- OK — iPhone nuit : 6. Entre deux : barre à l'état « entre »
+- OK — iPhone nuit : 6. Entre deux : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone nuit : 6. Entre deux : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone nuit : 6. Entre deux : Rendre à la régulation · En fin de tournée · Insérer au mieux ; impact affiché
+- OK — iPhone nuit : 6 → 2 Insérer au mieux : passage en moins de 3 s
+- OK — iPhone nuit : 6. demande insérée dans la tournée (plus « nouvelle »)
+- OK — iPhone nuit : messages (toasts) au-dessus de la barre, jamais dessus
+- OK — iPhone nuit : 6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, retour à l'état précédent
+- OK — iPhone nuit : Naviguer : écran conduite ouvert automatiquement
+- OK — iPhone nuit : aucune erreur JavaScript
+- OK — iPhone grand texte : 1. Demande : barre à l'état « demande »
+- OK — iPhone grand texte : 1. Demande : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 1. Demande : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée
+- OK — iPhone grand texte : 1 → 2 Lancer la tournée : passage en moins de 2 s
+- OK — iPhone grand texte : 2. En route : barre à l'état « route »
+- OK — iPhone grand texte : 2. En route : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 2. En route : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)
+- OK — iPhone grand texte : 2 → 3 Je suis arrivé : passage en moins de 2 s
+- OK — iPhone grand texte : 3. Sur place : barre à l'état « place »
+- OK — iPhone grand texte : 3. Sur place : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 3. Sur place : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 3. Sur place : Scanner · Dicter · Choisir la fiche, aux mêmes places
+- OK — iPhone grand texte : 3. « Choisir la fiche » place le curseur dans la recherche
+- OK — iPhone grand texte : 3 → 4 fiche choisie : passage en moins de 2 s
+- OK — iPhone grand texte : 4. Prise en charge : barre à l'état « pec »
+- OK — iPhone grand texte : 4. Prise en charge : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 4. Prise en charge : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 4. Prise en charge : Examen complet · Pack simple/à risque · Imprimer
+- OK — iPhone grand texte : 4. bascule Pack simple ⇄ à risque depuis la barre
+- OK — iPhone grand texte : 4. « Examen complet » valide l'examen en un geste
+- OK — iPhone grand texte : 4. « Imprimer » ouvre l'aperçu (pas de barre d'étape par-dessus) et copie le compte rendu
+- OK — iPhone grand texte : aperçu → 5 retour : passage en moins de 2 s
+- OK — iPhone grand texte : 5. Sortie : barre à l'état « sortie »
+- OK — iPhone grand texte : 5. Sortie : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 5. Sortie : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 5. Sortie : Courrier · Réimprimer · Valider · patient suivant
+- OK — iPhone grand texte : 5. Valider : 1er toucher = confirmation (rien n'est validé seul)
+- OK — iPhone grand texte : 5. 2e toucher : patient validé, arrêt fait, journal de test intact
+- OK — iPhone grand texte : Patient suivant → 2 (visite suivante) : passage en moins de 2 s
+- OK — iPhone grand texte : Patient suivant : la visite suivante est en cours
+- OK — iPhone grand texte : nouvelle demande → 6 Entre deux en moins de 2 s
+- OK — iPhone grand texte : 6. Entre deux : barre à l'état « entre »
+- OK — iPhone grand texte : 6. Entre deux : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone grand texte : 6. Entre deux : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone grand texte : 6. Entre deux : Rendre à la régulation · En fin de tournée · Insérer au mieux ; impact affiché
+- OK — iPhone grand texte : 6 → 2 Insérer au mieux : passage en moins de 3 s
+- OK — iPhone grand texte : 6. demande insérée dans la tournée (plus « nouvelle »)
+- OK — iPhone grand texte : messages (toasts) au-dessus de la barre, jamais dessus
+- OK — iPhone grand texte : 6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, retour à l'état précédent
+- OK — iPhone grand texte : Naviguer : écran conduite ouvert automatiquement
+- OK — iPhone grand texte : aucune erreur JavaScript
+- OK — iPhone Express : 1. Demande : barre à l'état « demande »
+- OK — iPhone Express : 1. Demande : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone Express : 1. Demande : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone Express : 1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée
+- OK — iPhone Express : 1 → 2 Lancer la tournée : passage en moins de 2 s
+- OK — iPhone Express : 2. En route : barre à l'état « route »
+- OK — iPhone Express : 2. En route : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone Express : 2. En route : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone Express : 2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)
+- OK — iPhone Express : 2 → 3 Je suis arrivé : passage en moins de 2 s
+- OK — iPhone Express : 3. Sur place : barre à l'état « place »
+- OK — iPhone Express : 3. Sur place : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone Express : 3. Sur place : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone Express : 3. Sur place : Scanner · Dicter · Choisir la fiche, aux mêmes places
+- OK — iPhone Express : 3. « Choisir la fiche » place le curseur dans la recherche
+- OK — iPhone Express : 3 → 4 fiche choisie : passage en moins de 2 s
+- OK — iPhone Express : 4. Prise en charge : barre à l'état « pec »
+- OK — iPhone Express : 4. Prise en charge : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — iPhone Express : 4. Prise en charge : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — iPhone Express : 4. Prise en charge : Examen complet · Pack simple/à risque · Imprimer
+- OK — iPhone Express : 4. bascule Pack simple ⇄ à risque depuis la barre
+- OK — iPhone Express : 4. « Examen complet » valide l'examen en un geste
+- OK — iPhone Express : 4. Express : l'action principale est « Imprimer et valider » (bouton de l'Express masqué, pas en double)
+- OK — ordinateur : 1. Demande : barre à l'état « demande »
+- OK — ordinateur : 1. Demande : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 1. Demande : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée
+- OK — ordinateur : 1 → 2 Lancer la tournée : passage en moins de 2 s
+- OK — ordinateur : 2. En route : barre à l'état « route »
+- OK — ordinateur : 2. En route : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 2. En route : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)
+- OK — ordinateur : 2 → 3 Je suis arrivé : passage en moins de 2 s
+- OK — ordinateur : 3. Sur place : barre à l'état « place »
+- OK — ordinateur : 3. Sur place : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 3. Sur place : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 3. Sur place : Scanner · Dicter · Choisir la fiche, aux mêmes places
+- OK — ordinateur : 3. « Choisir la fiche » place le curseur dans la recherche
+- OK — ordinateur : 3 → 4 fiche choisie : passage en moins de 2 s
+- OK — ordinateur : 4. Prise en charge : barre à l'état « pec »
+- OK — ordinateur : 4. Prise en charge : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 4. Prise en charge : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 4. Prise en charge : Examen complet · Pack simple/à risque · Imprimer
+- OK — ordinateur : 4. bascule Pack simple ⇄ à risque depuis la barre
+- OK — ordinateur : 4. « Examen complet » valide l'examen en un geste
+- OK — ordinateur : 4. « Imprimer » ouvre l'aperçu (pas de barre d'étape par-dessus) et copie le compte rendu
+- OK — ordinateur : aperçu → 5 retour : passage en moins de 2 s
+- OK — ordinateur : 5. Sortie : barre à l'état « sortie »
+- OK — ordinateur : 5. Sortie : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 5. Sortie : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 5. Sortie : Courrier · Réimprimer · Valider · patient suivant
+- OK — ordinateur : 5. Valider : 1er toucher = confirmation (rien n'est validé seul)
+- OK — ordinateur : 5. 2e toucher : patient validé, arrêt fait, journal de test intact
+- OK — ordinateur : Patient suivant → 2 (visite suivante) : passage en moins de 2 s
+- OK — ordinateur : Patient suivant : la visite suivante est en cours
+- OK — ordinateur : nouvelle demande → 6 Entre deux en moins de 2 s
+- OK — ordinateur : 6. Entre deux : barre à l'état « entre »
+- OK — ordinateur : 6. Entre deux : 3 actions au plus, une seule principale (mise en avant), aucune en double ailleurs à l'écran
+- OK — ordinateur : 6. Entre deux : barre collée en bas, boutons d'au moins 44 px, pas de défilement horizontal
+- OK — ordinateur : 6. Entre deux : Rendre à la régulation · En fin de tournée · Insérer au mieux ; impact affiché
+- OK — ordinateur : 6 → 2 Insérer au mieux : passage en moins de 3 s
+- OK — ordinateur : 6. demande insérée dans la tournée (plus « nouvelle »)
+- OK — ordinateur : messages (toasts) au-dessus de la barre, jamais dessus
+- OK — ordinateur : 6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, retour à l'état précédent
+- OK — ordinateur : Naviguer : écran conduite ouvert automatiquement
+- OK — ordinateur : aucune erreur JavaScript
+- OK — ordre : « Optimiser l'ordre » retiré (écran Tournée)
+- OK — ordre : patient validé → ordre recalculé automatiquement
+- OK — ordre : « Ordre manuel » (dans « Plus ») : ▲ ▼ sur chaque visite, plus de recalcul automatique
+- OK — ordre : ordre manuel : aucun recalcul à l'événement suivant
+- OK — ordre : message d'une ligne « depuis ma position · recalculé à HH h MM »
+
+200/200 tests OK
+
+## Temps mesurés (ms)
+
+- iPhone jour : 1 → 2 Lancer la tournée : 16
+- iPhone jour : 2 → 3 Je suis arrivé : 12
+- iPhone jour : 3 → 4 fiche choisie : 70
+- iPhone jour : 4 → aperçu Imprimer : 114
+- iPhone jour : aperçu → 5 retour : 8
+- iPhone jour : 5 → Patient validé : 53
+- iPhone jour : Patient suivant → 2 (visite suivante) : 29
+- iPhone jour : → 6 Entre deux : 23
+- iPhone jour : 6 → 2 Insérer au mieux : 148
+- iPhone nuit : 1 → 2 Lancer la tournée : 16
+- iPhone nuit : 2 → 3 Je suis arrivé : 14
+- iPhone nuit : 3 → 4 fiche choisie : 68
+- iPhone nuit : 4 → aperçu Imprimer : 111
+- iPhone nuit : aperçu → 5 retour : 8
+- iPhone nuit : 5 → Patient validé : 53
+- iPhone nuit : Patient suivant → 2 (visite suivante) : 28
+- iPhone nuit : → 6 Entre deux : 24
+- iPhone nuit : 6 → 2 Insérer au mieux : 152
+- iPhone grand texte : 1 → 2 Lancer la tournée : 15
+- iPhone grand texte : 2 → 3 Je suis arrivé : 13
+- iPhone grand texte : 3 → 4 fiche choisie : 68
+- iPhone grand texte : 4 → aperçu Imprimer : 136
+- iPhone grand texte : aperçu → 5 retour : 9
+- iPhone grand texte : 5 → Patient validé : 48
+- iPhone grand texte : Patient suivant → 2 (visite suivante) : 30
+- iPhone grand texte : → 6 Entre deux : 29
+- iPhone grand texte : 6 → 2 Insérer au mieux : 148
+- iPhone Express : 1 → 2 Lancer la tournée : 35
+- iPhone Express : 2 → 3 Je suis arrivé : 13
+- iPhone Express : 3 → 4 fiche choisie : 72
+- ordinateur : 1 → 2 Lancer la tournée : 18
+- ordinateur : 2 → 3 Je suis arrivé : 13
+- ordinateur : 3 → 4 fiche choisie : 83
+- ordinateur : 4 → aperçu Imprimer : 114
+- ordinateur : aperçu → 5 retour : 10
+- ordinateur : 5 → Patient validé : 45
+- ordinateur : Patient suivant → 2 (visite suivante) : 26
+- ordinateur : → 6 Entre deux : 23
+- ordinateur : 6 → 2 Insérer au mieux : 155
+
+## Boutons visibles par état
+
+- iPhone jour : demande : 24
+- iPhone jour : route : 23
+- iPhone jour : place : 22
+- iPhone jour : pec : 60
+- iPhone jour : sortie : 59
+- iPhone jour : entre : 22
+- iPhone nuit : demande : 24
+- iPhone nuit : route : 23
+- iPhone nuit : place : 22
+- iPhone nuit : pec : 60
+- iPhone nuit : sortie : 59
+- iPhone nuit : entre : 22
+- iPhone grand texte : demande : 24
+- iPhone grand texte : route : 23
+- iPhone grand texte : place : 22
+- iPhone grand texte : pec : 60
+- iPhone grand texte : sortie : 59
+- iPhone grand texte : entre : 22
+- iPhone Express : demande : 7
+- iPhone Express : route : 17
+- iPhone Express : place : 16
+- iPhone Express : pec : 27
+- ordinateur : demande : 32
+- ordinateur : route : 31
+- ordinateur : place : 30
+- ordinateur : pec : 69
+- ordinateur : sortie : 68
+- ordinateur : entre : 31

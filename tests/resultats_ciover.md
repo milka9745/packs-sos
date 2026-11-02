@@ -22,7 +22,7 @@
 - OK — pc stupéfiant : « ordonnance sécurisée à rédiger à la main » affiché, le reste imprimé
 - OK — pc aucun bouton grisé sans explication (accueil, fiche, journal, tournée)
 - OK — pc aucune erreur JS
-- OK — iphone « Imprimer » sans fiche : actif, explique quoi faire
+- OK — iphone sans fiche : pas de bouton « Imprimer » ; la barre propose « Choisir la fiche » (02/11/2026)
 - OK — iphone renouvellement ESCITALOPRAM + HALOPÉRIDOL : contre-indication détectée
 - OK — iphone aucune fenêtre « Imprimer quand même ? » (plus de blocage par confirm)
 - OK — iphone écran « Avant d'imprimer » : motif, source, alternative

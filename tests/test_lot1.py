@@ -136,11 +136,11 @@ async def run(width,label):
         await page.evaluate("window.__pr=0;window.print=()=>{window.__pr++;};0")
         await page.evaluate("Object.assign(state,{patient:'TEST Fictif',ddn:'01/01/1980'});state.photos=[];render();")
         if width<500:
-            await page.click("#go_top"); await page.wait_for_timeout(1200)
+            await page.click("#fin"); await page.wait_for_timeout(1200)
             ok(L+"n°9 aperçu : boutons Envoyer (PDF) et Enregistrer le PDF visibles ; plus d'impression de la page web",all([await page.locator(s).is_visible() for s in ["#pb_send","#pb_pdf"]]) and await page.locator("#pb_ios").count()==0)
             ok(L+"n°9 jamais d'impression de la page web (17/10/2026)",await page.evaluate("window.__pr")==0)
         else:
-            await page.click("#go_only"); await page.wait_for_timeout(1200)
+            await page.click("#fin"); await page.wait_for_timeout(1200)
             await page.click("#pb_print2")
             for _ in range(40):
                 if await page.evaluate("window.__pdfprint||0"): break

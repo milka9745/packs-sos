@@ -2,8 +2,8 @@
 
 - OK — PC · mode complet : 12.3 identification : NOM + initiale du prénom · âge · rue (plus seulement l'initiale)
 - OK — PC · mode complet : 12.1 tournée prête : bouton « Commencer », contre-appel dictable dès l'étape 1, numéro visible sur « Appeler »
-- OK — PC · mode complet : 12.1 « Commencer » démarre la visite : premier arrêt en cours, dossier prérempli, étape « En route » avec Naviguer, Je suis arrivé, Dictée
-- OK — PC · mode complet : 12.1 « Je suis arrivé » : heure d'arrivée enregistrée et annoncée, étape « Sur place » (dictée, prescriptions)
+- OK — PC · mode complet : 12.1 « Commencer » démarre la visite : premier arrêt en cours, dossier prérempli, étape « En route » : Naviguer, Appeler, Je suis arrivé (contre-appel dictable dans la carte)
+- OK — PC · mode complet : 12.1 « Je suis arrivé » : heure d'arrivée enregistrée et annoncée, étape « Sur place » (scanner, dicter, choisir la fiche)
 - OK — PC · mode complet : 12.5 cotation sur l'heure réelle de l'acte (arrivée 07:40), pas sur l'heure de validation
 - OK — PC · mode complet : 12.2 « Patients validés » : la visite validée est listée avec sa cotation
 - OK — PC · mode complet : 12.2 rouvrir : dossier remis tel quel, validation initiale conservée dans la liste (marquée rouverte), aucune nouvelle validation implicite

@@ -52,7 +52,7 @@ async def run(b,w,h,th,big,label):
     ok(L+"✎ Favoris : bandeau « Terminé », étoiles visibles (retrait d'un toucher)",await page.locator("#favbar").count()==1 and await page.locator("#main .favstar:visible").count()>0 and await page.locator(".xp .favstar.on:visible").count()>0)
     await page.click("#fav_done"); await page.wait_for_timeout(350)
     ok(L+"« Terminé » : étoiles de nouveau masquées, favoris inchangés",await page.locator("#main .favstar:visible").count()==0 and await page.locator("#favbar").count()==0 and await page.locator(".xp #xp_favs #tc_view").count()==1)
-    ok(L+"chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)",await page.evaluate("""(()=>{const k=[...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk);return ['f:f_al','f:f_tt','f:f_date','sec:cot','sec:pho','sec:nh','btn:fin'].every(x=>k.includes(x))&&k.some(x=>x.startsWith('doc:'));})()"""),await page.evaluate("[...new Set([...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk))]"))
+    ok(L+"chaque élément du mode complet porte une étoile (champs, documents, sections, boutons)",await page.evaluate("""(()=>{const k=[...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk);return ['f:f_al','f:f_tt','f:f_date','sec:cot','sec:pho','sec:nh'].every(x=>k.includes(x))&&k.some(x=>x.startsWith('doc:'));})()"""),await page.evaluate("[...new Set([...document.querySelectorAll('#main .favstar')].map(s=>s.dataset.favk))]"))
     ok(L+"sécurité fixée, sans étoile : gravité, doses, alertes",await page.locator(".xp .xp-grav .favstar, .xp .xp-meds .favstar, .xp .xp-alerts .favstar").count()==0 and await page.locator(".xp .xp-meds").count()==1)
     # ajouter « Allergies »
     await star(page,"f:f_al")

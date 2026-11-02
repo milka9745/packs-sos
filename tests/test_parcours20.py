@@ -59,18 +59,18 @@ async def main():
                     ok(L+"aucune erreur JS",not errors,errors[:3]); await ctx.close(); continue
                 # ---------- 12.1 « Commencer », étapes 1 → 2 → 3 ----------
                 await page.evaluate("()=>{document.querySelectorAll('details').forEach(d=>d.open=true);}")
-                st=await page.evaluate("({begin:!!document.querySelector('#tc_begin'),step:(document.querySelector('.tc-steps li.on')||{}).textContent||'',tel:document.querySelectorAll('.tcard textarea[data-interro]').length,call:[...document.querySelectorAll('.tcard a[href^=\"tel:\"]')].map(a=>a.textContent)})")
-                ok(L+"12.1 tournée prête : bouton « Commencer », contre-appel dictable dès l'étape 1, numéro visible sur « Appeler »",st["begin"] and st["step"]=="Tournée" and st["tel"]>=1 and any("06 12 34 56 78" in c for c in st["call"]),st)
+                st=await page.evaluate("({begin:!!document.querySelector('#tc_begin'),step:(document.querySelector('#fdock .fd-st b')||{}).textContent||'',tel:document.querySelectorAll('.tcard textarea[data-interro]').length,call:[...document.querySelectorAll('.tcard a[href^=\"tel:\"]')].map(a=>a.textContent)})")
+                ok(L+"12.1 tournée prête : bouton « Commencer », contre-appel dictable dès l'étape 1, numéro visible sur « Appeler »",st["begin"] and st["step"]=="Demande" and st["tel"]>=1 and any("06 12 34 56 78" in c for c in st["call"]),st)
                 await page.click("#tc_begin")
                 for _ in range(40):
                     if await page.evaluate("!!TOUR.current"): break
                     await page.wait_for_timeout(250)
                 await page.wait_for_timeout(400)
-                st=await page.evaluate("({cur:TOUR.current,lieu:state.cot.lieu,pat:state.patient,step:(document.querySelector('.tc-steps li.on')||{}).textContent||'',arrive:!!document.querySelector('#tc_arrive'),dict:!!document.querySelector('#tc_dict'),nav:!!document.querySelector('.tcard .tc-nav')})")
-                ok(L+"12.1 « Commencer » démarre la visite : premier arrêt en cours, dossier prérempli, étape « En route » avec Naviguer, Je suis arrivé, Dictée",st["cur"]==ids[0] and st["lieu"]=="visite" and st["pat"]=="DUPONT Jean" and st["step"]=="En route" and st["arrive"] and st["dict"] and st["nav"],st)
+                st=await page.evaluate("({cur:TOUR.current,lieu:state.cot.lieu,pat:state.patient,step:(document.querySelector('#fdock .fd-st b')||{}).textContent||'',arrive:!!document.querySelector('#fdock #tc_arrive'),dict:!!document.querySelector('.tcard textarea[data-interro]'),nav:!!document.querySelector('#fdock .tc-nav')})")
+                ok(L+"12.1 « Commencer » démarre la visite : premier arrêt en cours, dossier prérempli, étape « En route » : Naviguer, Appeler, Je suis arrivé (contre-appel dictable dans la carte)",st["cur"]==ids[0] and st["lieu"]=="visite" and st["pat"]=="DUPONT Jean" and st["step"]=="En route" and st["arrive"] and st["dict"] and st["nav"],st)
                 await page.evaluate("window.__toasts=[];const t0=window.toast;window.toast=m=>{window.__toasts.push(m);t0(m);};"); await page.click("#tc_arrive"); await page.wait_for_timeout(500)
-                st=await page.evaluate(f"({{arr:!!tourStop('{ids[0]}').tArr,h:state.cot.hArr,step:(document.querySelector('.tc-steps li.on')||{{}}).textContent||'',dict:!!document.querySelector('#tc_dict'),rx:!!document.querySelector('#tc_rx'),t:window.__toasts.join(' | ')}})")
-                ok(L+"12.1 « Je suis arrivé » : heure d'arrivée enregistrée et annoncée, étape « Sur place » (dictée, prescriptions)",st["arr"] and st["h"] and st["step"]=="Sur place" and st["dict"] and st["rx"] and "Arrivée enregistrée" in st["t"],st)
+                st=await page.evaluate(f"({{arr:!!tourStop('{ids[0]}').tArr,h:state.cot.hArr,step:(document.querySelector('#fdock .fd-st b')||{{}}).textContent||'',dict:!!document.querySelector('#fdock #fa_dict'),rx:!!document.querySelector('#fdock #fa_fiche'),t:window.__toasts.join(' | ')}})")
+                ok(L+"12.1 « Je suis arrivé » : heure d'arrivée enregistrée et annoncée, étape « Sur place » (scanner, dicter, choisir la fiche)",st["arr"] and st["h"] and st["step"]=="Sur place" and st["dict"] and st["rx"] and "Arrivée enregistrée" in st["t"],st)
                 # ---------- 12.5 cotation à l'heure réelle ----------
                 pk=await page.evaluate("PACKS.findIndex(p=>p.n==='Lombalgie aiguë')")
                 await page.evaluate(f"state.sel={pk};state.cot.hArr='07:40';state.cot.h='';render();")

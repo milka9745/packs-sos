@@ -69,8 +69,6 @@ async def main():
                             tag=f"{w}x{h}-{orient}-{th}{'-grand' if big else ''}"
                             if (w==320) or (w==375 and orient=="portrait" and big and th=="night") or (w==430 and orient=="portrait" and th=="day" and not big):
                                 await shot(page,os.path.join(OUT,f"voiture-apres-{tag}.png"))
-                                await page.evaluate("renderDriveV40()"); await page.wait_for_timeout(200)
-                                await shot(page,os.path.join(OUT,f"voiture-avant-{tag}.png"))
                             await ctx.close()
             # zones sûres déclarées dans la feuille de style (encoche, Dynamic Island, barre d'accueil)
             ctx=await b.new_context(viewport={"width":375,"height":812}); page=await ctx.new_page(); await unlock(page)
