@@ -1,9 +1,9 @@
 {
   "version": "41z-test",
-  "date": "2026-10-21",
+  "date": "2026-11-02",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Documents du patient : « Scanner » (pages enchaînées, recadrées, redressées, en noir et blanc, chiffrées) et « Documents » (photos et PDF, plusieurs à la fois), à côté de la dictée, en visite comme en consultation.",
-    "Analyse sur l'appareil, sans IA : type et date du document, biologie avec normes et DFG, médicaments des ordonnances, conclusion des courriers, antécédents, vaccins ; propositions à accepter d'un geste, alertes croisées avant l'ordonnance, résumé du patient en une page."
+    "Une barre fixe en bas : 3 boutons, toujours aux mêmes places, selon l'étape (demande, en route, sur place, prise en charge, sortie, nouvelle demande) ; le bouton de droite fait avancer.",
+    "Plus de boutons en double (Imprimer, Appeler, Valider) ; le reste est dans « Plus » de la carte patient."
   ]
 }
