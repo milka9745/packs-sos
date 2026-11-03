@@ -16670,7 +16670,7 @@ function aiClinique(){const L=[];const a=aiAgeText();if(a)L.push("Âge : "+a);if
 /* ---- Consignes fixes (identiques à chaque envoi : mises en cache) ---- */
 const AI_SYS_COMMUN=`Tu assistes un médecin généraliste et urgentiste de SOS Médecins (visites à domicile, consultations de garde), en France.
 Le texte reçu a été anonymisé sur l'appareil du médecin : les identités, adresses, numéros et dates sont remplacés par des jetons entre doubles crochets, par exemple [[NOM DU PATIENT]], [[PERSONNE 1]], [[ADRESSE]], [[J-3]] (3 jours avant la consultation, qui est J0), [[il y a 5 mois]], [[ÂGE : 41 ans]]. Recopie ces jetons tels quels, crochets compris, quand tu en as besoin ; [[PATIENT]], [[NOM DU PATIENT]] et [[PRÉNOM DU PATIENT]] sont toujours disponibles ; n'en invente jamais d'autres ; ne cherche jamais à retrouver une identité.
-Règles absolues : n'écris aucun examen, geste, constante ou résultat qui n'est pas dans ce qui t'est transmis (texte ou image) ; ne retire ni ne modifie aucun fait clinique, horaire ou décision ; n'écris jamais de posologie, de dose, de durée ni de fréquence de traitement (elles viennent des fiches validées du médecin) ; jamais de « à préciser », de champ vide ni de crochet autre que les jetons reçus ; français médical sobre, factuel, sans jugement.
+Règles absolues : n'écris aucun examen, geste, constante ou résultat qui n'est pas dans ce qui t'est transmis (texte ou image) ; ne retire ni ne modifie aucun fait clinique, horaire ou décision ; n'écris jamais de posologie, de dose, de durée ni de fréquence de traitement (elles viennent des fiches validées du médecin) ; jamais de « à préciser », « non précisé », « non renseigné », « à compléter », « à votre disposition sur simple demande », de champ vide ni de crochet autre que les jetons reçus ; une information absente de ce qui t'est transmis ne donne aucune phrase ; français médical sobre, factuel, sans jugement.
 Tu réponds uniquement par un objet JSON valide, sans texte autour.`;
 const AI_SYS_OBS=AI_SYS_COMMUN+`
 TÂCHE : le médecin a dicté en vrac. Range la dictée en observation. Clés du JSON :
@@ -16908,7 +16908,7 @@ function aiShowCR(j,out){const R=AI.res;const H=[];R.acc={};
       if(!why)R.acc["rf"+i]={k,av,ap:b.text};
       H.push(`<div class="aires"><i>${esc(x.rubrique||"Formulation")}</i><div class="aidiff"><del>${esc(av)}</del><ins>${esc(b.text||x.apres)}</ins></div>${why?`<span class="aiwarn">Non applicable : ${esc(why)}</span>`:`<button type="button" class="btn s sm" data-acc="rf${i}">Accepter</button>`}</div>`);});
     [["raisonnement","Raisonnement","raison"],["information","Information donnée","info"]].forEach(([key,lbl,id])=>{if(!j[key])return;const b=aiBack(j[key],{noDose:true});if(b.ok&&!b.doses.length)R.acc[id]={text:b.text};H.push(`<div class="aires"><i>${lbl}</i> — ${esc(b.text||j[key])} ${b.ok&&!b.doses.length?`<button type="button" class="btn s sm" data-acc="${id}">Ajouter au compte rendu</button>`:`<span class="aiwarn">Non applicable : ${esc(b.why||"posologie")}</span>`}</div>`);});}
-  if(R.fns.includes("let")&&j.courrier){const c=j.courrier;const L=[c.dest,...(c.paragraphs||[]),c.fin].filter(Boolean).map(t=>aiBack(t,{noDose:true}));const bad=L.filter(b=>!b.ok);const doses=L.flatMap(b=>b.doses||[]);
+  if(R.fns.includes("let")&&j.courrier){const c=j.courrier;const L=[c.dest,...(c.paragraphs||[]),c.fin].filter(Boolean).map(t=>{const b=aiBack(t,{noDose:true});return b&&b.ok&&FILLER_RE.test(String(b.text||t))?Object.assign({},b,{ok:false,why:"phrase de remplissage pour une donnée absente : « "+String(b.text||t).slice(0,60)+" »"}):b;});const bad=L.filter(b=>!b.ok);const doses=L.flatMap(b=>b.doses||[]);
     const p=currentPack();const meds=p?p.s.map((sh,si)=>sh.k==="med"&&!state.off[si]?resolve(sh,si).filter(x=>x.on&&!x.jr&&!x.fill.miss.length).map(x=>x.fill.s.replace(DNOTE_RE,"").trim().replace(/[.;\s]+$/,"")):[]).flat():[];
     const txt=L.filter(b=>b.ok).map(b=>b.text);if(meds.length&&txt.length>1)txt.splice(txt.length-1,0,"Traitement prescrit ce jour : "+meds.join(" ; ")+".");
     R.acc.let={lines:txt};
@@ -17888,6 +17888,7 @@ function missingList(p){const M=[];if(!p)return M;const a=ageY();const miss=new 
   const hasAtb=p.s.some(sh=>sh.k==="med"&&sh.l.some(l=>/CLAMOXYL|AUGMENTIN|AMOXICILLINE|ORELOX|ZINNAT|CEFTRIAXONE|PYOSTACINE|AZITHROMYCINE|JOSACINE|ZECLAR|DOXYCYCLINE|BACTRIM|CIFLOX|OFLOCET|TAVANIC|FLAGYL|MONURIL|SELEXID|FURADANTINE|OROKEN|DALACINE/i.test(txt(l))));
   const alKnown=state.allergie||(state.allergies||[]).length||/pas d'allergie|aucune allergie|sans allergie|allergie\s*:\s*(?:non|aucune|0)/i.test(String(state.obs&&state.obs.atcd||"")+" "+String(state.obs&&state.obs.dict||""));
   if(hasAtb&&!alKnown)M.push({t:"allergies",why:"antibiotique dans la fiche : allergie à noter, ou « pas d'allergie connue » dans la dictée"});
+  try{letNeeds(p).forEach(t=>M.push({t,why:"à écrire dans l'examen ou le diagnostic : le courrier ne reprend que l'observation, sans phrase de remplissage",let:true}));}catch(e){}
   const n=p.n;const c=state.cst||{};
   if(/dyspn|bronch|pneumo|asthme|covid|bronchiolite|laryngite|embolie|insuffisance cardiaque|détresse|OAP/i.test(n)&&!c.spo2)M.push({t:"SpO2",why:"critère d'appel du 15 (90 %) et de gravité pour ce motif"});
   if(/fièvre|angine|otite|infection|pyélo|érysip|sepsis|cystite|sinusite|grippe|pneumo|bronchiolite|abcès/i.test(n)&&!c.temp)M.push({t:"température",why:"motif infectieux : fièvre mesurée à tracer"});
@@ -17899,7 +17900,7 @@ function missingHTML(p){let M=[];try{M=missingList(p);}catch(e){}if(!M.length)re
 /* ---- questions qui restent à poser (point 31) : liste de vérification de la fiche filtrée par ce qui est connu, bloquant d'abord ---- */
 function questionsList(p){const Q=[];if(!p)return Q;const asked=state.asked||{};const memo=p.s.filter(sh=>sh.k==="memo").flatMap(sh=>sh.l.map(l=>typeof l==="string"?l:(l&&l.t)||""));
   const add=(t,lvl,why)=>{t=String(t).trim().replace(/[.;\s]+$/,"").replace(/^[-–•\s]+/,"");if(t.length<3||t.length>140)return;if(Q.some(q=>q.t===t))return;const k="q"+hashStr(t);Q.push({t,lvl,why,k,done:!!asked[k]});};
-  missingList(p).forEach(m=>add(m.t+" ?","bloquant",m.why));
+  missingList(p).forEach(m=>add(m.let?m.t:m.t+" ?",m.let?"documenter":"bloquant",m.why));
   memo.forEach(l=>{const pos=[];[["bloquant",/(?:^|[^-])bloquant\s*:/i],["documenter",/à documenter\s*:/i],["facultatif",/facultatif\s*:/i]].forEach(([k,re])=>{const m=re.exec(l);if(m)pos.push({k,i:m.index,e:m.index+m[0].length});});pos.sort((a,b)=>a.i-b.i);
     pos.forEach((p,j)=>{const end=j+1<pos.length?pos[j+1].i:l.length;const seg=l.slice(p.e,end).replace(/\s*(?:fiches? voisines?|sources?|durée de visite|statut|traçabilité)\s*:.*$/i,"").replace(/[;.\s]+$/,"");seg.split(/\s*;\s*/).slice(0,8).forEach(x=>add(x,p.k,"mémo de la fiche : "+(p.k==="documenter"?"à documenter":p.k)));});});
   try{scoresFor(p).forEach(s=>{const ans=scoreAns(s.id);if(scoreDone(s,ans))return;add("Score "+s.n.split(" (")[0]+" à compléter","documenter","score proposé pour ce motif, non rempli");});}catch(e){}
@@ -18215,8 +18216,36 @@ function docPresc(c){const parts=[];const lc=x=>/^[A-ZÀ-Ý][a-zà-ÿ'’\-]+(?=
 /* résumé des éléments dictés ou saisis, à la place d'un renvoi au compte rendu (non imprimé) */
 function docObsSummary(){const o=state.obs||{};const b=[]; /* 17/10/2026 : jamais la dictée brute ni l'histoire libre ; constantes, examen, diagnostic seulement (la dictée reste dans le compte rendu) */
   const cst=[["ta","TA"],["fc","FC"],["spo2","SpO2"],["temp","T°"],["eva","EVA"]].filter(([k])=>state.cst&&state.cst[k]).map(([k,l])=>l+" "+state.cst[k]+({ta:" mmHg",fc:"/min",spo2:" %",temp:" °C",eva:"/10"}[k]));if(cst.length)b.push("constantes : "+cst.join(", "));
-  SYSTEMS.forEach(([k,l])=>{const v=obsVal(k);if(v)b.push(l.toLowerCase()+" : "+v.replace(/[.\s]+$/,""));});if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
-const DOC_FALLBACK="sont à votre disposition sur simple demande";
+  SYSTEMS.forEach(([k,l])=>{const v=obsVal(k);if(v)b.push(l.toLowerCase()+" : "+v.replace(/[.\s]+$/,""));});const f=state.f||{};if(f.ecg)b.push("ECG : "+String(f.ecg).trim().replace(/[.\s]+$/,""));if(f.lesions)b.push("lésions constatées : "+String(f.lesions).replace(/\n/g," ").trim().replace(/[.\s]+$/,""));if(o.hyp)b.push("diagnostic retenu : "+String(o.hyp).replace(/[.\s]+$/,""));return b.join(" ; ");}
+/* 03/11/2026 : jamais de phrase de remplissage pour une donnée absente (fiches, courriers assemblés, courrier IA) ; une information absente ne donne aucune phrase */
+const FILLER_RE=/(?<![A-Za-zÀ-ÿ])(?:(?:à|a) (?:votre|ta|sa|leur) disposition sur (?:simple )?demande|sur simple demande|non (?:précisée?s?|renseignée?s?|documentée?s?|communiquée?s?|spécifiée?s?|indiquée?s?|mentionnée?s?)|(?:à|a) (?:compléter|préciser|renseigner|déterminer|définir|remplir)|sans précision|(?:informations?|données?|éléments?) (?:non disponibles?|manquante?s?)|XXX|\?\?\?|\[(?:…|\.\.\.|à [^\]]*)\]|\(vide\))(?![A-Za-zÀ-ÿ])/i;
+const DOC_CR_RE=/compte[- ]rendu joint|figurent dans le compte[- ]rendu/i;
+/* découpe « motif, dont A, B et C figurent dans le compte rendu joint, suite » → {pre:"motif, suite", items:["A","B","C"]} : items = éléments cliniques que le courrier attend */
+function docCrSplit(x){const s=String(x||"");const cr=/\s*(?:figurent?|sont\s+(?:détaillée?s?|décrite?s?|disponibles?|précisée?s?)|est\s+(?:détaillée?|décrite?|précisée?)|détaillée?s?|décrite?s?|précisée?s?)?\s*(?:dans|sur|au)\s+le\s+compte[- ]rendu(?:\s+joint)?\s*\)?/i.exec(s);
+  if(!cr)return {pre:s.trim(),items:[]};
+  const before=s.slice(0,cr.index),after=s.slice(cr.index+cr[0].length);
+  const inParen=i=>{const a=before.slice(0,i);return a.split("(").length>a.split(")").length&&before.slice(i).includes(")");};
+  let cutS=-1,cutE=-1;for(const re of [/,?\s+dont\s+/gi,/,?\s+avec\s+/gi,/\s*:\s+/g,/\s*\(/g]){let m;while((m=re.exec(before))){const e=m.index+m[0].length;if(m[0].endsWith("(")?before.slice(e).includes(")"):inParen(m.index))continue;if(m.index>cutS){cutS=m.index;cutE=e;}}if(cutS>=0)break;}
+  if(cutS<0&&/\bpour\s/.test(before)){const ms=[...before.matchAll(/\s+(?:dans|avec|selon)\s+/g)];const last=ms.length?ms[ms.length-1]:null;if(last&&last.index>before.search(/\bpour\s/)){cutS=last.index;cutE=last.index+last[0].length;}} /* « … pour un dépistage dans le contexte décrit dans le compte rendu » */
+  if(cutS<0&&/\bpour\s/.test(before)){const k=before.lastIndexOf(", ");if(k>before.search(/\bpour\s/)&&before.length-k<=45){cutS=k;cutE=k+2;}} /* « … pour une occlusion (…), détail clinique dans le compte rendu » */
+  let pre=cutS>=0?before.slice(0,cutS):"",elem=cutS>=0?before.slice(cutE):before;
+  pre=(pre+after.replace(/^\s*\)/,"")).replace(/\s+/g," ").replace(/\s*[,;:(.]+\s*$/,"").trim();
+  if((pre.match(/\(/g)||[]).length>(pre.match(/\)/g)||[]).length)pre=pre.replace(/\s*\([^)]*$/,"").trim();
+  const items=elem.replace(/\([^)]*\)/g,"").split(/\s*,\s*|\s+et\s+/).map(t=>t.replace(/[\s.;:]+$/,"").trim()).filter(t=>t&&!/^(?:le\s+)?détails?(?:\s+clinique)?$/i.test(t));
+  return {pre,items};}
+/* éléments cliniques attendus par le courrier et absents de l'observation : signalés à l'écran avant d'imprimer, jamais remplacés par une phrase */
+const LET_STOP=new Set(["les","des","dans","avec","sous","pour","leur","leurs","nombre","autre","autres","type","mode","dernieres","derniers","heures","jours","suspecte","suspectee","probable","eventuellement","eventuel","eventuelle","debute","debutee","recus","recues","essayes","cours","prescrit","prescrite","prescrits","urgence","recherche","cause","causes","lecture","interpretation","valeur","valeurs","resultat","resultats","etat","signes","associes","clinique","cliniques","complet","estime","faits","faites","tenue","proposees","proposes","suivie","recidivantes","chez","quand","selon","sans","plus","moins","depuis","entre","tous","toutes","elle","elles","vers","lors","apres","avant","mais","donc","dont","ainsi","aussi","toute","tout","patient","patiente"]);
+function letNeeds(p){const out=[];if(!p)return out;const c=state.cst||{},o=state.obs||{},f=state.f||{};const sum=norm(docObsSummary());
+  const known=it=>{const n=norm(it);
+    if(/traitement|medicament|anticoag|antiagreg|hypotenseur|hypoglyc/.test(n))return !!((state.tt||[]).length||/traitement|sous\s/.test(norm(o.atcd||"")));
+    if(/antecedent|terrain|comorbidit|facteurs? de risque/.test(n))return !!String(o.atcd||"").trim();
+    if(/\bconstantes?\b|\bchiffres?\b|pression art|\btension\b|\bmesures? (?:couch|debout|tension|de pression)/.test(n))return !!(c.ta||c.fc||c.spo2||c.temp||c.fr);
+    if(/saturation|spo2/.test(n))return !!c.spo2;if(/\bglyc/.test(n))return !!c.gly;if(/temperature|courbe thermique|\bfievre\b/.test(n))return !!c.temp;if(/\becg\b|electrocardio/.test(n))return !!(f.ecg||(state.cot&&state.cot.ecg));if(/\bpoids\b|\bimc\b/.test(n))return !!state.poids;
+    const words=n.replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>=4&&!LET_STOP.has(w));if(!words.length)return !!sum;
+    return words.some(w=>sum.includes(w.slice(0,Math.max(4,w.length-2))));};
+  p.s.forEach((sh,si)=>{if(sh.k!=="let"||(state.off&&state.off[si]))return;let L=[];try{L=resolve(sh,si).filter(x=>x.on).map(x=>x.t||"");}catch(e){}
+    L.forEach(t=>String(t).split(/(?<=[.!?])\s+|\s*;\s*/).forEach(cl=>{if(!DOC_CR_RE.test(cl))return;const miss=docCrSplit(cl).items.filter(it=>!known(it));if(miss.length)out.push("courrier : ajoute "+miss.join(", "));}));});
+  return [...new Set(out)];}
 function docFact(text,c){let t=String(text||"");const presc=docPresc(c);
   /* « J'ai prescrit … » : réécrit avec ce qui est réellement coché (examens, soins, traitements), et « revu les médicaments » seulement si fait */
   t=t.replace(/J'ai prescrit[^.]*\./g,()=>{const acts=presc.slice();if(c.medsRevus)acts.push("revu les médicaments");if(!acts.length)return "";return "J'ai prescrit "+docList(presc)+(c.medsRevus?(presc.length?" et revu les médicaments":"revu les médicaments"):"")+".";}).replace(/J'ai prescrit revu/,"J'ai revu");
@@ -18227,9 +18256,9 @@ function docFact(text,c){let t=String(text||"");const presc=docPresc(c);
       if(/(examens? prescrits?|résultats des examens|résultats (vous )?seront transmis|bilan prescrit)/i.test(x)&&!(c.bio.length||c.img.length||c.ecgPresc))return "";
       const pr=/^(.*?)\s+(?:ont été|a été) prescrite?s?\b/i.exec(x);if(pr&&!/J'ai prescrit/.test(x)){const words=(pr[1].match(/[\p{L}]{5,}/gu)||[]).map(w=>norm(w));const hay=norm([c.bio.join(" "),c.img.join(" "),c.ecgPresc?"ecg":""].join(" "));if(!words.some(w=>hay.includes(w)))return "";}
       if(/\bj'ai (débuté|adapté|introduit)\b/i.test(x)&&!c.med.length)return x.replace(/,?\s*(?:et\s+)?j'ai (débuté|adapté|introduit)[^.;]*/i,"");
-      if(/compte rendu joint|compte-rendu joint|ci-joint|figurent dans le compte rendu/i.test(x)){const sum=docObsSummary();
-        if(sum)return "Éléments recueillis ce jour : "+sum;
-        return x.replace(/figurent dans le compte[- ]rendu joint/i,DOC_FALLBACK).replace(/\s*(?:sont |est )?(?:détaillée?s? |décrite?s? )?dans le compte[- ]rendu joint/i,"").replace(/\s*\(?ci-joint\)?/i,"");}
+      /* 03/11/2026 : l'énumération « … figurent dans le compte rendu joint » devient ce qui est réellement dans l'observation, ou disparaît ; jamais de phrase de remplissage (letNeeds signale les manques à l'écran) */
+      if(DOC_CR_RE.test(x)){const sp=docCrSplit(x);const sum=docObsSummary();const out=[];if(sp.pre)out.push(sp.pre);if(sum)out.push((sp.pre?"é":"É")+"léments recueillis ce jour : "+sum);return out.join(" ; ");}
+      if(/ci-joint/i.test(x)){if(/ordonnance|soins infirmiers/i.test(x)&&!(c.ide||c.med.length||c.bio.length||c.img.length))return "";return x.replace(/Vous trouverez ci-joint/i,"Je joins").replace(/\s*\(?ci-joint\)?/i,"");}
       return x;}).filter(x=>x&&x.replace(/[.;,\s]/g,""));
     if(!cl.length)continue;let r=cl.join(" ; ").replace(/\s+([,.])/g,"$1").replace(/[;,]\s*\./g,".").replace(/\s*;\s*$/,"").trim();if(r&&!/[.!?…:,]$/.test(r))r+=".";r=r.replace(/^\s*,\s*/,"");if(r.replace(/[.\s]/g,""))out.push(r.charAt(0).toUpperCase()+r.slice(1));}
   return out.join(" ").trim();}
@@ -18550,7 +18579,7 @@ function xpConfirm(i){if(i==null||!PACKS[i])return;state.sel=i;state.off={};stat
 function xpOpenStop(id){const wasCab=!xpVisite()&&!!(state.cot&&state.cot.lieu);tourUse(id);state.xpMotif=null;state.xpPick=null;
   if(wasCab&&state.cot){state.cot.lieu="consultation";state.cot.km="";}render();}
 /* ---- rendu ---- */
-function xpRowHTML(s,i){const age=xpAge(s.ddn);const sec=tpSector(s);const visit=xpVisite()&&s.lat;const nm=stopName(s,"Patient "+(i+1));const lbl=`<b>${esc(nm)}</b>${age&&!nm.includes(age)?` · ${esc(age)}`:""}<span class="xp-rm">${esc(s.motif||"motif non précisé")}${sec?" · "+esc(sec):""}${s.prio?' · <span class="gtag">prioritaire</span>':""}</span>`;
+function xpRowHTML(s,i){const age=xpAge(s.ddn);const sec=tpSector(s);const visit=xpVisite()&&s.lat;const nm=stopName(s,"Patient "+(i+1));const lbl=`<b>${esc(nm)}</b>${age&&!nm.includes(age)?` · ${esc(age)}`:""}<span class="xp-rm">${esc(s.motif||"Motif à saisir")}${sec?" · "+esc(sec):""}${s.prio?' · <span class="gtag">prioritaire</span>':""}</span>`;
   return visit?`<a class="xp-row" href="${navUrl(navPref(),s)}" target="_blank" rel="noopener" data-xpopen="${esc(s.id)}">${lbl}<span class="xp-go">🧭</span></a>`:`<button type="button" class="xp-row" data-xpopen="${esc(s.id)}">${lbl}<span class="xp-go">›</span></button>`;}
 function xpHomeHTML(){const L=tourOrdered().filter(s=>!s.done&&s.id!==TOUR.current);
   return `<section class="xp xp-home"><div class="xp-hd"><b>Patients</b><span class="hint">${xpVisite()?"Toucher un patient : dossier ouvert et navigation lancée":"Toucher un patient : dossier ouvert"}</span></div>
@@ -18584,6 +18613,7 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
 function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}
   try{L.push(...examGravAlerts(p));}catch(e){}
   try{const P=state.aiPlan;if(P&&P.ck===state.ck&&!P.err)(P.alertes||[]).forEach(t=>L.push("⚠ IA : "+t));}catch(e){}
+  try{letNeeds(p).forEach(t=>L.push("✉ "+t.replace(/^courrier : /,"Courrier : ")));}catch(e){} /* 03/11/2026 : éléments cliniques attendus par le courrier, absents de l'observation */
   try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=sexMismatchHTML()+cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « date de naissance » et accords en « (e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale|gravité/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
@@ -19702,12 +19732,16 @@ function ficheCheck(f){const W=[];const cp=(String(f.addr||"").match(/\b(\d{5})\
   if(f.ddn){const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(f.ddn);const d=m?new Date(+m[3],+m[2]-1,+m[1]):null;if(!d||d.getMonth()!==+m[2]-1||d>new Date()||+m[3]<1900)W.push("date de naissance invalide ("+f.ddn+")");
     else if(f.ageAff!=null){const mo=ageFromDdn(f.ddn);const y=mo==null?null:Math.floor(mo/12);if(y!=null&&Math.abs(y-f.ageAff)>1)W.push("âge affiché "+f.ageAff+" ans ≠ "+y+" ans d'après la date de naissance");}}
   else W.push("date de naissance non lue");
+  if(!String(f.motif||"").trim())W.push("motif à saisir");
   return W;}
 /* « Coller les fiches » : texte copié par le raccourci iOS « Fiches Packs » (reconnaissance d'Apple sur l'iPhone) ou sur Android (copie du texte d'une capture) */
 async function fichesPaste(){let t="";try{t=await navigator.clipboard.readText();}catch(e){t="";}
   if(!t||!t.trim()){state.view="tour";state.pasteOpen=true;render();setTimeout(()=>{const ta=document.getElementById("tr_paste");if(ta){const d=ta.closest("details");if(d)d.open=true;ta.focus();}},60);toast("Presse-papiers vide ou non autorisé : colle le texte ici (appui long → Coller)");return;}
   await fichesFromText(t);}
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-fpaste]");if(b){ev.preventDefault();fichesPaste();}});
+/* 03/11/2026 : les étiquettes de la fiche MccMissionSG (« N° INTERVENTION », lu « O INTERVENTION » ou « N INTERVENTION » par l'OCR, « INFORMATIONS PATIENT »…) ne sont jamais un motif ni une note ; sans motif lisible, le champ reste vide (« Motif à saisir ») */
+const FICHE_LBL=/^(?:[A-Z0-9]{1,2}\s*)?(?:N\s*[°º]?|NO|N°)?\s*INTERVENTION(?:\s*:?\s*[0-9 ]*)?$|^(?:INFORMATIONS?\s+PATIENT|DOCUMENTS?(?:\s+PATIENT)?|ALLERGIES?|ATCD|ANT[ÉE]C[ÉE]DENTS|TRAITEMENTS?|BILAN|APPELANT|R[ÉE]GULATION|MOTIF|CONSULTATION|VISITE|ADRESSE(?:\s+(?:DU\s+)?PATIENT)?|T[ÉE]L(?:[ÉE]PHONE)?(?:\s+PATIENT)?)\s*:?$/i;
+function ficheLabel(l){const c=String(l||"").replace(/[^A-Za-zÀ-ÿ0-9°º: ]/g," ").replace(/\s+/g," ").trim();return !!c&&FICHE_LBL.test(c);}
 /* Fiche MccMissionSG (texte lu ou collé) → champs */
 function parseFiche(txt){
   const lines=String(txt||"").split(/\r?\n/).map(l=>l.replace(/[|_]+/g," ").replace(/\s+/g," ").trim()).filter(Boolean);
@@ -19743,15 +19777,15 @@ function parseFiche(txt){
   const di=lines.findIndex(l=>/documents patient/i.test(l));
   const from=(ai>=0?ai+1:(ddnIdx>=0?ddnIdx+1:0));
   const keep=(l,i)=>!ment.has(i);const lines0=lines;
-  const cand=lines.slice(from,di>0?di:lines.length).filter((l,k)=>keep(l,from+k)).filter(l=>{pre.lastIndex=0;const clean=l.replace(/[^0-9A-Za-zÀ-ÿ' ,.\-\/]/g," ").replace(/\s+/g," ").trim();return !/(adresse|b[aâ]t\.?\s*:|t[eé]l)/i.test(l)&&!/\d{5}/.test(l)&&!/^[0-9 .,]+$/.test(clean)&&!pre.test(l)&&!(r.addr&&clean.length>3&&r.addr.toUpperCase().includes(clean.toUpperCase().replace(/,$/,"")));});
+  const cand=lines.slice(from,di>0?di:lines.length).filter((l,k)=>keep(l,from+k)).filter(l=>{pre.lastIndex=0;const clean=l.replace(/[^0-9A-Za-zÀ-ÿ' ,.\-\/]/g," ").replace(/\s+/g," ").trim();return !ficheLabel(l)&&!/(adresse|b[aâ]t\.?\s*:|t[eé]l)/i.test(l)&&!/\d{5}/.test(l)&&!/^[0-9 .,]+$/.test(clean)&&!pre.test(l)&&!(r.addr&&clean.length>3&&r.addr.toUpperCase().includes(clean.toUpperCase().replace(/,$/,"")));});
   pre.lastIndex=0;
   /* 17/10/2026 (essai réel : « SAINT-HILAIRE-SAINT- » lu comme motif) : une ligne de commune ou d'adresse n'est jamais un motif */
   const ADDRLIKE=/^(?:SAINT|SAINTE|ST|STE|LA|LE|LES|SUR|SOUS|EN|AUX?)\b[- ]|-\s*$|\b(?:RUE|AVENUE|AV|BD|BOULEVARD|CHEMIN|ALL[ÉE]E|ROUTE|IMPASSE|PLACE|QUAI|R[ÉE]SIDENCE|LIEU-DIT|LOTISSEMENT)\b/i;
-  const isCommune=l=>{const c=l.replace(/[^A-Za-zÀ-ÿ' -]/g,"").trim();if(!c)return false;if(ADDRLIKE.test(c))return true;if(r.addr&&r.addr.toUpperCase().includes(c.toUpperCase().slice(0,Math.min(c.length,12))))return true;if(r.cpRaw||/\d{5}/.test(r.addr||"")){const ci=lines0.indexOf(l);const prev=lines0[ci-1]||"";if(/\d{5}|-\s*$/.test(prev)&&/^[A-ZÀ-Ý' -]+$/.test(c))return true;}return false;};
+  const isCommune=l=>{const c=l.replace(/[^A-Za-zÀ-ÿ' -]/g,"").trim();if(!c)return false;if(ADDRLIKE.test(c))return true;if(r.addr&&r.addr.toUpperCase().includes(c.toUpperCase().slice(0,Math.min(c.length,12))))return true;if(r.cpRaw||/\d{5}/.test(r.addr||"")){const ci=lines0.indexOf(l);const prev=lines0[ci-1]||"";if(!ficheLabel(prev)&&/\b\d{5}\s*,?\s*$|-\s*$/.test(prev)&&/^[A-ZÀ-Ý' -]+$/.test(c))return true;}return false;}; /* 03/11/2026 : commune attendue seulement si la ligne précédente finit par le code postal ou un tiret (« 45000 ORLEANS » puis « TOUX » : TOUX est le motif) */
   const mccHit=cand.findIndex(l=>!!mccFind(l));
   const mi=mccHit>=0?mccHit:cand.findIndex(l=>l.replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").trim().length>=2&&l.length<=32&&l===l.toUpperCase()&&!isCommune(l));
   if(mi<0&&ai>0&&ddnIdx>=0&&ddnIdx<ai){/* motif placé avant l'adresse (fiche « Intervention » puis « Adresse patient ») */
-    const hd=/^(intervention|informations? patient|t[eé]l|adresse|police|pompiers|samu)\b/i;const c2=lines0.slice(ddnIdx+1,ai).filter((l,k)=>!ment.has(ddnIdx+1+k)&&!hd.test(l)&&!/\d{2}\/\d{2}\/\d{4}/.test(l)&&!/\d{2}:\d{2}/.test(l)&&(pre.lastIndex=0,!pre.test(l)));pre.lastIndex=0;
+    const hd=/^(intervention|informations? patient|t[eé]l|adresse|police|pompiers|samu)\b/i;const c2=lines0.slice(ddnIdx+1,ai).filter((l,k)=>!ment.has(ddnIdx+1+k)&&!hd.test(l)&&!ficheLabel(l)&&!/\d{2}\/\d{2}\/\d{4}/.test(l)&&!/\d{2}:\d{2}/.test(l)&&(pre.lastIndex=0,!pre.test(l)));pre.lastIndex=0;
     const m2=c2.findIndex(l=>l.replace(/[^A-Za-zÀ-ÿ' ]/g,"").trim().length>=4&&l.length<=32&&l===l.toUpperCase());if(m2>=0){r.motif=c2[m2].replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").replace(/\s+/g," ").trim();r.note=[c2.slice(m2+1).join(" "),cand.join(" ")].filter(Boolean).join(" ").trim();r.note=r.note.replace(/\s+/g," ").trim();return r;}}
   if(mi>=0){r.motif=cand[mi].replace(/[^A-Za-zÀ-ÿ0-9' .\/+-]/g,"").replace(/^[A-Za-z] (?=[A-ZÀ-Ý]{2})/,"").replace(/\s+/g," ").trim();r.note=cand.slice(mi+1).join(" ").trim();}else r.note=cand.join(" ").trim();
   r.note=r.note.replace(/\s+/g," ").trim();
@@ -19813,8 +19847,8 @@ function callStop(s){if(!s||!s.tel)return;s.called=Date.now();TOUR.callBack=s.id
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState!=="visible"||!TOUR.callBack)return;const s=tourStop(TOUR.callBack);TOUR.callBack="";if(!s||!s.called||Date.now()-s.called>30*60*1000||TOUR.current!==s.id)return;
   setTimeout(()=>{const x=document.querySelector(".xp textarea[data-interro]");if(x){const d=x.closest("details");if(d)d.open=true;x.focus();x.scrollIntoView({block:"center"});return;}const d=document.getElementById("tc_interro_box");if(d){d.open=true;const t=document.getElementById("tc_interro");if(t){t.focus();t.scrollIntoView({block:"center"});}}},300);});
 function interroHTML(s){if(!s)return "";const has=!!(s.tel||s.tel2||s.interro||s.motif||s.note);if(!has)return "";
-  return `<details class="opt tc-interro" id="tc_interro_box" ${s.interro?"open":""}><summary><span class="ot">Régulation et interrogatoire</span><span class="os">${esc([s.motif,s.nom?s.nom:"",s.ddn?"naissance : "+s.ddn:""].filter(Boolean).join(" · ")||"dicter avant d'arriver")}</span></summary><div class="ob">
-   ${s.motif||s.note?`<div class="hint" style="margin:0 0 6px">${s.motif?"<b>"+esc(s.motif)+"</b> — ":""}${esc(s.note||"")}</div>`:""}
+  return `<details class="opt tc-interro" id="tc_interro_box" ${s.interro?"open":""}><summary><span class="ot">Régulation et interrogatoire</span><span class="os">${esc([s.motif||"Motif à saisir",s.nom?s.nom:"",s.ddn?"naissance : "+s.ddn:""].filter(Boolean).join(" · "))}</span></summary><div class="ob">
+   <div class="hint" style="margin:0 0 6px">${s.motif?"<b>"+esc(s.motif)+"</b>":"<b>Motif à saisir</b>"}${s.note?" — "+esc(s.note):""}</div>
    ${s.tel||s.tel2?`<div class="tc-row2" style="margin:0 0 8px">${s.tel?`<a class="btn p" href="tel:${esc(s.tel)}" data-call="${esc(s.id)}">📞 Appeler ${esc(s.tel.replace(/(\d{2})(?=\d)/g,"$1 "))}</a>`:""}${s.tel2?`<a class="btn s" href="tel:${esc(s.tel2)}" data-call="${esc(s.id)}">📞 Appelant</a>`:""}</div>`:""}
    <textarea id="tc_interro" class="interro" data-interro="${esc(s.id)}" rows="3" placeholder="Contre-appel : dictez ce que le patient ou son entourage rapporte (symptômes, depuis quand, antécédents, traitements, allergies, poids de l'enfant). Jamais un examen : il sera dicté sur place.">${esc(s.interro||"")}</textarea>
    ${aiTelBoxHTML(s)}

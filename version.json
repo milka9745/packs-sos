@@ -2,8 +2,8 @@
   "version": "41z",
   "date": "2026-11-03",
   "notes": [
-    "Un seul catalogue : les anciennes versions des fiches refaites sont retirées du fichier ; une ancienne fiche qui double une nouvelle apparaît dessous en « Autre version ».",
-    "Journal, patients validés, tournée et bases médicaments rangés dans la base chiffrée de l'appareil : plus de limite à 5 Mo, et un enregistrement impossible est toujours signalé.",
-    "Jauge de stockage dans Réglages ; patients validés archivés sans images après 12 h, 30 jours, inclus dans la sauvegarde."
+    "Fiches de régulation : « N° INTERVENTION » n'est plus jamais pris pour un motif ; sans motif lisible, le champ reste vide (« Motif à saisir »).",
+    "Courriers : plus aucune phrase de remplissage ; une donnée absente ne donne aucune phrase, et ce qui manque est signalé à l'écran avant d'imprimer.",
+    "Un seul catalogue ; journal, patients validés et bases médicaments dans la base chiffrée de l'appareil, avec jauge de stockage."
   ]
 }
