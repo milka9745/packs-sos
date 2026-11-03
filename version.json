@@ -2,8 +2,8 @@
   "version": "41z",
   "date": "2026-11-03",
   "notes": [
-    "Fiches de régulation : « N° INTERVENTION » n'est plus jamais pris pour un motif ; sans motif lisible, le champ reste vide (« Motif à saisir »).",
-    "Courriers : plus aucune phrase de remplissage ; une donnée absente ne donne aucune phrase, et ce qui manque est signalé à l'écran avant d'imprimer.",
-    "Un seul catalogue ; journal, patients validés et bases médicaments dans la base chiffrée de l'appareil, avec jauge de stockage."
+    "Barre du bas en Consultation : « Choisir la fiche », « Dicter » et « Scanner » créent le patient s'il n'y en a pas, puis agissent.",
+    "Visite en vert, Consultation en bleu : barre du bas, étiquette d'étape, carte patient, onglets toujours en haut ; confirmation au changement de mode, pastille V / C devant chaque patient.",
+    "Fiches : « N° INTERVENTION » n'est plus jamais un motif ; courriers sans phrase de remplissage, manques signalés avant d'imprimer."
   ]
 }

@@ -19,6 +19,24 @@
 - Courrier IA : un paragraphe contenant une formule de remplissage est écarté (« Paragraphe écarté : phrase de remplissage pour une donnée absente ») ; la consigne envoyée à l'IA interdit ces formules et toute phrase pour une donnée absente.
 - « Vous trouverez ci-joint l'ordonnance… » devient « Je joins l'ordonnance… », et la phrase disparaît si rien n'est prescrit.
 
+## 3. Barre du bas en Consultation : plus jamais muette
+- État initial : partiel. En Consultation sans patient ouvert, « Scanner » lançait bien la prise de photo, mais « Dicter » et « Choisir la fiche » ne faisaient rien dans l'Express (champs repliés dans « Plus »), et aucun bouton n'ouvrait de dossier.
+- Correction : sans patient ouvert, tout bouton de la barre crée d'abord un nouveau patient (dossier vierge, identité et motif affichés), puis fait son action : « Choisir la fiche » ouvre le champ du motif avec le clavier, « Dicter » le champ de dictée avec le clavier, « Scanner » la prise de photo. Le champ visé est déplié s'il était dans « Plus ». Une ligne le dit (« Nouveau patient : … »). Patient déjà ouvert : rien n'est recréé.
+- Texte d'aide conforme à la barre : en Consultation il nomme « Choisir la fiche », « Dicter », « Scanner » ; en Visite « Ajouter des fiches ».
+- Règle de test : chaque bouton visible de la barre, état par état (Consultation sans patient ; Visite Demande, En route, Sur place, Prise en charge, Sortie), a un effet mesurable (champ ouvert, fichier demandé, vue, état) ; un lien a une destination ; un bouton grisé doit porter sa raison. Aucun bouton grisé n'a été nécessaire.
+
+## 4. Visite et Consultation impossibles à confondre
+- État initial : partiel. Une couleur de mode existait (boutons principaux, liseré du bandeau), mais atténuée en affichage Garde, absente de la barre du bas et de l'étiquette d'étape, sélecteur sous l'Express (replié dans « Plus »), onglet actif non plein, aucune confirmation ni pastille.
+- Correction : Visite = vert émeraude, Consultation = bleu, jour et nuit, grand texte compris, sur la barre du bas (liseré 5 px), l'étiquette d'étape (pastille pleine « Visite · En route · étape 2 sur 5 », « Consultation · étape 1 sur 3 », « Consultation · Prise en charge · étape 2 sur 3 »), le liseré gauche de la carte patient, de l'Express et de la carte de visite, le bandeau du haut et l'onglet actif.
+- Sélecteur Visite / Consultation toujours en haut de l'écran (avant l'Express, jamais dans « Plus » ni dans un menu), deux gros onglets, l'actif plein et coloré.
+- Changement de mode : ligne de confirmation (« Passage en Visite : pack à risque et cotation visite par défaut » / « Passage en Consultation : pack simple et cotation consultation par défaut ») ; pour un patient ouvert, chaque passage est noté avec l'heure dans sa ligne du journal (le mode était déjà enregistré).
+- Pastille « V » verte ou « C » bleue devant l'initiale : en-tête (patient en cours), liste Express, écran Tournée (arrêts et consultations attendues), patients validés, journal.
+- Contraste vérifié ≥ 4,5 (étiquette et onglet actif) en jour, nuit et grand texte.
+
+## Tests (03/11/2026, points 3 et 4)
+- Nouveau : `tests/test_modes.py`, 185/185 (Express jour, nuit, grand texte ; mode complet nuit ; 375 px) ; captures `tests/captures/modes-visite-375-*.png` et `modes-consult-375-*.png`.
+- Toutes les suites : voir « Résultat des suites » ci-dessous.
+
 ## Gabarits repassés
 - 1 241 lignes de courrier du catalogue (157 renvoyaient au compte rendu), 383 feuilles de consignes, les certificats et les formules fixes : aucune formule de remplissage ; après réécriture sans observation, aucune formule, aucun renvoi au compte rendu, motif conservé, parenthèses fermées.
 - Aucune ligne médicale (doses, variantes, lignes jamais imprimées) modifiée.

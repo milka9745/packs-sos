@@ -1,0 +1,189 @@
+# Tests du 03/11/2026 — barre du bas (Consultation) et ambiances Visite / Consultation
+
+- OK — Express jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_fiche)
+- OK — Express jour : consultation sans patient : « fa_fiche » crée le patient puis ouvre le champ (clavier)
+- OK — Express jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_dict)
+- OK — Express jour : consultation sans patient : « fa_dict » crée le patient puis ouvre le champ (clavier)
+- OK — Express jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_scan)
+- OK — Express jour : consultation sans patient : « fa_scan » crée le patient puis lance le scanner
+- OK — Express jour : patient ouvert : « Dicter » ne recrée pas de patient
+- OK — Express jour : aide (Consultation) : nomme les 3 boutons réels de la barre
+- OK — Express jour : aide (Visite) : « Ajouter des fiches » est bien dans la barre
+- OK — Express jour : Consultation sans patient : « fa_scan » a un effet
+- OK — Express jour : Consultation sans patient : « fa_dict » a un effet
+- OK — Express jour : Consultation sans patient : « fa_fiche » a un effet
+- OK — Express jour : Visite · Demande (tournée vide) : « Coller les fiches » a un effet
+- OK — Express jour : Visite · Demande (tournée vide) : « fa_tour » a un effet
+- OK — Express jour : Visite · Demande (tournée vide) : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express jour : étiquette « Visite · Demande · étape 1 sur 5 »
+- OK — Express jour : Visite · Demande : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express jour : Visite · Demande : « Appel masqué » (lien) a une destination
+- OK — Express jour : Visite · Demande : « tc_begin » relié à son action
+- OK — Express jour : étiquette « Visite · En route · étape 2 sur 5 »
+- OK — Express jour : Visite · En route : « fa_nav » (lien) a une destination
+- OK — Express jour : Visite · En route : « Appeler » (lien) a une destination
+- OK — Express jour : Visite · En route : « tc_arrive » relié à son action
+- OK — Express jour : étiquette « Visite · Sur place · étape 3 sur 5 »
+- OK — Express jour : Visite · Sur place : « fa_scan » a un effet
+- OK — Express jour : Visite · Sur place : « fa_dict » a un effet
+- OK — Express jour : Visite · Sur place : « fa_fiche » a un effet
+- OK — Express jour : étiquette « Visite · Prise en charge · étape 4 sur 5 »
+- OK — Express jour : Visite · Prise en charge : « fa_exam » a un effet
+- OK — Express jour : Visite · Prise en charge : « fa_dict » a un effet
+- OK — Express jour : Visite · Prise en charge : « xp_go » relié à son action
+- OK — Express jour : étiquette « Visite · Sortie · étape 5 sur 5 »
+- OK — Express jour : Visite · Sortie : « fa_let » a un effet
+- OK — Express jour : Visite · Sortie : « tc_reprint » relié à son action
+- OK — Express jour : Visite · Sortie : « tc_valid » relié à son action
+- OK — Express jour : étiquette « Consultation · Prise en charge · étape 2 sur 3 »
+- OK — Express jour : deux couleurs franches : barre du bas, étiquette, onglet actif, bandeau du haut, liseré de la carte (Visite ≠ Consultation)
+- OK — Express jour : étiquette et onglet actif lisibles (contraste ≥ 4,5)
+- OK — Express jour : sélecteur Visite / Consultation toujours en haut, deux gros onglets, jamais dans un menu
+- OK — Express jour : passage en Visite : ligne de confirmation, pack à risque, pastille V dans l'en-tête
+- OK — Express jour : passage en Consultation : ligne de confirmation, pack simple, pastille C dans l'en-tête
+- OK — Express jour : journal : mode noté pour le patient (C) et passages Visite → Consultation
+- OK — Express jour : liste Express : pastille V devant chaque patient en visite
+- OK — Express jour : écran Tournée : pastille V devant chaque arrêt
+- OK — Express jour : écran Tournée : consultations attendues avec pastille C
+- OK — Express jour : aucun débordement horizontal
+- OK — Express jour : aucune erreur JS
+- OK — Express nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_fiche)
+- OK — Express nuit : consultation sans patient : « fa_fiche » crée le patient puis ouvre le champ (clavier)
+- OK — Express nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_dict)
+- OK — Express nuit : consultation sans patient : « fa_dict » crée le patient puis ouvre le champ (clavier)
+- OK — Express nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_scan)
+- OK — Express nuit : consultation sans patient : « fa_scan » crée le patient puis lance le scanner
+- OK — Express nuit : patient ouvert : « Dicter » ne recrée pas de patient
+- OK — Express nuit : aide (Consultation) : nomme les 3 boutons réels de la barre
+- OK — Express nuit : aide (Visite) : « Ajouter des fiches » est bien dans la barre
+- OK — Express nuit : Consultation sans patient : « fa_scan » a un effet
+- OK — Express nuit : Consultation sans patient : « fa_dict » a un effet
+- OK — Express nuit : Consultation sans patient : « fa_fiche » a un effet
+- OK — Express nuit : Visite · Demande (tournée vide) : « Coller les fiches » a un effet
+- OK — Express nuit : Visite · Demande (tournée vide) : « fa_tour » a un effet
+- OK — Express nuit : Visite · Demande (tournée vide) : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express nuit : étiquette « Visite · Demande · étape 1 sur 5 »
+- OK — Express nuit : Visite · Demande : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express nuit : Visite · Demande : « Appel masqué » (lien) a une destination
+- OK — Express nuit : Visite · Demande : « tc_begin » relié à son action
+- OK — Express nuit : étiquette « Visite · En route · étape 2 sur 5 »
+- OK — Express nuit : Visite · En route : « fa_nav » (lien) a une destination
+- OK — Express nuit : Visite · En route : « Appeler » (lien) a une destination
+- OK — Express nuit : Visite · En route : « tc_arrive » relié à son action
+- OK — Express nuit : étiquette « Visite · Sur place · étape 3 sur 5 »
+- OK — Express nuit : Visite · Sur place : « fa_scan » a un effet
+- OK — Express nuit : Visite · Sur place : « fa_dict » a un effet
+- OK — Express nuit : Visite · Sur place : « fa_fiche » a un effet
+- OK — Express nuit : étiquette « Visite · Prise en charge · étape 4 sur 5 »
+- OK — Express nuit : Visite · Prise en charge : « fa_exam » a un effet
+- OK — Express nuit : Visite · Prise en charge : « fa_dict » a un effet
+- OK — Express nuit : Visite · Prise en charge : « xp_go » relié à son action
+- OK — Express nuit : étiquette « Visite · Sortie · étape 5 sur 5 »
+- OK — Express nuit : Visite · Sortie : « fa_let » a un effet
+- OK — Express nuit : Visite · Sortie : « tc_reprint » relié à son action
+- OK — Express nuit : Visite · Sortie : « tc_valid » relié à son action
+- OK — Express nuit : étiquette « Consultation · Prise en charge · étape 2 sur 3 »
+- OK — Express nuit : deux couleurs franches : barre du bas, étiquette, onglet actif, bandeau du haut, liseré de la carte (Visite ≠ Consultation)
+- OK — Express nuit : étiquette et onglet actif lisibles (contraste ≥ 4,5)
+- OK — Express nuit : sélecteur Visite / Consultation toujours en haut, deux gros onglets, jamais dans un menu
+- OK — Express nuit : passage en Visite : ligne de confirmation, pack à risque, pastille V dans l'en-tête
+- OK — Express nuit : passage en Consultation : ligne de confirmation, pack simple, pastille C dans l'en-tête
+- OK — Express nuit : journal : mode noté pour le patient (C) et passages Visite → Consultation
+- OK — Express nuit : liste Express : pastille V devant chaque patient en visite
+- OK — Express nuit : écran Tournée : pastille V devant chaque arrêt
+- OK — Express nuit : écran Tournée : consultations attendues avec pastille C
+- OK — Express nuit : aucun débordement horizontal
+- OK — Express nuit : aucune erreur JS
+- OK — Express grand texte jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_fiche)
+- OK — Express grand texte jour : consultation sans patient : « fa_fiche » crée le patient puis ouvre le champ (clavier)
+- OK — Express grand texte jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_dict)
+- OK — Express grand texte jour : consultation sans patient : « fa_dict » crée le patient puis ouvre le champ (clavier)
+- OK — Express grand texte jour : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_scan)
+- OK — Express grand texte jour : consultation sans patient : « fa_scan » crée le patient puis lance le scanner
+- OK — Express grand texte jour : patient ouvert : « Dicter » ne recrée pas de patient
+- OK — Express grand texte jour : aide (Consultation) : nomme les 3 boutons réels de la barre
+- OK — Express grand texte jour : aide (Visite) : « Ajouter des fiches » est bien dans la barre
+- OK — Express grand texte jour : Consultation sans patient : « fa_scan » a un effet
+- OK — Express grand texte jour : Consultation sans patient : « fa_dict » a un effet
+- OK — Express grand texte jour : Consultation sans patient : « fa_fiche » a un effet
+- OK — Express grand texte jour : Visite · Demande (tournée vide) : « Coller les fiches » a un effet
+- OK — Express grand texte jour : Visite · Demande (tournée vide) : « fa_tour » a un effet
+- OK — Express grand texte jour : Visite · Demande (tournée vide) : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express grand texte jour : étiquette « Visite · Demande · étape 1 sur 5 »
+- OK — Express grand texte jour : Visite · Demande : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — Express grand texte jour : Visite · Demande : « Appel masqué » (lien) a une destination
+- OK — Express grand texte jour : Visite · Demande : « tc_begin » relié à son action
+- OK — Express grand texte jour : étiquette « Visite · En route · étape 2 sur 5 »
+- OK — Express grand texte jour : Visite · En route : « fa_nav » (lien) a une destination
+- OK — Express grand texte jour : Visite · En route : « Appeler » (lien) a une destination
+- OK — Express grand texte jour : Visite · En route : « tc_arrive » relié à son action
+- OK — Express grand texte jour : étiquette « Visite · Sur place · étape 3 sur 5 »
+- OK — Express grand texte jour : Visite · Sur place : « fa_scan » a un effet
+- OK — Express grand texte jour : Visite · Sur place : « fa_dict » a un effet
+- OK — Express grand texte jour : Visite · Sur place : « fa_fiche » a un effet
+- OK — Express grand texte jour : étiquette « Visite · Prise en charge · étape 4 sur 5 »
+- OK — Express grand texte jour : Visite · Prise en charge : « fa_exam » a un effet
+- OK — Express grand texte jour : Visite · Prise en charge : « fa_dict » a un effet
+- OK — Express grand texte jour : Visite · Prise en charge : « xp_go » relié à son action
+- OK — Express grand texte jour : étiquette « Visite · Sortie · étape 5 sur 5 »
+- OK — Express grand texte jour : Visite · Sortie : « fa_let » a un effet
+- OK — Express grand texte jour : Visite · Sortie : « tc_reprint » relié à son action
+- OK — Express grand texte jour : Visite · Sortie : « tc_valid » relié à son action
+- OK — Express grand texte jour : étiquette « Consultation · Prise en charge · étape 2 sur 3 »
+- OK — Express grand texte jour : deux couleurs franches : barre du bas, étiquette, onglet actif, bandeau du haut, liseré de la carte (Visite ≠ Consultation)
+- OK — Express grand texte jour : étiquette et onglet actif lisibles (contraste ≥ 4,5)
+- OK — Express grand texte jour : sélecteur Visite / Consultation toujours en haut, deux gros onglets, jamais dans un menu
+- OK — Express grand texte jour : passage en Visite : ligne de confirmation, pack à risque, pastille V dans l'en-tête
+- OK — Express grand texte jour : passage en Consultation : ligne de confirmation, pack simple, pastille C dans l'en-tête
+- OK — Express grand texte jour : journal : mode noté pour le patient (C) et passages Visite → Consultation
+- OK — Express grand texte jour : liste Express : pastille V devant chaque patient en visite
+- OK — Express grand texte jour : écran Tournée : pastille V devant chaque arrêt
+- OK — Express grand texte jour : écran Tournée : consultations attendues avec pastille C
+- OK — Express grand texte jour : aucun débordement horizontal
+- OK — Express grand texte jour : aucune erreur JS
+- OK — complet nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_fiche)
+- OK — complet nuit : consultation sans patient : « fa_fiche » crée le patient puis ouvre le champ (clavier)
+- OK — complet nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_dict)
+- OK — complet nuit : consultation sans patient : « fa_dict » crée le patient puis ouvre le champ (clavier)
+- OK — complet nuit : consultation sans patient : barre « Consultation · étape 1 sur 3 » (avant fa_scan)
+- OK — complet nuit : consultation sans patient : « fa_scan » crée le patient puis lance le scanner
+- OK — complet nuit : patient ouvert : « Dicter » ne recrée pas de patient
+- OK — complet nuit : Consultation sans patient : « fa_scan » a un effet
+- OK — complet nuit : Consultation sans patient : « fa_dict » a un effet
+- OK — complet nuit : Consultation sans patient : « fa_fiche » a un effet
+- OK — complet nuit : Visite · Demande (tournée vide) : « Coller les fiches » a un effet
+- OK — complet nuit : Visite · Demande (tournée vide) : « fa_tour » a un effet
+- OK — complet nuit : Visite · Demande (tournée vide) : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — complet nuit : étiquette « Visite · Demande · étape 1 sur 5 »
+- OK — complet nuit : Visite · Demande : « Ajouter des fiches » ouvre le sélecteur de fichiers
+- OK — complet nuit : Visite · Demande : « Appel masqué » (lien) a une destination
+- OK — complet nuit : Visite · Demande : « tc_begin » relié à son action
+- OK — complet nuit : étiquette « Visite · En route · étape 2 sur 5 »
+- OK — complet nuit : Visite · En route : « fa_nav » (lien) a une destination
+- OK — complet nuit : Visite · En route : « Appeler » (lien) a une destination
+- OK — complet nuit : Visite · En route : « tc_arrive » relié à son action
+- OK — complet nuit : étiquette « Visite · Sur place · étape 3 sur 5 »
+- OK — complet nuit : Visite · Sur place : « fa_scan » a un effet
+- OK — complet nuit : Visite · Sur place : « fa_dict » a un effet
+- OK — complet nuit : Visite · Sur place : « fa_fiche » a un effet
+- OK — complet nuit : étiquette « Visite · Prise en charge · étape 4 sur 5 »
+- OK — complet nuit : Visite · Prise en charge : « fa_exam » a un effet
+- OK — complet nuit : Visite · Prise en charge : « fa_dict » a un effet
+- OK — complet nuit : Visite · Prise en charge : « fin » relié à son action
+- OK — complet nuit : étiquette « Visite · Sortie · étape 5 sur 5 »
+- OK — complet nuit : Visite · Sortie : « fa_let » a un effet
+- OK — complet nuit : Visite · Sortie : « tc_reprint » relié à son action
+- OK — complet nuit : Visite · Sortie : « tc_valid » relié à son action
+- OK — complet nuit : étiquette « Consultation · Prise en charge · étape 2 sur 3 »
+- OK — complet nuit : deux couleurs franches : barre du bas, étiquette, onglet actif, bandeau du haut, liseré de la carte (Visite ≠ Consultation)
+- OK — complet nuit : étiquette et onglet actif lisibles (contraste ≥ 4,5)
+- OK — complet nuit : sélecteur Visite / Consultation toujours en haut, deux gros onglets, jamais dans un menu
+- OK — complet nuit : passage en Visite : ligne de confirmation, pack à risque, pastille V dans l'en-tête
+- OK — complet nuit : passage en Consultation : ligne de confirmation, pack simple, pastille C dans l'en-tête
+- OK — complet nuit : journal : mode noté pour le patient (C) et passages Visite → Consultation
+- OK — complet nuit : écran Tournée : pastille V devant chaque arrêt
+- OK — complet nuit : écran Tournée : consultations attendues avec pastille C
+- OK — complet nuit : aucun débordement horizontal
+- OK — complet nuit : aucune erreur JS
+
+185/185 tests OK

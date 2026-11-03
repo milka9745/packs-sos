@@ -46,3 +46,14 @@ Pour chaque point : état initial (déjà corrigé / partiel / non corrigé / à
 | 8 | Non corrigé (examen normal détaillé, « Reste de l'examen normal », « État stable », « accord obtenu », histoire et diagnostic types insérés au compte rendu sans action du médecin) | Le compte rendu ne reprend que les appareils saisis, dictés ou validés (« Normal », « Proposé », nouveau bouton « Normal sur les appareils non saisis ») ; sinon « Examen clinique non renseigné » ; plus d'évolution, de traçabilité ni d'histoire par défaut ; textes types affichés en suggestion grisée. | Le texte « normal » du système Général affirme « apyrétique » : à ne valider qu'après prise de température (corrigé automatiquement si T ≥ 38 °C saisie). | « correctif 8 » (2 tests) |
 | 9 | Partiel (ordre optimisé, prioritaires d'abord, mais aucun point d'arrivée ni créneau horaire) | Choix de l'arrivée dans l'écran Tournée : aucune, cabinet, ou autre adresse (consultation suivante, domicile, point choisi, avec suggestions d'adresses) ; le trajet se termine au plus près de ce point. Champ « à voir avant HH:MM » par arrêt : ordre prioritaires → arrêts à heure (dans l'ordre des heures) → autres ; heure d'arrivée estimée (trajet + 20 min par visite) et alerte « risque de dépassement ». | Pas d'optimisation globale sous contrainte horaire (le service d'itinéraire ne le permet pas) : les arrêts à heure sont pris dans l'ordre des heures. Durée de visite fixe (20 min). | « correctif 9 » (itinéraires simulés) |
 | 10 | Non corrigé (une page A4 par document) | Option « 2 documents par feuille A4 (hors ordonnances) », décochée par défaut, mémorisée : certificats, courriers et consignes consécutifs regroupés en deux demi-pages (impression et PDF iPhone) ; signature et cachet suivent le texte. Contrôle après affichage : un document qui ne tient pas est remis en pleine page, jamais tronqué. Ordonnances, note d'honoraires et photos toujours en pleine page. | Un courrier long repasse en général en pleine page. Les documents ne sont regroupés que s'ils se suivent. | « correctif 10 » (2 tests) |
+
+## Corrections du 03/11/2026 (branche ia, v41z, publiées sur /test/)
+
+Détail : `docs/RAPPORT-CORR-2026-11-03.md`.
+
+| Point | État avant | Fait |
+|---|---|---|
+| 1. « O INTERVENTION » / « N° INTERVENTION » jamais un motif ; « Motif à saisir » | déjà fait (publié le 03/11 au matin) | — |
+| 2. Courriers sans phrase de remplissage, manques signalés avant d'imprimer | déjà fait (publié le 03/11 au matin) | — |
+| 3. Barre du bas en Consultation : tout bouton crée le patient puis agit | partiel (Scanner seul agissait) | `test_modes.py` |
+| 4. Visite (vert émeraude) / Consultation (bleu) : barre, étiquette, carte, bandeau, onglets, confirmation, journal, pastilles V / C | partiel (couleur atténuée, sélecteur replié, ni confirmation ni pastille) | `test_modes.py` |
