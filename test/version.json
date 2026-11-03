@@ -3,7 +3,7 @@
   "date": "2026-11-03",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Fiches de régulation : « N° INTERVENTION » n'est plus jamais pris pour un motif ; sans motif lisible, le champ reste vide (« Motif à saisir »).",
-    "Courriers : plus aucune phrase de remplissage ; une donnée absente ne donne aucune phrase, et ce qui manque est signalé à l'écran avant d'imprimer."
+    "Barre du bas en Consultation : « Choisir la fiche », « Dicter » et « Scanner » créent le patient s'il n'y en a pas, puis agissent.",
+    "Visite en vert, Consultation en bleu : barre du bas, étiquette d'étape, carte patient, onglets toujours en haut ; confirmation au changement de mode, pastille V / C devant chaque patient."
   ]
 }
