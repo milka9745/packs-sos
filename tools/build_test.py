@@ -35,6 +35,7 @@ import datetime
 s,_n=re.subn(r'const APP_BUILD=\{v:"([^"]*)",branch:"[^"]*",date:"[^"]*"\};',lambda m:'const APP_BUILD={v:"'+m.group(1)+'",branch:"test",date:"'+datetime.datetime.now().strftime("%d/%m %H:%M")+'"};',s)
 assert _n==1
 rep('indexedDB.open("packs-sos-photos"','indexedDB.open("packs-sos-test-photos"')
+rep('name:"packs-sos-data"','name:"packs-sos-test-data"')
 rep('replace(/\\/v\\d+\\/(index\\.html)?$/,"/")','replace(/\\/(?:v\\d+|test)\\/(index\\.html)?$/,"/")')
 rep(r'<link rel="apple-touch-icon" href="data:image/png;base64,[^"]+">','<link rel="apple-touch-icon" href="apple-touch-icon.png">',regex=True)
 rep("<title>Packs SOS — Docteur Mickaël DEIE</title>","<title>Packs SOS TEST</title>")

@@ -1,10 +1,10 @@
 # Résultats — documents du patient (v41z, demande globale IV–IX)
 
-2026-11-02
+2026-11-03
 
 49/49 OK — tous les tests passent
 
-Temps mesurés : {"scan page": 0.19, "OCR + analyse (2 pages)": 0.71, "OCR page (ms)": 627, "traitement page (ms)": 112, "import 3 images + PDF": 1.84}
+Temps mesurés : {"scan page": 0.21, "OCR + analyse (2 pages)": 0.71, "OCR page (ms)": 599, "traitement page (ms)": 117, "import 3 images + PDF": 2.15}
 
 - OK fixtures : 8 images et 1 PDF fictifs générés sur place (aucune donnée réelle)
 - OK IV.15 / IX.38 : « Scanner » et « Documents » à côté de la dictée, mêmes boutons au même endroit en consultation, en visite et sur une fiche
