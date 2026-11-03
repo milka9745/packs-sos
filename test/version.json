@@ -1,9 +1,9 @@
 {
   "version": "41z-test",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "notes": [
     "Version de test (branche ia) : données séparées de l'outil de garde.",
-    "Une barre fixe en bas : 3 boutons, toujours aux mêmes places, selon l'étape (demande, en route, sur place, prise en charge, sortie, nouvelle demande) ; le bouton de droite fait avancer.",
-    "Plus de boutons en double (Imprimer, Appeler, Valider) ; le reste est dans « Plus » de la carte patient."
+    "Un seul catalogue : les anciennes versions des fiches refaites sont retirées du fichier ; une ancienne fiche qui double une nouvelle apparaît dessous en « Autre version ».",
+    "Journal, patients validés, tournée et bases médicaments rangés dans la base chiffrée de l'appareil : plus de limite à 5 Mo, et un enregistrement impossible est toujours signalé."
   ]
 }
