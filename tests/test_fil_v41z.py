@@ -142,7 +142,16 @@ async def run(b,w,h,xp,label,tag):
     await page.evaluate("()=>{state.ddn='';render();}"); await page.wait_for_timeout(300)
     st=await page.evaluate("()=>{const p=currentPack();const sh=p.s.findIndex(x=>x.k==='cert');const L=resolve(p.s[sh],sh);return {miss:L.flatMap(x=>x.fill.miss),warn:(document.querySelector('#main .warn')||{}).textContent||''};}")
     ok(L+"sans date de naissance : certificat signalé incomplet avant impression (jamais de trou)",any("date de naissance" in m for m in st["miss"]) and "date de naissance" in st["warn"],st)
+    # jeune adulte (étudiante de 20 ans) : même certificat, remis à l'intéressée
+    await page.evaluate("()=>{newPatient();TOUR.current='';Object.assign(state,{patient:'ROUX Camille',ddn:'15/02/2006',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Certificat — absence scolaire');render();}"); await page.wait_for_timeout(400)
+    r=await page.evaluate("()=>{const p=currentPack();const r=buildPages(p,true);const d=document.createElement('div');d.innerHTML=r.out;const pages=d.querySelectorAll('.page');return {n:pages.length,txt:pages[0]?pages[0].textContent.replace(/\\s+/g,' '):''};}")
+    ok(L+"absence scolaire pour une étudiante de 20 ans : une page, « justifie son absence scolaire », remis en main propre à l'intéressée (pas « aux parents »)",r["n"]==1 and "ROUX Camille, née le 15/02/2006, justifie son absence scolaire du" in r["txt"] and "remis en main propre à l'intéressée" in r["txt"] and "aux parents" not in r["txt"],r["txt"][:300])
     if xp:
+        await page.evaluate("()=>{newPatient();TOUR.current='';Object.assign(state,{patient:'ROUX Camille',ddn:'15/02/2006',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;state.xpManual=true;state.xpMotif='angine';render();}"); await page.wait_for_timeout(400)
+        try: await page.click("#xp_ok",timeout=3000); await page.wait_for_timeout(400)
+        except Exception: pass
+        st=await page.evaluate("()=>({cem:!!document.getElementById('xp_cem'),cas:!!document.getElementById('xp_cas')})")
+        ok(L+"Express (20 ans) : case « Certificat absence scolaire » présente, « enfant malade » absente",st["cas"] and not st["cem"],st)
         await page.evaluate("()=>{newPatient();TOUR.current='';Object.assign(state,{patient:'PETIT Léa',ddn:'12/03/2019',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;state.xpManual=true;state.xpMotif='angine';render();}"); await page.wait_for_timeout(400)
         try: await page.click("#xp_ok",timeout=3000); await page.wait_for_timeout(400)
         except Exception: pass

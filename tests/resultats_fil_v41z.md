@@ -2,7 +2,7 @@
 
 2026-11-06
 
-80/80 OK
+84/84 OK
 
 - OK iPhone Express : consultation, fiche choisie : état « prise en charge », bouton d'impression dans la barre
 - OK iPhone Express : consultation · aperçu ouvert dès le bouton de la barre (confirmation au 2e toucher en Express)
@@ -32,6 +32,8 @@
 - OK iPhone Express : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone Express : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
 - OK iPhone Express : sans date de naissance : certificat signalé incomplet avant impression (jamais de trou)
+- OK iPhone Express : absence scolaire pour une étudiante de 20 ans : une page, « justifie son absence scolaire », remis en main propre à l'intéressée (pas « aux parents »)
+- OK iPhone Express : Express (20 ans) : case « Certificat absence scolaire » présente, « enfant malade » absente
 - OK iPhone Express : Express (enfant) : cases « Certificat enfant malade » et « Certificat absence scolaire »
 - OK iPhone Express : aucune erreur JavaScript
 - OK iPhone complet : consultation, fiche choisie : état « prise en charge », bouton d'impression dans la barre
@@ -55,6 +57,7 @@
 - OK iPhone complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
 - OK iPhone complet : sans date de naissance : certificat signalé incomplet avant impression (jamais de trou)
+- OK iPhone complet : absence scolaire pour une étudiante de 20 ans : une page, « justifie son absence scolaire », remis en main propre à l'intéressée (pas « aux parents »)
 - OK iPhone complet : aucune erreur JavaScript
 - OK ordinateur complet : consultation, fiche choisie : état « prise en charge », bouton d'impression dans la barre
 - OK ordinateur complet : consultation · aperçu ouvert dès le bouton de la barre
@@ -80,6 +83,7 @@
 - OK ordinateur complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK ordinateur complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
 - OK ordinateur complet : sans date de naissance : certificat signalé incomplet avant impression (jamais de trou)
+- OK ordinateur complet : absence scolaire pour une étudiante de 20 ans : une page, « justifie son absence scolaire », remis en main propre à l'intéressée (pas « aux parents »)
 - OK ordinateur complet : aucune erreur JavaScript
 - OK ordinateur Express : consultation : « Imprimer et valider » (2 touchers) → PDF imprimé puis patient validé (écran de validation)
 - OK ordinateur Express : visite (76 ans) : écran « Avant d'imprimer », décision, aperçu (alertes à vérifier), impression, puis validation depuis l'aperçu

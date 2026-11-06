@@ -4758,9 +4758,9 @@ const PACKS_V40_B6=[
 catAdd(PACKS_V40_B6,true);
 /* 06/11/2026 (v41z) : certificat d'absence scolaire (école), sans secret médical : ni diagnostic, ni symptôme, ni traitement ; dates d'un geste, date et heure, une page, signature et cachet du profil, durée au journal */
 const PACKS_V41Z_CERT=[
-{n:"Certificat — absence scolaire",k:"certificat absence scolaire ecole école collège lycée crèche élève enfant justificatif",fields:["du","au","jours"],s:[
- {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie que l'état de santé de {patient}, {nele}{ddn}, justifie son absence scolaire {periode}.","Certificat établi le {jour} à {heure} et remis en main propre aux parents pour faire valoir ce que de droit."]},
- {k:"memo",l:[{t:"Document pour l'école : aucun diagnostic, symptôme ni traitement (secret médical). Durée choisie d'un geste (« Hier », « 3 j »), pouvant commencer avant la consultation ; une page, modèle SOS Médecins, signature et cachet du profil ; durée inscrite au compte rendu et au journal.",opt:true},{t:"Fiche voisine : Certificat — enfant malade (pour le parent, à l'employeur). Durée de visite 5 min.",opt:true},{t:"Statut : fiche non relue (retours du 06/11/2026, version 1).",opt:true}]}]}
+{n:"Certificat — absence scolaire",k:"certificat absence scolaire ecole école collège lycée crèche élève enfant étudiant étudiante lycéen université fac jeune adulte majeur justificatif",fields:["du","au","jours"],s:[
+ {k:"cert",l:["Je soussigné, Docteur Mickaël DEIE, certifie que l'état de santé de {patient}, {nele}{ddn}, justifie son absence scolaire {periode}.","Certificat établi le {jour} à {heure} et {remismp} pour faire valoir ce que de droit."]},
+ {k:"memo",l:[{t:"Document pour l'école, le lycée ou l'université, à tout âge : aucun diagnostic, symptôme ni traitement (secret médical). Remis aux parents pour un mineur, à l'intéressé(e) pour un majeur. Durée choisie d'un geste (« Hier », « 3 j »), pouvant commencer avant la consultation ; une page, modèle SOS Médecins, signature et cachet du profil ; durée inscrite au compte rendu et au journal.",opt:true},{t:"Fiche voisine : Certificat — enfant malade (pour le parent, à l'employeur). Durée de visite 5 min.",opt:true},{t:"Statut : fiche non relue (retours du 06/11/2026, version 1).",opt:true}]}]}
 ];
 catAdd(PACKS_V41Z_CERT,true);
 /* Bloc 6 : fiches existantes complétées (mémo, statut) sans modifier leurs lignes */
@@ -6973,7 +6973,7 @@ const AGE_EDITS=[
  [/\bl'adolescent\b/i,18,"le patient"],
  [/\bvotre adolescent\b/i,18,"le patient"],
 ];
-function ageEdit(s){const a=ageY();if(!a)return {s,drop:false,changed:false};let t=s;let changed=false;
+function ageEdit(s){const a=ageY();if(!a)return {s,drop:false,changed:false};if(/^Je soussign/i.test(s)||/^Certificat (?:établi|remis)/i.test(s))return {s,drop:false,changed:false}; /* 06/11/2026 : un certificat n'est jamais retouché ni retiré par les règles d'âge (absence scolaire d'un étudiant majeur) */ let t=s;let changed=false;
   for(const [re,min,rep] of AGE_EDITS){if(a.y<min)continue;if(!re.test(t))continue;if(rep===null){return {s:"",drop:true,changed:true};}const n=t.replace(re,rep);if(n!==t){t=n;changed=true;}}
   if(changed){t=t.replace(/\s+,/g,",").replace(/,\s*,/g,",").replace(/;\s*;/g,";").replace(/\s*:\s*,/g," :").replace(/\(\s*\)/g,"").replace(/\s{2,}/g," ").replace(/\s+([.,])/g,"$1").replace(/\s*;\s*/g," ; ").replace(/^[,;\s]+|[,;\s]+$/g,"").trim();if(t&&!/[.!?]$/.test(t))t+=".";if(!t||t.length<8)return {s:"",drop:true,changed:true};}
   return {s:t,drop:false,changed};}
@@ -7032,6 +7032,7 @@ function fill(line){
    .replace(/\{ddn\}/g,m=>{const d=normDate(state.ddn||"");if(!/^\d{2}\/\d{2}\/\d{4}$/.test(d)){miss.push("date de naissance (certificat)");return m;}return d;})
    .replace(/\{jour\}/g,m=>normDate(state.date||todayFR()))
    .replace(/\{heure\}/g,m=>fmtH(Date.now()))
+   .replace(/\{remismp\}/g,m=>{const a=ageY();const mineur=!!(a&&a.y<18);return mineur?"remis en main propre aux parents":state.sexe==="f"?"remis en main propre à l'intéressée":state.sexe==="h"?"remis en main propre à l'intéressé":"remis en main propre";}) /* 06/11/2026 : absence scolaire à tout âge (élève mineur, étudiant majeur) */
    .replace(/\{periode\}|\{duree\}/g,m=>{const c=certPeriod();return "du "+c.du+" au "+c.au+" inclus";});
   s=s.replace(/\{(agelt|wlt):([\d.]+)\|([^{}|]*)\|([^{}]*)\}/g,(m,kind,n,low,high)=>{if(kind==="agelt"){const lab=(+n<1?Math.round(+n*12)+" mois":n+" ans");if(!a){adv.push("Vigilance : prescription standard imprimée (« "+high+" ») ; avant "+lab+" ce serait « "+low+" » — renseigner la date de naissance pour l'adapter");return high;}if(a.m<Math.round(+n*12)){adv.push("Adapté à l'âge : "+low+" (moins de "+lab+")");return low;}return high;}if(!p){adv.push("Vigilance : prescription standard imprimée (« "+high+" ») ; sous "+n+" kg ce serait « "+low+" » — renseigner le poids pour l'adapter");return high;}if(p<+n){adv.push("Adapté au poids : "+low+" (moins de "+n+" kg)");return low;}return high;});
   let drop=false;if(!miss.length){const ae=ageEdit(s);s=ae.s;drop=ae.drop;if(!drop){const ce=ctxEdit(s);s=ce.s;drop=ce.drop;}
@@ -15926,7 +15927,7 @@ const INFANT_EDITS=[
  [/,?\s*(entre les tétées|au moment des tétées|avant les tétées|après les tétées|aux tétées|tétées? comprise?s?)[^,.;]*/i,""],
  [/,?\s*(allaitement|lait maternel|lait infantile|biberons?) [^,.;]*/i,""],
 ];
-function ctxEdit(s){const a=ageY();let t=s;let changed=false;
+function ctxEdit(s){const a=ageY();if(/^Je soussign/i.test(s)||/^Certificat (?:établi|remis)/i.test(s))return {s,drop:false,changed:false};let t=s;let changed=false;
   const apply=(rules)=>{for(const [re,rep] of rules){if(re.test(t)){const n=t.replace(re,rep);if(n!==t){t=n;changed=true;}}}};
   if(state.sexe==="h"||(a&&a.y>=55&&state.sexe==="f")||(a&&a.y<12)){apply(SEX_EDITS);if(/\b(grossesse|enceinte)\b/i.test(t)&&!/contraception|test de grossesse|β-?hCG|HCG/i.test(s)){return {s:"",drop:true,changed:true};}}
   if(a&&a.y<15){apply(MINOR_EDITS);if(/^(pas d'alcool|éviter l'alcool|ne pas boire d'alcool)[^.]{0,40}\.?$/i.test(t))return {s:"",drop:true,changed:true};}
@@ -18645,7 +18646,7 @@ function xpFieldsHTML(p){const a=ageY();const cls=xpAgeCls();const H=[];
   if(!state.sexe)H.push(`<span class="xp-n xp-sex" role="group" aria-label="Sexe du patient"><span class="hint">Sexe :</span><button type="button" class="btn s" data-xpsex="f">Femme</button><button type="button" class="btn s" data-xpsex="h">Homme</button></span>`);const need=cls==="enfant"||xpNeedsW(p);
   if(need||favHas("f:f_poids"))H.push(`<label class="xp-f${!state.poids&&need?" need":""}">Poids (kg)${need&&cls!=="enfant"?' <span class="hint">dose au poids</span>':""}<input id="xp_poids" value="${esc(state.poids)}" inputmode="decimal" placeholder="kg"></label>${need?"":favStar("f:f_poids","Poids")}`);
   if(favHas("f:f_gross")&&state.sexe!=="h"&&a&&a.y>=15&&a.y<=49)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_gross" ${state.grossesse?"checked":""}> Grossesse</label>${favStar("f:f_gross","Grossesse")}</span>`);
-  if(favHas("x:cem")&&cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>${favStar("x:cem","Certificat enfant malade")}</span>`);const ca=PACKS.findIndex(x=>x.n==="Certificat — absence scolaire");if(ca>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cas" data-cem="${ca}" ${selIdx().includes(ca)?"checked":""}> Certificat absence scolaire</label></span>`);}
+  if(favHas("x:cem")&&cls==="enfant"){const ci=PACKS.findIndex(x=>x.n==="Certificat — enfant malade");if(ci>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cem" data-cem="${ci}" ${selIdx().includes(ci)?"checked":""}> Certificat enfant malade</label>${favStar("x:cem","Certificat enfant malade")}</span>`);}if(favHas("x:cem")){const _a=ageY();if(_a&&_a.y<26){const ca=PACKS.findIndex(x=>x.n==="Certificat — absence scolaire");if(ca>=0)H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_cas" data-cem="${ca}" ${selIdx().includes(ca)?"checked":""}> Certificat absence scolaire</label></span>`);}}
   if(favHas("sec:at"))H.push(`<span class="xp-n"><label class="xp-t"><input type="checkbox" id="xp_at" ${state.at&&state.at.on?"checked":""}> Arrêt de travail fait</label>${favStar("sec:at","Arrêt de travail")}</span>${state.at&&state.at.on?`<label class="xp-f sm">jours <input id="xp_atj" value="${esc(state.at.jours||"")}" inputmode="numeric" placeholder="facultatif"></label>`:""}`);
   const cd=certPacks().length?certDurHTML("xp_jours"):"";
   return (H.length?`<div class="xp-fields">${H.join("")}</div>`:"")+cd;}
