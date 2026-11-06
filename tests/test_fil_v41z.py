@@ -5,7 +5,7 @@
 # Patients fictifs ; aucun appel externe. Lancer : python tests/test_fil_v41z.py
 import asyncio, os, re, json, subprocess, sys, time, datetime
 from playwright.async_api import async_playwright
-ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=os.path.join(ROOT,"tests","captures"); PORT=8793
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=os.path.join(ROOT,"tests","captures"); PORT=8872
 results=[]
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else str(info)[:900])

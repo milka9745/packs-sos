@@ -1,0 +1,4 @@
+# Notes affichées dans « Nouvelle version » du canal de test (3 premières lignes ; une ligne par point)
+Impression : « Imprimer » aboutit partout (écran « Avant d'imprimer » sans clavier ni barre qui recouvre) ; Consultation : « ✓ Patient suivant » en un geste.
+Visite : plus de fiche proposée (recherche vide, fréquents ; réglage ⋯ pour réactiver) ; numéro de version lisible (41z.N · date) dans le bandeau TEST et ici.
+Certificats enfant malade et absence scolaire (tout âge) : dates d'un geste, date de naissance, heure, journal.

@@ -6,7 +6,7 @@ import asyncio, os, re, json, subprocess, sys, time
 from playwright.async_api import async_playwright
 
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PORT=8787
+PORT=8874
 results=[]
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else info)

@@ -1,5 +1,6 @@
 # Numéro de livraison : met à jour APP_BUILD (index.html), le cache (sw.js) et version.json avec la même lettre.
 # Usage : python tools/stamp_version.py 41n   (la date et l'heure sont celles du moment ; branche « main » dans la source)
+# version.json reçoit aussi « label » (« 41n · JJ/MM HH:MM »), affiché tel quel dans le bandeau « Nouvelle version » et le menu.
 import sys, re, json, datetime
 v=sys.argv[1]
 now=datetime.datetime.now()
@@ -11,6 +12,6 @@ open("index.html","w",encoding="utf-8",newline="").write(s)
 w=open("sw.js",encoding="utf-8").read()
 w=re.sub(r'packs-sos-v[0-9a-z]+','packs-sos-v'+v,w)
 open("sw.js","w",encoding="utf-8",newline="").write(w)
-j=json.load(open("version.json",encoding="utf-8"));j["version"]=v;j["date"]=now.strftime("%Y-%m-%d")
+j=json.load(open("version.json",encoding="utf-8"));j["version"]=v;j["date"]=now.strftime("%Y-%m-%d");j["label"]=v+" · "+d  # 06/11/2026 : libellé lisible du bandeau « Nouvelle version »
 open("version.json","w",encoding="utf-8",newline="\n").write(json.dumps(j,ensure_ascii=False,indent=2)+"\n")
 print("livraison v"+v+" ·",d)

@@ -1,6 +1,6 @@
 # Résultats — retours documents v41z (blocs, scanner, noms, résumé)
 
-2026-11-03
+2026-11-06
 
 25/25 OK
 

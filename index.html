@@ -16375,7 +16375,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41z",branch:"main",date:"21/10 12:00"};
+const APP_BUILD={v:"41z",branch:"main",date:"06/11 08:38"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16395,7 +16395,7 @@ function updMain(){try{return !state.view&&(state.sel===null||state.sel===undefi
 async function updInfo(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(r.ok){const j=await r.json();if(j&&typeof j==="object")UPD.info=j;}}catch(e){}}
 function showUpdateBar(){UPD.ready=true;UPD.collapsed=false;updRender();updInfo().then(updRender);}
 function updRender(){if(!UPD.ready)return;let b=document.getElementById("updbar");if(!b){b=document.createElement("div");b.id="updbar";b.setAttribute("role","alert");document.body.prepend(b);}
-  const i=UPD.info||{};const v=i.version?String(i.version):"";const notes=(Array.isArray(i.notes)?i.notes:[]).slice(0,3);
+  const i=UPD.info||{};const v=i.label?String(i.label):(i.version?String(i.version):""); /* 06/11/2026 : libellé lisible (41z.4 · 06/11 21:30) quand version.json le donne */const notes=(Array.isArray(i.notes)?i.notes:[]).slice(0,3);
   document.documentElement.classList.add("upd-on");
   if(UPD.collapsed){b.className="mini";b.innerHTML=`<button type="button" id="upd_open">⬆ Mise à jour en attente${v?" — version "+esc(v):""} · afficher</button>`;document.getElementById("upd_open").onclick=()=>{UPD.collapsed=false;updRender();};}
   else{b.className="";b.innerHTML=`<div class="ut">⬆ Nouvelle version disponible${v?" : version "+esc(v):""}</div>${notes.length?`<div class="uc">Ce qui change :</div><ul>${notes.map(n=>`<li>${esc(String(n))}</li>`).join("")}</ul>`:""}${updInConsult()?'<div class="uw">Consultation en cours : rien ne se mettra à jour tout seul.</div>':""}<div class="ub"><button type="button" id="upd_go">Mettre à jour maintenant</button><button type="button" id="upd_later">Plus tard</button></div>`;
@@ -19396,7 +19396,7 @@ async function shareFile(file){
   try{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:file.name});return true;}}catch(e){if(e&&e.name==="AbortError")return false;}
   try{const u=URL.createObjectURL(file);const a=document.createElement("a");a.href=u;a.download=file.name;a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u);},60000);return true;}catch(e){alert("Enregistrement impossible : "+((e&&e.message)||e));return false;}
 }
-function siteBase(){return location.href.split("#")[0].split("?")[0].replace(/\/v\d+\/(index\.html)?$/,"/").replace(/index\.html$/,"");}
+function siteBase(){return location.href.split("#")[0].split("?")[0].replace(/\/v\d+[a-z]?\/(index\.html)?$/,"/") /* 06/11/2026 : dossiers de secours avec lettre (v41k/) */.replace(/index\.html$/,"");}
 /* Profil publié : profil.json (profil chiffré) déposé à la racine du site, commun à toutes les versions. */
 async function kitRemote(){if(!location.protocol.startsWith("http"))return null;const ac=("AbortController" in window)?new AbortController():null;const t=ac?setTimeout(()=>ac.abort(),6000):0;
   try{const r=await fetch(siteBase()+"profil.json",{cache:"no-store",signal:ac?ac.signal:undefined});if(!r.ok)return null;const k=await r.json();return (k&&k.kind==="kit"&&k.ct)?k:null;}catch(e){return null;}finally{clearTimeout(t);}}

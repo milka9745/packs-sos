@@ -45,7 +45,7 @@ async def run(b,w,h,th,big,label,shots):
     page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:(dialogs.append(d.message),asyncio.ensure_future(d.accept())))
     page.on("popup",lambda pg:asyncio.ensure_future(pg.close()))
     await unlock(page,"xp"+label.replace(" ","")[:10])
-    await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();localStorage.removeItem('sos_xp');")
+    await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();localStorage.removeItem('sos_xp');localStorage.setItem('sos_xpsug','true');")
     await page.evaluate(STOPS); await page.evaluate("window.print=()=>{window.__pr=(window.__pr||0)+1;};0"); await page.wait_for_timeout(400)
     L=label+" : "; tag=label.replace(" ","-")
     # accueil : liste des patients de la régulation
@@ -133,7 +133,7 @@ async def extras(b,w,h,label):
     ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob,permissions=["clipboard-read","clipboard-write"])
     await ctx.route("**/*",lambda r:asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
-    await unlock(page,"xpx"+label[:6]); await page.evaluate("localStorage.removeItem('sos_xp');window.print=()=>{};")
+    await unlock(page,"xpx"+label[:6]); await page.evaluate("localStorage.removeItem('sos_xp');localStorage.setItem('sos_xpsug','true');window.print=()=>{};")
     L=label+" : "
     # f. au cabinet : pas de navigation au toucher
     await page.evaluate(STOPS); await page.evaluate("state.cot.lieu='consultation';state.cot.auto=false;render();"); await page.wait_for_timeout(300)

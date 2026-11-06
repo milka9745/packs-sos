@@ -3,7 +3,7 @@
 - OK — catalogue : aucune fiche définie deux fois en entier dans le fichier (anciennes versions remplacées retirées)
 - OK — catalogue : 90 anciennes fiches réduites à leur nom (leur place est gardée)
 - OK — catalogue : une seule fusion (catAdd) au lieu de 16 boucles
-- OK — catalogue : 399 fiches, toutes avec contenu, noms uniques
+- OK — catalogue : 400 fiches, toutes avec contenu, noms uniques
 - OK — catalogue : les 12 fiches jumelles retrouvent leur fiche v40
 - OK — recherche « insomnie » : une ligne « Insomnie », l'ancienne fiche en « Autre version » dessous (plus de doublon)
 - OK — « Autre version » sélectionne l'ancienne fiche (rien n'est perdu)
@@ -34,5 +34,5 @@
 ## Temps mesurés (ms)
 
 - écriture chiffrée du journal : 1
-- journal de 1 000 patients : écriture chiffrée : 17
-- journal de 1 000 patients : lecture : 61
+- journal de 1 000 patients : écriture chiffrée : 13
+- journal de 1 000 patients : lecture : 39

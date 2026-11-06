@@ -69,3 +69,7 @@ Détail : `docs/RAPPORT-2026-11-06.md`.
 | 3. Visite : aucune fiche proposée, recherche vide + fréquents, réglage ⋯ | à faire | `test_fil_v41z.py` |
 | 4. Certificats enfant malade (réécrit, fiche 253 validée modifiée) et absence scolaire (nouveau), dates d'un geste, date de naissance, heure, journal | partiel | `test_fil_v41z.py` |
 
+### Publication en racine du 06/11/2026
+- Numéro de version lisible : canal de test « TEST · 41z.N · JJ/MM HH:MM » (N par construction, `test/build.json`) ; racine « v41z · main · JJ/MM HH:MM » et `label` dans `version.json`.
+- Secours `v41k/` (copie de la version en service du 17/10/2026, `tools/secours.py`), puis `main` = `ia` (version complète, cache `packs-sos-v41z`). Conservation du code, du profil, du journal, de la tournée et des réglages vérifiée par `tests/test_racine_41z.py` (25 points), site assemblé par `tests/test_dossier_test.py` (racine lue dans le site).
+- Suites : réglage « fiche proposée en visite » rétabli dans 13 suites (il avait été inséré à l'intérieur d'un `if`, ce qui éteignait l'Express dans `test_fil6`) et ajouté à `test_express`, `test_favoris`, `test_certificats` ; `test_stock` : 400 fiches.

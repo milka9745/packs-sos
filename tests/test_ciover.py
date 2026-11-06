@@ -12,7 +12,7 @@ PORT=8774
 MOTIF="traitement ancien prescrit par le spécialiste, renouvellement à l'identique"
 
 async def unlock(page):
-    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
+    await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testci"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

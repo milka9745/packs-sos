@@ -30,7 +30,7 @@ def catalogue_source():
 async def catalogue(page):
     r = await page.evaluate("""()=>({n:PACKS.length,vide:PACKS.filter(p=>!Array.isArray(p.s)||!p.s.length).map(p=>p.n),uniq:new Set(PACKS.map(p=>p.n)).size,
       tw:(()=>{twinOf(0);return _twinIdx.size;})(),twn:Object.keys(CAT_TWIN).length})""")
-    ok("catalogue : 399 fiches, toutes avec contenu, noms uniques", r["n"] == 399 and not r["vide"] and r["uniq"] == 399, r)
+    ok("catalogue : 400 fiches, toutes avec contenu, noms uniques", r["n"] == 400 and not r["vide"] and r["uniq"] == 400, r)
     ok("catalogue : les 12 fiches jumelles retrouvent leur fiche v40", r["tw"] == 12 == r["twn"], r)
     await page.fill("#q", "insomnie"); await page.wait_for_timeout(250)
     rows = await page.evaluate("()=>[...document.querySelectorAll('#res .res .n')].map(e=>e.textContent)")

@@ -106,7 +106,7 @@ async def run_ctx(b, w, h, theme, big, label):
     ctx = await b.new_context(viewport={"width": w, "height": h}, device_scale_factor=2 if mob else 1, is_mobile=mob, has_touch=mob)
     await ctx.route("**/*", lambda r: asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
     page = await ctx.new_page(); errors = []; page.on("pageerror", lambda e: errors.append(str(e))); page.on("dialog", lambda d: asyncio.ensure_future(d.accept()))
-    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false')}catch(e){}")
+    await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")
     await unlock(page)
     await page.evaluate(f"localStorage.setItem('sos_theme','{theme}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{theme}';themeApply();")
     if label == "desktop": await fiches(page)

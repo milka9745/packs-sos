@@ -2,12 +2,24 @@
 # stockage local préfixé « pst: » (jamais celui de l'outil de garde), base photos séparée, cache du service worker séparé,
 # manifeste « Packs SOS TEST », icônes badgées « TEST », bandeau visible. L'outil de garde (racine, main) n'est pas modifié.
 # Lancer depuis la racine du dépôt (branche ia) : python tools/build_test.py <dossier de sortie>
-import os, sys, re, json, base64, asyncio, shutil
+import os, sys, re, json, base64, asyncio, shutil, datetime
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT=sys.argv[1] if len(sys.argv)>1 else os.path.join(ROOT,"test")
 os.makedirs(OUT,exist_ok=True)
 ver=json.load(open(os.path.join(ROOT,"version.json"),encoding="utf-8"))
-V=str(ver.get("version","41"))+"-test"
+# 06/11/2026 : numéro de publication lisible, qui change à chaque construction (41z.1, 41z.2, …) ; le dernier numéro publié est lu dans test/build.json (revenu de main par fusion)
+BASE=str(ver.get("version","41"))
+_bj=os.path.join(ROOT,"test","build.json")
+try: _prev=json.load(open(_bj,encoding="utf-8"))
+except Exception: _prev={}
+NUM=(int(_prev.get("n",0))+1) if _prev.get("base")==BASE else 1
+STAMP=datetime.datetime.now().strftime("%d/%m %H:%M")
+VLBL=BASE+"."+str(NUM)
+V=VLBL+"-test"
+NOTES=[]
+try:
+    NOTES=[l.strip() for l in open(os.path.join(ROOT,"tools","test_notes.txt"),encoding="utf-8").read().splitlines() if l.strip() and not l.strip().startswith("#")]
+except Exception: NOTES=[]
 
 SHIM='''<script>/* VERSION TEST : stockage séparé de l'outil de garde (préfixe « pst: » sur localStorage et sessionStorage) */
 (function(){try{var P="pst:",S=Storage.prototype,g=S.getItem,s=S.setItem,r=S.removeItem,k=S.key;
@@ -21,7 +33,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style>'''
-BADGE_BODY='<div id="testbadge" aria-hidden="true">TEST · '+V.replace("-test","")+'</div>'
+BADGE_BODY='<div id="testbadge" aria-hidden="true">TEST · '+VLBL+' · '+STAMP+'</div>'
 
 s=open(os.path.join(ROOT,"index.html"),encoding="utf-8").read()
 def rep(a,b,n=1,regex=False):
@@ -32,11 +44,11 @@ def rep(a,b,n=1,regex=False):
 rep("<head>","<head>\n"+SHIM)
 # livraison affichée « v41x · test · date de construction » (jamais sur les documents)
 import datetime
-s,_n=re.subn(r'const APP_BUILD=\{v:"([^"]*)",branch:"[^"]*",date:"[^"]*"\};',lambda m:'const APP_BUILD={v:"'+m.group(1)+'",branch:"test",date:"'+datetime.datetime.now().strftime("%d/%m %H:%M")+'"};',s)
+s,_n=re.subn(r'const APP_BUILD=\{v:"([^"]*)",branch:"[^"]*",date:"[^"]*"\};',lambda m:'const APP_BUILD={v:"'+VLBL+'",branch:"test",date:"'+STAMP+'"};',s)
 assert _n==1
 rep('indexedDB.open("packs-sos-photos"','indexedDB.open("packs-sos-test-photos"')
 rep('name:"packs-sos-data"','name:"packs-sos-test-data"')
-rep('replace(/\\/v\\d+\\/(index\\.html)?$/,"/")','replace(/\\/(?:v\\d+|test)\\/(index\\.html)?$/,"/")')
+rep('replace(/\\/v\\d+[a-z]?\\/(index\\.html)?$/,"/")','replace(/\\/(?:v\\d+[a-z]?|test)\\/(index\\.html)?$/,"/")')  # 06/11/2026 : dossiers de secours avec lettre (v41k/)
 rep(r'<link rel="apple-touch-icon" href="data:image/png;base64,[^"]+">','<link rel="apple-touch-icon" href="apple-touch-icon.png">',regex=True)
 rep("<title>Packs SOS — Docteur Mickaël DEIE</title>","<title>Packs SOS TEST</title>")
 rep('<meta name="apple-mobile-web-app-title" content="Packs SOS">','<meta name="apple-mobile-web-app-title" content="TEST Packs">')
@@ -47,8 +59,7 @@ s=re.sub(r"(<body[^>]*>)",lambda m:m.group(1)+BADGE_BODY,s,count=1)
 open(os.path.join(OUT,"index.html"),"w",encoding="utf-8",newline="").write(s)
 
 w=open(os.path.join(ROOT,"sw.js"),encoding="utf-8").read()
-BUILD=datetime.datetime.now().strftime("%m%d%H%M")  # 21/10/2026 : un cache par construction du canal de test (même version, nouveau contenu → rafraîchi)
-w=re.sub(r'const CACHE="[^"]+";','const CACHE="packs-sos-test-'+V+'-'+BUILD+'";',w)
+w=re.sub(r'const CACHE="[^"]+";','const CACHE="packs-sos-test-'+VLBL+'";',w)  # 06/11/2026 : un cache par numéro de publication
 w=w.replace("ks.filter(k=>/^packs-sos-v\\d+[a-z]?$/.test(k)&&k!==CACHE)","ks.filter(k=>/^packs-sos-test-/.test(k)&&k!==CACHE)")
 assert "packs-sos-test-" in w and "/^packs-sos-test-/" in w
 w="/* VERSION TEST (dossier test/) : cache séparé, ne touche jamais au cache de l'outil de garde */\n"+w
@@ -57,7 +68,8 @@ open(os.path.join(OUT,"sw.js"),"w",encoding="utf-8",newline="").write(w)
 man=json.load(open(os.path.join(ROOT,"manifest.webmanifest"),encoding="utf-8"))
 man.update({"name":"Packs SOS TEST","short_name":"TEST Packs","theme_color":"#D0021B","id":"./"})
 open(os.path.join(OUT,"manifest.webmanifest"),"w",encoding="utf-8",newline="\n").write(json.dumps(man,ensure_ascii=False,indent=1))
-json.dump({"version":V,"date":ver.get("date",""),"notes":["Version de test (branche ia) : données séparées de l'outil de garde."]+ver.get("notes",[])[:2]},open(os.path.join(OUT,"version.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=2)
+json.dump({"version":V,"label":VLBL+" · "+STAMP,"date":datetime.date.today().isoformat(),"notes":(NOTES[:3] if NOTES else ["Version de test (branche ia) : données séparées de l'outil de garde."]+ver.get("notes",[])[:2])},open(os.path.join(OUT,"version.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
+json.dump({"base":BASE,"n":NUM,"label":VLBL,"stamp":STAMP},open(os.path.join(OUT,"build.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 
 async def icons():
     from playwright.async_api import async_playwright

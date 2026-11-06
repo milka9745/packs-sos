@@ -27,7 +27,7 @@ async def run(b,w,h,th,big,label):
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     page.on("popup",lambda pg:asyncio.ensure_future(pg.close()))
     await unlock(page,"cert"+label.replace(" ","")[:8]); L=label+" : "; tag=label.replace(" ","-")
-    await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();")
+    await page.evaluate(f"localStorage.setItem('sos_theme','{th}');localStorage.setItem('sos_bigtext','{1 if big else 0}');THEME.mode='{th}';themeApply();localStorage.setItem('sos_xpsug','true');")
     # enfant malade : 1 jour par défaut
     await page.evaluate(SETP,{"n":"Certificat — enfant malade"}); await page.wait_for_timeout(300)
     t=await page.evaluate(CERTTXT)

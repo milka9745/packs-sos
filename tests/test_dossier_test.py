@@ -1,9 +1,13 @@
 # Dossier test/ (17/10/2026) : la branche ia publiée à part, sans rien partager avec l'outil de garde (racine).
+# 06/11/2026 : la racine est lue dans le site (version.json, sw.js, index.html) : elle peut être la v41k comme la v41z.
 # Site local = main à la racine + test/ construit par tools/build_test.py. Vérifie : stockage, base photos, cache, service worker,
 # manifeste et icônes séparés ; badge TEST visible ; l'outil de garde garde son code et ses données. Lancer : python tests/test_dossier_test.py <site>
-import asyncio, os, json, subprocess, time, sys
+import asyncio, os, json, subprocess, time, sys, re
 from playwright.async_api import async_playwright
 SITE=sys.argv[1]; PORT=8792; B=f"http://localhost:{PORT}/"
+RV=json.load(open(os.path.join(SITE,"version.json"),encoding="utf-8"))["version"]
+RCACHE=re.search(r'const CACHE="([^"]+)"',open(os.path.join(SITE,"sw.js"),encoding="utf-8").read()).group(1)
+RXP="function xpHTML(" in open(os.path.join(SITE,"index.html"),encoding="utf-8").read()
 results=[]
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else str(info)[:400])
@@ -26,7 +30,7 @@ async def main():
             # 1. outil de garde (racine) : un utilisateur et une donnée
             ok("racine : création du code de l'outil de garde",await create(page,B,"garde"))
             rootv=await page.evaluate("fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>j.version)")
-            ok("racine : outil de garde en v41k (inchangé)",rootv=="41k",rootv)
+            ok(f"racine : version en service {RV} (celle du version.json du site)",rootv==RV,rootv)
             await page.evaluate("localStorage.setItem('sos_marqueur_garde','\"garde\"')")
             await page.wait_for_timeout(1500)
             # 2. version de test : aucun code existant (stockage séparé)
@@ -53,7 +57,7 @@ async def main():
             regs=await page.evaluate("navigator.serviceWorker.getRegistrations().then(r=>r.map(x=>x.scope))")
             ok("service workers séparés (racine et test/)",B in regs and B+"test/" in regs,regs)
             cks=await page.evaluate("caches.keys()")
-            ok("caches séparés (packs-sos-v41k et packs-sos-test-…)",any(k.startswith("packs-sos-test-") for k in cks) and "packs-sos-v41k" in cks,cks)
+            ok(f"caches séparés ({RCACHE} et packs-sos-test-…)",any(k.startswith("packs-sos-test-") for k in cks) and RCACHE in cks,cks)
             ver=await page.evaluate("fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>j.version)")
             ok("test/ : version de la branche ia",ver.endswith("-test"),ver)
             ok("test/ : Express présent (branche ia)",await page.evaluate("typeof xpHTML==='function'"))
@@ -61,7 +65,7 @@ async def main():
             ok("test/ : aucun filigrane sur les documents (décision du 18/10/2026)",wm==0,wm)
             await page.click("#more_btn"); await page.wait_for_timeout(300)
             jm=await page.evaluate("(document.querySelector('#jmenu .jm-ver')||{}).textContent||''")
-            ok("test/ : menu ⋯ « v… · test · date » (numéro distinct de l'outil de garde)"," · test · " in jm and jm.startswith("v41") and "41k" not in jm,jm)
+            ok("test/ : menu ⋯ « v… · test · date » (branche test, jamais « main »)"," · test · " in jm and jm.startswith("v41") and " · main · " not in jm,jm)
             await page.click("#more_btn")
             pill=await page.evaluate("document.getElementById('testbadge').textContent")
             ok("test/ : pastille « TEST · version »",pill.startswith("TEST · 41"),pill)
@@ -74,7 +78,7 @@ async def main():
             ok("racine : donnée de l'outil de garde intacte",await page.evaluate("localStorage.getItem('sos_marqueur_garde')")=='"garde"')
             wm2=await page.evaluate("()=>{newPatient();Object.assign(state,{patient:'DURAND Paul',ddn:'14/05/1975',sexe:'h'});state.sel=PACKS.findIndex(p=>p.n==='Rhinopharyngite — adulte');const p=currentPack();return p?buildPages(p,true).out.includes('VERSION TEST'):'?';}")
             ok("racine (outil de garde) : jamais de filigrane TEST sur les documents",wm2 is False,wm2)
-            ok("racine : pas de badge TEST, pas d'Express (code de main)",await page.locator("#testbadge").count()==0 and await page.evaluate("typeof xpHTML")=="undefined")
+            ok("racine : pas de badge TEST ; code de la racine du site (Express selon la version en service)",await page.locator("#testbadge").count()==0 and (await page.evaluate("typeof xpHTML")=="function")==RXP)
             ok("aucune erreur JS",not errors,errors[:3])
             await b.close()
     finally: srv.terminate()
