@@ -10,7 +10,7 @@ def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,info if not cond else "")
 
 async def unlock(page):
-    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")
+    await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false')}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testv40"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

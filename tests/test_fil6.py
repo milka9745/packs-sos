@@ -47,7 +47,7 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     await ctx.grant_permissions(["clipboard-read", "clipboard-write"], origin=f"http://localhost:{PORT}")
     page = await ctx.new_page()
     errs = []; page.on("pageerror", lambda e: errs.append(str(e)))
-    await page.add_init_script(f"try{{localStorage.setItem('sos_theme','{theme}');localStorage.setItem('sos_bigtext','{1 if big else 0}');localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_design','garde');}}catch(e){{}}")
+    await page.add_init_script(f"try{{localStorage.setItem('sos_theme','{theme}');localStorage.setItem('sos_bigtext','{1 if big else 0}');localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_design','garde');}}catch(e){{}}")
     await unlock(page)
     await page.evaluate(SETUP); await page.wait_for_timeout(300)
     sh = (lambda n: f"fil6-{L.strip(' :').replace(' ', '_')}-{n}.png") if shots else (lambda n: None)

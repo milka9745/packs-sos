@@ -13,7 +13,7 @@ def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,"" if cond else info)
 
 async def unlock(page,base,xp="true",uid="testv41y"):
-    await page.add_init_script(f"try{{localStorage.setItem('sos_xp','{xp}');}}catch(e){{}}")
+    await page.add_init_script(f"try{{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','{xp}');}}catch(e){{}}")
     await page.goto(base+"index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

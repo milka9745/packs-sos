@@ -120,7 +120,7 @@ async def make_fixtures(b,tmp):
     await ctx.close(); p=os.path.join(tmp,"ordo.pdf"); make_pdf(p,ORDO_PDF); F["ordo.pdf"]=p; return F
 
 async def unlock(page,uid):
-    await page.add_init_script("try{localStorage.setItem('sos_xp','false');localStorage.setItem('sos_excomplet','0');}catch(e){}")
+    await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false');localStorage.setItem('sos_excomplet','0');}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=20000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234"); await page.click("#pin_ok")
     await page.wait_for_selector("#rec_ack",timeout=20000); await page.check("#rec_ack"); await page.click("#rec_done")

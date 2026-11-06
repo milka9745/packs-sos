@@ -10,7 +10,7 @@ def ok(name,cond,info=""):
 PORT=8796 if os.environ.get("XP","off")=="off" else 8800
 XPON=os.environ.get("XP","off")=="on"   # XP=on : mêmes tests avec l'Express
 async def unlock(page,uid):
-    if not XPON: await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")
+    if not XPON: await page.add_init_script("try{if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false')}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")

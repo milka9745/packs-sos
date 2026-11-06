@@ -13,7 +13,7 @@ PORT=8798 if os.environ.get("XP","on")!="off" else 8799
 XPOFF=os.environ.get("XP","on")=="off"   # XP=off : mêmes tests en mode complet (Express coupé)
 STOPS=open(os.path.join(ROOT,"tests","audit_express.py"),encoding="utf-8").read().split('STOPS="""')[1].split('"""')[0]
 async def unlock(page,uid):
-    if XPOFF: await page.add_init_script("try{localStorage.setItem('sos_xp','false')}catch(e){}")
+    if XPOFF: await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false')}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")

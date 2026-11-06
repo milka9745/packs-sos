@@ -57,3 +57,15 @@ Détail : `docs/RAPPORT-CORR-2026-11-03.md`.
 | 2. Courriers sans phrase de remplissage, manques signalés avant d'imprimer | déjà fait (publié le 03/11 au matin) | — |
 | 3. Barre du bas en Consultation : tout bouton crée le patient puis agit | partiel (Scanner seul agissait) | `test_modes.py` |
 | 4. Visite (vert émeraude) / Consultation (bleu) : barre, étiquette, carte, bandeau, onglets, confirmation, journal, pastilles V / C | partiel (couleur atténuée, sélecteur replié, ni confirmation ni pastille) | `test_modes.py` |
+
+## Corrections du 06/11/2026 (branche ia, v41z, publiées sur /test/)
+
+Détail : `docs/RAPPORT-2026-11-06.md`.
+
+| Point | État avant | Fait |
+|---|---|---|
+| 1. Impression des ordonnances : « Imprimer » aboutit partout | à faire (écran « Avant d'imprimer » : clavier sur le bouton « Imprimer » sur iPhone ; Express : 2e toucher à confirmer) | `test_fil_v41z.py` |
+| 2. Consultation : « Patient suivant » en un geste (validation puis patient vierge, annulation 8 s) | partiel (deux touchers, écran de récapitulatif, puis « Patient suivant ») | `test_fil_v41z.py` |
+| 3. Visite : aucune fiche proposée, recherche vide + fréquents, réglage ⋯ | à faire | `test_fil_v41z.py` |
+| 4. Certificats enfant malade (réécrit, fiche 253 validée modifiée) et absence scolaire (nouveau), dates d'un geste, date de naissance, heure, journal | partiel | `test_fil_v41z.py` |
+

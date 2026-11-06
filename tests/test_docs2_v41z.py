@@ -26,7 +26,7 @@ Technique : cliché de face debout.
 Résultat : pas de foyer parenchymateux, pas d'épanchement pleural.
 Conclusion : cardiomégalie modérée sans foyer infectieux."""
 async def unlock(page,uid):
-    await page.add_init_script("try{localStorage.setItem('sos_xp','true');localStorage.setItem('sos_excomplet','0');}catch(e){}")
+    await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','true');localStorage.setItem('sos_excomplet','0');}catch(e){}")
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=20000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234"); await page.click("#pin_ok")
     await page.wait_for_selector("#rec_ack",timeout=20000); await page.check("#rec_ack"); await page.click("#rec_done")
@@ -67,7 +67,7 @@ async def main():
             # ---------- 1. blocs déplaçables ----------
             xo=await page.evaluate(XPORDER)
             ok("1. Express actif : une seule carte Documents, cartes de l'Express dans l'ordre (dictée, documents, favoris)",xo==["dict","docs","options"] and await page.evaluate("()=>document.querySelectorAll('#docscard').length")==1,xo)
-            await page.evaluate("()=>{localStorage.setItem('sos_xp','false');render();}"); await page.wait_for_timeout(300)
+            await page.evaluate("()=>{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','false');render();}"); await page.wait_for_timeout(300)
             o=await page.evaluate(ORDER)
             ok("1. mode complet : ordre par défaut, Scanner et documents juste avant le Motif (patient, dictée, documents, motif, …, observation, ordonnances, courriers)",o[:4]==["patient","dict","docs","motif"] and o[-3:]==["obs","sheets","lettres"],o)
             await page.evaluate("()=>{document.getElementById('jmenu').hidden=false;}")
@@ -86,7 +86,7 @@ async def main():
             await page.evaluate("()=>draftSaveNow()"); await page.reload(); await reunlock(page); await page.evaluate("()=>{state.cot.lieu='consultation';state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');render();}"); await page.wait_for_timeout(300)
             o3=await page.evaluate(ORDER); enc=await page.evaluate("()=>Object.keys(localStorage).some(k=>/sos_blocs_/.test(k)&&/_enc$/.test(k))")
             ok("1. après fermeture et réouverture : ordre retrouvé, enregistré chiffré dans le profil",o3.index("obs")<o3.index("motif") and enc,(o3,enc))
-            await page.evaluate("()=>{localStorage.setItem('sos_xp','true');render();}"); await page.wait_for_timeout(300)
+            await page.evaluate("()=>{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','true');render();}"); await page.wait_for_timeout(300)
             # appui long et glisser dans l'Express : Documents avant Dictée
             r=await page.evaluate("""async()=>{const docs=document.getElementById('docscard'),dict=document.getElementById('dictcard');if(!docs||!dict||docs.parentElement!==dict.parentElement)return {err:'cartes non voisines'};
               const ev=(t,el,cx,cy)=>el.dispatchEvent(new PointerEvent(t,{bubbles:true,clientX:cx,clientY:cy,pointerId:1,pointerType:'touch',isPrimary:true}));const r=docs.getBoundingClientRect();

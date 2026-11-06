@@ -18,7 +18,7 @@ async def go():
                 ctx=await b.new_context(viewport={"width":375,"height":812},device_scale_factor=2,is_mobile=True,has_touch=True)
                 await ctx.route("**/*",lambda r:asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
                 page=await ctx.new_page()
-                await page.add_init_script(f"try{{localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_bigtext','{1 if big else 0}')}}catch(e){{}}")
+                await page.add_init_script(f"try{{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_bigtext','{1 if big else 0}')}}catch(e){{}}")
                 await ns["unlock"](page,"clip"+str(big)+str(xp))
                 await page.evaluate("themeApply()")
                 out={}

@@ -205,45 +205,45 @@
 
 ## Temps mesurés (ms)
 
-- iPhone jour : 1 → 2 Lancer la tournée : 19
+- iPhone jour : 1 → 2 Lancer la tournée : 17
 - iPhone jour : 2 → 3 Je suis arrivé : 14
-- iPhone jour : 3 → 4 fiche choisie : 67
-- iPhone jour : 4 → aperçu Imprimer : 137
-- iPhone jour : aperçu → 5 retour : 13
-- iPhone jour : 5 → Patient validé : 44
-- iPhone jour : Patient suivant → 2 (visite suivante) : 36
-- iPhone jour : → 6 Entre deux : 26
-- iPhone jour : 6 → 2 Insérer au mieux : 158
-- iPhone nuit : 1 → 2 Lancer la tournée : 15
-- iPhone nuit : 2 → 3 Je suis arrivé : 12
-- iPhone nuit : 3 → 4 fiche choisie : 73
-- iPhone nuit : 4 → aperçu Imprimer : 82
-- iPhone nuit : aperçu → 5 retour : 7
-- iPhone nuit : 5 → Patient validé : 46
-- iPhone nuit : Patient suivant → 2 (visite suivante) : 28
-- iPhone nuit : → 6 Entre deux : 23
-- iPhone nuit : 6 → 2 Insérer au mieux : 136
-- iPhone grand texte : 1 → 2 Lancer la tournée : 17
-- iPhone grand texte : 2 → 3 Je suis arrivé : 15
-- iPhone grand texte : 3 → 4 fiche choisie : 86
-- iPhone grand texte : 4 → aperçu Imprimer : 91
-- iPhone grand texte : aperçu → 5 retour : 8
-- iPhone grand texte : 5 → Patient validé : 50
-- iPhone grand texte : Patient suivant → 2 (visite suivante) : 45
-- iPhone grand texte : → 6 Entre deux : 26
-- iPhone grand texte : 6 → 2 Insérer au mieux : 145
-- iPhone Express : 1 → 2 Lancer la tournée : 34
-- iPhone Express : 2 → 3 Je suis arrivé : 14
-- iPhone Express : 3 → 4 fiche choisie : 92
-- ordinateur : 1 → 2 Lancer la tournée : 28
-- ordinateur : 2 → 3 Je suis arrivé : 14
-- ordinateur : 3 → 4 fiche choisie : 97
-- ordinateur : 4 → aperçu Imprimer : 134
-- ordinateur : aperçu → 5 retour : 10
-- ordinateur : 5 → Patient validé : 65
-- ordinateur : Patient suivant → 2 (visite suivante) : 41
-- ordinateur : → 6 Entre deux : 25
-- ordinateur : 6 → 2 Insérer au mieux : 161
+- iPhone jour : 3 → 4 fiche choisie : 70
+- iPhone jour : 4 → aperçu Imprimer : 110
+- iPhone jour : aperçu → 5 retour : 9
+- iPhone jour : 5 → Patient validé : 51
+- iPhone jour : Patient suivant → 2 (visite suivante) : 29
+- iPhone jour : → 6 Entre deux : 23
+- iPhone jour : 6 → 2 Insérer au mieux : 271
+- iPhone nuit : 1 → 2 Lancer la tournée : 19
+- iPhone nuit : 2 → 3 Je suis arrivé : 16
+- iPhone nuit : 3 → 4 fiche choisie : 108
+- iPhone nuit : 4 → aperçu Imprimer : 143
+- iPhone nuit : aperçu → 5 retour : 10
+- iPhone nuit : 5 → Patient validé : 49
+- iPhone nuit : Patient suivant → 2 (visite suivante) : 36
+- iPhone nuit : → 6 Entre deux : 30
+- iPhone nuit : 6 → 2 Insérer au mieux : 133
+- iPhone grand texte : 1 → 2 Lancer la tournée : 16
+- iPhone grand texte : 2 → 3 Je suis arrivé : 17
+- iPhone grand texte : 3 → 4 fiche choisie : 105
+- iPhone grand texte : 4 → aperçu Imprimer : 135
+- iPhone grand texte : aperçu → 5 retour : 9
+- iPhone grand texte : 5 → Patient validé : 52
+- iPhone grand texte : Patient suivant → 2 (visite suivante) : 42
+- iPhone grand texte : → 6 Entre deux : 35
+- iPhone grand texte : 6 → 2 Insérer au mieux : 131
+- iPhone Express : 1 → 2 Lancer la tournée : 38
+- iPhone Express : 2 → 3 Je suis arrivé : 15
+- iPhone Express : 3 → 4 fiche choisie : 83
+- ordinateur : 1 → 2 Lancer la tournée : 24
+- ordinateur : 2 → 3 Je suis arrivé : 11
+- ordinateur : 3 → 4 fiche choisie : 74
+- ordinateur : 4 → aperçu Imprimer : 137
+- ordinateur : aperçu → 5 retour : 9
+- ordinateur : 5 → Patient validé : 41
+- ordinateur : Patient suivant → 2 (visite suivante) : 29
+- ordinateur : → 6 Entre deux : 27
+- ordinateur : 6 → 2 Insérer au mieux : 137
 
 ## Boutons visibles par état
 
@@ -265,10 +265,10 @@
 - iPhone grand texte : pec : 60
 - iPhone grand texte : sortie : 59
 - iPhone grand texte : entre : 22
-- iPhone Express : demande : 7
-- iPhone Express : route : 17
-- iPhone Express : place : 16
-- iPhone Express : pec : 27
+- iPhone Express : demande : 10
+- iPhone Express : route : 20
+- iPhone Express : place : 19
+- iPhone Express : pec : 30
 - ordinateur : demande : 32
 - ordinateur : route : 31
 - ordinateur : place : 30
