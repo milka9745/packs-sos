@@ -610,6 +610,26 @@ details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!impor
 .xp .xp-t{display:flex;align-items:center;gap:8px;min-height:44px;font-size:16px;font-weight:700}.xp .xp-t input{width:22px;height:22px}
 .xp .xp-meds{margin:8px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line2)}.xp .xp-med{font-size:15.5px;line-height:1.35;padding:3px 0}.xp .xp-med+.xp-med{border-top:1px dashed var(--line2)}
 .xp .xp-med.w{font-weight:700}.xp .xp-med.miss{color:var(--bad,#b00);font-weight:800}
+/* ordonnance modifiable d'un geste (06/11/2026) */
+.xp .xp-med{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;display:flex;gap:6px;align-items:flex-start;min-height:36px;padding:6px 0}
+.xp .xp-med .xpm-t{flex:1 1 auto;min-width:0}.xp .xp-med.off .xpm-t{text-decoration:line-through;opacity:.5}.xp .xp-med.off{font-weight:400}
+.xp .xp-med .pcd,.lines .pcd.dup,.lines .pcd.prm,.lines .pcd.pdef{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--line2);color:var(--muted);white-space:nowrap;flex:none;align-self:center}
+.pcd.dup{background:#fde2e2!important;color:#8a1c1c!important}.pcd.prm{background:#ececec!important;color:#555!important}.pcd.pdef{background:#e3f2e8!important;color:#1f6b3a!important}
+.xp .xp-med .xdel{margin-left:auto;align-self:center;min-width:34px;min-height:34px;font-size:20px}
+.xp .xp-opts{margin-top:4px}.xp .xp-opts summary{cursor:pointer;font-size:14px;font-weight:600;padding:8px 0;min-height:36px;color:var(--muted)}.xp .xp-opts summary .hint{font-weight:400;margin-left:6px}.xp .xp-optl{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;display:flex;gap:6px;align-items:flex-start;min-height:36px;padding:6px 0;font-size:15px;line-height:1.35}.xp .xp-optl+.xp-optl{border-top:1px dashed var(--line2)}.xp .xp-optl .xpm-t{flex:1 1 auto;min-width:0;opacity:.75}
+.xp .xp-lbl .hint{font-weight:400;margin-left:6px}
+.xp-add input{width:100%;margin-top:8px;padding:11px 12px;border:1px dashed var(--line);border-radius:10px;font-size:15px;background:var(--panel,#fff);color:var(--ink);min-height:44px}
+.xp-freq{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}.xp-freq .chip{border:1px solid var(--line2);background:var(--panel,#fff);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;min-height:36px;cursor:pointer}
+.xp-ordomsg{margin-top:6px;font-size:13.5px;color:#1f6b3a}.xp-ordomsg.w{color:var(--bad,#b00);font-weight:600}
+.otag{font-size:11px;padding:1px 6px;border-radius:999px;background:var(--line2);color:var(--muted);margin-left:4px;vertical-align:middle}.otag.habituel,.otag.souventici{background:#e3f2e8;color:#1f6b3a}.otag.RCP{background:#e8eef9;color:#1f3f7a}
+.sg.mine b{color:#1f6b3a}.sg.hint{cursor:default;font-size:13px}
+#ordomenu{position:absolute;z-index:130;background:var(--panel);border:1px solid var(--line2);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.35);padding:6px}
+#ordomenu button{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);padding:11px 12px;border-radius:8px;font:inherit;font-size:15px;cursor:pointer;min-height:44px}#ordomenu button:hover{background:var(--line2)}
+#ordomenu .omh{padding:6px 12px 4px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--line2);margin-bottom:4px}#ordomenu .omh .hint{font-size:12px}#ordomenu>.hint{padding:6px 12px 6px;font-size:12px}
+.oedit{width:100%;font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel,#fff);color:var(--ink);min-height:40px}
+.lines li.editing{display:block}.lines li[data-li]{-webkit-touch-callout:none}
+@media print{#ordomenu,.xp-add,.xp-freq,.xp-ordomsg,.xp-ordo .xdel{display:none!important}}
+
 .xp .xp-line{margin:6px 0;font-size:15px}
 .xp .xp-print{margin-top:10px}.xp .xp-print #xp_go{width:100%;min-height:64px;font-size:20px}.xp .xp-print #xp_go.wait{opacity:.85}
 .xp-plus{margin:8px 0 80px;border:1px solid var(--line2);border-radius:12px;padding:0 10px}.xp-plus>summary{min-height:48px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;cursor:pointer;font-size:17px}
@@ -2064,7 +2084,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style></head>
-<body><div id="testbadge" aria-hidden="true">TEST · 41z.9 · 06/11 08:38</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
+<body><div id="testbadge" aria-hidden="true">TEST · 41z.10 · 06/11 09:53</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -6797,6 +6817,7 @@ function buildCR0(p){
   if(state.at.on) L.push("- Arrêt de travail fait"+(+state.at.jours>0?" : "+state.at.jours+" jour"+(+state.at.jours>1?"s":""):"")+".");
   if(state.nh.on&&nhTotal()>0) L.push("- Note d'honoraires n° "+nhNumero()+" remise ("+fmtEur(nhTotal())+(state.nh.hn?", acte hors nomenclature, tarif annoncé avant l'acte":"")+")"+(state.nh.statut==="differe"?" ; règlement différé convenu"+(state.nh.echeance?" au "+normDate(state.nh.echeance):"")+", reconnaissance de dette de "+fmtEur(nhReste())+" signée par le patient.":state.nh.statut==="refus"?" ; refus de paiement de la part restant à charge ("+fmtEur(nhReste())+") constaté à l'issue de la consultation"+(state.nh.temoin?" en présence de "+state.nh.temoin:"")+" ; soins et documents remis ; note d'honoraires remise valant facture.":"."));
   L.push("");
+  {const ot=ordoTrace();if(ot.length){L.push("ORDONNANCE ADAPTÉE");ot.forEach(x=>L.push("- "+x.replace(/^Ordonnance : /,"")));L.push("");}} /* 06/11/2026 */
   {const ct=ciTrace();if(ct.length){L.push("DÉCISIONS DE PRESCRIPTION");ct.forEach(x=>L.push("- "+x));L.push("");}}
   const trace=[o.trace].filter(Boolean).join(" ; ");
   if(trace){ L.push("TRAÇABILITÉ DES ÉCHANGES"); L.push(trace); L.push(""); }
@@ -7090,6 +7111,11 @@ function expand(sh,si){
     } else out.push({t:o.t,grp:o.grp,opt:o.opt,jr:o.jr,wf:!!(o.wmin||o.wmax),key:si+"-"+li,src:sh.src?sh.src[li]:undefined});
   });
   const cp=currentPack(); if(cp&&cp.renew&&sh.k==="med"){ state.tt.forEach((t,i)=>out.push({t:t+" : poursuivre le traitement habituel à la posologie en cours, sans modification, pendant 1 mois.",key:"r"+si+"-"+i})); if(!state.tt.length) out.push({t:"{f:renew}",key:"r0"}); }
+  if(sh.k==="med"&&ORDO.loaded){ /* 06/11/2026 : mes retraits et mes ajouts par défaut pour ce pack (mémoire chiffrée du profil) */
+    const names=ordoPackNames(sh,cp);
+    out.forEach(x=>{const pn=x.src||names[0];if(!pn)return;const rm=ordoRmSet(pn);if(rm.size&&rm.has(ordoNorm(x.t))){x.opt=true;x.prm=true;}});
+    names.forEach(pn=>{const m=ordoMod(pn);(m&&m.add||[]).forEach((t,i)=>out.push({t,key:"d"+si+"-"+ciId(pn)+"-"+i,pdef:true,pdn:pn}));});
+  }
   (state.extra[si]||[]).forEach((t,i)=>out.push({t,key:"x"+si+"-"+i,extra:i}));
   if(sh.k==="med"){ const pw=parseFloat((state.poids||"").replace(",",".")); const hasDoli=out.some(x=>/^(DOLIPRANE|DAFALGAN)\b/i.test(x.t)&&!/suppositoire/i.test(x.t)); if(hasDoli&&!out.some(x=>/suppositoire : 1 suppositoire toutes les 6 heures, en remplacement/.test(x.t))){ const s=pw?paracetamolSuppo(pw):(isChildPatient()?null:paracetamolSuppo(60)); if(s) out.push({t:s,opt:true,key:"supp"+si}); } }
   // adaptation âge / poids et dédoublonnage
@@ -7098,8 +7124,9 @@ function expand(sh,si){
     let t=x.t;
     if((sh.k==="med"||sh.k==="dm")&&!x.wf){ const ad=adaptLine(t); if(ad.note) notes.push(ad.note); if(ad.t===null) continue; t=ad.t; }
     const m=medOf(t); const key=m?("m:"+norm(m.n)+(/suppositoire : 1 suppositoire toutes les 6 heures, en remplacement/.test(t)?":supp":"")):("t:"+norm(t));
-    if(seenTxt.has(norm(t))) continue;
-    if(m&&seenMed.has(key)&&!x.wf&&!res.some(r=>r.wf&&r.grp&&r.grp===x.grp)){ notes.push(m.n+" en double : une seule ligne gardée"); continue; }
+    const added=x.extra!==undefined||!!x.pdef; /* 06/11/2026 : une ligne ajoutée reste toujours visible ; le doublon est jugé dans resolve() sur les lignes cochées */
+    if(seenTxt.has(norm(t))&&!added) continue;
+    if(m&&seenMed.has(key)&&!x.wf&&!res.some(r=>r.wf&&r.grp&&r.grp===x.grp)&&!added){ notes.push(m.n+" en double : une seule ligne gardée"); continue; }
     seenTxt.add(norm(t)); if(m) seenMed.add(key);
     res.push(Object.assign({},x,{t}));
   }
@@ -7176,7 +7203,7 @@ function resolve(sh,si){
   const _cpn=(()=>{try{const c=currentPack();return c&&!c.merged?c.n:"";}catch(e){return "";}})();
   const pedLine=(y,j)=>{const n=y.src||(sh.src&&sh.src[j])||_cpn;return /enfant|nourrisson|bébé|pédiatr|néonat/i.test(n)&&!/adolescent et adulte/i.test(n);};
   const adultLine=(y,j)=>sh.k==="med"&&lineAge(y.t)==="adulte"&&!pedLine(y,j);
-  return lines.map((x,i)=>{
+  const R=lines.map((x,i)=>{
     const f=fill(x.t);
     if(state.edits&&state.edits[si]&&state.edits[si][x.key]!==undefined){f.s=state.edits[si][x.key];f.miss=[];f.drop=false;f.edited=true;}
     if(opiumOn&&/^DOLIPRANE|^DAFALGAN/i.test(x.t)&&state.lo[x.key]===undefined){ (ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push("DOLIPRANE décoché (paracétamol déjà dans "+(lines.find(y=>/^LAMALINE|^IZALGI/i.test(y.t)).t.split(" ")[0])+")"); return Object.assign({on:false,fill:f},x); }
@@ -7201,7 +7228,12 @@ function resolve(sh,si){
     if(f.drop){on=false;}
     return Object.assign({on,fill:f},x);
   });
+  if(sh.k==="med")ordoDupPass(R,si); /* 06/11/2026 : ligne ajoutée en doublon d'une ligne cochée → décochée, pastille « doublon » */
+  return R;
 }
+function ordoDupPass(R,si){try{const onMeds=R.filter(x=>x.on&&x.extra===undefined&&!x.pdef).map(x=>({m:((medOf(String(x.fill&&x.fill.s||x.t))||{}).n||""),b:ordoBrand(x.t)}));
+  R.forEach(x=>{if(x.extra===undefined&&!x.pdef)return;if(state.lo[x.key]!==undefined)return;const m=((medOf(String(x.fill&&x.fill.s||x.t))||{}).n||"");const b=ordoBrand(x.t);
+    const h=onMeds.find(o=>(m&&o.m&&norm(o.m)===norm(m))||(b&&b.length>3&&o.b===b));if(!h)return;x.dup=true;x.on=false;const note=(h.m||h.b)+" en double : ligne ajoutée décochée";if(!(ADAPT_NOTES[si]||[]).includes(note))(ADAPT_NOTES[si]=ADAPT_NOTES[si]||[]).push(note);});}catch(e){}}
 function lineText(l){ if(typeof l==="string") return l; return (state.allergie&&l.alt)?(Array.isArray(l.alt)?l.alt[0]:l.alt):l.t; }
 
 /* Lot 2 (03/11/2026) : fiches jumelles. Une ancienne fiche qui couvre le même motif qu'une fiche v40 s'affiche sous elle (« Autre version »),
@@ -7650,7 +7682,7 @@ async function unlockDone(){SEC.unlocked=true;const el=$("#lock");if(el)el.remov
   JOURNAL=await secGet("sos_journal",[]);
   try{await tourLoad();}catch(e){}
   try{await identLoad();}catch(e){}
-  try{await favLoad();}catch(e){}try{await blkLoad();}catch(e){}
+  try{await favLoad();}catch(e){}try{await blkLoad();}catch(e){}try{await ordoLoad();}catch(e){}
   try{await validLoad();}catch(e){}
   if(!window.__draftChecked){window.__draftChecked=1;try{const d=await secGet("sos_draft",null);if(d&&Date.now()-d.ts<12*3600*1000&&d.state&&(d.state.patient||d.state.sel!==null||(d.state.obs&&Object.values(d.state.obs).some(v=>typeof v==="string"&&v.trim())))){Object.assign(state,d.state);state.view="";window.__draftRestored=d.state.patient||"";}}catch(e){}}
   try{await dictHistLoad();}catch(e){}setTimeout(()=>{try{photosHydrate();phPurge();storeQuick(true);}catch(e){}},50);
@@ -7757,7 +7789,7 @@ function journalUpsert(p){
   const _ct=cotTimes(now);
   if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
   if((state.modeLog||[]).length)e.modeLog=state.modeLog.slice();
-  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];const ctr=certTrace();if(ctr)e.notes=[...new Set([...(e.notes||[]).filter(x=>!/^Certificat : /.test(x)),"Certificat : "+ctr])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;if(state.examTrace){e.exam=state.examTrace;e.notes=[...(e.notes||[]).filter(x=>!/^Examen complet validé/.test(x)),examTraceTxt(state.examTrace)];}{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
+  try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];const oto=ordoTrace();if(oto.length)e.notes=[...new Set([...(e.notes||[]).filter(x=>!/^Ordonnance : /.test(x)),...oto])];const ctr=certTrace();if(ctr)e.notes=[...new Set([...(e.notes||[]).filter(x=>!/^Certificat : /.test(x)),"Certificat : "+ctr])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;if(state.examTrace){e.exam=state.examTrace;e.notes=[...(e.notes||[]).filter(x=>!/^Examen complet validé/.test(x)),examTraceTxt(state.examTrace)];}{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
   if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
   journalSave();
 }
@@ -16101,9 +16133,9 @@ function renderCore(){XP.dict=false;XP.syn=false;XP.docs=false;
         : `<input type="checkbox" data-line="${x.key}" ${x.on?"checked":""}>`;
       const del=x.extra!==undefined?` <button class="del" data-del="${si}" data-i="${x.extra}" type="button" title="Retirer">×</button>`:"";
       const edb=` <button type="button" class="edl${x.fill.edited?" on":""}" data-ed="${si}" data-k="${esc(x.key)}" title="${x.fill.edited?"Texte modifié pour ce patient — clic pour rétablir":"Modifier le texte de cette ligne pour ce patient"}">${x.fill.edited?"↺":"✎"}</button>`;
-      items+=`<li class="${miss.length?"gone":""}${x.on?"":" off"}${x.fill.edited?" edited":""}" data-li="${si}|${esc(x.key)}">${ctrl} <span class="lt">${PRINT_CLEAN_K.includes(sh.k)?screenNote(s,sh.k):esc(s)}</span>${edb}${del}${(sh.k==="med"&&x.on)?ansmBadge(s):""}${x.jr?' <span class="pcd" title="Jamais imprimée : inscrite au journal et au compte rendu si cochée">journal + CR</span>':""}</li>`;
+      items+=`<li class="${miss.length?"gone":""}${x.on?"":" off"}${x.fill.edited?" edited":""}" data-li="${si}|${esc(x.key)}">${ctrl} <span class="lt">${PRINT_CLEAN_K.includes(sh.k)?screenNote(s,sh.k):esc(s)}</span>${edb}${del}${(sh.k==="med"&&x.on)?ansmBadge(s):""}${x.jr?' <span class="pcd" title="Jamais imprimée : inscrite au journal et au compte rendu si cochée">journal + CR</span>':""}${x.dup?' <span class="pcd dup" title="Déjà dans l\'ordonnance : ligne ajoutée décochée">doublon</span>':""}${x.prm?' <span class="pcd prm" title="Retiré par défaut de ce pack pour vous (appui long pour rétablir)">retiré par défaut</span>':""}${x.pdef?' <span class="pcd pdef" title="Ajouté par défaut à ce pack pour vous (appui long pour retirer)">mon ajout</span>':""}</li>`;
     });
-    const libre=(T.txt&&sh.k!=="cert")?"":`<div class="libre"><input data-libre="${si}" id="fl_${si}" value="${esc(state.libre[si]||"")}" autocomplete="off" placeholder="${({med:"Ajouter : tape un médicament (vento, augm…) ou un texte libre, puis Entrée",img:"Ajouter un examen : radio main droite, écho abdo, IRM genou…",bio:"Ajouter : TSH, D-dimères, bilan préop, grossesse…",kine:"Ajouter : kiné respiratoire, orthophonie, transport, infirmier…",para:"Ajouter : kiné, orthophonie, orthoptie, transport, infirmier…",ide:"Ajouter : IM, SC, sang, pansement, insuline, perf, pilulier…",dm:"Ajouter : bas de contention, collier, attelle, nébuliseur…",cert:"Ajouter un certificat : sport, école, report, voyage…"})[sh.k]||"Ajouter une ligne, puis Entrée"}"><div class="sugg" id="sg_${si}"></div></div>`;
+    const libre=(T.txt&&sh.k!=="cert")?"":`<div class="libre"><input data-libre="${si}" id="fl_${si}" value="${esc(state.libre[si]||"")}" autocomplete="off" placeholder="${({med:"+ Ajouter un médicament : 2 ou 3 lettres (vog, augm, amox…) puis choisir ; ou un texte libre, puis Entrée",img:"Ajouter un examen : radio main droite, écho abdo, IRM genou…",bio:"Ajouter : TSH, D-dimères, bilan préop, grossesse…",kine:"Ajouter : kiné respiratoire, orthophonie, transport, infirmier…",para:"Ajouter : kiné, orthophonie, orthoptie, transport, infirmier…",ide:"Ajouter : IM, SC, sang, pansement, insuline, perf, pilulier…",dm:"Ajouter : bas de contention, collier, attelle, nébuliseur…",cert:"Ajouter un certificat : sport, école, report, voyage…"})[sh.k]||"Ajouter une ligne, puis Entrée"}"><div class="sugg" id="sg_${si}"></div></div>`;
     html+=`<div class="sheet" style="--c:${T.c}"><div class="hd"><label><input type="checkbox" data-sheet="${si}" ${on?"checked":""}> ${T.t}</label><span class="tp">${T.lbl}</span><button class="mini" data-all="${si}" type="button">Tout cocher</button><button class="mini" data-clear="${si}" type="button">Tout décocher</button></div><ul class="lines">${items}</ul>${libre}</div>`;
   });
   if(!state.patient) missing.add("nom du patient");
@@ -16166,8 +16198,8 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   document.querySelectorAll("[data-f]").forEach(e=>{e.oninput=()=>{state.f[e.dataset.f]=e.value;softRender();};});
   document.querySelectorAll("[data-libre]").forEach(e=>{
     const si=e.dataset.libre, box=$("#sg_"+si);
-    const addLine=(t,free)=>{if(free)t=normFreeLine(t);(state.extra[si]=state.extra[si]||[]).push(t);state.libre[si]="";render();const n=$("#fl_"+si);if(n)n.focus();};
-    const show=()=>{const q=norm(e.value.trim());box.innerHTML="";if(q.length<2)return;const kind=currentPack().s[si].k;const cat=catFor(kind);const words=q.split(/\s+/);const hay=m=>norm(m.n+" "+(m.k||"")+" "+(m.a||""));const tok=m=>hay(m).split(/[^a-z0-9]+/);const list=cat.filter(m=>words.every(w=>kind==="ide"?tok(m).some(a=>a.startsWith(w)):hay(m).includes(w))).slice(0,10);
+    const addLine=(t,free)=>{if(free)t=normFreeLine(t);if(currentPack().s[si].k==="med")ordoAdd(si,t);else (state.extra[si]=state.extra[si]||[]).push(t);state.libre[si]="";render();const n=$("#fl_"+si);if(n&&!isPhone())n.focus();};
+    const show=()=>{const q=norm(e.value.trim());box.innerHTML="";const kind=currentPack().s[si].k;if(kind==="med"){ordoSuggBox(box,si,q,addLine);return;} /* 06/11/2026 : médicaments → propositions ordonnées (mes ajouts, ma posologie, fiches, RCP, base) */ if(q.length<2)return;const cat=catFor(kind);const words=q.split(/\s+/);const hay=m=>norm(m.n+" "+(m.k||"")+" "+(m.a||""));const tok=m=>hay(m).split(/[^a-z0-9]+/);const list=cat.filter(m=>words.every(w=>kind==="ide"?tok(m).some(a=>a.startsWith(w)):hay(m).includes(w))).slice(0,10);
       const anticoag=isAnticoagPatient();if(anticoag&&list.some(m=>m.ci==="anticoag")){cat.filter(m=>/sous-cutanée/.test(m.n)&&!list.includes(m)).reverse().forEach(m=>list.unshift(m));}list.sort((x,y)=>((anticoag&&x.ci==="anticoag")?1:0)-((anticoag&&y.ci==="anticoag")?1:0));
       list.forEach(m=>{const t=(m.e!==undefined&&m.e!==null)?medLine(m):m.a;const b=document.createElement("button");b.type="button";const ci=anticoag&&m.ci==="anticoag";b.className="sg"+(ci?" ci":"");b.innerHTML="<b>"+esc(m.n)+(ci?' <span class="cib">Contre-indiqué : patient sous anticoagulant → voie sous-cutanée</span>':"")+"</b><small>"+esc(fill(t).s.slice(0,110))+"</small>";b.onmousedown=ev=>{ev.preventDefault();if(ci)toast("Contre-indiqué sous anticoagulant (hématome) : voie sous-cutanée proposée. Ligne ajoutée : vous déciderez à l'impression.");addLine(t);};box.appendChild(b);});};
     e.oninput=()=>{state.libre[si]=e.value;show();};
@@ -16250,6 +16282,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   }
   document.querySelectorAll("[data-sheet]").forEach(cb=>cb.onchange=()=>{state.off[cb.dataset.sheet]=!cb.checked;render();});
   document.querySelectorAll("[data-line]").forEach(cb=>cb.onchange=()=>{state.lo[cb.dataset.line]=cb.checked;render();});
+  document.querySelectorAll(".lines li[data-li]").forEach(li=>{try{ordoLongPress(li,()=>{const i=li.dataset.li.indexOf("|");ordoMenu(li.dataset.li.slice(0,i),li.dataset.li.slice(i+1),li);});}catch(e){}}); /* 06/11/2026 : appui long sur une ligne */
   document.querySelectorAll("[data-grp]").forEach(r=>{
     r.onclick=()=>{const gk=r.dataset.grp;const k=r.dataset.key;state.gs[gk]=(state.gs[gk]===k)?null:k;render();};
   });
@@ -16264,7 +16297,7 @@ function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind()
   const n2=$("#new2"); if(n2) n2.onclick=newPatient;
 }
 if(typeof setInterval==="function")setInterval(()=>{const el=document.getElementById("chrono");if(!el)return;if(!state.t0){el.textContent="";el.className="chrono";return;}const sec=Math.floor((Date.now()-state.t0)/1000);const m=Math.floor(sec/60),s2=sec%60;el.textContent="⏱ "+m+":"+String(s2).padStart(2,"0");el.className="chrono"+(m>=8?" bad":m>=5?" warn":"");},1000);
-function newPatient(){try{dictSyncFromDOM();dictHistNote();}catch(e){}state.revOf=null;state.revN=0;state.aiPlan=null;state.obsEdited={};state.obsAI={};state.obsLocal={};AI._planHash="";AI._planNext=null;if(AI.res&&AI.res.kind==="plan")AI.res=null;DICT.n++;state.ck=hexRand(4);state.lettres={};state.obsAuto={};state.examRm={};state.examOK=false;state.examTrace=null;state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;XP.q="";}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;state.modeLog=[];try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.docs=[];state.docProps=null;state.ttInfo={};state.labs=null;state.suivi=[];state.vacc=[];state.atcdDocs=[];state.synthEdits={};state.asked={};state.scoreWhy={};state.dictAdded=null;try{DOCS.src={};DOCS.scan=null;DOCS.status="";}catch(e){}state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
+function newPatient(){try{dictSyncFromDOM();dictHistNote();}catch(e){}state.revOf=null;state.revN=0;state.aiPlan=null;state.obsEdited={};state.obsAI={};state.obsLocal={};AI._planHash="";AI._planNext=null;if(AI.res&&AI.res.kind==="plan")AI.res=null;DICT.n++;state.ck=hexRand(4);state.lettres={};state.obsAuto={};state.examRm={};state.examOK=false;state.examTrace=null;state.xpMotif=null;state.xpPick=null;state.xpManual=false;try{XP.file=null;XP.key="";XP.list=false;XP.others=false;XP.q="";XP.addq="";XP.ordoMsg=null;}catch(e){}delete state.patHueIdx;state.t0=0;state.lastPrint=null;state.crCopied=0;state.modeLog=[];try{if(TOUR.current){const _s=tourStop(TOUR.current);if(_s)delete _s.cur;TOUR.current="";tourSave();}}catch(e){}window.__draftRestored=undefined;try{secRemove("sos_draft");}catch(e){}state.sel=null;state.multi=[];state.obsOpen=false;state.ui.opt={};state.ui.bodySide="face";state.patient="";state.ddn="";state.poids="";state.du="";state.au="";state.jours="";state.f={};state.libre={};state.extra={};state.off={};state.lo={};state.gs={};state.edits={};state.allergie=false;state.allergieGrave=null;state.grossesse=false;state.allait=false;state.sexe="";state.sa="";state.autoNotes=[];state.ui.flagged={};state.allergies=[];state.edits={};state.photos=[];state.docs=[];state.docProps=null;state.ttInfo={};state.labs=null;state.suivi=[];state.vacc=[];state.atcdDocs=[];state.synthEdits={};state.asked={};state.scoreWhy={};state.dictAdded=null;try{DOCS.src={};DOCS.scan=null;DOCS.status="";}catch(e){}state.nh=nhDefault();state.at=atDefault();{const _lieu=(state.cot&&state.cot.auto===false)?state.cot.lieu:null;state.cot=cotDefault();if(_lieu){state.cot.lieu=_lieu;state.cot.auto=false;}}lesReset();state.tt=[];state.obs={};state.cst={};state.scores={};state.ciOver=[];state.actions={};state.copat=[];const q=$("#q");if(q)q.value="";render();search("");const fp=$("#f_patient");if(fp)fp.focus();window.scrollTo(0,0);}
 let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -16344,6 +16377,7 @@ async function finishPrint(p,out,removed){
   const phone=isPhone();
   if(PRINT2UP){try{out=print2up(out);}catch(e){}}
   state.lastPrint={n:sheetCount(out),sent:false,ts:Date.now()};
+  try{ordoLearn(p);}catch(e){} /* 06/11/2026 : mes ajouts fréquents et ma posologie habituelle, appris à l'impression */
   const top=phone?`<div class="printbar top phone"><button class="btn s" id="pb_back2" type="button">← Modifier</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${stepsHTML(3)}</div>`
     :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf2" type="button">⬇ Enregistrer en PDF</button><span class="pdfst" id="pdf_st"></span><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
   const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
@@ -16386,7 +16420,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41z.9",branch:"test",date:"06/11 08:38"};
+const APP_BUILD={v:"41z.10",branch:"test",date:"06/11 09:53"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -18029,7 +18063,7 @@ function blkListDrag(list,mode){if(!list)return;let drag=null;
 /* ---- appui long sur un bloc de la fiche, puis glisser ---- */
 (function(){let timer=null,start=null;const cancel=()=>{if(timer){clearTimeout(timer);timer=null;}start=null;};
   document.addEventListener("pointerdown",ev=>{if(ev.pointerType==="mouse"&&ev.button!==0)return;const tgt=ev.target;if(!tgt||!tgt.closest)return;
-    if(tgt.closest("input,textarea,select,button,a,label,summary,.favstar,[contenteditable],#blkorg,#aipanel,#aisend,#docview,#synthview,#scanprev,#aiconso,.jbar,.jmenu,.act.dock,.xp-print,.printbar,#print,.drive"))return;
+    if(tgt.closest("input,textarea,select,button,a,label,summary,.favstar,[contenteditable],#blkorg,#aipanel,#aisend,#docview,#synthview,#scanprev,#aiconso,.jbar,.jmenu,.act.dock,.xp-print,.printbar,#print,.drive,.lines li,.xp-med,.xp-add,#ordomenu"))return;
     const blk=tgt.closest("#main [data-blk]");if(!blk)return;const key=blk.dataset.blk;if(!key||key==="dock")return;
     start={x:ev.clientX,y:ev.clientY,blk,container:blk.parentElement,key};timer=setTimeout(()=>{timer=null;if(!start)return;blkDragStart(start);start=null;},550);},{passive:true});
   document.addEventListener("pointermove",ev=>{if(start&&!BLK.drag){if(Math.abs(ev.clientX-start.x)>10||Math.abs(ev.clientY-start.y)>10)cancel();return;}if(BLK.drag)blkDragMove(ev);},{passive:true});
@@ -18560,6 +18594,127 @@ function xpGravite(p){if(!p)return "";const m=p.s.find(s=>s.k==="memo");if(!m)re
     const cl=L.join(" ; ").replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").split(/\s*;\s*|(?<=\.)\s+(?=[A-ZÀ-Ý])/);g=cl.find(t=>/→\s*(?:le\s*)?(?:15|urgences|SAMU|SMUR)|gravit|\bgrave\b/i.test(t))||"";}
   return g.replace(/\{[^}]*\}/g,"").replace(/^Fiche \d+\s*—\s*[^:]{0,40}:\s*/,"").replace(/^Gravit[ée]\s*(?:et orientation)?\s*:\s*/i,"").trim();}
 /* ---- a. résumé d'une ligne par médicament (nom, dose, rythme, durée) ; dose au poids toujours visible ---- */
+
+/* ============ ORDONNANCE MODIFIABLE D'UN GESTE (06/11/2026) ============
+   Sous les lignes de chaque pack (mode complet et Express) : « + Ajouter un médicament » (2 ou 3 lettres → propositions : mes ajouts fréquents
+   dans ce pack, ma posologie habituelle, lignes des fiches adaptées à l'âge et au poids, base de prescription RCP, base ANSM importée),
+   contrôles immédiats (doublon, allergie et terrain, interactions du thésaurus ANSM), retrait d'un toucher, appui long (retirer pour ce
+   patient / par défaut de ce pack pour moi, ajouter à mon pack par défaut, modifier le texte), apprentissage à l'impression.
+   Mémoire chiffrée par profil : sos_ordo_<profil> = {pmod:{pack:{rm:[clés],add:[lignes]}}, learn:{pack:{MARQUE:{n,t}}}, poso:{marque:{t,n}}}. */
+const ORDO={pmod:{},learn:{},poso:{},loaded:false,_lp:false};
+function ordoKey(){return "sos_ordo_"+favProf();}
+async function ordoLoad(){try{const v=await secGet(ordoKey(),null);ORDO.pmod=(v&&v.pmod)||{};ORDO.learn=(v&&v.learn)||{};ORDO.poso=(v&&v.poso)||{};}catch(e){ORDO.pmod={};ORDO.learn={};ORDO.poso={};}ORDO.loaded=true;}
+function ordoSave(){try{secSet(ordoKey(),{pmod:ORDO.pmod,learn:ORDO.learn,poso:ORDO.poso,ts:Date.now()});}catch(e){}}
+function ordoBrand(t){const x=String(t||"").replace(/^(\{[^}]*\})+/,"").trim();return brandKey(x)||((medOf(x)||{}).n||"").toUpperCase()||x.split(/\s*:/)[0].toUpperCase().slice(0,40);}
+function ordoNorm(t){return norm(String(t||"").replace(/^(\{[^}]*\})+/,"").split(" :")[0]);}
+function ordoPackNames(sh,cp){try{cp=cp||currentPack();}catch(e){cp=null;}if(!cp)return [];if(sh&&sh.src&&sh.src.length){const u=[...new Set(sh.src.filter(Boolean))];if(u.length)return u;}return cp.merged?cp.n.split(" + "):[cp.n];}
+function ordoMod(pn){return ORDO.pmod[pn]||null;}
+function ordoRmSet(pn){const m=ordoMod(pn);return new Set((m&&m.rm)||[]);}
+/* propositions pour un champ d'ajout : [{n, t, tag, free}] ; champ vide → mes ajouts fréquents dans ce pack (3 au plus) */
+function ordoSuggest(si,q){const p=currentPack();if(!p)return [];const sh=p.s[si];const pn=ordoPackNames(sh)[0]||"";q=norm(q||"");const words=q.split(/\s+/).filter(Boolean);
+  const out=[];const seen=new Set();const push=(nm,t,tag,extra)=>{if(!t)return;const k=norm(nm)+"|"+norm(t);if(seen.has(k))return;seen.add(k);out.push(Object.assign({n:nm,t,tag},extra||{}));};
+  /* chaque mot tapé est le début d'un mot du nom commercial, de la DCI ou des mots-clés (« prim » → PRIMPÉRAN, jamais « comprimé ») */
+  const toks=str=>norm(str).split(/[^a-z0-9]+/).filter(Boolean);const hit=(str)=>{const T=toks(str);return words.every(w=>T.some(tk=>tk.startsWith(w)));};
+  const L=ORDO.learn[pn]||{};Object.keys(L).sort((a,b)=>(L[b].n-L[a].n)||((L[b].ts||0)-(L[a].ts||0))).forEach(bk=>{if(!words.length||hit(bk+" "+((medInfo(bk)||{}).dci||""))){const my=ORDO.poso[norm(bk)];push(bk,(my&&my.t)||L[bk].t,"souvent ici");}});
+  if(!words.length)return out.slice(0,3);
+  const cat=catFor("med");const hay=m=>m.n+" "+(m.k||"")+" "+((medInfo(m.n)||{}).dci||"");
+  cat.filter(m=>hit(hay(m))).sort((a,b)=>(norm(a.n).indexOf(words[0])===0?0:1)-(norm(b.n).indexOf(words[0])===0?0:1)).slice(0,12).forEach(m=>{const my=ORDO.poso[norm(m.n)];if(my&&my.t)push(m.n,my.t,"habituel");push(m.n,medLine(m),"fiche",{m});});
+  try{DRUG_INDEX.filter(x=>hit(x.n+" "+(x.d||"")+" "+(x.c||""))).slice(0,8).forEach(x=>{const nm=x.n.split(" (")[0];const t=isChildPatient()?(x.e||null):(x.a||x.e);if(!t)return;const my=ORDO.poso[norm(ordoBrand(t))];if(my&&my.t)push(nm,my.t,"habituel");push(nm,t,"RCP",{d:x});});}catch(e){}
+  try{if(out.length<4&&BDPM)bdpmSearch(q).slice(0,5).forEach(r=>{const nm=r.split("|")[0];push(nm,nm+" : ","base",{free:true});});}catch(e){}
+  return out.slice(0,10);}
+function ordoSuggBox(box,si,q,add){if(!box)return;box.innerHTML="";const list=ordoSuggest(si,q);
+  if(!list.length){if(q.length>=3)box.innerHTML='<div class="sg hint">Aucune proposition : Entrée ajoute le texte tel quel (écrire la posologie).</div>';return;}
+  list.forEach(x=>{const b=document.createElement("button");b.type="button";b.className="sg"+(x.tag==="habituel"||x.tag==="souvent ici"?" mine":"");let prev="";try{prev=fill(x.t).s;}catch(e){prev=x.t;}
+    b.innerHTML="<b>"+esc(x.n)+'</b> <span class="otag '+esc(x.tag.replace(/\s/g,""))+'">'+esc(x.tag)+"</span><small>"+esc(String(prev).replace(/\{[^}]*\}/g,"…").slice(0,130))+"</small>";
+    b.onmousedown=ev=>{ev.preventDefault();add(x.t,!!x.free);};box.appendChild(b);});}
+/* ajout d'une ligne avec contrôles immédiats : doublon avec les lignes cochées, allergie / terrain, interactions (lignes cochées + traitements en cours) */
+function ordoAdd(si,t){const p=currentPack();if(!p)return false;t=String(t||"").replace(/\s+/g," ").trim();if(!t)return false;const sh=p.s[si];const warn=[];const m=medOf(t);const bk=ordoBrand(t);
+  try{resolve(sh,si).forEach(x=>{if(!x.on)return;const xm=medOf(x.fill&&x.fill.s||x.t);const same=(m&&xm&&norm(xm.n)===norm(m.n))||(bk&&bk.length>3&&ordoBrand(x.t)===bk);if(same&&!warn.some(w=>/^doublon/.test(w)))warn.push("doublon : "+(xm?xm.n:bk)+" déjà dans l'ordonnance (ligne ajoutée décochée)");});}catch(e){}
+  try{lineCI(t).forEach(c=>{if(!warn.includes(c))warn.push(c);});}catch(e){}
+  (state.extra[si]=state.extra[si]||[]).push(t);
+  let inter=[];try{const lab=brandKey(t);if(lab)inter=thesAlerts(p.s).filter(r=>r.l>=2&&(r.x===lab||r.y===lab)).map(thesAlertText);}catch(e){}
+  const msg=(warn.length||inter.length)?[...warn.map(w=>"⚠ "+w),...inter]:["✓ Ajouté : "+(bk||t.slice(0,40))];
+  XP.ordoMsg={si,t,msg,ts:Date.now()};try{toast(msg[0].slice(0,160));}catch(e){}return true;}
+/* appris à l'impression : fréquence par pack et ma posologie (texte brut de la ligne ; une ligne au poids modifiée n'est pas retenue) */
+function ordoLearn(p){if(!p||!ORDO.loaded||TESTMODE)return;let ch=false;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;const pn=ordoPackNames(sh)[0];if(!pn)return;
+  resolve(sh,si).forEach(x=>{if(!x.on||x.extra===undefined)return;const raw=String(x.t||"");const bk=ordoBrand(raw);if(!bk||bk.length<3)return;
+    const L=(ORDO.learn[pn]=ORDO.learn[pn]||{});const e=(L[bk]=L[bk]||{n:0,t:raw});e.n++;e.t=raw;e.ts=Date.now();
+    const ed=state.edits&&state.edits[si]&&state.edits[si][x.key];const weight=/\{(ml|mg|mgpk|wlt|agelt):/.test(raw);
+    if(!(ed&&weight)){const k=norm(bk);const o=ORDO.poso[k]||{n:0};ORDO.poso[k]={t:ed||raw,n:o.n+1,ts:Date.now()};}ch=true;});});
+  if(ch)ordoSave();}
+/* traçabilité (journal, compte rendu) : lignes ajoutées, lignes retirées pour ce patient ou par défaut */
+function ordoTrace(){const out=[];try{const p=currentPack();if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{
+  const lab=()=>printClean(String(x.fill&&x.fill.s||x.t)).replace(/\{[^}]*\}/g,"").trim().slice(0,90);
+  if(x.extra!==undefined&&x.on)out.push("Ordonnance : + "+lab()+" (ajouté)");
+  else if(x.pdef&&x.on)out.push("Ordonnance : + "+lab()+" (mon ajout par défaut)");
+  else if(!x.on&&!x.grp&&!x.opt&&state.lo[x.key]===false)out.push("Ordonnance : − "+(ordoBrand(x.t)||lab().slice(0,40))+" (retiré pour ce patient)");
+  else if(!x.on&&x.grp&&state.gs[si+":"+x.grp]===null&&!x.opt&&!out.some(z=>z.endsWith("(choix retiré pour ce patient)")&&z.includes(ordoBrand(x.t))))out.push("Ordonnance : − "+(ordoBrand(x.t)||lab().slice(0,40))+" (choix retiré pour ce patient)");
+  else if(x.prm&&!x.on)out.push("Ordonnance : − "+(ordoBrand(x.t)||lab().slice(0,40))+" (retiré par défaut)");});});}catch(e){}return out;}
+/* appui long (550 ms, immobile) ou clic droit ; le toucher qui suit n'est pas un basculement */
+function ordoLongPress(el,fn){let t=null,sx=0,sy=0;const clear=()=>{if(t){clearTimeout(t);t=null;}};
+  el.addEventListener("pointerdown",ev=>{if(ev.pointerType==="mouse"&&ev.button!==0)return;if(ev.target.closest("button,input,textarea,a,select"))return;sx=ev.clientX;sy=ev.clientY;clear();t=setTimeout(()=>{t=null;ORDO._lp=true;try{if(navigator.vibrate)navigator.vibrate(10);}catch(e){}fn();setTimeout(()=>{ORDO._lp=false;},500);},550);});
+  el.addEventListener("pointermove",ev=>{if(t&&(Math.abs(ev.clientX-sx)>10||Math.abs(ev.clientY-sy)>10))clear();});
+  ["pointerup","pointercancel","pointerleave"].forEach(k=>el.addEventListener(k,clear));
+  el.addEventListener("contextmenu",ev=>{ev.preventDefault();clear();fn();});}
+function ordoMenu(si,key,anchor){ordoMenuClose();const p=currentPack();if(!p)return;const sh=p.s[si];let x=null;try{x=resolve(sh,si).find(y=>y.key===key);}catch(e){}if(!x)return;
+  const pn=x.src||x.pdn||ordoPackNames(sh)[0]||p.n;const bk=ordoBrand(x.t);const k=ordoNorm(x.t);const mod=ORDO.pmod[pn]||{rm:[],add:[]};const isExtra=x.extra!==undefined,isDef=!!x.pdef,rmOn=(mod.rm||[]).includes(k);
+  const B=[`<div class="omh"><b>${esc(bk||String(x.t).slice(0,30))}</b><span class="hint">${esc(pn)}</span></div>`];
+  B.push(x.on?`<button type="button" data-om="off">− Retirer pour ce patient</button>`:`<button type="button" data-om="on">+ Remettre pour ce patient</button>`);
+  if(isExtra){B.push(`<button type="button" data-om="def">★ Ajouter à mon pack par défaut</button>`);B.push(`<button type="button" data-om="del">× Supprimer cette ligne ajoutée</button>`);}
+  else if(isDef)B.push(`<button type="button" data-om="undef">★ Ne plus ajouter par défaut à ce pack</button>`);
+  else if(rmOn)B.push(`<button type="button" data-om="unrm">↺ Rétablir par défaut dans ce pack</button>`);
+  else B.push(`<button type="button" data-om="rm">− Retirer par défaut de ce pack pour moi</button>`);
+  B.push(`<button type="button" data-om="edit">✎ Modifier le texte pour ce patient</button>`);
+  B.push(`<div class="hint">Mémorisé chiffré dans mon profil${favProf()==="specimen"?" (profil non activé : mémoire de démonstration)":""}.</div>`);
+  const m=document.createElement("div");m.id="ordomenu";m.innerHTML=B.join("");document.body.appendChild(m);
+  const r=anchor.getBoundingClientRect();const W=Math.min(330,window.innerWidth-16);m.style.width=W+"px";m.style.left=Math.max(8,Math.min(r.left,window.innerWidth-W-8))+"px";let top=r.bottom+window.scrollY+6;if(r.bottom+m.offsetHeight+12>window.innerHeight)top=Math.max(window.scrollY+8,r.top+window.scrollY-m.offsetHeight-6);m.style.top=top+"px";
+  m.querySelectorAll("[data-om]").forEach(b=>b.onclick=ev=>{ev.stopPropagation();const a=b.dataset.om;ordoMenuClose();
+    if(a==="off"){if(x.grp)state.gs[si+":"+x.grp]=null;else state.lo[key]=false;}
+    else if(a==="on"){if(x.grp)state.gs[si+":"+x.grp]=key;else state.lo[key]=true;}
+    else if(a==="del"){state.extra[si].splice(x.extra,1);Object.keys(state.lo).filter(z=>z.startsWith("x"+si+"-")).forEach(z=>delete state.lo[z]);}
+    else if(a==="def"){const M=(ORDO.pmod[pn]=ORDO.pmod[pn]||{rm:[],add:[]});M.add=M.add||[];const raw=(state.edits&&state.edits[si]&&state.edits[si][key])||String(x.t);if(!M.add.includes(raw))M.add.push(raw);state.extra[si].splice(x.extra,1);Object.keys(state.lo).filter(z=>z.startsWith("x"+si+"-")).forEach(z=>delete state.lo[z]);ordoSave();toast("Ajouté par défaut à « "+pn+" » pour vous");}
+    else if(a==="undef"){const M=ORDO.pmod[pn];if(M){M.add=(M.add||[]).filter(t=>t!==String(x.t));ordoSave();}delete state.lo[key];}
+    else if(a==="rm"){const M=(ORDO.pmod[pn]=ORDO.pmod[pn]||{rm:[],add:[]});M.rm=M.rm||[];if(!M.rm.includes(k))M.rm.push(k);if(x.grp)state.gs[si+":"+x.grp]=null;else delete state.lo[key];ordoSave();toast("Retiré par défaut de « "+pn+" » pour vous (appui long pour rétablir)");}
+    else if(a==="unrm"){const M=ORDO.pmod[pn];if(M){M.rm=(M.rm||[]).filter(z=>z!==k);ordoSave();}delete state.lo[key];if(x.grp)delete state.gs[si+":"+x.grp];}
+    else if(a==="edit"){ordoEditLine(si,key,anchor);return;}
+    render();});
+  setTimeout(()=>document.addEventListener("click",ordoMenuCloser,{once:true}),0);}
+function ordoMenuCloser(){if(ORDO._lp){document.addEventListener("click",ordoMenuCloser,{once:true});return;}ordoMenuClose();} /* le toucher qui termine l'appui long ne ferme pas le menu */
+function ordoMenuClose(){const m=document.getElementById("ordomenu");if(m)m.remove();}
+/* modification en une ligne (dose, rythme, durée) : Entrée enregistre, Échap annule */
+function ordoEditLine(si,key,host){const p=currentPack();if(!p)return;let x=null;try{x=resolve(p.s[si],si).find(y=>y.key===key);}catch(e){}if(!x)return;
+  const cur=(state.edits&&state.edits[si]&&state.edits[si][key])||(x.extra!==undefined?state.extra[si][x.extra]:String(x.fill&&x.fill.s||x.t));
+  host=host||document.querySelector('[data-xk="'+si+'|'+key+'"],[data-li="'+si+'|'+key+'"]');if(!host)return;
+  const inp=document.createElement("input");inp.className="oedit";inp.value=cur;inp.setAttribute("aria-label","Texte de la ligne");host.innerHTML="";host.appendChild(inp);host.classList.add("editing");inp.focus();try{inp.setSelectionRange(cur.length,cur.length);}catch(e){}
+  let done=false;const save=()=>{if(done)return;done=true;const t=inp.value.replace(/\s+/g," ").trim();if(t&&t!==cur){if(x.extra!==undefined)state.extra[si][x.extra]=t;else{state.edits=state.edits||{};(state.edits[si]=state.edits[si]||{})[key]=t;}}render();};
+  inp.onkeydown=ev=>{ev.stopPropagation();if(ev.key==="Enter"){ev.preventDefault();save();}if(ev.key==="Escape"){done=true;render();}};inp.onblur=save;}
+/* Express : toutes les lignes (cochées et décochées), toucher = basculer, champ d'ajout, mes ajouts fréquents */
+function xpOrdoLines(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}
+  r.forEach(x=>{if(x.jr)return;const raw=String(x.t||"");const w=XP_WRE.test(raw)||/mg\/kg|\/kg\b/i.test(raw);const miss=!!(x.fill&&x.fill.miss&&x.fill.miss.length);
+    let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{agemin:[^}]*\}/g,"").replace(/\{[^}]*\}/g,"…")).trim();
+    const touched=x.grp?state.gs[si+":"+x.grp]!==undefined:state.lo[x.key]!==undefined;const opt0=!x.on&&!x.dup&&!x.prm&&!touched&&x.extra===undefined; /* option du pack décochée d'origine : sous le volet */
+    out.push({si,key:x.key,grp:x.grp||"",on:!!x.on,t,w,miss,why:miss?x.fill.miss.join(", "):"",extra:x.extra,dup:!!x.dup,prm:!!x.prm,pdef:!!x.pdef,edited:!!(x.fill&&x.fill.edited),opt0});});});return out;}
+function xpOrdoLineHTML(m){return `<div class="${m.opt0?"xp-optl":"xp-med"}${m.on?"":" off"}${m.miss?" miss":""}${m.w?" w":""}${m.dup?" dup":""}" data-xk="${m.si}|${esc(m.key)}" data-xg="${esc(m.grp)}" role="button" tabindex="0" aria-pressed="${m.on}"><span class="xpm-t">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — "+esc(/^poids/.test(m.why)?"poids manquant":"non imprimé : "+m.why):""}</span>${m.dup?' <span class="pcd dup">doublon</span>':""}${m.prm?' <span class="pcd prm">retiré par défaut</span>':""}${m.pdef?' <span class="pcd pdef">mon ajout</span>':""}${m.edited?' <span class="pcd">modifié</span>':""}${m.extra!==undefined?` <button type="button" class="del xdel" data-xdel="${m.si}" data-i="${m.extra}" title="Supprimer cette ligne ajoutée" aria-label="Supprimer">×</button>`:""}</div>`;}
+function xpOrdoHTML(p){if(!p)return "";const medSi=p.s.findIndex(x=>x.k==="med");if(medSi<0||state.off[medSi])return "";const L0=xpOrdoLines(p);const L=L0.filter(m=>!m.opt0),O=L0.filter(m=>m.opt0);
+  const msg=XP.ordoMsg&&XP.ordoMsg.si===medSi&&Date.now()-XP.ordoMsg.ts<90000?XP.ordoMsg:null;let freq=[];try{freq=ordoSuggest(medSi,"");}catch(e){}
+  return `<div class="xp-meds xp-ordo" aria-label="Ordonnance"><div class="xp-lbl">Ordonnance <span class="hint">toucher : retirer ou remettre · appui long : options</span></div>
+   ${L.map(xpOrdoLineHTML).join("")}
+   ${O.length?`<details class="xp-opts"${XP.opts?" open":""}><summary>Options du pack (${O.length}) <span class="hint">décochées d'origine : un toucher les ajoute</span></summary>${O.map(xpOrdoLineHTML).join("")}</details>`:""}
+   ${msg?`<div class="xp-ordomsg${/^⚠/.test(msg.msg[0])?" w":""}" role="status">${msg.msg.map(esc).join("<br>")}</div>`:""}
+   <div class="xp-add libre"><input id="xp_add" data-xpadd="${medSi}" placeholder="+ Ajouter un médicament (2 ou 3 lettres : vog, augm, amox…)" autocomplete="off" autocapitalize="off" value="${esc(XP.addq||"")}" aria-label="Ajouter un médicament"><div class="sugg" id="xp_sg"></div></div>
+   ${freq.length?`<div class="xp-freq" aria-label="Souvent ajoutés dans ce pack"><span class="hint">Souvent ici :</span>${freq.map(x=>`<button type="button" class="chip" data-xpfreq="${esc(x.t)}" title="${esc(x.t)}">+ ${esc(x.n)}</button>`).join("")}</div>`:""}</div>`;}
+function ordoXpBind(){const q=id=>document.getElementById(id);
+  document.querySelectorAll(".xp-ordo [data-xk]").forEach(el=>{el.onclick=ev=>{if(ev.target.closest(".xdel,input,textarea"))return;if(ORDO._lp)return;const i=el.dataset.xk.indexOf("|");const si=el.dataset.xk.slice(0,i),key=el.dataset.xk.slice(i+1);const g=el.dataset.xg;const off=el.classList.contains("off");
+      if(g){state.gs[si+":"+g]=off?key:null;}else state.lo[key]=off;render();};
+    el.onkeydown=ev=>{if(ev.target!==el)return;if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();el.click();}};
+    ordoLongPress(el,()=>{const i=el.dataset.xk.indexOf("|");ordoMenu(el.dataset.xk.slice(0,i),el.dataset.xk.slice(i+1),el);});});
+  document.querySelectorAll(".xp-ordo [data-xdel]").forEach(b=>b.onclick=ev=>{ev.stopPropagation();const si=b.dataset.xdel,i=+b.dataset.i;state.extra[si].splice(i,1);Object.keys(state.lo).filter(z=>z.startsWith("x"+si+"-")).forEach(z=>delete state.lo[z]);render();});
+  const inp=q("xp_add");if(inp){const si=+inp.dataset.xpadd;const box=q("xp_sg");const add=(t,free)=>{if(free)t=normFreeLine(t);ordoAdd(si,t);XP.addq="";render();if(!isPhone())setTimeout(()=>{const n=q("xp_add");if(n)n.focus();},0);};
+    const show=()=>{ordoSuggBox(box,si,norm(inp.value.trim()),add);};
+    inp.oninput=()=>{XP.addq=inp.value;show();};inp.onfocus=show;inp.onblur=()=>setTimeout(()=>{if(box)box.innerHTML="";},150);
+    inp.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();const f=box&&box.querySelector(".sg:not(.hint)");const v=inp.value.trim();if(f)f.onmousedown(ev);else if(v.length>=3)add(v,true);}if(ev.key==="Escape"&&box)box.innerHTML="";};}
+  document.querySelectorAll(".xp-ordo [data-xpfreq]").forEach(b=>b.onclick=()=>{const i=q("xp_add");if(!i)return;ordoAdd(+i.dataset.xpadd,b.dataset.xpfreq);render();});
+  const od=document.querySelector(".xp-ordo details.xp-opts");if(od)od.addEventListener("toggle",()=>{XP.opts=od.open;});}
 function xpMeds(p){const out=[];if(!p)return out;p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;let r=[];try{r=resolve(sh,si);}catch(e){}
   r.forEach(x=>{if(!x.on||x.jr)return;const raw=String(x.t||"");const w=XP_WRE.test(raw)||/mg\/kg|\/kg\b/i.test(raw);const miss=!!(x.fill&&x.fill.miss&&x.fill.miss.length);
     let t=printClean(String(x.fill&&x.fill.s||raw)).replace(/\{[^}]*\}/g,"").trim();if(miss)t=printClean(raw.replace(/\{agemin:[^}]*\}/g,"").replace(/\{[^}]*\}/g,"…")).trim();out.push({t,w,miss,why:miss?x.fill.miss.join(", "):""});});});return out;}
@@ -18669,7 +18824,7 @@ function xpAlertsHTML(p){let L=[];try{L=checkAlerts(p.s);}catch(e){}
   try{const seen=new Set(L);p.s.forEach((sh,si)=>{if(sh.k!=="med"||state.off[si])return;resolve(sh,si).forEach(x=>{if(!x.on)return;(x.fill.adv||[]).forEach(t=>{if(/pipette|dose maximale/i.test(t)&&!seen.has(t)){seen.add(t);L.push("⚠ "+t);}});});});}catch(e){} /* 18/10/2026 : alerte pipette dose-poids visible en Express */let am="";try{am=sexMismatchHTML()+cstAbnormalHTML()+ageMismatchHTML()+(!state.sexe?`<div class="alert sexmiss">Sexe non renseigné : « date de naissance » et accords en « (e) » sur les documents. Touchez Femme ou Homme ci-dessous.</div>`:"");}catch(e){}
   if(!L.length&&!am)return "";return `<div class="xp-alerts" role="status">${am}${L.map(t=>`<div class="xp-al${/^⛔/.test(t)?" ci":""}${/pipette|dose maximale|gravité/i.test(t)?" open":""}" title="${esc(t)}">${esc(t)}</div>`).join("")}</div>`;}
 function xpDocsHTML(p){const let_=p.s.some(s=>s.k==="let");const meds=xpMeds(p);
-  return `${meds.length?`<div class="xp-meds" aria-label="Médicaments"><div class="xp-lbl">Ordonnance</div>${meds.map(m=>`<div class="xp-med${m.miss?" miss":""}${m.w?" w":""}">${m.miss?"⚠ ":""}${esc(m.t)}${m.miss?" — "+esc(/^poids/.test(m.why)?"poids manquant":"non imprimé : "+m.why):""}</div>`).join("")}</div>`:""}
+  return `${xpOrdoHTML(p)}
    ${favHas("x:docs")?`<div class="xp-line xp-n">${let_?"✉ Courrier prêt · ":""}<button type="button" class="lc" id="xp_docs">Voir les documents</button>${favStar("x:docs","Documents")}</div>`:""}${favHas("sec:cot")?(()=>{const c=xpCot();return c?`<div class="xp-line xp-n"><span class="hint">Cotation ${esc(c)}</span>${favStar("sec:cot","Cotation")}</div>`:"";})():""}`;}
 function xpHTML(){if(!xpActive())return "";const p=currentPack();const s=xpStop();
   if(!p&&!s&&!state.patient&&!state.xpManual)return xpHomeHTML();
@@ -18696,6 +18851,7 @@ function xpWrap(){const m=$("#main");if(!m||!isPhone()||!xpActive())return;const
   d.addEventListener("toggle",()=>{state.ui=state.ui||{};state.ui.xpPlus=d.open;});document.body.classList.add("xpmode");}
 function xpBind(){document.body.classList.toggle("xpmode",!!(xpActive()&&document.querySelector("#main > .xp")&&isPhone()));
   const q=id=>document.getElementById(id);
+  try{ordoXpBind();}catch(e){console.warn("ordonnance Express",e);}
   const ok=q("xp_ok");if(ok)ok.onclick=()=>xpConfirm(+ok.dataset.xpok);
   document.querySelectorAll(".xp .xp-grav").forEach(g=>g.onclick=()=>g.classList.toggle("open"));
   const ls=q("xp_list");if(ls)ls.onclick=()=>{XP.list=!XP.list;const b=q("xp_prop");if(b){b.innerHTML=xpPropHTML();xpBind();const i=q("xp_q");if(i&&XP.list)i.focus();}};
@@ -19392,7 +19548,7 @@ async function kitDecrypt(kit,phrase){
 }
 async function secPut(name,obj){if(!SEC.key)throw new Error("chiffrement indisponible sur cet appareil");clearTimeout(_secQ[name]);_secP[name]={str:JSON.stringify(obj),key:SEC.key,ts:Date.now()};return secWriteNow(name);}
 async function identLoad(){try{if(!SEC.key){identApply(null);return;}const id=await secGet("sos_ident",null);identApply(id);}catch(e){identApply(null);}}
-async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);const ai=id.ai;delete id.ai;const fav=id.fav;delete id.fav;id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);id.aiOk=await identAiInstall(ai);try{if(Array.isArray(fav)){FAV.keys=fav;favSave();}else await favLoad();}catch(e){}return id;}
+async function identActivate(kit,phrase){const id=await kitDecrypt(kit,phrase);const ai=id.ai;delete id.ai;const fav=id.fav;delete id.fav;id.since=Date.now();id.bk=await bakKeyRaw(phrase);await secPut("sos_ident",id);identApply(id);lsSet("sos_ident_demo_ack",false);id.aiOk=await identAiInstall(ai);try{if(Array.isArray(fav)){FAV.keys=fav;favSave();}else await favLoad();}catch(e){}try{await ordoLoad();}catch(e){}return id;}
 function identForget(){secRemove("sos_ident");identApply(null);}
 const AI_KIT_WARN="Clé API Claude incluse, chiffrée avec la phrase maître : sur tout appareil, la phrase suffit à la retrouver. Le fichier étant public, <b>la sécurité de la clé dépend de la solidité de la phrase maître</b> (6 mots proposés : solide).";
 function kitAiNow(){try{return AI&&AI.key?{key:AI.key,at:Date.now()}:null;}catch(e){return null;}}
