@@ -34,5 +34,5 @@
 ## Temps mesurés (ms)
 
 - écriture chiffrée du journal : 1
-- journal de 1 000 patients : écriture chiffrée : 13
-- journal de 1 000 patients : lecture : 39
+- journal de 1 000 patients : écriture chiffrée : 16
+- journal de 1 000 patients : lecture : 44

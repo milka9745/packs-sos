@@ -1,0 +1,81 @@
+# Ordonnance modifiable d'un geste (06/11/2026)
+
+- OK — iPhone Express Visite : Express : les lignes cochées de l'ordonnance affichées (hauteur de toucher ≥ 36 px), options décochées du pack sous un volet fermé
+- OK — iPhone Express Visite : un toucher sur une option du pack la coche (elle rejoint la liste)
+- OK — iPhone Express Visite : champ « + Ajouter un médicament » toujours visible sous les lignes (≥ 44 px)
+- OK — iPhone Express Visite : aucun débordement horizontal à 375 px
+- OK — iPhone Express Visite : un toucher sur DOLIPRANE : ligne barrée, retirée de l'ordonnance imprimée
+- OK — iPhone Express Visite : « prim » : PRIMPÉRAN proposé (début d'un mot du nom : pas « comprimé » ni « triméthoprime ») avec la posologie adulte du RCP (10 mg, 3 fois par jour, 5 jours)
+- OK — iPhone Express Visite : PRIMPÉRAN ajouté : ligne cochée en fin de liste, bouton ×, message « Ajouté », champ vidé
+- OK — iPhone Express Visite : impression : la ligne ajoutée est sur la même ordonnance, au même format, après les lignes du pack, une page
+- OK — iPhone Express Visite : ligne libre avec note médecin : ajoutée, imprimée sans la parenthèse, une page
+- OK — iPhone Express Visite : doublon (VOGALÈNE déjà coché) : avertissement immédiat, ligne ajoutée visible mais décochée, pastille « doublon »
+- OK — iPhone Express Visite : compte rendu : PRIMPÉRAN prescrit, « ORDONNANCE ADAPTÉE » (+ PRIMPÉRAN, − DOLIPRANE retiré pour ce patient)
+- OK — iPhone Express Visite : journal : « Ordonnance : + PRIMPÉRAN … (ajouté) » et « − DOLIPRANE (retiré pour ce patient) »
+- OK — iPhone Express Visite : appui long sur la ligne ajoutée : menu Retirer / Ajouter à mon pack par défaut / Supprimer / Modifier
+- OK — iPhone Express Visite : « Modifier le texte » : saisie en une ligne, préremplie
+- OK — iPhone Express Visite : dose / rythme / durée modifiés : la ligne imprimée suit (3 jours)
+- OK — iPhone Express Visite : appris sur l'appareil : PRIMPÉRAN compté 2 fois dans ce pack, posologie habituelle = ma ligne modifiée (3 jours)
+- OK — iPhone Express Visite : nouveau patient, même pack : « Souvent ici : + PRIMPÉRAN » proposé en premier
+- OK — iPhone Express Visite : un geste sur la puce : PRIMPÉRAN ajouté avec ma posologie habituelle (3 jours)
+- OK — iPhone Express Visite : « prim » : ma posologie habituelle (« souvent ici » / « habituel ») avant la ligne du RCP
+- OK — iPhone Express Visite : « Ajouter à mon pack par défaut » : nouveau patient → PRIMPÉRAN présent d'office (pastille « mon ajout »), imprimé
+- OK — iPhone Express Visite : mémoire du profil chiffrée (sos_ordo_…_enc), rien en clair
+- OK — iPhone Express Visite : « Ne plus ajouter par défaut » : la ligne disparaît
+- OK — iPhone Express Visite : « Retirer par défaut de ce pack pour moi » : nouveau patient → DOLIPRANE décoché d'office (pastille), absent de l'ordonnance, visible pour le remettre
+- OK — iPhone Express Visite : mémoire vidée puis relue depuis le stockage chiffré : le retrait par défaut est retrouvé
+- OK — iPhone Express Visite : un toucher remet DOLIPRANE pour ce patient
+- OK — iPhone Express Visite : « Rétablir par défaut » : DOLIPRANE coché d'office de nouveau
+- OK — iPhone Express Visite : allergie aux pénicillines : AUGMENTIN ajouté → avertissement immédiat « allergie », ligne décochée
+- OK — iPhone Express Visite : interaction (AVK en cours + ibuprofène) : avertissement immédiat sous le champ et dans les alertes
+- OK — iPhone Express Visite : aucune erreur JavaScript
+- OK — iPhone Express Consultation : Express : les lignes cochées de l'ordonnance affichées (hauteur de toucher ≥ 36 px), options décochées du pack sous un volet fermé
+- OK — iPhone Express Consultation : un toucher sur une option du pack la coche (elle rejoint la liste)
+- OK — iPhone Express Consultation : champ « + Ajouter un médicament » toujours visible sous les lignes (≥ 44 px)
+- OK — iPhone Express Consultation : aucun débordement horizontal à 375 px
+- OK — iPhone Express Consultation : un toucher sur DOLIPRANE : ligne barrée, retirée de l'ordonnance imprimée
+- OK — iPhone Express Consultation : « prim » : PRIMPÉRAN proposé (début d'un mot du nom : pas « comprimé » ni « triméthoprime ») avec la posologie adulte du RCP (10 mg, 3 fois par jour, 5 jours)
+- OK — iPhone Express Consultation : PRIMPÉRAN ajouté : ligne cochée en fin de liste, bouton ×, message « Ajouté », champ vidé
+- OK — iPhone Express Consultation : impression : la ligne ajoutée est sur la même ordonnance, au même format, après les lignes du pack, une page
+- OK — iPhone Express Consultation : ligne libre avec note médecin : ajoutée, imprimée sans la parenthèse, une page
+- OK — iPhone Express Consultation : doublon (VOGALÈNE déjà coché) : avertissement immédiat, ligne ajoutée visible mais décochée, pastille « doublon »
+- OK — iPhone Express Consultation : compte rendu : PRIMPÉRAN prescrit, « ORDONNANCE ADAPTÉE » (+ PRIMPÉRAN, − DOLIPRANE retiré pour ce patient)
+- OK — iPhone Express Consultation : journal : « Ordonnance : + PRIMPÉRAN … (ajouté) » et « − DOLIPRANE (retiré pour ce patient) »
+- OK — iPhone Express Consultation : appui long sur la ligne ajoutée : menu Retirer / Ajouter à mon pack par défaut / Supprimer / Modifier
+- OK — iPhone Express Consultation : « Modifier le texte » : saisie en une ligne, préremplie
+- OK — iPhone Express Consultation : dose / rythme / durée modifiés : la ligne imprimée suit (3 jours)
+- OK — iPhone Express Consultation : appris sur l'appareil : PRIMPÉRAN compté 2 fois dans ce pack, posologie habituelle = ma ligne modifiée (3 jours)
+- OK — iPhone Express Consultation : nouveau patient, même pack : « Souvent ici : + PRIMPÉRAN » proposé en premier
+- OK — iPhone Express Consultation : un geste sur la puce : PRIMPÉRAN ajouté avec ma posologie habituelle (3 jours)
+- OK — iPhone Express Consultation : « prim » : ma posologie habituelle (« souvent ici » / « habituel ») avant la ligne du RCP
+- OK — iPhone Express Consultation : « Ajouter à mon pack par défaut » : nouveau patient → PRIMPÉRAN présent d'office (pastille « mon ajout »), imprimé
+- OK — iPhone Express Consultation : mémoire du profil chiffrée (sos_ordo_…_enc), rien en clair
+- OK — iPhone Express Consultation : « Ne plus ajouter par défaut » : la ligne disparaît
+- OK — iPhone Express Consultation : « Retirer par défaut de ce pack pour moi » : nouveau patient → DOLIPRANE décoché d'office (pastille), absent de l'ordonnance, visible pour le remettre
+- OK — iPhone Express Consultation : mémoire vidée puis relue depuis le stockage chiffré : le retrait par défaut est retrouvé
+- OK — iPhone Express Consultation : un toucher remet DOLIPRANE pour ce patient
+- OK — iPhone Express Consultation : « Rétablir par défaut » : DOLIPRANE coché d'office de nouveau
+- OK — iPhone Express Consultation : allergie aux pénicillines : AUGMENTIN ajouté → avertissement immédiat « allergie », ligne décochée
+- OK — iPhone Express Consultation : interaction (AVK en cours + ibuprofène) : avertissement immédiat sous le champ et dans les alertes
+- OK — iPhone Express Consultation : aucune erreur JavaScript
+- OK — iPhone complet : mode complet : champ « + Ajouter un médicament » sous les lignes de l'ordonnance
+- OK — iPhone complet : décocher DOLIPRANE : retiré de l'ordonnance
+- OK — iPhone complet : « prim » : PRIMPÉRAN proposé (fiche ou RCP), rien d'autre
+- OK — iPhone complet : PRIMPÉRAN ajouté : ligne cochée avec ×, ✎
+- OK — iPhone complet : impression : ligne ajoutée sur la même ordonnance, après les lignes du pack, une page
+- OK — iPhone complet : compte rendu : ORDONNANCE ADAPTÉE (+ PRIMPÉRAN, − DOLIPRANE)
+- OK — iPhone complet : appui long sur une ligne du pack : menu Remettre / Retirer par défaut / Modifier
+- OK — iPhone complet : « Retirer par défaut » : nouveau patient → DOLIPRANE décoché d'office, pastille « retiré par défaut »
+- OK — iPhone complet : aucune erreur JavaScript
+- OK — ordinateur complet : mode complet : champ « + Ajouter un médicament » sous les lignes de l'ordonnance
+- OK — ordinateur complet : décocher DOLIPRANE : retiré de l'ordonnance
+- OK — ordinateur complet : « prim » : PRIMPÉRAN proposé (fiche ou RCP), rien d'autre
+- OK — ordinateur complet : PRIMPÉRAN ajouté : ligne cochée avec ×, ✎
+- OK — ordinateur complet : impression : ligne ajoutée sur la même ordonnance, après les lignes du pack, une page
+- OK — ordinateur complet : compte rendu : ORDONNANCE ADAPTÉE (+ PRIMPÉRAN, − DOLIPRANE)
+- OK — ordinateur complet : clic droit sur une ligne du pack : menu Remettre / Retirer par défaut / Modifier
+- OK — ordinateur complet : « Retirer par défaut » : nouveau patient → DOLIPRANE décoché d'office, pastille « retiré par défaut »
+- OK — ordinateur complet : « Imprimer » (aperçu) : l'ajout est appris pour ce pack
+- OK — ordinateur complet : aucune erreur JavaScript
+
+77/77 tests OK
