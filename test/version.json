@@ -1,10 +1,10 @@
 {
- "version": "41z.9-test",
- "label": "41z.9 · 06/11 08:38",
+ "version": "41z.10-test",
+ "label": "41z.10 · 06/11 09:53",
  "date": "2026-11-06",
  "notes": [
-  "Impression : « Imprimer » aboutit partout (écran « Avant d'imprimer » sans clavier ni barre qui recouvre) ; Consultation : « ✓ Patient suivant » en un geste.",
-  "Visite : plus de fiche proposée (recherche vide, fréquents ; réglage ⋯ pour réactiver) ; numéro de version lisible (41z.N · date) dans le bandeau TEST et ici.",
-  "Certificats enfant malade et absence scolaire (tout âge) : dates d'un geste, date de naissance, heure, journal."
+  "Ordonnance d'un geste : sous les lignes du pack, « + Ajouter un médicament » (2 ou 3 lettres, choix, posologie habituelle ou du RCP adaptée) ; doublon, allergie et interaction signalés aussitôt.",
+  "Un toucher retire ou remet une ligne ; appui long : retirer pour ce patient, retirer par défaut de ce pack pour moi, ajouter à mon pack par défaut, modifier le texte.",
+  "Mes ajouts fréquents proposés en premier dans chaque pack (appris sur l'appareil, chiffrés dans mon profil) ; lignes ajoutées imprimées sur la même ordonnance, au journal et au compte rendu."
  ]
 }
