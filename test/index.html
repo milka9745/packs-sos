@@ -554,9 +554,20 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .appver{font-size:11px;font-weight:600;color:var(--muted);opacity:.85;letter-spacing:.2px;align-self:center;white-space:nowrap;padding:0 4px}
 .jbar.phone .appver{margin-left:auto}.jm-ver{min-height:34px;display:flex;align-items:center;font-size:12.5px;color:var(--muted);font-weight:600;padding:0 4px;flex-shrink:0}
 @media print{.appver,.jm-ver{display:none!important}}
-/* 18/10/2026 : la page web ne s'imprime jamais (Safari y ajoute l'adresse et la date, et coupe les bords) — seul le PDF généré s'imprime (bouton « 🖨 Imprimer ») */
+/* 18/10/2026 : hors de l'aperçu, la page web ne s'imprime jamais (Safari y ajoute l'adresse et la date, et coupe les bords).
+   07/11/2026 : dans l'aperçu (body.printing), « Imprimer » ouvre la fenêtre d'impression du navigateur, tout de suite, sur les pages préparées à l'écran
+   (A4, une par feuille, sans marge ni en-tête de navigateur) ; le PDF n'est fabriqué que pour « Enregistrer en PDF ».
+   iPhone et iPad (body.ios) : le PDF prêt est partagé (menu Partager : Phomemo, AirPrint) ; la page web elle-même ne s'y imprime toujours pas. */
 #webnoprint{display:none}
-@media print{html body>*:not(#webnoprint){display:none!important}html body>#webnoprint{display:block!important;font:16px/1.5 system-ui,sans-serif;color:#000;padding:25mm 20mm}}
+@media print{html body:not(.printing)>*:not(#webnoprint){display:none!important}html body:not(.printing)>#webnoprint,html body.ios.printing>#webnoprint{display:block!important;font:16px/1.5 system-ui,sans-serif;color:#000;padding:25mm 20mm}
+  html body.printing>*:not(#print){display:none!important}html body.printing>#print{display:block!important}html body.ios.printing>*:not(#webnoprint){display:none!important}
+  body.printing{padding:0!important;margin:0!important}body.printing #print>.page{page-break-after:auto!important;break-after:auto!important}body.printing #print>.page+.page{page-break-before:always!important;break-before:page!important}
+  .btn.busy::after{display:none}}
+/* 07/11/2026 : un seul bouton « Imprimer » par écran, dans la barre du bas (place fixe), identique sur iPhone et ordinateur ; travail préalable → barre de progression sur le bouton, désactivé pendant ce temps */
+.printbar:not(.phone){flex-wrap:wrap}.printbar:not(.phone) .pb2{display:flex;gap:10px;align-items:center}.printbar:not(.phone) .btn.big{min-height:48px;font-size:16px;padding:10px 22px}
+.btn.busy{position:relative;overflow:hidden;cursor:progress;opacity:.92}.btn.busy::after{content:"";position:absolute;left:0;bottom:0;height:5px;width:var(--pct,0%);background:var(--gold,#C6A75E);transition:width .25s}
+.btn.busy.indet::after{width:30%;animation:bprog 1.1s linear infinite}@keyframes bprog{0%{left:-30%}100%{left:100%}}
+.printbar.phone .pb2>.btn.big{flex:1.5 1 auto}
 
 /* 17/10/2026 (essai : « Envoyer à l'imprimante » tronqué en « l'ir ») : sur iPhone, un libellé ne se coupe jamais — il passe à la ligne, les rangées de boutons aussi */
 @media(max-width:760px){.btn,.lc{white-space:normal!important;overflow-wrap:anywhere}.tc-row2,.tc-add,.pb2,.act.dock,.xp-acts,.tc-alt,.tc-main,.tp-call,.tc-next{flex-wrap:wrap!important}
@@ -2003,7 +2014,7 @@ html[data-design="premium"] h1,html[data-design="premium"] h2,html[data-design="
 /* boutons : contour fin ; un seul bouton plein (action principale de l'écran) */
 html[data-design="premium"] .btn,html[data-design="premium"] .btn.s{background:transparent!important;border:1px solid var(--btnline)!important;color:var(--ink)!important;box-shadow:none!important;border-radius:12px}
 html[data-design="premium"] .btn.p{background:transparent!important;color:var(--gold-ink)!important;border:1px solid var(--gold)!important;box-shadow:none!important}
-html[data-design="premium"] #fin,html[data-design="premium"] #tc_arrive,html[data-design="premium"] #dv_arr,html[data-design="premium"] .dv-b#dv_arr,html[data-design="premium"] #pb_send,html[data-design="premium"] #pb_print,html[data-design="premium"] #vd_next,html[data-design="premium"] .tcard:not(.tc-mini) #tc_begin,html[data-design="premium"] #tr_begin{background:var(--gold)!important;color:var(--onacc)!important;border-color:var(--gold)!important}
+html[data-design="premium"] #fin,html[data-design="premium"] #tc_arrive,html[data-design="premium"] #dv_arr,html[data-design="premium"] .dv-b#dv_arr,html[data-design="premium"] #pb_print,html[data-design="premium"] #vd_next,html[data-design="premium"] .tcard:not(.tc-mini) #tc_begin,html[data-design="premium"] #tr_begin{background:var(--gold)!important;color:var(--onacc)!important;border-color:var(--gold)!important}
 html[data-design="premium"] .lc{border:1px solid var(--line2);background:transparent}
 /* contexte : liseré et titres plutôt qu'aplats */
 html[data-design="premium"] .jbar.phone,html[data-design="premium"] .jbar,html[data-design="premium"] .jhead{background:var(--dockbg)!important;border-bottom:2px solid var(--mode,var(--gold))!important}
@@ -2084,7 +2095,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style></head>
-<body><div id="testbadge" aria-hidden="true">TEST · 41z.10 · 06/11 09:53</div><div id="webnoprint">Packs SOS : la page web ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » : seul le PDF des documents est imprimé (marges A4, sans adresse ni date du navigateur).</div>
+<body><div id="testbadge" aria-hidden="true">TEST · 41z.11 · 07/11 17:16</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -6716,7 +6727,7 @@ function examValidate(silent){const ks=Object.keys(state.obsAuto||{}).filter(exa
 /* avant toute validation du patient : examen complet non validé → 1er toucher : encadré montré ; 2e toucher (8 s) : examen et patient validés. Jamais de fenêtre système. */
 /* 18/10/2026 (demande du médecin) : valider un patient demande une confirmation — 1er toucher : le bouton devient « Confirmer », 2e toucher (6 s) : validé.
    Jamais de fenêtre système. Examen complet en attente : signalé au 1er toucher, validé avec le patient au 2e. */
-const VAL_BTNS=["#xp_go","#pb_valid","#pb_valid2","#tc_valid","#tr_valid","#fa_next_c"];
+const VAL_BTNS=["#xp_go","#pb_valid","#tc_valid","#tr_valid","#fa_next_c"];
 function valDisarm(){valGate._w=0;VAL_BTNS.forEach(sel=>document.querySelectorAll(sel).forEach(b=>{if(b.dataset.lbl0!==undefined){b.innerHTML=b.dataset.lbl0;delete b.dataset.lbl0;}b.classList.remove("val-armed");}));}
 function valGate(){const now=Date.now();
   if(valGate._w&&now-valGate._w<6000){valDisarm();if(excOn()&&currentPack()&&examPending())examValidate(true);return true;}
@@ -6764,7 +6775,7 @@ function obsHTML(p){
   html+=`</div>`;
   html+=`<div class="obs-row"><label>Hypothèse diagnostique</label><input data-obs="hyp" value="${esc(o.hyp||"")}" placeholder="${esc(tpl.hyp||p.n)}"></div>`;
   html+=`<div class="obs-row"><label>Traçabilité (appels, avis, accord du patient) — facultatif</label><input data-obs="trace" value="${esc(o.trace||"")}" placeholder="Patient informé et d'accord avec la prise en charge"></div>`;
-  html+=`<div class="obs-act"><button class="btn p" id="cr_copy" type="button">Copier le compte rendu</button><button class="btn p" id="cr_all" type="button">Imprimer + copier l'observation</button><button class="btn s" id="cr_view" type="button">Voir le texte</button>${aiObsBtnHTML()}</div><pre class="cr-prev" id="cr_prev" hidden></pre></div>`;
+  html+=`<div class="obs-act"><button class="btn p" id="cr_copy" type="button">Copier le compte rendu</button><button class="btn s" id="cr_view" type="button">Voir le texte</button>${aiObsBtnHTML()}</div><pre class="cr-prev" id="cr_prev" hidden></pre></div>`;
   return html;
 }
 function buildCR(p){return specimenText(buildCR0(p));}
@@ -6925,7 +6936,7 @@ function bindObs(p){
   const c=$("#cr_copy"); if(c) c.onclick=async()=>{await copyText(buildCR(p));flash(c,"Copié ✓");aiAutoCR();};
   const aib=$("#ai_crbtn"); if(aib) aib.onclick=()=>aiOpen("cr");
   const v=$("#cr_view"); if(v) v.onclick=()=>{const pre=$("#cr_prev");pre.hidden=!pre.hidden;pre.textContent=buildCR(p);};
-  const all=$("#cr_all"); if(all) all.onclick=async()=>{await copyText(buildCR(p));flash(all,"Compte rendu copié ✓");printPack();};
+  /* 07/11/2026 : « Imprimer + copier l'observation » retiré de la carte (doublon) : le seul bouton Imprimer de l'écran est celui de la barre du bas (#fin), qui copie aussi le compte rendu */
 }
 
 /* ============ LOGIQUE ============ */
@@ -16111,9 +16122,9 @@ function renderCore(){XP.dict=false;XP.syn=false;XP.docs=false;
   <div class="tt"><label>Traitements en cours</label><div class="chips" id="tt_chips">${state.tt.map((t,i)=>`<span class="chip">${esc(t)}<button type="button" data-ttdel="${i}">×</button></span>`).join("")}<input id="f_tt" autocomplete="off" placeholder="${state.tt.length?"Ajouter…":"Tape un médicament habituel (AVK, metformine…) puis Entrée — déclenche les alertes d'interaction"}"></div><div class="sugg" id="sg_tt"></div></div>${isPhone()?copatUI:""}${pmoreClose()}</section>${isPhone()?'<div id="aside_slot"></div>':""}`;
   const p=currentPack();
   if(!p){
-    m.innerHTML=head+dictCardHTML()+docsCardHTML()+aiSynthHTML()+(isPhone()?`<div class="home"><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Imprimer » (barre du bas) copie le compte rendu et ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare le PDF A4 pour Phomemo.</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
-    <p>Un clic sur un pack l'ajoute ; un second clic (ou ×) le retire ; plusieurs packs se cumulent sans doublon. Chaque pack regroupe les feuilles nécessaires : ordonnance de médicaments, biologie, imagerie, kinésithérapie, dispositifs médicaux, consignes. Tu coches ou décoches chaque ligne (les lignes à puce ronde sont des choix : une seule est retenue), tu renseignes le nom du patient, et <kbd>Imprimer le pack</kbd> sort une page par feuille sur le modèle SOS Médecins Orléans.</p>
-    <p>Le poids sert aux doses enfant ; la date de naissance sert aux doses selon l'âge. Coche « Allergie aux pénicillines » pour remplacer l'antibiotique par trois alternatives au choix. Chaque feuille a une ligne libre en bas et des boutons tout cocher / tout décocher.</p><p>Sur iPhone : « Imprimer » ouvre l'aperçu, puis « Envoyer à l'imprimante » prépare un PDF A4 (une page par feuille) et ouvre le menu Partager pour Phomemo.</p></div>`);
+    m.innerHTML=head+dictCardHTML()+docsCardHTML()+aiSynthHTML()+(isPhone()?`<div class="home"><h1>Tape un motif</h1><p>Un pack ajoute ses feuilles ; « Imprimer » (barre du bas) copie le compte rendu et ouvre l'aperçu ; sur iPhone le PDF A4 se prépare (barre de progression sur le bouton), puis « Imprimer » ouvre le menu Partager (Phomemo, AirPrint).</p></div>`:`<div class="home"><div class="homeai">${aiMainHTML()}<span>Dictée → fiche et observation, relecture du compte rendu, courrier</span></div><h1>Tape un motif dans la recherche</h1>
+    <p>Un clic sur un pack l'ajoute ; un second clic (ou ×) le retire ; plusieurs packs se cumulent sans doublon. Chaque pack regroupe les feuilles nécessaires : ordonnance de médicaments, biologie, imagerie, kinésithérapie, dispositifs médicaux, consignes. Tu coches ou décoches chaque ligne (les lignes à puce ronde sont des choix : une seule est retenue), tu renseignes le nom du patient, et <kbd>🖨 Imprimer</kbd> (barre du bas) ouvre aussitôt la fenêtre d'impression, une page par feuille sur le modèle SOS Médecins Orléans ; « Enregistrer en PDF » fabrique le fichier.</p>
+    <p>Le poids sert aux doses enfant ; la date de naissance sert aux doses selon l'âge. Coche « Allergie aux pénicillines » pour remplacer l'antibiotique par trois alternatives au choix. Chaque feuille a une ligne libre en bas et des boutons tout cocher / tout décocher.</p><p>Sur iPhone : « Imprimer » ouvre l'aperçu et prépare le PDF A4 (une page par feuille, barre de progression sur le bouton) ; un second toucher ouvre le menu Partager (Phomemo, AirPrint).</p></div>`);
     bind();return;
   }
   Object.keys(ADAPT_NOTES).forEach(k=>delete ADAPT_NOTES[k]);
@@ -16302,11 +16313,12 @@ let soft;
 function softRender(){clearTimeout(soft);soft=setTimeout(()=>{const ae=document.activeElement;const act=ae&&ae.id;const pos=ae&&ae.selectionStart;const val=ae&&(act==="f_al"||act==="f_tt"||/^fl_/.test(act||""))?ae.value:undefined;render();if(act){const e=document.getElementById(act);if(e){if(val!==undefined&&!e.value){e.value=val;e.dispatchEvent(new Event("input"));}e.focus();try{e.setSelectionRange(pos,pos);}catch(x){}}}},350);}
 function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
-async function printPack(){try{xpCancelBuild();}catch(e){}
+async function printPack(opts){opts=opts||{};try{return await printPack0(opts);}finally{try{printIdle();}catch(e){}}} /* 07/11/2026 : le bouton touché retrouve son état quoi qu'il arrive */
+async function printPack0(opts){try{xpCancelBuild();}catch(e){}
   const p=currentPack(); if(!p){toast("Choisissez d'abord une fiche (motif) : rien à imprimer pour l'instant.");return;}
   {const sc=sexConflict();if(sc.length){render();toast("Impression bloquée : fiche « "+sc[0].p.n+" » réservée "+sexLab(sc[0].sx)+". Changez de fiche ou corrigez le sexe.");return;}}
   const alerts=checkAlerts(p.s);
-  const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack());return;} /* 16/10/2026 : Packs conseille, le médecin décide */
+  const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack(opts));return;} /* 16/10/2026 : Packs conseille, le médecin décide */
   if(!state.patient&&!p.nopatient){alert("Renseigne le nom du patient avant d'imprimer.");$("#f_patient").focus();return;}
   let out="", removed=[];
   const extras=(state.copat||[]).filter(c=>c.patient);
@@ -16315,7 +16327,7 @@ async function printPack(){try{xpCancelBuild();}catch(e){}
   journalUpsert(p);
   const keep={patient:state.patient,ddn:state.ddn,poids:state.poids,sexe:state.sexe,allergie:state.allergie,gs:state.gs,t0:state.t0};
   for(const c of extras){ withExtra(c,pk=>{const r=buildPages(pk,false);out+=r.out;journalUpsert(pk);}); }
-  finishPrint(p,out,removed);
+  await finishPrint(p,out,removed,opts);
 }
 function withExtra(c,fn){
   const keep={patient:state.patient,ddn:state.ddn,poids:state.poids,sexe:state.sexe,allergie:state.allergie,allergieGrave:state.allergieGrave,gs:state.gs,off:state.off,lo:state.lo,sel:state.sel,t0:state.t0,obs:state.obs,cst:state.cst,tt:state.tt,allergies:state.allergies,grossesse:state.grossesse,allait:state.allait};
@@ -16372,39 +16384,45 @@ function buildPages(p,withAnnex){
   if(withAnnex) out+=photoPages(_pat)+nhPage(_pat);
   return {out:specimenScrub(out),removed};
 }
-async function finishPrint(p,out,removed){
+async function finishPrint(p,out,removed,opts){opts=opts||{};
   if(TESTMODE) out=out.replace(/<div class="page">/g,'<div class="page testpage">');
-  const phone=isPhone();
+  const phone=isPhone(),ios=iosLike();document.body.classList.toggle("ios",ios);
   if(PRINT2UP){try{out=print2up(out);}catch(e){}}
   state.lastPrint={n:sheetCount(out),sent:false,ts:Date.now()};
   try{ordoLearn(p);}catch(e){} /* 06/11/2026 : mes ajouts fréquents et ma posologie habituelle, appris à l'impression */
-  const top=phone?`<div class="printbar top phone"><button class="btn s" id="pb_back2" type="button">← Modifier</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${stepsHTML(3)}</div>`
-    :`<div class="printbar top"><button class="btn s" id="pb_back2" type="button">← Modifier (ajouter un traitement, corriger)</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="pb_print2" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf2" type="button">⬇ Enregistrer en PDF</button><span class="pdfst" id="pdf_st"></span><button class="btn s valid" id="pb_valid2" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div>`;
-  const bottom=phone?`<div class="printbar phone"><div class="pb2"><button class="btn p big" id="pb_send" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer le PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">← Modifier</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`
-    :`<div class="printbar"><button class="btn p" id="pb_print" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button><button class="btn s valid" id="pb_valid" type="button">✓ Valider le patient</button><button class="btn s" id="pb_back" type="button">Retour</button></div>`;
+  /* 07/11/2026 : un seul bouton « Imprimer », dans la barre du bas (place fixe), identique sur iPhone et ordinateur ; la barre du haut garde « Modifier », l'étiquette du patient et l'état */
+  const top=`<div class="printbar top${phone?" phone":""}"><button class="btn s" id="pb_back2" type="button">← Modifier${phone?"":" (ajouter un traitement, corriger)"}</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span>${phone?stepsHTML(3):""}</div>`;
+  const bottom=`<div class="printbar${phone?" phone":""}"><div class="pb2"><button class="btn p big" id="pb_print" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button></div><div class="pb2"><button class="btn s" id="pb_back" type="button">${phone?"← Modifier":"Retour"}</button><button class="btn p valid" id="pb_valid" type="button" title="Valider le patient : récapitulatif, patient suivant">✓ Valider le patient</button></div></div>`;
   const pr=$("#print");pr.classList.toggle("phone",phone);pr.innerHTML=top+out+bottom;
   document.title=(p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");
   document.body.classList.add("printing");
   const back=()=>{pdfCancel();document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";try{filDock();designApply();}catch(e){}}; /* 02/11/2026 : retour de l'aperçu → barre à l'étape « Sortie » */
   const _pb=$("#pb_back");if(_pb)_pb.onclick=back;const _pb2=$("#pb_back2");if(_pb2)_pb2.onclick=back;
-  const _valid=()=>{if(!valGate())return;back();patientValidate(true);};["#pb_valid","#pb_valid2"].forEach(id=>{const b=$(id);if(b)b.onclick=_valid;});
-  const _print=printNow;PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;
-  if(phone){$("#pb_send").onclick=pdfSend;$("#pb_pdf").onclick=pdfSave;}
-  else{$("#pb_print").onclick=_print;$("#pb_print2").onclick=_print;$("#pb_pdf").onclick=pdfSave;$("#pb_pdf2").onclick=pdfSave;}
+  const _valid=()=>{if(!valGate())return;back();patientValidate(true);};const _vb=$("#pb_valid");if(_vb)_vb.onclick=_valid;
+  PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;PDFJOB.want=false;
+  $("#pb_print").onclick=printNow;$("#pb_pdf").onclick=pdfSave;
   const imgs=[...document.querySelectorAll("#print img")];
   await Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=i.onerror=r;})));
   try{ await Promise.all(imgs.map(i=>i.decode().catch(()=>{}))); }catch(e){}
   if(PRINT2UP&&pr.querySelector(".page.sheet2")){try{if(unpairOverflow(pr)){out=[...pr.children].filter(x=>x.classList&&x.classList.contains("page")).map(x=>x.outerHTML).join("");state.lastPrint.n=sheetCount(out);}}catch(e){}}
   try{let over=docFitPages(pr);
     const alt=[...pr.querySelectorAll('.page[data-over][data-alt]')];if(alt.length){alt.forEach(pg=>{const h=DOCALT[pg.dataset.alt];if(h){pg.insertAdjacentHTML("afterend",h.join(""));pg.remove();}});over=docFitPages(pr);}
-    out=[...pr.querySelectorAll(".page")].map(x=>x.outerHTML).join("");PDFJOB.out=out;state.lastPrint.n=sheetCount(out);
+    let cut=0;try{cut=printSplitLong(pr);}catch(e){console.warn("suite de page",e);} /* 07/11/2026 : document trop long même réduit → la fin passe sur une page de plus, dans l'aperçu comme à l'impression et dans le PDF */
+    out=[...pr.children].filter(x=>x.classList&&x.classList.contains("page")).map(x=>x.outerHTML).join("");PDFJOB.out=out;state.lastPrint.n=sheetCount(out);
     {const cb=cstAbnormalHTML();if(cb){const w=document.createElement("div");w.innerHTML=cb;const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w.firstChild);else pr.prepend(w.firstChild);}}
     {const lg=ciLegal(p);if(lg.length){const w=document.createElement("div");w.className="alert legalwarn";w.innerHTML="<b>À savoir :</b><ul>"+lg.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>Le reste s'imprime normalement.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}
-    if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>Document long :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même à 9 pt : la fin passera sur une page de plus, avec le cachet sur la dernière. Rien n'est masqué.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
+    if(over.length){const w=document.createElement("div");w.className="alert fitwarn";w.innerHTML="<b>Document long :</b> "+over.map(esc).join(", ")+" ne tient pas sur une page, même réduit : "+(cut?"la fin passe sur une page de plus (« suite »), avec le cachet sur la dernière.":"la fin passera sur une page de plus, avec le cachet sur la dernière.")+" Rien n'est masqué.";const tb=pr.querySelector(".printbar.top");if(tb)tb.insertAdjacentElement("afterend",w);else pr.prepend(w);}}catch(e){console.warn("ajustement des pages",e);}
   window.scrollTo(0,0);
-  pdfPrepare(out);
-  if(XP.auto){if(!phone&&!iosLike()){PDFJOB.wantPrint=true;PDFJOB.afterPrint=xpAfterPrint;}else XP.auto=false;} /* tablette : boutons Imprimer / Enregistrer en PDF (l'impression automatique hors geste y est ignorée) */
+  if(ios)pdfPrepare(out);else pdfStatus(); /* iPhone, iPad : le PDF est nécessaire (menu Partager : Phomemo, AirPrint) → préparé tout de suite, progression sur le bouton « Imprimer » ; ailleurs rien n'est fabriqué avant d'imprimer */
+  if(XP.auto){if(!ios)printScreen(xpAfterPrint);else XP.auto=false;} /* Express ordinateur : fenêtre d'impression puis validation du patient ; iPhone : boutons de l'aperçu */
+  else if(opts.go&&!ios)printScreen(); /* « Imprimer » de la barre, « Réimprimer », « Imprimer » de l'écran « Avant d'imprimer » : la fenêtre d'impression s'ouvre aussitôt sur l'aperçu */
 }
+/* 07/11/2026 : page marquée « trop longue » par docFitPages (même à 80 %) → coupée dans l'aperçu avec pdfSplit (la suite porte le cachet), mesurée à taille réelle (#print.fitting) ; ce qui s'affiche est ce qui s'imprime et ce que contient le PDF */
+function printSplitLong(pr){const todo=[...pr.children].filter(x=>x.classList&&x.classList.contains("page")&&x.dataset.over==="1"&&!x.classList.contains("sheet2"));if(!todo.length)return 0;
+  pr.classList.add("fitting");let n=0;
+  try{todo.forEach(pg=>{let cur=pg,guard=0;while(cur&&guard++<12){const nx=pdfSplit(cur,null);if(!nx)break;cur.after(nx);n++;delete cur.dataset.over;const f1=cur.querySelector(".frame");if(f1)f1.style.overflow="";pdfFit(nx);const f2=nx.querySelector(".frame");if(f2)f2.style.overflow="";if(nx.dataset.pdfover!=="1"){delete nx.dataset.over;break;}nx.dataset.over="1";cur=nx;}});}
+  finally{pr.classList.remove("fitting");}
+  return n;}
 
 $("#q").addEventListener("input",e=>search(e.target.value));
 $("#q").addEventListener("keydown",e=>{if(e.key==="Enter"){const b=$("#res .res");if(b)b.click();}});
@@ -16420,7 +16438,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"41z.10",branch:"test",date:"06/11 09:53"};
+const APP_BUILD={v:"41z.11",branch:"test",date:"07/11 17:16"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -17941,9 +17959,11 @@ function synthScreen(){const S=synthBuild();let el=document.getElementById("synt
   el.querySelectorAll("[data-sl]").forEach(x=>x.onclick=()=>{const id=x.dataset.sl;const all=[].concat(S.att,...Object.values(S.atcd),S.tt,S.al,S.bio,S.suivi,S.vacc);const it=all.find(y=>y.id===id);if(!it)return;const v=prompt("Corriger la ligne (vide = retirer) :",it.t);if(v===null)return;state.synthEdits=state.synthEdits||{};if(!v.trim())state.synthEdits[id]={rm:true};else if(v.trim()===it.t0)delete state.synthEdits[id];else state.synthEdits[id]={t:v.trim()};try{draftSaveSoon();}catch(e){}synthScreen();});}
 function synthPrint(){const S=synthBuild();const pr=$("#print");if(!pr)return;const phone=isPhone();const f=state.sexe==="f";
   const page=`<div class="page synth">${pageHead()}<h2>Synthèse du patient</h2><p class="meta">${esc(state.patient||"")}${state.ddn?" — "+(f?"née":"né")+" le "+esc(normDate(state.ddn)):""} — synthèse du ${esc(normDate(state.date))}</p><p>${esc(S.head)}</p>${synthSectionsHTML(S,true)}<p class="src">Synthèse établie sur l'appareil à partir des documents présentés et de la fiche patient, sans intelligence artificielle ; chaque ligne indique sa source et sa date. Document d'aide, à relire par le médecin.</p></div>`;
-  const bar=`<div class="printbar top${phone?" phone":""}"><button class="btn s" id="sy_back" type="button">← Retour</button><span class="pat-tag-slot">${patTagHTML()}</span><button class="btn p" id="sy_go" type="button">🖨 Imprimer</button></div>`;
-  pr.classList.toggle("phone",phone);pr.innerHTML=bar+page;document.body.classList.add("printing");
-  const back=()=>{document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";};$("#sy_back").onclick=back;$("#sy_go").onclick=()=>{try{window.print();}catch(e){}};
+  const bar=`<div class="printbar top${phone?" phone":""}"><button class="btn s" id="sy_back" type="button">← Retour</button><span class="pat-tag-slot">${patTagHTML()}</span><span class="pdfst" id="pdf_st"></span></div>`;
+  const bottom=`<div class="printbar${phone?" phone":""}"><div class="pb2"><button class="btn p big" id="sy_go" type="button">🖨 Imprimer</button><button class="btn s" id="pb_pdf" type="button">⬇ Enregistrer en PDF</button></div><div class="pb2"><button class="btn s" id="sy_back2" type="button">← Retour</button></div></div>`; /* 07/11/2026 : même barre du bas que l'aperçu des documents (un seul bouton Imprimer, place fixe) */
+  pr.classList.toggle("phone",phone);pr.innerHTML=bar+page+bottom;document.body.classList.add("printing");document.body.classList.toggle("ios",iosLike());
+  const back=()=>{pdfCancel();document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";};$("#sy_back").onclick=back;$("#sy_back2").onclick=back;
+  PDFJOB.out=page;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;PDFJOB.want=false;$("#sy_go").onclick=printNow;$("#pb_pdf").onclick=pdfSave;if(iosLike())pdfPrepare(page);else pdfStatus();
   try{aiLog("docs","synthèse imprimée",S.n+" lignes");}catch(e){}}
 /* ---- courriers (point 27 et 34) : documents consultés, résultats retenus, suivi ; rappels de suivi pour le médecin traitant ---- */
 function docLetterInto(P,R,kind){const F=docFacts();const L=docsList();if(!L.length&&!F.labs.length&&!(state.atcdDocs||[]).length&&!(state.suivi||[]).length)return;const parts=[];
@@ -18267,15 +18287,23 @@ document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.clos
 
 /* ---- n° 9 : impression et PDF. Impression dans le geste, vrai bouton « Enregistrer en PDF » partout ---- */
 function iosLike(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
-/* 17/10/2026 (essai réel) : l'impression part toujours du PDF, jamais de la page web (ni bandeau, ni en-tête Safari, ni page vide),
-   et seulement sur un toucher du médecin. iPhone, iPad : menu Partager (Imprimer, Phomemo) ; ordinateur : impression du PDF. */
-function printNow(){if(iosLike()||isPhone()){pdfSend();return;}if(PDFJOB.file){pdfPrintFile(PDFJOB.file);return;}PDFJOB.wantPrint=true;pdfStatus("Préparation du PDF… l'impression suivra");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
-function pdfPrintFile(f){if(state.lastPrint)state.lastPrint.sent=true;window.__pdfprint=(window.__pdfprint||0)+1;const u=URL.createObjectURL(f);let fr=document.getElementById("pdfprint");if(fr)fr.remove();
-  fr=document.createElement("iframe");fr.id="pdfprint";fr.title="PDF à imprimer";fr.style.cssText="position:fixed;right:0;bottom:0;width:2px;height:2px;border:0;opacity:0;pointer-events:none";
-  fr.onload=()=>{setTimeout(()=>{try{fr.contentWindow.focus();fr.contentWindow.print();}catch(e){try{window.open(u,"_blank");}catch(x){pdfDownload(f);}}},250);};fr.src=u;document.body.appendChild(fr);setTimeout(()=>URL.revokeObjectURL(u),600000);}
-function pdfSave(){ /* dans le geste : PDF prêt → partage (iPhone, iPad) ou téléchargement ; sinon préparation puis téléchargement automatique */
+/* 17/10/2026 (essai réel) : iPhone, iPad : l'impression part du PDF partagé (menu Partager : Phomemo, AirPrint), jamais de la page web, et seulement sur un toucher du médecin.
+   07/11/2026 : ordinateur (et tout autre appareil) : « Imprimer » ouvre la fenêtre d'impression du navigateur tout de suite (moins d'une seconde), sur les pages
+   déjà préparées à l'écran ; aucun PDF n'est fabriqué avant d'imprimer — le PDF ne sert qu'à « Enregistrer en PDF ». Un seul comportement pour tous les boutons « Imprimer ». */
+function printNow(){if(iosLike()){pdfSend();return;}printScreen();}
+function printScreen(after){ /* fenêtre d'impression du navigateur sur l'aperçu (#print) ; `after` : suite après la fermeture de la fenêtre (Express : validation du patient) */
+  if(state.lastPrint)state.lastPrint.sent=true;window.__webprint=(window.__webprint||0)+1;
+  let done=false;const fin=()=>{if(done)return;done=true;try{window.removeEventListener("afterprint",fin);}catch(e){}if(after){try{after();}catch(e){console.warn("après impression",e);}}};
+  if(after)window.addEventListener("afterprint",fin);
+  try{window.print();}catch(e){toast("Impression impossible : "+((e&&e.message)||e)+" — « Enregistrer en PDF » reste possible.");fin();return;}
+  if(after){const safari=/Safari\//.test(navigator.userAgent)&&!/Chrom|Edg|Firefox/.test(navigator.userAgent);setTimeout(fin,safari?20000:300);} /* Chrome, Edge, Firefox : print() rend la main quand la fenêtre se ferme ; Safari tout de suite (afterprint ensuite) */
+}
+function printBusy(b,lbl){if(!b)return;btnProg(b,true,0,0,lbl||"Préparation");b.dataset.pbusy="1";} /* retour visible dès le toucher : barre de progression, bouton désactivé */
+function printIdle(){document.querySelectorAll("[data-pbusy]").forEach(b=>{btnProg(b,false);delete b.dataset.pbusy;});}
+function pdfSave(){ /* PDF fabriqué à la demande (barre de progression sur le bouton) ; prêt → partage (iPhone, iPad) ou téléchargement */
   if(PDFJOB.file){if(iosLike())pdfSend();else pdfDownload(PDFJOB.file);return;}
-  PDFJOB.wantDl=true;pdfStatus("Préparation du PDF…");if(!PDFJOB.busy&&PDFJOB.out)pdfPrepare(PDFJOB.out);}
+  PDFJOB.wantDl=true;if(PDFJOB.busy){pdfStatus();return;}
+  if(PDFJOB.out)pdfPrepare(PDFJOB.out);else pdfStatus("Rien à enregistrer : ouvrez d'abord l'aperçu.");}
 
 
 /* ===================== 16/10/2026 — DOCUMENTS IMPRIMÉS (test PDF : Chute du sujet âgé + Douleur en fin de vie) =====================
@@ -18454,7 +18482,6 @@ async function tpLegsRefresh(){const order=TOUR.order.map(tourStop).filter(Boole
 document.addEventListener("click",ev=>{const t=ev.target;const a=t.closest&&t.closest("[data-tpins]");if(a){ev.preventDefault();tpInsertBest(a.dataset.tpins);return;}
   const l=t.closest&&t.closest("[data-tplater]");if(l){const s=tourStop(l.dataset.tplater);if(s){s.isNew=false;TOUR.order=TOUR.order.filter(x=>x!==s.id).concat(s.id);tourSave();render();toast("Ajoutée en fin de tournée");}return;}
   const rx=t.closest&&t.closest("#tc_rx");if(rx){const sh=document.querySelector(".sheet");const q=document.getElementById("q");const e=currentPack()&&sh?sh:q;if(e){e.scrollIntoView({block:"start",behavior:"smooth"});if(e===q)setTimeout(()=>q.focus(),300);}return;}
-  const rp=t.closest&&t.closest("#tc_reprint");if(rp){printPack();return;}
   const ed=t.closest&&t.closest("[data-tcaddtel]");if(ed){state.view="tour";state.tedit=ed.dataset.tcaddtel;render();return;}});
 /* ---- n° 1, 2 : carte de visite par étapes (3 ou 4 actions principales), appel toujours visible ---- */
 function tpCallMain(s,big){if(!s)return "";if(!s.tel)return `<div class="hint tc-notel">Pas de numéro pour ce patient · <button type="button" class="lc" data-tcaddtel="${esc(s.id)}">ajouter un numéro</button></div>`;return tpCallBtns(s);}
@@ -18734,6 +18761,7 @@ function xpBuild(p){let out=buildPages(p,true).out;for(const c of (state.copat||
 function xpTitle(p){return (p.n.split(" —")[0].split(" + ")[0]+" - "+(state.patient||"")).replace(/[\\/:*?"<>|]/g,"-");}
 function xpPrebuild(){clearTimeout(XP.t);XP.t=setTimeout(async()=>{const p=currentPack();
   if(!p||!xpActive()||document.body.classList.contains("printing")||document.getElementById("ciover"))return;
+  if(!iosLike())return; /* 07/11/2026 : le PDF d'avance ne sert qu'au partage iPhone/iPad ; ailleurs rien n'est fabriqué avant d'imprimer */
   const key=xpKey();if(XP.key===key&&(XP.file||XP.busy||XP.err))return;
   if(xpPending(p).filter(x=>x!=="document trop long").length){XP.file=null;XP.key="";XP.busy=false;xpBtnUI();return;}
   if(typeof html2canvas!=="function"){XP.err="rendu indisponible";XP.key=key;xpBtnUI();return;}
@@ -18746,8 +18774,8 @@ function xpPrebuild(){clearTimeout(XP.t);XP.t=setTimeout(async()=>{const p=curre
 function xpCancelBuild(){XP.run++;XP.busy=false;clearTimeout(XP.t);}
 function xpReady(){return !!(XP.file&&XP.key===xpKey()&&!XP.over);}
 function xpBtnUI(){const b=document.getElementById("xp_go");if(!b)return;const p=currentPack();const why=xpPending(p);const st=document.getElementById("xp_gost");
-  b.classList.toggle("wait",!why.length&&!xpReady()&&(isPhone()||iosLike()));
-  if(st)st.textContent=why.length?"À vérifier avant d'imprimer : "+why.join(", ")+" → l'aperçu s'ouvre.":(isPhone()||iosLike())?(xpReady()?XP.n+" document"+(XP.n>1?"s":"")+" prêt"+(XP.n>1?"s":"")+" (PDF A4).":XP.busy?"Préparation des documents…":"Documents en préparation."):"Impression puis patient suivant.";}
+  b.classList.toggle("wait",!why.length&&!xpReady()&&iosLike());
+  if(st)st.textContent=why.length?"À vérifier avant d'imprimer : "+why.join(", ")+" → l'aperçu s'ouvre.":iosLike()?(xpReady()?XP.n+" document"+(XP.n>1?"s":"")+" prêt"+(XP.n>1?"s":"")+" (PDF A4).":XP.busy?"Préparation des documents…":"Documents en préparation."):"Fenêtre d'impression, puis patient suivant.";}
 /* ---- g. compte rendu copié dans le geste, sans confirmation ---- */
 function xpCRText(p){let txt="";try{txt=buildCR(p);const ex=(state.copat||[]).filter(c=>c.patient);for(const c of ex)txt+="\n\n==================================\n\n"+withExtra(c,pk=>buildCR(pk));}catch(e){}return txt;}
 function xpToast(msg,undo){try{toastHide();}catch(e){}let x=document.getElementById("xptoast");if(!x){x=document.createElement("div");x.id="xptoast";x.setAttribute("role","status");document.body.appendChild(x);}
@@ -18758,14 +18786,14 @@ function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche."
   {const why0=xpPending(p);if(!why0.length&&!valGate())return;}
   const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
   const why=xpPending(p);
-  if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack();return;}
-  if(isPhone()||iosLike()){
+  if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack(why.every(w=>/alerte/.test(w))?{go:true}:{});return;} /* 07/11/2026 : seules des alertes à décider → l'écran « Avant d'imprimer » puis, sur son « Imprimer », la fenêtre d'impression tout de suite ; autre point à vérifier → aperçu seul */
+  if(iosLike()){ /* 07/11/2026 : iPhone, iPad seulement (PDF partagé) ; ailleurs, fenêtre d'impression du navigateur puis validation */
     if(!xpReady()){toast(cp+" — documents en préparation : aperçu ouvert");XP.auto=false;printPack();return;}
     const f=XP.file;let shared=false;
     try{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:f.name.replace(/\.pdf$/,"")}).catch(e=>{if(!(e&&e.name==="AbortError"))pdfDownload(f);});shared=true;}}catch(e){}
     if(!shared)pdfDownload(f);
     xpValidate(p,XP.n,txt,cp);return;}
-  XP.auto=true;XP.crTxt=txt;XP.cpMsg=cp;printPack();}
+  XP.auto=true;XP.crTxt=txt;XP.cpMsg=cp;printBusy(document.getElementById("xp_go"),"Impression");printPack();}
 /* appelé par l'aperçu (ordinateur) après l'impression */
 function xpAfterPrint(){if(!XP.auto)return;XP.auto=false;const p=currentPack();try{document.body.classList.remove("printing");const pr=$("#print");pr.classList.remove("phone");pr.innerHTML="";pdfCancel();}catch(e){}
   if(p)xpValidate(p,state.lastPrint?state.lastPrint.n:0,XP.crTxt||"",XP.cpMsg||"CR copié · prêt à coller dans MCC",true);}
@@ -19218,7 +19246,7 @@ function isPhone(){return !!(MQ_PHONE&&MQ_PHONE.matches);}
 if(MQ_PHONE&&MQ_PHONE.addEventListener)MQ_PHONE.addEventListener("change",()=>{try{if(SEC.unlocked&&!document.body.classList.contains("printing"))render();}catch(e){}});
 function backLabel(){return isPhone()?"← Packs":"← Retour aux packs";}
 function parkAside(){const a=document.querySelector("aside"),app=document.querySelector(".app");if(a&&app&&a.parentNode!==app)app.insertBefore(a,app.firstChild);}
-function phoneLayout(){const ph=isPhone();document.body.classList.toggle("phone",ph);document.body.classList.toggle("view-sub",!!state.view);
+function phoneLayout(){const ph=isPhone();document.body.classList.toggle("phone",ph);document.body.classList.toggle("ios",iosLike());document.body.classList.toggle("view-sub",!!state.view);
   const slot=document.getElementById("aside_slot"),a=document.querySelector("aside");if(ph&&slot&&a&&!state.view)slot.appendChild(a);}
 /* 16/10/2026 — repères visuels contre les erreurs : couleur du mode (Visite / Consultation), couleur propre au patient en cours avec son libellé « initiale · âge · rue » toujours en haut */
 const PAT_HUES=[{d:"#7C3AED",n:"#C4A5FF"},{d:"#C0267A",n:"#FF8CC6"},{d:"#0E7490",n:"#67D8F0"},{d:"#9A5B00",n:"#F5C46B"},{d:"#BE123C",n:"#FF8A9F"},{d:"#4338CA",n:"#A5B4FC"}];
@@ -19329,11 +19357,13 @@ function filBind(d){const g=id=>d.querySelector("#"+id);
   const ex=g("fa_exam");if(ex)ex.onclick=()=>{if(excOn()&&examPending()){examValidate();return;}const e=document.querySelector(".obsauto.exc")||document.querySelector(".obs");if(e)e.scrollIntoView({block:"center",behavior:"smooth"});};
   const fin=g("fin");if(fin)fin.onclick=()=>finPrint(fin);
   const xs=g("fa_xpslot");const xb=document.querySelector(".xp-print #xp_go");if(xs&&xb){xb.classList.add("fa","fa-main");xb.classList.remove("big");xs.replaceWith(xb);}
-  const rp=g("tc_reprint");if(rp)rp.onclick=printPack;
+  const rp=g("tc_reprint");if(rp)rp.onclick=()=>{printBusy(rp,"Impression");printPack({go:true});};
   const lt=g("fa_let");if(lt)lt.onclick=()=>{const e=document.querySelector(".lettres");if(e){e.scrollIntoView({block:"center",behavior:"smooth"});e.classList.add("fd-flash");setTimeout(()=>e.classList.remove("fd-flash"),1200);}else toast("Choisissez d'abord une fiche");};}
 /* Imprimer : imprime le pack et copie le compte rendu (avec les autres patients de la visite) */
-async function finPrint(btn){const cp=currentPack();if(cp){let txt=buildCR(cp);const extras=(state.copat||[]).filter(c=>c.patient);if(extras.length){for(const c of extras){txt+="\n\n==========================================\n\n"+withExtra(c,pk=>buildCR(pk));}}await copyText(txt);state.crCopied=Date.now();
-  if(btn){const o=btn.textContent;btn.textContent="Compte rendu"+(state.at.on?" + arrêt":"")+" copiés ✓ — impression…";setTimeout(()=>{try{btn.textContent=o;}catch(e){}},2500);}}printPack();}
+async function finPrint(btn){if(btn)printBusy(btn,"Préparation"); /* 07/11/2026 : retour visible dès le toucher, bouton désactivé jusqu'à la fenêtre d'impression */
+  const cp=currentPack();if(cp){let txt=buildCR(cp);const extras=(state.copat||[]).filter(c=>c.patient);if(extras.length){for(const c of extras){txt+="\n\n==========================================\n\n"+withExtra(c,pk=>buildCR(pk));}}await copyText(txt);state.crCopied=Date.now();
+  if(btn)btnProg(btn,true,0,0,"Compte rendu"+(state.at&&state.at.on?" + arrêt":"")+" copié ✓ — impression");}
+  printPack({go:true});}
 /* « Rendre à la régulation » : 1er toucher → « Confirmer » (6 s) ; 2e toucher → l'arrêt quitte la tournée, tracé (heure, initiale) ; rien d'autre n'est effacé */
 document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest("[data-tpgive]");if(!b)return;ev.preventDefault();const s=tourStop(b.dataset.tpgive);if(!s)return;
   if(!b.__arm||Date.now()-b.__arm>6000){b.__arm=Date.now();b.textContent="Confirmer : rendre ?";return;}
@@ -19390,10 +19420,15 @@ document.addEventListener("click",ev=>{const menu=document.getElementById("jmenu
 
 /* ===================== v38 — PDF A4 NATIF (iPhone) : une page exacte par document, tous les documents à la suite, partage direct (Phomemo) ===================== */
 const PDFJOB={run:0,file:null,want:false,busy:false,n:0,done:0,err:""};
-function pdfStatus(msg){const el=$("#pdf_st"),b=$("#pb_send");
+function pdfStatus(msg){const el=$("#pdf_st");
   if(el)el.textContent=msg!==undefined?msg:(PDFJOB.err?PDFJOB.err:PDFJOB.file?"PDF A4 prêt — "+PDFJOB.n+" page"+(PDFJOB.n>1?"s":"")+", une par document":PDFJOB.busy?"Préparation du PDF… "+PDFJOB.done+"/"+PDFJOB.n:"");
-  if(b){b.classList.toggle("ready",!!PDFJOB.file);b.classList.toggle("wait",!PDFJOB.file&&PDFJOB.busy);b.textContent=PDFJOB.file?(PDFJOB.want?"PDF prêt : toucher":"🖨 Imprimer"):PDFJOB.busy?"PDF "+PDFJOB.done+"/"+(PDFJOB.n||"?"):"🖨 Imprimer";}}
-function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.wantPrint=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
+  /* 07/11/2026 : barre de progression sur le bouton concerné, désactivé pendant la fabrication ; jamais de toucher sans retour visible */
+  btnProg($("#pb_pdf"),PDFJOB.busy&&!!PDFJOB.wantDl,PDFJOB.done,PDFJOB.n,"PDF");
+  const b=$("#pb_print")||$("#sy_go");if(b&&iosLike()){btnProg(b,PDFJOB.busy,PDFJOB.done,PDFJOB.n,"PDF");b.classList.toggle("ready",!!PDFJOB.file);b.classList.toggle("wait",!PDFJOB.file&&!PDFJOB.busy&&!PDFJOB.err);}}
+function btnProg(b,on,done,n,lbl){if(!b)return;if(b.dataset.bl0===undefined)b.dataset.bl0=b.innerHTML;
+  if(on){const pct=n?Math.round(100*Math.min(done||0,n)/n):0;b.classList.add("busy");b.classList.toggle("indet",!n);b.disabled=true;b.setAttribute("aria-busy","true");b.style.setProperty("--pct",pct+"%");b.textContent=(lbl||"Préparation")+"…"+(n?" "+(done||0)+"/"+n:"");}
+  else{if(!b.classList.contains("busy"))return;b.classList.remove("busy","indet");b.disabled=false;b.removeAttribute("aria-busy");b.style.removeProperty("--pct");b.innerHTML=b.dataset.bl0;}}
+function pdfCancel(){PDFJOB.run++;PDFJOB.busy=false;PDFJOB.file=null;PDFJOB.want=false;PDFJOB.wantDl=false;PDFJOB.err="";const st=document.getElementById("pdfstage");if(st)st.innerHTML="";}
 function pdfScale(){return 2;}
 function pdfFit(pg){if(pg.classList&&pg.classList.contains("sheet2")){let u="";[...pg.children].forEach(h=>{const r=pdfFit(h);u=u||r;});return u;}const fr=pg.querySelector(".frame");if(!fr)return "";const mm=3.7795;const steps=["","fit1","fit2","fit3","fit4","fit5","fit6","fit7"];let used="";
   /* 17/10/2026 (essai réel) : la zone réservée est celle du cachet ou de la signature réellement posés (la hauteur dépend de l'image),
@@ -19482,14 +19517,13 @@ async function pdfPrepare(out){
     if(run!==PDFJOB.run)return;
     const name=pdfFileName();const bytes=pdfBytes(pages,name.replace(/\.pdf$/,""));
     PDFJOB.file=new File([bytes],name,{type:"application/pdf"});PDFJOB.n=pages.length;PDFJOB.busy=false;pdfStatus();
-    if(PDFJOB.wantDl){PDFJOB.wantDl=false;if(iosLike())pdfStatus("PDF prêt : touchez « Enregistrer le PDF »");else pdfDownload(PDFJOB.file);}
+    if(PDFJOB.wantDl){PDFJOB.wantDl=false;if(iosLike())pdfStatus("PDF prêt : touchez « Enregistrer en PDF »");else pdfDownload(PDFJOB.file);}
     if(PDFJOB.want){try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}}
-    if(PDFJOB.wantPrint&&!iosLike()&&!isPhone()){PDFJOB.wantPrint=false;pdfPrintFile(PDFJOB.file);const ap=PDFJOB.afterPrint;PDFJOB.afterPrint=null;if(ap)setTimeout(ap,400);}
-  }catch(e){if(run!==PDFJOB.run)return;PDFJOB.busy=false;PDFJOB.err="PDF impossible : "+((e&&e.message)||e)+" — utiliser « Impression iOS »";pdfStatus();const f=$("#pb_ios");if(f)f.hidden=false;}
+  }catch(e){if(run!==PDFJOB.run)return;PDFJOB.busy=false;PDFJOB.err="PDF impossible : "+((e&&e.message)||e);pdfStatus();}
 }
 function pdfDownload(f){try{const u=URL.createObjectURL(f);const a=document.createElement("a");a.href=u;a.download=f.name;a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u);},60000);if(state.lastPrint)state.lastPrint.sent=true;pdfStatus(iosLike()?"PDF enregistré — l'ouvrir avec Phomemo.":"PDF enregistré dans Téléchargements.");}catch(e){pdfStatus("Partage impossible : "+((e&&e.message)||e));}}
 function pdfSend(){ /* appelé directement dans le geste : Safari exige un partage synchrone */
-  if(!PDFJOB.file){PDFJOB.want=true;pdfStatus();return;}
+  if(!PDFJOB.file){if(PDFJOB.err){toast(PDFJOB.err);return;}PDFJOB.want=true;pdfStatus("Préparation du PDF en cours…");return;}
   const f=PDFJOB.file;PDFJOB.want=false;
   if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){pdfStatus("Menu Partager ouvert : choisir Phomemo.");
     navigator.share({files:[f],title:f.name.replace(/\.pdf$/,"")}).then(()=>{if(state.lastPrint)state.lastPrint.sent=true;pdfStatus("Envoyé — "+PDFJOB.n+" page"+(PDFJOB.n>1?"s":"")+".");},e=>{if(e&&e.name==="AbortError"){pdfStatus();return;}pdfDownload(f);});}
