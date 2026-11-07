@@ -50,32 +50,32 @@
 - OK — PC · Express : Tournée dans les favoris de l'Express par défaut
 - OK — PC · Express : aucune erreur JS
 - OK — PC Chrome 100 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 100 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 100 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 100 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 100 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 100 % : aucune erreur JS
 - OK — PC Chrome 125 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 125 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 125 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 125 % : aucune erreur JS
 - OK — PC Chrome 150 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 150 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 150 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Chrome 150 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Chrome 150 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Chrome 150 % : aucune erreur JS
 - OK — PC Edge 125 % : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Edge 125 % : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Edge 125 % : « Tendinopathie d'Achille » ordonnance de 11 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
-- OK — PC Edge 125 % : « Imprimer » imprime le PDF (jamais la page web)
+- OK — PC Edge 125 % : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)
 - OK — PC Edge 125 % : aucune erreur JS
 - OK — iPhone WebKit : « Tendinopathie d'Achille » ordonnance de 3 lignes → 1 page A4 par document (3), jamais de suite, cachet entier sur chacun, pas d'alerte de page
 - OK — iPhone WebKit : « Rhinopharyngite — adulte » ordonnance de 2 lignes → 1 page A4 par document (2), jamais de suite, cachet entier sur chacun, pas d'alerte de page

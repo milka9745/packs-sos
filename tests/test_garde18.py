@@ -136,14 +136,11 @@ async def main():
                     suite=[x for x in r["p"] if "(suite)" in x["h"]]
                     ok(f"{label} : « {n} » ordonnance de {nmed} lignes → 1 page A4 par document ({r['docs']}), jamais de suite, cachet entier sur chacun, pas d'alerte de page",len(r["p"])==r["docs"] and not suite and all(x["stamp"] and abs(x["ratio"]-1.414)<0.01 for x in r["p"]) and not warn,(nmed,r,warn[:80]))
                     if "iPhone" not in label:
-                        await page.evaluate("window.__pr=0;window.__pdfprint=0;")
-                        for _ in range(40):
-                            if await page.evaluate("!!PDFJOB.file"): break
-                            await page.wait_for_timeout(250)
+                        await page.evaluate("window.__pr=0;")
                         bt=page.locator("#pb_print").first
-                        if await bt.count(): await bt.click(); await page.wait_for_timeout(800)
-                        pp=await page.evaluate("({pr:window.__pr||0,pdf:window.__pdfprint||0})")
-                        ok(f"{label} : « Imprimer » imprime le PDF (jamais la page web)",pp["pr"]==0 and pp["pdf"]>=1,pp)
+                        if await bt.count(): await bt.click(); await page.wait_for_timeout(300)
+                        pp=await page.evaluate("({pr:window.__pr||0,busy:PDFJOB.busy,file:!!PDFJOB.file})")
+                        ok(f"{label} : « Imprimer » ouvre la fenêtre d'impression du navigateur sur l'aperçu, sans PDF (07/11/2026)",pp["pr"]>=1 and not pp["busy"] and not pp["file"],pp)
                     await page.evaluate("document.body.classList.remove('printing');document.getElementById('print').innerHTML='';try{pdfCancel()}catch(e){};document.getElementById('pdfprint')&&document.getElementById('pdfprint').remove();state.view='';render();")
                 ok(f"{label} : aucune erreur JS",not errors,errors[:3])
                 await ctx.close()

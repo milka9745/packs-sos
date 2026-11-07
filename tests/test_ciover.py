@@ -70,7 +70,7 @@ async def run(width,label):
         await page.click("#ci_print"); await page.wait_for_timeout(1500)
         pages=await page.evaluate("[...document.querySelectorAll('#print .page')].map(x=>({h:(x.querySelector('h2')||{}).textContent||'',t:x.innerText}))")
         ordo="\n".join(x["t"] for x in pages if x["h"].startswith("Ordonnance"))
-        ok(L+"aperçu et PDF après maintien (impression sur un toucher, depuis le PDF)",len(pages)>0 and await page.evaluate("window.__pr")==0)
+        ok(L+"aperçu après maintien : fenêtre d'impression du navigateur ouverte aussitôt sur l'aperçu (07/11/2026)",len(pages)>0 and await page.evaluate("window.__pr")>=1)
         ok(L+"ordonnance imprimée avec les deux médicaments maintenus","ESCITALOPRAM" in ordo and "HALOPÉRIDOL" in ordo,ordo[:200])
         alltxt="\n".join(x["t"] for x in pages)
         ok(L+"motif et alerte jamais sur les documents imprimés",("psychiatre" not in alltxt) and ("passée outre" not in alltxt) and ("CONTRE-INDICATION" not in alltxt))

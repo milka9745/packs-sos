@@ -1,4 +1,4 @@
 # Notes affichées dans « Nouvelle version » du canal de test (3 premières lignes ; une ligne par point)
-Ordonnance d'un geste : sous les lignes du pack, « + Ajouter un médicament » (2 ou 3 lettres, choix, posologie habituelle ou du RCP adaptée) ; doublon, allergie et interaction signalés aussitôt.
-Un toucher retire ou remet une ligne ; appui long : retirer pour ce patient, retirer par défaut de ce pack pour moi, ajouter à mon pack par défaut, modifier le texte.
-Mes ajouts fréquents proposés en premier dans chaque pack (appris sur l'appareil, chiffrés dans mon profil) ; lignes ajoutées imprimées sur la même ordonnance, au journal et au compte rendu.
+Impression d'un geste : « Imprimer » ouvre la fenêtre d'impression du navigateur tout de suite, sur les pages de l'aperçu ; le PDF ne se fabrique que pour « Enregistrer en PDF », avec une barre de progression sur le bouton.
+Un seul bouton « Imprimer » par écran, dans la barre du bas, le même sur iPhone et ordinateur ; sur iPhone le bouton montre la préparation du PDF puis ouvre le menu Partager (Phomemo, AirPrint).
+Document trop long même réduit : la fin passe sur une page « suite » dans l'aperçu, à l'impression et dans le PDF ; rien n'est masqué.

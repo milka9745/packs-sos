@@ -1,6 +1,6 @@
 # Résultats — impression, patient suivant, visite sans proposition, certificats (v41z, 06/11/2026)
 
-2026-11-06
+2026-11-07
 
 84/84 OK
 
@@ -27,7 +27,7 @@
 - OK iPhone Express : réglage désactivé à nouveau
 - OK iPhone Express : en consultation, la fiche proposée d'après le motif saisi reste disponible
 - OK iPhone Express : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK iPhone Express : « Hier » + « 3 j » : du 05/11/2026 au 07/11/2026 inclus (commence avant la consultation)
+- OK iPhone Express : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
 - OK iPhone Express : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK iPhone Express : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone Express : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
@@ -52,7 +52,7 @@
 - OK iPhone complet : visite · retour à la fiche après l'aperçu, barre du bas de retour
 - OK iPhone complet : visite après impression : « Valider · patient suivant » inchangé
 - OK iPhone complet : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK iPhone complet : « Hier » + « 3 j » : du 05/11/2026 au 07/11/2026 inclus (commence avant la consultation)
+- OK iPhone complet : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
 - OK iPhone complet : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK iPhone complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
@@ -61,30 +61,30 @@
 - OK iPhone complet : aucune erreur JavaScript
 - OK ordinateur complet : consultation, fiche choisie : état « prise en charge », bouton d'impression dans la barre
 - OK ordinateur complet : consultation · aperçu ouvert dès le bouton de la barre
-- OK ordinateur complet : consultation · ordinateur : « Imprimer » de l'aperçu lance l'impression (PDF préparé puis imprimé)
+- OK ordinateur complet : consultation · ordinateur : « Imprimer » de l'aperçu ouvre la fenêtre d'impression du navigateur tout de suite, sans PDF (07/11/2026)
 - OK ordinateur complet : consultation · « Enregistrer en PDF » : PDF préparé et remis
 - OK ordinateur complet : consultation · retour à la fiche après l'aperçu, barre du bas de retour
 - OK ordinateur complet : après impression : état « sortie », « Réimprimer » et « ✓ Patient suivant » dans la barre (consultation)
 - OK ordinateur complet : « Réimprimer » rouvre l'aperçu (étape sortie)
-- OK ordinateur complet : réimpression · ordinateur : « Imprimer » de l'aperçu lance l'impression (PDF préparé puis imprimé)
+- OK ordinateur complet : réimpression · ordinateur : « Imprimer » de l'aperçu ouvre la fenêtre d'impression du navigateur tout de suite, sans PDF (07/11/2026)
 - OK ordinateur complet : réimpression · « Enregistrer en PDF » : PDF préparé et remis
 - OK ordinateur complet : réimpression · retour à la fiche après l'aperçu, barre du bas de retour
 - OK ordinateur complet : « ✓ Patient suivant » (confirmation au 2e toucher) : patient validé (journal, cotation), patient vierge ouvert aussitôt en Consultation, sans écran de liste, annulation proposée 8 s
 - OK ordinateur complet : « Annuler » dans les 8 s : le patient validé est rouvert
 - OK ordinateur complet : visite (76 ans, AINS) · écran « Avant d'imprimer » puis aperçu ouvert dès le bouton de la barre
 - OK ordinateur complet : visite (76 ans, AINS) · écran « Avant d'imprimer » : barre du bas masquée, pas de clavier (champ Motif non pris au focus sur iPhone), bouton « Imprimer » visible et atteignable
-- OK ordinateur complet : visite · ordinateur : « Imprimer » de l'aperçu lance l'impression (PDF préparé puis imprimé)
+- OK ordinateur complet : visite · ordinateur : « Imprimer » de l'aperçu ouvre la fenêtre d'impression du navigateur tout de suite, sans PDF (07/11/2026)
 - OK ordinateur complet : visite · « Enregistrer en PDF » : PDF préparé et remis
 - OK ordinateur complet : visite · retour à la fiche après l'aperçu, barre du bas de retour
 - OK ordinateur complet : visite après impression : « Valider · patient suivant » inchangé
 - OK ordinateur complet : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK ordinateur complet : « Hier » + « 3 j » : du 05/11/2026 au 07/11/2026 inclus (commence avant la consultation)
+- OK ordinateur complet : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
 - OK ordinateur complet : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK ordinateur complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK ordinateur complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
 - OK ordinateur complet : sans date de naissance : certificat signalé incomplet avant impression (jamais de trou)
 - OK ordinateur complet : absence scolaire pour une étudiante de 20 ans : une page, « justifie son absence scolaire », remis en main propre à l'intéressée (pas « aux parents »)
 - OK ordinateur complet : aucune erreur JavaScript
-- OK ordinateur Express : consultation : « Imprimer et valider » (2 touchers) → PDF imprimé puis patient validé (écran de validation)
+- OK ordinateur Express : consultation : « Imprimer et valider » (2 touchers) → fenêtre d'impression du navigateur puis patient validé
 - OK ordinateur Express : visite (76 ans) : écran « Avant d'imprimer », décision, aperçu (alertes à vérifier), impression, puis validation depuis l'aperçu
 - OK ordinateur Express : aucune erreur JavaScript

@@ -16,7 +16,7 @@
 - OK — pc n°3 (17/10) pas de renvoi au compte rendu, et jamais la dictée ni l'histoire libre recopiées dans le courrier
 - OK — pc n°1 après modification : toujours aucun chevauchement du cachet
 - OK — pc n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
-- OK — pc n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué
+- OK — pc n°1 trop long même à 9 pt : alerte à l'écran avant impression, la fin passe sur une page « suite » dans l'aperçu (07/11/2026), texte jamais masqué ni chevauché
 - OK — pc n°4 fiche « sujet âgé » à 52 ans : alerte à l'écran
 - OK — pc n°3 toutes les fiches : ni « compte rendu joint » ni « médicaments revus » non cochés dans les documents
 - OK — pc aucune erreur JS
@@ -36,7 +36,7 @@
 - OK — iphone n°3 (17/10) pas de renvoi au compte rendu, et jamais la dictée ni l'histoire libre recopiées dans le courrier
 - OK — iphone n°1 après modification : toujours aucun chevauchement du cachet
 - OK — iphone n°1 consignes longues : police réduite (≥ 9 pt) sans chevauchement ni texte masqué
-- OK — iphone n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué
+- OK — iphone n°1 trop long même à 9 pt : alerte à l'écran avant impression, la fin passe sur une page « suite » dans l'aperçu (07/11/2026), texte jamais masqué ni chevauché
 - OK — iphone n°4 fiche « sujet âgé » à 52 ans : alerte à l'écran
 - OK — iphone n°3 toutes les fiches : ni « compte rendu joint » ni « médicaments revus » non cochés dans les documents
 - OK — iphone aucune erreur JS

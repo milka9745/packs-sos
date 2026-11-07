@@ -97,7 +97,7 @@ async def run(width,label):
         await page.evaluate("""()=>{const p=currentPack();const si=p.s.findIndex(s=>s.k==='cons');state.libre[si]=Array(60).fill("Consigne très longue de test pour dépasser une page même en petite police.").join(" ");render();}""")
         dialogs.clear(); await preview(page,width); pg=await page.evaluate(PAGES); c=[x for x in pg if x["t"].startswith("Consignes")]
         warn=await page.evaluate("(document.querySelector('#print .fitwarn')||{}).textContent||''")
-        ok(L+"n°1 trop long même à 9 pt : alerte à l'écran avant impression, texte jamais masqué",c and c[0]["over"] and not c[0]["clipped"] and "ne tient pas sur une page" in warn and "page de plus" in warn,{k:(c[0][k] if c else None) for k in ("over","clipped")})
+        ok(L+"n°1 trop long même à 9 pt : alerte à l'écran avant impression, la fin passe sur une page « suite » dans l'aperçu (07/11/2026), texte jamais masqué ni chevauché",len(c)>=2 and any(x["t"].endswith("(suite)") for x in c) and not any(x["over"] or x["clipped"] or x["hit"] for x in c) and "ne tient pas sur une page" in warn and "page de plus" in warn,{"pages":[(x["t"],x["over"],x["clipped"],x["hit"][:1]) for x in c],"warn":warn[:90]})
         await back(page)
         # 4. fiche « sujet âgé » chez un patient de moins de 65 ans
         await page.evaluate(SETUP,[CHUTE]); await page.evaluate("Object.assign(state,{ddn:'01/01/1974'});render();"); await page.wait_for_timeout(200)

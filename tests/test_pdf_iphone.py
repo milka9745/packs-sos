@@ -60,6 +60,7 @@ async def main():
                 if await page.locator("#ciover").count():
                     await page.click("#ci_keep"); await page.click("#ci_print")
                 await page.wait_for_selector("#print .page",timeout=15000); await page.wait_for_timeout(1500)
+                await page.wait_for_function("()=>!PDFJOB.busy",timeout=90000)  # 07/11/2026 : le PDF de l'iPhone se prépare dès l'aperçu ; ne pas rendre en même temps sur la même scène
                 r=await page.evaluate(PDFCHK)
                 bad=[x for x in r["R"] if x["zone"] and x["dark"]>60]
                 ok(f"{ENGINE} iPhone · {tag} : PDF produit, aucune ligne de texte dans la zone du cachet ({r['n']} page(s))",not bad,bad[:4])

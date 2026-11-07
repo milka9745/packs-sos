@@ -137,19 +137,15 @@ async def run(width,label):
         await page.evaluate("Object.assign(state,{patient:'TEST Fictif',ddn:'01/01/1980'});state.photos=[];render();")
         if width<500:
             await page.click("#fin"); await page.wait_for_timeout(1200)
-            ok(L+"n°9 aperçu : boutons Envoyer (PDF) et Enregistrer le PDF visibles ; plus d'impression de la page web",all([await page.locator(s).is_visible() for s in ["#pb_send","#pb_pdf"]]) and await page.locator("#pb_ios").count()==0)
-            ok(L+"n°9 jamais d'impression de la page web (17/10/2026)",await page.evaluate("window.__pr")==0)
+            ok(L+"n°9 aperçu : un seul bouton « Imprimer » (barre du bas) et « Enregistrer en PDF » visibles (07/11/2026)",all([await page.locator(s).is_visible() for s in ["#pb_print","#pb_pdf"]]) and await page.evaluate("[...document.querySelectorAll('#print button')].filter(b=>/imprimer/i.test(b.textContent)).length")==1)
+            ok(L+"n°9 « Imprimer » de la barre : fenêtre d'impression du navigateur ouverte sur l'aperçu, aucun PDF fabriqué (07/11/2026)",await page.evaluate("window.__pr")>=1 and await page.evaluate("!PDFJOB.busy&&!PDFJOB.file"))
         else:
             await page.click("#fin"); await page.wait_for_timeout(1200)
-            await page.click("#pb_print2")
-            for _ in range(40):
-                if await page.evaluate("window.__pdfprint||0"): break
-                await page.wait_for_timeout(250)
-            ok(L+"n°9 « Imprimer » imprime le PDF (jamais la page web), sans Ctrl+P",await page.evaluate("window.__pdfprint||0")>=1 and await page.evaluate("window.__pr")==0)
-            hit=await page.evaluate("['pb_print2','pb_pdf2','pb_valid2','pb_back2','pb_print','pb_pdf','pb_valid','pb_back'].map(id=>{const e=document.getElementById(id);if(!e)return id+':absent';const r=e.getBoundingClientRect();const pts=[[r.left+4,r.top+4],[r.left+r.width/2,r.top+r.height/2],[r.right-4,r.bottom-4]];return pts.every(([x,y])=>{const h=document.elementFromPoint(x,y);return h&&(h===e||e.contains(h));})?'':id;}).filter(Boolean)")
+            ok(L+"n°9 « Imprimer » de la barre : aperçu et fenêtre d'impression du navigateur tout de suite, sans PDF (07/11/2026)",await page.evaluate("window.__pr")>=1 and await page.evaluate("!PDFJOB.busy&&!PDFJOB.file"))
+            hit=await page.evaluate("['pb_back2','pb_print','pb_pdf','pb_valid','pb_back'].map(id=>{const e=document.getElementById(id);if(!e)return id+':absent';const r=e.getBoundingClientRect();const pts=[[r.left+4,r.top+4],[r.left+r.width/2,r.top+r.height/2],[r.right-4,r.bottom-4]];return pts.every(([x,y])=>{const h=document.elementFromPoint(x,y);return h&&(h===e||e.contains(h));})?'':id;}).filter(Boolean)")
             ok(L+"n°9 aperçu : chaque bouton entièrement cliquable (barres sans chevauchement)",not hit,hit)
-            await page.click("#pb_print"); await page.wait_for_timeout(600)
-            ok(L+"n°9 bouton « Imprimer » du bas : PDF",await page.evaluate("window.__pdfprint||0")>=2 and await page.evaluate("window.__pr")==0)
+            n0=await page.evaluate("window.__pr"); await page.click("#pb_print"); await page.wait_for_timeout(300)
+            ok(L+"n°9 bouton « Imprimer » de l'aperçu (le seul) : fenêtre d'impression tout de suite (07/11/2026)",await page.evaluate("window.__pr")==n0+1)
         try:
             async with page.expect_download(timeout=90000) as dl:
                 await page.click("#pb_pdf")

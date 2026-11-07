@@ -2,6 +2,7 @@
 # 375 px (jour, nuit, grand texte) et ordinateur. Patients fictifs, réseau extérieur coupé. Lancer : python tests/test_express.py
 import asyncio, os, json, subprocess, time, sys, re
 from playwright.async_api import async_playwright
+IOS_UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"  # 07/11/2026 : iPhone réel (iosLike) → PDF partagé ; sans cet UA, 375 px = fenêtre d'impression du navigateur
 
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT=os.path.join(ROOT,"tests","captures")
@@ -39,7 +40,7 @@ async def ready(page):
 
 async def run(b,w,h,th,big,label,shots):
     mob=w<500
-    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob,accept_downloads=True,permissions=["clipboard-read","clipboard-write"])
+    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob,accept_downloads=True,permissions=["clipboard-read","clipboard-write"],**({"user_agent":IOS_UA} if mob else {}))
     await ctx.route("**/*",lambda r:asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
     page=await ctx.new_page(); errors=[]; dialogs=[]
     page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:(dialogs.append(d.message),asyncio.ensure_future(d.accept())))
@@ -101,7 +102,7 @@ async def run(b,w,h,th,big,label,shots):
         await tap(page,g,"#xp_go","🖨 Imprimer et valider")
         ok(L+f"{vid} 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé","Confirmer" in await page.inner_text("#xp_go") and await page.evaluate("TOUR.current")==cur0)
         await tap(page,g,"#xp_go","✓ Confirmer : imprimer et valider")  # 18/10/2026 : validation confirmée (demande du médecin)
-        for _ in range(60):  # ordinateur : le PDF est fabriqué puis imprimé, la validation suit
+        for _ in range(60):  # ordinateur : fenêtre d'impression du navigateur, la validation suit (07/11/2026)
             if await page.evaluate("TOUR.current")!=cur0: break
             await page.wait_for_timeout(250)
         await page.wait_for_timeout(500)
@@ -112,7 +113,7 @@ async def run(b,w,h,th,big,label,shots):
         ok(L+f"{vid} 2. pas d'écran récapitulatif après validation",await page.evaluate("state.view")!="valid")
         nxt=await page.evaluate("TOUR.current||''")
         ok(L+f"{vid} patient suivant ouvert ({'tournée terminée' if n==2 else 'v'+str(n+2)})",nxt==("" if n==2 else "v"+str(n+2)),[nxt,await page.evaluate("({view:state.view,printing:document.body.classList.contains('printing'),ci:!!document.getElementById('ciover'),pat:state.patient,xt:(document.getElementById('toast')||{}).textContent})")])
-        if not mob: ok(L+f"{vid} ordinateur : impression du PDF lancée (jamais la page web)",await page.evaluate("window.__pdfprint||0")>0 and await page.evaluate("window.__pr||0")==0)
+        if not mob: ok(L+f"{vid} ordinateur : fenêtre d'impression du navigateur ouverte sur l'aperçu, sans PDF (07/11/2026)",await page.evaluate("window.__pr||0")>0 and await page.evaluate("!(PDFJOB&&PDFJOB.file)"))
         jr=await page.evaluate("JOURNAL.length")
         gest[vid]=len(g.g)
         ok(L+f"{vid} gestes : {len(g.g)} ({', '.join(x[1] for x in g.g)})",len(g.g)<=(6 if kid else 5))  # +1 : « ✓ Examen complet » (18/10/2026)
@@ -130,7 +131,7 @@ async def run(b,w,h,th,big,label,shots):
 
 async def extras(b,w,h,label):
     mob=w<500
-    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob,permissions=["clipboard-read","clipboard-write"])
+    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if mob else 1,is_mobile=mob,has_touch=mob,permissions=["clipboard-read","clipboard-write"],**({"user_agent":IOS_UA} if mob else {}))
     await ctx.route("**/*",lambda r:asyncio.ensure_future(r.continue_() if "localhost" in r.request.url else r.abort()))
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await unlock(page,"xpx"+label[:6]); await page.evaluate("localStorage.removeItem('sos_xp');localStorage.setItem('sos_xpsug','true');window.print=()=>{};")

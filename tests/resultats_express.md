@@ -180,7 +180,7 @@
 - OK — ordinateur : v1 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v1 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v1 patient suivant ouvert (v2)
-- OK — ordinateur : v1 ordinateur : impression du PDF lancée (jamais la page web)
+- OK — ordinateur : v1 ordinateur : fenêtre d'impression du navigateur ouverte sur l'aperçu, sans PDF (07/11/2026)
 - OK — ordinateur : v1 gestes : 5 (toucher le patient (navigation lancée), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : v2 patient ouvert
 - OK — ordinateur : v2 c. fiche proposée selon le motif et l'âge : « Fièvre — enfant »
@@ -198,7 +198,7 @@
 - OK — ordinateur : v2 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v2 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v2 patient suivant ouvert (v3)
-- OK — ordinateur : v2 ordinateur : impression du PDF lancée (jamais la page web)
+- OK — ordinateur : v2 ordinateur : fenêtre d'impression du navigateur ouverte sur l'aperçu, sans PDF (07/11/2026)
 - OK — ordinateur : v2 gestes : 6 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, poids, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : v3 patient ouvert
 - OK — ordinateur : v3 c. fiche proposée selon le motif et l'âge : « Chute du sujet âgé — bilan »
@@ -215,7 +215,7 @@
 - OK — ordinateur : v3 g. compte rendu copié automatiquement (presse-papiers), celui du patient
 - OK — ordinateur : v3 2. pas d'écran récapitulatif après validation
 - OK — ordinateur : v3 patient suivant ouvert (tournée terminée)
-- OK — ordinateur : v3 ordinateur : impression du PDF lancée (jamais la page web)
+- OK — ordinateur : v3 ordinateur : fenêtre d'impression du navigateur ouverte sur l'aperçu, sans PDF (07/11/2026)
 - OK — ordinateur : v3 gestes : 5 (🧭 Naviguer (patient suivant déjà ouvert), ✓ Confirmer la fiche, dicter (micro du clavier), 🖨 Imprimer et valider, ✓ Confirmer : imprimer et valider)
 - OK — ordinateur : journal : 3 patients
 - OK — ordinateur : g. secours : « Recopier le CR » dans « Patients validés »

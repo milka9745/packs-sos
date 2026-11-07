@@ -53,7 +53,7 @@ async def main():
     try:
         async with async_playwright() as p:
             bt=getattr(p,ENGINE); b=await bt.launch()
-            dev=p.devices["iPhone 13"] if ENGINE=="webkit" else {"viewport":{"width":390,"height":844},"is_mobile":True,"has_touch":True,"device_scale_factor":3}
+            dev=p.devices["iPhone 13"] if ENGINE=="webkit" else {"viewport":{"width":390,"height":844},"is_mobile":True,"has_touch":True,"device_scale_factor":3,"user_agent":p.devices["iPhone 13"]["user_agent"]}
             for xp in (False,True):
                 L=f"{ENGINE} iPhone · {'Express' if xp else 'mode complet'} : "
                 ctx=await b.new_context(**dev)
@@ -101,7 +101,7 @@ async def main():
                     for _ in range(40):
                         if await page.evaluate("!!(PDFJOB.file)"): break
                         await page.wait_for_timeout(250)
-                    btn=page.locator("#pb_send")
+                    btn=page.locator("#pb_print")  # 07/11/2026 : un seul bouton « Imprimer », même identifiant partout
                     ok(L+f"{tag} : bouton « 🖨 Imprimer » présent sur iPhone",await btn.count()>=1)
                     if await btn.count(): await btn.first.click(); await page.wait_for_timeout(600)
                     sh=await page.evaluate("({s:window.__share,p:window.__pr||0})")

@@ -5,6 +5,7 @@
 # Patients fictifs ; aucun appel externe. Lancer : python tests/test_fil_v41z.py
 import asyncio, os, re, json, subprocess, sys, time, datetime
 from playwright.async_api import async_playwright
+IOS_UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"  # 07/11/2026 : iPhone réel (iosLike) → PDF partagé ; sans cet UA, 375 px = fenêtre d'impression du navigateur
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=os.path.join(ROOT,"tests","captures"); PORT=8872
 results=[]
 def ok(name,cond,info=""):
@@ -24,7 +25,7 @@ async def unlock(page,uid,xp):
         pg=page.get_by_text("Pas de garde",exact=True)
         if await pg.count(): await pg.first.click(); await page.wait_for_timeout(300)
     except Exception: pass
-    await page.evaluate("()=>{window.__printed=0;window.print=()=>{window.__printed++;};window.pdfPrintFile=f=>{window.__printed++;};}")  # ordinateur : l'impression passe par le PDF préparé
+    await page.evaluate("()=>{window.__printed=0;window.print=()=>{window.__printed++;};}")  # 07/11/2026 : l'impression = fenêtre du navigateur sur l'aperçu (ordinateur, 375 px) ; iPhone réel (UA iOS) = PDF partagé
 def dmy(d): return d.strftime("%d/%m/%Y")
 async def open_print(page,L,expect_ci):
     """touche le bouton d'impression de la barre (Express : 2 touchers, le 1er arme) ; passe l'écran « Avant d'imprimer » s'il s'ouvre ; retourne l'état"""
@@ -51,14 +52,14 @@ async def pdf_and_back(page,L,pc):
         n0=await page.evaluate("()=>window.__printed"); await page.evaluate("()=>document.getElementById('pb_print').click()")
         try: await page.wait_for_function("(n0)=>window.__printed>n0",arg=n0,timeout=30000)
         except Exception: pass
-        ok(L+"ordinateur : « Imprimer » de l'aperçu lance l'impression (PDF préparé puis imprimé)",await page.evaluate("()=>window.__printed")>n0,{"printed":await page.evaluate("()=>window.__printed"),"st":await page.evaluate("()=>(document.getElementById('pdf_st')||{}).textContent||''")})
+        ok(L+"ordinateur : « Imprimer » de l'aperçu ouvre la fenêtre d'impression du navigateur tout de suite, sans PDF (07/11/2026)",await page.evaluate("()=>window.__printed")>n0 and await page.evaluate("()=>!PDFJOB.busy&&!PDFJOB.file"),{"printed":await page.evaluate("()=>window.__printed"),"st":await page.evaluate("()=>(document.getElementById('pdf_st')||{}).textContent||''")})
     await page.evaluate("()=>document.getElementById('pb_pdf').click()"); await page.wait_for_function("()=>(PDFJOB&&PDFJOB.file)||/enregistr|prêt|Partager/.test((document.getElementById('pdf_st')||{}).textContent||'')",timeout=30000)
     st=await page.evaluate("()=>({file:!!(PDFJOB&&PDFJOB.file),n:PDFJOB&&PDFJOB.n,msg:(document.getElementById('pdf_st')||{}).textContent||''})")
     ok(L+"« Enregistrer en PDF » : PDF préparé et remis",st["file"] or "enregistr" in st["msg"],st)
     await page.evaluate("()=>(document.getElementById('pb_back')||document.getElementById('pb_back2')).click()"); await page.wait_for_timeout(400)
     ok(L+"retour à la fiche après l'aperçu, barre du bas de retour",not await page.evaluate("()=>document.body.classList.contains('printing')") and await page.locator("#fdock").count()==1)
 async def run(b,w,h,xp,label,tag):
-    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if w<500 else 1,is_mobile=w<500,has_touch=w<500)
+    ctx=await b.new_context(viewport={"width":w,"height":h},device_scale_factor=2 if w<500 else 1,is_mobile=w<500,has_touch=w<500,**({"user_agent":IOS_UA} if w<500 else {}))
     await ctx.route(re.compile(r"^(?!.*localhost).*$"),lambda r:asyncio.ensure_future(r.abort()))
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await unlock(page,"fil"+tag,xp); L=label+" : "; phone=w<500; pc=not phone
@@ -163,13 +164,13 @@ async def run_pc_express(b):
     L="ordinateur Express : "
     ctx=await b.new_context(viewport={"width":1280,"height":900}); await ctx.route(re.compile(r"^(?!.*localhost).*$"),lambda r:asyncio.ensure_future(r.abort()))
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
-    await unlock(page,"filpcxp",True); await page.evaluate("()=>{window.__printed=0;window.pdfPrintFile=f=>{window.__printed++;setTimeout(()=>{try{xpAfterPrint();}catch(e){}},50);};}")
+    await unlock(page,"filpcxp",True); await page.evaluate("()=>{window.__printed=0;}")  # 07/11/2026 : window.print (stub) puis xpAfterPrint par printScreen
     await page.evaluate("()=>{newPatient();Object.assign(state,{patient:'DURAND Martine',ddn:'03/04/1958',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');render();}"); await page.wait_for_timeout(500)
     v0=await page.evaluate("()=>VALID.hist.length"); await page.click("#xp_go"); await page.wait_for_timeout(300); await page.click("#xp_go")
     try: await page.wait_for_function("(v0)=>VALID.hist.length>v0&&window.__printed>=1",arg=v0,timeout=30000)
     except Exception: pass
     st=await page.evaluate("(v0)=>({printed:window.__printed,valid:VALID.hist.length-v0,view:state.view,last:VALID.hist[0]&&VALID.hist[0].patient})",v0)
-    ok(L+"consultation : « Imprimer et valider » (2 touchers) → PDF imprimé puis patient validé (écran de validation)",st["printed"]>=1 and st["valid"]==1 and st["last"]=="DURAND Martine",st)
+    ok(L+"consultation : « Imprimer et valider » (2 touchers) → fenêtre d'impression du navigateur puis patient validé",st["printed"]>=1 and st["valid"]==1 and st["last"]=="DURAND Martine",st)
     await page.evaluate("()=>{patientNext();}"); sid=await page.evaluate(STOPS); await page.wait_for_timeout(300)
     await page.evaluate("(id)=>{TOUR.current=id;const s=tourStop(id);s.tArr=Date.now();Object.assign(state,{patient:'DUPONT Jean',ddn:'01/01/1950',sexe:'h'});state.cot.lieu='visite';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.view='';render();}",sid); await page.wait_for_timeout(500)
     v0=await page.evaluate("()=>VALID.hist.length"); n0=await page.evaluate("()=>window.__printed"); await page.click("#xp_go"); await page.wait_for_timeout(400)
