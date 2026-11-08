@@ -1,14 +1,14 @@
 # Publication en racine (06/11/2026) : conservation des données de la v41k
 
-- OK — 41k : version en service chargée (version.json)
+- OK — 41z : version en service chargée (version.json)
 - OK — 41k : pas d'Express (code de la racine actuelle)
 - OK — 41k : trois patients au journal, trois demandes à la tournée (fictifs)
 - OK — 41k : journal, tournée et identité écrits chiffrés (localStorage, clés _enc)
 - OK — 41k : identité (fictive) chargée : nom, Adeli, association
-- OK — racine : version.json de la nouvelle version (41z)
+- OK — racine : version.json de la nouvelle version (42)
 - OK — racine : numéro de version lisible dans version.json (label « 41z · JJ/MM HH:MM »)
 - OK — racine : 2 ou 3 lignes « Ce qui change »
-- OK — racine : nouveau cache du service worker (packs-sos-v41z, plus v41k)
+- OK — racine : nouveau cache du service worker (packs-sos-v42, plus v41k)
 - OK — nouvelle version : pas d'écran de création de code (l'utilisateur et son code sont reconnus)
 - OK — nouvelle version : code de la branche ia (Express présent)
 - OK — nouvelle version : « v41z · main · JJ/MM HH:MM » affiché

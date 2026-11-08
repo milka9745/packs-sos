@@ -6,7 +6,7 @@
 
 - OK ordinateur complet : fiche choisie (consultation) : un seul bouton « Imprimer » sur l'écran, dans la barre du bas
 - OK ordinateur complet : dès le toucher : retour visible (bouton désactivé, barre de progression) avant la fenêtre d'impression
-- OK ordinateur complet : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (84 ms), sans fabrication de PDF
+- OK ordinateur complet : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (66 ms), sans fabrication de PDF
 - OK ordinateur complet : aperçu : un seul bouton « Imprimer » (#pb_print), dans la barre du bas fixe ; la barre du haut n'a plus de bouton Imprimer
 - OK ordinateur complet : « Imprimer » de l'aperçu : fenêtre d'impression tout de suite (0 ms), une seule fois, toujours sans PDF
 - OK ordinateur complet : impression réelle du navigateur : une page A4 par document (2), seul l'aperçu s'imprime, texte complet (patient, documents)
@@ -14,7 +14,7 @@
 - OK ordinateur complet : retour : étape « sortie », « Réimprimer » dans la barre, un seul bouton d'impression
 - OK ordinateur complet : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (25 ms), une seule impression par toucher
 - OK ordinateur complet : visite (76 ans, AINS) : l'écran « Avant d'imprimer » s'ouvre d'abord, sans impression
-- OK ordinateur complet : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (28 ms)
+- OK ordinateur complet : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (29 ms)
 - OK ordinateur complet : « Valider le patient » depuis l'aperçu (confirmation au 2e toucher) : patient validé
 - OK ordinateur complet : ordonnance de 26 lignes ajoutées : coupée dans l'aperçu, la suite porte le cachet, la première partie non ; alerte « suite » ; dernière ligne présente
 - OK ordinateur complet : impression réelle : autant de pages que l'aperçu (4), la dernière ligne ajoutée est imprimée (rien de masqué)
@@ -23,15 +23,15 @@
 - OK ordinateur complet : aucune erreur JavaScript
 - OK iPhone 375 px complet : fiche choisie (consultation) : un seul bouton « Imprimer » sur l'écran, dans la barre du bas
 - OK iPhone 375 px complet : dès le toucher : retour visible (bouton désactivé, barre de progression) avant la fenêtre d'impression
-- OK iPhone 375 px complet : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (67 ms), sans fabrication de PDF
+- OK iPhone 375 px complet : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (77 ms), sans fabrication de PDF
 - OK iPhone 375 px complet : aperçu : un seul bouton « Imprimer » (#pb_print), dans la barre du bas fixe ; la barre du haut n'a plus de bouton Imprimer
 - OK iPhone 375 px complet : « Imprimer » de l'aperçu : fenêtre d'impression tout de suite (0 ms), une seule fois, toujours sans PDF
 - OK iPhone 375 px complet : impression réelle du navigateur : une page A4 par document (2), seul l'aperçu s'imprime, texte complet (patient, documents)
 - OK iPhone 375 px complet : « Enregistrer en PDF » : pendant la fabrication le bouton est désactivé avec une barre de progression (« PDF… k/n »), puis un vrai PDF est remis et le bouton revient
 - OK iPhone 375 px complet : retour : étape « sortie », « Réimprimer » dans la barre, un seul bouton d'impression
-- OK iPhone 375 px complet : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (28 ms), une seule impression par toucher
+- OK iPhone 375 px complet : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (31 ms), une seule impression par toucher
 - OK iPhone 375 px complet : visite (76 ans, AINS) : l'écran « Avant d'imprimer » s'ouvre d'abord, sans impression
-- OK iPhone 375 px complet : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (33 ms)
+- OK iPhone 375 px complet : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (26 ms)
 - OK iPhone 375 px complet : « Valider le patient » depuis l'aperçu (confirmation au 2e toucher) : patient validé
 - OK iPhone 375 px complet : ordonnance de 26 lignes ajoutées : coupée dans l'aperçu, la suite porte le cachet, la première partie non ; alerte « suite » ; dernière ligne présente
 - OK iPhone 375 px complet : impression réelle : autant de pages que l'aperçu (4), la dernière ligne ajoutée est imprimée (rien de masqué)
@@ -40,35 +40,35 @@
 - OK iPhone 375 px complet : aucune erreur JavaScript
 - OK ordinateur Express : fiche choisie (consultation) : un seul bouton « Imprimer » sur l'écran, dans la barre du bas
 - OK ordinateur Express : dès le toucher : retour visible (bouton désactivé, barre de progression) avant la fenêtre d'impression
-- OK ordinateur Express : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (70 ms), sans fabrication de PDF
+- OK ordinateur Express : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (75 ms), sans fabrication de PDF
 - OK ordinateur Express : Express : patient validé après la fenêtre d'impression (journal, patient suivant)
 - OK ordinateur Express : aperçu : un seul bouton « Imprimer » (#pb_print), dans la barre du bas fixe ; la barre du haut n'a plus de bouton Imprimer
 - OK ordinateur Express : « Imprimer » de l'aperçu : fenêtre d'impression tout de suite (0 ms), une seule fois, toujours sans PDF
 - OK ordinateur Express : impression réelle du navigateur : une page A4 par document (2), seul l'aperçu s'imprime, texte complet (patient, documents)
 - OK ordinateur Express : « Enregistrer en PDF » : pendant la fabrication le bouton est désactivé avec une barre de progression (« PDF… k/n »), puis un vrai PDF est remis et le bouton revient
 - OK ordinateur Express : retour : étape « sortie », « Réimprimer » dans la barre, un seul bouton d'impression
-- OK ordinateur Express : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (24 ms), une seule impression par toucher
+- OK ordinateur Express : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (26 ms), une seule impression par toucher
 - OK ordinateur Express : visite (76 ans, AINS) : l'écran « Avant d'imprimer » s'ouvre d'abord, sans impression
-- OK ordinateur Express : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (29 ms)
+- OK ordinateur Express : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (30 ms)
 - OK ordinateur Express : « Valider le patient » depuis l'aperçu (confirmation au 2e toucher) : patient validé (Express : alertes décidées, la validation reste un geste du médecin)
 - OK ordinateur Express : synthèse du patient : aperçu avec la même barre du bas (Imprimer, Enregistrer en PDF), un seul bouton Imprimer
 - OK ordinateur Express : synthèse : « Imprimer » ouvre la fenêtre d'impression tout de suite (0 ms)
 - OK ordinateur Express : aucune erreur JavaScript
 - OK iPhone 375 px Express : fiche choisie (consultation) : un seul bouton « Imprimer » sur l'écran, dans la barre du bas
 - OK iPhone 375 px Express : dès le toucher : retour visible (bouton désactivé, barre de progression) avant la fenêtre d'impression
-- OK iPhone 375 px Express : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (66 ms), sans fabrication de PDF
+- OK iPhone 375 px Express : « Imprimer » de la barre : aperçu préparé et fenêtre d'impression du navigateur ouverte dans la seconde (67 ms), sans fabrication de PDF
 - OK iPhone 375 px Express : Express : patient validé après la fenêtre d'impression (journal, patient suivant)
 - OK iPhone 375 px Express : aperçu : un seul bouton « Imprimer » (#pb_print), dans la barre du bas fixe ; la barre du haut n'a plus de bouton Imprimer
 - OK iPhone 375 px Express : « Imprimer » de l'aperçu : fenêtre d'impression tout de suite (0 ms), une seule fois, toujours sans PDF
 - OK iPhone 375 px Express : impression réelle du navigateur : une page A4 par document (2), seul l'aperçu s'imprime, texte complet (patient, documents)
 - OK iPhone 375 px Express : « Enregistrer en PDF » : pendant la fabrication le bouton est désactivé avec une barre de progression (« PDF… k/n »), puis un vrai PDF est remis et le bouton revient
 - OK iPhone 375 px Express : retour : étape « sortie », « Réimprimer » dans la barre, un seul bouton d'impression
-- OK iPhone 375 px Express : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (24 ms), une seule impression par toucher
+- OK iPhone 375 px Express : « Réimprimer » : aperçu et fenêtre d'impression dans la seconde (23 ms), une seule impression par toucher
 - OK iPhone 375 px Express : visite (76 ans, AINS) : l'écran « Avant d'imprimer » s'ouvre d'abord, sans impression
-- OK iPhone 375 px Express : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (26 ms)
+- OK iPhone 375 px Express : « Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (24 ms)
 - OK iPhone 375 px Express : « Valider le patient » depuis l'aperçu (confirmation au 2e toucher) : patient validé (Express : alertes décidées, la validation reste un geste du médecin)
 - OK iPhone 375 px Express : synthèse du patient : aperçu avec la même barre du bas (Imprimer, Enregistrer en PDF), un seul bouton Imprimer
-- OK iPhone 375 px Express : synthèse : « Imprimer » ouvre la fenêtre d'impression tout de suite (1 ms)
+- OK iPhone 375 px Express : synthèse : « Imprimer » ouvre la fenêtre d'impression tout de suite (0 ms)
 - OK iPhone 375 px Express : aucune erreur JavaScript
 - OK iPhone réel (UA iOS) complet : aperçu : pendant la préparation du PDF, le bouton « Imprimer » est désactivé avec une barre de progression (« PDF… k/n ») ; aucun toucher sans retour
 - OK iPhone réel (UA iOS) complet : PDF prêt : bouton « 🖨 Imprimer » actif, un seul, dans la barre du bas fixe (mêmes boutons que sur ordinateur)
@@ -76,9 +76,9 @@
 - OK iPhone réel (UA iOS) complet : la page web elle-même ne s'imprime pas sur iPhone (seul le message renvoyant au bouton)
 - OK iPhone réel (UA iOS) complet : aucune erreur JavaScript
 - OK iPhone réel (UA iOS) Express : Express : documents (PDF) préparés d'avance, bouton prêt
-- OK iPhone réel (UA iOS) Express : Express « Imprimer et valider » : menu Partager ouvert dans la seconde (19 ms) avec le PDF, jamais window.print, patient validé
+- OK iPhone réel (UA iOS) Express : Express « Imprimer et valider » : menu Partager ouvert dans la seconde (27 ms) avec le PDF, jamais window.print, patient validé
 - OK iPhone réel (UA iOS) Express : aperçu : pendant la préparation du PDF, le bouton « Imprimer » est désactivé avec une barre de progression (« PDF… k/n ») ; aucun toucher sans retour
 - OK iPhone réel (UA iOS) Express : PDF prêt : bouton « 🖨 Imprimer » actif, un seul, dans la barre du bas fixe (mêmes boutons que sur ordinateur)
-- OK iPhone réel (UA iOS) Express : « Imprimer » : menu Partager (PDF) ouvert dans la seconde (0 ms), jamais la page web
+- OK iPhone réel (UA iOS) Express : « Imprimer » : menu Partager (PDF) ouvert dans la seconde (1 ms), jamais la page web
 - OK iPhone réel (UA iOS) Express : la page web elle-même ne s'imprime pas sur iPhone (seul le message renvoyant au bouton)
 - OK iPhone réel (UA iOS) Express : aucune erreur JavaScript

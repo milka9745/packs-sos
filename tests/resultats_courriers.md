@@ -1,9 +1,9 @@
-# Corrections v41z — fiches et courriers (08/11/2026 14:03)
+# Corrections v41z — fiches et courriers (08/11/2026 20:46)
 
 37/37 tests.
 
 - desktop — documents de la fiche onychomycose (courrier compris) : 13 ms
-- 375 nuit — documents de la fiche onychomycose (courrier compris) : 19 ms
+- 375 nuit — documents de la fiche onychomycose (courrier compris) : 22 ms
 
 - OK source : FILLER_RE défini, DOC_FALLBACK (« sont à votre disposition sur simple demande ») retiré
 - OK source : « sur simple demande » n'apparaît plus que dans la règle et la consigne IA

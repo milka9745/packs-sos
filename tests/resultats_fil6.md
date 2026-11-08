@@ -206,44 +206,44 @@
 ## Temps mesurés (ms)
 
 - iPhone jour : 1 → 2 Lancer la tournée : 18
-- iPhone jour : 2 → 3 Je suis arrivé : 13
-- iPhone jour : 3 → 4 fiche choisie : 65
-- iPhone jour : 4 → aperçu Imprimer : 84
-- iPhone jour : aperçu → 5 retour : 11
-- iPhone jour : 5 → Patient validé : 40
-- iPhone jour : Patient suivant → 2 (visite suivante) : 36
-- iPhone jour : → 6 Entre deux : 29
-- iPhone jour : 6 → 2 Insérer au mieux : 207
-- iPhone nuit : 1 → 2 Lancer la tournée : 18
+- iPhone jour : 2 → 3 Je suis arrivé : 10
+- iPhone jour : 3 → 4 fiche choisie : 76
+- iPhone jour : 4 → aperçu Imprimer : 71
+- iPhone jour : aperçu → 5 retour : 10
+- iPhone jour : 5 → Patient validé : 45
+- iPhone jour : Patient suivant → 2 (visite suivante) : 35
+- iPhone jour : → 6 Entre deux : 23
+- iPhone jour : 6 → 2 Insérer au mieux : 190
+- iPhone nuit : 1 → 2 Lancer la tournée : 16
 - iPhone nuit : 2 → 3 Je suis arrivé : 10
-- iPhone nuit : 3 → 4 fiche choisie : 111
+- iPhone nuit : 3 → 4 fiche choisie : 70
 - iPhone nuit : 4 → aperçu Imprimer : 74
 - iPhone nuit : aperçu → 5 retour : 8
-- iPhone nuit : 5 → Patient validé : 47
-- iPhone nuit : Patient suivant → 2 (visite suivante) : 35
-- iPhone nuit : → 6 Entre deux : 22
-- iPhone nuit : 6 → 2 Insérer au mieux : 143
-- iPhone grand texte : 1 → 2 Lancer la tournée : 17
-- iPhone grand texte : 2 → 3 Je suis arrivé : 11
-- iPhone grand texte : 3 → 4 fiche choisie : 72
-- iPhone grand texte : 4 → aperçu Imprimer : 71
+- iPhone nuit : 5 → Patient validé : 44
+- iPhone nuit : Patient suivant → 2 (visite suivante) : 34
+- iPhone nuit : → 6 Entre deux : 24
+- iPhone nuit : 6 → 2 Insérer au mieux : 150
+- iPhone grand texte : 1 → 2 Lancer la tournée : 21
+- iPhone grand texte : 2 → 3 Je suis arrivé : 12
+- iPhone grand texte : 3 → 4 fiche choisie : 119
+- iPhone grand texte : 4 → aperçu Imprimer : 90
 - iPhone grand texte : aperçu → 5 retour : 7
-- iPhone grand texte : 5 → Patient validé : 42
-- iPhone grand texte : Patient suivant → 2 (visite suivante) : 34
+- iPhone grand texte : 5 → Patient validé : 46
+- iPhone grand texte : Patient suivant → 2 (visite suivante) : 32
 - iPhone grand texte : → 6 Entre deux : 23
-- iPhone grand texte : 6 → 2 Insérer au mieux : 154
-- iPhone Express : 1 → 2 Lancer la tournée : 35
+- iPhone grand texte : 6 → 2 Insérer au mieux : 163
+- iPhone Express : 1 → 2 Lancer la tournée : 40
 - iPhone Express : 2 → 3 Je suis arrivé : 15
-- iPhone Express : 3 → 4 fiche choisie : 86
-- ordinateur : 1 → 2 Lancer la tournée : 15
-- ordinateur : 2 → 3 Je suis arrivé : 10
-- ordinateur : 3 → 4 fiche choisie : 89
-- ordinateur : 4 → aperçu Imprimer : 80
+- iPhone Express : 3 → 4 fiche choisie : 98
+- ordinateur : 1 → 2 Lancer la tournée : 17
+- ordinateur : 2 → 3 Je suis arrivé : 12
+- ordinateur : 3 → 4 fiche choisie : 74
+- ordinateur : 4 → aperçu Imprimer : 71
 - ordinateur : aperçu → 5 retour : 9
-- ordinateur : 5 → Patient validé : 45
-- ordinateur : Patient suivant → 2 (visite suivante) : 30
-- ordinateur : → 6 Entre deux : 25
-- ordinateur : 6 → 2 Insérer au mieux : 140
+- ordinateur : 5 → Patient validé : 43
+- ordinateur : Patient suivant → 2 (visite suivante) : 31
+- ordinateur : → 6 Entre deux : 23
+- ordinateur : 6 → 2 Insérer au mieux : 151
 
 ## Boutons visibles par état
 

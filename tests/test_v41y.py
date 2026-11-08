@@ -161,7 +161,7 @@ async def run_badge(width,height,label):
         for view,name in [("tour","Tournée"),("","Patient"),("drive","Mode voiture")]:
             await page.evaluate(f"state.view='{view}';render();"); await page.wait_for_timeout(400)
             r=await page.evaluate(BADGE_CHK)
-            ok(label+f"badge TEST ({name}) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte",not r.get("missing") and r["top"]==0 and r["h"]>=18 and r["txt"].startswith("TEST · 41") and not r["bad"],r)
+            ok(label+f"badge TEST ({name}) : en haut, sous la barre d'état, sans couvrir un bouton ni une ligne de texte",not r.get("missing") and r["top"]==0 and r["h"]>=18 and r["txt"].startswith("TEST · "+json.load(open(os.path.join(ROOT,"version.json"),encoding="utf-8")).get("version","41")) and not r["bad"],r)
             if view=="tour":
                 await page.evaluate("window.scrollTo(0,400)"); await page.wait_for_timeout(200)
                 r2=await page.evaluate(BADGE_CHK); await page.evaluate("window.scrollTo(0,0)")

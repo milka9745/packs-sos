@@ -1,10 +1,10 @@
 {
-  "version": "41z",
-  "date": "2026-11-06",
+  "version": "42",
+  "date": "2026-11-08",
   "notes": [
-    "Visite et consultation : parcours en 6 étapes avec barre du bas fixe (Visite en vert, Consultation en bleu), « Patient suivant » en un geste, impression qui aboutit partout.",
-    "Documents du patient : scanner ou importer ordonnances, biologies et courriers, analyse et résumé sans IA, intégration dans la fiche ; blocs déplaçables et favoris Express.",
-    "Catalogue complet (400 fiches), certificats enfant malade et absence scolaire, doses au poids, examen complet par défaut ; IA : anonymisation renforcée, chaque envoi validé à l'écran."
+    "Doses au poids de l'enfant revues sur les RCP (gastro, fièvre, otite, angine, vomissements, convulsion, asthme) : TIORFAN, VOGALÈNE, ondansétron, ZINNAT, ZECLAR, VALIUM corrigés.",
+    "Fiche patient : identité en tête (nom, prénom, naissance, sexe, poids), allergies et traitements juste dessous, remplis depuis la fiche de régulation en Visite.",
+    "Impression immédiate depuis l'aperçu, un seul bouton Imprimer ; PDF seulement pour « Enregistrer en PDF »."
   ],
-  "label": "41z · 06/11 08:38"
+  "label": "42 · 08/11 20:44"
 }

@@ -4,7 +4,7 @@
 
 49/49 OK — tous les tests passent
 
-Temps mesurés : {"scan page": 0.19, "OCR + analyse (2 pages)": 0.61, "OCR page (ms)": 504, "traitement page (ms)": 85, "import 3 images + PDF": 1.82}
+Temps mesurés : {"scan page": 0.19, "OCR + analyse (2 pages)": 0.67, "OCR page (ms)": 591, "traitement page (ms)": 98, "import 3 images + PDF": 1.8}
 
 - OK fixtures : 8 images et 1 PDF fictifs générés sur place (aucune donnée réelle)
 - OK IV.15 / IX.38 : « Scanner » et « Documents » à côté de la dictée, mêmes boutons au même endroit en consultation, en visite et sur une fiche

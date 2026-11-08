@@ -1,4 +1,4 @@
 # Notes affichées dans « Nouvelle version » du canal de test (3 premières lignes ; une ligne par point)
-Fiche patient : bloc identité en tête, encadré de la couleur du mode, en gros caractères — Nom · Prénom · Naissance (âge) · Sexe F / M · Poids ; Entrée ou Tab passe au champ suivant ; allergies et traitements juste dessous, propositions des documents à valider d'un toucher.
-Visite : l'identité se remplit depuis la fiche de régulation (nom, naissance, sexe lu ou déduit du prénom, téléphone, adresse) et reste modifiable d'un toucher ; options secondaires (date, cachet, grossesse, allaitement, 2 par A4) en plus petit.
-Ordinateur : en-tête sur une seule ligne à 1280 et 1920 px, jour et nuit, grand texte ; version, mode test, base médicaments, tournée et validés sous « ⋯ » quand la place manque.
+Doses au poids de l'enfant revues ligne par ligne sur les RCP et la HAS, 5 poids testés par ligne : TIORFAN jamais « 3 sachets », VOGALÈNE suppositoire par tranche avec la dose maximale par jour, jamais sous 7,5 kg, ondansétron 2 / 4 / 8 mg.
+Angine : ZINNAT 10 mg/kg matin et soir, ZECLAR à la seringue graduée en kg ; otite : seringue en ml ; convulsion : VALIUM en une seule dose ; asthme : prednisolone 10 mg sous 10 kg, 20 mg jusqu'à 20 kg, 40 mg au-delà.
+La règle RCP (mg/kg, tranche, plafond) s'affiche à l'écran sur chaque ligne et ne s'imprime jamais ; calcul, plafond et source au mémo de chaque fiche.

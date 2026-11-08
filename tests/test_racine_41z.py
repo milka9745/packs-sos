@@ -7,6 +7,10 @@
 import asyncio, os, json, subprocess, time, sys, re
 from playwright.async_api import async_playwright
 OLD=sys.argv[1]; NEW=sys.argv[2]; PORT=8871; B=f"http://localhost:{PORT}/"
+def _ver(d,dflt):  # 08/11/2026 : numéros lus dans les sites (l'outil de garde v41k n'avait pas de version.json)
+    try: return json.load(open(os.path.join(d,"version.json"),encoding="utf-8")).get("version",dflt)
+    except Exception: return dflt
+OLDV=_ver(OLD,"41k"); NEWV=_ver(NEW,"41z")
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 results=[]
 def ok(name,cond,info=""):
@@ -70,8 +74,8 @@ async def main():
             # 1. version en service (41k) : code, identité de démonstration, journal, tournée, réglages
             await create(page,"garde")
             v0=await page.evaluate("fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>j.version)")
-            ok("41k : version en service chargée (version.json)",v0=="41k",v0)
-            ok("41k : pas d'Express (code de la racine actuelle)",await page.evaluate("typeof xpHTML")=="undefined")
+            ok(f"{OLDV} : version en service chargée (version.json)",v0==OLDV,v0)
+            ok("41k : pas d'Express (code de la racine actuelle)",OLDV!="41k" or await page.evaluate("typeof xpHTML")=="undefined")
             w=await page.evaluate(WRITE); await page.wait_for_timeout(1500)
             ok("41k : trois patients au journal, trois demandes à la tournée (fictifs)",w["n"]>=3 and all(not str(x).startswith("fiche absente") for x in w["fiches"]),w)
             for _ in range(20):
@@ -83,17 +87,17 @@ async def main():
             # 2. bascule : le même site sert maintenant la nouvelle version (même origine : mêmes données)
             srv.terminate(); srv.wait(); srv=serve(NEW)
             r=await page.evaluate("fetch('version.json',{cache:'no-store'}).then(r=>r.json())")
-            ok("racine : version.json de la nouvelle version (41z)",r.get("version")=="41z",r)
-            ok("racine : numéro de version lisible dans version.json (label « 41z · JJ/MM HH:MM »)",re.match(r"^41z · \d\d/\d\d \d\d:\d\d$",str(r.get("label",""))) is not None,r.get("label"))
+            ok(f"racine : version.json de la nouvelle version ({NEWV})",r.get("version")==NEWV,r)
+            ok("racine : numéro de version lisible dans version.json (label « 41z · JJ/MM HH:MM »)",re.match(r"^"+re.escape(NEWV)+r" · \d\d/\d\d \d\d:\d\d$",str(r.get("label",""))) is not None,r.get("label"))
             ok("racine : 2 ou 3 lignes « Ce qui change »",2<=len(r.get("notes",[]))<=3,r.get("notes"))
             sw=await page.evaluate("fetch('sw.js',{cache:'no-store'}).then(r=>r.text())")
-            ok("racine : nouveau cache du service worker (packs-sos-v41z, plus v41k)",'const CACHE="packs-sos-v41z"' in sw and "v41k" not in sw.split("\n")[1],sw[:160])
+            ok(f"racine : nouveau cache du service worker (packs-sos-v{NEWV}, plus v41k)",('const CACHE="packs-sos-v'+NEWV+'"') in sw and "v41k" not in sw.split("\n")[1],sw[:160])
             op=await reopen(page,"garde","index.html")
             ok("nouvelle version : pas d'écran de création de code (l'utilisateur et son code sont reconnus)",not op.get("creation") and op.get("unlocked"),op)
             print("    (session reprise sans code : %s)"%("oui" if not op.get("pin") else "non, code demandé et accepté"))
             ok("nouvelle version : code de la branche ia (Express présent)",await page.evaluate("typeof xpHTML")=="function")
             av=await page.evaluate("appVerFull()")
-            ok("nouvelle version : « v41z · main · JJ/MM HH:MM » affiché",re.match(r"^v41z · main · \d\d/\d\d \d\d:\d\d$",av) is not None,av)
+            ok("nouvelle version : « v41z · main · JJ/MM HH:MM » affiché",re.match(r"^v"+re.escape(NEWV)+r" · main · \d\d/\d\d \d\d:\d\d$",av) is not None,av)
             await page.wait_for_timeout(1500)
             Bs=await page.evaluate(SNAP)
             ok("profil (identité) identique : nom, Adeli, association, cachet, profil actif",Bs["on"] and A["ident"]==Bs["ident"] and A["ident"].get("nom")=="Docteur ESSAI Spécimen",(A["ident"],Bs["ident"],Bs["on"]))

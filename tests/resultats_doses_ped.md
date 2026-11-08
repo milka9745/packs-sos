@@ -1,0 +1,496 @@
+# Audit des doses au poids — fiches pédiatriques (08/11/2026)
+
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 5 kg : « TIORFAN nourrisson 10 mg sachets : 1 sachet (10 mg) 3 fois par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ADIARIL · 10 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 10 kg : « TIORFAN nourrisson 10 mg sachets : 2 sachets (20 mg) 3 fois par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 10 kg : « 2,5 ml (2 mg) »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ADIARIL · 15 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 15 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 15 kg : « 5 ml (4 mg) »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ADIARIL · 25 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 25 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ADIARIL · 40 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 40 kg : « TIORFAN enfant 30 mg sachets : 2 sachets (60 mg) 3 fois par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 40 kg : « 10 ml (8 mg) »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 5 kg : non proposée faute de « âge ≥ 6 mois pour ADVILMED »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 10 kg : « 1 dose-poids 10 kg (soit 3,75 ml, 75 mg) 3 à 4 fois par jour »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 40 kg : « 15 ml, soit 300 mg 3 à 4 fois par jour »
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml (soit 200 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1,5 ml (soit 150 mg d'amoxicilline) 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml (soit 80 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 5 kg : non proposée faute de « âge ≥ 1 an pour AERIUS »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 2,5 ml (soit 250 mg d'amoxicilline) 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml (soit 160 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 10 kg : « 2,5 ml en une prise par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml (soit 650 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 5 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 4 ml (soit 400 mg d'amoxicilline) 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml (soit 220 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 15 kg : « 2,5 ml en une prise par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml (soit 1050 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 7 ml (soit 700 mg d'amoxicilline) 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml (soit 380 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 25 kg : « 5 ml en une prise par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml (soit 1500 mg) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 10 ml (soit 1000 mg d'amoxicilline) 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml, soit 160 mg matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml (soit 400 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 40 kg : « 10 ml en une prise par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : « 1,5 ml (soit 150 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 5 kg : « 2 ml (soit 50 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 100 mg) en une prise par jour pendant 3 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 5 kg : « 1 dose-poids 5 kg (soit 0,75 ml, 37,5 mg) matin et soir pendant 5 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : « 2,5 ml (soit 250 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 10 kg : « 4 ml (soit 100 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 200 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 10 kg : « 1 dose-poids 10 kg (soit 1,5 ml, 75 mg) matin et soir pendant 5 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml (soit 400 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml (soit 150 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml (soit 650 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml (soit 250 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg (soit 3,75 ml, 187,5 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml (soit 1000 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml, soit 100 mg (dose maximale) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml (soit 250 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml, soit 250 mg (dose maximale) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 10 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 10 kg : « 2,5 ml (2 mg) »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 15 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 15 kg : « 5 ml (4 mg) »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 25 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 40 kg : « 1 sachet dans 200 ml d'eau »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 40 kg : « 10 ml (8 mg) »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Vomissements isolés — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · VALIUM · 5 kg : « 0,5 ml (soit 2,5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · VALIUM · 10 kg : « 1 ml (soit 5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · VALIUM · 15 kg : « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · VALIUM · 25 kg : « 2 ml (soit 10 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Convulsion fébrile simple — enfant · VALIUM · 40 kg : « 2 ml (soit 10 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · VENTOLINE · 5 kg : « 4 bouffées (1 bouffée par 2 kg, 4 au minimum, 10 au maximum) »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · SOLUPRED · 5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) en une prise le matin pendant 3 jours »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · VENTOLINE · 10 kg : « 5 bouffées (1 bouffée par 2 kg »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · SOLUPRED · 10 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) en une prise le matin pendant 3 jours »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · VENTOLINE · 15 kg : « 8 bouffées (1 bouffée par 2 kg »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · SOLUPRED · 15 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · VENTOLINE · 25 kg : « 10 bouffées (1 bouffée par 2 kg »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · SOLUPRED · 25 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · VENTOLINE · 40 kg : « 10 bouffées (1 bouffée par 2 kg »
+- OK — ordinateur · mode complet : Asthme aigu — enfant · SOLUPRED · 40 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) »
+- OK — ordinateur · mode complet : Migraine — enfant · ADVILMED · 5 kg : non proposée faute de « âge ≥ 6 mois pour ADVILMED »
+- OK — ordinateur · mode complet : Migraine — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — ordinateur · mode complet : Migraine — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Migraine — enfant · ADVILMED · 10 kg : « 1 dose-poids 10 kg (soit 3,75 ml, 75 mg) 3 à 4 fois par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 5 mg par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — ordinateur · mode complet : Migraine — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
+- OK — ordinateur · mode complet : Migraine — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — ordinateur · mode complet : Migraine — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
+- OK — ordinateur · mode complet : Migraine — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — ordinateur · mode complet : Migraine — enfant · ADVILMED · 40 kg : « 15 ml, soit 300 mg 3 à 4 fois par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — ordinateur · mode complet : Migraine — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · SOLUPRED · 5 kg : « 5 mg (1 comprimé) en une prise le matin pendant 3 jours »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · CÉLESTÈNE · 5 kg : « 50 gouttes (10 gouttes par kg »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · DECTANCYL · 5 kg : « 0,75 mg (1,5 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · SOLUPRED · 10 kg : « 10 mg (2 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · CÉLESTÈNE · 10 kg : « 100 gouttes (10 gouttes par kg »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · DECTANCYL · 10 kg : « 1,5 mg (3 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · SOLUPRED · 15 kg : « 15 mg (3 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · CÉLESTÈNE · 15 kg : « 150 gouttes (10 gouttes par kg »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · DECTANCYL · 15 kg : « 2,25 mg (4,5 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · SOLUPRED · 25 kg : « 25 mg (5 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · CÉLESTÈNE · 25 kg : « 250 gouttes (10 gouttes par kg »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · DECTANCYL · 25 kg : « 3,75 mg (7,5 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · SOLUPRED · 40 kg : « 40 mg (8 comprimés) »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · CÉLESTÈNE · 40 kg : « 400 gouttes (10 gouttes par kg »
+- OK — ordinateur · mode complet : Laryngite aiguë — enfant · DECTANCYL · 40 kg : « 6 mg (12 comprimés) »
+- OK — ordinateur · mode complet : TIORFAN à 9 kg : « 2 sachets (20 mg) » (borne RCP)
+- OK — ordinateur · mode complet : TIORFAN à 12.5 kg : « 2 sachets (20 mg) » (borne RCP)
+- OK — ordinateur · mode complet : TIORFAN à 13 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) » (borne RCP)
+- OK — ordinateur · mode complet : TIORFAN à 27 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) » (borne RCP)
+- OK — ordinateur · mode complet : TIORFAN à 27.5 kg : « TIORFAN enfant 30 mg sachets : 2 sachets (60 mg) » (borne RCP)
+- OK — ordinateur · mode complet : VOGALÈNE à 7 kg : non proposée (RCP : pas de suppositoire sous 7,5 kg)
+- OK — ordinateur · mode complet : VOGALÈNE à 7.5 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — ordinateur · mode complet : VOGALÈNE à 14.5 kg : « ½ suppositoire (2,5 mg) par prise »
+- OK — ordinateur · mode complet : VOGALÈNE à 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — ordinateur · mode complet : ondansétron à 14.5 kg : « 2,5 ml (2 mg) » en une seule prise
+- OK — ordinateur · mode complet : ondansétron à 15 kg : « 5 ml (4 mg) » en une seule prise
+- OK — ordinateur · mode complet : ondansétron à 30 kg : « 5 ml (4 mg) » en une seule prise
+- OK — ordinateur · mode complet : ondansétron à 30.5 kg : « 10 ml (8 mg) » en une seule prise
+- OK — ordinateur · mode complet : prednisolone asthme à 9.5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — ordinateur · mode complet : prednisolone asthme à 20 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — ordinateur · mode complet : prednisolone asthme à 20.5 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — ordinateur · mode complet : TIORFAN à 20 jours de vie : non proposé (RCP : à partir de 1 mois)
+- OK — ordinateur · mode complet : TIORFAN à 2 mois (4,5 kg) : 1 sachet de 10 mg 3 fois par jour
+- OK — ordinateur · mode complet : gastro 10 kg, ordonnance : TIORFAN « 2 sachets (20 mg) 3 fois par jour » et VOGALÈNE « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — ordinateur · mode complet : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
+- OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
+- OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — ordinateur · mode complet : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
+- OK — ordinateur · mode complet : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
+- OK — ordinateur · mode complet : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
+- OK — ordinateur · mode complet : gastro 40 kg, ordonnance : TIORFAN « 2 sachets (60 mg) 3 fois par jour », jamais « 3 sachets » ; ZOPHREN « 10 ml (8 mg) en une seule prise »
+- OK — ordinateur · mode complet : toutes les fiches × 5 poids : TIORFAN jamais « 3 sachets »
+- OK — ordinateur · mode complet : toutes les fiches × 5 poids : VOGALÈNE suppositoire ≤ 1 mg/kg/jour et ≤ 15 mg/jour, dose maximale écrite
+- OK — ordinateur · mode complet : toutes les fiches × 5 poids : VOGALÈNE suppositoire jamais proposé sous 7,5 kg
+- OK — ordinateur · mode complet : balayage sans erreur JS
+- OK — ordinateur · mode complet : aucune erreur JS
+- OK — iPhone · Express : Gastro-entérite — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 5 kg : « TIORFAN nourrisson 10 mg sachets : 1 sachet (10 mg) 3 fois par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 5 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
+- OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — iPhone · Express : Gastro-entérite — enfant · ADIARIL · 10 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 10 kg : « TIORFAN nourrisson 10 mg sachets : 2 sachets (20 mg) 3 fois par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 10 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 10 kg : « 2,5 ml (2 mg) »
+- OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · ADIARIL · 15 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 15 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 15 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 15 kg : « 5 ml (4 mg) »
+- OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · ADIARIL · 25 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 25 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
+- OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · ADIARIL · 40 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 40 kg : « TIORFAN enfant 30 mg sachets : 2 sachets (60 mg) 3 fois par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 40 kg : ligne absente
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 40 kg : « 10 ml (8 mg) »
+- OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 5 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · ADVILMED · 5 kg : non proposée faute de « âge ≥ 6 mois pour ADVILMED »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 10 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · ADVILMED · 10 kg : « 1 dose-poids 10 kg (soit 3,75 ml, 75 mg) 3 à 4 fois par jour »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 15 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 40 kg : ligne absente
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — iPhone · Express : Fièvre — enfant · ADVILMED · 40 kg : « 15 ml, soit 300 mg 3 à 4 fois par jour »
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 5 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 10 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 15 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 25 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 40 kg : ligne absente
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml (soit 200 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1,5 ml (soit 150 mg d'amoxicilline) 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml (soit 80 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 5 kg : non proposée faute de « âge ≥ 1 an pour AERIUS »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 2,5 ml (soit 250 mg d'amoxicilline) 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml (soit 160 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 10 kg : « 2,5 ml en une prise par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml (soit 650 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 5 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 4 ml (soit 400 mg d'amoxicilline) 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml (soit 220 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 15 kg : « 2,5 ml en une prise par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml (soit 1050 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 7 ml (soit 700 mg d'amoxicilline) 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml (soit 380 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 25 kg : « 5 ml en une prise par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml (soit 1500 mg) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 10 ml (soit 1000 mg d'amoxicilline) 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml, soit 160 mg matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml (soit 400 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 40 kg : « 10 ml en une prise par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : « 1,5 ml (soit 150 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 5 kg : « 2 ml (soit 50 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 100 mg) en une prise par jour pendant 3 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 5 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 5 kg : « 1 dose-poids 5 kg (soit 0,75 ml, 37,5 mg) matin et soir pendant 5 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : « 2,5 ml (soit 250 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 10 kg : « 4 ml (soit 100 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 200 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 10 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 10 kg : « 1 dose-poids 10 kg (soit 1,5 ml, 75 mg) matin et soir pendant 5 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml (soit 400 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml (soit 150 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 15 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml (soit 650 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml (soit 250 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 25 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg (soit 3,75 ml, 187,5 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml (soit 1000 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml, soit 100 mg (dose maximale) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml (soit 250 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 40 kg : ligne absente
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml, soit 250 mg (dose maximale) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
+- OK — iPhone · Express : Vomissements isolés — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 500 · 5 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 10 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 10 kg : « 2,5 ml (2 mg) »
+- OK — iPhone · Express : Vomissements isolés — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 500 · 10 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 15 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 15 kg : « 5 ml (4 mg) »
+- OK — iPhone · Express : Vomissements isolés — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 500 · 15 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 25 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
+- OK — iPhone · Express : Vomissements isolés — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 500 · 25 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 40 kg : « 1 sachet dans 200 ml d'eau »
+- OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 40 kg : « 10 ml (8 mg) »
+- OK — iPhone · Express : Vomissements isolés — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Vomissements isolés — enfant · DOLIPRANE 500 · 40 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · VALIUM · 5 kg : « 0,5 ml (soit 2,5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · VALIUM · 10 kg : « 1 ml (soit 5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · VALIUM · 15 kg : « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · VALIUM · 25 kg : « 2 ml (soit 10 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Convulsion fébrile simple — enfant · VALIUM · 40 kg : « 2 ml (soit 10 mg) soit 0,5 mg/kg, en une seule administration »
+- OK — iPhone · Express : Asthme aigu — enfant · VENTOLINE · 5 kg : « 4 bouffées (1 bouffée par 2 kg, 4 au minimum, 10 au maximum) »
+- OK — iPhone · Express : Asthme aigu — enfant · SOLUPRED · 5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) en une prise le matin pendant 3 jours »
+- OK — iPhone · Express : Asthme aigu — enfant · VENTOLINE · 10 kg : « 5 bouffées (1 bouffée par 2 kg »
+- OK — iPhone · Express : Asthme aigu — enfant · SOLUPRED · 10 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) en une prise le matin pendant 3 jours »
+- OK — iPhone · Express : Asthme aigu — enfant · VENTOLINE · 15 kg : « 8 bouffées (1 bouffée par 2 kg »
+- OK — iPhone · Express : Asthme aigu — enfant · SOLUPRED · 15 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) »
+- OK — iPhone · Express : Asthme aigu — enfant · VENTOLINE · 25 kg : « 10 bouffées (1 bouffée par 2 kg »
+- OK — iPhone · Express : Asthme aigu — enfant · SOLUPRED · 25 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) »
+- OK — iPhone · Express : Asthme aigu — enfant · VENTOLINE · 40 kg : « 10 bouffées (1 bouffée par 2 kg »
+- OK — iPhone · Express : Asthme aigu — enfant · SOLUPRED · 40 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) »
+- OK — iPhone · Express : Migraine — enfant · ADVILMED · 5 kg : non proposée faute de « âge ≥ 6 mois pour ADVILMED »
+- OK — iPhone · Express : Migraine — enfant · VOGALÈNE · 5 kg : non proposée faute de « poids ≥ 7,5 kg pour VOGALÈNE suppositoire »
+- OK — iPhone · Express : Migraine — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
+- OK — iPhone · Express : Migraine — enfant · ADVILMED · 10 kg : « 1 dose-poids 10 kg (soit 3,75 ml, 75 mg) 3 à 4 fois par jour »
+- OK — iPhone · Express : Migraine — enfant · VOGALÈNE · 10 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 5 mg par jour »
+- OK — iPhone · Express : Migraine — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
+- OK — iPhone · Express : Migraine — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
+- OK — iPhone · Express : Migraine — enfant · VOGALÈNE · 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — iPhone · Express : Migraine — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
+- OK — iPhone · Express : Migraine — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
+- OK — iPhone · Express : Migraine — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — iPhone · Express : Migraine — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
+- OK — iPhone · Express : Migraine — enfant · ADVILMED · 40 kg : « 15 ml, soit 300 mg 3 à 4 fois par jour »
+- OK — iPhone · Express : Migraine — enfant · VOGALÈNE · 40 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 2 fois par jour, sans dépasser 10 mg par jour »
+- OK — iPhone · Express : Migraine — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
+- OK — iPhone · Express : Laryngite aiguë — enfant · SOLUPRED · 5 kg : « 5 mg (1 comprimé) en une prise le matin pendant 3 jours »
+- OK — iPhone · Express : Laryngite aiguë — enfant · CÉLESTÈNE · 5 kg : « 50 gouttes (10 gouttes par kg »
+- OK — iPhone · Express : Laryngite aiguë — enfant · DECTANCYL · 5 kg : « 0,75 mg (1,5 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · SOLUPRED · 10 kg : « 10 mg (2 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · CÉLESTÈNE · 10 kg : « 100 gouttes (10 gouttes par kg »
+- OK — iPhone · Express : Laryngite aiguë — enfant · DECTANCYL · 10 kg : « 1,5 mg (3 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · SOLUPRED · 15 kg : « 15 mg (3 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · CÉLESTÈNE · 15 kg : « 150 gouttes (10 gouttes par kg »
+- OK — iPhone · Express : Laryngite aiguë — enfant · DECTANCYL · 15 kg : « 2,25 mg (4,5 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · SOLUPRED · 25 kg : « 25 mg (5 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · CÉLESTÈNE · 25 kg : « 250 gouttes (10 gouttes par kg »
+- OK — iPhone · Express : Laryngite aiguë — enfant · DECTANCYL · 25 kg : « 3,75 mg (7,5 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · SOLUPRED · 40 kg : « 40 mg (8 comprimés) »
+- OK — iPhone · Express : Laryngite aiguë — enfant · CÉLESTÈNE · 40 kg : « 400 gouttes (10 gouttes par kg »
+- OK — iPhone · Express : Laryngite aiguë — enfant · DECTANCYL · 40 kg : « 6 mg (12 comprimés) »
+- OK — iPhone · Express : TIORFAN à 9 kg : « 2 sachets (20 mg) » (borne RCP)
+- OK — iPhone · Express : TIORFAN à 12.5 kg : « 2 sachets (20 mg) » (borne RCP)
+- OK — iPhone · Express : TIORFAN à 13 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) » (borne RCP)
+- OK — iPhone · Express : TIORFAN à 27 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) » (borne RCP)
+- OK — iPhone · Express : TIORFAN à 27.5 kg : « TIORFAN enfant 30 mg sachets : 2 sachets (60 mg) » (borne RCP)
+- OK — iPhone · Express : VOGALÈNE à 7 kg : non proposée (RCP : pas de suppositoire sous 7,5 kg)
+- OK — iPhone · Express : VOGALÈNE à 7.5 kg : « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — iPhone · Express : VOGALÈNE à 14.5 kg : « ½ suppositoire (2,5 mg) par prise »
+- OK — iPhone · Express : VOGALÈNE à 15 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
+- OK — iPhone · Express : ondansétron à 14.5 kg : « 2,5 ml (2 mg) » en une seule prise
+- OK — iPhone · Express : ondansétron à 15 kg : « 5 ml (4 mg) » en une seule prise
+- OK — iPhone · Express : ondansétron à 30 kg : « 5 ml (4 mg) » en une seule prise
+- OK — iPhone · Express : ondansétron à 30.5 kg : « 10 ml (8 mg) » en une seule prise
+- OK — iPhone · Express : prednisolone asthme à 9.5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — iPhone · Express : prednisolone asthme à 20 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — iPhone · Express : prednisolone asthme à 20.5 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — iPhone · Express : TIORFAN à 20 jours de vie : non proposé (RCP : à partir de 1 mois)
+- OK — iPhone · Express : TIORFAN à 2 mois (4,5 kg) : 1 sachet de 10 mg 3 fois par jour
+- OK — iPhone · Express : gastro 10 kg, ordonnance : TIORFAN « 2 sachets (20 mg) 3 fois par jour » et VOGALÈNE « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
+- OK — iPhone · Express : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
+- OK — iPhone · Express : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
+- OK — iPhone · Express : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — iPhone · Express : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
+- OK — iPhone · Express : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
+- OK — iPhone · Express : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
+- OK — iPhone · Express : gastro 40 kg, ordonnance : TIORFAN « 2 sachets (60 mg) 3 fois par jour », jamais « 3 sachets » ; ZOPHREN « 10 ml (8 mg) en une seule prise »
+- OK — iPhone · Express : toutes les fiches × 5 poids : TIORFAN jamais « 3 sachets »
+- OK — iPhone · Express : toutes les fiches × 5 poids : VOGALÈNE suppositoire ≤ 1 mg/kg/jour et ≤ 15 mg/jour, dose maximale écrite
+- OK — iPhone · Express : toutes les fiches × 5 poids : VOGALÈNE suppositoire jamais proposé sous 7,5 kg
+- OK — iPhone · Express : balayage sans erreur JS
+- OK — iPhone · Express : aucune erreur JS
+
+492/492 tests OK

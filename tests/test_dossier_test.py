@@ -5,6 +5,8 @@
 import asyncio, os, json, subprocess, time, sys, re
 from playwright.async_api import async_playwright
 SITE=sys.argv[1]; PORT=8792; B=f"http://localhost:{PORT}/"
+try: SITEV=json.load(open(os.path.join(SITE,"version.json"),encoding="utf-8")).get("version","41")  # 08/11/2026 : numéro lu dans le site (42, 41z…), plus codé en dur
+except Exception: SITEV="41"
 RV=json.load(open(os.path.join(SITE,"version.json"),encoding="utf-8"))["version"]
 RCACHE=re.search(r'const CACHE="([^"]+)"',open(os.path.join(SITE,"sw.js"),encoding="utf-8").read()).group(1)
 RXP="function xpHTML(" in open(os.path.join(SITE,"index.html"),encoding="utf-8").read()
@@ -65,10 +67,10 @@ async def main():
             ok("test/ : aucun filigrane sur les documents (décision du 18/10/2026)",wm==0,wm)
             await page.click("#more_btn"); await page.wait_for_timeout(300)
             jm=await page.evaluate("(document.querySelector('#jmenu .jm-ver')||{}).textContent||''")
-            ok("test/ : menu ⋯ « v… · test · date » (branche test, jamais « main »)"," · test · " in jm and jm.startswith("v41") and " · main · " not in jm,jm)
+            ok("test/ : menu ⋯ « v… · test · date » (branche test, jamais « main »)"," · test · " in jm and jm.startswith("v"+SITEV) and " · main · " not in jm,jm)
             await page.click("#more_btn")
             pill=await page.evaluate("document.getElementById('testbadge').textContent")
-            ok("test/ : pastille « TEST · version »",pill.startswith("TEST · 41"),pill)
+            ok("test/ : pastille « TEST · version »",pill.startswith("TEST · "+SITEV),pill)
             # 3. retour à l'outil de garde : son code et ses données intacts, son code de page inchangé
             await page.goto(B); await page.wait_for_timeout(2500)
             ok("racine : aucun écran de création de code (son utilisateur « garde » est intact)",await page.locator("#pin2").count()==0)
