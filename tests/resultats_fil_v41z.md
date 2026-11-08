@@ -1,6 +1,6 @@
 # Résultats — impression, patient suivant, visite sans proposition, certificats (v41z, 06/11/2026)
 
-2026-11-07
+2026-11-08
 
 84/84 OK
 
@@ -27,7 +27,7 @@
 - OK iPhone Express : réglage désactivé à nouveau
 - OK iPhone Express : en consultation, la fiche proposée d'après le motif saisi reste disponible
 - OK iPhone Express : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK iPhone Express : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
+- OK iPhone Express : « Hier » + « 3 j » : du 07/11/2026 au 09/11/2026 inclus (commence avant la consultation)
 - OK iPhone Express : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK iPhone Express : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone Express : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
@@ -52,7 +52,7 @@
 - OK iPhone complet : visite · retour à la fiche après l'aperçu, barre du bas de retour
 - OK iPhone complet : visite après impression : « Valider · patient suivant » inchangé
 - OK iPhone complet : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK iPhone complet : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
+- OK iPhone complet : « Hier » + « 3 j » : du 07/11/2026 au 09/11/2026 inclus (commence avant la consultation)
 - OK iPhone complet : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK iPhone complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK iPhone complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure
@@ -78,7 +78,7 @@
 - OK ordinateur complet : visite · retour à la fiche après l'aperçu, barre du bas de retour
 - OK ordinateur complet : visite après impression : « Valider · patient suivant » inchangé
 - OK ordinateur complet : certificat d'absence scolaire : durée d'un geste (1 j, 2 j, 3 j, 5 j) et début (Aujourd'hui, Hier, Avant-hier)
-- OK ordinateur complet : « Hier » + « 3 j » : du 06/11/2026 au 08/11/2026 inclus (commence avant la consultation)
+- OK ordinateur complet : « Hier » + « 3 j » : du 07/11/2026 au 09/11/2026 inclus (commence avant la consultation)
 - OK ordinateur complet : une page : « certifie que l'état de santé de PETIT Léa, née le 12/03/2019, justifie son absence scolaire du … au … inclus », établi le jour à l'heure, en-tête et signature du modèle (profil) ; ni diagnostic, ni symptôme, ni traitement
 - OK ordinateur complet : impression du certificat : une page ; durée inscrite au journal et au compte rendu
 - OK ordinateur complet : certificat enfant malade (employeur) : « l'état de santé de l'enfant PETIT Léa, née le 12/03/2019, nécessite la présence d'un parent à ses côtés du … au … inclus », une page, date et heure

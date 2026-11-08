@@ -91,7 +91,7 @@ async def main():
             r=await page.evaluate("""async()=>{const docs=document.getElementById('docscard'),dict=document.getElementById('dictcard');if(!docs||!dict||docs.parentElement!==dict.parentElement)return {err:'cartes non voisines'};
               const ev=(t,el,cx,cy)=>el.dispatchEvent(new PointerEvent(t,{bubbles:true,clientX:cx,clientY:cy,pointerId:1,pointerType:'touch',isPrimary:true}));const r=docs.getBoundingClientRect();
               ev('pointerdown',docs.querySelector('.pcard-h')||docs,r.left+30,r.top+8);await new Promise(x=>setTimeout(x,700));const dragging=document.body.classList.contains('blk-dragging');
-              const rd=dict.getBoundingClientRect();ev('pointermove',document.body,rd.left+30,rd.top+6);await new Promise(x=>setTimeout(x,60));ev('pointerup',document.body,rd.left+30,rd.top+6);await new Promise(x=>setTimeout(x,250));
+              dict.scrollIntoView({block:'center'});await new Promise(x=>setTimeout(x,120));const rd=dict.getBoundingClientRect(); /* 08/11/2026 : la cible doit être dans la fenêtre (elementFromPoint) */ev('pointermove',document.body,rd.left+30,rd.top+6);await new Promise(x=>setTimeout(x,60));ev('pointerup',document.body,rd.left+30,rd.top+6);await new Promise(x=>setTimeout(x,250));
               const xp=[...docs.parentElement.children].map(e=>e.dataset.blk).filter(Boolean);return {dragging,xp,order:blkOrder()};}""")
             ok("1. appui long (0,55 s) puis glisser : Documents déposé avant Dictée dans l'Express, ordre enregistré",r.get("dragging") and r.get("xp",[])[:2]==["docs","dict"] and r["order"].index("docs")<r["order"].index("dict"),r)
             await page.evaluate("()=>{BLK.order={visite:null,consultation:null};blkSave();render();}")

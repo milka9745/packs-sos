@@ -39,7 +39,7 @@ async def main():
                         ok(L+"menu ⋯ : « version · branche · date »",re.match(r"^v"+V+r" · main · \d\d/\d\d \d\d:\d\d$",jm) is not None,jm)
                         await page.click("#more_btn"); await page.wait_for_timeout(200)
                     else:
-                        t=await page.evaluate("(document.querySelector('.jbar .appver')||{}).textContent||''")
+                        t=await page.evaluate("[...document.querySelectorAll('.jbar .appver')].map(e=>e.textContent).find(x=>x.includes(' · '))||''")  # 08/11/2026 : en-tête compact → « v41z » court visible, version complète dans ⋯
                         ok(L+"barre du haut (ordinateur) : « version · branche · date »",re.match(r"^v"+V+r" · main · \d\d/\d\d \d\d:\d\d$",t) is not None,t)
                     cr=await page.evaluate("buildCR(currentPack())")
                     pages=await page.evaluate("buildPages(currentPack(),true).out")

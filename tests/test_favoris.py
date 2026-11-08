@@ -88,7 +88,7 @@ async def run(b,w,h,th,big,label):
     ok(L+"★ « Allergies » : retiré de l'Express",await page.locator(".xp .tt.al").count()==0 and "f:f_al" not in await page.evaluate("FAV.keys"))
     # poids : fixé chez l'enfant (sans étoile)
     await page.evaluate("newPatient();xpOpenStop('v2');"); await page.wait_for_timeout(300); await page.click("#xp_ok"); await page.wait_for_timeout(400)
-    ok(L+"poids de l'enfant fixé, sans étoile",await page.locator(".xp #xp_poids").count()==1 and await page.locator('.xp .favstar[data-favk="f:f_poids"]').count()==0)
+    ok(L+"poids de l'enfant fixé, sans étoile",await page.locator(".xp #xp_poids, .xp #xi_poids").count()==1 and await page.locator('.xp .favstar[data-favk="f:f_poids"]').count()==0)  # 08/11/2026 : poids dans le bloc identité quand il est ouvert
     # revenir à l'Express par défaut
     await page.evaluate("favReset()"); await page.wait_for_timeout(300)
     ok(L+"« Revenir à l'Express par défaut » : jeu de départ rétabli",await page.evaluate("FAV.keys===null") and await page.locator(".xp #xp_at").count()==1 and await page.locator(".xp .tt.al").count()==0)

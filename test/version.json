@@ -1,10 +1,10 @@
 {
- "version": "41z.11-test",
- "label": "41z.11 · 07/11 17:16",
- "date": "2026-11-07",
+ "version": "41z.12-test",
+ "label": "41z.12 · 08/11 14:31",
+ "date": "2026-11-08",
  "notes": [
-  "Impression d'un geste : « Imprimer » ouvre la fenêtre d'impression du navigateur tout de suite, sur les pages de l'aperçu ; le PDF ne se fabrique que pour « Enregistrer en PDF », avec une barre de progression sur le bouton.",
-  "Un seul bouton « Imprimer » par écran, dans la barre du bas, le même sur iPhone et ordinateur ; sur iPhone le bouton montre la préparation du PDF puis ouvre le menu Partager (Phomemo, AirPrint).",
-  "Document trop long même réduit : la fin passe sur une page « suite » dans l'aperçu, à l'impression et dans le PDF ; rien n'est masqué."
+  "Fiche patient : bloc identité en tête, encadré de la couleur du mode, en gros caractères — Nom · Prénom · Naissance (âge) · Sexe F / M · Poids ; Entrée ou Tab passe au champ suivant ; allergies et traitements juste dessous, propositions des documents à valider d'un toucher.",
+  "Visite : l'identité se remplit depuis la fiche de régulation (nom, naissance, sexe lu ou déduit du prénom, téléphone, adresse) et reste modifiable d'un toucher ; options secondaires (date, cachet, grossesse, allaitement, 2 par A4) en plus petit.",
+  "Ordinateur : en-tête sur une seule ligne à 1280 et 1920 px, jour et nuit, grand texte ; version, mode test, base médicaments, tournée et validés sous « ⋯ » quand la place manque."
  ]
 }

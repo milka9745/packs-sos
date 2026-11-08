@@ -35,4 +35,4 @@
 
 - écriture chiffrée du journal : 1
 - journal de 1 000 patients : écriture chiffrée : 16
-- journal de 1 000 patients : lecture : 44
+- journal de 1 000 patients : lecture : 48

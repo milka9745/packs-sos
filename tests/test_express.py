@@ -81,8 +81,9 @@ async def run(b,w,h,th,big,label,shots):
         arr=await page.evaluate("(tourStop(TOUR.current)||{}).tArr||0")
         ok(L+f"{vid} 1. arrivée enregistrée seule à la confirmation",arr>0)
         if kid:
-            ok(L+"poids demandé chez l'enfant, champ en évidence",await page.locator("#xp_poids").count()==1)
-            await page.locator("#xp_poids").fill("17"); await page.locator("#xp_poids").dispatch_event("change"); await page.wait_for_timeout(300); g.add("saisie","poids")
+            wsel="#xp_poids" if await page.locator("#xp_poids").count() else "#xi_poids"  # 08/11/2026 : identité incomplète (sexe) → bloc identité ouvert, poids dans ce bloc (surligné)
+            ok(L+"poids demandé chez l'enfant, champ en évidence",await page.locator(wsel).count()==1 and (wsel=="#xp_poids" or await page.locator(wsel).evaluate("e=>e.closest('.id-poids').classList.contains('need')")),wsel)
+            await page.locator(wsel).fill("17"); await page.locator(wsel).dispatch_event("change"); await page.wait_for_timeout(300); g.add("saisie","poids")
             ok(L+"certificat enfant malade proposé (enfant)",await page.locator("#xp_cem").count()==1)
         else:
             ok(L+f"{vid} pas de champ poids sans dose au poids chez l'adulte",await page.locator("#xp_poids").count()==0)
