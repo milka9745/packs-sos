@@ -237,6 +237,15 @@
 - OK — ordinateur · mode complet : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
 - OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
 - OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — ordinateur · mode complet : angine enfant 15 kg : CLAMOXYL coché, ZITHROMAX décoché (option) et placé après ZECLAR
+- OK — ordinateur · mode complet : angine enfant : mention à l'écran « azithromycine retirée de la fiche HAS angine en 2024 »
+- OK — ordinateur · mode complet : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
+- OK — ordinateur · mode complet : angine enfant, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas ZITHROMAX (HAS 2024)
+- OK — ordinateur · mode complet : angine adulte : CLAMOXYL coché, AZITHROMYCINE décochée (option) après ZECLAR, mention HAS 2024 à l'écran
+- OK — ordinateur · mode complet : angine adulte, AZITHROMYCINE choisie : ordonnance « 2 comprimés en une prise par jour pendant 3 jours » sans HAS ni 2024
+- OK — ordinateur · mode complet : angine adulte, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas AZITHROMYCINE (HAS 2024)
+- OK — ordinateur · mode complet : scarlatine 15 kg, allergie à la pénicilline : ZECLAR coché d'office, ZITHROMAX en alternative décochée avec la mention HAS 2024 à l'écran
+- OK — ordinateur · mode complet : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours » sans HAS ni 2024
 - OK — ordinateur · mode complet : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
 - OK — ordinateur · mode complet : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
 - OK — ordinateur · mode complet : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
@@ -483,6 +492,15 @@
 - OK — iPhone · Express : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
 - OK — iPhone · Express : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
 - OK — iPhone · Express : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — iPhone · Express : angine enfant 15 kg : CLAMOXYL coché, ZITHROMAX décoché (option) et placé après ZECLAR
+- OK — iPhone · Express : angine enfant : mention à l'écran « azithromycine retirée de la fiche HAS angine en 2024 »
+- OK — iPhone · Express : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
+- OK — iPhone · Express : angine enfant, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas ZITHROMAX (HAS 2024)
+- OK — iPhone · Express : angine adulte : CLAMOXYL coché, AZITHROMYCINE décochée (option) après ZECLAR, mention HAS 2024 à l'écran
+- OK — iPhone · Express : angine adulte, AZITHROMYCINE choisie : ordonnance « 2 comprimés en une prise par jour pendant 3 jours » sans HAS ni 2024
+- OK — iPhone · Express : angine adulte, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas AZITHROMYCINE (HAS 2024)
+- OK — iPhone · Express : scarlatine 15 kg, allergie à la pénicilline : ZECLAR coché d'office, ZITHROMAX en alternative décochée avec la mention HAS 2024 à l'écran
+- OK — iPhone · Express : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours » sans HAS ni 2024
 - OK — iPhone · Express : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
 - OK — iPhone · Express : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
 - OK — iPhone · Express : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
@@ -493,4 +511,4 @@
 - OK — iPhone · Express : balayage sans erreur JS
 - OK — iPhone · Express : aucune erreur JS
 
-492/492 tests OK
+510/510 tests OK

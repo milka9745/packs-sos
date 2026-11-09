@@ -27,7 +27,7 @@ async def unlock(page,uid,xp):
     except Exception: pass
     await page.wait_for_selector("#lock",state="detached",timeout=15000); await page.wait_for_timeout(700)
 # a = {n, w, ddn, risk, pick} → lignes de médicaments (gabarit brut, texte rempli, coché, manques) + pages imprimées + alertes
-RUN="""(a)=>{newPatient();Object.assign(state,{patient:'TEST Enfant',ddn:a.ddn,poids:String(a.w),sexe:'f'});state.cot=state.cot||cotDefault();state.cot.lieu=a.lieu||'visite';state.cot.auto=false;if(a.risk)state.risk=a.risk;state.view='';state.sel=PACKS.findIndex(p=>p.n===a.n);
+RUN="""(a)=>{newPatient();Object.assign(state,{patient:'TEST Enfant',ddn:a.ddn,poids:String(a.w),sexe:'f'});if(a.allergie){state.allergie=true;state.allergieGrave=!!a.grave;}state.cot=state.cot||cotDefault();state.cot.lieu=a.lieu||'visite';state.cot.auto=false;if(a.risk)state.risk=a.risk;state.view='';state.sel=PACKS.findIndex(p=>p.n===a.n);
   const p=currentPack();if(!p)return {err:'pack introuvable '+a.n};
   if(a.pick){p.s.forEach((sh,si)=>{const r=resolve(sh,si);(Array.isArray(a.pick)?a.pick:[a.pick]).forEach(pk=>{const x=r.find(y=>y.fill.s.startsWith(pk)||y.t.replace(/^(\\{[^}]*\\})+/,'').startsWith(pk));if(x&&x.grp)state.gs[si+':'+x.grp]=x.key;else if(x)state.lo[x.key]=true;});});}
   render();const P=currentPack();const L=[];P.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>L.push({t:x.t.replace(/^(\\{agemin:[^}]*\\})+/,''),raw:x.t,on:x.on,s:x.fill.s,miss:x.fill.miss,adv:x.fill.adv}));});
@@ -142,6 +142,30 @@ async def main():
                 r=await page.evaluate(RUN,{"n":"Angine — enfant (TROD positif)","w":15,"ddn":AGES[15],"pick":"ZINNAT"})
                 ordo=" ".join(x["t"] for x in r["pages"] if x["h"].startswith("Ordonnance"))
                 ok(L+"angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note","6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours" in ordo and "RCP" not in ordo and "SPILF" not in ordo,ordo[:700])
+                # 09/11/2026 — décision du docteur : azithromycine en option (retirée de la fiche HAS angine en 2024), ZECLAR avant, mention à l'écran jamais imprimée
+                A="Angine — enfant (TROD positif)"
+                r=await page.evaluate(RUN,{"n":A,"w":15,"ddn":AGES[15]}); names=[y["t"] for y in r["L"]]
+                zi=[i for i,t in enumerate(names) if t.startswith("ZITHROMAX 40")]; ze=[i for i,t in enumerate(names) if t.startswith("ZECLAR")]; x=find(r,"ZITHROMAX 40"); c=find(r,"CLAMOXYL")
+                ok(L+"angine enfant 15 kg : CLAMOXYL coché, ZITHROMAX décoché (option) et placé après ZECLAR",c and c["on"] and x and not x["on"] and zi and ze and ze[0]<zi[0],[(t[:28],y["on"]) for t,y in zip(names,r["L"])])
+                ok(L+"angine enfant : mention à l'écran « azithromycine retirée de la fiche HAS angine en 2024 »",x and "azithromycine retirée de la fiche HAS angine en 2024" in x["s"],x and x["s"][:300])
+                r=await page.evaluate(RUN,{"n":A,"w":15,"ddn":AGES[15],"pick":"ZITHROMAX"})
+                ordo=" ".join(y["t"] for y in r["pages"] if y["h"].startswith("Ordonnance"))
+                ok(L+"angine enfant 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement","1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours" in ordo and "HAS" not in ordo and "2024" not in ordo and "bêta-lactamines" not in ordo and "prélèvement" not in ordo and "RCP" not in ordo,ordo[:700])
+                r=await page.evaluate(RUN,{"n":A,"w":15,"ddn":AGES[15],"allergie":True,"grave":True}); x=find(r,"ZECLAR"); z=find(r,"ZITHROMAX 40")
+                ok(L+"angine enfant, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas ZITHROMAX (HAS 2024)",x and x["on"] and z and not z["on"],[(y["t"][:28],y["on"]) for y in r["L"]])
+                r=await page.evaluate(RUN,{"n":"Angine — adulte (TROD positif)","w":70,"ddn":"01/01/1980"}); names=[y["t"] for y in r["L"]]
+                az=[i for i,t in enumerate(names) if t.startswith("AZITHROMYCINE")]; ze=[i for i,t in enumerate(names) if t.startswith("ZECLAR")]; a=find(r,"AZITHROMYCINE"); c=find(r,"CLAMOXYL")
+                ok(L+"angine adulte : CLAMOXYL coché, AZITHROMYCINE décochée (option) après ZECLAR, mention HAS 2024 à l'écran",c and c["on"] and a and not a["on"] and az and ze and ze[0]<az[0] and "azithromycine retirée de la fiche HAS angine en 2024" in a["s"],[(t[:28],y["on"]) for t,y in zip(names,r["L"])])
+                r=await page.evaluate(RUN,{"n":"Angine — adulte (TROD positif)","w":70,"ddn":"01/01/1980","pick":"AZITHROMYCINE"})
+                ordo=" ".join(y["t"] for y in r["pages"] if y["h"].startswith("Ordonnance"))
+                ok(L+"angine adulte, AZITHROMYCINE choisie : ordonnance « 2 comprimés en une prise par jour pendant 3 jours » sans HAS ni 2024","AZITHROMYCINE 250 mg comprimé : 2 comprimés en une prise par jour pendant 3 jours" in ordo and "HAS" not in ordo and "2024" not in ordo and "bêta-lactamines" not in ordo,ordo[:700])
+                r=await page.evaluate(RUN,{"n":"Angine — adulte (TROD positif)","w":70,"ddn":"01/01/1980","allergie":True,"grave":True}); x=find(r,"ZECLAR"); a=find(r,"AZITHROMYCINE")
+                ok(L+"angine adulte, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas AZITHROMYCINE (HAS 2024)",x and x["on"] and a and not a["on"],[(y["t"][:28],y["on"]) for y in r["L"]])
+                r=await page.evaluate(RUN,{"n":"Scarlatine — enfant","w":15,"ddn":AGES[15],"allergie":True}); z=find(r,"ZITHROMAX 40"); c=find(r,"ZECLAR")
+                ok(L+"scarlatine 15 kg, allergie à la pénicilline : ZECLAR coché d'office, ZITHROMAX en alternative décochée avec la mention HAS 2024 à l'écran",c and c["on"] and z and not z["on"] and "azithromycine retirée de la fiche HAS angine en 2024" in z["s"],[(y["t"][:28],y["on"]) for y in r["L"]])
+                r=await page.evaluate(RUN,{"n":"Scarlatine — enfant","w":15,"ddn":AGES[15],"allergie":True,"pick":"ZITHROMAX"})
+                ordo=" ".join(y["t"] for y in r["pages"] if y["h"].startswith("Ordonnance"))
+                ok(L+"scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours » sans HAS ni 2024","1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours" in ordo and "HAS" not in ordo and "2024" not in ordo and "bêta-lactamines" not in ordo,ordo[:700])
                 r=await page.evaluate(RUN,{"n":"Otite moyenne aiguë — enfant","w":10,"ddn":AGES[10],"risk":"r"})
                 ordo=" ".join(x["t"] for x in r["pages"] if x["h"].startswith("Ordonnance"))
                 ok(L+"otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS","4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours" in ordo and "HAS" not in ordo and "cuillère-mesure" not in ordo,ordo[:700])

@@ -1,10 +1,10 @@
 {
- "version": "42.2-test",
- "label": "42.2 · 08/11 21:05",
- "date": "2026-11-08",
+ "version": "42.3-test",
+ "label": "42.3 · 09/11 03:44",
+ "date": "2026-11-09",
  "notes": [
   "Doses au poids de l'enfant revues ligne par ligne sur les RCP et la HAS, 5 poids testés par ligne : TIORFAN jamais « 3 sachets », VOGALÈNE suppositoire par tranche avec la dose maximale par jour, jamais sous 7,5 kg, ondansétron 2 / 4 / 8 mg.",
-  "Angine : ZINNAT 10 mg/kg matin et soir, ZECLAR à la seringue graduée en kg ; otite : seringue en ml ; convulsion : VALIUM en une seule dose ; asthme : prednisolone 10 mg sous 10 kg, 20 mg jusqu'à 20 kg, 40 mg au-delà.",
+  "Angine : ZINNAT 10 mg/kg matin et soir, ZECLAR à la seringue graduée en kg ; otite : seringue en ml ; convulsion : VALIUM en une seule dose ; asthme : prednisolone 10 mg sous 10 kg, 20 mg jusqu'à 20 kg, 40 mg au-delà ; azithromycine en option dans l'angine (retirée par la HAS en 2024), ZECLAR avant.",
   "La règle RCP (mg/kg, tranche, plafond) s'affiche à l'écran sur chaque ligne et ne s'imprime jamais ; calcul, plafond et source au mémo de chaque fiche."
  ]
 }
