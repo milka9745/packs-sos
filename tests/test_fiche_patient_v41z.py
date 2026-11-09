@@ -109,6 +109,44 @@ async def run(b,w,h,xp,label,tag):
     ok(L+"« 72 » puis Entrée : poids enregistré, focus sur le motif (recherche de fiche)",s4["poids"]=="72" and s4["focus"] in ("q","xp_motif","xp_q"),s4)
     await page.focus("#"+ids[0]); await page.keyboard.press("Tab"); await page.wait_for_timeout(100)
     ok(L+"Tab passe aussi du nom à la date de naissance",await page.evaluate("()=>document.activeElement&&document.activeElement.id")==ids[1])
+    # ---------- 2 bis (09/11/2026, bug 42.4) : l'espace s'écrit (frappe lente, dictée), nom composé, « Prénom NOM », ⇄, nom et prénom distincts partout ----------
+    await page.evaluate("()=>{state.sexe='';state.sexeSrc='';}")
+    await page.fill("#"+ids[0],""); await page.focus("#"+ids[0])
+    for chunk in ("DE ","LA ","FONTAINE ","Jean-Pierre"):
+        await page.keyboard.type(chunk); await page.wait_for_timeout(500)   # pause > 350 ms après chaque espace : le re-dessin différé ne doit plus toucher au champ
+    sp=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,focus:document.activeElement&&document.activeElement.id,pat:state.patient})",ids)
+    ok(L+"frappe lente avec pauses : les espaces restent (« DE LA FONTAINE Jean-Pierre » tel que tapé), le curseur reste dans le champ",sp["v"]=="DE LA FONTAINE Jean-Pierre" and sp["focus"]==ids[0] and sp["pat"]=="DE LA FONTAINE Jean-Pierre",sp)
+    await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
+    sp2=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,pn:state.pn,pat:state.patient,focus:document.activeElement&&document.activeElement.id,sexe:state.sexe,src:state.sexeSrc,swap:!!document.getElementById(ids[0].replace('patient','swap'))})",ids)
+    ok(L+"Entrée : nom composé « DE LA FONTAINE » et prénom « Jean-Pierre » distincts dans l'état, sexe M déduit, focus sur la naissance, bouton ⇄ affiché",sp2["pn"]=={"nom":"DE LA FONTAINE","prenom":"Jean-Pierre"} and sp2["v"]=="DE LA FONTAINE Jean-Pierre" and sp2["focus"]==ids[1] and sp2["sexe"]=="h" and sp2["src"]=="prenom" and sp2["swap"],sp2)
+    await page.evaluate("()=>{state.sexe='';state.sexeSrc='';}")
+    await page.fill("#"+ids[0],""); await page.focus("#"+ids[0]); await page.keyboard.insert_text("de la fontaine jean-pierre"); await page.wait_for_timeout(600)   # dictée : le texte arrive d'un bloc, sans touches
+    d1=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,focus:document.activeElement&&document.activeElement.id})",ids)
+    ok(L+"dictée simulée (insertion d'un bloc en minuscules) : texte gardé tel quel, espaces compris, champ toujours actif",d1["v"]=="de la fontaine jean-pierre" and d1["focus"]==ids[0],d1)
+    await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
+    d2=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,pn:state.pn})",ids)
+    ok(L+"minuscules sans indice : ordre NOM Prénom, particules gardées avec le nom → « DE LA FONTAINE Jean-Pierre »",d2["v"]=="DE LA FONTAINE Jean-Pierre" and d2["pn"]=={"nom":"DE LA FONTAINE","prenom":"Jean-Pierre"},d2)
+    await page.fill("#"+ids[0],"Jean-Pierre DE LA FONTAINE"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
+    d3=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,pn:state.pn})",ids)
+    ok(L+"« Jean-Pierre DE LA FONTAINE » (nom en capitales après le prénom) : remis en « DE LA FONTAINE Jean-Pierre », nom et prénom distincts",d3["v"]=="DE LA FONTAINE Jean-Pierre" and d3["pn"]=={"nom":"DE LA FONTAINE","prenom":"Jean-Pierre"},d3)
+    await page.evaluate("()=>{state.sexe='';state.sexeSrc='';}")
+    await page.fill("#"+ids[0],"Marie Dupont"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
+    d4=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,pn:state.pn,sexe:state.sexe})",ids)
+    await page.click("#"+ids[0].replace("patient","swap")); await page.wait_for_timeout(400)
+    d5=await page.evaluate("(ids)=>({v:document.getElementById(ids[0]).value,pn:state.pn,sexe:state.sexe,src:state.sexeSrc})",ids)
+    ok(L+"« Marie Dupont » sans capitales → « MARIE Dupont » (ordre NOM Prénom) ; « ⇄ inverser » → « DUPONT Marie », sexe F déduit du nouveau prénom",d4["v"]=="MARIE Dupont" and d4["sexe"]=="" and d5["v"]=="DUPONT Marie" and d5["pn"]=={"nom":"DUPONT","prenom":"Marie"} and d5["sexe"]=="f" and d5["src"]=="prenom",(d4,d5))
+    await page.fill("#"+ids[0],"DE LA FONTAINE Jean-Pierre"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
+    j1=await page.evaluate("""()=>{const out={};const tm=TESTMODE;try{TESTMODE=false;state.nh=state.nh||nhDefault();const pi=PACKS.findIndex(x=>/^Angine.*adulte/.test(x.n));state.sel=pi;state.off={};state.lo={};state.gs={};const p=currentPack();journalUpsert(p);const e=JOURNAL[JOURNAL.length-1];out.j={patient:e.patient,nom:e.nom,prenom:e.prenom};const csv=journalFull();out.head=csv.split(/\\r?\\n/)[0];out.row=csv.split(/\\r?\\n/).find(l=>l.includes("DE LA FONTAINE"))||"";
+      const m={};aiPatientTokens(m);out.tok={n:m["NOM DU PATIENT"],p:m["PRÉNOM DU PATIENT"],pat:m["PATIENT"]};
+      const ctx=aiAnonCtx();out.ctx={nom:ctx.nom,prenom:ctx.prenom};const an=anonymize("Jean-Pierre de la Fontaine a de la fièvre depuis hier. M. DE LA FONTAINE tousse.",ctx);out.an=an.text;
+      const ci=PACKS.findIndex(x=>/^Certificat — absence scolaire/.test(x.n));if(ci>=0){state.sel=ci;const c=currentPack();const si=c.s.findIndex(sh=>sh.k==="cert");if(si>=0)out.cert=resolve(c.s[si],si).map(x=>x.fill.s).join(" | ");}
+      state.sel=null;JOURNAL.pop();journalSave();}catch(e){out.err=String(e);}finally{TESTMODE=tm;}return out;}""")
+    ok(L+"journal : la ligne porte le nom et le prénom séparés (« DE LA FONTAINE » / « Jean-Pierre ») en plus de « NOM Prénom » ; colonnes nom et prénom en fin du CSV complet",j1.get("j")=={"patient":"DE LA FONTAINE Jean-Pierre","nom":"DE LA FONTAINE","prenom":"Jean-Pierre"} and j1.get("head","").endswith('"nom";"prenom"') and j1.get("row","").endswith('"DE LA FONTAINE";"Jean-Pierre"'),j1)
+    ok(L+"anonymisation : contexte avec nom et prénom distincts ; « Jean-Pierre », « Fontaine » et « DE LA FONTAINE » masqués, « de la fièvre » intact",j1.get("ctx")=={"nom":"DE LA FONTAINE","prenom":"Jean-Pierre"} and "Jean-Pierre" not in j1.get("an","Jean-Pierre") and "Fontaine" not in j1.get("an","Fontaine") and "FONTAINE" not in j1.get("an","FONTAINE") and "de la fièvre" in j1.get("an",""),j1.get("an",j1))
+    ok(L+"jetons IA : NOM DU PATIENT = « DE LA FONTAINE », PRÉNOM DU PATIENT = « Jean-Pierre »",j1.get("tok")=={"n":"DE LA FONTAINE","p":"Jean-Pierre","pat":"DE LA FONTAINE Jean-Pierre"},j1.get("tok",j1))
+    if j1.get("cert") is not None: ok(L+"certificat : « DE LA FONTAINE Jean-Pierre » dans le texte du certificat",("DE LA FONTAINE Jean-Pierre" in j1["cert"]),j1["cert"][:200])
+    await page.evaluate("()=>{state.sexe='';state.sexeSrc='';}")
+    await page.fill("#"+ids[0],"dupont marie"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)   # retour à la patiente de la section
     await page.click("#"+ids[2]+" [data-sex='h']"); await page.wait_for_timeout(400)
     s5=await page.evaluate("(ids)=>({sexe:state.sexe,src:state.sexeSrc,guess:!!document.querySelector('#'+ids[2]+'.guess'),on:(document.querySelector('#'+ids[2]+' .on')||{}).textContent,ne:neLe(),acc:sexAccord('Je vous adresse le/la patient(e), examiné(e) ce jour.')})",ids)
     ok(L+"toucher M : sexe homme confirmé (plus de pointillé), « né le », accords au masculin sur les documents",s5["sexe"]=="h" and s5["src"]=="" and not s5["guess"] and s5["on"]=="M" and s5["ne"]=="né le " and s5["acc"]=="Je vous adresse le patient, examiné ce jour.",s5)
@@ -196,6 +234,9 @@ async def run(b,w,h,xp,label,tag):
     if phone: await page.screenshot(path=os.path.join(OUT,f"fiche-patient-{tag}-visite.png"))
     c1=await page.evaluate("""async()=>{TOUR.current='';newPatient();TOUR.consults=[{id:'c1',nom:'LEROY ANNE',pnom:'LEROY',pprenom:'ANNE',sexe:'',ddn:'01/01/1980',motif:'angine',tel:'0600000000'}];state.view='tour';render();await new Promise(r=>setTimeout(r,200));const b=document.querySelector('[data-cstart]');if(!b)return {b:false};b.click();await new Promise(r=>setTimeout(r,300));return {b:true,pat:state.patient,sexe:state.sexe,src:state.sexeSrc,lieu:state.cot.lieu};}""")
     ok(L+"consultation attendue (fiche « Chez Consultation ») : identité et sexe déduit du prénom (ANNE → F) à l'ouverture du dossier",c1.get("b") and c1["pat"]=="LEROY Anne" and c1["sexe"]=="f" and c1["src"]=="prenom" and c1["lieu"]=="cabinet",c1)
+    # ---------- 9 (09/11/2026) : dossier validé : « NOM Prénom » remis en forme, nom et prénom distincts ----------
+    vd=await page.evaluate("""()=>{try{newPatient();state.xpManual=true;state.cot=state.cot||cotDefault();state.cot.lieu='cabinet';state.cot.auto=false;state.patient='de la fontaine jean-pierre';state.ddn='03/04/1958';state.sexe='h';const pi=PACKS.findIndex(x=>/^Angine.*adulte/.test(x.n));state.sel=pi;state.off={};state.lo={};state.gs={};const tm=TESTMODE;TESTMODE=true;try{patientValidate(true);}finally{TESTMODE=tm;}const v=VALID.last;const out={pat:v&&v.patient,nom:v&&v.nom,prenom:v&&v.prenom,view:state.view};patientReopen(v,{undo:true});return out;}catch(e){return {err:String(e)};}}""")
+    ok(L+"validation : « de la fontaine jean-pierre » remis en « DE LA FONTAINE Jean-Pierre », nom et prénom distincts dans le dossier validé",vd.get("pat")=="DE LA FONTAINE Jean-Pierre" and vd.get("nom")=="DE LA FONTAINE" and vd.get("prenom")=="Jean-Pierre" and vd.get("view")=="valid",vd)
     ok(L+"aucune erreur JavaScript",not errors,errors[:3])
     await ctx.close()
 async def header(b,w,xp,tag):
