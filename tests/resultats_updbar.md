@@ -1,0 +1,64 @@
+# Bandeau « Nouvelle version » — iPhone 375 px (jour, nuit, grand texte) et SE paysage — 09/11/2026 13:41
+
+- OK 375 × 812 · day · texte normal : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 375 × 812 · day · texte normal : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 375 × 812 · day · texte normal : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 375 × 812 · day · texte normal : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 375 × 812 · day · texte normal : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 375 × 812 · day · texte normal : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 375 × 812 · day · texte normal : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 375 × 812 · day · texte normal : aucune erreur JavaScript
+- OK 375 × 812 · day · grand texte : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 375 × 812 · day · grand texte : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 375 × 812 · day · grand texte : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 375 × 812 · day · grand texte : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 375 × 812 · day · grand texte : grand texte : caractères du bandeau agrandis (≥ 17 px) sans sortir des 40 %
+- OK 375 × 812 · day · grand texte : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 375 × 812 · day · grand texte : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 375 × 812 · day · grand texte : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 375 × 812 · day · grand texte : consultation en cours : avertissement en tête, boutons toujours visibles, controllerchange → attente (pas de rechargement), « Mettre à jour » depuis la fenêtre demande confirmation et n'agit pas si refusée
+- OK 375 × 812 · day · grand texte : « Plus tard » réduit le bandeau à une ligne (≤ 70 px, hauteur réservée suivie), il revient au retour sur l'écran principal
+- OK 375 × 812 · day · grand texte : aucune erreur JavaScript
+- OK 375 × 812 · night · texte normal : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 375 × 812 · night · texte normal : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 375 × 812 · night · texte normal : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 375 × 812 · night · texte normal : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 375 × 812 · night · texte normal : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 375 × 812 · night · texte normal : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 375 × 812 · night · texte normal : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 375 × 812 · night · texte normal : consultation en cours : avertissement en tête, boutons toujours visibles, controllerchange → attente (pas de rechargement), « Mettre à jour » depuis la fenêtre demande confirmation et n'agit pas si refusée
+- OK 375 × 812 · night · texte normal : « Plus tard » réduit le bandeau à une ligne (≤ 70 px, hauteur réservée suivie), il revient au retour sur l'écran principal
+- OK 375 × 812 · night · texte normal : aucune erreur JavaScript
+- OK 375 × 812 · night · grand texte : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 375 × 812 · night · grand texte : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 375 × 812 · night · grand texte : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 375 × 812 · night · grand texte : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 375 × 812 · night · grand texte : grand texte : caractères du bandeau agrandis (≥ 17 px) sans sortir des 40 %
+- OK 375 × 812 · night · grand texte : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 375 × 812 · night · grand texte : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 375 × 812 · night · grand texte : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 375 × 812 · night · grand texte : consultation en cours : avertissement en tête, boutons toujours visibles, controllerchange → attente (pas de rechargement), « Mettre à jour » depuis la fenêtre demande confirmation et n'agit pas si refusée
+- OK 375 × 812 · night · grand texte : « Plus tard » réduit le bandeau à une ligne (≤ 70 px, hauteur réservée suivie), il revient au retour sur l'écran principal
+- OK 375 × 812 · night · grand texte : aucune erreur JavaScript
+- OK fenêtre « Voir tout » : fond différent le jour et la nuit (suit le thème)
+- OK 568 × 320 · day · texte normal : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 568 × 320 · day · texte normal : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 568 × 320 · day · texte normal : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 568 × 320 · day · texte normal : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 568 × 320 · day · texte normal : écran bas (paysage) : la liste défile à l'intérieur du bandeau, les boutons restent visibles
+- OK 568 × 320 · day · texte normal : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 568 × 320 · day · texte normal : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 568 × 320 · day · texte normal : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 568 × 320 · day · texte normal : aucune erreur JavaScript
+- OK 568 × 320 · night · grand texte : bandeau en haut, hauteur ≤ 40 % de l'écran, rien ne déborde en largeur, jaune-orange
+- OK 568 × 320 · night · grand texte : « Mettre à jour maintenant » et « Plus tard » en tête du bandeau, entièrement dans l'écran et dans le bandeau, au-dessus de la liste
+- OK 568 × 320 · night · grand texte : « Ce qui change » : 3 lignes courtes (une ligne chacune, coupées par « … ») et lien « Voir tout » visible dans le bandeau
+- OK 568 × 320 · night · grand texte : l'écran commence sous le bandeau (barre du haut entièrement dessous et cliquable), hauteur réservée = hauteur du bandeau
+- OK 568 × 320 · night · grand texte : grand texte : caractères du bandeau agrandis (≥ 17 px) sans sortir des 40 %
+- OK 568 × 320 · night · grand texte : écran bas (paysage) : la liste défile à l'intérieur du bandeau, les boutons restent visibles
+- OK 568 × 320 · night · grand texte : « Voir tout » : fenêtre avec toutes les notes en texte complet, qui défile, entièrement dans l'écran
+- OK 568 × 320 · night · grand texte : « Fermer » visible en haut de la fenêtre, « Mettre à jour maintenant » en bas, dans l'écran
+- OK 568 × 320 · night · grand texte : la fenêtre se ferme par « Fermer », par Échap et par un toucher à côté
+- OK 568 × 320 · night · grand texte : aucune erreur JavaScript
+
+**60/60 tests OK**

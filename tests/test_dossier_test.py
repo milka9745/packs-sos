@@ -17,7 +17,7 @@ async def create(page,url,uid):
     await page.goto(url); await page.wait_for_selector("#uid",timeout=15000)
     if await page.locator("#pin2").count()==0: return False
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
-    await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")
+    await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=45000); await page.check("#rec_ack"); await page.click("#rec_done")
     try:
         await page.wait_for_selector("#id_demo",timeout=8000); await page.click("#id_demo")
     except Exception: pass

@@ -68,7 +68,7 @@ open(os.path.join(OUT,"sw.js"),"w",encoding="utf-8",newline="").write(w)
 man=json.load(open(os.path.join(ROOT,"manifest.webmanifest"),encoding="utf-8"))
 man.update({"name":"Packs SOS TEST","short_name":"TEST Packs","theme_color":"#D0021B","id":"./"})
 open(os.path.join(OUT,"manifest.webmanifest"),"w",encoding="utf-8",newline="\n").write(json.dumps(man,ensure_ascii=False,indent=1))
-json.dump({"version":V,"label":VLBL+" · "+STAMP,"date":datetime.date.today().isoformat(),"notes":(NOTES[:3] if NOTES else ["Version de test (branche ia) : données séparées de l'outil de garde."]+ver.get("notes",[])[:2])},open(os.path.join(OUT,"version.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
+json.dump({"version":V,"label":VLBL+" · "+STAMP,"date":datetime.date.today().isoformat(),"notes":(NOTES[:6] if NOTES else ["Version de test (branche ia) : données séparées de l'outil de garde."]+ver.get("notes",[])[:2])},open(os.path.join(OUT,"version.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 json.dump({"base":BASE,"n":NUM,"label":VLBL,"stamp":STAMP},open(os.path.join(OUT,"build.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 
 async def icons():

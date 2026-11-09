@@ -292,14 +292,26 @@ body.locked #main,body.locked aside,body.locked #print{filter:blur(6px);pointer-
 .reckey{font-family:ui-monospace,Menlo,monospace;font-size:22px;letter-spacing:2px;text-align:center;background:#f3f5fb;border:1px dashed var(--navy);border-radius:8px;padding:12px;margin:10px 0;user-select:all}.lockwarn{background:#fde8e8;color:#8a1f1f;border-radius:8px;padding:8px 10px;font-size:13px;margin:8px 0}
 .cat.sel{color:var(--gold2,#c9a227)}
 .lockbox input.uid{letter-spacing:0;font-size:16px;text-align:left;padding:12px 14px;margin:14px 0 0}
-#updbar{position:fixed;left:0;right:0;top:0;z-index:10000;background:#FFB000!important;color:#111!important;border:0!important;border-bottom:3px solid #111!important;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 12px;box-shadow:0 6px 24px rgba(0,0,0,.45);font-size:15px;line-height:1.35;box-sizing:border-box}
-#updbar .ut{font-weight:800;font-size:18px}#updbar .uc{font-weight:700;margin-top:6px}#updbar ul{margin:2px 0 0;padding-left:20px}#updbar li{margin:1px 0}
+#updbar{position:fixed;left:0;right:0;top:0;z-index:10000;background:#FFB000!important;color:#111!important;border:0!important;border-bottom:3px solid #111!important;padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;box-shadow:0 6px 24px rgba(0,0,0,.45);font-size:15px;line-height:1.35;box-sizing:border-box;display:flex;flex-direction:column;max-height:40vh;max-height:40dvh} /* 09/11/2026 : jamais plus de 40 % de l'écran ; la tête (titre, boutons) ne défile pas, la liste défile au-delà */
+#updbar .uhd{flex:none}#updbar .ubd{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#updbar .ut{font-weight:800;font-size:17px;line-height:1.25}#updbar .uc{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700;margin-top:8px}#updbar ul{margin:2px 0 0;padding-left:20px}#updbar li{margin:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#updbar .ual{background:transparent;border:0;padding:0 2px;margin:0;color:#111;font:inherit;font-weight:800;text-decoration:underline;cursor:pointer;white-space:nowrap;min-height:28px}
 #updbar .uw{margin-top:6px;font-weight:700}
-#updbar .ub{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-#updbar #upd_go{flex:1 1 220px;min-height:52px;font-size:18px;font-weight:800;background:#111;color:#FFD54A;border:0;border-radius:12px;cursor:pointer}
-#updbar #upd_later{flex:0 0 auto;min-height:52px;padding:0 18px;font-size:15px;font-weight:600;background:transparent;color:#111;border:2px solid #111;border-radius:12px;cursor:pointer}
-#updbar.mini{padding:calc(4px + env(safe-area-inset-top,0px)) 10px 4px}#updbar.mini #upd_open{width:100%;min-height:36px;background:transparent;border:0;color:#111;font-weight:800;font-size:15px;cursor:pointer}
+#updbar .ub{display:flex;flex-wrap:nowrap;gap:8px;margin-top:8px}
+#updbar #upd_go{flex:1 1 auto;min-width:0;min-height:48px;padding:0 10px;font-size:17px;font-weight:800;background:#111;color:#FFD54A;border:0;border-radius:12px;cursor:pointer}
+#updbar #upd_later{flex:0 0 auto;min-height:48px;padding:0 14px;font-size:15px;font-weight:600;background:transparent;color:#111;border:2px solid #111;border-radius:12px;cursor:pointer}
+#updbar.mini{padding:calc(4px + env(safe-area-inset-top,0px)) 10px 4px;max-height:none}#updbar.mini #upd_open{width:100%;min-height:36px;background:transparent;border:0;color:#111;font-weight:800;font-size:15px;cursor:pointer}
+html[data-size="big"] #updbar{font-size:17px}html[data-size="big"] #updbar .ut{font-size:19px}html[data-size="big"] #updbar #upd_go{font-size:19px;min-height:52px}html[data-size="big"] #updbar #upd_later{font-size:17px;min-height:52px}
+@media (max-height:460px){#updbar{padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px}#updbar .ut,html[data-size="big"] #updbar .ut{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#updbar .ub{margin-top:6px}#updbar .uc{margin-top:6px}#updbar .ual{min-height:24px}#updbar #upd_go,#updbar #upd_later,html[data-size="big"] #updbar #upd_go,html[data-size="big"] #updbar #upd_later{min-height:44px;font-size:16px}} /* 09/11/2026 : écran bas (iPhone en paysage) : titre sur une ligne, boutons 44 px, la tête tient dans les 40 % */
 html.upd-on body{padding-top:var(--updh,0px)}
+#updall{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding:calc(14px + env(safe-area-inset-top,0px)) 10px calc(14px + env(safe-area-inset-bottom,0px));box-sizing:border-box} /* 09/11/2026 : « Voir tout » — détail de « Ce qui change », fenêtre défilable */
+#updall .uap{background:var(--panel,#fff);color:var(--ink,#111);border:1px solid var(--line2,#ccc);border-radius:14px;width:100%;max-width:560px;max-height:100%;display:flex;flex-direction:column;box-shadow:0 14px 40px rgba(0,0,0,.35);box-sizing:border-box;overflow:hidden}
+#updall .uah{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line,#ddd)}
+#updall .uat{font-weight:800;font-size:17px;line-height:1.25;min-width:0}
+#updall #updall_x{flex:none;min-height:44px;padding:0 14px;font:inherit;font-weight:700;background:transparent;color:var(--ink,#111);border:2px solid var(--line2,#ccc);border-radius:12px;cursor:pointer}
+#updall .uab{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 16px 10px;font-size:15.5px;line-height:1.4}#updall .uab ol{margin:0;padding-left:22px}#updall .uab li{margin:8px 0}
+#updall .uaf{flex:none;padding:10px 12px;border-top:1px solid var(--line,#ddd)}#updall #updall_go{width:100%;min-height:48px;font-size:17px;font-weight:800;background:#111;color:#FFD54A;border:0;border-radius:12px;cursor:pointer}
+html[data-size="big"] #updall .uab{font-size:17.5px}html[data-size="big"] #updall .uat{font-size:19px}
 .copat{margin:4px 0 10px}.copatrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0;padding:6px 8px;background:#f3f5fb;border-radius:8px}.copatrow input,.copatrow select{padding:6px 8px;border:1px solid #ccd;border-radius:6px}.btn.sm{padding:5px 10px;font-size:13px}
 /* ===== Thème « Cabinet » v21 — clair, premium, lisible longtemps ===== */
 :root{
@@ -538,7 +550,7 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .certdur .cdl{font-weight:800;flex-basis:100%}.certdur .cdb{min-width:48px;min-height:48px;font-size:22px;font-weight:800;justify-content:center}
 .certdur input[data-cdin]{width:64px;min-height:44px;font-size:18px;text-align:center}.certdur .cdu{display:flex;align-items:center;gap:6px;font-size:14px}.certdur .cdu input{width:120px;min-height:40px}
 .certdur .cdp{flex-basis:100%;font-size:15px}
-@media print{@page{margin:0}#xptoast,#toast,#netbar,#updbar,#testbadge,#testpill,.printbar,.alert,.fitwarn,.legalwarn,#pdfprint{display:none!important}}
+@media print{@page{margin:0}#xptoast,#toast,#netbar,#updbar,#updall,#testbadge,#testpill,.printbar,.alert,.fitwarn,.legalwarn,#pdfprint{display:none!important}}
 
 .mcct{display:flex;flex-direction:column;gap:8px;margin:6px 0}.mccr{display:grid;grid-template-columns:110px 1fr;gap:6px;padding:8px;border:1px solid var(--line2);border-radius:10px}.mccr label{grid-column:1/-1;display:flex;flex-direction:column;font-size:13px;font-weight:700}.mccr input{min-height:40px}.mccr [data-mccdel]{grid-column:1/-1;justify-self:start}
 
@@ -1236,7 +1248,7 @@ body.printing .print.phone{padding:0 0 calc(110px + env(safe-area-inset-bottom,0
   body.printing .page:last-child{page-break-after:auto;break-after:auto}
   .page .frame{overflow:hidden;min-height:0!important}
   .page,.page th,.page td,.page p,.page li,.page h2,.page b,.page span,.page i,.page figcaption{color:#000!important}
-  .printbar,#pdfwrap,#updbar,#thememenu,#aipanel,.jmenu,.fab,.dock,#lock{display:none!important}
+  .printbar,#pdfwrap,#updbar,#updall,#thememenu,#aipanel,.jmenu,.fab,.dock,#lock{display:none!important}
   @page{size:A4;margin:0}
 }
 /* ===== Leaflet 1.9.4 (BSD-2, © Volodymyr Agafonkin) — carte de la tournée (v39) ===== */
@@ -16511,9 +16523,19 @@ function updRender(){if(!UPD.ready)return;let b=document.getElementById("updbar"
   const i=UPD.info||{};const v=i.label?String(i.label):(i.version?String(i.version):""); /* 06/11/2026 : libellé lisible (41z.4 · 06/11 21:30) quand version.json le donne */const notes=(Array.isArray(i.notes)?i.notes:[]).slice(0,3);
   document.documentElement.classList.add("upd-on");
   if(UPD.collapsed){b.className="mini";b.innerHTML=`<button type="button" id="upd_open">⬆ Mise à jour en attente${v?" — version "+esc(v):""} · afficher</button>`;document.getElementById("upd_open").onclick=()=>{UPD.collapsed=false;updRender();};}
-  else{b.className="";b.innerHTML=`<div class="ut">⬆ Nouvelle version disponible${v?" : version "+esc(v):""}</div>${notes.length?`<div class="uc">Ce qui change :</div><ul>${notes.map(n=>`<li>${esc(String(n))}</li>`).join("")}</ul>`:""}${updInConsult()?'<div class="uw">Consultation en cours : rien ne se mettra à jour tout seul.</div>':""}<div class="ub"><button type="button" id="upd_go">Mettre à jour maintenant</button><button type="button" id="upd_later">Plus tard</button></div>`;
-    document.getElementById("upd_go").onclick=updGo;document.getElementById("upd_later").onclick=()=>{UPD.collapsed=true;UPD.wasMain=updMain();updRender();};}
-  document.documentElement.style.setProperty("--updh",b.offsetHeight+"px");}
+  else{b.className="";const all=(Array.isArray(i.notes)?i.notes:[]).map(n=>String(n)); /* 09/11/2026 (bug 42b.1 iPhone) : titre et boutons en tête, jamais hors écran ; 3 lignes courtes (une ligne chacune) et « Voir tout » ; au-delà de 40 % de l'écran, seule la liste défile */
+    b.innerHTML=`<div class="uhd"><div class="ut">⬆ Nouvelle version disponible${v?" : version "+esc(v):""}</div><div class="ub"><button type="button" id="upd_go">Mettre à jour maintenant</button><button type="button" id="upd_later">Plus tard</button></div>${updInConsult()?'<div class="uw">Consultation en cours : rien ne se mettra à jour tout seul.</div>':""}${notes.length?'<div class="uc"><span>Ce qui change :</span><button type="button" class="ual" id="upd_all">Voir tout</button></div>':""}</div>${notes.length?`<div class="ubd"><ul>${notes.map(n=>`<li>${esc(String(n))}</li>`).join("")}</ul></div>`:""}`;
+    document.getElementById("upd_go").onclick=updGo;document.getElementById("upd_later").onclick=()=>{UPD.collapsed=true;UPD.wasMain=updMain();updAllClose();updRender();};const ua=document.getElementById("upd_all");if(ua)ua.onclick=()=>updAllOpen(all,v);}
+  updHeight(b);}
+function updHeight(b){b=b||document.getElementById("updbar");if(!b)return;document.documentElement.style.setProperty("--updh",b.offsetHeight+"px");
+  try{if(!UPD.ro&&window.ResizeObserver)UPD.ro=new ResizeObserver(()=>{const x=document.getElementById("updbar");if(x&&x.isConnected)document.documentElement.style.setProperty("--updh",x.offsetHeight+"px");});if(UPD.ro&&UPD.roEl!==b){UPD.ro.disconnect();UPD.ro.observe(b);UPD.roEl=b;}}catch(e){}} /* 09/11/2026 : hauteur réservée suivie (rotation, grand texte, liste qui change) */
+/* 09/11/2026 : « Voir tout » — toutes les notes en texte complet dans une fenêtre défilable ; « Fermer », Échap ou un toucher à côté la ferment ;
+   « Mettre à jour maintenant » en bas passe par updGo : même garde-fou, rien ne se met à jour tout seul pendant une consultation */
+function updAllOpen(all,v){updAllClose();const o=document.createElement("div");o.id="updall";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.setAttribute("aria-labelledby","updall_t");
+  o.innerHTML=`<div class="uap"><div class="uah"><div class="uat" id="updall_t">Ce qui change${v?" — version "+esc(v):""}</div><button type="button" id="updall_x">Fermer</button></div><div class="uab">${all.length?`<ol>${all.map(n=>`<li>${esc(n)}</li>`).join("")}</ol>`:'<p class="hint">Aucun détail fourni pour cette version.</p>'}</div><div class="uaf"><button type="button" id="updall_go">Mettre à jour maintenant</button></div></div>`;
+  document.body.appendChild(o);document.getElementById("updall_x").onclick=updAllClose;document.getElementById("updall_go").onclick=()=>{updAllClose();updGo();};o.addEventListener("click",e=>{if(e.target===o)updAllClose();});
+  UPD.allKey=e=>{if(e.key==="Escape")updAllClose();};document.addEventListener("keydown",UPD.allKey);try{document.getElementById("updall_x").focus();}catch(e){}}
+function updAllClose(){const o=document.getElementById("updall");if(o)o.remove();if(UPD.allKey){document.removeEventListener("keydown",UPD.allKey);UPD.allKey=null;}}
 function updGo(){if(updInConsult()&&!confirm("Une consultation est en cours. Mettre à jour maintenant ? Le dossier en cours est conservé en brouillon et rouvert après le déverrouillage."))return;window.__updOk=1;navigator.serviceWorker.getRegistration().then(r=>{if(r&&r.waiting)r.waiting.postMessage("skip");else location.reload();}).catch(()=>location.reload());}
 function updOnRender(){if(!UPD.ready)return;const m=updMain();if(m&&!UPD.wasMain&&UPD.collapsed)UPD.collapsed=false;UPD.wasMain=m;if(UPD.pendingReload&&m&&!updInConsult()){window.__reloading=1;location.reload();return;}updRender();}
 
