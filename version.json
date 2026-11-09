@@ -1,10 +1,9 @@
 {
-  "version": "42b",
+  "version": "42c",
   "date": "2026-11-09",
   "notes": [
-    "Fiches de régulation : le nom est lu sous « INFORMATIONS PATIENT » (plus jamais « CH G »), ancienne et nouvelle présentation ; l'heure d'appel et l'attente de la fiche alimentent l'alerte « attend depuis plus de 2 h » et l'ordre de la tournée.",
-    "Tournée : une nouvelle demande est intégrée d'elle-même au meilleur rang, sans question ; carte à une ligne avec Appeler et Priorité ; « Rendre à la régulation » dans « Plus » ; ordre recalculé en silence après un retrait ou une validation.",
-    "Champ « Nom Prénom » : l'espace s'écrit normalement sur iPhone ; mise en forme NOM Prénom à la sortie du champ, bouton ⇄ pour inverser."
+    "Bandeau de mise à jour refait pour iPhone : boutons « Mettre à jour » et « Plus tard » en tête et toujours visibles, « Ce qui change » en 3 lignes courtes, « Voir tout » pour le détail.",
+    "Hauteur du bandeau limitée à 40 % de l'écran, défilement interne au-delà ; jamais de mise à jour automatique pendant une consultation."
   ],
-  "label": "42b · 09/11 12:21"
+  "label": "42c · 09/11 13:57"
 }

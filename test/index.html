@@ -2163,7 +2163,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style></head>
-<body><div id="testbadge" aria-hidden="true">TEST · 42b.2 · 09/11 13:37</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
+<body><div id="testbadge" aria-hidden="true">TEST · 42c.1 · 09/11 13:57</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -16511,7 +16511,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"42b.2",branch:"test",date:"09/11 13:37"};
+const APP_BUILD={v:"42c.1",branch:"test",date:"09/11 13:57"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){

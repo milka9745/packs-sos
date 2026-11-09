@@ -1,6 +1,6 @@
 {
- "version": "42b.2-test",
- "label": "42b.2 · 09/11 13:37",
+ "version": "42c.1-test",
+ "label": "42c.1 · 09/11 13:57",
  "date": "2026-11-09",
  "notes": [
   "Bandeau « Nouvelle version » : boutons « Mettre à jour maintenant » et « Plus tard » en tête et toujours visibles, « Ce qui change » en 3 lignes courtes avec « Voir tout » (fenêtre défilable, texte complet), hauteur limitée à 40 % de l'écran et défilement interne au-delà ; jamais de mise à jour automatique pendant une consultation (inchangé).",
