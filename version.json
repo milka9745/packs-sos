@@ -3,7 +3,7 @@
   "date": "2026-11-09",
   "notes": [
     "Doses au poids de l'enfant revues sur les RCP (gastro, fièvre, otite, angine, vomissements, convulsion, asthme) : TIORFAN, VOGALÈNE, ondansétron, ZINNAT, ZECLAR, VALIUM corrigés ; azithromycine en option dans l'angine (retirée par la HAS en 2024).",
-    "Fiche patient : identité en tête (nom, prénom, naissance, sexe, poids), allergies et traitements juste dessous, remplis depuis la fiche de régulation en Visite.",
+    "Fiche patient : identité en tête (un seul champ nom prénom, naissance, sexe, poids), allergies et traitements juste dessous, remplis depuis la fiche de régulation en Visite.",
     "Impression immédiate depuis l'aperçu, un seul bouton Imprimer ; PDF seulement pour « Enregistrer en PDF »."
   ],
   "label": "42 · 09/11 03:44"

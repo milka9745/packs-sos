@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 08/11/2026 (v41z) — fiche patient : (1) bloc identité en tête de la carte patient, couleur du mode, gros caractères, ordre fixe Nom · Prénom · Naissance (âge) · Sexe F/M · Poids,
+# 08/11/2026 (v41z) — fiche patient : (1) bloc identité en tête de la carte patient, couleur du mode, gros caractères, ordre fixe Nom Prénom (un seul champ depuis le 09/11/2026) · Naissance (âge) · Sexe F/M · Poids,
 # une ligne sur ordinateur, deux sur iPhone, Entrée ou Tab passe au champ suivant, âge et sexe pilotent doses et accords ; (2) lignes Allergies (case pénicillines) et Traitements
 # (base médicaments, interactions) juste dessous, remplies par les documents en proposition à valider ; (3) options secondaires en plus petit, cachet coché par défaut ;
 # (4) Visite : identité remplie depuis la fiche de régulation (sexe lu « Née le » / « Sexe : M » ou déduit du prénom, téléphone, adresse), modifiable d'un toucher ;
@@ -80,7 +80,7 @@ async def run(b,w,h,xp,label,tag):
     await unlock(page,"fp"+tag,xp); L=label+" : "; phone=w<500
     await page.evaluate("()=>{newPatient();state.xpManual=true;state.cot=state.cot||cotDefault();state.cot.lieu='cabinet';state.cot.auto=false;render();}"); await page.wait_for_timeout(400)
     pfx="xi_" if (phone and xp) else "f_"   # Express iPhone : bloc identité de l'Express (la carte complète est repliée dans « Plus ») ; sinon carte Patient
-    ids=[pfx+k for k in ("patient","prenom","ddn","sexe","poids")]
+    ids=[pfx+k for k in ("patient","ddn","sexe","poids")]  # 09/11/2026 : un seul champ « NOM Prénom »
     # ---------- 1. bloc identité : en tête, ordre, une ou deux lignes, couleur du mode, gros caractères ----------
     st=await page.evaluate("""(a)=>{const [pfx,ids]=a;const box=document.getElementById(pfx+'ident');if(!box)return {box:false};const main=box.querySelector('.id-main');
       const order=[...main.querySelectorAll('input,.segs')].map(e=>e.id);const r=id=>{const e=document.getElementById(id);const b=e.getBoundingClientRect();return {t:Math.round(b.top),h:Math.round(b.height),w:Math.round(b.width)};};
@@ -89,36 +89,36 @@ async def run(b,w,h,xp,label,tag):
       const cs=getComputedStyle(box);const fs=parseFloat(getComputedStyle(document.getElementById(pfx+'patient')).fontSize);
       return {box:true,order,rects,first:first?(first.id||first.className):'',inWho:!!box.closest('.xp-who'),border:cs.borderTopColor,mode,bw:cs.borderTopWidth,fs,sexBtns:[...document.querySelectorAll('#'+pfx+'sexe [data-sex]')].map(x=>x.textContent.trim())};}""",[pfx,ids])
     ok(L+"bloc identité présent, tout en haut de la carte patient (premier élément après le titre)",st.get("box") and (st["first"].startswith(pfx+"ident") or st["inWho"]),st)
-    ok(L+"ordre fixe : Nom · Prénom · Date de naissance · Sexe · Poids",st.get("order")==ids,st.get("order"))
+    ok(L+"ordre fixe : Nom Prénom · Date de naissance · Sexe · Poids",st.get("order")==ids,st.get("order"))
     tops=[x["t"] for x in st.get("rects",[])]
-    if phone: ok(L+"iPhone : deux lignes (Nom et Prénom ; Naissance, Sexe, Poids)",len(tops)==5 and tops[0]==tops[1] and tops[2]==tops[3]==tops[4] and tops[2]>tops[0],tops)
-    else: ok(L+"ordinateur : une seule ligne",len(tops)==5 and len(set(tops))==1,tops)
+    if phone: ok(L+"iPhone : deux lignes (Nom Prénom ; Naissance, Sexe, Poids)",len(tops)==4 and tops[1]==tops[2]==tops[3] and tops[1]>tops[0],tops)
+    else: ok(L+"ordinateur : une seule ligne",len(tops)==4 and len(set(tops))==1,tops)
     ok(L+"encadré de la couleur du mode (Consultation), bordure ≥ 2 px",st.get("border")==st.get("mode") and float(str(st.get("bw","0")).replace("px",""))>=2,(st.get("border"),st.get("mode"),st.get("bw")))
     ok(L+"gros caractères (≥ 18 px iPhone, ≥ 20 px ordinateur), sexe F / M",st.get("fs",0)>=(18 if phone else 20) and st.get("sexBtns")==["F","M"],(st.get("fs"),st.get("sexBtns")))
     # ---------- 2. saisie : Entrée passe au champ suivant, NOM Prénom séparés, âge calculé, sexe déduit du prénom, Tab ----------
     await page.focus("#"+ids[0]); await page.keyboard.type("dupont marie"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
-    s2=await page.evaluate("(ids)=>({nom:document.getElementById(ids[0]).value,pre:document.getElementById(ids[1]).value,pat:state.patient,focus:document.activeElement&&document.activeElement.id,sexe:state.sexe,src:state.sexeSrc})",ids)
-    ok(L+"« dupont marie » puis Entrée : NOM en capitales, prénom séparé (« DUPONT Marie »), focus sur la date de naissance",s2["nom"]=="DUPONT" and s2["pre"]=="Marie" and s2["pat"]=="DUPONT Marie" and s2["focus"]==ids[2],s2)
+    s2=await page.evaluate("(ids)=>({nom:document.getElementById(ids[0]).value,pat:state.patient,focus:document.activeElement&&document.activeElement.id,sexe:state.sexe,src:state.sexeSrc})",ids)
+    ok(L+"« dupont marie » puis Entrée : le seul champ remis en « DUPONT Marie » (nom en capitales, prénom capitalisé), focus sur la date de naissance",s2["nom"]=="DUPONT Marie" and s2["pat"]=="DUPONT Marie" and s2["focus"]==ids[1],s2)
     ok(L+"sexe déduit du prénom (Marie → F), marqué comme déduit",s2["sexe"]=="f" and s2["src"]=="prenom",s2)
     await page.keyboard.type("03041958"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
-    s3=await page.evaluate("(ids)=>({ddn:state.ddn,age:(document.getElementById(ids[0].replace('patient','age'))||{}).textContent,focus:document.activeElement&&document.activeElement.id,guess:!!document.querySelector('#'+ids[3]+'.guess'),mark:!!document.querySelector('#'+ids[0].replace('patient','ident')+' .id-g')})",ids)
-    ok(L+"« 03041958 » puis Entrée : date normalisée, âge calculé affiché, focus sur le poids (sexe déjà déduit)",s3["ddn"]=="03/04/1958" and s3["age"]==f"{age_of(3,4,1958)} ans" and s3["focus"]==ids[4],s3)
+    s3=await page.evaluate("(ids)=>({ddn:state.ddn,age:(document.getElementById(ids[0].replace('patient','age'))||{}).textContent,focus:document.activeElement&&document.activeElement.id,guess:!!document.querySelector('#'+ids[2]+'.guess'),mark:!!document.querySelector('#'+ids[0].replace('patient','ident')+' .id-g')})",ids)
+    ok(L+"« 03041958 » puis Entrée : date normalisée, âge calculé affiché, focus sur le poids (sexe déjà déduit)",s3["ddn"]=="03/04/1958" and s3["age"]==f"{age_of(3,4,1958)} ans" and s3["focus"]==ids[3],s3)
     ok(L+"sexe déduit affiché en pointillé avec la mention « prénom ? » (à confirmer d'un toucher)",s3["guess"] and s3["mark"],s3)
     await page.keyboard.type("72"); await page.keyboard.press("Enter"); await page.wait_for_timeout(450)
     s4=await page.evaluate("()=>({poids:state.poids,focus:document.activeElement&&document.activeElement.id})")
     ok(L+"« 72 » puis Entrée : poids enregistré, focus sur le motif (recherche de fiche)",s4["poids"]=="72" and s4["focus"] in ("q","xp_motif","xp_q"),s4)
     await page.focus("#"+ids[0]); await page.keyboard.press("Tab"); await page.wait_for_timeout(100)
-    ok(L+"Tab passe aussi du nom au prénom",await page.evaluate("()=>document.activeElement&&document.activeElement.id")==ids[1])
-    await page.click("#"+ids[3]+" [data-sex='h']"); await page.wait_for_timeout(400)
-    s5=await page.evaluate("(ids)=>({sexe:state.sexe,src:state.sexeSrc,guess:!!document.querySelector('#'+ids[3]+'.guess'),on:(document.querySelector('#'+ids[3]+' .on')||{}).textContent,ne:neLe(),acc:sexAccord('Je vous adresse le/la patient(e), examiné(e) ce jour.')})",ids)
+    ok(L+"Tab passe aussi du nom à la date de naissance",await page.evaluate("()=>document.activeElement&&document.activeElement.id")==ids[1])
+    await page.click("#"+ids[2]+" [data-sex='h']"); await page.wait_for_timeout(400)
+    s5=await page.evaluate("(ids)=>({sexe:state.sexe,src:state.sexeSrc,guess:!!document.querySelector('#'+ids[2]+'.guess'),on:(document.querySelector('#'+ids[2]+' .on')||{}).textContent,ne:neLe(),acc:sexAccord('Je vous adresse le/la patient(e), examiné(e) ce jour.')})",ids)
     ok(L+"toucher M : sexe homme confirmé (plus de pointillé), « né le », accords au masculin sur les documents",s5["sexe"]=="h" and s5["src"]=="" and not s5["guess"] and s5["on"]=="M" and s5["ne"]=="né le " and s5["acc"]=="Je vous adresse le patient, examiné ce jour.",s5)
-    await page.click("#"+ids[3]+" [data-sex='f']"); await page.wait_for_timeout(400)
+    await page.click("#"+ids[2]+" [data-sex='f']"); await page.wait_for_timeout(400)
     s6=await page.evaluate("()=>({ne:neLe(),acc:sexAccord('Je vous adresse le/la patient(e), examiné(e) ce jour.')})")
     ok(L+"toucher F : « née le », accords au féminin",s6["ne"]=="née le " and s6["acc"]=="Je vous adresse la patiente, examinée ce jour.",s6)
     await page.evaluate("()=>{state.sexe='';state.sexeSrc='';render();}"); await page.wait_for_timeout(300)
-    s7=await page.evaluate("(ids)=>{const g=document.getElementById(ids[3]);const f=g&&g.closest('.id-sex');return {miss:!!(f&&f.classList.contains('miss')),q:!!(f&&f.querySelector('.id-l .q')),ne:neLe()};}",ids)
+    s7=await page.evaluate("(ids)=>{const g=document.getElementById(ids[2]);const f=g&&g.closest('.id-sex');return {miss:!!(f&&f.classList.contains('miss')),q:!!(f&&f.querySelector('.id-l .q')),ne:neLe()};}",ids)
     ok(L+"sexe obligatoire : sans sexe, le champ est signalé en rouge (« Sexe ? ») et les documents restent neutres (« date de naissance : »)",s7["miss"] and s7["q"] and s7["ne"]=="date de naissance : ",s7)
-    await page.click("#"+ids[3]+" [data-sex='f']"); await page.wait_for_timeout(300)
+    await page.click("#"+ids[2]+" [data-sex='f']"); await page.wait_for_timeout(300)
     # ---------- 3. âge et poids pilotent les doses ----------
     r3=await page.evaluate("""()=>{const pi=PACKS.findIndex(p=>/enfant/i.test(p.n)&&p.s.some(sh=>sh.k==='med'&&sh.l.some(l=>/\\{(ml|mg|mgpk):/.test(typeof l==='string'?l:l.t))));if(pi<0)return null;
       state.ddn='03/04/2021';state.sexe='h';state.poids='18';state.sel=pi;state.off={};state.lo={};state.gs={};render();const p=currentPack();const si=p.s.findIndex(sh=>sh.k==='med');const a=resolve(p.s[si],si).filter(x=>/\\d/.test(x.fill.s)).map(x=>x.fill.s).join(' | ');
@@ -168,21 +168,21 @@ async def run(b,w,h,xp,label,tag):
     # ---------- 7. Visite : identité remplie depuis la fiche de régulation ----------
     OPEN="""async(t)=>{TOUR.stops=[];TOUR.order=[];TOUR.current='';TOUR.unread=[];newPatient();state.cot=state.cot||cotDefault();state.cot.lieu='visite';state.cot.auto=false;const f=parseFiche(t);const s=ficheToStop(f);tourSave();xpOpenStop(s.id);await new Promise(r=>setTimeout(r,350));
       const g=id=>{const e=document.getElementById(id);return e?e.value:null;};const sum=document.getElementById('xi_sum');
-      return {fs:f.sexe,fnom:f.nom,fpre:f.prenom,pat:state.patient,ddn:state.ddn,sexe:state.sexe,src:state.sexeSrc,tel:state.nh.tel,adr:state.nh.adresse,v:{nom:g('f_patient'),pre:g('f_prenom'),ddn:g('f_ddn'),tel:g('f_tel'),adr:g('f_adr'),xnom:g('xi_patient'),xtel:g('xi_tel')},sum:sum?sum.textContent:null,sumGuess:!!(sum&&sum.querySelector('.xw-sx.guess')),miss:!!document.querySelector('.id-sex.miss'),guess:!!document.querySelector('.segs.guess'),lieu:state.cot.lieu};}"""
+      return {fs:f.sexe,fnom:f.nom,fpre:f.prenom,pat:state.patient,ddn:state.ddn,sexe:state.sexe,src:state.sexeSrc,tel:state.nh.tel,adr:state.nh.adresse,v:{nom:g('f_patient'),ddn:g('f_ddn'),tel:g('f_tel'),adr:g('f_adr'),xnom:g('xi_patient'),xtel:g('xi_tel')},sum:sum?sum.textContent:null,sumGuess:!!(sum&&sum.querySelector('.xw-sx.guess')),miss:!!document.querySelector('.id-sex.miss'),guess:!!document.querySelector('.segs.guess'),lieu:state.cot.lieu};}"""
     v1=await page.evaluate(OPEN,FICHE_F)
-    ok(L+"visite · fiche « Née le » : NOM / Prénom (« DUBOIS » / « Claire »), naissance, sexe F lu sur la fiche, téléphone et adresse repris dans le bloc identité",
-       v1["fs"]=="f" and v1["pat"]=="DUBOIS Claire" and v1["ddn"]=="12/05/1958" and v1["sexe"]=="f" and v1["src"]=="fiche" and v1["tel"]=="0238001122" and "AVENUE DES PINS" in v1["adr"] and v1["v"]["nom"]=="DUBOIS" and v1["v"]["pre"]=="Claire" and v1["v"]["tel"]=="02 38 00 11 22" and "AVENUE DES PINS" in (v1["v"]["adr"] or ""),v1)
+    ok(L+"visite · fiche « Née le » : NOM Prénom (« DUBOIS Claire »), naissance, sexe F lu sur la fiche, téléphone et adresse repris dans le bloc identité",
+       v1["fs"]=="f" and v1["pat"]=="DUBOIS Claire" and v1["ddn"]=="12/05/1958" and v1["sexe"]=="f" and v1["src"]=="fiche" and v1["tel"]=="0238001122" and "AVENUE DES PINS" in v1["adr"] and v1["v"]["nom"]=="DUBOIS Claire" and v1["v"]["tel"]=="02 38 00 11 22" and "AVENUE DES PINS" in (v1["v"]["adr"] or ""),v1)
     if phone and xp:
         ok(L+"Express iPhone : identité complète → résumé d'une ligne (nom, née le, âge, F) encadré, un toucher pour modifier",v1["sum"] and "DUBOIS" in v1["sum"] and "Claire" in v1["sum"] and "née le 12/05/1958" in v1["sum"] and re.search(r"\bF\b",v1["sum"]),v1["sum"])
         await page.click("#xi_sum"); await page.wait_for_timeout(400)
         t1=await page.evaluate("()=>({nom:(document.getElementById('xi_patient')||{}).value,tel:(document.getElementById('xi_tel')||{}).value,focus:document.activeElement&&document.activeElement.id,sum:!!document.getElementById('xi_sum')})")
-        ok(L+"Express iPhone : après le toucher, champs modifiables (nom, téléphone…), focus sur le nom",t1["nom"]=="DUBOIS" and t1["tel"]=="02 38 00 11 22" and t1["focus"]=="xi_patient" and not t1["sum"],t1)
-        await page.fill("#xi_prenom","Claire-Marie"); await page.wait_for_timeout(500)
-        ok(L+"Express iPhone : prénom corrigé d'un toucher → patient « DUBOIS Claire-Marie »",await page.evaluate("()=>state.patient")=="DUBOIS Claire-Marie")
+        ok(L+"Express iPhone : après le toucher, champs modifiables (nom, téléphone…), focus sur le nom",t1["nom"]=="DUBOIS Claire" and t1["tel"]=="02 38 00 11 22" and t1["focus"]=="xi_patient" and not t1["sum"],t1)
+        await page.fill("#xi_patient","DUBOIS Claire-Marie"); await page.wait_for_timeout(500)
+        ok(L+"Express iPhone : nom corrigé dans le seul champ → patient « DUBOIS Claire-Marie »",await page.evaluate("()=>state.patient")=="DUBOIS Claire-Marie")
         await page.click("#xi_close"); await page.wait_for_timeout(400)
         ok(L+"Express iPhone : « ✓ OK » replie le bloc en résumé",await page.evaluate("()=>!!document.getElementById('xi_sum')&&!document.getElementById('xi_patient')"))
     elif xp:
-        ok(L+"Express ordinateur : résumé en tête de l'Express et bloc modifiable dans la carte Patient (un clic sur le résumé y conduit)",v1["sum"] and "DUBOIS" in v1["sum"] and v1["v"]["nom"]=="DUBOIS",v1)
+        ok(L+"Express ordinateur : résumé en tête de l'Express et bloc modifiable dans la carte Patient (un clic sur le résumé y conduit)",v1["sum"] and "DUBOIS" in v1["sum"] and v1["v"]["nom"]=="DUBOIS Claire",v1)
         await page.click("#xi_sum"); await page.wait_for_timeout(500)
         ok(L+"Express ordinateur : le clic place le curseur sur le nom de la carte Patient",await page.evaluate("()=>document.activeElement&&document.activeElement.id")=="f_patient")
     v2=await page.evaluate(OPEN,FICHE_AMB)
