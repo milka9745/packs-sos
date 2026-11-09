@@ -571,7 +571,7 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 
 /* 08/11/2026 — bloc identité en évidence (couleur du mode), une ligne sur ordinateur, deux sur iPhone */
 .ident{border:2px solid var(--mode,var(--acc));border-radius:14px;padding:10px 12px 9px;margin:0 0 10px;background:var(--mode-soft,transparent);position:relative}
-.id-main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1.2fr) minmax(0,1.15fr) auto minmax(0,.62fr);gap:10px;align-items:end}
+.id-main{display:grid;grid-template-columns:minmax(0,2.75fr) minmax(0,1.15fr) auto minmax(0,.62fr);gap:10px;align-items:end} /* 09/11/2026 : un seul champ Nom Prénom */
 .id-f{display:flex;flex-direction:column;gap:4px;min-width:0}
 .id-l{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;color:var(--acc2,var(--muted));display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .id-l .agetag{margin:0;font-size:13px;text-transform:none;letter-spacing:0}.id-l b.q{color:var(--bad,#b00)}.id-l .agetag:empty{display:none}
@@ -579,7 +579,6 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .ident input{width:100%;box-sizing:border-box;min-height:50px;font-size:21px;font-weight:700;padding:8px 12px;border:1.5px solid var(--line2);border-radius:10px;background:var(--field);color:var(--ink);font-family:inherit}
 .ident input::placeholder{font-weight:400;color:var(--ph);font-style:italic;text-transform:none}
 .ident input:focus{border-color:var(--mode,var(--acc2));box-shadow:0 0 0 4px var(--mode-soft,var(--ring));outline:none}
-.id-nom input{text-transform:uppercase}
 .segs{display:inline-flex;border:1.5px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--field);min-height:50px}
 .segs button{border:0;background:transparent;color:var(--ink);font:inherit;font-size:20px;font-weight:800;min-width:54px;padding:0 14px;cursor:pointer;line-height:1}
 .segs button+button{border-left:1.5px solid var(--line2)}
@@ -609,7 +608,7 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 /* options secondaires, en plus petit */
 .opts.sec{margin:4px 0 10px;gap:6px;font-size:12.5px}.opts.sec label{font-size:12.5px;padding:5px 11px 5px 10px}
 .opts.sec label.dt{border-style:solid}.opts.sec label.dt input,.opts.sec label.sa input{width:108px;font-size:13px;padding:3px 6px}
-@media (max-width:760px){.id-main{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.id-nom{grid-column:span 3}.id-pre{grid-column:span 3}.id-ddn{grid-column:span 3}.id-sex{grid-column:span 2}.id-poids{grid-column:span 1}
+@media (max-width:760px){.id-main{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.id-nom{grid-column:span 6}.id-ddn{grid-column:span 3}.id-sex{grid-column:span 2}.id-poids{grid-column:span 1}
   .ident{padding:8px 10px 8px}.ident input{font-size:18px;min-height:46px;padding:6px 9px}.segs{min-height:46px;width:100%;justify-content:stretch}.segs button{min-width:0;flex:1;padding:0 6px;font-size:18px}.id-l{font-size:10.5px}.id-l .agetag{font-size:12px}
   .id-nh label:not(.w) input{width:130px}.tt.idline .chips input{min-width:140px}
   body.phone .pcard .ident{margin-top:2px}}
@@ -2152,7 +2151,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style></head>
-<body><div id="testbadge" aria-hidden="true">TEST · 42.3 · 09/11 03:44</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
+<body><div id="testbadge" aria-hidden="true">TEST · 42.4 · 09/11 04:13</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -16499,7 +16498,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"42.3",branch:"test",date:"09/11 03:44"};
+const APP_BUILD={v:"42.4",branch:"test",date:"09/11 04:13"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16823,7 +16822,7 @@ function aiAnonCtx(){const stop=(typeof TOUR!=="undefined"&&TOUR.current)?tourSt
   const autres=[...(state.copat||[]).map(c=>c&&c.patient).filter(Boolean).map(n=>({n,cat:"AUTRE PATIENT"})),...(stop&&stop.nom&&norm(stop.nom)!==norm(state.patient||"")?[{n:stop.nom,cat:"AUTRE PATIENT"}]:[]),...(doc&&!/SP[ÉE]CIMEN/i.test(doc)?[{n:doc,cat:"MÉDECIN"}]:[]),...(DOCTOR.assoc||[]).map(a=>({n:String(a).replace(/^(Docteurs?|Drs?\.?)\s+/i,""),cat:"MÉDECIN"})),...(nh.temoin?[{n:nh.temoin,cat:"PERSONNE"}]:[])];
   return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:[...AI.masquer,...((AI.cfg.alwaysMask||[]))],garder:[...AI.garder,...((AI.cfg.alwaysKeep||[]))],strict:!!AI.strict,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
 /* Données cliniques sans identité : l'âge remplace la date de naissance */
-/* ===== 08/11/2026 — bloc identité : NOM · Prénom · Naissance (âge) · Sexe (F / M, obligatoire) · Poids ; state.patient reste « NOM Prénom » pour le reste de l'outil ===== */
+/* ===== 08/11/2026 — bloc identité : NOM Prénom (un seul champ depuis le 09/11/2026, remis en « NOM Prénom » à la sortie du champ) · Naissance (âge) · Sexe (F / M, obligatoire) · Poids ; state.patient reste « NOM Prénom » pour le reste de l'outil, state.pn garde la coupure (fiche de régulation ou patSplitGuess) ===== */
 function patSplitGuess(p){const w=String(p||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);if(!w.length)return {nom:"",prenom:""};
   const up=w.filter(x=>x.length>=2&&x===x.toUpperCase()&&/[A-ZÀ-Þ]/.test(x));
   if(up.length&&up.length<w.length)return {nom:up.join(" "),prenom:w.filter(x=>!up.includes(x)).join(" ")};
@@ -16857,21 +16856,20 @@ function identHTML(pfx,o){o=o||{};const P=patParts();const age=ageLabel();const 
   const seg=`<div class="id-f id-sex${sx?"":" miss"}"><span class="id-l">Sexe${sx?"":' <b class="q">?</b>'}${guess?' <i class="id-g" title="Déduit du prénom : touchez F ou M pour confirmer">prénom ?</i>':""}</span><div class="segs${guess?" guess":""}" id="${pfx}sexe" role="group" aria-label="Sexe du patient">${[["f","F","Femme"],["h","M","Homme"]].map(([v,l,t],i)=>`<button type="button" data-sex="${v}" class="${sx===v?"on":""}" aria-pressed="${sx===v}" aria-label="${t}" title="${t}" tabindex="${(sx?sx===v:i===0)?0:-1}">${l}</button>`).join("")}</div></div>`;
   const close=o.close&&identComplete()?`<button type="button" class="btn s sm id-close" id="${pfx}close" title="Replier l'identité">✓ OK</button>`:"";
   return `<div class="ident${o.cls?" "+o.cls:""}" id="${pfx}ident"><div class="id-main">
-   <label class="id-f id-nom"><span class="id-l">Nom</span><input id="${pfx}patient" value="${esc(P.nom)}" placeholder="NOM" autocomplete="off" autocapitalize="characters" enterkeyhint="next"></label>
-   <label class="id-f id-pre"><span class="id-l">Prénom</span><input id="${pfx}prenom" value="${esc(P.prenom)}" placeholder="Prénom" autocomplete="off" autocapitalize="words" enterkeyhint="next"></label>
+   <label class="id-f id-nom"><span class="id-l">Nom Prénom</span><input id="${pfx}patient" value="${esc([P.nom,P.prenom].filter(Boolean).join(" "))}" placeholder="NOM Prénom" autocomplete="off" autocapitalize="words" enterkeyhint="next"></label>
    <label class="id-f id-ddn"><span class="id-l">Naissance${age?` <b id="${pfx}age" class="agetag">${esc(age)}</b>`:` <b id="${pfx}age" class="agetag"></b>`}</span><input id="${pfx}ddn" value="${esc(state.ddn)}" placeholder="jjmmaaaa" inputmode="numeric" autocomplete="off" enterkeyhint="next"></label>
    ${seg}
    <label class="id-f id-poids${needW?" need":""}"><span class="id-l">Poids${needW?' <b class="q">?</b>':""}</span><input id="${pfx}poids" value="${esc(state.poids)}" placeholder="kg" inputmode="decimal" autocomplete="off" enterkeyhint="done"></label>${close}</div>
    ${showNh?`<div class="id-nh"><label title="Téléphone du patient"><span aria-hidden="true">📞</span><input id="${pfx}tel" value="${esc(fmtTel(nh.tel||""))}" placeholder="téléphone" inputmode="tel" autocomplete="off"></label><label class="w" title="Adresse du patient"><span aria-hidden="true">📍</span><input id="${pfx}adr" value="${esc(nh.adresse||"")}" placeholder="adresse" autocomplete="off"></label></div>`:""}</div>`;}
-function identBind(pfx,nextSel){const g=id=>document.getElementById(pfx+id);const nom=g("patient"),pre=g("prenom"),dd=g("ddn"),sx=g("sexe"),pw=g("poids"),tel=g("tel"),adr=g("adr"),cl=g("close");if(!nom)return;
-  const upd=()=>{patSet(nom.value,pre?pre.value:"");if(!state.t0&&state.patient.trim())state.t0=Date.now();softRender();};
-  nom.oninput=upd;if(pre)pre.oninput=upd;
+function identBind(pfx,nextSel){const g=id=>document.getElementById(pfx+id);const nom=g("patient"),dd=g("ddn"),sx=g("sexe"),pw=g("poids"),tel=g("tel"),adr=g("adr"),cl=g("close");if(!nom)return;
+  /* 09/11/2026 : un seul champ « NOM Prénom » ; pendant la frappe state.patient suit le champ, la coupure nom / prénom (sexe déduit, résumé Express) vient de patParts() */
+  const upd=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();patParts();if(!state.t0&&state.patient.trim())state.t0=Date.now();softRender();};
+  nom.oninput=upd;
   const focusTo=el=>{if(!el)return;el.focus();try{if(el.select)el.select();}catch(e){}};
-  const fixNom=()=>{let v=nom.value.replace(/\s+/g," ").trim(),split=false;if(v&&pre&&!pre.value.trim()&&/\s/.test(v)){const sp=patSplitGuess(v);v=sp.nom;pre.value=capPrenom(sp.prenom);split=!!pre.value;}v=v.toUpperCase();if(nom.value!==v)nom.value=v;patSet(nom.value,pre?pre.value:"");return split;};
-  const guessSex=()=>{if(state.sexe||!pre||!pre.value.trim())return;const s2=sexFromPrenom(pre.value);if(s2){state.sexe=s2;state.sexeSrc="prenom";if(s2==="h"){state.grossesse=false;state.allait=false;}}};
-  const fixPre=()=>{if(!pre)return;const v=capPrenom(pre.value);if(pre.value!==v)pre.value=v;patSet(nom.value,pre.value);guessSex();};
-  nom.onblur=()=>setTimeout(()=>{if(!nom.isConnected)return;fixNom();guessSex();softRender();},0);nom.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();const sp=fixNom();guessSex();focusTo(sp?dd:(pre||dd));}};
-  if(pre){pre.onblur=()=>setTimeout(()=>{if(!pre.isConnected)return;fixPre();softRender();},0);pre.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();fixPre();focusTo(dd);}};}
+  /* sortie du champ : « dupont marie » → « DUPONT Marie » (coupure de la fiche de régulation si elle l'a donnée, sinon patSplitGuess : mots en capitales = nom, sinon premier mot = nom) */
+  const fixNom=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();const P=state.patient?patParts():{nom:"",prenom:""};patSet(P.nom.toUpperCase(),capPrenom(P.prenom));if(nom.value!==state.patient)nom.value=state.patient;};
+  const guessSex=()=>{if(state.sexe)return;const pr=patParts().prenom;if(!pr)return;const s2=sexFromPrenom(pr);if(s2){state.sexe=s2;state.sexeSrc="prenom";if(s2==="h"){state.grossesse=false;state.allait=false;}}};
+  nom.onblur=()=>setTimeout(()=>{if(!nom.isConnected)return;fixNom();guessSex();softRender();},0);nom.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();fixNom();guessSex();focusTo(dd);}};
   const fixDdn=()=>{if(!dd)return;const v=normDate(dd.value);if(v!==dd.value)dd.value=v;state.ddn=v;const t=g("age");if(t)t.textContent=ageLabel();};
   if(dd){dd.oninput=()=>{state.ddn=dd.value;const t=g("age");if(t)t.textContent=ageLabel();try{autoAgePack();}catch(e){}softRender();};dd.onblur=()=>setTimeout(()=>{if(!dd.isConnected)return;fixDdn();try{autoAgePack();}catch(e){}softRender();},0);
     dd.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();fixDdn();try{autoAgePack();}catch(e){}render();const s2=document.getElementById(pfx+"sexe");if(s2&&!state.sexe){const b=s2.querySelector("button");if(b)b.focus();}else focusTo(document.getElementById(pfx+"poids"));}};}
