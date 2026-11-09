@@ -89,13 +89,13 @@ async def run(width,height,theme,big,label):
         await page.evaluate(SET); await page.wait_for_timeout(300)
         # ---------- tournée : deux demandes, impact par adresse, secteurs ----------
         await page.evaluate("state.view='tour';render();"); await page.wait_for_timeout(900)
-        imp=await page.evaluate("[...document.querySelectorAll('[data-tpimp]')].map(e=>({id:e.dataset.tpimp,t:e.textContent}))")
+        imp=await page.evaluate("async()=>{const out=[];for(const id of ['n1','n2']){const s=tourStop(id);const geo={id,lat:s.lat,lon:s.lon,label:s.label,motif:s.motif};const legs=await tpImpactLegs(geo);out.push({id,t:tpImpactText(tpImpactCalc(geo,legs))});}return out;}") # 09/11/2026 : l'impact n'est plus affiché dans la carte (intégration automatique) ; même calcul, trajets réels
         t1=next((x["t"] for x in imp if x["id"]=="n1"),""); t2=next((x["t"] for x in imp if x["id"]=="n2"),"")
-        ok(label+"tournée : impact affiché pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)",re.match(r"^\+\d+ min → fin de tournée \d{1,2} h \d{2}",t1) and re.match(r"^\+\d+ min → fin de tournée \d{1,2} h \d{2}",t2),(t1,t2))
+        ok(label+"tournée : impact calculé pour chaque demande, « +N min → fin de tournée HH h MM » (pas de point d'arrivée)",re.match(r"^\+\d+ min → fin de tournée \d{1,2} h \d{2}",t1) and re.match(r"^\+\d+ min → fin de tournée \d{1,2} h \d{2}",t2),(t1,t2))
         ok(label+"tournée : deux adresses différentes → impacts différents, trajets réels (pas de mention « estimation »)",t1!=t2 and "estimation" not in t1 and "estimation" not in t2,(t1,t2))
         sec=await page.evaluate("[...document.querySelectorAll('.tp-sectors .chip')].map(e=>e.textContent)")
         txt=await page.evaluate("(document.querySelector('.tp-new')||{}).textContent||''")
-        ok(label+"secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; texte « 1 visite déjà prévue »","Orléans · 1" in sec and "1 visite déjà prévue dans ce secteur" in txt,(sec,txt[:160]))
+        ok(label+"secteurs : la puce « Orléans · 1 » compte la visite non faite, pas les demandes non intégrées ; carte « Nouvelle demande » pour chacune","Orléans · 1" in sec and txt.count("Nouvelle demande")==2,(sec,txt[:160]))
         if width<500 and theme=="day" and not big: await page.screenshot(path=os.path.join(OUT,"v41y-tournee-2demandes.png"),full_page=False)
         # même estimation : impact calculé avant intégration = fin prévue après intégration (même instant de calcul)
         r=await page.evaluate("""async()=>{const s=tourStop('n1');const geo={id:'n1',lat:s.lat,lon:s.lon,label:s.label,motif:s.motif};const legs=await tpImpactLegs(geo);const T=Date.now();const r=tpImpactCalc(geo,legs,T);

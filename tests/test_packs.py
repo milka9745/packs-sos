@@ -298,7 +298,8 @@ async def run(width,height,label):
             await page.locator("#tc_begin" if where=="main" else "#tr_begin").first.click()
             await page.wait_for_timeout(900)
             r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=[...document.querySelectorAll('.tcard a,#fdock a')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
-            ok(label+f" tournée point 0 ({where}) : « Commencer » ouvre le 1er patient prérempli et montre son adresse avec « Naviguer »",r0["cur"]=="r1" and r0["p"]=="DUPONT Jean" and r0["ddn"]=="01/01/1946" and r0["tel"]=="0612345678" and "Bourgogne" in (r0["adr"] or "") and "fièvre" in (r0["hist"] or "") and r0["inView"] and r0["nav"],r0)
+            # 09/11/2026 : r2 attend depuis 3 h (plus que le seuil d'alerte) → vue en premier, le trajet décide du reste
+            ok(label+f" tournée point 0 ({where}) : « Commencer » ouvre le 1er patient prérempli (la patiente qui attend depuis 3 h) et montre son adresse avec « Naviguer »",r0["cur"]=="r2" and r0["p"]=="MARTIN Léa" and r0["ddn"]=="02/02/2022" and r0["tel"]=="0611111111" and "Jeanne d'Arc" in (r0["adr"] or "") and "otite" in (r0["hist"] or "") and r0["inView"] and r0["nav"],r0)
             await page.evaluate(TRESET)
         await page.evaluate(TSET)
         hp=await page.evaluate("()=>{state.view='tour';render();const t=document.body.innerText;state.view='';render();return /Calcule l'ordre des visites, ouvre le premier patient/.test(t);}")

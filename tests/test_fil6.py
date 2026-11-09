@@ -1,5 +1,5 @@
 # Lot 1 (02/11/2026) — parcours patient en 6 états : une barre fixe de 3 actions aux mêmes places, aucun bouton en double, chronométré.
-# Parcours joué au toucher : Demande → En route → Sur place → Prise en charge → (aperçu) → Sortie → Patient validé → En route (suivant) → Entre deux → En route.
+# Parcours joué au toucher : Demande → En route → Sur place → Prise en charge → (aperçu) → Sortie → Patient validé → En route (suivant) → nouvelle demande intégrée d'elle-même (09/11/2026, plus d'état « Entre deux ») → En route.
 # iPhone 375 px (jour, nuit, grand texte, Express) et ordinateur. Données fictives uniquement.
 import asyncio, os, sys, time, json, subprocess, collections, re
 def T(d): return [re.sub(r"^[^\wÀ-ÿ]+","",f["t"]) for f in d["fa"]] if d else []
@@ -93,22 +93,23 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     ok(L + "5. 2e toucher : patient validé, arrêt fait, journal de test intact", await page.evaluate("TOUR.stops.find(s=>s.id==='r1').done&&state.view==='valid'"))
     await tap(page, L, "#vd_next", "route", "Patient suivant → 2 (visite suivante)")
     ok(L + "Patient suivant : la visite suivante est en cours", await page.evaluate("!!TOUR.current&&TOUR.current!=='r1'"))
-    # 6. Entre deux : nouvelle demande pendant le trajet
-    r = await page.evaluate(r"""async()=>{const t0=performance.now();TOUR.stops.push({id:'n1',addr:'w',nom:'BERNARD Luc',ddn:'04/04/1980',motif:'malaise',tel:'0622222222',lat:47.905,lon:1.915,label:'7 Rue des Carmes 45000 Orléans',done:false,isNew:true,ts:Date.now()});render();
-      for(let i=0;i<400;i++){const d=document.getElementById('fdock');if(d&&d.dataset.fil==='entre')return {ms:Math.round(performance.now()-t0)};await new Promise(r=>requestAnimationFrame(r));}return {err:'pas d entre-deux'};}""")
-    ok(L + "nouvelle demande → 6 Entre deux en moins de 2 s", "ms" in r and r["ms"] < 2000, r); TIMES[L + "→ 6 Entre deux"] = r.get("ms")
-    d6 = await check_state(page, L, "entre", "6. Entre deux", sh("6-entre"))
-    ok(L + "6. Entre deux : Rendre à la régulation · En fin de tournée · Insérer au mieux ; impact affiché", T(d6) == ["Rendre à la régulation", "En fin de tournée", "Insérer au mieux"] and await page.evaluate("!!document.querySelector('.tp-new')"), T(d6))
-    await tap(page, L, "#fdock [data-tpins]", "route", "6 → 2 Insérer au mieux", 3000)
-    ok(L + "6. demande insérée dans la tournée (plus « nouvelle »)", await page.evaluate("TOUR.order.includes('n1')&&!TOUR.stops.find(s=>s.id==='n1').isNew"))
+    # 6. Nouvelle demande pendant le trajet — 09/11/2026 : intégrée d'elle-même, la barre reste « En route » (plus d'état « Entre deux »)
+    r = await page.evaluate(r"""async()=>{const t0=performance.now();const s=tourAdd('7 rue des Carmes, 45000 Orléans','',false,{lat:47.905,lon:1.915,label:'7 Rue des Carmes 45000 Orléans',city:'Orléans'});s.id='n1';s.nom='BERNARD Luc';s.ddn='04/04/1980';s.motif='malaise';s.tel='0622222222';tourSave();tourAfterAdd(s);
+      let ms=null;for(let i=0;i<400;i++){const c=document.querySelector('.tcard .tp-new');if(c&&/Nouvelle demande/.test(c.textContent)){ms=Math.round(performance.now()-t0);break;}await new Promise(r=>requestAnimationFrame(r));}
+      for(let i=0;i<80&&!s.ins;i++)await new Promise(r=>setTimeout(r,100));await new Promise(r=>setTimeout(r,250));const c=document.querySelector('.tcard .tp-new');
+      return {ms,ms2:Math.round(performance.now()-t0),fil:document.getElementById('fdock').dataset.fil,inOrder:TOUR.order.includes('n1'),isNew:!!s.isNew,txt:c?c.textContent:'',old:document.querySelectorAll('[data-tpins],[data-tplater],#fdock [data-tpgive]').length};}""")
+    ok(L + "nouvelle demande → carte « Nouvelle demande » en moins de 2 s, intégrée d'elle-même (trajets) en moins de 8 s, ligne « intégrée en Ne position »", r.get("ms") is not None and r["ms"] < 2000 and r.get("ms2", 99999) < 8000 and r.get("inOrder") and not r.get("isNew") and "intégrée en" in r.get("txt", ""), r); TIMES[L + "→ demande intégrée"] = r.get("ms2")
+    ok(L + "6. plus d'état « Entre deux » : la barre reste « En route », aucun bouton Insérer / En fin de tournée / Rendre dans la barre", r.get("fil") == "route" and r.get("old") == 0, r)
+    d6 = await check_state(page, L, "route", "6. En route (demande intégrée)", sh("6-demande"))
     tw = await page.evaluate("async()=>{toast('essai');await new Promise(r=>setTimeout(r,350));const t=document.getElementById('toast').getBoundingClientRect(),d=document.getElementById('fdock');return {ok:!d||t.bottom<=d.getBoundingClientRect().top+1,tb:t.bottom,dt:d&&d.getBoundingClientRect().top,h:getComputedStyle(document.documentElement).getPropertyValue('--fdock-h'),bot:getComputedStyle(document.getElementById('toast')).bottom};}")
     ok(L + "messages (toasts) au-dessus de la barre, jamais dessus", tw["ok"], tw)
-    # Rendre à la régulation : 2 touchers
-    await page.evaluate(r"""()=>{TOUR.stops.push({id:'n2',addr:'v',nom:'PETIT Ana',ddn:'05/05/1990',motif:'fièvre',lat:47.906,lon:1.916,label:'2 Rue Royale 45000 Orléans',done:false,isNew:true,ts:Date.now()});render();}"""); await page.wait_for_timeout(200)
-    await page.click("#fdock [data-tpgive]"); await page.wait_for_timeout(150)
+    # Rendre à la régulation : dans « Plus » de la carte, 2 touchers
+    await page.evaluate(r"""async()=>{const s=tourAdd('2 rue Royale, 45000 Orléans','',false,{lat:47.906,lon:1.916,label:'2 Rue Royale 45000 Orléans',city:'Orléans'});s.id='n2';s.nom='PETIT Ana';s.ddn='05/05/1990';s.motif='fièvre';tourSave();await tpAutoInsert(s);const d=document.querySelector('.tcard details.tc-more');if(d)d.open=true;}"""); await page.wait_for_timeout(200)
+    ok(L + "6. « Rendre à la régulation » : dans le tiroir « Plus » de la carte, pas dans la barre", await page.locator(".tc-more [data-tpgive='n2']").count() == 1 and await page.locator("#fdock [data-tpgive]").count() == 0)
+    await page.click(".tc-more [data-tpgive='n2']"); await page.wait_for_timeout(150)
     k1 = await page.evaluate("!!TOUR.stops.find(s=>s.id==='n2')")
-    await page.click("#fdock [data-tpgive]"); await page.wait_for_timeout(300)
-    ok(L + "6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, retour à l'état précédent", k1 and await page.evaluate("!TOUR.stops.find(s=>s.id==='n2')&&TOUR.given.some(g=>/PETIT/.test(g.lbl))&&document.getElementById('fdock').dataset.fil==='route'"))
+    await page.click(".tc-more [data-tpgive='n2']"); await page.wait_for_timeout(300)
+    ok(L + "6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, barre inchangée", k1 and await page.evaluate("!TOUR.stops.find(s=>s.id==='n2')&&TOUR.given.some(g=>/PETIT/.test(g.lbl))&&document.getElementById('fdock').dataset.fil==='route'"))
     # Naviguer → écran conduite automatique
     await page.evaluate("()=>{const a=document.querySelector('#fdock #fa_nav');a.removeAttribute('target');a.setAttribute('href','#');a.click();}"); await page.wait_for_timeout(400)
     ok(L + "Naviguer : écran conduite ouvert automatiquement", await page.evaluate("state.view==='drive'"))
