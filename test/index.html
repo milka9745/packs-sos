@@ -576,6 +576,7 @@ body.hasnet{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 56px)}
 .id-l{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;color:var(--acc2,var(--muted));display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .id-l .agetag{margin:0;font-size:13px;text-transform:none;letter-spacing:0}.id-l b.q{color:var(--bad,#b00)}.id-l .agetag:empty{display:none}
 .id-l .id-g{font-style:normal;font-weight:600;text-transform:none;letter-spacing:0;font-size:11px;opacity:.9;color:var(--ink)}
+.id-l .id-swap{margin-left:auto;font:inherit;font-size:12px;line-height:1;padding:3px 9px;min-height:24px;border:1px solid var(--line2);border-radius:9px;background:var(--field);color:var(--ink);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:600;white-space:nowrap}.id-l .id-swap:active{background:var(--mode-soft,var(--ring))}.id-nom .id-l{overflow:visible;text-overflow:clip} /* 09/11/2026 : ⇄ inverse nom et prénom */
 .ident input{width:100%;box-sizing:border-box;min-height:50px;font-size:21px;font-weight:700;padding:8px 12px;border:1.5px solid var(--line2);border-radius:10px;background:var(--field);color:var(--ink);font-family:inherit}
 .ident input::placeholder{font-weight:400;color:var(--ph);font-style:italic;text-transform:none}
 .ident input:focus{border-color:var(--mode,var(--acc2));box-shadow:0 0 0 4px var(--mode-soft,var(--ring));outline:none}
@@ -2151,7 +2152,7 @@ body{padding-top:calc(var(--updh,0px) + var(--testh))!important}
 #updbar{top:var(--testh)!important}.printbar.top:not(.phone){top:var(--testh)!important}
 #main:has(>.drive){max-height:calc(100vh / var(--appz,1) - var(--testh))!important;max-height:calc(100dvh / var(--appz,1) - var(--testh))!important}
 @media print{#testbadge{display:none!important}body{padding-top:0!important}@page{margin:0}}</style></head>
-<body><div id="testbadge" aria-hidden="true">TEST · 42.4 · 09/11 04:13</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
+<body><div id="testbadge" aria-hidden="true">TEST · 42.5 · 09/11 07:18</div><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
 <div class="app">
 <aside>
   <div class="brand"><span>Packs SOS<small id="brand_sub">SOS Médecins Orléans — hors ligne</small></span></div>
@@ -7869,10 +7870,10 @@ function journalUpsert(p){
   const now=Date.now(); const key=norm(state.patient);
   let e=JOURNAL.find(x=>norm(x.patient)===key&&now-x.ts<2*3600*1000);
   const _ct=cotTimes(now);
-  if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
+  if(!e){e={id:now+"-"+Math.random().toString(36).slice(2,6),ts:now,tArr:_ct.arr,tActe:_ct.acte,num:patNextNum(now),patient:state.patient,nom:patParts().nom,prenom:patParts().prenom,ddn:state.ddn,age:ageY(),pack:p.n,lieu:state.cot.lieu,ecg:state.cot.ecg,km:state.cot.km,commune:state.cot.commune||"",extra:[],minus:[]};const _a=ageY();e.age=_a?_a.y:null;e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.dur=state.t0?Math.round((Date.now()-state.t0)/60000*10)/10:null;JOURNAL.push(e);}
   if((state.modeLog||[]).length)e.modeLog=state.modeLog.slice();
   try{const jrl=p.s.flatMap((sh,si)=>state.off[si]?[]:resolve(sh,si).filter(x=>x.on&&x.jr&&!x.fill.miss.length).map(x=>x.fill.s));if(jrl.length)e.notes=[...new Set([...(e.notes||[]),...jrl])];const cio=ciTrace();if(cio.length)e.notes=[...new Set([...(e.notes||[]),...cio])];const oto=ordoTrace();if(oto.length)e.notes=[...new Set([...(e.notes||[]).filter(x=>!/^Ordonnance : /.test(x)),...oto])];const ctr=certTrace();if(ctr)e.notes=[...new Set([...(e.notes||[]).filter(x=>!/^Certificat : /.test(x)),"Certificat : "+ctr])];if(state.at.on)e.at={fait:true,j:+state.at.jours||0};else delete e.at;if(state.examTrace){e.exam=state.examTrace;e.notes=[...(e.notes||[]).filter(x=>!/^Examen complet validé/.test(x)),examTraceTxt(state.examTrace)];}{const ct=certTrace();if(ct){const c=certPeriod();e.cert={t:ct,j:c.j,du:c.du,au:c.au};}else delete e.cert;}}catch(x){}
-  if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
+  if(e.ts!==now){if(state.cot&&(state.cot.h||state.cot.hArr)){e.tArr=_ct.arr;e.tActe=_ct.acte;}e.pack=[...new Set([...e.pack.split(" + "),...p.n.split(" + ")])].join(" + ");e.impaye=(state.nh.on&&state.nh.statut!=="paye")?nhReste():0;e.lieu=state.cot.lieu;e.ecg=state.cot.ecg||e.ecg;e.km=state.cot.km||e.km;e.commune=state.cot.commune||e.commune||"";e.ddn=e.ddn||state.ddn;{const _P=patParts();e.nom=_P.nom;e.prenom=_P.prenom;}if(e.age==null){const _a=ageY();e.age=_a?_a.y:null;}if(state.t0)e.dur=Math.round((Date.now()-state.t0)/60000*10)/10;}
   journalSave();
 }
 function journalAddManual(){const nm=prompt("Nom du patient (NOM Prénom) :");if(!nm)return;const hh=prompt("Heure de l'acte (HH:MM), vide = maintenant :","");let ts=Date.now();if(hh&&/^\d{1,2}:\d{2}$/.test(hh)){const d=new Date(ts);const [h,m]=hh.split(":").map(Number);d.setHours(h,m,0,0);if(d.getTime()>ts+3600*1000)d.setDate(d.getDate()-1);ts=d.getTime();}
@@ -7920,8 +7921,8 @@ function araplCSV(year){
   JOURNAL.filter(e=>new Date(e.ts).getFullYear()===year&&e.lieu==="visite"&&+e.km).sort((a,b)=>a.ts-b.ts).forEach(e=>{const d=new Date(e.ts);rows.push(["",calKey(e.ts),String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"),e.commune||"",e.km,(2*+e.km).toFixed(1)]);});
   return rows.map(r=>r.map(x=>'"'+String(x).replace(".",",").replace(/"/g,'""')+'"').join(";")).join("\n");
 }
-function journalFull(){const rows=[["id","date","heure","jour_de_garde","code_garde","patient","date_naissance","age","packs","lieu","commune","km_aller_retour","ecg","codes","majorations_cochees","majorations_retirees","total_eur","majorations_PDS_exonerables_eur","impaye_eur","duree_min","mode_test"]];
-  JOURNAL.slice().sort((a,b)=>a.ts-b.ts).forEach(e=>{const c=cotCompute(e);const d=new Date(e.ts);rows.push([e.id,calKey(e.ts),String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"),gardeKey(e.ts),(GARDES[gardeKey(e.ts)]||{}).code||"",e.patient,e.ddn?normDate(e.ddn):"",e.age==null?"":e.age,e.pack,e.lieu||"",e.commune||"",e.km||"",e.ecg?"oui":"",c.codes.map(x=>x.c).join("+"),(e.extra||[]).join("+"),(e.minus||[]).join("+"),String(c.total).replace(".",","),String(c.exo).replace(".",","),e.impaye?String(e.impaye).replace(".",","):"",e.dur==null?"":String(e.dur).replace(".",","),e.test?"oui":""]);});
+function journalFull(){const rows=[["id","date","heure","jour_de_garde","code_garde","patient","date_naissance","age","packs","lieu","commune","km_aller_retour","ecg","codes","majorations_cochees","majorations_retirees","total_eur","majorations_PDS_exonerables_eur","impaye_eur","duree_min","mode_test","nom","prenom"]];
+  JOURNAL.slice().sort((a,b)=>a.ts-b.ts).forEach(e=>{const c=cotCompute(e);const d=new Date(e.ts);rows.push([e.id,calKey(e.ts),String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"),gardeKey(e.ts),(GARDES[gardeKey(e.ts)]||{}).code||"",e.patient,e.ddn?normDate(e.ddn):"",e.age==null?"":e.age,e.pack,e.lieu||"",e.commune||"",e.km||"",e.ecg?"oui":"",c.codes.map(x=>x.c).join("+"),(e.extra||[]).join("+"),(e.minus||[]).join("+"),String(c.total).replace(".",","),String(c.exo).replace(".",","),e.impaye?String(e.impaye).replace(".",","):"",e.dur==null?"":String(e.dur).replace(".",","),e.test?"oui":"",e.nom||"",e.prenom||""]);});
   rows.push([]);const ys=[...new Set(JOURNAL.map(e=>new Date(e.ts).getFullYear()).concat(Object.keys(GARDES).map(k=>+k.slice(0,4))))].sort();ys.forEach(y=>{astrRowsCSV(y).forEach(r=>rows.push(r.map(x=>typeof x==="string"?x.replace(".",","):x)));});
   return "\ufeff"+rows.map(r=>r.map(x=>'"'+String(x==null?"":x).replace(/"/g,'""')+'"').join(";")).join("\r\n");}
 function journalBackup(){const data={app:"Packs SOS",version:APP_VERSION,exported:new Date().toISOString(),journal:JOURNAL,tarifs:(typeof TARIFS!=="undefined"?TARIFS:null),rapprochement:lsGet("sos_recon",null)};downloadText("packs-sos-journal-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(data,null,1));}
@@ -16376,6 +16377,7 @@ function esc(s){return (""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":
 async function printPack(opts){opts=opts||{};try{return await printPack0(opts);}finally{try{printIdle();}catch(e){}}} /* 07/11/2026 : le bouton touché retrouve son état quoi qu'il arrive */
 async function printPack0(opts){try{xpCancelBuild();}catch(e){}
   const p=currentPack(); if(!p){toast("Choisissez d'abord une fiche (motif) : rien à imprimer pour l'instant.");return;}
+  try{patNorm();}catch(e){} /* 09/11/2026 : « NOM Prénom » sur les documents même si le champ n'a pas été quitté */
   {const sc=sexConflict();if(sc.length){render();toast("Impression bloquée : fiche « "+sc[0].p.n+" » réservée "+sexLab(sc[0].sx)+". Changez de fiche ou corrigez le sexe.");return;}}
   const alerts=checkAlerts(p.s);
   const pend=ciPending(alerts);if(pend.length){ciScreen(p,pend,()=>printPack(opts));return;} /* 16/10/2026 : Packs conseille, le médecin décide */
@@ -16498,7 +16500,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"42.4",branch:"test",date:"09/11 04:13"};
+const APP_BUILD={v:"42.5",branch:"test",date:"09/11 07:18"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -16820,16 +16822,26 @@ function aiLexique(){if(_aiLex)return _aiLex;const s=new Set(),c=new Set();const
 function aiAnonCtx(){const stop=(typeof TOUR!=="undefined"&&TOUR.current)?tourStop(TOUR.current):null;const nh=state.nh||{};
   const doc=String(DOCTOR.nom||"").replace(/^(Docteur|Dr\.?)\s+/i,"");
   const autres=[...(state.copat||[]).map(c=>c&&c.patient).filter(Boolean).map(n=>({n,cat:"AUTRE PATIENT"})),...(stop&&stop.nom&&norm(stop.nom)!==norm(state.patient||"")?[{n:stop.nom,cat:"AUTRE PATIENT"}]:[]),...(doc&&!/SP[ÉE]CIMEN/i.test(doc)?[{n:doc,cat:"MÉDECIN"}]:[]),...(DOCTOR.assoc||[]).map(a=>({n:String(a).replace(/^(Docteurs?|Drs?\.?)\s+/i,""),cat:"MÉDECIN"})),...(nh.temoin?[{n:nh.temoin,cat:"PERSONNE"}]:[])];
-  return {patient:state.patient||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:[...AI.masquer,...((AI.cfg.alwaysMask||[]))],garder:[...AI.garder,...((AI.cfg.alwaysKeep||[]))],strict:!!AI.strict,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
+  const P=patParts(); /* 09/11/2026 : nom et prénom distincts (coupure de la fiche de régulation ou du champ), plus de re-coupure du nom complet */
+  return {patient:state.patient||"",nom:P.nom||"",prenom:P.prenom||"",ddn:state.ddn||"",ref:normDate(state.date||""),adresse:[stop&&stop.addr,stop&&stop.label,nh.adresse].filter(Boolean),tel:[stop&&stop.tel,stop&&stop.tel2,nh.tel].filter(Boolean),nir:(state.f&&state.f.nir)||"",autres,masquer:[...AI.masquer,...((AI.cfg.alwaysMask||[]))],garder:[...AI.garder,...((AI.cfg.alwaysKeep||[]))],strict:!!AI.strict,lexique:aiLexique(),courants:aiCourants(),medicaments:aiMedWords()};}
 /* Données cliniques sans identité : l'âge remplace la date de naissance */
 /* ===== 08/11/2026 — bloc identité : NOM Prénom (un seul champ depuis le 09/11/2026, remis en « NOM Prénom » à la sortie du champ) · Naissance (âge) · Sexe (F / M, obligatoire) · Poids ; state.patient reste « NOM Prénom » pour le reste de l'outil, state.pn garde la coupure (fiche de régulation ou patSplitGuess) ===== */
-function patSplitGuess(p){const w=String(p||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);if(!w.length)return {nom:"",prenom:""};
-  const up=w.filter(x=>x.length>=2&&x===x.toUpperCase()&&/[A-ZÀ-Þ]/.test(x));
-  if(up.length&&up.length<w.length)return {nom:up.join(" "),prenom:w.filter(x=>!up.includes(x)).join(" ")};
-  return {nom:w[0],prenom:w.slice(1).join(" ")};}
+/* 09/11/2026 (bug 42.4) : coupure nom / prénom d'un texte libre. 1) Mots en capitales (≥ 2 lettres) = nom, avant ou après le prénom (« DUPONT Marie » comme « Marie DUPONT ») ; une particule en minuscules suivie du nom en capitales le suit (« Jean de LA FONTAINE » → DE LA FONTAINE).
+   2) Sans indice de casse (tout en capitales, tout en minuscules, chaque mot capitalisé par le clavier ou la dictée) : ordre de la fiche de régulation « NOM Prénom », le nom englobant ses particules (« de la fontaine jean-pierre » → DE LA FONTAINE / Jean-Pierre). Le bouton ⇄ du bloc identité inverse les deux. */
+const PAT_PARTICULES=new Set("de du des la le les van von der den da di del della dos das do mac mc saint sainte st ste".split(" "));
+function patIsPart(w){const k=String(w||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();return PAT_PARTICULES.has(k)||/^[dlo]['’]$/.test(k);}
+function patIsUp(x){return x.length>=2&&x===x.toUpperCase()&&x!==x.toLowerCase();}
+function patSplitGuess(p){const w=String(p||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);if(!w.length)return {nom:"",prenom:""};if(w.length===1)return {nom:w[0],prenom:""};
+  const nUp=w.filter(patIsUp).length;
+  if(nUp&&nUp<w.length){const nom=[],pre=[];w.forEach((x,i)=>{if(patIsUp(x)){nom.push(x);return;}const nx=w.slice(i+1).find(y=>!patIsPart(y));if(patIsPart(x)&&nx&&patIsUp(nx))nom.push(x);else pre.push(x);});
+    if(nom.length&&pre.length)return {nom:nom.join(" "),prenom:pre.join(" ")};}
+  let i=0;while(i<w.length-1&&patIsPart(w[i]))i++;
+  return {nom:w.slice(0,i+1).join(" "),prenom:w.slice(i+1).join(" ")};}
 function patParts(){const p=String(state.patient||"").replace(/\s+/g," ").trim();const c=state.pn;
   if(c&&[c.nom,c.prenom].filter(Boolean).join(" ").replace(/\s+/g," ").trim()===p)return c;const g=patSplitGuess(p);state.pn=g;return g;}
 function patSet(nom,prenom){nom=String(nom||"").replace(/\s+/g," ").trim();prenom=String(prenom||"").replace(/\s+/g," ").trim();state.pn={nom,prenom};state.patient=[nom,prenom].filter(Boolean).join(" ");}
+/* remet l'état en « NOM Prénom » (nom en capitales, prénom capitalisé) : sortie du champ, impression, validation */
+function patNorm(){const p=String(state.patient||"").replace(/\s+/g," ").trim();if(!p){state.pn={nom:"",prenom:""};state.patient="";return state.pn;}const P=patParts();patSet(String(P.nom||"").toUpperCase(),capPrenom(P.prenom));return state.pn;}
 function capPrenom(v){return String(v||"").replace(/\s+/g," ").trim().toLowerCase().replace(/(^|[\s'’-])(\p{L})/gu,(m,a,b)=>a+b.toUpperCase());}
 /* prénoms usuels en France (toutes générations) → sexe ; les prénoms mixtes (Dominique, Claude, Camille, Sacha, Noa, Charlie, Alix, Lou, Eden, Andréa) ne sont jamais tranchés */
 const PRENOMS_F=new Set(("marie jeanne marguerite germaine louise yvonne madeleine suzanne simone odette paulette denise colette ginette josette jacqueline micheline genevieve therese huguette lucienne renee andree raymonde georgette henriette yvette gisele monique nicole francoise christiane bernadette claudine jeannine janine josiane annie mireille michele michelle daniele danielle martine chantal evelyne brigitte catherine sylvie veronique nathalie isabelle corinne christine patricia valerie sandrine sophie stephanie celine karine laurence florence agnes beatrice helene elisabeth pascale muriel carole caroline anne annick odile fabienne nadine nadia sabine severine virginie delphine aurelie emilie julie audrey elodie marion melanie laetitia amelie anais lea manon chloe oceane sarah clara eva zoe lina emma jade alice rose anna mila ambre ines lola lucie juliette charlotte mathilde pauline margaux justine alexandra morgane laura noemie margot romane agathe victoire victoria apolline capucine celia elise elsa eloise salome lilou maelys maeva ilona lena lisa lily louna nina olivia iris maya adele alicia alexia solene coline ophelie oriane flavie fanny elena elina gabrielle emmanuelle marielle estelle isabelle rachel judith esther ruth sara eve magali myriam marina sonia sylvia cecile aline celine angelique dorothee josephine antoinette augustine leonie leontine eugenie clementine valentine constance blanche irene alberte berthe marthe yolande arlette roselyne ghislaine claire martine veronique "+
@@ -16850,25 +16862,27 @@ function identFromStop(c){if(!c)return;
   if(c.ddn&&!state.ddn)state.ddn=c.ddn;
   if(!state.sexe){const sx=c.sexe||sexFromPrenom(patParts().prenom);if(sx){state.sexe=sx;state.sexeSrc=c.sexe?"fiche":"prenom";if(sx==="h"){state.grossesse=false;state.allait=false;}}}}
 function identComplete(){return !!(String(state.patient||"").trim()&&state.ddn&&state.sexe);}
-function identHTML(pfx,o){o=o||{};const P=patParts();const age=ageLabel();const sx=state.sexe;const guess=!!sx&&state.sexeSrc==="prenom";
+function identHTML(pfx,o){o=o||{};const P=patParts();const age=ageLabel();const _ae=document.activeElement;const live=_ae&&_ae.id===pfx+"patient"?_ae.value:null; /* 09/11/2026 (bug 42.4) : un re-dessin pendant la frappe garde le texte tel quel */const sx=state.sexe;const guess=!!sx&&state.sexeSrc==="prenom";
   const vis=(state.cot&&state.cot.lieu)==="visite";const nh=state.nh||{};const showNh=vis||!!(nh.tel||nh.adresse);
   let needW=false;try{const p=currentPack();const a=ageY();needW=!state.poids&&((a&&a.y<15)||(p&&xpNeedsW(p)));}catch(e){}
   const seg=`<div class="id-f id-sex${sx?"":" miss"}"><span class="id-l">Sexe${sx?"":' <b class="q">?</b>'}${guess?' <i class="id-g" title="Déduit du prénom : touchez F ou M pour confirmer">prénom ?</i>':""}</span><div class="segs${guess?" guess":""}" id="${pfx}sexe" role="group" aria-label="Sexe du patient">${[["f","F","Femme"],["h","M","Homme"]].map(([v,l,t],i)=>`<button type="button" data-sex="${v}" class="${sx===v?"on":""}" aria-pressed="${sx===v}" aria-label="${t}" title="${t}" tabindex="${(sx?sx===v:i===0)?0:-1}">${l}</button>`).join("")}</div></div>`;
   const close=o.close&&identComplete()?`<button type="button" class="btn s sm id-close" id="${pfx}close" title="Replier l'identité">✓ OK</button>`:"";
   return `<div class="ident${o.cls?" "+o.cls:""}" id="${pfx}ident"><div class="id-main">
-   <label class="id-f id-nom"><span class="id-l">Nom Prénom</span><input id="${pfx}patient" value="${esc([P.nom,P.prenom].filter(Boolean).join(" "))}" placeholder="NOM Prénom" autocomplete="off" autocapitalize="words" enterkeyhint="next"></label>
+   <label class="id-f id-nom"><span class="id-l">Nom Prénom${P.nom&&P.prenom?`<button type="button" class="id-swap" id="${pfx}swap" title="Inverser le nom et le prénom" aria-label="Inverser le nom et le prénom">⇄ inverser</button>`:""}</span><input id="${pfx}patient" value="${esc(live!=null?live:String(state.patient||""))}" placeholder="NOM Prénom" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
    <label class="id-f id-ddn"><span class="id-l">Naissance${age?` <b id="${pfx}age" class="agetag">${esc(age)}</b>`:` <b id="${pfx}age" class="agetag"></b>`}</span><input id="${pfx}ddn" value="${esc(state.ddn)}" placeholder="jjmmaaaa" inputmode="numeric" autocomplete="off" enterkeyhint="next"></label>
    ${seg}
    <label class="id-f id-poids${needW?" need":""}"><span class="id-l">Poids${needW?' <b class="q">?</b>':""}</span><input id="${pfx}poids" value="${esc(state.poids)}" placeholder="kg" inputmode="decimal" autocomplete="off" enterkeyhint="done"></label>${close}</div>
    ${showNh?`<div class="id-nh"><label title="Téléphone du patient"><span aria-hidden="true">📞</span><input id="${pfx}tel" value="${esc(fmtTel(nh.tel||""))}" placeholder="téléphone" inputmode="tel" autocomplete="off"></label><label class="w" title="Adresse du patient"><span aria-hidden="true">📍</span><input id="${pfx}adr" value="${esc(nh.adresse||"")}" placeholder="adresse" autocomplete="off"></label></div>`:""}</div>`;}
 function identBind(pfx,nextSel){const g=id=>document.getElementById(pfx+id);const nom=g("patient"),dd=g("ddn"),sx=g("sexe"),pw=g("poids"),tel=g("tel"),adr=g("adr"),cl=g("close");if(!nom)return;
-  /* 09/11/2026 : un seul champ « NOM Prénom » ; pendant la frappe state.patient suit le champ, la coupure nom / prénom (sexe déduit, résumé Express) vient de patParts() */
-  const upd=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();patParts();if(!state.t0&&state.patient.trim())state.t0=Date.now();softRender();};
+  /* 09/11/2026 (bug 42.4 : l'espace ne s'écrivait pas sur iPhone, la dictée se coupait) : pendant la frappe rien ne réécrit le champ et rien ne se re-dessine ; state.patient suit le texte.
+     La mise en forme « NOM Prénom » (patNorm : nom en capitales, prénom capitalisé, coupure de la fiche de régulation ou patSplitGuess) vient à la sortie du champ ou sur Entrée ; seule Entrée (ou OK) passe à la date de naissance. */
+  const upd=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();if(!state.t0&&state.patient)state.t0=Date.now();try{draftSaveSoon();}catch(e){}};
   nom.oninput=upd;
   const focusTo=el=>{if(!el)return;el.focus();try{if(el.select)el.select();}catch(e){}};
-  /* sortie du champ : « dupont marie » → « DUPONT Marie » (coupure de la fiche de régulation si elle l'a donnée, sinon patSplitGuess : mots en capitales = nom, sinon premier mot = nom) */
-  const fixNom=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();const P=state.patient?patParts():{nom:"",prenom:""};patSet(P.nom.toUpperCase(),capPrenom(P.prenom));if(nom.value!==state.patient)nom.value=state.patient;};
+  const fixNom=()=>{state.patient=nom.value.replace(/\s+/g," ").trim();patNorm();if(nom.value!==state.patient)nom.value=state.patient;};
   const guessSex=()=>{if(state.sexe)return;const pr=patParts().prenom;if(!pr)return;const s2=sexFromPrenom(pr);if(s2){state.sexe=s2;state.sexeSrc="prenom";if(s2==="h"){state.grossesse=false;state.allait=false;}}};
+  /* ⇄ : nom et prénom inversés (« MARIE Dupont » → « DUPONT Marie ») ; un sexe déduit du prénom est recalculé */
+  const sw=g("swap");if(sw)sw.onclick=ev=>{ev.preventDefault();ev.stopPropagation();fixNom();const P=patParts();if(!P.nom||!P.prenom)return;patSet(P.prenom.toUpperCase(),capPrenom(P.nom));if(state.sexeSrc==="prenom"){state.sexe="";state.sexeSrc="";}guessSex();clearTimeout(soft);render();};
   nom.onblur=()=>setTimeout(()=>{if(!nom.isConnected)return;fixNom();guessSex();softRender();},0);nom.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();fixNom();guessSex();focusTo(dd);}};
   const fixDdn=()=>{if(!dd)return;const v=normDate(dd.value);if(v!==dd.value)dd.value=v;state.ddn=v;const t=g("age");if(t)t.textContent=ageLabel();};
   if(dd){dd.oninput=()=>{state.ddn=dd.value;const t=g("age");if(t)t.textContent=ageLabel();try{autoAgePack();}catch(e){}softRender();};dd.onblur=()=>setTimeout(()=>{if(!dd.isConnected)return;fixDdn();try{autoAgePack();}catch(e){}softRender();},0);
@@ -16961,7 +16975,7 @@ function aiPrepare(kind,opt){opt=opt||{};
   /* une seule passe d'anonymisation pour toutes les parties : mêmes jetons partout */
   const SEP="\n§§§\n";const an=anonymize(parts.join(SEP),ctx);
   /* jetons du patient toujours réintégrables, même si son nom n'apparaît pas dans le texte envoyé */
-  {const sp=anonSplitName(state.patient||"");const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(an.map[k]===undefined)an.map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom.join(" ")||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom.join(" ")||state.patient||dflt);}
+  {const sp=patParts();const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(an.map[k]===undefined)an.map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom||state.patient||dflt);}
   const outParts=an.text.split(SEP);const user=build(outParts);
   const leaks=anonLeaks(user,ctx);const model=aiModelFor(kind,fns);const doubts=anonDoubts({text:user},ctx);anonPerfAdd(an.ms||0,parts.join(SEP).length,false);
   const est=aiEur(model,{input_tokens:Math.round((system.length+user.length)/3.2),output_tokens:Math.round(maxT*0.5)});
@@ -17410,7 +17424,7 @@ async function aiDocPrepare(){if(!DOC.cv||aiDocWhy())return;const eff=aiEffectiv
   const model=AI_MODEL.redac;
   AI.pending={kind:"doc",opt:{},fns:["doc"],ctx,system:AI_SYS_DOC,user,img:null,map:an.map,items:an.items,leaks:anonLeaks(user,ctx),model,maxT:1500,est:aiEur(model,{input_tokens:Math.round((AI_SYS_DOC.length+user.length)/3.2),output_tokens:700}),pid:state.t0||Date.now(),ocr:read.text,ocrOk,auto:DOC.auto,edits:DOC.edits};
   const el=document.getElementById("aidoc");if(el)el.remove();aiSendScreen();}
-function aiPatientTokens(map){const sp=anonSplitName(state.patient||"");const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(map[k]===undefined)map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom.join(" ")||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom.join(" ")||state.patient||dflt);}
+function aiPatientTokens(map){const sp=patParts();const dflt=state.sexe==="f"?"la patiente":"le patient";const add=(k,v)=>{if(map[k]===undefined)map[k]=v;};add("PATIENT",state.patient||dflt);add("NOM DU PATIENT",sp.nom||state.patient||dflt);add("PRÉNOM DU PATIENT",sp.prenom||state.patient||dflt);}
 /* Réponse : identité réintégrée, posologies retirées ; en mode image, une valeur absente de la lecture locale est signalée « à vérifier sur le document » */
 function aiDocBack(t,opt){const R=AI.res;let s=String(t||"").trim();if(!s)return null;let doses=[];
   if(opt&&opt.noDose){const g=aiDoseGuard(s);s=g.text;doses=g.found;if(!s)return {ok:false,why:"posologie retirée",doses};}
@@ -19925,7 +19939,7 @@ function validPush(v){if(!v.id)v.id=hexRand(4);VALID.hist.unshift(v);if(VALID.hi
 function validRemove(v){VALID.hist=VALID.hist.filter(x=>x!==v);VALID.last=validLast();validSave();}
 /* Met de côté le patient en cours (nom ou pack saisi) pour pouvoir y revenir */
 function validStash(){if(!state.patient&&!currentPack())return false;const stop=TOUR.current?tourStop(TOUR.current):null;
-  validPush({ts:Date.now(),lieu:(state.cot&&state.cot.lieu)||"",patient:state.patient||"",ddn:state.ddn||"",pack:currentPack()?currentPack().n:"",pending:true,sheets:state.lastPrint?state.lastPrint.n:0,sent:!!(state.lastPrint&&state.lastPrint.sent),cr:!!state.crCopied,cot:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap:stateSnapshot()});return true;}
+  validPush({ts:Date.now(),lieu:(state.cot&&state.cot.lieu)||"",patient:state.patient||"",nom:patParts().nom,prenom:patParts().prenom,ddn:state.ddn||"",pack:currentPack()?currentPack().n:"",pending:true,sheets:state.lastPrint?state.lastPrint.n:0,sent:!!(state.lastPrint&&state.lastPrint.sent),cr:!!state.crCopied,cot:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap:stateSnapshot()});return true;}
 function validListScreen(){
   let el=$("#lock");if(!el){el=document.createElement("div");el.id="lock";document.body.appendChild(el);}document.body.classList.add("locked");
   const rows=VALID.hist.map((v,i)=>`<div class="vrow pat-off"><div class="vinfo"><b>${v.lieu?modeBadge(v.lieu):""}${esc(v.patient||"(sans nom)")}</b><span class="gtag">${v.pending?"mis de côté":v.reopened?"validé · rouvert "+new Date(v.reopened).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):(v.rev>1?"validé · version "+v.rev:"validé")}</span><div class="hint" style="margin:0">${new Date(v.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}${v.pack?" · "+esc(v.pack):""}${v.stopLbl?" · arrêt "+esc(v.stopLbl):""}${v.cot?" · "+esc(v.cot.codes.join("+"))+" "+fmtEur(v.cot.total):""}</div></div>${v.crTxt?`<button type="button" class="btn s sm" data-vcr="${i}">Recopier le CR</button>`:""}<button type="button" class="btn p sm" data-vopen="${i}">Rouvrir</button></div>`).join("");
@@ -19946,7 +19960,7 @@ async function validLoad(){try{let h=await secGet("sos_validhist",null);if(!Arra
   VALID.hist=h.filter(v=>Date.now()-v.ts<12*3600*1000);VALID.stale=[];if(old.length&&!(await archAdd(old)))VALID.stale=old;else if(old.length)validSave();}catch(e){VALID.hist=VALID.hist||[];}VALID.last=validLast();}
 function validSave(){const st=VALID.stale||[];if(!VALID.hist.length&&!st.length){secRemove("sos_validhist");secRemove("sos_lastvalid");return;}let h=[...VALID.hist,...st];try{if(JSON.stringify(h).length>1500000)h=h.map((v,i)=>i<2?v:Object.assign({},v,{snap:Object.assign({},v.snap,{photos:[]})}));}catch(e){}if(SEC.key){secPut("sos_validhist",h).catch(()=>secSet("sos_validhist",h));}else secSet("sos_validhist",h);secRemove("sos_lastvalid");}
 function patientValidate(confirmed){
-  if(confirmed!==true&&!valGate())return;valDisarm();
+  if(confirmed!==true&&!valGate())return;valDisarm();try{patNorm();}catch(x){} /* 09/11/2026 : identité en « NOM Prénom » dans le journal et le dossier validé */
   const p=currentPack();const snap=stateSnapshot();
   const stop=TOUR.current?tourStop(TOUR.current):null;
   if(state.patient&&!TESTMODE){try{const has=JOURNAL.some(x=>norm(x.patient)===norm(state.patient)&&Date.now()-x.ts<2*3600*1000);if(!has)journalUpsert(p||{n:(state.cot&&state.cot.lieu==="visite")?"Visite":"Consultation"});}catch(e){}}
@@ -19954,7 +19968,7 @@ function patientValidate(confirmed){
   if(e&&p&&!TESTMODE&&state.cot&&(state.cot.h||state.cot.hArr)){try{journalUpsert(p);}catch(x){}} /* 20/10/2026 : heure d'arrivée ou d'acte corrigée par le médecin → reprise à la validation (jamais sans son geste) */
   const cot=e?cotCompute(e):null;const lp=state.lastPrint||null;
   const rev=state.revOf?(+state.revN||1)+1:1;
-  const v={ts:Date.now(),id:hexRand(4),rev,lieu:(state.cot&&state.cot.lieu)||"",of:state.revOf||"",exam:state.examTrace||null,patient:state.patient||"",ddn:state.ddn||"",pack:p?p.n:"",sheets:lp?lp.n:0,sent:!!(lp&&lp.sent),cr:!!state.crCopied,cot:cot?{codes:cot.codes.map(x=>x.c),total:cot.total}:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap};
+  const v={ts:Date.now(),id:hexRand(4),rev,lieu:(state.cot&&state.cot.lieu)||"",of:state.revOf||"",exam:state.examTrace||null,patient:state.patient||"",nom:patParts().nom,prenom:patParts().prenom,ddn:state.ddn||"",pack:p?p.n:"",sheets:lp?lp.n:0,sent:!!(lp&&lp.sent),cr:!!state.crCopied,cot:cot?{codes:cot.codes.map(x=>x.c),total:cot.total}:null,stopId:stop?stop.id:"",stopLbl:stop?(stopName(stop)):"",snap};
   if(e&&rev>1){const hh=new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});e.notes=[...(e.notes||[]),"Dossier rouvert et revalidé (version "+rev+") à "+hh+" ; validation initiale conservée"];}
   state.revOf=null;state.revN=0;
   if(stop){stop.done=true;stop.doneTs=Date.now();if(stop.tArr)stop.dur=Math.round((stop.doneTs-stop.tArr)/60000);delete stop.cur;TOUR.order=TOUR.order.filter(x=>x!==stop.id);TOUR.lastDone=stop.id;TOUR.current="";tourSave();try{tpGeoStop();}catch(x){}}
@@ -20148,7 +20162,7 @@ function parseFiche(txt){
   r.tel=phones[0]||"";r.tel2=phones[1]||"";
   const skip=/AUTO|R[EÉ]GUL|VISITE|M[EÉ]D\b|T[EÉ]L\b|ADRESSE|PATIENT|APPELANT|DOCUMENTS|INTERVENTION|BILAN|ALLERGIES|ATCD|TRAITEMENTS|TOUS|CONSULT/;
   const upTo=ddnIdx>0?ddnIdx:lines.length;
-  for(let i=0;i<upTo;i++){const l=lines[i].replace(/[^A-ZÀ-Ý' -]/g,"").replace(/\s+/g," ").trim();if(l.length>=4&&l.split(" ").length>=2&&!skip.test(l)&&l===l.toUpperCase()&&/[A-ZÀ-Ý]{2,}/.test(l)){const parts=l.split(" ");r.nom=parts[0];r.prenom=parts.slice(1).join(" ");break;}}
+  for(let i=0;i<upTo;i++){const l=lines[i].replace(/[^A-ZÀ-Ý' -]/g,"").replace(/\s+/g," ").trim();if(l.length>=4&&l.split(" ").length>=2&&!skip.test(l)&&l===l.toUpperCase()&&/[A-ZÀ-Ý]{2,}/.test(l)){const sp=patSplitGuess(l);r.nom=sp.nom;r.prenom=sp.prenom;break;}} /* 09/11/2026 : particules gardées avec le nom (« DE LA FONTAINE JEAN-PIERRE ») */
   /* 16/10/2026 : mentions « ADRESSE REPOSITIONNÉE / MODIFIÉE / CORRIGÉE PAR <auteur> LE <date> » ignorées (ni adresse, ni note : elles contiennent le nom d'un tiers) */
   const MENT=/\b(reposition+[ée]e?s?|modifi[ée]e?s?|corrig[ée]e?s?|d[ée]plac[ée]e?s?|g[ée]olocalis[ée]e?s?|g[ée]ocod[ée]e?s?|valid[ée]e?s?|saisie?s?)\s+par\b/i;
   const ment=new Set();lines.forEach((l,i)=>{const cut=/(reposition+|modifi|corrig|d[ée]plac)[a-zéèA-ZÉÈ]*\s*$/i.test(l)&&/^par\b/i.test(lines[i+1]||"");if(!MENT.test(l)&&!cut)return;if(cut){ment.add(i);ment.add(i+1);if(lines[i+2]&&/\d{2}\/\d{2}\/\d{4}/.test(lines[i+2]))ment.add(i+2);return;}ment.add(i);if(!/\ble\s+\d{2}\/\d{2}\/\d{4}/i.test(l)){for(let j=i+1;j<=i+2&&j<lines.length;j++){ment.add(j);if(/\ble\s+\d{2}\/\d{2}\/\d{4}/i.test(lines[j])||/\d{2}\/\d{2}\/\d{4}/.test(lines[j]))break;}}});
