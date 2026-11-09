@@ -208,7 +208,7 @@ async def run(width,height,label):
         ok(label+" goutte : colchicine cochée, prednisone en alternative, pas de doublon",any("COLCHICINE" in x["t"] and x["on"] for x in med) and any("CORTANCYL" in x["t"] and not x["on"] for x in med))
         # Bloc 6 — Dermatologie
         nb6=await page.evaluate("PACKS_V40_B6.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 6 : 22 packs chargés",nb6==22,nb6)
-        old=await page.evaluate("PACKS.flatMap(p=>p.s.filter(sh=>sh.k!=='memo'&&sh.k!=='interp').flatMap(sh=>sh.l.filter(l=>!(l&&l.jr)).map(l=>typeof l==='string'?l:(l.t||'')))).filter(t=>/FUCIDINE 2 % crème|TRANSVERCID|LAMISIL 250|EMERADE|PRIODERM|JOSACINE \d|PÉDIAZOLE|MOTILIUM 10|BUCCOLAM|ALOPLASTINE|CALMOSINE|MOVICOL enfant/.test(t))")
+        old=await page.evaluate("PACKS.flatMap(p=>p.s.filter(sh=>sh.k!=='memo'&&sh.k!=='interp').flatMap(sh=>sh.l.filter(l=>!(l&&l.jr)).map(l=>typeof l==='string'?l:(l.t||'')))).filter(t=>/FUCIDINE 2 % crème|TRANSVERCID|LAMISIL 250|EMERADE|PRIODERM|JOSACINE \d|PÉDIAZOLE|MOTILIUM 10|BUCCOLAM|ALOPLASTINE|CALMOSINE|MOVICOL enfant|KÉTODERM 2 % gel moussant|gel en récipient unidose/.test(t))")
         ok(label+" tous les packs : aucun produit retiré du marché prescrit",len(old)==0,old[:2])
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1985';state.poids='70';render();"); await page.wait_for_timeout(300)
         await pick(page,"jambe rouge","Érysipèle — dermohypodermite")
@@ -222,6 +222,34 @@ async def run(width,height,label):
         await pick(page,"érythème migrant","Morsure de tique")
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
         ok(label+" tique : aucun antibiotique coché par défaut (HAS 2025), doxycycline 10 jours proposée",not any(x["on"] for x in med if "DOXYCYCLINE" in x["t"] or "CLAMOXYL" in x["t"]) and any("DOXYCYCLINE" in x["t"] and "10 jours" in x["t"] for x in med))
+        # 09/11/2026 — kétoconazole 2 % gel (KÉTODERM) : durée, posologie et présentations sur le RCP (sachets-doses ; récipient unidose 20 g arrêté en mai 2026 ; à partir de 12 ans)
+        ORDO="""()=>{const P=currentPack();const r=buildPages(P,true);const d=document.createElement('div');d.innerHTML=(r&&r.out)||r||'';return [...d.querySelectorAll('.page')].filter(x=>((x.querySelector('h2')||{}).textContent||'').startsWith('Ordonnance')).map(x=>x.textContent||'').join(' ');}"""
+        MEDS="""()=>{const P=currentPack();const out=[];P.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>out.push({t:x.t,on:!!x.on,miss:(x.fill&&x.fill.miss)||[]}));});return out;}"""
+        await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/1985';state.poids='70';render();"); await page.wait_for_timeout(300)
+        await pick(page,"pityriasis","Dermite séborrhéique / pityriasis versicolor")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" dermite séborrhéique (adulte) : KÉTODERM sachet-dose coché, 2 fois par semaine pendant 1 mois, 8 sachets",any("KÉTODERM 2 % gel en sachet-dose" in x["t"] and "2 fois par semaine pendant 1 mois" in x["t"] and "8 sachets" in x["t"] and x["on"] for x in med),[(x["on"],x["t"][:90]) for x in med])
+        ok(label+" pityriasis versicolor : 4 sachets en une seule application, plus de « gel en récipient unidose »",any("Pityriasis versicolor" in x["t"] and "4 sachets" in x["t"] and "une seule application" in x["t"] and not x["on"] for x in med) and not any("gel en récipient unidose" in x["t"] for x in med),[x["t"][:90] for x in med])
+        ordo=await page.evaluate(ORDO)
+        ok(label+" dermite séborrhéique, ordonnance : « 8 sachets » imprimé, notes RCP, âge et génériques sans indication jamais imprimés","8 sachets" in ordo and "RCP" not in ordo and "à partir de 12 ans" not in ordo and "ZYDUS" not in ordo,ordo[:400].replace(chr(10)," "))
+        await page.evaluate("state.ddn='01/01/2016';state.poids='30';render();"); await page.wait_for_timeout(300)
+        mk=await page.evaluate(MEDS); kd10=[x for x in mk if "KÉTODERM" in x["t"]]
+        ordo10=await page.evaluate(ORDO)
+        ok(label+" dermite séborrhéique à 10 ans : KÉTODERM « non imprimé : âge ≥ 12 ans » (RCP), absent de l'ordonnance",kd10 and any("12 ans" in m and "KÉTODERM" in m for m in kd10[0]["miss"]) and "KÉTODERM" not in ordo10 and "KÉTOCONAZOLE" not in ordo10,kd10 and (kd10[0]["miss"],ordo10[:200].replace(chr(10)," ")))
+        await page.evaluate("state.ddn='01/01/2013';render();"); await page.wait_for_timeout(300)
+        mk=await page.evaluate(MEDS); kd13=[x for x in mk if "KÉTODERM" in x["t"]]
+        ok(label+" dermite séborrhéique à 13 ans : KÉTODERM coché (adolescent, RCP)",kd13 and kd13[0]["on"] and not kd13[0]["miss"],kd13 and (kd13[0]["on"],kd13[0]["miss"]))
+        await page.evaluate("state.sel=null;state.view='';state.ddn='01/01/1985';state.poids='70';render();"); await page.wait_for_timeout(300)
+        await pick(page,"teigne","Teigne — cuir chevelu et peau (dermatophytie)")
+        L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
+        ok(label+" teigne (adulte) : KÉTODERM sachet-dose coché, 2 fois par semaine pendant 4 semaines, 8 sachets, plus de « gel moussant »",any("KÉTODERM 2 % gel en sachet-dose" in x["t"] and "2 fois par semaine pendant 4 semaines" in x["t"] and "8 sachets" in x["t"] and x["on"] for x in med) and not any("gel moussant" in x["t"] for x in med),[(x["on"],x["t"][:90]) for x in med])
+        ordo=await page.evaluate(ORDO)
+        ok(label+" teigne, ordonnance : « 8 sachets » imprimé, « hors AMM » et « algorithme SFD » jamais imprimés","8 sachets" in ordo and "hors AMM" not in ordo and "algorithme SFD" not in ordo,ordo[:400].replace(chr(10)," "))
+        await page.evaluate("state.ddn='01/01/2019';state.poids='25';render();"); await page.wait_for_timeout(300)
+        mk=await page.evaluate(MEDS); kt=[x for x in mk if "KÉTODERM" in x["t"]]
+        ok(label+" teigne à 7 ans : KÉTODERM proposé mais décoché (règle « adulte » de l'enfant, hors AMM avant 12 ans ; convention : à cocher par le docteur)",kt and not kt[0]["on"] and "zones atteintes" in kt[0]["t"],kt and (kt[0]["on"],kt[0]["t"][:80]))
+        kd=await page.evaluate("(()=>{const x=DRUGBASE.find(y=>y.n.startsWith('KÉTODERM'));return x?[x.n,x.a,x.e]:null;})()")
+        ok(label+" DRUGBASE KÉTODERM : sachet-dose, 8 sachets, 4 sachets dans le pityriasis, enfant à partir de 12 ans, posologie nourrisson retirée",bool(kd) and "sachet-dose" in kd[0] and "4 sachets" in kd[1] and "8 sachets" in kd[1] and "12 ans" in kd[2] and "nourrisson : 1 application" not in kd[2],kd)
         # Bloc 7 — Pédiatrie
         nb7=await page.evaluate("PACKS_V40_B7.filter(np=>PACKS.some(p=>p===np)).length"); ok(label+" bloc 7 : 16 packs chargés",nb7==16,nb7)
         await page.evaluate("state.sel=null;state.view='';state.risk=undefined;state.ddn='01/01/2023';state.poids='12';render();"); await page.wait_for_timeout(300)
