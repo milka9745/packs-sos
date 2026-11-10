@@ -77,6 +77,18 @@ async def run(b,w,h,th,big,label):
     if mob:
         await page.evaluate("document.querySelector('.xp .certdur').scrollIntoView({block:'center'})"); await page.wait_for_timeout(2800)
         await page.screenshot(path=os.path.join(OUT,f"certificat-express-{tag}.png"))
+    # 10/11/2026 — enfant malade + absence scolaire cochés : deux documents, une page chacun, jamais fusionnés ; un seul coché : une page
+    r=await page.evaluate("""()=>{newPatient();const ci=PACKS.findIndex(p=>p.n==='Certificat — enfant malade');const ca=PACKS.findIndex(p=>p.n==='Certificat — absence scolaire');Object.assign(state,{patient:'PETIT Lou',ddn:'01/03/2022',sexe:'f',date:'17/10/2026'});state.view='';state.sel=[ci,ca];render();
+      const p=currentPack();const r=buildPages(p,true);const d=document.createElement('div');d.innerHTML=r.out;const pages=[...d.querySelectorAll('.page')].map(x=>(x.textContent||'').replace(/\s+/g,' '));
+      state.sel=ci;render();const r1=buildPages(currentPack(),true);const d1=document.createElement('div');d1.innerHTML=r1.out;const n1=d1.querySelectorAll('.page').length;
+      state.sel=[ci,ca];render();return {pages,n1,cr:buildCR(currentPack()),removed:r.removed};}""")
+    pg=r["pages"]
+    ok(L+"enfant malade + absence scolaire cochés : 2 pages, une par certificat",len(pg)==2,[x[:80] for x in pg])
+    ok(L+"page 1 : certificat enfant malade seul (parent / employeur), en-tête « Certificat médical », dates « du … au … inclus », date du jour, signature",len(pg)==2 and "présence d'un parent" in pg[0] and "absence scolaire" not in pg[0] and "Certificat médical" in pg[0] and "du 17/10/2026 au 17/10/2026 inclus" in pg[0] and " à " in pg[0] and "Je soussigné" in pg[0],pg[0][:300] if pg else pg)
+    ok(L+"page 2 : certificat d'absence scolaire seul (école), en-tête, dates, date du jour, signature",len(pg)==2 and "absence scolaire" in pg[1] and "présence d'un parent" not in pg[1] and "Certificat médical" in pg[1] and "du 17/10/2026 au 17/10/2026 inclus" in pg[1] and "Je soussigné" in pg[1],pg[1][:300] if len(pg)>1 else pg)
+    ok(L+"aucune mention médicale sur les deux certificats",not re.search(r"diagnostic|symptôme|fièvre|angine|traitement"," ".join(pg)),[x[:120] for x in pg])
+    ok(L+"les deux certificats au compte rendu (et au journal par certTrace)","Certificat remis (enfant malade, absence scolaire : 1 jour, du 17/10/2026 au 17/10/2026 inclus)" in r["cr"],[l for l in r["cr"].split(chr(10)) if "ertificat" in l])
+    ok(L+"un seul certificat coché : une page",r["n1"]==1,r["n1"])
     ok(L+"aucune erreur JS",not errors,errors[:2])
     await ctx.close()
 async def main():
