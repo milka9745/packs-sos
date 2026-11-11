@@ -1,0 +1,14 @@
+Packs SOS — dossier bdpm/ (11/11/2026)
+
+specialites.txt : index compact de la Base de données publique des médicaments (ANSM, https://base-donnees-publique.medicaments.gouv.fr),
+généré le 11/11/2026 par tools/build_bdpm.py à partir de CIS_bdpm.txt, CIS_COMPO_bdpm.txt et CIS_CPD_bdpm.txt.
+Il sert à la fiche « Renouvellement d'ordonnance » : recherche hors ligne par nom commercial ou DCI, choix de la présentation (dosage, forme),
+repérage des médicaments à ordonnance sécurisée (stupéfiants et assimilés), réservés à l'hôpital ou aux spécialistes, et des durées de prescription limitées.
+Une ligne par spécialité : code CIS | nom de la spécialité (dosage, forme) | DCI (substances actives, sels retirés) | règles | durée maximale (jours, 0 = aucune).
+Règles : S = prescription sur ordonnance sécurisée ; H = réservé à l'hôpital ou prescription hospitalière ; R = prescription (ou renouvellement) réservée aux spécialistes ;
+I = prescription initiale hospitalière ou spécialisée (renouvellement possible par tout médecin dans la durée de validité).
+Retenues : 12080 spécialités (autorisation active, commercialisées) ; exclues : homéopathie (1323), importations parallèles (156),
+autorisations non actives (1023), non commercialisées (1217).
+Repères : 537 spécialités S, 1960 H, 1482 R, 1121 I. Taille : 1011211 octets (0.96 Mo).
+Le fichier est mis en cache par le service worker (sw.js) : il reste disponible hors connexion. Mise à jour : télécharger les trois fichiers, puis
+python -I tools/build_bdpm.py <dossier>. Données publiques ANSM (licence de réutilisation de la BDPM) ; aucune donnée de patient.
