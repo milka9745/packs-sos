@@ -6,11 +6,16 @@ from playwright.async_api import async_playwright
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT=os.path.join(ROOT,"tests","captures"); os.makedirs(OUT,exist_ok=True)
 results=[]
+# 11/11/2026 : l'horloge de la page est figée à 14:00 du jour (elle continue d'avancer) à chaque chargement, pour que la suite ne dépende pas de l'heure réelle :
+# passé 21 h, le mode fin de garde (heure limite 23:00 à moins d'une heure) ajoutait un bloc au-dessus des réglages de tournée (décalage 158 px) ; passé 23 h, le patient « avant 23:59 » du correctif 9 était en retard.
+# Les heures écrites dans les tests (cotation, créneaux) restent explicites ; Date garde son prototype (instanceof, parse, UTC) et l'heure réelle reste dans window.__RealDate.
+HORLOGE="(function(){const R=window.__RealDate||window.Date;window.__RealDate=R;const b=new R();b.setHours(14,0,0,0);const T0=b.getTime(),t0=R.now();function FD(...a){if(!(this instanceof FD))return String(new R(T0+(R.now()-t0)));return Reflect.construct(R,a.length?a:[T0+(R.now()-t0)],FD);}FD.prototype=R.prototype;Object.setPrototypeOf(FD,R);FD.now=()=>T0+(R.now()-t0);window.Date=FD;})();"
 def ok(name,cond,info=""):
     results.append((name,bool(cond),info)); print(("OK  " if cond else "FAIL"),name,info if not cond else "")
 
 async def unlock(page):
     await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
+    await page.add_init_script(HORLOGE)  # heure de la page : 14:00 du jour, quelle que soit l'heure réelle
     await page.goto("http://localhost:8765/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testv40"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
