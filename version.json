@@ -1,9 +1,10 @@
 {
-  "version": "42c",
-  "date": "2026-11-09",
+  "version": "42d",
+  "date": "2026-11-11",
   "notes": [
-    "Bandeau de mise à jour refait pour iPhone : boutons « Mettre à jour » et « Plus tard » en tête et toujours visibles, « Ce qui change » en 3 lignes courtes, « Voir tout » pour le détail.",
-    "Hauteur du bandeau limitée à 40 % de l'écran, défilement interne au-delà ; jamais de mise à jour automatique pendant une consultation."
+    "Antibiotiques : un seul par ordonnance (toucher une alternative remplace la précédente, « Ajouter quand même » avec confirmation) ; durée calculée sur l'âge et le diagnostic (otite 10 jours avant 2 ans puis 5, angine selon l'antibiotique et jamais avant 3 ans, pneumopathie 5 jours) ; durée et dose modifiables d'un geste, tracées au journal et au compte rendu, jamais sur l'ordonnance.",
+    "Ordonnances d'antibiotiques allégées : une seule unité (ml ou dose-poids), plus de « sans dépasser » ni de « seringue graduée », DCI avant le nom commercial ; AUGMENTIN enfant à la graduation en kg de sa seringue (1 dose-poids N kg 3 fois par jour).",
+    "Nouvelle fiche « Renouvellement d'ordonnance » (non relue) : médicaments un par un depuis la base ANSM embarquée (12 080 spécialités, hors ligne), posologie et durée d'un geste, non substituable, ALD (ordonnance bizone), stupéfiants signalés (ordonnance sécurisée à rédiger à la main), deux ordonnances si la page ne suffit pas, récents proposés en premier."
   ],
-  "label": "42c · 09/11 13:57"
+  "label": "42d · 11/11 17:38"
 }

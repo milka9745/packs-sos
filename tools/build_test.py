@@ -71,6 +71,12 @@ open(os.path.join(OUT,"manifest.webmanifest"),"w",encoding="utf-8",newline="\n")
 json.dump({"version":V,"label":VLBL+" · "+STAMP,"date":datetime.date.today().isoformat(),"notes":(NOTES[:6] if NOTES else ["Version de test (branche ia) : données séparées de l'outil de garde."]+ver.get("notes",[])[:2])},open(os.path.join(OUT,"version.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 json.dump({"base":BASE,"n":NUM,"label":VLBL,"stamp":STAMP},open(os.path.join(OUT,"build.json"),"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 
+# 11/11/2026 : index BDPM (renouvellement d'ordonnance) recopié dans test/bdpm/ (lu en bdpm/specialites.txt, relatif à la page)
+try:
+    _b=os.path.join(ROOT,"bdpm")
+    if os.path.isdir(_b): shutil.copytree(_b,os.path.join(OUT,"bdpm"),dirs_exist_ok=True)
+except Exception as _e: print("bdpm non copié :",_e)
+
 async def icons():
     from playwright.async_api import async_playwright
     async with async_playwright() as p:

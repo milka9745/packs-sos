@@ -25,13 +25,13 @@ def catalogue_source():
     ok("catalogue : aucune fiche définie deux fois en entier dans le fichier (anciennes versions remplacées retirées)", not dbl, dbl[:10])
     stubs = re.findall(r'\{n:"(?:[^"\\]|\\.)*"\}', HTML.split("const PACKS = [", 1)[1].split("const PACKS_V40=[", 1)[0])
     ok("catalogue : 90 anciennes fiches réduites à leur nom (leur place est gardée)", len(stubs) == 90, len(stubs))
-    ok("catalogue : une seule fusion (catAdd) au lieu de 16 boucles", HTML.count("PACKS.findIndex(p=>p.n===np.n)") == 1 and HTML.count("catAdd(PACKS_V40") == 16, HTML.count("PACKS.findIndex(p=>p.n===np.n)"))
+    ok("catalogue : une seule fusion (catAdd) au lieu de 17 boucles (bloc 17 : renouvellement d'ordonnance, 11/11/2026)", HTML.count("PACKS.findIndex(p=>p.n===np.n)") == 1 and HTML.count("catAdd(PACKS_V40") == 17, HTML.count("PACKS.findIndex(p=>p.n===np.n)"))
 
 async def catalogue(page):
     r = await page.evaluate("""()=>({n:PACKS.length,vide:PACKS.filter(p=>!Array.isArray(p.s)||!p.s.length).map(p=>p.n),uniq:new Set(PACKS.map(p=>p.n)).size,
       tw:(()=>{twinOf(0);return _twinIdx.size;})(),twn:Object.keys(CAT_TWIN).length})""")
-    ok("catalogue : 400 fiches, toutes avec contenu, noms uniques", r["n"] == 400 and not r["vide"] and r["uniq"] == 400, r)
-    ok("catalogue : les 12 fiches jumelles retrouvent leur fiche v40", r["tw"] == 12 == r["twn"], r)
+    ok("catalogue : 401 fiches, toutes avec contenu, noms uniques", r["n"] == 401 and not r["vide"] and r["uniq"] == 401, r)
+    ok("catalogue : les 13 fiches jumelles retrouvent leur fiche v40 (dont Renouvellement de traitement chronique → Renouvellement d'ordonnance)", r["tw"] == 13 == r["twn"], r)
     await page.fill("#q", "insomnie"); await page.wait_for_timeout(250)
     rows = await page.evaluate("()=>[...document.querySelectorAll('#res .res .n')].map(e=>e.textContent)")
     tw = await page.evaluate("()=>[...document.querySelectorAll('#res .twin')].map(e=>e.textContent)")

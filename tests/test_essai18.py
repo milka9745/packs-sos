@@ -65,10 +65,10 @@ async def main():
                     sel=[y["t"] for y in r["L"] if y["on"] and y["t"].split(" ")[0] in ("AUGMENTIN","ORELOX","BACTRIM","CLAMOXYL")]
                     ok(L+f"otite-conjonctivite 22 mois 13 kg, {tag} : {atb} seul antibiotique coché",sel and len(sel)==1 and sel[0].startswith(atb),sel)
                     s=on(r,atb)
-                    exp={"AUGMENTIN":"3,5 ml (soit 350 mg d'amoxicilline) 3 fois par jour","ORELOX":"1 dose-poids 13 kg (soit 6,5 ml, 52 mg) matin et soir","BACTRIM":"5 ml (soit 200 mg de sulfaméthoxazole) matin et soir"}[atb]
+                    exp={"AUGMENTIN":"1 dose-poids 13 kg 3 fois par jour","ORELOX":"1 dose-poids 13 kg matin et soir","BACTRIM":"5 ml matin et soir"}[atb]  # 11/11/2026 : libellé allégé (une seule unité ; AUGMENTIN à la graduation en kg)
                     mx={"AUGMENTIN":"sans dépasser 10 ml par prise","ORELOX":"sans dépasser 400 mg par jour","BACTRIM":"sans dépasser 10 ml par prise"}[atb]
                     dur="pendant 7 jours" if atb=="BACTRIM" else "pendant 10 jours"  # 18/10/2026 : BACTRIM selon le RCP (7 jours au maximum)
-                    ok(L+f"{tag} : {atb} en ml et en mg, dose maximale, durée ({dur}, moins de 2 ans)",exp in s and mx in s and dur in s,s[:260])
+                    ok(L+f"{tag} : {atb} libellé allégé (une seule unité, plus de « sans dépasser » ni de « soit … mg »), durée ({dur}, moins de 2 ans)",exp in s and mx not in s and "(soit" not in s and dur in s,s[:260])
                     ok(L+f"{tag} : question « Allergie grave ? » {'affichée' if al else 'absente'}",r["q"]==al,r["q"])
                     aer=[y for y in r["L"] if y["t"].startswith("AERIUS")]
                     ok(L+f"{tag} : AERIUS proposé en option décochée (si allergie avérée)",aer and not aer[0]["on"] and "si allergie avérée" in aer[0]["s"],aer)

@@ -25,8 +25,8 @@ RUN="""(a)=>{newPatient();Object.assign(state,{patient:'PETIT Lou',ddn:a.ddn||'0
   const d=document.createElement('div');d.innerHTML=buildPages(P,true).out;const pages=[...d.querySelectorAll('.page')].map(x=>({h:(x.querySelector('h2')||{}).textContent||'',t:x.innerText}));
   const adv=[...document.querySelectorAll('#main .adv, #main .xp-alerts')].map(x=>x.innerText).join(' | ');return {L,pages,adv};}"""
 SWEEP="""()=>{const bad=[],nomg=[];for(const w of [8,15,25,32,45]){for(let i=0;i<PACKS.length;i++){if(!PACKS[i].s.some(sh=>sh.k==='med'))continue;newPatient();Object.assign(state,{patient:'X',ddn:'01/01/2016',poids:String(w),sexe:'f'});state.sel=i;const p=currentPack();
-  p.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>{if(!x.on)return;const t=x.fill.s;const m=/dose-poids (\\d+(?:,\\d+)?) kg/.exec(t);if(m&&parseFloat(m[1].replace(',','.'))>25)bad.push([PACKS[i].n,w,t.slice(0,80)]);
-    if(/\{ml:|\{dp:/.test(x.t)&&/(suspension|sirop)/i.test(t)&&/\\d ml/.test(t)&&!/\\d mg\\b/.test(t.split(' : ').slice(1).join(' : ')))nomg.push([PACKS[i].n,w,t.slice(0,90)]);});});}}return {bad,nomg:nomg.slice(0,12),n:nomg.length};}"""
+  p.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>{if(!x.on)return;const t=x.fill.s;const m=/dose-poids (\\d+(?:,\\d+)?) kg/.exec(t);if(m&&parseFloat(m[1].replace(',','.'))>25&&!/AUGMENTIN/.test(x.t))bad.push([PACKS[i].n,w,t.slice(0,80)]);
+    if(/\{ml:|\{dp:/.test(x.t)&&!atbSys(x.t)&&/(suspension|sirop)/i.test(t)&&/\\d ml/.test(t)&&!/\\d mg\\b/.test(t.split(' : ').slice(1).join(' : ')))nomg.push([PACKS[i].n,w,t.slice(0,90)]);});});}}return {bad,nomg:nomg.slice(0,12),n:nomg.length};}"""
 def line(r,start):
     x=[y for y in r["L"] if y["t"].startswith(start) and y["on"]]
     return x[0]["s"] if x else ""
@@ -44,14 +44,14 @@ async def main():
                     await unlock(page,"dp"+lbl[:3]+("x" if xp else "c"),xp)
                     A="Angine — enfant (TROD positif)"; Z="ZITHROMAX 40 mg/ml"
                     r=await page.evaluate(RUN,{"n":A,"w":15,"pick":Z}); s=line(r,Z)
-                    ok(L+"ZITHROMAX 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »","1 dose-poids 15 kg (soit 7,5 ml, 300 mg)" in s,s)
+                    ok(L+"ZITHROMAX 15 kg : « 1 dose-poids 15 kg en une prise par jour » (une seule unité, 11/11/2026)","1 dose-poids 15 kg en une prise par jour" in s and "(soit" not in s,s)
                     r=await page.evaluate(RUN,{"n":A,"w":25,"pick":Z}); s=line(r,Z)
-                    ok(L+"ZITHROMAX 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »","1 dose-poids 25 kg (soit 12,5 ml, 500 mg)" in s,s)
+                    ok(L+"ZITHROMAX 25 kg : « 1 dose-poids 25 kg en une prise par jour »","1 dose-poids 25 kg en une prise par jour" in s and "(soit" not in s,s)
                     r=await page.evaluate(RUN,{"n":A,"w":40,"pick":Z}); s=line(r,Z)
-                    ok(L+"ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml, soit 500 mg (dose maximale) »","dose-poids" not in s and "12,5 ml, soit 500 mg (dose maximale)" in s,s)
+                    ok(L+"ZITHROMAX 40 kg : jamais « dose-poids », « 12,5 ml en une prise par jour » (mg et dose maximale à l'écran)","dose-poids" not in s and "12,5 ml en une prise par jour" in s and "soit" not in s,s)
                     ok(L+"ZITHROMAX 40 kg : alerte à l'écran (au-delà de la pipette de 25 kg)","au-delà de la pipette" in r["adv"] and "25 kg" in r["adv"],r["adv"][:300])
                     ordo=" ".join(x["t"] for x in r["pages"] if x["h"].startswith("Ordonnance"));cons=" ".join(x["t"] for x in r["pages"] if x["h"].startswith("Consignes"))
-                    ok(L+"ZITHROMAX 40 kg : ml et mg sur l'ordonnance et dans les conseils patient","12,5 ml, soit 500 mg" in ordo and "12,5 ml" in cons and "500 mg" in cons and "dose-poids" not in ordo+cons,[ordo[:200],cons[:200]])
+                    ok(L+"ZITHROMAX 40 kg : « 12,5 ml » seul sur l'ordonnance et dans les conseils (une seule unité), jamais « dose-poids »","12,5 ml" in ordo and "soit 500 mg" not in ordo and "12,5 ml" in cons and "dose-poids" not in ordo+cons,[ordo[:200],cons[:200]])
                     r=await page.evaluate(RUN,{"n":A,"w":40})
                     ok(L+"angine 40 kg : comprimé ZITHROMAX non proposé sous 45 kg (RCP)",not [y for y in r["L"] if y["t"].startswith("ZITHROMAX 250 mg")],[y["t"] for y in r["L"]])
                     r=await page.evaluate(RUN,{"n":A,"w":50,"ddn":"01/01/2012"})
@@ -65,16 +65,16 @@ async def main():
                     dd=await page.evaluate("dpDose(DP.DOLI24,20,4)")
                     ok(L+"DOLIPRANE suspension à 20 kg : « 12,5 ml, soit 300 mg », pas de dose-poids",dd["txt"]=="12,5 ml, soit 300 mg" and dd["beyond"],dd)
                     r=await page.evaluate(RUN,{"n":"Otite moyenne aiguë — enfant","w":40,"ddn":"01/01/2015","lieu":"visite"}); s=line(r,"CLAMOXYL")
-                    ok(L+"CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml (soit 1500 mg) », jamais « dose-poids »","15 ml (soit 1500 mg)" in s and "dose-poids" not in s,s)
+                    ok(L+"CLAMOXYL OMA 40 kg (cuillère-mesure, pas de pipette) : « 15 ml matin et soir », jamais « dose-poids »","15 ml matin et soir" in s and "dose-poids" not in s and "(soit" not in s,s)
                     r=await page.evaluate(RUN,{"n":A,"w":45,"ddn":"01/01/2013"}); s=line(r,"CLAMOXYL")
-                    ok(L+"CLAMOXYL angine 45 kg : « 10 ml (soit 1000 mg) » matin et soir","10 ml (soit 1000 mg)" in s and "dose-poids" not in s,s)
+                    ok(L+"CLAMOXYL angine 45 kg : « 10 ml matin et soir »","10 ml matin et soir" in s and "dose-poids" not in s and "(soit" not in s,s)
                     r=await page.evaluate("[dpDose(DP.ADVIL,20,4).txt,dpDose(DP.ADVIL,28,4).txt,dpDose(DP.ADVIL,28,4).beyond]")
                     ok(L+"ADVILMED 20 kg : dose-poids ; 28 kg : ml et mg, au-delà de la pipette",r[0]=="1 dose-poids 20 kg (soit 7,5 ml, 150 mg)" and r[1]=="10,5 ml, soit 210 mg" and r[2],r)
                     r=await page.evaluate(RUN,{"n":A,"w":30,"pick":"ORELOX"}); s=line(r,"ORELOX")
-                    ok(L+"ORELOX angine 30 kg : « 12,5 ml, soit 100 mg (dose maximale) » matin et soir","12,5 ml, soit 100 mg (dose maximale)" in s,s)
+                    ok(L+"ORELOX angine 30 kg : « 12,5 ml matin et soir » (dose maximale à l'écran)","12,5 ml matin et soir" in s and "soit" not in s,s)
                     sw=await page.evaluate(SWEEP)
                     ok(L+"toutes les fiches × 5 poids : jamais « dose-poids » au-delà de l'étendue de la pipette",not sw["bad"],sw["bad"][:6])
-                    ok(L+"toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg",sw["n"]==0,sw["nomg"])
+                    ok(L+"toutes les fiches × 5 poids : suspension en ml toujours accompagnée des mg (hors antibiotiques : une seule unité depuis le 11/11/2026 ; AUGMENTIN à la graduation en kg)",sw["n"]==0,sw["nomg"])
                     st=await page.evaluate("(()=>{const P=PACKS.find(p=>p.n==='Angine — enfant (TROD positif)');const m=P.s.find(s=>s.k==='memo');return m.l.map(l=>typeof l==='string'?l:l.t).filter(t=>/Statut/.test(t));})()")
                     ok(L+"fiche angine modifiée : « à relire »",st and "à relire" in st[-1],st)
                     if mob and xp:

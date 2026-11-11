@@ -1,0 +1,375 @@
+# Tests antibiotiques et renouvellement d'ordonnance (11/11/2026)
+
+- OK — iPhone Express jour : OMA 15 mois 8 kg : un seul antibiotique coché (CLAMOXYL recommandé), alternatives dessous
+- OK — iPhone Express jour : OMA : libellé allégé à l'écran « 3,5 ml matin et soir pendant 10 jours » (ni « soit … mg », ni « sans dépasser », ni « seringue »)
+- OK — iPhone Express jour : OMA : mg par prise et mg/kg/j à l'écran seulement (note)
+- OK — iPhone Express jour : OMA, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 3,5 ml matin et soir pendant 10 jours. »
+- OK — iPhone Express jour : OMA, ordonnance : un seul antibiotique imprimé, rien de retiré
+- OK — iPhone Express jour : OMA : toucher AUGMENTIN remplace CLAMOXYL (un seul antibiotique)
+- OK — iPhone Express jour : OMA : AUGMENTIN « 1 dose-poids 8 kg 3 fois par jour au début des repas pendant 10 jours »
+- OK — iPhone Express jour : OMA, ordonnance : « amoxicilline-acide clavulanique (AUGMENTIN) ENFANTS … : 1 dose-poids 8 kg 3 fois par jour … pendant 10 jours. »
+- OK — iPhone Express jour : OMA : pastilles de durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j) sous l'antibiotique coché
+- OK — iPhone Express jour : OMA : pastilles d'au moins 36 px (tactile)
+- OK — iPhone Express jour : OMA : durée 7 j choisie → « pendant 7 jours » à l'écran, pastille « durée modifiée (fiche : 10 j) »
+- OK — iPhone Express jour : OMA : dose modifiée d'un geste → « 1 dose-poids 9 kg »
+- OK — iPhone Express jour : OMA : écarts tracés (« durée choisie par le médecin : 7 j (fiche : 10 j) », dose choisie)
+- OK — iPhone Express jour : OMA : compte rendu avec « durée choisie par le médecin : 7 j »
+- OK — iPhone Express jour : OMA : journal avec la durée et la dose choisies
+- OK — iPhone Express jour : OMA, ordonnance : « pendant 7 jours » et « 1 dose-poids 9 kg » imprimés, jamais « choisie » ni « fiche »
+- OK — iPhone Express jour : OMA : antibiotique ajouté par la recherche → il remplace AUGMENTIN (un seul antibiotique)
+- OK — iPhone Express jour : OMA : boîte « Un seul antibiotique … AUGMENTIN remplacé par ORELOX » avec le bouton « Ajouter quand même »
+- OK — iPhone Express jour : OMA : confirmation demandée (« Deux antibiotiques par voie générale »)
+- OK — iPhone Express jour : OMA : après confirmation, AUGMENTIN et ORELOX cochés ensemble, sans doublon
+- OK — iPhone Express jour : OMA : association volontaire tracée au journal et au compte rendu
+- OK — iPhone Express jour : OMA, ordonnance : les deux antibiotiques imprimés, sans mention de la confirmation
+- OK — iPhone Express jour : OMA : pas de blocage à l'impression après confirmation
+- OK — iPhone Express jour : OMA : confirmation retirée → un seul antibiotique à nouveau (le dernier touché gardé)
+- OK — iPhone Express jour : OMA : deux antibiotiques sans confirmation à l'impression → blocage et alerte (rien n'est imprimé)
+- OK — iPhone Express jour : OMA sans date de naissance : antibiotique non imprimé, « date de naissance (durée de l'antibiotique selon l'âge) » signalé
+- OK — iPhone Express jour : angine 2 ans : aucun antibiotique imprimé
+- OK — iPhone Express jour : angine 2 ans : message à l'écran « angine avant 3 ans, pas d'antibiotique (angine virale …) »
+- OK — iPhone Express jour : angine 2 ans : règle rappelée avant d'imprimer (jamais sur l'ordonnance)
+- OK — iPhone Express jour : angine 2 ans : le paracétamol reste imprimé
+- OK — iPhone Express jour : angine 5 ans 18 kg : amoxicilline 6 j « 4,5 ml matin et soir pendant 6 jours », cefpodoxime 5 j, céfuroxime 4 j, clarithromycine 5 j, azithromycine 3 j
+- OK — iPhone Express jour : angine 5 ans, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 6 jours. »
+- OK — iPhone Express jour : pneumopathie enfant 16 kg : « 7 ml matin et soir pendant 5 jours » (HAS 2024), coché seul
+- OK — iPhone Express jour : angine adulte, ordonnance : « amoxicilline (CLAMOXYL) 1 g comprimé : 1 comprimé matin et soir pendant 6 jours. »
+- OK — iPhone Express jour : angine adulte : pastilles de durée aussi sur la ligne adulte
+- OK — iPhone Express jour : renouvellement : fiche dans le catalogue, « non relue », présente dans la rangée Fréquents (adulte, sujet âgé)
+- OK — iPhone Express jour : renouvellement : trouvée par la recherche « renouvellement »
+- OK — iPhone Express jour : renouvellement : panneau affiché (recherche de médicament)
+- OK — iPhone Express jour : base BDPM embarquée chargée (plus de 11 000 spécialités, date du fichier)
+- OK — iPhone Express jour : hors connexion : recherche par nom commercial (« amlor » → AMLOR 5 mg, gélule en tête)
+- OK — iPhone Express jour : hors connexion : recherche par DCI (« levothyroxine 50 » → LEVOTHYROX 50 microgrammes)
+- OK — iPhone Express jour : accents indifférents (« kétoconazole » = « ketoconazole »)
+- OK — iPhone Express jour : « skenan lp 10 » → SKENAN L.P. 10 mg
+- OK — iPhone Express jour : « amlo » : propositions dès 4 lettres, présentations (AMLOR 5 mg, AMLOR 10 mg, génériques)
+- OK — iPhone Express jour : ligne ajoutée : amlodipine (AMLOR) 5 mg gélule, durée 1 mois par défaut
+- OK — iPhone Express jour : posologie d'un geste (« 1 gélule le matin ») et ALD cochée
+- OK — iPhone Express jour : 6 lignes générées, DCI puis nom commercial, posologie, durée : « lévothyroxine (LEVOTHYROX) 50 microgrammes comprimé sécable : 1 comprimé le matin à jeun pendant 1 mois. »
+- OK — iPhone Express jour : générique nommé par sa DCI : « METFORMINE BIOGARAN 1000 mg comprimé pelliculé : … » sans répétition
+- OK — iPhone Express jour : 6 médicaments dont 2 en ALD : une seule ordonnance bizone, une page (ALD en haut, maladies intercurrentes en bas)
+- OK — iPhone Express jour : bizone : les 2 lignes ALD dans la partie haute, les 4 autres en bas
+- OK — iPhone Express jour : « Non substituable (MTE) » imprimé sur la ligne choisie
+- OK — iPhone Express jour : ordonnance : date, patient, DCI + nom commercial, posologie, durée ; rien de retiré
+- OK — iPhone Express jour : journal : motif « Renouvellement d'ordonnance » et liste des médicaments
+- OK — iPhone Express jour : compte rendu : trame renouvellement, traitement listé, écarts
+- OK — iPhone Express jour : cotation habituelle (G ou VG + majorations selon l'heure)
+- OK — iPhone Express jour : Express / bouton : rien ne bloque (posologies renseignées, une page)
+- OK — iPhone Express jour : aucun débordement horizontal
+- OK — iPhone Express jour : ordre : « ↓ » descend AMLOR en 2e position
+- OK — iPhone Express jour : suppression d'un geste (×) : 5 lignes
+- OK — iPhone Express jour : médicaments récemment renouvelés mémorisés (5)
+- OK — iPhone Express jour : nouveau patient : les récents sont proposés en premier (« Récemment renouvelés : AMLOR 5 mg… »)
+- OK — iPhone Express jour : récent repris avec sa posologie et sa durée
+- OK — iPhone Express jour : posologie absente → ligne non imprimée et manque signalé
+- OK — iPhone Express jour : morphinique (SKENAN) : alerte « ordonnance sécurisée requise, quantités en toutes lettres »
+- OK — iPhone Express jour : morphinique : pas d'impression sur le modèle simple (AMLOR imprimé, SKENAN absent)
+- OK — iPhone Express jour : morphinique : « ordonnance sécurisée à rédiger à la main » rappelé avant d'imprimer, inscrit au journal et au compte rendu
+- OK — iPhone Express jour : morphinique : au journal avec la mention « ordonnance sécurisée à rédiger à la main, non imprimée »
+- OK — iPhone Express jour : médicament hospitalier : ligne non imprimée, règle affichée
+- OK — iPhone Express jour : 20 lignes : alerte « ne tient pas sur une page » et bouton « Deux ordonnances »
+- OK — iPhone Express jour : 20 lignes : l'impression attend la décision (« ordonnance trop longue : deux ordonnances ? »)
+- OK — iPhone Express jour : 20 lignes : à l'impression, alerte et proposition de deux ordonnances
+- OK — iPhone Express jour : deux ordonnances complètes (1/2 et 2/2), chacune une page, puis les consignes
+- OK — iPhone Express jour : chaque ordonnance porte en-tête, patient et signature
+- OK — iPhone Express jour : aucune erreur JS
+- OK — iPhone Express nuit grand texte : OMA 15 mois 8 kg : un seul antibiotique coché (CLAMOXYL recommandé), alternatives dessous
+- OK — iPhone Express nuit grand texte : OMA : libellé allégé à l'écran « 3,5 ml matin et soir pendant 10 jours » (ni « soit … mg », ni « sans dépasser », ni « seringue »)
+- OK — iPhone Express nuit grand texte : OMA : mg par prise et mg/kg/j à l'écran seulement (note)
+- OK — iPhone Express nuit grand texte : OMA, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 3,5 ml matin et soir pendant 10 jours. »
+- OK — iPhone Express nuit grand texte : OMA, ordonnance : un seul antibiotique imprimé, rien de retiré
+- OK — iPhone Express nuit grand texte : OMA : toucher AUGMENTIN remplace CLAMOXYL (un seul antibiotique)
+- OK — iPhone Express nuit grand texte : OMA : AUGMENTIN « 1 dose-poids 8 kg 3 fois par jour au début des repas pendant 10 jours »
+- OK — iPhone Express nuit grand texte : OMA, ordonnance : « amoxicilline-acide clavulanique (AUGMENTIN) ENFANTS … : 1 dose-poids 8 kg 3 fois par jour … pendant 10 jours. »
+- OK — iPhone Express nuit grand texte : OMA : pastilles de durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j) sous l'antibiotique coché
+- OK — iPhone Express nuit grand texte : OMA : pastilles d'au moins 36 px (tactile)
+- OK — iPhone Express nuit grand texte : OMA : durée 7 j choisie → « pendant 7 jours » à l'écran, pastille « durée modifiée (fiche : 10 j) »
+- OK — iPhone Express nuit grand texte : OMA : dose modifiée d'un geste → « 1 dose-poids 9 kg »
+- OK — iPhone Express nuit grand texte : OMA : écarts tracés (« durée choisie par le médecin : 7 j (fiche : 10 j) », dose choisie)
+- OK — iPhone Express nuit grand texte : OMA : compte rendu avec « durée choisie par le médecin : 7 j »
+- OK — iPhone Express nuit grand texte : OMA : journal avec la durée et la dose choisies
+- OK — iPhone Express nuit grand texte : OMA, ordonnance : « pendant 7 jours » et « 1 dose-poids 9 kg » imprimés, jamais « choisie » ni « fiche »
+- OK — iPhone Express nuit grand texte : OMA : antibiotique ajouté par la recherche → il remplace AUGMENTIN (un seul antibiotique)
+- OK — iPhone Express nuit grand texte : OMA : boîte « Un seul antibiotique … AUGMENTIN remplacé par ORELOX » avec le bouton « Ajouter quand même »
+- OK — iPhone Express nuit grand texte : OMA : confirmation demandée (« Deux antibiotiques par voie générale »)
+- OK — iPhone Express nuit grand texte : OMA : après confirmation, AUGMENTIN et ORELOX cochés ensemble, sans doublon
+- OK — iPhone Express nuit grand texte : OMA : association volontaire tracée au journal et au compte rendu
+- OK — iPhone Express nuit grand texte : OMA, ordonnance : les deux antibiotiques imprimés, sans mention de la confirmation
+- OK — iPhone Express nuit grand texte : OMA : pas de blocage à l'impression après confirmation
+- OK — iPhone Express nuit grand texte : OMA : confirmation retirée → un seul antibiotique à nouveau (le dernier touché gardé)
+- OK — iPhone Express nuit grand texte : OMA : deux antibiotiques sans confirmation à l'impression → blocage et alerte (rien n'est imprimé)
+- OK — iPhone Express nuit grand texte : OMA sans date de naissance : antibiotique non imprimé, « date de naissance (durée de l'antibiotique selon l'âge) » signalé
+- OK — iPhone Express nuit grand texte : angine 2 ans : aucun antibiotique imprimé
+- OK — iPhone Express nuit grand texte : angine 2 ans : message à l'écran « angine avant 3 ans, pas d'antibiotique (angine virale …) »
+- OK — iPhone Express nuit grand texte : angine 2 ans : règle rappelée avant d'imprimer (jamais sur l'ordonnance)
+- OK — iPhone Express nuit grand texte : angine 2 ans : le paracétamol reste imprimé
+- OK — iPhone Express nuit grand texte : angine 5 ans 18 kg : amoxicilline 6 j « 4,5 ml matin et soir pendant 6 jours », cefpodoxime 5 j, céfuroxime 4 j, clarithromycine 5 j, azithromycine 3 j
+- OK — iPhone Express nuit grand texte : angine 5 ans, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 6 jours. »
+- OK — iPhone Express nuit grand texte : pneumopathie enfant 16 kg : « 7 ml matin et soir pendant 5 jours » (HAS 2024), coché seul
+- OK — iPhone Express nuit grand texte : angine adulte, ordonnance : « amoxicilline (CLAMOXYL) 1 g comprimé : 1 comprimé matin et soir pendant 6 jours. »
+- OK — iPhone Express nuit grand texte : angine adulte : pastilles de durée aussi sur la ligne adulte
+- OK — iPhone Express nuit grand texte : renouvellement : fiche dans le catalogue, « non relue », présente dans la rangée Fréquents (adulte, sujet âgé)
+- OK — iPhone Express nuit grand texte : renouvellement : trouvée par la recherche « renouvellement »
+- OK — iPhone Express nuit grand texte : renouvellement : panneau affiché (recherche de médicament)
+- OK — iPhone Express nuit grand texte : base BDPM embarquée chargée (plus de 11 000 spécialités, date du fichier)
+- OK — iPhone Express nuit grand texte : hors connexion : recherche par nom commercial (« amlor » → AMLOR 5 mg, gélule en tête)
+- OK — iPhone Express nuit grand texte : hors connexion : recherche par DCI (« levothyroxine 50 » → LEVOTHYROX 50 microgrammes)
+- OK — iPhone Express nuit grand texte : accents indifférents (« kétoconazole » = « ketoconazole »)
+- OK — iPhone Express nuit grand texte : « skenan lp 10 » → SKENAN L.P. 10 mg
+- OK — iPhone Express nuit grand texte : « amlo » : propositions dès 4 lettres, présentations (AMLOR 5 mg, AMLOR 10 mg, génériques)
+- OK — iPhone Express nuit grand texte : ligne ajoutée : amlodipine (AMLOR) 5 mg gélule, durée 1 mois par défaut
+- OK — iPhone Express nuit grand texte : posologie d'un geste (« 1 gélule le matin ») et ALD cochée
+- OK — iPhone Express nuit grand texte : 6 lignes générées, DCI puis nom commercial, posologie, durée : « lévothyroxine (LEVOTHYROX) 50 microgrammes comprimé sécable : 1 comprimé le matin à jeun pendant 1 mois. »
+- OK — iPhone Express nuit grand texte : générique nommé par sa DCI : « METFORMINE BIOGARAN 1000 mg comprimé pelliculé : … » sans répétition
+- OK — iPhone Express nuit grand texte : 6 médicaments dont 2 en ALD : une seule ordonnance bizone, une page (ALD en haut, maladies intercurrentes en bas)
+- OK — iPhone Express nuit grand texte : bizone : les 2 lignes ALD dans la partie haute, les 4 autres en bas
+- OK — iPhone Express nuit grand texte : « Non substituable (MTE) » imprimé sur la ligne choisie
+- OK — iPhone Express nuit grand texte : ordonnance : date, patient, DCI + nom commercial, posologie, durée ; rien de retiré
+- OK — iPhone Express nuit grand texte : journal : motif « Renouvellement d'ordonnance » et liste des médicaments
+- OK — iPhone Express nuit grand texte : compte rendu : trame renouvellement, traitement listé, écarts
+- OK — iPhone Express nuit grand texte : cotation habituelle (G ou VG + majorations selon l'heure)
+- OK — iPhone Express nuit grand texte : Express / bouton : rien ne bloque (posologies renseignées, une page)
+- OK — iPhone Express nuit grand texte : aucun débordement horizontal
+- OK — iPhone Express nuit grand texte : ordre : « ↓ » descend AMLOR en 2e position
+- OK — iPhone Express nuit grand texte : suppression d'un geste (×) : 5 lignes
+- OK — iPhone Express nuit grand texte : médicaments récemment renouvelés mémorisés (5)
+- OK — iPhone Express nuit grand texte : nouveau patient : les récents sont proposés en premier (« Récemment renouvelés : AMLOR 5 mg… »)
+- OK — iPhone Express nuit grand texte : récent repris avec sa posologie et sa durée
+- OK — iPhone Express nuit grand texte : posologie absente → ligne non imprimée et manque signalé
+- OK — iPhone Express nuit grand texte : morphinique (SKENAN) : alerte « ordonnance sécurisée requise, quantités en toutes lettres »
+- OK — iPhone Express nuit grand texte : morphinique : pas d'impression sur le modèle simple (AMLOR imprimé, SKENAN absent)
+- OK — iPhone Express nuit grand texte : morphinique : « ordonnance sécurisée à rédiger à la main » rappelé avant d'imprimer, inscrit au journal et au compte rendu
+- OK — iPhone Express nuit grand texte : morphinique : au journal avec la mention « ordonnance sécurisée à rédiger à la main, non imprimée »
+- OK — iPhone Express nuit grand texte : médicament hospitalier : ligne non imprimée, règle affichée
+- OK — iPhone Express nuit grand texte : 20 lignes : alerte « ne tient pas sur une page » et bouton « Deux ordonnances »
+- OK — iPhone Express nuit grand texte : 20 lignes : l'impression attend la décision (« ordonnance trop longue : deux ordonnances ? »)
+- OK — iPhone Express nuit grand texte : 20 lignes : à l'impression, alerte et proposition de deux ordonnances
+- OK — iPhone Express nuit grand texte : deux ordonnances complètes (1/2 et 2/2), chacune une page, puis les consignes
+- OK — iPhone Express nuit grand texte : chaque ordonnance porte en-tête, patient et signature
+- OK — iPhone Express nuit grand texte : aucune erreur JS
+- OK — iPhone mode complet : OMA 15 mois 8 kg : un seul antibiotique coché (CLAMOXYL recommandé), alternatives dessous
+- OK — iPhone mode complet : OMA : libellé allégé à l'écran « 3,5 ml matin et soir pendant 10 jours » (ni « soit … mg », ni « sans dépasser », ni « seringue »)
+- OK — iPhone mode complet : OMA : mg par prise et mg/kg/j à l'écran seulement (note)
+- OK — iPhone mode complet : OMA, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 3,5 ml matin et soir pendant 10 jours. »
+- OK — iPhone mode complet : OMA, ordonnance : un seul antibiotique imprimé, rien de retiré
+- OK — iPhone mode complet : OMA : toucher AUGMENTIN remplace CLAMOXYL (un seul antibiotique)
+- OK — iPhone mode complet : OMA : AUGMENTIN « 1 dose-poids 8 kg 3 fois par jour au début des repas pendant 10 jours »
+- OK — iPhone mode complet : OMA, ordonnance : « amoxicilline-acide clavulanique (AUGMENTIN) ENFANTS … : 1 dose-poids 8 kg 3 fois par jour … pendant 10 jours. »
+- OK — iPhone mode complet : OMA : pastilles de durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j) sous l'antibiotique coché
+- OK — iPhone mode complet : OMA : pastilles d'au moins 36 px (tactile)
+- OK — iPhone mode complet : OMA : durée 7 j choisie → « pendant 7 jours » à l'écran, pastille « durée modifiée (fiche : 10 j) »
+- OK — iPhone mode complet : OMA : dose modifiée d'un geste → « 1 dose-poids 9 kg »
+- OK — iPhone mode complet : OMA : écarts tracés (« durée choisie par le médecin : 7 j (fiche : 10 j) », dose choisie)
+- OK — iPhone mode complet : OMA : compte rendu avec « durée choisie par le médecin : 7 j »
+- OK — iPhone mode complet : OMA : journal avec la durée et la dose choisies
+- OK — iPhone mode complet : OMA, ordonnance : « pendant 7 jours » et « 1 dose-poids 9 kg » imprimés, jamais « choisie » ni « fiche »
+- OK — iPhone mode complet : OMA : antibiotique ajouté par la recherche → il remplace AUGMENTIN (un seul antibiotique)
+- OK — iPhone mode complet : OMA : boîte « Un seul antibiotique … AUGMENTIN remplacé par ORELOX » avec le bouton « Ajouter quand même »
+- OK — iPhone mode complet : OMA : confirmation demandée (« Deux antibiotiques par voie générale »)
+- OK — iPhone mode complet : OMA : après confirmation, AUGMENTIN et ORELOX cochés ensemble, sans doublon
+- OK — iPhone mode complet : OMA : association volontaire tracée au journal et au compte rendu
+- OK — iPhone mode complet : OMA, ordonnance : les deux antibiotiques imprimés, sans mention de la confirmation
+- OK — iPhone mode complet : OMA : pas de blocage à l'impression après confirmation
+- OK — iPhone mode complet : OMA : confirmation retirée → un seul antibiotique à nouveau (le dernier touché gardé)
+- OK — iPhone mode complet : OMA : deux antibiotiques sans confirmation à l'impression → blocage et alerte (rien n'est imprimé)
+- OK — iPhone mode complet : OMA sans date de naissance : antibiotique non imprimé, « date de naissance (durée de l'antibiotique selon l'âge) » signalé
+- OK — iPhone mode complet : angine 2 ans : aucun antibiotique imprimé
+- OK — iPhone mode complet : angine 2 ans : message à l'écran « angine avant 3 ans, pas d'antibiotique (angine virale …) »
+- OK — iPhone mode complet : angine 2 ans : règle rappelée avant d'imprimer (jamais sur l'ordonnance)
+- OK — iPhone mode complet : angine 2 ans : le paracétamol reste imprimé
+- OK — iPhone mode complet : angine 5 ans 18 kg : amoxicilline 6 j « 4,5 ml matin et soir pendant 6 jours », cefpodoxime 5 j, céfuroxime 4 j, clarithromycine 5 j, azithromycine 3 j
+- OK — iPhone mode complet : angine 5 ans, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 6 jours. »
+- OK — iPhone mode complet : pneumopathie enfant 16 kg : « 7 ml matin et soir pendant 5 jours » (HAS 2024), coché seul
+- OK — iPhone mode complet : angine adulte, ordonnance : « amoxicilline (CLAMOXYL) 1 g comprimé : 1 comprimé matin et soir pendant 6 jours. »
+- OK — iPhone mode complet : angine adulte : pastilles de durée aussi sur la ligne adulte
+- OK — iPhone mode complet : renouvellement : fiche dans le catalogue, « non relue », présente dans la rangée Fréquents (adulte, sujet âgé)
+- OK — iPhone mode complet : renouvellement : trouvée par la recherche « renouvellement »
+- OK — iPhone mode complet : renouvellement : panneau affiché (recherche de médicament)
+- OK — iPhone mode complet : base BDPM embarquée chargée (plus de 11 000 spécialités, date du fichier)
+- OK — iPhone mode complet : hors connexion : recherche par nom commercial (« amlor » → AMLOR 5 mg, gélule en tête)
+- OK — iPhone mode complet : hors connexion : recherche par DCI (« levothyroxine 50 » → LEVOTHYROX 50 microgrammes)
+- OK — iPhone mode complet : accents indifférents (« kétoconazole » = « ketoconazole »)
+- OK — iPhone mode complet : « skenan lp 10 » → SKENAN L.P. 10 mg
+- OK — iPhone mode complet : « amlo » : propositions dès 4 lettres, présentations (AMLOR 5 mg, AMLOR 10 mg, génériques)
+- OK — iPhone mode complet : ligne ajoutée : amlodipine (AMLOR) 5 mg gélule, durée 1 mois par défaut
+- OK — iPhone mode complet : posologie d'un geste (« 1 gélule le matin ») et ALD cochée
+- OK — iPhone mode complet : 6 lignes générées, DCI puis nom commercial, posologie, durée : « lévothyroxine (LEVOTHYROX) 50 microgrammes comprimé sécable : 1 comprimé le matin à jeun pendant 1 mois. »
+- OK — iPhone mode complet : générique nommé par sa DCI : « METFORMINE BIOGARAN 1000 mg comprimé pelliculé : … » sans répétition
+- OK — iPhone mode complet : 6 médicaments dont 2 en ALD : une seule ordonnance bizone, une page (ALD en haut, maladies intercurrentes en bas)
+- OK — iPhone mode complet : bizone : les 2 lignes ALD dans la partie haute, les 4 autres en bas
+- OK — iPhone mode complet : « Non substituable (MTE) » imprimé sur la ligne choisie
+- OK — iPhone mode complet : ordonnance : date, patient, DCI + nom commercial, posologie, durée ; rien de retiré
+- OK — iPhone mode complet : journal : motif « Renouvellement d'ordonnance » et liste des médicaments
+- OK — iPhone mode complet : compte rendu : trame renouvellement, traitement listé, écarts
+- OK — iPhone mode complet : cotation habituelle (G ou VG + majorations selon l'heure)
+- OK — iPhone mode complet : Express / bouton : rien ne bloque (posologies renseignées, une page)
+- OK — iPhone mode complet : aucun débordement horizontal
+- OK — iPhone mode complet : ordre : « ↓ » descend AMLOR en 2e position
+- OK — iPhone mode complet : suppression d'un geste (×) : 5 lignes
+- OK — iPhone mode complet : médicaments récemment renouvelés mémorisés (5)
+- OK — iPhone mode complet : nouveau patient : les récents sont proposés en premier (« Récemment renouvelés : AMLOR 5 mg… »)
+- OK — iPhone mode complet : récent repris avec sa posologie et sa durée
+- OK — iPhone mode complet : posologie absente → ligne non imprimée et manque signalé
+- OK — iPhone mode complet : morphinique (SKENAN) : alerte « ordonnance sécurisée requise, quantités en toutes lettres »
+- OK — iPhone mode complet : morphinique : pas d'impression sur le modèle simple (AMLOR imprimé, SKENAN absent)
+- OK — iPhone mode complet : morphinique : « ordonnance sécurisée à rédiger à la main » rappelé avant d'imprimer, inscrit au journal et au compte rendu
+- OK — iPhone mode complet : morphinique : au journal avec la mention « ordonnance sécurisée à rédiger à la main, non imprimée »
+- OK — iPhone mode complet : médicament hospitalier : ligne non imprimée, règle affichée
+- OK — iPhone mode complet : 20 lignes : alerte « ne tient pas sur une page » et bouton « Deux ordonnances »
+- OK — iPhone mode complet : 20 lignes : l'impression attend la décision (« ordonnance trop longue : deux ordonnances ? »)
+- OK — iPhone mode complet : 20 lignes : à l'impression, alerte et proposition de deux ordonnances
+- OK — iPhone mode complet : deux ordonnances complètes (1/2 et 2/2), chacune une page, puis les consignes
+- OK — iPhone mode complet : chaque ordonnance porte en-tête, patient et signature
+- OK — iPhone mode complet : aucune erreur JS
+- OK — ordinateur jour : OMA 15 mois 8 kg : un seul antibiotique coché (CLAMOXYL recommandé), alternatives dessous
+- OK — ordinateur jour : OMA : libellé allégé à l'écran « 3,5 ml matin et soir pendant 10 jours » (ni « soit … mg », ni « sans dépasser », ni « seringue »)
+- OK — ordinateur jour : OMA : mg par prise et mg/kg/j à l'écran seulement (note)
+- OK — ordinateur jour : OMA, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 3,5 ml matin et soir pendant 10 jours. »
+- OK — ordinateur jour : OMA, ordonnance : un seul antibiotique imprimé, rien de retiré
+- OK — ordinateur jour : OMA : toucher AUGMENTIN remplace CLAMOXYL (un seul antibiotique)
+- OK — ordinateur jour : OMA : AUGMENTIN « 1 dose-poids 8 kg 3 fois par jour au début des repas pendant 10 jours »
+- OK — ordinateur jour : OMA, ordonnance : « amoxicilline-acide clavulanique (AUGMENTIN) ENFANTS … : 1 dose-poids 8 kg 3 fois par jour … pendant 10 jours. »
+- OK — ordinateur jour : OMA : pastilles de durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j) sous l'antibiotique coché
+- OK — ordinateur jour : OMA : pastilles d'au moins 36 px (tactile)
+- OK — ordinateur jour : OMA : durée 7 j choisie → « pendant 7 jours » à l'écran, pastille « durée modifiée (fiche : 10 j) »
+- OK — ordinateur jour : OMA : dose modifiée d'un geste → « 1 dose-poids 9 kg »
+- OK — ordinateur jour : OMA : écarts tracés (« durée choisie par le médecin : 7 j (fiche : 10 j) », dose choisie)
+- OK — ordinateur jour : OMA : compte rendu avec « durée choisie par le médecin : 7 j »
+- OK — ordinateur jour : OMA : journal avec la durée et la dose choisies
+- OK — ordinateur jour : OMA, ordonnance : « pendant 7 jours » et « 1 dose-poids 9 kg » imprimés, jamais « choisie » ni « fiche »
+- OK — ordinateur jour : OMA : antibiotique ajouté par la recherche → il remplace AUGMENTIN (un seul antibiotique)
+- OK — ordinateur jour : OMA : boîte « Un seul antibiotique … AUGMENTIN remplacé par ORELOX » avec le bouton « Ajouter quand même »
+- OK — ordinateur jour : OMA : confirmation demandée (« Deux antibiotiques par voie générale »)
+- OK — ordinateur jour : OMA : après confirmation, AUGMENTIN et ORELOX cochés ensemble, sans doublon
+- OK — ordinateur jour : OMA : association volontaire tracée au journal et au compte rendu
+- OK — ordinateur jour : OMA, ordonnance : les deux antibiotiques imprimés, sans mention de la confirmation
+- OK — ordinateur jour : OMA : pas de blocage à l'impression après confirmation
+- OK — ordinateur jour : OMA : confirmation retirée → un seul antibiotique à nouveau (le dernier touché gardé)
+- OK — ordinateur jour : OMA : deux antibiotiques sans confirmation à l'impression → blocage et alerte (rien n'est imprimé)
+- OK — ordinateur jour : OMA sans date de naissance : antibiotique non imprimé, « date de naissance (durée de l'antibiotique selon l'âge) » signalé
+- OK — ordinateur jour : angine 2 ans : aucun antibiotique imprimé
+- OK — ordinateur jour : angine 2 ans : message à l'écran « angine avant 3 ans, pas d'antibiotique (angine virale …) »
+- OK — ordinateur jour : angine 2 ans : règle rappelée avant d'imprimer (jamais sur l'ordonnance)
+- OK — ordinateur jour : angine 2 ans : le paracétamol reste imprimé
+- OK — ordinateur jour : angine 5 ans 18 kg : amoxicilline 6 j « 4,5 ml matin et soir pendant 6 jours », cefpodoxime 5 j, céfuroxime 4 j, clarithromycine 5 j, azithromycine 3 j
+- OK — ordinateur jour : angine 5 ans, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 6 jours. »
+- OK — ordinateur jour : pneumopathie enfant 16 kg : « 7 ml matin et soir pendant 5 jours » (HAS 2024), coché seul
+- OK — ordinateur jour : angine adulte, ordonnance : « amoxicilline (CLAMOXYL) 1 g comprimé : 1 comprimé matin et soir pendant 6 jours. »
+- OK — ordinateur jour : angine adulte : pastilles de durée aussi sur la ligne adulte
+- OK — ordinateur jour : renouvellement : fiche dans le catalogue, « non relue », présente dans la rangée Fréquents (adulte, sujet âgé)
+- OK — ordinateur jour : renouvellement : trouvée par la recherche « renouvellement »
+- OK — ordinateur jour : renouvellement : panneau affiché (recherche de médicament)
+- OK — ordinateur jour : base BDPM embarquée chargée (plus de 11 000 spécialités, date du fichier)
+- OK — ordinateur jour : hors connexion : recherche par nom commercial (« amlor » → AMLOR 5 mg, gélule en tête)
+- OK — ordinateur jour : hors connexion : recherche par DCI (« levothyroxine 50 » → LEVOTHYROX 50 microgrammes)
+- OK — ordinateur jour : accents indifférents (« kétoconazole » = « ketoconazole »)
+- OK — ordinateur jour : « skenan lp 10 » → SKENAN L.P. 10 mg
+- OK — ordinateur jour : « amlo » : propositions dès 4 lettres, présentations (AMLOR 5 mg, AMLOR 10 mg, génériques)
+- OK — ordinateur jour : ligne ajoutée : amlodipine (AMLOR) 5 mg gélule, durée 1 mois par défaut
+- OK — ordinateur jour : posologie d'un geste (« 1 gélule le matin ») et ALD cochée
+- OK — ordinateur jour : 6 lignes générées, DCI puis nom commercial, posologie, durée : « lévothyroxine (LEVOTHYROX) 50 microgrammes comprimé sécable : 1 comprimé le matin à jeun pendant 1 mois. »
+- OK — ordinateur jour : générique nommé par sa DCI : « METFORMINE BIOGARAN 1000 mg comprimé pelliculé : … » sans répétition
+- OK — ordinateur jour : 6 médicaments dont 2 en ALD : une seule ordonnance bizone, une page (ALD en haut, maladies intercurrentes en bas)
+- OK — ordinateur jour : bizone : les 2 lignes ALD dans la partie haute, les 4 autres en bas
+- OK — ordinateur jour : « Non substituable (MTE) » imprimé sur la ligne choisie
+- OK — ordinateur jour : ordonnance : date, patient, DCI + nom commercial, posologie, durée ; rien de retiré
+- OK — ordinateur jour : journal : motif « Renouvellement d'ordonnance » et liste des médicaments
+- OK — ordinateur jour : compte rendu : trame renouvellement, traitement listé, écarts
+- OK — ordinateur jour : cotation habituelle (G ou VG + majorations selon l'heure)
+- OK — ordinateur jour : Express / bouton : rien ne bloque (posologies renseignées, une page)
+- OK — ordinateur jour : aucun débordement horizontal
+- OK — ordinateur jour : ordre : « ↓ » descend AMLOR en 2e position
+- OK — ordinateur jour : suppression d'un geste (×) : 5 lignes
+- OK — ordinateur jour : médicaments récemment renouvelés mémorisés (5)
+- OK — ordinateur jour : nouveau patient : les récents sont proposés en premier (« Récemment renouvelés : AMLOR 5 mg… »)
+- OK — ordinateur jour : récent repris avec sa posologie et sa durée
+- OK — ordinateur jour : posologie absente → ligne non imprimée et manque signalé
+- OK — ordinateur jour : morphinique (SKENAN) : alerte « ordonnance sécurisée requise, quantités en toutes lettres »
+- OK — ordinateur jour : morphinique : pas d'impression sur le modèle simple (AMLOR imprimé, SKENAN absent)
+- OK — ordinateur jour : morphinique : « ordonnance sécurisée à rédiger à la main » rappelé avant d'imprimer, inscrit au journal et au compte rendu
+- OK — ordinateur jour : morphinique : au journal avec la mention « ordonnance sécurisée à rédiger à la main, non imprimée »
+- OK — ordinateur jour : médicament hospitalier : ligne non imprimée, règle affichée
+- OK — ordinateur jour : 20 lignes : alerte « ne tient pas sur une page » et bouton « Deux ordonnances »
+- OK — ordinateur jour : 20 lignes : l'impression attend la décision (« ordonnance trop longue : deux ordonnances ? »)
+- OK — ordinateur jour : 20 lignes : à l'impression, alerte et proposition de deux ordonnances
+- OK — ordinateur jour : deux ordonnances complètes (1/2 et 2/2), chacune une page, puis les consignes
+- OK — ordinateur jour : chaque ordonnance porte en-tête, patient et signature
+- OK — ordinateur jour : aperçu bizone : une page, pas d'alerte de dépassement
+- OK — ordinateur jour : aucune erreur JS
+- OK — ordinateur nuit grand texte : OMA 15 mois 8 kg : un seul antibiotique coché (CLAMOXYL recommandé), alternatives dessous
+- OK — ordinateur nuit grand texte : OMA : libellé allégé à l'écran « 3,5 ml matin et soir pendant 10 jours » (ni « soit … mg », ni « sans dépasser », ni « seringue »)
+- OK — ordinateur nuit grand texte : OMA : mg par prise et mg/kg/j à l'écran seulement (note)
+- OK — ordinateur nuit grand texte : OMA, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 3,5 ml matin et soir pendant 10 jours. »
+- OK — ordinateur nuit grand texte : OMA, ordonnance : un seul antibiotique imprimé, rien de retiré
+- OK — ordinateur nuit grand texte : OMA : toucher AUGMENTIN remplace CLAMOXYL (un seul antibiotique)
+- OK — ordinateur nuit grand texte : OMA : AUGMENTIN « 1 dose-poids 8 kg 3 fois par jour au début des repas pendant 10 jours »
+- OK — ordinateur nuit grand texte : OMA, ordonnance : « amoxicilline-acide clavulanique (AUGMENTIN) ENFANTS … : 1 dose-poids 8 kg 3 fois par jour … pendant 10 jours. »
+- OK — ordinateur nuit grand texte : OMA : pastilles de durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j) sous l'antibiotique coché
+- OK — ordinateur nuit grand texte : OMA : pastilles d'au moins 36 px (tactile)
+- OK — ordinateur nuit grand texte : OMA : durée 7 j choisie → « pendant 7 jours » à l'écran, pastille « durée modifiée (fiche : 10 j) »
+- OK — ordinateur nuit grand texte : OMA : dose modifiée d'un geste → « 1 dose-poids 9 kg »
+- OK — ordinateur nuit grand texte : OMA : écarts tracés (« durée choisie par le médecin : 7 j (fiche : 10 j) », dose choisie)
+- OK — ordinateur nuit grand texte : OMA : compte rendu avec « durée choisie par le médecin : 7 j »
+- OK — ordinateur nuit grand texte : OMA : journal avec la durée et la dose choisies
+- OK — ordinateur nuit grand texte : OMA, ordonnance : « pendant 7 jours » et « 1 dose-poids 9 kg » imprimés, jamais « choisie » ni « fiche »
+- OK — ordinateur nuit grand texte : OMA : antibiotique ajouté par la recherche → il remplace AUGMENTIN (un seul antibiotique)
+- OK — ordinateur nuit grand texte : OMA : boîte « Un seul antibiotique … AUGMENTIN remplacé par ORELOX » avec le bouton « Ajouter quand même »
+- OK — ordinateur nuit grand texte : OMA : confirmation demandée (« Deux antibiotiques par voie générale »)
+- OK — ordinateur nuit grand texte : OMA : après confirmation, AUGMENTIN et ORELOX cochés ensemble, sans doublon
+- OK — ordinateur nuit grand texte : OMA : association volontaire tracée au journal et au compte rendu
+- OK — ordinateur nuit grand texte : OMA, ordonnance : les deux antibiotiques imprimés, sans mention de la confirmation
+- OK — ordinateur nuit grand texte : OMA : pas de blocage à l'impression après confirmation
+- OK — ordinateur nuit grand texte : OMA : confirmation retirée → un seul antibiotique à nouveau (le dernier touché gardé)
+- OK — ordinateur nuit grand texte : OMA : deux antibiotiques sans confirmation à l'impression → blocage et alerte (rien n'est imprimé)
+- OK — ordinateur nuit grand texte : OMA sans date de naissance : antibiotique non imprimé, « date de naissance (durée de l'antibiotique selon l'âge) » signalé
+- OK — ordinateur nuit grand texte : angine 2 ans : aucun antibiotique imprimé
+- OK — ordinateur nuit grand texte : angine 2 ans : message à l'écran « angine avant 3 ans, pas d'antibiotique (angine virale …) »
+- OK — ordinateur nuit grand texte : angine 2 ans : règle rappelée avant d'imprimer (jamais sur l'ordonnance)
+- OK — ordinateur nuit grand texte : angine 2 ans : le paracétamol reste imprimé
+- OK — ordinateur nuit grand texte : angine 5 ans 18 kg : amoxicilline 6 j « 4,5 ml matin et soir pendant 6 jours », cefpodoxime 5 j, céfuroxime 4 j, clarithromycine 5 j, azithromycine 3 j
+- OK — ordinateur nuit grand texte : angine 5 ans, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 6 jours. »
+- OK — ordinateur nuit grand texte : pneumopathie enfant 16 kg : « 7 ml matin et soir pendant 5 jours » (HAS 2024), coché seul
+- OK — ordinateur nuit grand texte : angine adulte, ordonnance : « amoxicilline (CLAMOXYL) 1 g comprimé : 1 comprimé matin et soir pendant 6 jours. »
+- OK — ordinateur nuit grand texte : angine adulte : pastilles de durée aussi sur la ligne adulte
+- OK — ordinateur nuit grand texte : renouvellement : fiche dans le catalogue, « non relue », présente dans la rangée Fréquents (adulte, sujet âgé)
+- OK — ordinateur nuit grand texte : renouvellement : trouvée par la recherche « renouvellement »
+- OK — ordinateur nuit grand texte : renouvellement : panneau affiché (recherche de médicament)
+- OK — ordinateur nuit grand texte : base BDPM embarquée chargée (plus de 11 000 spécialités, date du fichier)
+- OK — ordinateur nuit grand texte : hors connexion : recherche par nom commercial (« amlor » → AMLOR 5 mg, gélule en tête)
+- OK — ordinateur nuit grand texte : hors connexion : recherche par DCI (« levothyroxine 50 » → LEVOTHYROX 50 microgrammes)
+- OK — ordinateur nuit grand texte : accents indifférents (« kétoconazole » = « ketoconazole »)
+- OK — ordinateur nuit grand texte : « skenan lp 10 » → SKENAN L.P. 10 mg
+- OK — ordinateur nuit grand texte : « amlo » : propositions dès 4 lettres, présentations (AMLOR 5 mg, AMLOR 10 mg, génériques)
+- OK — ordinateur nuit grand texte : ligne ajoutée : amlodipine (AMLOR) 5 mg gélule, durée 1 mois par défaut
+- OK — ordinateur nuit grand texte : posologie d'un geste (« 1 gélule le matin ») et ALD cochée
+- OK — ordinateur nuit grand texte : 6 lignes générées, DCI puis nom commercial, posologie, durée : « lévothyroxine (LEVOTHYROX) 50 microgrammes comprimé sécable : 1 comprimé le matin à jeun pendant 1 mois. »
+- OK — ordinateur nuit grand texte : générique nommé par sa DCI : « METFORMINE BIOGARAN 1000 mg comprimé pelliculé : … » sans répétition
+- OK — ordinateur nuit grand texte : 6 médicaments dont 2 en ALD : une seule ordonnance bizone, une page (ALD en haut, maladies intercurrentes en bas)
+- OK — ordinateur nuit grand texte : bizone : les 2 lignes ALD dans la partie haute, les 4 autres en bas
+- OK — ordinateur nuit grand texte : « Non substituable (MTE) » imprimé sur la ligne choisie
+- OK — ordinateur nuit grand texte : ordonnance : date, patient, DCI + nom commercial, posologie, durée ; rien de retiré
+- OK — ordinateur nuit grand texte : journal : motif « Renouvellement d'ordonnance » et liste des médicaments
+- OK — ordinateur nuit grand texte : compte rendu : trame renouvellement, traitement listé, écarts
+- OK — ordinateur nuit grand texte : cotation habituelle (G ou VG + majorations selon l'heure)
+- OK — ordinateur nuit grand texte : Express / bouton : rien ne bloque (posologies renseignées, une page)
+- OK — ordinateur nuit grand texte : aucun débordement horizontal
+- OK — ordinateur nuit grand texte : ordre : « ↓ » descend AMLOR en 2e position
+- OK — ordinateur nuit grand texte : suppression d'un geste (×) : 5 lignes
+- OK — ordinateur nuit grand texte : médicaments récemment renouvelés mémorisés (5)
+- OK — ordinateur nuit grand texte : nouveau patient : les récents sont proposés en premier (« Récemment renouvelés : AMLOR 5 mg… »)
+- OK — ordinateur nuit grand texte : récent repris avec sa posologie et sa durée
+- OK — ordinateur nuit grand texte : posologie absente → ligne non imprimée et manque signalé
+- OK — ordinateur nuit grand texte : morphinique (SKENAN) : alerte « ordonnance sécurisée requise, quantités en toutes lettres »
+- OK — ordinateur nuit grand texte : morphinique : pas d'impression sur le modèle simple (AMLOR imprimé, SKENAN absent)
+- OK — ordinateur nuit grand texte : morphinique : « ordonnance sécurisée à rédiger à la main » rappelé avant d'imprimer, inscrit au journal et au compte rendu
+- OK — ordinateur nuit grand texte : morphinique : au journal avec la mention « ordonnance sécurisée à rédiger à la main, non imprimée »
+- OK — ordinateur nuit grand texte : médicament hospitalier : ligne non imprimée, règle affichée
+- OK — ordinateur nuit grand texte : 20 lignes : alerte « ne tient pas sur une page » et bouton « Deux ordonnances »
+- OK — ordinateur nuit grand texte : 20 lignes : l'impression attend la décision (« ordonnance trop longue : deux ordonnances ? »)
+- OK — ordinateur nuit grand texte : 20 lignes : à l'impression, alerte et proposition de deux ordonnances
+- OK — ordinateur nuit grand texte : deux ordonnances complètes (1/2 et 2/2), chacune une page, puis les consignes
+- OK — ordinateur nuit grand texte : chaque ordonnance porte en-tête, patient et signature
+- OK — ordinateur nuit grand texte : aucune erreur JS
+
+371/371 tests OK

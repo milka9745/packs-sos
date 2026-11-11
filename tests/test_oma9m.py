@@ -46,7 +46,7 @@ async def main():
                         m=re.search(r"(\d+(?:,\d+)?) ml (?:\(soit [\d,]+ mg\) )?matin et soir",s)
                         ml=float(m.group(1).replace(",",".")) if m else 0
                         mgkgj=ml*100*2/8
-                        ok(L+f"OMA 9 mois 8 kg ({lieu}) : amoxicilline {ml} ml × 2 = {mgkgj:.1f} mg/kg/j (80 à 90), 10 jours, maximum indiqué",80<=mgkgj<=90 and "pendant 10 jours" in s and "15 ml" in s,s)
+                        ok(L+f"OMA 9 mois 8 kg ({lieu}) : amoxicilline {ml} ml × 2 = {mgkgj:.1f} mg/kg/j (80 à 90), 10 jours, libellé allégé (maximum appliqué par le calcul, plus écrit)",80<=mgkgj<=90 and "pendant 10 jours" in s and "sans dépasser" not in s and "(soit" not in s,s)
                         cil=[x for x in r["L"] if "CILOXADEX" in x["t"]]
                         ok(L+f"OMA 9 mois ({lieu}) : gouttes CILOXADEX en option, non cochées",cil and not cil[0]["on"],cil)
                         ok(L+f"OMA 9 mois ({lieu}) : CILOXADEX absent des documents imprimés","CILOXADEX" not in r["printed"])

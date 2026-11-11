@@ -363,7 +363,7 @@ Barre, ajoute, change les étoiles. Puis valide le **lot 1** proposé en bas (ou
 | 257 | Examen de compatibilité avec la garde à vue | ★ | PROCÉDURE ADMINISTRATIVE | Cert |
 | 258 | Bilan de prévention, examen systématique | ★ ◇ | EXAMEN SYSTÉMATIQUE ET PRÉVENTION | B |
 
-## Renouvellement (6)
+## Renouvellement (7)
 
 | N° | Fiche | Prio | RC DRC | Pack prévu |
 |---|---|---|---|---|
@@ -373,8 +373,9 @@ Barre, ajoute, change les étoiles. Puis valide le **lot 1** proposé en bas (ou
 | 262 | Contraception orale | ★ | CONTRACEPTION | O |
 | 263 | Insuline et matériel du diabétique | ★ | DIABÈTE | O |
 | 264 | Oxygène et dispositifs médicaux | ★ | — | O |
+| 265 | Renouvellement d'ordonnance (médicament par médicament, base ANSM embarquée, bizone, stupéfiants signalés) | ★★★ | — | O |
 
-**Total : 264 fiches.**
+**Total : 265 fiches.**
 
 ## Lot 1 proposé (15 fiches, les plus fréquentes chez SOS Médecins)
 
