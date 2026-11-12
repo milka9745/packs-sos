@@ -48,6 +48,7 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     page = await ctx.new_page()
     errs = []; page.on("pageerror", lambda e: errs.append(str(e)))
     await page.add_init_script(f"try{{localStorage.setItem('sos_theme','{theme}');localStorage.setItem('sos_bigtext','{1 if big else 0}');localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_design','garde');}}catch(e){{}}")
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await unlock(page)
     await page.evaluate(SETUP); await page.wait_for_timeout(300)
     sh = (lambda n: f"fil6-{L.strip(' :').replace(' ', '_')}-{n}.png") if shots else (lambda n: None)
@@ -55,7 +56,7 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     ok(L + "1. Demande : Ajouter des fiches · Appel masqué · Lancer la tournée", T(d1) == ["Ajouter des fiches", "Appel masqué", "Lancer la tournée"], T(d1))
     await tap(page, L, "#fdock #tc_begin", "route", "1 → 2 Lancer la tournée")
     d2 = await check_state(page, L, "route", "2. En route", sh("2-route"))
-    ok(L + "2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Naviguer » (navigation pas encore lancée)", [t.split(" ·")[0] for t in T(d2)] == ["Naviguer", "Appeler", "Je suis arrivé"] and d2["fa"][0]["now"], d2)
+    ok(L + "2. En route : Naviguer · Appeler · Je suis arrivé ; mise en avant sur « Je suis arrivé » (guidage déjà lancé par ▶, 12/11/2026)", [t.split(" ·")[0] for t in T(d2)] == ["Naviguer", "Appeler", "Je suis arrivé"] and d2["fa"][2]["now"], d2)
     pos = [(f["x"], f["w"]) for f in d2["fa"]]
     await tap(page, L, "#fdock #tc_arrive", "place", "2 → 3 Je suis arrivé")
     d3 = await check_state(page, L, "place", "3. Sur place", sh("3-place"))
@@ -89,10 +90,9 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     await page.click("#fdock #tc_valid"); await page.wait_for_timeout(200)
     still = await page.evaluate("document.getElementById('fdock')&&document.getElementById('fdock').dataset.fil")
     ok(L + "5. Valider : 1er toucher = confirmation (rien n'est validé seul)", still == "sortie" and await page.evaluate("!TOUR.stops.find(s=>s.id==='r1').done"), still)
-    t0 = time.time(); await page.click("#tc_valid"); await page.wait_for_selector("#vd_next", timeout=4000); TIMES[L + "5 → Patient validé"] = round((time.time() - t0) * 1000)
-    ok(L + "5. 2e toucher : patient validé, arrêt fait, journal de test intact", await page.evaluate("TOUR.stops.find(s=>s.id==='r1').done&&state.view==='valid'"))
-    await tap(page, L, "#vd_next", "route", "Patient suivant → 2 (visite suivante)")
-    ok(L + "Patient suivant : la visite suivante est en cours", await page.evaluate("!!TOUR.current&&TOUR.current!=='r1'"))
+    t0 = time.time(); await page.click("#tc_valid"); await page.wait_for_function("document.getElementById('fdock')&&document.getElementById('fdock').dataset.fil==='route'&&TOUR.current&&TOUR.current!=='r1'", timeout=4000); TIMES[L + "5 → visite suivante (un toucher)"] = round((time.time() - t0) * 1000)
+    ok(L + "5. 2e toucher : patient validé, arrêt fait, visite suivante en cours et guidage lancé en un toucher (12/11/2026 : plus d'écran intermédiaire), annulation 8 s", await page.evaluate("TOUR.stops.find(s=>s.id==='r1').done&&state.view===''&&(window.__navOpened||[]).length>=1&&!!document.getElementById('undobar')"))
+    ok(L + "visite suivante en cours sans toucher supplémentaire", await page.evaluate("!!TOUR.current&&TOUR.current!=='r1'"))
     # 6. Nouvelle demande pendant le trajet — 09/11/2026 : intégrée d'elle-même, la barre reste « En route » (plus d'état « Entre deux »)
     r = await page.evaluate(r"""async()=>{const t0=performance.now();const s=tourAdd('7 rue des Carmes, 45000 Orléans','',false,{lat:47.905,lon:1.915,label:'7 Rue des Carmes 45000 Orléans',city:'Orléans'});s.id='n1';s.nom='BERNARD Luc';s.ddn='04/04/1980';s.motif='malaise';s.tel='0622222222';tourSave();tourAfterAdd(s);
       let ms=null;for(let i=0;i<400;i++){const c=document.querySelector('.tcard .tp-new');if(c&&/Nouvelle demande/.test(c.textContent)){ms=Math.round(performance.now()-t0);break;}await new Promise(r=>requestAnimationFrame(r));}
@@ -111,7 +111,7 @@ async def parcours(browser, L, w, h, theme="day", big=False, xp=False, shots=Fal
     await page.click(".tc-more [data-tpgive='n2']"); await page.wait_for_timeout(300)
     ok(L + "6. « Rendre à la régulation » : confirmé au 2e toucher, tracé, barre inchangée", k1 and await page.evaluate("!TOUR.stops.find(s=>s.id==='n2')&&TOUR.given.some(g=>/PETIT/.test(g.lbl))&&document.getElementById('fdock').dataset.fil==='route'"))
     # Naviguer → écran conduite automatique
-    await page.evaluate("()=>{const a=document.querySelector('#fdock #fa_nav');a.removeAttribute('target');a.setAttribute('href','#');a.click();}"); await page.wait_for_timeout(400)
+    await page.evaluate("()=>{document.querySelector('#fdock #fa_nav').click();}"); await page.wait_for_timeout(400)
     ok(L + "Naviguer : écran conduite ouvert automatiquement", await page.evaluate("state.view==='drive'"))
     ok(L + "aucune erreur JavaScript", not errs, errs[:3])
     await ctx.close(); return errs

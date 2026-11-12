@@ -13,6 +13,7 @@ PORT=8782
 STOPS=open(os.path.join(ROOT,"tests","audit_express.py"),encoding="utf-8").read().split('STOPS="""')[1].split('"""')[0]
 
 async def unlock(page,uid):
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=15000); await page.check("#rec_ack"); await page.click("#rec_done")
@@ -51,8 +52,8 @@ async def run(b,w,h,th,big,label,shots):
     L=label+" : "; tag=label.replace(" ","-")
     # accueil : liste des patients de la régulation
     ok(L+"accueil = liste des patients (3), « 📷 Ajouter des fiches » et « ＋ Patient »",await page.locator(".xp-home [data-xpopen]").count()==3 and await page.locator("#fdock label[for=fa_shots]").count()==1 and await page.locator("#xp_new").count()==1)
-    href=await page.get_attribute(".xp-home [data-xpopen]","href")
-    ok(L+"f. en visite, toucher le patient lance la navigation (même geste)",bool(href) and ("waze" in href or "maps" in href),href)
+    href=await page.get_attribute(".xp-home [data-xpopen]","data-navgo")
+    ok(L+"f. en visite, toucher le patient lance la navigation (même geste, bouton data-navgo : appli du menu ⋯)",bool(href),href)
     if mob:
         inmain=await page.evaluate("(()=>{const m=document.getElementById('main');const j=document.getElementById('jmenu');const sp=document.querySelector('.specbar');return {out:!!(sp&&!j.contains(sp)),inmenu:!!(sp&&j.contains(sp))};})()")
         ok(L+"4. bandeau profil (SPÉCIMEN) rangé dans ⋯",inmain["inmenu"] and not inmain["out"],inmain)
@@ -62,7 +63,7 @@ async def run(b,w,h,th,big,label,shots):
     for n,(vid,fiche,kid) in enumerate(visits):
         g=G()
         if n==0: await tap(page,g,f".xp-home [data-xpopen={vid}]","toucher le patient (navigation lancée)")
-        else: await tap(page,g,".xp a.btn[href*='waze'],.xp a.btn[href*='maps']","🧭 Naviguer (patient suivant déjà ouvert)")
+        else: ok(L+f"{vid} guidage lancé sans toucher par la validation précédente (12/11/2026 : patient suivant déjà ouvert ; « Naviguer » dans la barre En route, pas en double dans l'Express)",await page.evaluate("(window.__navOpened||[]).length")>=n+1 and await page.locator("#fdock #fa_nav").count()==1 and await page.locator(".xp .xp-acts [data-navgo]").count()==0)
         cur=await page.evaluate("TOUR.current")
         ok(L+f"{vid} patient ouvert",cur==vid,cur)
         prop=await page.evaluate("(()=>{const i=xpProposed();return i==null?'':PACKS[i].n;})()")
@@ -139,7 +140,7 @@ async def extras(b,w,h,label):
     L=label+" : "
     # f. au cabinet : pas de navigation au toucher
     await page.evaluate(STOPS); await page.evaluate("state.cot.lieu='consultation';state.cot.auto=false;render();"); await page.wait_for_timeout(300)
-    href=await page.get_attribute(".xp-home [data-xpopen]","href")
+    href=await page.get_attribute(".xp-home [data-xpopen]","data-navgo")
     ok(L+"f. au cabinet, toucher le patient n'ouvre pas la navigation",href is None,href)
     # 3 + a. alerte en attente : le bouton ouvre l'aperçu au lieu d'imprimer directement
     await page.evaluate("""()=>{newPatient();const i=PACKS.findIndex(p=>p.n==='Renouvellement de traitement chronique');Object.assign(state,{patient:'MARTIN Jeanne',ddn:'05/06/1975',sexe:'f'});state.sel=i;

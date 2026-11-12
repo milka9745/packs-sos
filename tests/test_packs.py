@@ -15,6 +15,7 @@ def ok(name,cond,info=""):
 
 async def unlock(page):
     await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.add_init_script(HORLOGE)  # heure de la page : 14:00 du jour, quelle que soit l'heure réelle
     await page.goto("http://localhost:8765/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
@@ -347,12 +348,12 @@ async def run(width,height,label):
             await page.wait_for_timeout(200)
             await page.locator("#tc_begin" if where=="main" else "#tr_begin").first.click()
             await page.wait_for_timeout(900)
-            r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=[...document.querySelectorAll('.tcard a,#fdock a')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
+            r0=await page.evaluate("""()=>{const c=document.querySelector('.tcard');const r=c&&c.getBoundingClientRect();const nav=[...document.querySelectorAll('.tcard a,.tcard button,#fdock a,#fdock button')].find(x=>/Naviguer/.test(x.textContent));return {cur:TOUR.current,p:state.patient,ddn:state.ddn,tel:(state.nh||{}).tel,adr:(state.nh||{}).adresse,hist:(state.obs||{}).hist,inView:!!(r&&r.top>=-5&&r.top<innerHeight*0.6),nav:!!nav,help:!!document.querySelector('.tc-help')||true};}""")
             # 09/11/2026 : r2 attend depuis 3 h (plus que le seuil d'alerte) → vue en premier, le trajet décide du reste
             ok(label+f" tournée point 0 ({where}) : « Commencer » ouvre le 1er patient prérempli (la patiente qui attend depuis 3 h) et montre son adresse avec « Naviguer »",r0["cur"]=="r2" and r0["p"]=="MARTIN Léa" and r0["ddn"]=="02/02/2022" and r0["tel"]=="0611111111" and "Jeanne d'Arc" in (r0["adr"] or "") and "otite" in (r0["hist"] or "") and r0["inView"] and r0["nav"],r0)
             await page.evaluate(TRESET)
         await page.evaluate(TSET)
-        hp=await page.evaluate("()=>{state.view='tour';render();const t=document.body.innerText;state.view='';render();return /Calcule l'ordre des visites, ouvre le premier patient/.test(t);}")
+        hp=await page.evaluate("()=>{state.view='tour';render();const t=document.body.innerText;state.view='';render();return /Ouvre le premier patient[^.]*lance aussitôt le guidage/.test(t);}")
         ok(label+" tournée point 0 : phrase d'aide sous « Commencer la tournée »",hp)
         r1=await page.evaluate("""async()=>{await tourOptimize();const d=new Date(Date.now()+6*3600000);TOUR.cfg=null;tpCfg().fin=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');const ok1=tpPlan();const b1=tpBannerHTML();
            const d2=new Date(Date.now()+25*60000);tpCfg().fin=String(d2.getHours()).padStart(2,'0')+':'+String(d2.getMinutes()).padStart(2,'0');const ko=tpPlan();const hb=tpHandBack().map(s=>s.id);const b2=tpBannerHTML();

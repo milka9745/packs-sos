@@ -13,6 +13,7 @@ PORT=8863
 
 async def unlock(page,xp):
     await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','%s')}catch(e){}"%("true" if xp else "false"))
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.add_init_script("""window.__clicked=[];window.__toasts=[];HTMLInputElement.prototype.click=function(){window.__clicked.push(this.id||this.className);};
       document.addEventListener('click',e=>{const t=e.target;if(t&&t.type==='file')window.__clicked.push(t.id);},true);""")
     await page.goto(f"http://localhost:{PORT}/index.html")

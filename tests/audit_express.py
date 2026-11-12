@@ -42,6 +42,7 @@ class Run:
 
 async def unlock(page):
     await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","auditexpress"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")

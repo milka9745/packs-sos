@@ -59,7 +59,7 @@ async def main():
                             ok(L+"aucun défilement horizontal",r["sw"]<=r["W"],{k:r[k] for k in ("sw","W")})
                             ok(L+"adresse ≥ 22 px, jamais coupée en largeur, 3 lignes au plus (sinon complète d'un toucher)",r["fs"]>=22 and not r["wcut"] and (r["lines"]<=3 or r["clip"]==False and False) or (r["fs"]>=22 and not r["wcut"] and r["clip"]),{k:r[k] for k in ("fs","lines","clip","wcut")})
                             ok(L+"ordre : adresse, accès (bâtiment, étage, code), puis boutons",r["order"].index("dv-addr")<r["order"].index("dv-acc")<r["order"].index("dv-btns"),r["order"])
-                            ok(L+"boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement",r["btxt"][:3]==["Naviguer · W","Appeler","Je suis arri"] and all(r["vis"]) and min(r["bh"])>=60,{k:r[k] for k in ("btxt","bh","vis","H")})
+                            ok(L+"boutons Naviguer, Appeler, Je suis arrivé ≥ 60 px, visibles sans défilement",r["btxt"][:3]==["Naviguer","Appeler","Je suis arri"] and all(r["vis"]) and min(r["bh"])>=60,{k:r[k] for k in ("btxt","bh","vis","H")})
                             if r["clip"]:
                                 await page.click(".drive .dv-addr"); await page.wait_for_timeout(150)
                                 full=await page.evaluate("(()=>{const a=document.querySelector('.drive .dv-addr');return a.classList.contains('full')&&a.scrollHeight<=a.clientHeight+2;})()")

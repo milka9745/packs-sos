@@ -1,10 +1,10 @@
 {
-  "version": "42d",
-  "date": "2026-11-11",
+  "version": "42e",
+  "date": "2026-11-12",
   "notes": [
-    "Antibiotiques : un seul par ordonnance (toucher une alternative remplace la précédente, « Ajouter quand même » avec confirmation) ; durée calculée sur l'âge et le diagnostic (otite 10 jours avant 2 ans puis 5, angine selon l'antibiotique et jamais avant 3 ans, pneumopathie 5 jours) ; durée et dose modifiables d'un geste, tracées au journal et au compte rendu, jamais sur l'ordonnance.",
-    "Ordonnances d'antibiotiques allégées : une seule unité (ml ou dose-poids), plus de « sans dépasser » ni de « seringue graduée », DCI avant le nom commercial ; AUGMENTIN enfant à la graduation en kg de sa seringue (1 dose-poids N kg 3 fois par jour).",
-    "Nouvelle fiche « Renouvellement d'ordonnance » (non relue) : médicaments un par un depuis la base ANSM embarquée (12 080 spécialités, hors ligne), posologie et durée d'un geste, non substituable, ALD (ordonnance bizone), stupéfiants signalés (ordonnance sécurisée à rédiger à la main), deux ordonnances si la page ne suffit pas, récents proposés en premier."
+    "Tournée : le bouton « Naviguer » est de retour à sa place (en bas à gauche, étape En route), toujours actif : coordonnées si l'adresse est localisée, sinon l'adresse écrite (« 25BIS » devient « 25 bis », code postal et commune complétés).",
+    "Appli de navigation choisie une fois dans le menu ⋯ (Waze, Plans ou Google Maps) et mémorisée ; un seul toucher : ▶ lance la tournée et le guidage vers le premier patient, ✓ Valider passe au suivant et lance le guidage ; arrivée enregistrée seule à moins de 150 m au retour dans Packs.",
+    "Localisation des adresses : nouveau service de l'IGN (l'ancien ne répondait plus), délai limité ; hors connexion, le bandeau ne recouvre plus les boutons."
   ],
-  "label": "42d · 11/11 17:38"
+  "label": "42e · 12/11 09:04"
 }

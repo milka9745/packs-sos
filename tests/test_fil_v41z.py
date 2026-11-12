@@ -14,6 +14,7 @@ STOPS="""()=>{TOUR.stops=[];TOUR.order=[];TOUR.current='';TOUR.computed=false;de
   const a=tourAdd('12 rue des Lilas 45000 Orléans','DUPONT Jean',false,{lat:47.9,lon:1.9,label:'12 rue des Lilas',city:'Orléans'});Object.assign(a,{nom:'DUPONT Jean',ddn:'01/01/1950',tel:'0612345678',motif:'douleur lombaire'});TOUR.order=[a.id];tourSave();render();return a.id;}"""
 async def unlock(page,uid,xp):
     await page.add_init_script(f"try{{localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_excomplet','0');}}catch(e){{}}")
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=20000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234"); await page.click("#pin_ok")
     await page.wait_for_selector("#rec_ack",timeout=20000); await page.check("#rec_ack"); await page.click("#rec_done")

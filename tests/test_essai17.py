@@ -79,7 +79,7 @@ async def run(b,w,h,th,big,label):
       ks=await page.evaluate("[...document.querySelectorAll('.tc-more .favstar')].map(s=>s.dataset.favk)")
       want=["btn:tc_free","btn:tc_addvisit","btn:tc_photo","btn:tc_fiche"]  # 18-20/10/2026 : « Tournée » et « Mode voiture » sont dans l'Express par défaut (déplacés hors de « Plus d'options »)
       ok(L+"7. « Tournée » dans les favoris de l'Express par défaut (18/10)",await page.locator(".xp #xp_favs #tc_view").count()==1)
-      ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche, autres applis)",all(k in ks for k in want) and any(k.startswith("btn:nav-") for k in ks),ks)
+      ok(L+"7. une étoile par bouton de « Plus d'options » (voiture, tournée, libérer, ajouter une visite, photo, fiche ; l'appli de navigation se choisit dans ⋯ depuis le 12/11/2026)",all(k in ks for k in want) and not any(k.startswith("btn:nav-") for k in ks),ks)
       ok(L+"7. plus d'étoile sur le groupe entier",await page.locator('.favstar[data-favk="sec:tcmore"]').count()==0)
       ok(L+"7. « Mode voiture » et « Tournée » dans l'Express par défaut (20/10)",await page.locator(".xp #xp_favs #tc_drive").count()==1 and await page.locator(".xp #xp_favs #tc_view").count()==1)
       await page.evaluate("if(!FAV.edit)favEditSet(true)"); await page.wait_for_timeout(250)  # 21/10/2026 : étoiles visibles seulement en mode « Modifier les favoris »

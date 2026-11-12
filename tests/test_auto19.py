@@ -24,6 +24,7 @@ VIS="Tympan droit rouge et bombé, gauche normal. Gorge rouge. Abdomen souple. T
 CAB="Lombalgie depuis 3 jours après un effort de soulèvement, pas de fièvre, pas de trouble sphinctérien. Rachis lombaire raide et douloureux, Lasègue négatif, pas de déficit. Patient isolé, vit seul, ne peut plus faire ses courses."
 async def unlock(page,uid,xp):
     await page.add_init_script(f"try{{localStorage.setItem('sos_xpsug','true');localStorage.setItem('sos_xp','{'true' if xp else 'false'}');localStorage.setItem('sos_excomplet','0')}}catch(e){{}}")
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.goto(f"http://localhost:{PORT}/index.html"); await page.wait_for_selector("#uid",timeout=20000)
     await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
     await page.click("#pin_ok"); await page.wait_for_selector("#rec_ack",timeout=20000); await page.check("#rec_ack"); await page.click("#rec_done")

@@ -12,6 +12,7 @@ PORT=8775
 
 async def unlock(page):
     await page.add_init_script("try{localStorage.setItem('sos_xpsug','true');if(localStorage.getItem('sos_xp')===null)localStorage.setItem('sos_xp','false')}catch(e){}")  # écran complet (l'Express a sa suite : test_express.py)
+    await page.add_init_script("window.navOpen=u=>{window.__navOpened=(window.__navOpened||[]).concat([u]);};")  # 12/11/2026 : guidage relevé, jamais lancé pendant les tests
     await page.goto(f"http://localhost:{PORT}/index.html")
     await page.wait_for_selector("#uid",timeout=15000)
     await page.fill("#uid","testlot2"); await page.fill("#pin1","1234"); await page.fill("#pin2","1234")
@@ -57,7 +58,7 @@ async def run(width,label,big=False,th="day",shots=True):
         if shots: await page.locator(".tcard").screenshot(path=os.path.join(OUT,f"{label}-lot2-etape2-{'grand' if big else 'normal'}-{th}.png"))
         # n° 3 : mode voiture
         await page.evaluate("state.view='drive';render();"); await page.wait_for_timeout(300)
-        d=await page.evaluate("""()=>{const z=[...document.querySelectorAll('.drive .dv-zone')].map(x=>({cls:x.className,txt:x.innerText,calls:[...x.querySelectorAll('[data-tpcall]')].map(a=>a.dataset.tpcall),nav:!!x.querySelector('a[href*="waze"],a[href*="maps"]'),bh:Math.min(...[...x.querySelectorAll('.dv-b')].map(b=>b.getBoundingClientRect().height))}));const W=document.documentElement.clientWidth;return {z,arr:!!document.getElementById('dv_arr'),fs:parseFloat(getComputedStyle(document.querySelector('.drive .dv-addr')).fontSize),over:document.documentElement.scrollWidth>W};}""")
+        d=await page.evaluate("""()=>{const z=[...document.querySelectorAll('.drive .dv-zone')].map(x=>({cls:x.className,txt:x.innerText,calls:[...x.querySelectorAll('[data-tpcall]')].map(a=>a.dataset.tpcall),nav:!!x.querySelector('[data-navgo]'),bh:Math.min(...[...x.querySelectorAll('.dv-b')].map(b=>b.getBoundingClientRect().height))}));const W=document.documentElement.clientWidth;return {z,arr:!!document.getElementById('dv_arr'),fs:parseFloat(getComputedStyle(document.querySelector('.drive .dv-addr')).fontSize),over:document.documentElement.scrollWidth>W};}""")
         ok(L+"n°3 mode voiture : patient actuel et patient suivant",len(d["z"])==2 and "patient actuel" in d["z"][0]["txt"].lower() and "patient suivant" in d["z"][1]["txt"].lower(),[x["txt"][:40] for x in d["z"]])
         ok(L+"n°3 actuel : appeler, naviguer, je suis arrivé ; suivant : appeler, itinéraire",d["z"][0]["calls"]==["v1"] and d["z"][0]["nav"] and d["arr"] and d["z"][1]["calls"]==["v2"] and d["z"][1]["nav"],d)
         ok(L+"n°3 gros boutons (≥ 60 px) et adresse adaptative ≥ 22 px (registre n° 12), sans débordement",min(x["bh"] for x in d["z"])>=60 and d["fs"]>=22 and not d["over"],{k:d[k] for k in ("fs","over")})
