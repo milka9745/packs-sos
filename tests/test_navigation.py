@@ -3,7 +3,8 @@
 1. « Naviguer » toujours en bas à gauche de l'étape En route, libellé fixe, avec ou sans coordonnées (adresse en clair normalisée : « 25BIS » → « 25 bis »,
    code postal et commune ajoutés) ; appli choisie une fois dans ⋯ (Waze / Plans / Google Maps), mémorisée, jamais de menu de choix pendant la tournée ;
    ouverture par window.location.href (window.open bloqué en mode écran d'accueil iOS) ; formats d'URL des trois applis, repli web de Google Maps.
-2. Un toucher par patient : ▶ Commencer = ordre + guidage vers le 1er ; ✓ Valider (confirmé) = visite suivante en cours + guidage ; arrivée automatique à moins
+2. Un toucher par patient : ▶ Commencer = ordre + guidage vers le 1er ; ✓ Valider (un seul toucher : confirmation du 18/10 retirée le 12/11) = visite suivante en cours + guidage ;
+   retour en arrière : « Annuler » 30 s à l'horloge puis « ↩ Rouvrir NOM » en un toucher dans la carte ; arrivée automatique à moins
    de 150 m au retour dans Packs ; ordre recalculé en silence ; jamais d'attente du géocodage ni du réseau (réseau lent et hors connexion).
 3. Autres boutons du parcours : Appeler, Je suis arrivé, Patient suivant (écran Patient validé), Naviguer depuis l'écran Tournée, la carte et la vue conduite.
 Patients fictifs uniquement. Réseau simulé : géocodeur (Géoplateforme et ancienne adresse) et OSRM déterministes, tout le reste bloqué.
@@ -106,6 +107,38 @@ async def acte(page):
     await page.evaluate("()=>{state.sel=PACKS.findIndex(p=>p.n==='Grippe / syndrome viral — adulte');render();}"); await page.wait_for_timeout(150)
     await page.evaluate("()=>{state.lastPrint={n:1,sent:true,ts:Date.now()};state.crCopied=true;render();}"); await page.wait_for_timeout(150)
 
+UBAR=r"""()=>{const e=document.getElementById('undobar');return {t:e?e.textContent:'',vis:!!(e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().height>0)};}"""
+ETAT=r"""(a)=>{const [prev,cur]=a;return {cur:TOUR.current,done:!!tourStop(prev).done,nextCur:!!tourStop(cur).cur,nextTodo:tourRemaining().some(s=>s.id===cur)&&!tourStop(cur).done,patient:state.patient,hist:VALID.hist.length,pending:VALID.hist.filter(v=>v.pending).length,
+  reopened:!!(VALID.hist.find(v=>v.stopId===prev)||{}).reopened,fil:(document.getElementById('fdock')||{dataset:{}}).dataset.fil,bar:!!document.getElementById('undobar')};}"""
+async def retour_rouvrir(page,L,prev,cur):
+    """retour en arrière après le délai : « ↩ Rouvrir NOM » en un toucher dans la carte (validation conservée, version tracée), puis nouvelle validation en un toucher"""
+    nom=await page.evaluate("VALID.last.patient")
+    await page.evaluate("VALID.undoUntil=Date.now()-1"); await page.wait_for_timeout(900)
+    r=await page.evaluate("()=>({bar:!!document.getElementById('undobar'),btn:(document.getElementById('tc_reopen')||{}).textContent||'',list:(document.getElementById('tc_vlist')||{}).textContent||''})")
+    ok(L+"délai écoulé : la barre s'efface, la carte propose « ↩ Rouvrir NOM » (un toucher) et « Validés (n) »",not r["bar"] and r["btn"]=="↩ Rouvrir "+nom and r["list"].startswith("Validés ("),r)
+    h=await page.evaluate("VALID.hist.length")
+    await touch(page,"(retour en arrière) ↩ Rouvrir le patient validé","#tc_reopen"); await page.wait_for_timeout(400)
+    st=await page.evaluate(ETAT,[prev,cur])
+    ok(L+f"↩ Rouvrir : {prev} redevient en cours (documents tels quels, étape Sortie), {cur} redevient à faire sans être « mis de côté », validation conservée et marquée rouverte",
+       st["cur"]==prev and not st["done"] and not st["nextCur"] and st["nextTodo"] and st["patient"]==nom and st["reopened"] and st["hist"]==h and st["pending"]==0 and st["fil"]=="sortie" and not st["bar"],st)
+    n1=await page.evaluate("window.__nav.length")
+    await touch(page,"(retour en arrière) ✓ Valider de nouveau","#fdock #tc_valid")
+    ms=await wait_cond(page,f"TOUR.current==='{cur}'&&window.__nav.length>{n1}",3000)
+    st=await page.evaluate(f"()=>({{rev:VALID.hist[0].rev,stop:VALID.hist[0].stopId,hist:VALID.hist.length,done:!!tourStop('{prev}').done}})")
+    ok(L+f"nouvelle validation en un toucher : version 2 tracée (la validation initiale est conservée), {cur} de nouveau en cours et guidage lancé",ms>=0 and st["rev"]==2 and st["stop"]==prev and st["hist"]==h+1 and st["done"],st)
+async def retour_annuler(page,L,prev,cur,h0):
+    """retour en arrière dans les 30 s : « Annuler » = comme si la validation n'avait pas eu lieu, puis nouvelle validation en un toucher"""
+    nom=await page.evaluate("VALID.last.patient")
+    await touch(page,"(retour en arrière) Annuler (dans les 30 s)","#undo_go"); await page.wait_for_timeout(400)
+    st=await page.evaluate(ETAT,[prev,cur])
+    ok(L+f"Annuler : {prev} redevient en cours à l'étape Sortie, {cur} redevient à faire sans être « mis de côté », la validation disparaît de l'historique",
+       st["cur"]==prev and not st["done"] and not st["nextCur"] and st["nextTodo"] and st["patient"]==nom and st["hist"]==h0 and st["pending"]==0 and st["fil"]=="sortie" and not st["bar"],st)
+    n1=await page.evaluate("window.__nav.length")
+    await touch(page,"(retour en arrière) ✓ Valider de nouveau","#fdock #tc_valid")
+    ms=await wait_cond(page,f"TOUR.current==='{cur}'&&window.__nav.length>{n1}",3000)
+    st=await page.evaluate("()=>({rev:VALID.hist[0].rev,stop:VALID.hist[0].stopId,hist:VALID.hist.length})")
+    ok(L+f"nouvelle validation en un toucher : version 1 (aucune trace de l'essai annulé), {cur} de nouveau en cours et guidage lancé",ms>=0 and st["rev"]==1 and st["stop"]==prev and st["hist"]==h0+1,st)
+
 async def parcours(b,base):
     """iPhone 375 × 812, tactile, écran d'accueil : tournée de 5 patients de bout en bout en comptant les touchers"""
     ctx=await b.new_context(viewport={"width":375,"height":812},device_scale_factor=2,is_mobile=True,has_touch=True,user_agent=IOS_UA,geolocation={"latitude":47.95,"longitude":2.0},permissions=["geolocation"])
@@ -135,26 +168,31 @@ async def parcours(b,base):
     d=await page.evaluate(DOCK); tt=await page.evaluate("(document.getElementById('toast')||{}).textContent||''")
     ok(L+"retour dans Packs à moins de 150 m (60 m) : passage seul à « Sur place », message « arrivée enregistrée »",ms>=0 and d["st"]=="place" and "150 m" in tt,{"ms":ms,"st":d and d["st"],"toast":tt})
     await shot(page,"nav-arrivee-auto-iphone.png")
-    # acte médical (non compté), puis ✓ Valider (confirmation) → visite suivante en cours + guidage, en un toucher
+    # acte médical (non compté), puis ✓ Valider (un seul toucher) → visite suivante en cours + guidage ; retour en arrière : Annuler (30 s, horloge) puis ↩ Rouvrir (carte)
     await acte(page)
     d=await page.evaluate(DOCK)
     ok(L+"Sortie : « ✓ Valider · patient suivant » en action principale",d and d["st"]=="sortie" and any(f["id"]=="tc_valid" and f["main"] for f in d["fa"]),d)
     seq=[]
     for n,(exp_id,exp_q) in enumerate([("p1",""),("p2","25 bis RUE DE LA REPUBLIQUE 45000 ORLEANS"),("p3","8 RUE CHARLES BEAUHAIRE 45140 SAINT-JEAN-DE-LA-RUELLE"),("p4","12 ter RUE DE LA GARE 45000 Orléans"),(None,"")]):
-        n0=await page.evaluate("window.__nav.length"); prev=await page.evaluate("TOUR.current")
-        await touch(page,"✓ Valider (1er toucher : confirmer)","#fdock #tc_valid")
-        armed=await page.evaluate("(document.querySelector('#fdock #tc_valid')||{}).textContent||''")
-        await touch(page,"✓ Valider (2e toucher : validé)","#fdock #tc_valid")
+        n0=await page.evaluate("window.__nav.length"); prev=await page.evaluate("TOUR.current"); h0=await page.evaluate("VALID.hist.length")
+        await touch(page,"✓ Valider · patient suivant (un seul toucher)","#fdock #tc_valid")
         if exp_id:
             ms=await wait_cond(page,f"TOUR.current==='{exp_id}'&&window.__nav.length>{n0}",3000)
             d=await page.evaluate(DOCK); u=d["nav"][-1]["u"] if d and d["nav"] else ""
-            undo=await page.evaluate("(document.getElementById('undobar')||{}).textContent||''")
-            ok(L+f"validation {n+1} : confirmée (« Confirmer » au 1er toucher), patient précédent fait, visite suivante {exp_id} en cours et guidage lancé, en route (pas d'écran intermédiaire), annulation 8 s",
-               "Confirmer" in armed and ms>=0 and d["st"]=="route" and d["view"]=="" and await page.evaluate(f"tourStop('{prev}').done") and "Annuler" in undo and "en route vers" in undo,{"ms":ms,"st":d and d["st"],"undo":undo[:80],"armed":armed})
+            ub=await page.evaluate(UBAR); undo=ub["t"]
+            ok(L+f"validation {n+1} en un seul toucher (plus de « Confirmer ») : patient précédent fait, visite suivante {exp_id} en cours et guidage lancé, en route (pas d'écran intermédiaire), barre « Annuler (30 s) » visible",
+               ms>=0 and d["st"]=="route" and d["view"]=="" and await page.evaluate(f"tourStop('{prev}').done") and re.search(r"Annuler \((29|30) s\)",undo) and "en route vers" in undo and ub["vis"],{"ms":ms,"st":d and d["st"],"undo":undo[:80],"vis":ub["vis"]})
             if exp_q: ok(L+f"{exp_id} sans coordonnées : guidage par l'adresse en clair normalisée « {exp_q} » (Waze ?q=…)",u.startswith("https://waze.com/ul?q=") and q_of(u)==exp_q and u.endswith("&navigate=yes"),u)
             else: ok(L+f"{exp_id} : guidage par les coordonnées",u.startswith("https://waze.com/ul?ll=47.9,1.9&navigate=yes"),u)
             seq.append(exp_id)
-            if n==0: await shot(page,"nav-valide-suivant-iphone.png")
+            if n==0:
+                await shot(page,"nav-valide-suivant-iphone.png")
+                # compte à rebours lu sur l'horloge : l'échéance avancée de 20 s se lit au tic suivant (retour de l'appli de navigation : minuteurs suspendus, délai exact)
+                await page.evaluate("VALID.undoUntil-=20000"); await page.wait_for_timeout(700)
+                t=await page.evaluate("(document.getElementById('undo_go')||{}).textContent||''")
+                ok(L+"barre d'annulation : compte à rebours lu sur l'horloge (échéance avancée de 20 s → « Annuler (9 s) » au tic suivant)",re.search(r"Annuler \(([5-9]|10) s\)",t),t)
+            if n==1: await retour_rouvrir(page,L,prev,exp_id)
+            if n==2: await retour_annuler(page,L,prev,exp_id,h0)
             # arrivée : automatique si l'adresse est géocodée, sinon le bouton reste et il faut un toucher
             s=await page.evaluate("()=>{const s=tourStop(TOUR.current);return {lat:s.lat||null,lon:s.lon||null};}")
             if s["lat"]:
@@ -309,9 +347,9 @@ async def main():
     n=sum(1 for r in results if r[1]); print(f"\n{n}/{len(results)} tests OK")
     with open(os.path.join(ROOT,"tests","resultats_navigation.md"),"w",encoding="utf-8") as f:
         f.write("# Navigation et tournée — 12/11/2026\n\n")
-        f.write("Touchers de tournée sur le parcours iPhone (5 patients fictifs, hors acte médical : fiche, impression) :\n\n| Geste | Touchers |\n|---|---|\n")
+        f.write("Touchers de tournée sur le parcours iPhone (5 patients fictifs, hors acte médical : fiche, impression ; les essais de retour en arrière sont comptés à part) :\n\n| Geste | Touchers |\n|---|---|\n")
         for k,v in TOUCHES.items(): f.write(f"| {k} | {v} |\n")
-        tot=sum(TOUCHES.values()); f.write(f"| **Total** | **{tot}** — soit {tot/5:.1f} par patient ; aucun toucher « Naviguer » ni « Patient suivant » |\n\n")
+        tour={k:v for k,v in TOUCHES.items() if not k.startswith("(retour")}; tot=sum(tour.values()); f.write(f"| **Total tournée** | **{tot}** — soit {tot/5:.1f} par patient ; aucun toucher « Naviguer », « Patient suivant » ni « Confirmer » |\n\n")
         f.write(f"Résultat : {n}/{len(results)} tests OK\n\n| Test | Résultat |\n|---|---|\n")
         for name,c,info in results: f.write(f"| {name} | {'OK' if c else 'ÉCHEC — '+str(info)[:300]} |\n")
     print("touchers :",TOUCHES)

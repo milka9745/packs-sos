@@ -118,8 +118,8 @@ async def run(b,w,h,xp,label,tag):
         n0=await page.evaluate("()=>window.__pr.length"); await page.click("#ci_print"); await page.wait_for_timeout(900)
         st=await page.evaluate(SCREEN); d=delay(st["ev"],"ci_print")
         ok(L+"« Imprimer » de l'écran « Avant d'imprimer » : aperçu et fenêtre d'impression dans la seconde (%s ms)"%d,st["printing"] and st["pr"]==n0+1 and d is not None and d<LIMIT and not st["ci"],{"ev":st["ev"][-3:]})
-        await page.click("#pb_valid"); await page.wait_for_timeout(200); await page.click("#pb_valid"); await page.wait_for_timeout(600)
-        ok(L+"« Valider le patient » depuis l'aperçu (confirmation au 2e toucher) : patient validé"+(" (Express : alertes décidées, la validation reste un geste du médecin)" if xp else ""),await page.evaluate("()=>VALID.hist.length>=1&&VALID.hist[0].patient==='DUPONT Jean'&&!document.body.classList.contains('printing')"),await page.evaluate("()=>({v:VALID.hist.map(x=>x.patient),printing:document.body.classList.contains('printing')})"))
+        await page.click("#pb_valid"); await page.wait_for_timeout(600)  # 12/11/2026 : un seul toucher
+        ok(L+"« Valider le patient » depuis l'aperçu (un seul toucher) : patient validé"+(" (Express : alertes décidées, la validation reste un geste du médecin)" if xp else ""),await page.evaluate("()=>VALID.hist.length>=1&&VALID.hist[0].patient==='DUPONT Jean'&&!document.body.classList.contains('printing')"),await page.evaluate("()=>({v:VALID.hist.map(x=>x.patient),printing:document.body.classList.contains('printing')})"))
     # ---------- 6. document trop long : coupé en « suite », rien de masqué, impression = aperçu ----------
     if not xp:
         await page.evaluate("()=>{newPatient();TOUR.current='';Object.assign(state,{patient:'LONG Ordonnance',ddn:'02/02/1970',sexe:'h'});state.cot.lieu='consultation';state.cot.auto=false;state.xpManual=true;state.sel=PACKS.findIndex(p=>p.n==='Tendinopathie d\\'Achille');const p=currentPack();const si=p.s.findIndex(s=>s.k==='med');state.extra[si]=Array.from({length:26},(_,i)=>'ESSAILIGNE numéro '+(i+1)+' : 1 comprimé matin et soir pendant 5 jours, à prendre au cours du repas avec un grand verre d\\'eau.');render();}"); await page.wait_for_timeout(300)
@@ -150,7 +150,7 @@ async def run_ios(b,xp,label,tag):
             if await page.evaluate("()=>xpReady()"): break
             await page.wait_for_timeout(250)
         ok(L+"Express : documents (PDF) préparés d'avance, bouton prêt",await page.evaluate("()=>xpReady()&&!document.getElementById('xp_go').classList.contains('wait')"))
-        await page.click("#xp_go"); await page.wait_for_timeout(150); await page.click("#xp_go"); await page.wait_for_timeout(600)
+        await page.click("#xp_go"); await page.wait_for_timeout(600)  # 12/11/2026 : un seul toucher
         st=await page.evaluate(SCREEN); d=delay(st["ev"],"xp_go")
         ok(L+"Express « Imprimer et valider » : menu Partager ouvert dans la seconde (%s ms) avec le PDF, jamais window.print, patient validé"%d,d is not None and d<LIMIT and st["pr"]==0 and await page.evaluate("()=>window.__share.length===1&&window.__share[0][0][0]==='application/pdf'&&VALID.hist.length>=1"),{"ev":st["ev"][-3:],"share":await page.evaluate("()=>window.__share")})
         await page.evaluate("()=>{try{patientUndo();}catch(e){}}"); await page.wait_for_timeout(300); await page.evaluate(CONS); await page.wait_for_timeout(300); await page.evaluate("()=>printPack()")

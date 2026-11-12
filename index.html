@@ -659,7 +659,7 @@ details.opt>summary .favstar{margin-left:auto}.tt.hasfav>.favstar{top:-8px!impor
 .aisyn .aisyn-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}.aisyn .aisyn-act .btn{min-height:48px;font-size:17px;font-weight:800}
 .aitel{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.aitel .aitel-sum{width:100%;font-size:14px;line-height:1.35;padding:6px 8px;border-radius:8px;background:rgba(124,92,191,.1)}
 .xp-tel textarea.interro,textarea.interro{width:100%;box-sizing:border-box;font:inherit;font-size:16px;line-height:1.35;min-height:72px}.aist{margin-left:6px;color:#7C5CBF;font-weight:700}
-.obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.val-armed{background:#E0A800!important;color:#111!important;border-color:#E0A800!important;font-weight:800!important}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
+.obsauto.exc.done{border-color:var(--line2,#999);background:transparent}.obsauto .oa-row.dict .oa-dict{font-weight:400;font-size:15px;line-height:1.35;padding:4px 2px}.obsauto .oa-row.rm{opacity:.7}.obsauto .oa-ta.ok{background:var(--field);color:inherit;border-color:var(--line2,#999)}.obsauto #oa_ok{width:100%;min-height:52px;font-size:18px;font-weight:800;margin-top:8px;background:#E0A800!important;color:#111!important;border:0!important}.obsauto .oa-ta:not(.ok):not(.edited){background:#FFF3B0!important;color:#222!important;border-color:#E0A800!important;-webkit-text-fill-color:#222}.obsauto .oa-ta{height:auto!important;overflow:hidden;resize:vertical}.obsauto .exc-set{display:block;margin-top:6px;font-weight:400}.obsauto .oa-grav{margin:6px 0;white-space:normal}.obsauto.flash{outline:4px solid #E0A800;outline-offset:2px}.exc-off{display:block;margin:6px 0;font-weight:400}
 .algrave{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}.algrave.need{background:rgba(224,168,0,.18);outline:1px solid rgba(224,168,0,.6)}.algrave .btn.on{background:var(--acc,#2b6cb0);color:#fff;border-color:transparent}.algrave-c{margin-left:8px}.xp .xp-al{font-size:14.5px;padding:5px 8px;margin:3px 0;border-radius:8px;background:rgba(224,168,0,.14);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xp .xp-al.ci{background:rgba(200,40,40,.14);color:var(--bad,#b00);font-weight:700}.xp .xp-al.open{white-space:normal}
 
 .xp{border:2px solid var(--line2);border-radius:14px;padding:12px;margin:8px 0 10px;background:var(--panel,transparent)}
@@ -2186,7 +2186,9 @@ body.printing .frame p.bzn,.frame p.bzn{margin:0 0 3mm 6mm}
 .navset .lc{margin:2px 0}
 button.xp-row{text-align:left}
 body.has-fdock #netbar{bottom:var(--fdock-h,96px)} /* hors connexion : le bandeau se range au-dessus de la barre d'étape (il la recouvrait : Naviguer et Je suis arrivé intouchables en voiture sans réseau) */
-#undobar .btn{white-space:nowrap;flex:none} /* « Annuler (8 s) » sur une ligne après « Valider · patient suivant » */
+#undobar .btn{white-space:nowrap;flex:none} /* « Annuler (30 s) » sur une ligne après « Valider · patient suivant » */
+body:not(.has-fdock) #undobar{display:none} /* 12/11/2026 : la barre d'annulation ne flotte que sur l'écran principal (barre d'étape présente) */
+.tcard .tc-back{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.tcard .tc-back .lc{min-height:34px;padding:2px 8px} /* ligne « ↩ Rouvrir NOM · Validés (n) » de la carte */
 </style>
 </head>
 <body><div id="webnoprint">Packs SOS : cette page ne s'imprime pas. Revenez dans Packs SOS et touchez « 🖨 Imprimer » (barre du bas) : les documents préparés s'impriment, une page A4 par feuille, sans adresse ni date du navigateur.</div>
@@ -6883,19 +6885,10 @@ function examAutoFill(){try{if(typeof SEC!=="undefined"&&!SEC.unlocked)return;co
 function examValidate(silent){const ks=Object.keys(state.obsAuto||{}).filter(examAuto);state.examOK=true;
   state.examTrace={ts:Date.now(),auto:ks.map(sysLab),rm:Object.keys(state.examRm||{}).filter(k=>state.examRm[k]).map(sysLab)};
   try{const p=currentPack();if(p)journalUpsert(p);}catch(e){}if(!silent){render();toast("Examen complet validé");}}
-/* avant toute validation du patient : examen complet non validé → 1er toucher : encadré montré ; 2e toucher (8 s) : examen et patient validés. Jamais de fenêtre système. */
-/* 18/10/2026 (demande du médecin) : valider un patient demande une confirmation — 1er toucher : le bouton devient « Confirmer », 2e toucher (6 s) : validé.
-   Jamais de fenêtre système. Examen complet en attente : signalé au 1er toucher, validé avec le patient au 2e. */
-const VAL_BTNS=["#xp_go","#pb_valid","#tc_valid","#tr_valid","#fa_next_c"];
-function valDisarm(){valGate._w=0;VAL_BTNS.forEach(sel=>document.querySelectorAll(sel).forEach(b=>{if(b.dataset.lbl0!==undefined){b.innerHTML=b.dataset.lbl0;delete b.dataset.lbl0;}b.classList.remove("val-armed");}));}
-function valGate(){const now=Date.now();
-  if(valGate._w&&now-valGate._w<6000){valDisarm();if(excOn()&&currentPack()&&examPending())examValidate(true);return true;}
-  valGate._w=now;const exP=excOn()&&currentPack()&&examPending();
-  VAL_BTNS.forEach(sel=>document.querySelectorAll(sel).forEach(b=>{if(b.dataset.lbl0===undefined)b.dataset.lbl0=b.innerHTML;b.classList.add("val-armed");b.textContent=sel==="#xp_go"?"✓ Confirmer : imprimer et valider":"✓ Confirmer la validation";}));
-  if(exP){const bx=document.querySelector(".obsauto.exc");if(bx){bx.classList.add("flash");setTimeout(()=>bx.classList.remove("flash"),1600);}}
-  toast(exP?"Touchez de nouveau pour confirmer : l'examen complet surligné sera validé avec le patient":"Touchez de nouveau pour confirmer la validation du patient");
-  clearTimeout(valGate._t);valGate._t=setTimeout(()=>{if(valGate._w&&Date.now()-valGate._w>=5900)valDisarm();},6000);return false;}
-function examGate(){return valGate();}
+/* 12/11/2026 (demande du médecin) : la confirmation de la validation du 18/10/2026 (« Confirmer » au 2e toucher, 6 s) est retirée — un seul toucher valide le patient ;
+   un examen complet en attente est validé avec lui (tracé, comme au 2e toucher d'avant). En échange, le retour en arrière est facilité : « Annuler » 30 s (UNDO_MS, compte à rebours sur l'horloge),
+   puis « ↩ Rouvrir NOM » en un toucher dans la carte de tournée (reopenHTML / reopenLast) ; « Annuler » touché après le délai rouvre le patient (version tracée) au lieu de refuser. Jamais de fenêtre système. */
+function valExam(){try{if(excOn()&&currentPack()&&examPending())examValidate(true);}catch(e){}}
 function examTraceTxt(t){if(!t)return "";const h=new Date(t.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});return "Examen complet validé à "+h+(t.auto.length?" — normaux types : "+t.auto.join(", "):"")+(t.rm.length?" — retirés : "+t.rm.join(", "):"");}
 /* gravité : signe dicté (non nié) ; élément cité dans la gravité de la fiche mais absent de l'examen */
 const GRAV_POS_RE=/nuque\s+(?:un\s+peu\s+|légèrement\s+|très\s+)?raide|raideur\s+(?:de\s+(?:la\s+)?)?nuque|syndrome\s+méningé|signes?\s+méningés?|purpura|marbrures?|cyanose|tirage|geignement|battement\s+des\s+ailes\s+du\s+nez|convulsi\w*|somnolen\w*|léthargi\w*|hypotoni\w*|fontanelle\s+bombée|déshydraté\w*|mastoïdite|décollement\s+du\s+pavillon|paralysie\s+faciale|troubles?\s+de\s+(?:la\s+)?conscience|temps\s+de\s+recoloration\s+(?:allongé|supérieur)|TRC\s*(?:allongé|>\s*3)|déficit\s+moteur\s+(?!des)\w*/gi;
@@ -16396,7 +16389,7 @@ function autoAgePack(){
 }
 function bind(){try{gardeBannerBind();themeApply();}catch(e){}try{dictCardBind();}catch(e){}try{atbBind();}catch(e){console.warn("antibiotiques",e);}try{rnwBind();}catch(e){console.warn("renouvellement",e);}
   try{phoneBind();}catch(e){console.warn("phoneBind",e);}
-  try{backupBind();const sa=$("#spec_act");if(sa)sa.onclick=()=>identScreen("activate","");const tr2=$("#tc_reopen");if(tr2)tr2.onclick=()=>{if(VALID.last&&!state.patient&&VALID.hist.length===1)patientReopen(VALID.last);else validListScreen();};["#vh_menu","#vh_open"].forEach(id=>{const b=$(id);if(b)b.onclick=validListScreen;});const tcv=$("#tc_valid");if(tcv)tcv.onclick=patientValidate;const tb=$("#tc_begin");if(tb)tb.onclick=tourBegin;{const g=id=>document.getElementById(id);const a=g("tc_arrive");if(a)a.onclick=tpArrive;const ny=g("tc_near_yes");if(ny)ny.onclick=tpArrive;const nn=g("tc_near_no");if(nn)nn.onclick=()=>{TOUR.near="_no";render();};const dv=g("tc_drive");if(dv)dv.onclick=()=>{state.view="drive";render();};const dc=g("tc_dict");if(dc)dc.onclick=tpDictate;try{tpGeoWatch();}catch(e){}}const tf=$("#tc_free");if(tf)tf.onclick=tourFree;const trb=$("#tr_begin");if(trb)trb.onclick=tourBegin;interroBind(TOUR.current?tourStop(TOUR.current):null);}catch(e){console.warn("bind v39",e);}
+  try{backupBind();const sa=$("#spec_act");if(sa)sa.onclick=()=>identScreen("activate","");const tr2=$("#tc_reopen");if(tr2)tr2.onclick=()=>reopenLast();const tvl=$("#tc_vlist");if(tvl)tvl.onclick=validListScreen;["#vh_menu","#vh_open"].forEach(id=>{const b=$(id);if(b)b.onclick=validListScreen;});const tcv=$("#tc_valid");if(tcv)tcv.onclick=patientValidate;const tb=$("#tc_begin");if(tb)tb.onclick=tourBegin;{const g=id=>document.getElementById(id);const a=g("tc_arrive");if(a)a.onclick=tpArrive;const ny=g("tc_near_yes");if(ny)ny.onclick=tpArrive;const nn=g("tc_near_no");if(nn)nn.onclick=()=>{TOUR.near="_no";render();};const dv=g("tc_drive");if(dv)dv.onclick=()=>{state.view="drive";render();};const dc=g("tc_dict");if(dc)dc.onclick=tpDictate;try{tpGeoWatch();}catch(e){}}const tf=$("#tc_free");if(tf)tf.onclick=tourFree;const trb=$("#tr_begin");if(trb)trb.onclick=tourBegin;interroBind(TOUR.current?tourStop(TOUR.current):null);}catch(e){console.warn("bind v39",e);}
   const wire=(id,key,fn)=>{const e=$(id);if(!e)return;e.oninput=()=>{state[key]=e.value;if(fn)fn();};};
   try{identBind("f_");}catch(e){console.warn("identité",e);}
   wire("#f_date","date");
@@ -16602,7 +16595,7 @@ async function finishPrint(p,out,removed,opts){opts=opts||{};
   document.body.classList.add("printing");
   const back=()=>{pdfCancel();document.body.classList.remove("printing");pr.classList.remove("phone");pr.innerHTML="";try{filDock();designApply();}catch(e){}}; /* 02/11/2026 : retour de l'aperçu → barre à l'étape « Sortie » */
   const _pb=$("#pb_back");if(_pb)_pb.onclick=back;const _pb2=$("#pb_back2");if(_pb2)_pb2.onclick=back;
-  const _valid=()=>{if(!valGate())return;back();patientValidate(true);};const _vb=$("#pb_valid");if(_vb)_vb.onclick=_valid;
+  const _valid=()=>{back();patientValidate(true);};const _vb=$("#pb_valid");if(_vb)_vb.onclick=_valid;
   PDFJOB.out=out;PDFJOB.file=null;PDFJOB.err="";PDFJOB.wantDl=false;PDFJOB.want=false;
   $("#pb_print").onclick=printNow;$("#pb_pdf").onclick=pdfSave;
   const imgs=[...document.querySelectorAll("#print img")];
@@ -16642,7 +16635,7 @@ try{PACKS.forEach(P=>{const meds=P.s.filter(sh=>sh.k==="med").flatMap(sh=>sh.l.m
 const APP_VERSION="41";
 /* 17/10/2026 : livraison affichée à l'écran (barre du haut, menu ⋯), jamais sur un document imprimé, un PDF ou le compte rendu ;
    « test » pour le dossier /test/ (tools/build_test.py), « main » pour l'outil de garde */
-const APP_BUILD={v:"42e",branch:"main",date:"12/11 09:04"};
+const APP_BUILD={v:"42e",branch:"main",date:"12/11 17:00"};
 function appVer(){return "v"+APP_BUILD.v;}
 function appVerFull(){return "v"+APP_BUILD.v+" · "+APP_BUILD.branch+" · "+APP_BUILD.date;}
 if(location.protocol.startsWith("http")&&"serviceWorker" in navigator){
@@ -18803,8 +18796,8 @@ function tourCardHTML(){const lieu=(state.cot&&state.cot.lieu)==="visite";const 
   const km=v=>String(Math.round(v*10)/10).replace(".",",");
   const legOf=s=>TOUR.order.includes(s.id)?TOUR.legs[TOUR.order.indexOf(s.id)]:null;
   const add=`<div class="tc-add"><span class="tc-addv"><input id="tc_addr" placeholder="Ajouter une visite (adresse)" autocomplete="off" inputmode="text"><div class="sugg" id="tc_sugg"></div><button type="button" class="btn s" id="tc_add">＋</button><div class="hint tp-impact" id="tc_impact"></div></span><span class="tc-photo"><label class="btn s tc-shots" for="tc_shots" title="Captures d'écran des fiches de régulation : adresse, initiale, téléphone, motif lus sur l'appareil">📷</label><input type="file" id="tc_shots" accept="image/*" multiple hidden></span><span class="tc-fiche"><button type="button" class="btn s tc-shots" data-fpaste title="Coller les fiches (texte copié par le raccourci iOS ou sur Android)">📋</button></span></div>`;
-  const reopen=VALID.hist.length?` · <button type="button" class="lc tc-reopen" id="tc_reopen" title="Revenir à un patient validé ou mis de côté">↩ ${VALID.last&&!state.patient?"Rouvrir "+esc(VALID.last.patient||"le dernier patient"):"Patients validés ("+VALID.hist.length+")"}</button>`:"";
-  const foot=`<div class="tc-foot">${tourAutoMsg()?`<div class="tc-auto">${esc(tourAutoMsg())}</div>`:""}${n?n+" arrêt"+(n>1?"s":"")+" restant"+(n>1?"s":""):"dernier arrêt"}${TOUR.total&&n?" · "+km(TOUR.total.km)+" km · "+TOUR.total.min+" min":""}${reopen}</div>`;
+  const back=VALID.hist.length?`<div class="tc-foot tc-back">${reopenHTML().replace(/^ · /,"")}</div>`:""; /* 12/11/2026 : « ↩ Rouvrir NOM » en un toucher + « Validés (n) », visibles sur la carte (plus dans « Plus ») */
+  const foot=`<div class="tc-foot">${tourAutoMsg()?`<div class="tc-auto">${esc(tourAutoMsg())}</div>`:""}${n?n+" arrêt"+(n>1?"s":"")+" restant"+(n>1?"s":""):"dernier arrêt"}${TOUR.total&&n?" · "+km(TOUR.total.km)+" km · "+TOUR.total.min+" min":""}</div>`;
   const s=cur||next;const step=!cur?1:(cur.tArr?(state.lastPrint?4:3):2);const stepL={1:"tournée prête",2:"en route",3:"sur place",4:"fin de visite"}[step];
   const k=TOUR.stops.filter(x=>x.done).length+1,tot=TOUR.stops.length;
   const head=`<div class="tc-lbl">${cur?"Arrêt "+k+" sur "+tot:(n>1?n+" visites à faire · prochaine":"Prochaine visite")}</div><b class="tc-name">${modeBadge("visite")}${esc(stopName(s,"Arrêt "+k))}${s.prio?' <span class="gtag">prioritaire</span>':""}${cur&&cur.tArr?' <span class="gtag">sur place</span>':""}</b><div class="tc-addr">${esc(s.label||s.addr)}${s.bat?" · "+esc(s.bat):""}</div>${(s.warn||[]).length?`<div class="chip hors">⚠ à vérifier : ${esc(s.warn.join(", "))}</div>`:""}
@@ -18823,7 +18816,7 @@ function tourCardHTML(){const lieu=(state.cot&&state.cot.lieu)==="visite";const 
   const memo=cs.tel?tpCallBtns(cs).replace(/^<div class="tc-row2 tp-call">[\s\S]*?<\/div>\s*/,""):"";
   const give=tpNewList().map(x=>`<button type="button" class="lc" data-tpgive="${esc(x.id)}">↩ Rendre à la régulation : ${esc(stopName(x,"demande"))}</button>`).join(""); /* 09/11/2026 : seule action restante sur une demande, dans « Plus » */
   const more=`<details class="opt tc-more" data-opt="tcmore" ${state.ui&&state.ui.opt&&state.ui.opt.tcmore?"open":""}><summary><span class="ot">Plus</span><span class="os">appels, voiture, tournée, ordre manuel, ajouter une visite${give?", rendre une demande":""}</span></summary><div class="ob">${give?`<div class="tc-row2 tp-give">${give}</div>`:""}${calls.length?`<div class="tc-row2 tp-call">${calls.join("")}</div>`:""}${memo}<div class="tc-row2"><button type="button" class="btn s" id="tc_drive">🚗 Mode voiture</button><button type="button" class="btn s" id="tc_view">Tournée${n?" ("+n+")":""}</button><button type="button" class="btn s" id="tc_manual" aria-pressed="${!!TOUR.manual}">${TOUR.manual?"Ordre automatique":"Ordre manuel"}</button>${step===1?`<button type="button" class="btn s tc-nav2" data-navgo="${esc(s.id)}">🧭 Naviguer</button>`:""}${cur?'<button type="button" class="lc" id="tc_free" title="L\'arrêt redevient à faire">Libérer</button>':""}</div>${step>=3?interroHTML(cur):""}${add}${foot}</div></details>`;
-  return `<section class="tcard step${step}">${head}${tpNewHTML()}${tpBannerHTML()}${main}${nextLine}${tpChgHTML()}${more}</section>`;}
+  return `<section class="tcard step${step}">${head}${tpNewHTML()}${tpBannerHTML()}${main}${nextLine}${back}${tpChgHTML()}${more}</section>`;}
 
 /* ---- n° 3 et n° 12 : mode voiture — patient actuel et suivant ; adresse lisible (22 à 34 px, 3 lignes au plus, complète d'un toucher), accès, puis gros boutons ; zones sûres iOS ---- */
 function renderDrive(){const m=$("#main");if(!m)return;const cur=TOUR.current?tourStop(TOUR.current):null;const p=tpEndTime();const ordered=tourOrdered().filter(s=>s.id!==TOUR.current); /* v41y : même estimation que l'impact d'une demande */
@@ -19235,7 +19228,6 @@ function xpToast(msg,undo){try{toastHide();}catch(e){}let x=document.getElementB
   const u=x.querySelector("#xp_undo");if(u)u.onclick=()=>{x.classList.remove("on");patientUndo();};
   clearTimeout(xpToast._t);xpToast._t=setTimeout(()=>x.classList.remove("on"),4000);}
 function xpGo(){const p=currentPack();if(!p){toast("Confirmez d'abord la fiche.");return;}
-  {const why0=xpPending(p);if(!why0.length&&!valGate())return;}
   const txt=xpCRText(p);try{copyText(txt);}catch(e){}state.crCopied=Date.now();const cp="CR copié · prêt à coller dans MCC";
   const why=xpPending(p);
   if(why.length){toast(cp+" — à vérifier : "+why.join(", "));XP.auto=false;printPack(why.every(w=>/alerte/.test(w))?{go:true}:{});return;} /* 07/11/2026 : seules des alertes à décider → l'écran « Avant d'imprimer » puis, sur son « Imprimer », la fenêtre d'impression tout de suite ; autre point à vérifier → aperçu seul */
@@ -19255,7 +19247,8 @@ function xpValidate(p,n,txt,cp,printed){
   const who=state.patient||"patient";patientValidate(true);
   try{if(VALID.hist[0]){VALID.hist[0].crTxt=txt;validSave();}}catch(e){}
   XP.file=null;XP.key="";
-  patientNext();VALID.undoUntil=Date.now()+10000;try{const t=document.getElementById("toast");if(t)t.classList.remove("on");}catch(e){}xpToast(cp+" · "+who+" validé",true);}
+  patientNext();VALID.undoUntil=Date.now()+UNDO_MS;try{const t=document.getElementById("toast");if(t)t.classList.remove("on");}catch(e){}
+  const n2=TOUR.current?tourStop(TOUR.current):null;undoBar(cp+" · "+who+" validé"+(n2?" — en route vers "+stopName(n2):""));} /* 12/11/2026 : même barre d'annulation qu'en visite (30 s, puis ↩ Rouvrir dans la carte) au lieu du message de 4 s */
 /* ---- confirmer la fiche : arrivée notée, pack adapté à l'âge ---- */
 function xpArriveQuiet(){const s=xpStop();if(!s||s.tArr)return;const now=Date.now();s.tArr=now;delete TOUR.near;tourSave();state.cot=state.cot||cotDefault();state.cot.hArr=fmtHM(now);if(!state.t0)state.t0=now;try{tpGeoStop();}catch(e){}
   try{setTimeout(()=>toast("Arrivée enregistrée à "+fmtH(now)+" — heure de l'acte modifiable dans la cotation"),400);}catch(e){}} /* 20/10/2026 : l'heure retenue pour la cotation est annoncée, jamais silencieuse */
@@ -19796,7 +19789,7 @@ function filActs(st){const cur=TOUR.current?tourStop(TOUR.current):null;const p=
     const sr=hasSR?`<button type="button" class="btn s fa" data-sr="${riskMode()?"s":"r"}" title="Basculer le pack">${riskMode()?"Pack à risque ⇄":"Pack simple ⇄"}</button>`:`<button type="button" class="btn s fa" id="fa_dict">🎙 Dicter</button>`;
     const xp=document.getElementById("xp_go");const nS=filSheets(p);
     return [ex,sr,xp?`<span class="fa-slot" id="fa_xpslot"></span>`:`<button type="button" class="btn p fa fa-main" id="fin" title="Imprime le pack et copie le compte rendu">🖨 Imprimer${nS?" · "+nS:""}</button>`];}
-  if(st==="sortie"){const cons=(state.cot&&state.cot.lieu)!=="visite";return [`<button type="button" class="btn s fa" id="fa_let">✉ Courrier</button>`,`<button type="button" class="btn s fa" id="tc_reprint">🖨 Réimprimer</button>`,cons?`<button type="button" class="btn p fa fa-main" id="fa_next_c" title="Valide ce patient (journal, cotation) et ouvre aussitôt un patient vierge en Consultation">✓ Patient suivant</button>`:`<button type="button" class="btn p fa fa-main" id="tc_valid" title="Valider ce patient : journal, cotation ; la visite suivante passe en cours et le guidage est lancé">✓ Valider · patient suivant</button>`];}
+  if(st==="sortie"){const cons=(state.cot&&state.cot.lieu)!=="visite";return [`<button type="button" class="btn s fa" id="fa_let">✉ Courrier</button>`,`<button type="button" class="btn s fa" id="tc_reprint">🖨 Réimprimer</button>`,cons?`<button type="button" class="btn p fa fa-main" id="fa_next_c" title="Valide ce patient (journal, cotation) et ouvre aussitôt un patient vierge en Consultation">✓ Patient suivant</button>`:`<button type="button" class="btn p fa fa-main" id="tc_valid" title="Valider ce patient en un toucher : journal, cotation ; la visite suivante passe en cours et le guidage est lancé ; « Annuler » 30 s, puis « ↩ Rouvrir » dans la carte">✓ Valider · patient suivant</button>`];}
   return [];}
 function filSheets(p){try{return p.s.filter((sh,si)=>!state.off[si]&&!(sh.k==="interp"||sh.k==="memo")&&(resolve(sh,si).some(x=>x.on&&!x.jr&&!x.fill.miss.length)||(state.libre[si]||"").trim())).length+letCount();}catch(e){return 0;}}
 function filDock(){const old=document.getElementById("fdock");const st=filState();
@@ -20292,7 +20285,7 @@ function backupSettingsHTML(){const d=backupDays();return `<h2 class="jsec">Sauv
 function versionHref(v){const p=location.pathname.replace(/\/v\d+\/?(index\.html)?$/,"/").replace(/index\.html$/,"");return (v?p+"v"+v+"/":p);}
 
 /* ===================== v39 — PARCOURS VISITE : étapes visibles, validation du patient, patient suivant, rouvrir, annuler ===================== */
-const VALID={last:null,hist:[],undoUntil:0,timer:null};
+const VALID={last:null,hist:[],undoUntil:0,timer:null};const UNDO_MS=30000; /* 12/11/2026 : délai d'annulation d'une validation (8 s avant), partout */
 function validLabel(v){return (v.patient||"(sans nom)")+" · "+new Date(v.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});}
 function validLast(){return VALID.hist.find(x=>!x.pending&&!x.reopened)||null;}
 function validPush(v){if(!v.id)v.id=hexRand(4);VALID.hist.unshift(v);if(VALID.hist.length>40)VALID.hist.length=40;VALID.last=validLast();validSave();}
@@ -20320,7 +20313,7 @@ async function validLoad(){try{let h=await secGet("sos_validhist",null);if(!Arra
   VALID.hist=h.filter(v=>Date.now()-v.ts<12*3600*1000);VALID.stale=[];if(old.length&&!(await archAdd(old)))VALID.stale=old;else if(old.length)validSave();}catch(e){VALID.hist=VALID.hist||[];}VALID.last=validLast();}
 function validSave(){const st=VALID.stale||[];if(!VALID.hist.length&&!st.length){secRemove("sos_validhist");secRemove("sos_lastvalid");return;}let h=[...VALID.hist,...st];try{if(JSON.stringify(h).length>1500000)h=h.map((v,i)=>i<2?v:Object.assign({},v,{snap:Object.assign({},v.snap,{photos:[]})}));}catch(e){}if(SEC.key){secPut("sos_validhist",h).catch(()=>secSet("sos_validhist",h));}else secSet("sos_validhist",h);secRemove("sos_lastvalid");}
 function patientValidate(confirmed){
-  if(confirmed!==true&&!valGate())return;valDisarm();try{patNorm();}catch(x){} /* 09/11/2026 : identité en « NOM Prénom » dans le journal et le dossier validé */
+  valExam();try{patNorm();}catch(x){} /* 09/11/2026 : identité en « NOM Prénom » dans le journal et le dossier validé */
   const p=currentPack();const snap=stateSnapshot();
   const stop=TOUR.current?tourStop(TOUR.current):null;
   if(state.patient&&!TESTMODE){try{const has=JOURNAL.some(x=>norm(x.patient)===norm(state.patient)&&Date.now()-x.ts<2*3600*1000);if(!has)journalUpsert(p||{n:(state.cot&&state.cot.lieu==="visite")?"Visite":"Consultation"});}catch(e){}}
@@ -20333,7 +20326,7 @@ function patientValidate(confirmed){
   state.revOf=null;state.revN=0;
   if(stop){stop.done=true;stop.doneTs=Date.now();if(stop.tArr)stop.dur=Math.round((stop.doneTs-stop.tArr)/60000);delete stop.cur;TOUR.order=TOUR.order.filter(x=>x!==stop.id);TOUR.lastDone=stop.id;TOUR.current="";tourSave();try{tpGeoStop();}catch(x){}}
   if(e){e.tFin=Date.now();if(stop&&stop.tArr&&!e.tArr)e.tArr=stop.tArr;if(stop&&stop.calls&&stop.calls.length)e.appels=stop.calls.map(c=>({ts:c.ts,annonce:c.annonce,masque:!!c.masque}));try{journalSave();}catch(x){}}
-  validPush(v);VALID.undoUntil=Date.now()+8000;state.view="valid";render();
+  validPush(v);VALID.undoUntil=Date.now()+UNDO_MS;state.view="valid";render();
   if(stop&&navigator.onLine!==false)setTimeout(tourAuto,0);
 }
 function patientReopen(arg,opt){opt=opt||{};
@@ -20344,21 +20337,36 @@ function patientReopen(arg,opt){opt=opt||{};
   const s=v.stopId?tourStop(v.stopId):null;if(s){s.done=false;delete s.doneTs;s.cur=true;TOUR.current=s.id;if(!TOUR.order.includes(s.id))TOUR.order.unshift(s.id);if(TOUR.lastDone===s.id)TOUR.lastDone="";tourSave();}
   /* 20/10/2026 (cahier des charges 12.2) : une validation rouverte reste dans l'historique (documents initiaux conservés) ; la revalidation crée une version tracée au journal. « Annuler » (8 s) et « mis de côté » : retirés comme avant. */
   if(v.pending||opt.undo){validRemove(v);}else{if(!v.id)v.id=hexRand(4);v.reopened=Date.now();state.revOf=v.id;state.revN=v.rev||1;VALID.last=validLast();validSave();}
-  VALID.undoUntil=0;render();window.scrollTo(0,0);try{photosHydrate();}catch(e){}
+  VALID.undoUntil=0;try{undoBarHide();}catch(e){}render();window.scrollTo(0,0);try{photosHydrate();}catch(e){}
 }
-function patientUndo(){if(Date.now()>VALID.undoUntil){toast("Délai d'annulation dépassé — « Rouvrir ce patient » reste possible.");return;}patientReopen(VALID.last,{undo:true});toast("Validation annulée");}
+function patientUndo(){const v=VALID.last;if(!v){toast("Aucune validation à annuler");return;}
+  if(Date.now()>VALID.undoUntil){reopenLast(v);toast("Délai d'annulation dépassé : patient rouvert, la validation reste dans l'historique (version tracée)");return;} /* 12/11/2026 : on rouvre au lieu de refuser */
+  reopenLast(v,{undo:true});toast("Validation annulée");}
+/* 12/11/2026 : retour en arrière en un toucher — rouvrir le dernier patient validé. La visite suivante à peine ouverte (fiche préremplie depuis l'arrêt, rien de fait) redevient à faire
+   sans être « mise de côté » ; dès qu'une fiche, une dictée, une photo ou une impression existe, le patient en cours est mis de côté comme avant (rien n'est perdu). */
+function patPrefillOnly(){try{const c=TOUR.current?tourStop(TOUR.current):null;if(!c||c.tArr||currentPack()||state.lastPrint||(state.photos||[]).length)return false;
+  if(norm(state.patient||"")!==norm(c.nom||""))return false;const o=state.obs||{};return Object.keys(o).every(k=>!String(o[k]||"").trim()||(k==="hist"&&o[k]===obsPrefill(c)));}catch(e){return false;}}
+function reopenLast(v,opt){v=(v&&v.snap)?v:VALID.last;if(!v)return;if(patPrefillOnly()){state.patient="";try{newPatient();}catch(e){}}patientReopen(v,opt);}
+/* carte de tournée : « ↩ Rouvrir NOM » en un toucher (dernier patient validé, s'il n'est pas le patient affiché) et « Validés (n) » vers la liste */
+function reopenHTML(){if(!VALID.hist.length)return "";const v=VALID.last;const direct=!!(v&&norm(v.patient||"")!==norm(state.patient||""));
+  return (direct?` · <button type="button" class="lc tc-reopen" id="tc_reopen" title="Revenir à ce patient en un toucher : documents et arrêt tels quels ; la validation reste dans l'historique (version tracée)">↩ Rouvrir ${esc(v.patient||"le dernier patient")}</button>`:"")+` · <button type="button" class="lc tc-reopen" id="tc_vlist" title="Patients validés ou mis de côté : en rouvrir un">${direct?"":"↩ "}Validés (${VALID.hist.length})</button>`;}
 /* 06/11/2026 : Consultation — « Patient suivant » en un geste : validation (journal, cotation) puis patient vierge en Consultation, sans écran de liste ; annulation 8 s */
-function consultNext(){if(!valGate())return;const name=String(state.patient||"").trim();patientValidate(true);if(state.view!=="valid")return;
+function consultNext(){const name=String(state.patient||"").trim();patientValidate(true);if(state.view!=="valid")return;
   clearInterval(VALID.timer);state.view="";newPatient();state.xpManual=true;state.cot=state.cot||cotDefault();state.cot.lieu="consultation";state.cot.auto=false;render();
   undoBar("Patient validé"+(name?" : "+name:"")+" — nouveau patient en consultation");}
-function undoBar(msg){let el=document.getElementById("undobar");if(!el){el=document.createElement("div");el.id="undobar";document.body.appendChild(el);}let left=8;clearInterval(undoBar._t);
-  el.innerHTML=`<span>${esc(msg)}</span><button type="button" class="btn s sm" id="undo_go">Annuler (${left} s)</button>`;
-  el.querySelector("#undo_go").onclick=()=>{clearInterval(undoBar._t);el.remove();patientUndo();};
-  undoBar._t=setInterval(()=>{left--;const b=el.querySelector("#undo_go");if(left<=0||!b){clearInterval(undoBar._t);el.remove();return;}b.textContent="Annuler ("+left+" s)";},1000);}
+/* 12/11/2026 : barre d'annulation après une validation en un toucher (visite, consultation, Express) : « Annuler (n s) » pendant UNDO_MS, compte à rebours lu sur l'horloge
+   (exact au retour de l'appli de navigation, où les minuteurs sont suspendus) ; ensuite la barre s'efface et « ↩ Rouvrir NOM » reste en un toucher dans la carte de tournée (reopenHTML). */
+function undoBar(msg){let el=document.getElementById("undobar");if(!el){el=document.createElement("div");el.id="undobar";document.body.appendChild(el);}clearInterval(undoBar._t);try{toastHide();}catch(e){}
+  const v=VALID.last;const vid=v?v.id:"";el.innerHTML=`<span>${esc(msg)}</span><button type="button" class="btn s sm" id="undo_go">Annuler (${Math.max(1,Math.ceil((VALID.undoUntil-Date.now())/1000))} s)</button>`;
+  el.querySelector("#undo_go").onclick=()=>{undoBarHide();patientUndo();};
+  const tick=()=>{const b=el.querySelector("#undo_go");const vv=vid?VALID.hist.find(x=>x.id===vid):null;const left=Math.ceil((VALID.undoUntil-Date.now())/1000);
+    if(!b||(vid&&(!vv||vv.reopened))||left<=0){undoBarHide();return;}b.textContent="Annuler ("+left+" s)";};
+  undoBar._t=setInterval(tick,500);}
+function undoBarHide(){clearInterval(undoBar._t);const el=document.getElementById("undobar");if(el)el.remove();}
 function patientNext(){VALID.undoUntil=0;clearInterval(VALID.timer);state.view="";newPatient();const n=tourNextStop();
   if(n&&state.cot&&state.cot.lieu==="visite"){tourUse(n.id);toast("Visite suivante : "+(stopName(n)));navGo(n);}else if(n)toast("Prochain arrêt : "+(stopName(n)));}
-/* 12/11/2026 : ✓ Valider · patient suivant (barre du bas, visite) = validation (journal, cotation), visite suivante en cours et guidage lancé, en un toucher ; annulation 8 s ; dernier patient : écran « Patient validé » */
-function visitNext(){if(!valGate())return;const name=String(state.patient||"").trim();const vis=(state.cot&&state.cot.lieu)==="visite";patientValidate(true);if(state.view!=="valid")return;
+/* 12/11/2026 : ✓ Valider · patient suivant (barre du bas, visite) = validation (journal, cotation), visite suivante en cours et guidage lancé, en un toucher ; annulation 30 s (UNDO_MS) puis « ↩ Rouvrir » en un toucher dans la carte ; dernier patient : écran « Patient validé » */
+function visitNext(){const name=String(state.patient||"").trim();const vis=(state.cot&&state.cot.lieu)==="visite";patientValidate(true);if(state.view!=="valid")return;
   const n=vis?tourNextStop():null;if(!n)return;
   clearInterval(VALID.timer);state.view="";newPatient();tourUse(n.id);undoBar("Patient validé"+(name?" : "+name:"")+" — en route vers "+stopName(n));navGo(n);}
 function tourFree(){const c=TOUR.current?tourStop(TOUR.current):null;if(!c){TOUR.current="";return;}delete c.cur;TOUR.current="";if(!c.done&&!TOUR.order.includes(c.id))TOUR.order.unshift(c.id);tourSave();render();}
@@ -20378,7 +20386,7 @@ function tourCardHTMLv39(){
   if(!lieu&&!cur){if(!n)return "";return `<section class="tcard tc-mini"><div class="tc-lbl">Tournée · ${n} arrêt${n>1?"s":""} à faire</div>${tpBannerHTML()}<div class="tc-row2"><button type="button" class="btn p" id="tc_begin">▶ Commencer la tournée</button><button type="button" class="btn s" id="tc_view">Voir la tournée</button></div><div class="hint tc-help">${TOUR_BEGIN_HELP}</div></section>`;}
   const km=v=>String(Math.round(v*10)/10).replace(".",",");
   const add=`<div class="tc-add"><input id="tc_addr" placeholder="Ajouter une adresse" autocomplete="off" inputmode="text"><div class="sugg" id="tc_sugg"></div><button type="button" class="btn s" id="tc_add">＋</button><div class="hint tp-impact" id="tc_impact"></div><label class="btn s tc-shots" for="tc_shots" title="Captures d'écran des fiches de régulation : adresse, initiale, téléphone, motif lus sur l'appareil">📷</label><input type="file" id="tc_shots" accept="image/*" multiple hidden><button type="button" class="btn s tc-shots" data-fpaste title="Coller les fiches (texte copié par le raccourci iOS ou sur Android)">📋</button></div>`;
-  const reopen=VALID.hist.length?` · <button type="button" class="lc tc-reopen" id="tc_reopen" title="Revenir à un patient validé ou mis de côté">↩ ${VALID.last&&!state.patient?"Rouvrir "+esc(VALID.last.patient||"le dernier patient"):"Patients validés ("+VALID.hist.length+")"}</button>`:"";
+  const reopen=reopenHTML(); /* 12/11/2026 : « ↩ Rouvrir NOM » en un toucher + « Validés (n) » (pied visible de cette carte) */
   const foot=`<div class="tc-foot">${tourAutoMsg()?`<div class="tc-auto">${esc(tourAutoMsg())}</div>`:""}${n?n+" arrêt"+(n>1?"s":"")+" restant"+(n>1?"s":""):(cur?"dernier arrêt":"Tournée vide")}${TOUR.total&&n?" · "+km(TOUR.total.km)+" km · "+TOUR.total.min+" min":""}${!next&&!cur?` · <button type="button" class="btn ghost sm" id="tc_view">Voir la tournée</button>`:""}${reopen}</div>`;
   return `<section class="tcard"><div class="tc-lbl">Tournée</div><div class="tc-empty">Aucun arrêt. Ajoute l'adresse de la prochaine visite ci-dessous.</div>${add}${foot}</section>`;
 }

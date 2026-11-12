@@ -162,10 +162,9 @@ async def main():
                 # ---------- 9. impression et PDF ----------
                 pg=await page.evaluate("(()=>{const r=buildPages(currentPack(),true);const d=document.createElement('div');d.innerHTML=r.out;return [...d.querySelectorAll('.page h2')].map(h=>h.textContent);})()")
                 ok(L+"9. documents prêts à imprimer : ordonnance et courriers produits",any(h.startswith("Ordonnance") for h in pg) and sum(1 for h in pg if h.startswith("Courrier"))>=2,pg)
-                # ---------- 8. validation explicite : deux touchers, jamais automatique ----------
-                v1=await page.evaluate("(()=>{valGate._w=0;patientValidate();return state.view;})()")
-                v2=await page.evaluate("(()=>{patientValidate();return state.view;})()")
-                ok(L+"8. validation : 1er toucher demande confirmation, 2e toucher valide ; jamais sans geste",v1!="valid" and v2=="valid" and not dialogs,[v1,v2,dialogs[:1]])
+                # ---------- 8. validation explicite : un seul toucher (12/11/2026), jamais automatique ----------
+                v1=await page.evaluate("(()=>{patientValidate();return state.view;})()")
+                ok(L+"8. validation : un seul toucher valide (confirmation du 18/10 retirée le 12/11/2026) ; jamais sans geste, jamais de fenêtre système",v1=="valid" and not dialogs,[v1,dialogs[:1]])
                 await page.evaluate("patientNext();render();")
                 # ---------- 6. coupure Internet ----------
                 await page.evaluate("newPatient();Object.assign(state,{patient:'MARTIN Jeanne',ddn:'05/06/1975',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;render();")

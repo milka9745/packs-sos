@@ -102,14 +102,13 @@ async def run(b,w,h,th,big,label,shots):
         pr0=await page.evaluate("window.__pr||0")
         cur0=await page.evaluate("TOUR.current")
         await tap(page,g,"#xp_go","🖨 Imprimer et valider")
-        ok(L+f"{vid} 1er toucher : demande de confirmation (examen complet validé avec), rien n'est encore validé","Confirmer" in await page.inner_text("#xp_go") and await page.evaluate("TOUR.current")==cur0)
-        await tap(page,g,"#xp_go","✓ Confirmer : imprimer et valider")  # 18/10/2026 : validation confirmée (demande du médecin)
+        # 12/11/2026 : un seul toucher imprime et valide (confirmation du 18/10 retirée) ; un examen complet en attente est validé avec le patient
         for _ in range(60):  # ordinateur : fenêtre d'impression du navigateur, la validation suit (07/11/2026)
             if await page.evaluate("TOUR.current")!=cur0: break
             await page.wait_for_timeout(250)
         await page.wait_for_timeout(500)
-        t=await page.evaluate("(document.getElementById('xptoast')||{}).textContent||''")
-        ok(L+f"{vid} g. toast « CR copié · prêt à coller dans MCC » + Annuler",("CR copié · prêt à coller dans MCC" in t) and ("Annuler" in t),t)
+        tb=await page.evaluate("()=>{const e=document.getElementById('undobar');return {t:e?e.textContent:'',vis:!!(e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().height>0)};}"); t=tb["t"]
+        ok(L+f"{vid} g. barre « CR copié · prêt à coller dans MCC · validé » + « Annuler (30 s) » visible (plus de message de 4 s)",("CR copié · prêt à coller dans MCC" in t) and ("validé" in t) and re.search(r"Annuler \((2[6-9]|30) s\)",t) and tb["vis"],tb)
         clip=await page.evaluate("navigator.clipboard.readText().catch(()=>'')")
         ok(L+f"{vid} g. compte rendu copié automatiquement (presse-papiers), celui du patient",len(clip)>100 and ({"v1":"DURAND","v2":"PETIT","v3":"MARTIN"}[vid] in clip),clip[:200])
         ok(L+f"{vid} 2. pas d'écran récapitulatif après validation",await page.evaluate("state.view")!="valid")
@@ -197,16 +196,16 @@ async def extras(b,w,h,label):
     for _ in range(80):
         if await page.evaluate("xpReady()||(!isPhone()&&!iosLike())"): break
         await page.wait_for_timeout(250)
-    await page.click("#xp_go"); await page.wait_for_timeout(600)  # 18/10/2026 : 1er toucher = confirmation demandée
-    ok(L+"validation : 1er toucher ne valide pas (confirmation demandée)",await page.evaluate("state.patient")=="DURAND Paul")
-    await page.click("#xp_go")
+    await page.click("#xp_go")  # 12/11/2026 : un seul toucher imprime et valide (confirmation du 18/10 retirée)
     for _ in range(60):
         if await page.evaluate("state.patient")!="DURAND Paul": break
         await page.wait_for_timeout(250)
     v=await page.evaluate("state.patient")
-    ok(L+"2. après « Imprimer et valider » : patient validé, écran libéré",v!="DURAND Paul",v)
-    await page.click("#xp_undo"); await page.wait_for_timeout(500)
-    ok(L+"2. « Annuler » (10 s) : le patient revient tel quel",await page.evaluate("state.patient")=="DURAND Paul" and await page.evaluate("currentPack()&&currentPack().n")=="Rhinopharyngite — adulte")
+    ok(L+"2. après « Imprimer et valider » (un seul toucher) : patient validé, écran libéré",v!="DURAND Paul",v)
+    u=await page.evaluate("(document.getElementById('undo_go')||{}).textContent||''")
+    ok(L+"2. barre d'annulation « Annuler (30 s) » lue sur l'horloge, à la place du message de 4 s",re.search(r"Annuler \((2[6-9]|30) s\)",u),u)
+    await page.click("#undo_go"); await page.wait_for_timeout(500)
+    ok(L+"2. « Annuler » (30 s) : le patient revient tel quel",await page.evaluate("state.patient")=="DURAND Paul" and await page.evaluate("currentPack()&&currentPack().n")=="Rhinopharyngite — adulte")
     ok(L+"aucune erreur JS",not errors,errors[:2])
     await ctx.close()
 

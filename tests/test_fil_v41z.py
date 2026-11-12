@@ -29,11 +29,9 @@ async def unlock(page,uid,xp):
     await page.evaluate("()=>{window.__printed=0;window.print=()=>{window.__printed++;};}")  # 07/11/2026 : l'impression = fenêtre du navigateur sur l'aperçu (ordinateur, 375 px) ; iPhone réel (UA iOS) = PDF partagé
 def dmy(d): return d.strftime("%d/%m/%Y")
 async def open_print(page,L,expect_ci):
-    """touche le bouton d'impression de la barre (Express : 2 touchers, le 1er arme) ; passe l'écran « Avant d'imprimer » s'il s'ouvre ; retourne l'état"""
+    """touche le bouton d'impression de la barre (un seul toucher depuis le 12/11/2026) ; passe l'écran « Avant d'imprimer » s'il s'ouvre ; retourne l'état"""
     sel="#xp_go" if await page.locator("#xp_go").count() else "#fin"
-    await page.click(sel); await page.wait_for_timeout(500)
-    if sel=="#xp_go" and not await page.locator("#ciover").count() and not await page.evaluate("()=>document.body.classList.contains('printing')"):
-        await page.click(sel); await page.wait_for_timeout(600)
+    await page.click(sel); await page.wait_for_timeout(700)
     ci=await page.locator("#ciover").count()
     info={"sel":sel,"ci":bool(ci)}
     if ci:
@@ -43,7 +41,7 @@ async def open_print(page,L,expect_ci):
         info.update(st); info["step2"]=st2
         await page.click("#ciover [data-cichip]"); await page.click("#ci_print"); await page.wait_for_timeout(700)
     info["printing"]=await page.evaluate("()=>document.body.classList.contains('printing')"); info["pages"]=await page.evaluate("()=>document.querySelectorAll('#print .page').length")
-    ok(L+("écran « Avant d'imprimer » puis " if ci else "")+"aperçu ouvert dès le bouton de la barre"+(" (confirmation au 2e toucher en Express)" if sel=="#xp_go" else ""),info["printing"] and info["pages"]>=1 and (ci==bool(expect_ci)),info)
+    ok(L+("écran « Avant d'imprimer » puis " if ci else "")+"aperçu ouvert dès le bouton de la barre (un seul toucher)",info["printing"] and info["pages"]>=1 and (ci==bool(expect_ci)),info)
     if ci:
         ok(L+"écran « Avant d'imprimer » : barre du bas masquée, pas de clavier (champ Motif non pris au focus sur iPhone), bouton « Imprimer » visible et atteignable",
            info["dock"]=="none" and (info["step2"]["focus"]!="ci_why" or not info.get("phone")) and info["step2"]["inView"] and info["step2"]["hit"],info)
@@ -79,16 +77,14 @@ async def run(b,w,h,xp,label,tag):
     # ---------- 2. Consultation : patient suivant en un geste ----------
     if phone: await page.screenshot(path=os.path.join(OUT,f"fil-{tag}-sortie-consultation.png"))
     n0=await page.evaluate("()=>JOURNAL.length"); v0=await page.evaluate("()=>VALID.hist.length")
-    await page.click("#fa_next_c"); await page.wait_for_timeout(300)
-    armed=await page.evaluate("()=>(document.getElementById('fa_next_c')||{}).textContent||''")
-    await page.click("#fa_next_c"); await page.wait_for_timeout(600)
+    await page.click("#fa_next_c"); await page.wait_for_timeout(600)  # 12/11/2026 : un seul toucher (confirmation du 18/10 retirée)
     st=await page.evaluate("()=>({patient:state.patient,lieu:state.cot.lieu,manual:!!state.xpManual,view:state.view,valid:VALID.hist.length,j:JOURNAL.length,last:VALID.hist[0]&&VALID.hist[0].patient,cot:VALID.hist[0]&&VALID.hist[0].cot&&VALID.hist[0].cot.codes,undo:!!document.getElementById('undobar'),dock:!!document.getElementById('fdock'),fil:filState()})")
-    ok(L+"« ✓ Patient suivant » (confirmation au 2e toucher) : patient validé (journal, cotation), patient vierge ouvert aussitôt en Consultation, sans écran de liste, annulation proposée 8 s",
-       "Confirmer" in armed and st["patient"]=="" and st["lieu"]=="consultation" and st["manual"] and st["view"]=="" and st["valid"]==v0+1 and st["last"]=="DURAND Martine" and st["cot"] and st["j"]>=n0 and st["undo"] and st["dock"],st)
+    ok(L+"« ✓ Patient suivant » en un seul toucher (confirmation du 18/10 retirée le 12/11/2026) : patient validé (journal, cotation), patient vierge ouvert aussitôt en Consultation, sans écran de liste, annulation proposée 30 s",
+       st["patient"]=="" and st["lieu"]=="consultation" and st["manual"] and st["view"]=="" and st["valid"]==v0+1 and st["last"]=="DURAND Martine" and st["cot"] and st["j"]>=n0 and st["undo"] and st["dock"],st)
     if phone: await page.screenshot(path=os.path.join(OUT,f"fil-{tag}-patient-suivant.png"))
     await page.click("#undo_go"); await page.wait_for_timeout(500)
     st=await page.evaluate("()=>({patient:state.patient,undo:!!document.getElementById('undobar')})")
-    ok(L+"« Annuler » dans les 8 s : le patient validé est rouvert",st["patient"]=="DURAND Martine" and not st["undo"],st)
+    ok(L+"« Annuler » dans les 30 s : le patient validé est rouvert",st["patient"]=="DURAND Martine" and not st["undo"],st)
     # ---------- 1 bis. Visite : écran « Avant d'imprimer » puis aperçu ----------
     sid=await page.evaluate(STOPS); await page.wait_for_timeout(300)
     await page.evaluate("(id)=>{TOUR.current=id;const s=tourStop(id);s.tArr=Date.now();Object.assign(state,{patient:'DUPONT Jean',ddn:'01/01/1950',sexe:'h'});state.cot.lieu='visite';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.view='';render();}",sid); await page.wait_for_timeout(500)
@@ -167,15 +163,14 @@ async def run_pc_express(b):
     page=await ctx.new_page(); errors=[]; page.on("pageerror",lambda e:errors.append(str(e))); page.on("dialog",lambda d:asyncio.ensure_future(d.accept()))
     await unlock(page,"filpcxp",True); await page.evaluate("()=>{window.__printed=0;}")  # 07/11/2026 : window.print (stub) puis xpAfterPrint par printScreen
     await page.evaluate("()=>{newPatient();Object.assign(state,{patient:'DURAND Martine',ddn:'03/04/1958',sexe:'f'});state.cot.lieu='consultation';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');render();}"); await page.wait_for_timeout(500)
-    v0=await page.evaluate("()=>VALID.hist.length"); await page.click("#xp_go"); await page.wait_for_timeout(300); await page.click("#xp_go")
+    v0=await page.evaluate("()=>VALID.hist.length"); await page.click("#xp_go")  # 12/11/2026 : un seul toucher
     try: await page.wait_for_function("(v0)=>VALID.hist.length>v0&&window.__printed>=1",arg=v0,timeout=30000)
     except Exception: pass
     st=await page.evaluate("(v0)=>({printed:window.__printed,valid:VALID.hist.length-v0,view:state.view,last:VALID.hist[0]&&VALID.hist[0].patient})",v0)
-    ok(L+"consultation : « Imprimer et valider » (2 touchers) → fenêtre d'impression du navigateur puis patient validé",st["printed"]>=1 and st["valid"]==1 and st["last"]=="DURAND Martine",st)
+    ok(L+"consultation : « Imprimer et valider » (un seul toucher) → fenêtre d'impression du navigateur puis patient validé",st["printed"]>=1 and st["valid"]==1 and st["last"]=="DURAND Martine",st)
     await page.evaluate("()=>{patientNext();}"); sid=await page.evaluate(STOPS); await page.wait_for_timeout(300)
     await page.evaluate("(id)=>{TOUR.current=id;const s=tourStop(id);s.tArr=Date.now();Object.assign(state,{patient:'DUPONT Jean',ddn:'01/01/1950',sexe:'h'});state.cot.lieu='visite';state.cot.auto=false;state.sel=PACKS.findIndex(p=>p.n==='Lombalgie aiguë');state.view='';render();}",sid); await page.wait_for_timeout(500)
     v0=await page.evaluate("()=>VALID.hist.length"); n0=await page.evaluate("()=>window.__printed"); await page.click("#xp_go"); await page.wait_for_timeout(400)
-    if not await page.locator("#ciover").count(): await page.click("#xp_go"); await page.wait_for_timeout(600)  # 1er toucher : confirmation
     ci=await page.locator("#ciover").count()
     if ci:
         await page.click("#ci_keep"); await page.click("#ciover [data-cichip]"); await page.click("#ci_print")
@@ -184,7 +179,7 @@ async def run_pc_express(b):
     await page.evaluate("()=>{const b=document.getElementById('pb_print');if(b)b.click();}")
     try: await page.wait_for_function("(n0)=>window.__printed>n0",arg=n0,timeout=30000)
     except Exception: pass
-    await page.evaluate("()=>{const b=document.getElementById('pb_valid');if(b)b.click();}"); await page.wait_for_timeout(300); await page.evaluate("()=>{const b=document.getElementById('pb_valid');if(b)b.click();}"); await page.wait_for_timeout(700)
+    await page.evaluate("()=>{const b=document.getElementById('pb_valid');if(b)b.click();}"); await page.wait_for_timeout(700)  # 12/11/2026 : un seul toucher
     st=await page.evaluate("(a)=>({ci:!!document.getElementById('ciover'),printed:window.__printed-a[1],valid:VALID.hist.length-a[0],view:state.view})",[v0,n0])
     ok(L+"visite (76 ans) : écran « Avant d'imprimer », décision, aperçu (alertes à vérifier), impression, puis validation depuis l'aperçu",ci and not st["ci"] and st["printed"]>=1 and st["valid"]==1,st)
     ok(L+"aucune erreur JavaScript",not errors,errors[:3]); await ctx.close()

@@ -107,12 +107,11 @@ async def main():
                     ex=await page.evaluate(f"(state.extra[{si}]||[]).slice(-1)[0]||''")
                     ok(L+"5. ligne libre : nom commercial en majuscules, majuscule initiale",ex.startswith("KARDEGIC 75 mg : 1 sachet par jour"),ex)
                 ok(L+"5. ligne libre : majuscule initiale, DCI et mots inconnus tels quels",await page.evaluate("[normFreeLine('paracétamol 500 mg'),normFreeLine('crème hydratante soir'),normFreeLine('eliquis 5 mg')]")==["Paracétamol 500 mg","Crème hydratante soir","ELIQUIS 5 mg"])
-                # validation confirmée en 2 touchers
+                # validation en un seul toucher (12/11/2026 : confirmation du 18/10 retirée)
                 await page.evaluate("localStorage.setItem('sos_excomplet','0')")
-                await page.evaluate(SET,{"n":"Rhinopharyngite — adulte","sx":"h"}); await page.evaluate("valGate._w=0;state.view='';render();")
+                await page.evaluate(SET,{"n":"Rhinopharyngite — adulte","sx":"h"}); await page.evaluate("state.view='';render();")
                 v1=await page.evaluate("(()=>{patientValidate();return state.view;})()")
-                v2=await page.evaluate("(()=>{patientValidate();return state.view;})()")
-                ok(L+"validation : 1er toucher = demande de confirmation, 2e toucher = validé (jamais de fenêtre système)",v1!="valid" and v2=="valid" and not dialogs,[v1,v2,dialogs[:1]])
+                ok(L+"validation : un seul toucher = validé (jamais de fenêtre système)",v1=="valid" and not dialogs,[v1,dialogs[:1]])
                 await page.evaluate("localStorage.setItem('sos_excomplet','1');state.view='';render();")
                 # Tournée dans les favoris de l'Express
                 ok(L+"Tournée dans les favoris de l'Express par défaut",await page.evaluate("favHas('btn:tc_view')"))

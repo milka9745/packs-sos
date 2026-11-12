@@ -1,16 +1,18 @@
 # Navigation et tournée — 12/11/2026
 
-Touchers de tournée sur le parcours iPhone (5 patients fictifs, hors acte médical : fiche, impression) :
+Touchers de tournée sur le parcours iPhone (5 patients fictifs, hors acte médical : fiche, impression ; les essais de retour en arrière sont comptés à part) :
 
 | Geste | Touchers |
 |---|---|
 | ▶ Lancer la tournée | 1 |
-| ✓ Valider (1er toucher : confirmer) | 5 |
-| ✓ Valider (2e toucher : validé) | 5 |
+| ✓ Valider · patient suivant (un seul toucher) | 5 |
+| (retour en arrière) ↩ Rouvrir le patient validé | 1 |
+| (retour en arrière) ✓ Valider de nouveau | 2 |
 | ✓ Je suis arrivé (adresse non géocodée) | 3 |
-| **Total** | **14** — soit 2.8 par patient ; aucun toucher « Naviguer » ni « Patient suivant » |
+| (retour en arrière) Annuler (dans les 30 s) | 1 |
+| **Total tournée** | **9** — soit 1.8 par patient ; aucun toucher « Naviguer », « Patient suivant » ni « Confirmer » |
 
-Résultat : 62/62 tests OK
+Résultat : 68/68 tests OK
 
 | Test | Résultat |
 |---|---|
@@ -26,18 +28,24 @@ Résultat : 62/62 tests OK
 | iPhone écran d'accueil : retour dans Packs loin de l'adresse (5 km) : rien ne change, « Je suis arrivé » reste | OK |
 | iPhone écran d'accueil : retour dans Packs à moins de 150 m (60 m) : passage seul à « Sur place », message « arrivée enregistrée » | OK |
 | iPhone écran d'accueil : Sortie : « ✓ Valider · patient suivant » en action principale | OK |
-| iPhone écran d'accueil : validation 1 : confirmée (« Confirmer » au 1er toucher), patient précédent fait, visite suivante p1 en cours et guidage lancé, en route (pas d'écran intermédiaire), annulation 8 s | OK |
+| iPhone écran d'accueil : validation 1 en un seul toucher (plus de « Confirmer ») : patient précédent fait, visite suivante p1 en cours et guidage lancé, en route (pas d'écran intermédiaire), barre « Annuler (30 s) » visible | OK |
 | iPhone écran d'accueil : p1 : guidage par les coordonnées | OK |
+| iPhone écran d'accueil : barre d'annulation : compte à rebours lu sur l'horloge (échéance avancée de 20 s → « Annuler (9 s) » au tic suivant) | OK |
 | iPhone écran d'accueil : p1 : arrivée automatique (55 m) | OK |
-| iPhone écran d'accueil : validation 2 : confirmée (« Confirmer » au 1er toucher), patient précédent fait, visite suivante p2 en cours et guidage lancé, en route (pas d'écran intermédiaire), annulation 8 s | OK |
+| iPhone écran d'accueil : validation 2 en un seul toucher (plus de « Confirmer ») : patient précédent fait, visite suivante p2 en cours et guidage lancé, en route (pas d'écran intermédiaire), barre « Annuler (30 s) » visible | OK |
 | iPhone écran d'accueil : p2 sans coordonnées : guidage par l'adresse en clair normalisée « 25 bis RUE DE LA REPUBLIQUE 45000 ORLEANS » (Waze ?q=…) | OK |
+| iPhone écran d'accueil : délai écoulé : la barre s'efface, la carte propose « ↩ Rouvrir NOM » (un toucher) et « Validés (n) » | OK |
+| iPhone écran d'accueil : ↩ Rouvrir : p1 redevient en cours (documents tels quels, étape Sortie), p2 redevient à faire sans être « mis de côté », validation conservée et marquée rouverte | OK |
+| iPhone écran d'accueil : nouvelle validation en un toucher : version 2 tracée (la validation initiale est conservée), p2 de nouveau en cours et guidage lancé | OK |
 | iPhone écran d'accueil : p2 sans coordonnées : pas d'arrivée automatique possible, « Je suis arrivé » reste | OK |
 | iPhone écran d'accueil : p2 : « Je suis arrivé » → Sur place | OK |
-| iPhone écran d'accueil : validation 3 : confirmée (« Confirmer » au 1er toucher), patient précédent fait, visite suivante p3 en cours et guidage lancé, en route (pas d'écran intermédiaire), annulation 8 s | OK |
+| iPhone écran d'accueil : validation 3 en un seul toucher (plus de « Confirmer ») : patient précédent fait, visite suivante p3 en cours et guidage lancé, en route (pas d'écran intermédiaire), barre « Annuler (30 s) » visible | OK |
 | iPhone écran d'accueil : p3 sans coordonnées : guidage par l'adresse en clair normalisée « 8 RUE CHARLES BEAUHAIRE 45140 SAINT-JEAN-DE-LA-RUELLE » (Waze ?q=…) | OK |
+| iPhone écran d'accueil : Annuler : p2 redevient en cours à l'étape Sortie, p3 redevient à faire sans être « mis de côté », la validation disparaît de l'historique | OK |
+| iPhone écran d'accueil : nouvelle validation en un toucher : version 1 (aucune trace de l'essai annulé), p3 de nouveau en cours et guidage lancé | OK |
 | iPhone écran d'accueil : p3 sans coordonnées : pas d'arrivée automatique possible, « Je suis arrivé » reste | OK |
 | iPhone écran d'accueil : p3 : « Je suis arrivé » → Sur place | OK |
-| iPhone écran d'accueil : validation 4 : confirmée (« Confirmer » au 1er toucher), patient précédent fait, visite suivante p4 en cours et guidage lancé, en route (pas d'écran intermédiaire), annulation 8 s | OK |
+| iPhone écran d'accueil : validation 4 en un seul toucher (plus de « Confirmer ») : patient précédent fait, visite suivante p4 en cours et guidage lancé, en route (pas d'écran intermédiaire), barre « Annuler (30 s) » visible | OK |
 | iPhone écran d'accueil : p4 sans coordonnées : guidage par l'adresse en clair normalisée « 12 ter RUE DE LA GARE 45000 Orléans » (Waze ?q=…) | OK |
 | iPhone écran d'accueil : p4 sans coordonnées : pas d'arrivée automatique possible, « Je suis arrivé » reste | OK |
 | iPhone écran d'accueil : p4 : « Je suis arrivé » → Sur place | OK |

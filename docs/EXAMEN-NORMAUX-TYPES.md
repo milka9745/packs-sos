@@ -48,7 +48,7 @@ Pour une patiente : « consciente et orientée ».
 
 ## Relecture du 20/10/2026 (proposition, non intégrée dans l'application)
 
-Rappel du fonctionnement vérifié dans le code : un normal type n'entre au compte rendu qu'après le geste « ✓ Examen complet » (ou la confirmation de la validation du patient, qui l'inclut) ; avant ce geste il est surligné « à valider » à l'écran et absent des documents ; un appareil dicté n'est jamais remplacé. Rien n'est présenté comme examiné sans ce geste.
+Rappel du fonctionnement vérifié dans le code : un normal type n'entre au compte rendu qu'après le geste « ✓ Examen complet » (ou la validation du patient, qui l'inclut — un seul toucher depuis le 12/11/2026, la confirmation du 18/10 ayant été retirée) ; avant ce geste il est surligné « à valider » à l'écran et absent des documents ; un appareil dicté n'est jamais remplacé. Rien n'est présenté comme examiné sans ce geste.
 
 ### ORL de l'enfant — point d'attention demandé
 Texte actuel : « Tympans normaux des deux côtés, pharynx sans anomalie, pas d'adénopathie cervicale. »
