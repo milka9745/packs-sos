@@ -1,13 +1,13 @@
 {
- "version": "42d.1-test",
- "label": "42d.1 · 11/11 21:55",
- "date": "2026-11-11",
+ "version": "42e.1-test",
+ "label": "42e.1 · 13/11 14:17",
+ "date": "2026-11-13",
  "notes": [
+  "Navigation (12/11) : « Naviguer » toujours en bas à gauche de l'étape En route, libellé fixe, actif même sans coordonnées (adresse en clair normalisée : « 25BIS » → « 25 bis », code postal et commune ajoutés) ; appli choisie une fois dans ⋯ (Waze, Plans, Google Maps), mémorisée, plus de choix pendant la tournée ; ouverture par location.href (écran d'accueil iOS).",
+  "Tournée (12/11) : un toucher par patient — ▶ = ordre + guidage vers le 1er patient sans attendre le réseau, ✓ Valider en un seul toucher (plus de « Confirmer ») = visite suivante en cours + guidage ; arrivée automatique à moins de 150 m au retour dans Packs ; ordre recalculé en silence ; géocodeur Géoplateforme IGN avec délai borné ; bandeau hors connexion au-dessus de la barre.",
+  "Retour en arrière (12/11) : après chaque validation, « Annuler » reste 30 s (compte exact même après un passage dans l'appli de navigation), puis « ↩ Rouvrir NOM » en un toucher dans la carte de tournée ; la validation reste tracée ; en Express, même barre à la place du message de 4 s.",
   "Antibiotiques (11/11) : un seul antibiotique par voie générale par ordonnance — le recommandé est coché, les alternatives dessous ; toucher une alternative (ou en ajouter une par la recherche) remplace la précédente ; « Ajouter quand même » avec confirmation pour deux antibiotiques volontaires (tracé au journal et au compte rendu, jamais sur l'ordonnance) ; deux antibiotiques sans confirmation à l'impression = blocage et alerte.",
   "Antibiotiques de l'enfant (11/11) : durée calculée sur l'âge et le diagnostic (otite 10 jours avant 2 ans puis 5 ; angine amoxicilline 6, cefpodoxime 5, céfuroxime 4, clarithromycine 5, azithromycine 3, aucun antibiotique avant 3 ans avec message ; pneumopathie 5) ; sans date de naissance ou poids, ligne non imprimée et manque signalé ; durée (3 · 5 · 6 · 7 · 8 · 10 · 14 j ou autre) et dose modifiables d'un geste, écarts tracés « durée choisie par le médecin : X j ».",
-  "Libellés allégés et fiche « Renouvellement d'ordonnance » (11/11) : une seule unité imprimée (ml ou dose-poids), plus de « sans dépasser » ni de « seringue graduée », DCI puis nom commercial ; AUGMENTIN enfant « 1 dose-poids N kg 3 fois par jour » ; renouvellement médicament par médicament depuis la base ANSM embarquée (hors ligne, dossier bdpm/), posologie et durée d'un geste, non substituable, ALD en bizone, stupéfiants non imprimés (ordonnance sécurisée à la main), deux ordonnances au-delà d'une page.",
-  "Kétoconazole (KÉTODERM) : convention appliquée à toutes les fiches — mycoses de la peau (intertrigo, dermatophytose, pityriasis versicolor, teigne en complément des comprimés) : gel ou crème matin et soir pendant 15 jours ; dermite séborrhéique et pellicules : 1 sachet 2 fois par semaine pendant 4 semaines (8 sachets) ; écarts avec le RCP au mémo.",
-  "Règle des trous : une précision entre parenthèses laissée vide (« zones : … ») disparaît sans retirer la ligne (MYCOSTER « sur les lésions » s'imprime) ; seule une zone indispensable dans la phrase (radiographie) bloque encore l'impression ; 17 lignes du catalogue revues.",
-  "Certificats enfant malade et absence scolaire cochés ensemble : deux documents, une page chacun (en-tête, texte propre, dates, date du jour, signature), dans le PDF groupé et au journal ; plus jamais fusionnés sur une même page."
+  "Libellés allégés et fiche « Renouvellement d'ordonnance » (11/11) : une seule unité imprimée (ml ou dose-poids), plus de « sans dépasser » ni de « seringue graduée », DCI puis nom commercial ; AUGMENTIN enfant « 1 dose-poids N kg 3 fois par jour » ; renouvellement médicament par médicament depuis la base ANSM embarquée (hors ligne, dossier bdpm/), posologie et durée d'un geste, non substituable, ALD en bizone, stupéfiants non imprimés (ordonnance sécurisée à la main), deux ordonnances au-delà d'une page."
  ]
 }
