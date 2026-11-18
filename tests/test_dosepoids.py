@@ -19,9 +19,10 @@ async def unlock(page,uid,xp):
         await page.wait_for_selector("#id_demo",timeout=8000); await page.click("#id_demo")
     except Exception: pass
     await page.wait_for_selector("#lock",state="detached",timeout=15000); await page.wait_for_timeout(700)
+# 18/11/2026 (v42f) : la feuille Consignes est décochée par défaut ; RUN la coche pour lire la page Consignes (doses en ml)
 RUN="""(a)=>{newPatient();Object.assign(state,{patient:'PETIT Lou',ddn:a.ddn||'01/01/2016',poids:String(a.w),sexe:'f',date:'18/10/2026'});if(a.lieu)state.cot.lieu=a.lieu;state.view='';state.sel=PACKS.findIndex(p=>p.n===a.n);
   const p=currentPack();if(a.pick){p.s.forEach((sh,si)=>{const r=resolve(sh,si);const x=r.find(y=>y.t.startsWith(a.pick));if(x&&x.grp)state.gs[si+':'+x.grp]=x.key;else if(x)state.lo[x.key]=true;});}
-  render();const P=currentPack();const L=[];P.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>L.push({t:x.t.slice(0,40),on:x.on,s:x.fill.s,miss:x.fill.miss}));});
+  render();const P=currentPack();P.s.forEach((sh,si)=>{if(sh.k==='cons')state.off[si]=false;});render();const L=[];P.s.forEach((sh,si)=>{if(sh.k!=='med')return;resolve(sh,si).forEach(x=>L.push({t:x.t.slice(0,40),on:x.on,s:x.fill.s,miss:x.fill.miss}));});
   const d=document.createElement('div');d.innerHTML=buildPages(P,true).out;const pages=[...d.querySelectorAll('.page')].map(x=>({h:(x.querySelector('h2')||{}).textContent||'',t:x.innerText}));
   const adv=[...document.querySelectorAll('#main .adv, #main .xp-alerts')].map(x=>x.innerText).join(' | ');return {L,pages,adv};}"""
 SWEEP="""()=>{const bad=[],nomg=[];for(const w of [8,15,25,32,45]){for(let i=0;i<PACKS.length;i++){if(!PACKS[i].s.some(sh=>sh.k==='med'))continue;newPatient();Object.assign(state,{patient:'X',ddn:'01/01/2016',poids:String(w),sexe:'f'});state.sel=i;const p=currentPack();

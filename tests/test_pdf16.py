@@ -29,7 +29,7 @@ async def unlock(page):
     except Exception: pass
 
 SETUP="""(names)=>{state.sel=null;state.obs={};state.cst={};state.actions={};state.lo={};state.gs={};state.off={};state.extra={};state.libre={};Object.assign(state,{patient:'MARTIN Jeanne',ddn:'03/04/1938',date:'16/10/2026',sexe:'f',poids:'',photos:[]});
-  const idx=names.map(n=>PACKS.findIndex(p=>p.n===n));state.sel=idx.length===1?idx[0]:idx;render();return idx;}"""
+  const idx=names.map(n=>PACKS.findIndex(p=>p.n===n));state.sel=idx.length===1?idx[0]:idx;render();{const p=currentPack();if(p)p.s.forEach((sh,si)=>{if(sh.k==='cons')state.off[si]=false;});render();}return idx;}"""  # 18/11/2026 (v42f) : la feuille Consignes est décochée par défaut ; cochée ici, comme le ferait le médecin, pour tester son impression
 PAGES="""()=>[...document.querySelectorAll('#print .page')].map((pg,i)=>{const fr=pg.querySelector('.frame');const h=pg.querySelector('h2');
   const z=fr?[...fr.querySelectorAll('.stamp,.sig')].map(e=>e.getBoundingClientRect()).filter(r=>r.height):[];
   const txt=fr?[...fr.querySelectorAll('p,li,h2,h3,td,th,.meta')].filter(e=>!e.closest('.stamp,.sig')):[];

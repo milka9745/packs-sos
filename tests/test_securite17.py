@@ -39,12 +39,15 @@ SWEEP="""async(range)=>{const res=[];const sleep=ms=>new Promise(r=>setTimeout(r
     Object.assign(state,{sel:i,obs:{},cst:{},actions:{},lo:{},gs:{},off:{},extra:{},libre:{},f:{},tt:[],copat:[],ciOver:null,patient:kid?'PETIT Lou':'MARTIN Jeanne',ddn:kid?'01/01/2019':(old?'03/04/1938':'05/06/1975'),date:'17/10/2026',sexe:(typeof packSex==='function'&&packSex(PACKS[i]))||'f',poids:kid?'20':'',grossesse:false,allait:false,photos:[]});
     try{autoAgePack();}catch(e){}
     let blocked='',ci=0;
-    try{await printPack();}catch(e){blocked='exception : '+e.message;}
+    const go=async()=>{try{await printPack();}catch(e){blocked='exception : '+e.message;}
     for(let t=0;t<40&&!document.querySelector('#print .page');t++){const c=document.getElementById('ciover');
       if(c){ci++;const k=c.querySelector('#ci_keep');if(k&&!c.__k){c.__k=1;k.click();await sleep(30);}const pb=c.querySelector('#ci_print');if(pb){if(pb.disabled){blocked='bouton « imprimer » grisé à l\\'écran d\\'alerte';break;}pb.click();}}
       await sleep(60);}
     for(let t=0;t<30&&document.querySelector('#print .page')&&!document.querySelector('#print .printbar');t++)await sleep(50);
-    await sleep(80);
+    await sleep(80);};
+    await go();
+    /* 18/11/2026 (v42f) : la feuille Consignes est décochée par défaut ; une fiche dont seules les consignes s'imprimaient n'a plus d'aperçu tant qu'elle n'est pas cochée : on la coche, comme le médecin, et on réessaie */
+    if(!document.querySelector('#print .page')&&!blocked){const csi=p0.s.findIndex(sh=>sh.k==='cons');if(csi>=0&&state.off[csi]===undefined){state.off[csi]=false;render();await go();}}
     const pages=[...document.querySelectorAll('#print .page')];
     if(!pages.length&&!blocked)blocked='aucun aperçu';
     const hit=[],clip=[],over=[];let txt='';

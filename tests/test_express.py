@@ -179,9 +179,9 @@ async def extras(b,w,h,label):
     # PDF iPhone (défaut trouvé le 17/10/2026) : taille normale si la page tient, réduite seulement si besoin, jamais sous 9 pt, sinon signalé
     r=await page.evaluate("""async()=>{newPatient();const i=PACKS.findIndex(p=>p.n==='Rhinopharyngite — adulte');Object.assign(state,{patient:'DURAND Paul',ddn:'14/05/1985',sexe:'h'});state.sel=i;
       const fitOf=async out=>{const st=document.getElementById('pdfstage');const t=document.createElement('div');t.innerHTML=out;const R=[];for(const pg of [...t.children].filter(x=>x.classList.contains('page'))){st.innerHTML='';st.appendChild(pg);R.push({f:pdfFit(pg),o:pg.dataset.pdfover||'',fs:parseFloat(getComputedStyle(pg).fontSize)});}st.innerHTML='';return R;};
-      const a=await fitOf(xpBuild(currentPack()));const p=currentPack();const si=p.s.findIndex(s=>s.k==='cons');
+      const a=await fitOf(xpBuild(currentPack()));const p=currentPack();const si=p.s.findIndex(s=>s.k==='cons');state.off[si]=false; /* 18/11/2026 (v42f) : feuille Consignes décochée par défaut, cochée pour ce contrôle */
       state.libre[si]=Array(34).fill("Consigne supplémentaire de test : surveiller la température, l'hydratation et la respiration, reconsulter si besoin.").join(' ');const b=await fitOf(xpBuild(currentPack()));
-      state.libre[si]=Array(220).fill("Consigne très longue de test pour dépasser une page même en petite police.").join(' ');const c=await fitOf(xpBuild(currentPack()));state.libre={};return {a,b,c};}""")
+      state.libre[si]=Array(220).fill("Consigne très longue de test pour dépasser une page même en petite police.").join(' ');const c=await fitOf(xpBuild(currentPack()));state.libre={};state.off={};return {a,b,c};}""")
     ok(L+"PDF : page courte en taille normale (plus de 8,5 pt systématique)",all(x["f"]=="" and x["o"]=="" for x in r["a"]),r["a"])
     cb=[x for x in r["b"] if x["f"]]
     ok(L+"PDF : consignes longues réduites juste ce qu'il faut, ≥ 9 pt, sans signalement",cb and all(x["fs"]>=11.9 and x["o"]=="" for x in cb),r["b"])

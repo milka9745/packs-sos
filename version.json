@@ -1,10 +1,10 @@
 {
-  "version": "42e",
-  "date": "2026-11-12",
+  "version": "42f",
+  "date": "2026-11-18",
   "notes": [
-    "Tournée : le bouton « Naviguer » est de retour à sa place (en bas à gauche, étape En route), toujours actif : coordonnées si l'adresse est localisée (nouveau service de l'IGN), sinon l'adresse écrite (« 25BIS » devient « 25 bis », code postal et commune complétés) ; hors connexion, le bandeau ne recouvre plus les boutons.",
-    "Un seul toucher par patient : ▶ lance la tournée et le guidage vers le premier patient dans l'appli choisie une fois dans ⋯ (Waze, Plans ou Google Maps) ; ✓ Valider passe au suivant et lance le guidage sans demander de confirmation ; arrivée enregistrée seule à moins de 150 m au retour dans Packs.",
-    "Retour en arrière facilité : après chaque validation, « Annuler » reste 30 secondes (compte exact même après un passage dans Waze), puis « ↩ Rouvrir NOM » en un toucher dans la carte de tournée ; la validation reste dans l'historique."
+    "Consignes au patient : la feuille n'est plus cochée d'office ; elle s'imprime seulement si vous la cochez (en-tête de la feuille, une consigne, ou la case « Consignes au patient » de l'Express) ; compte rendu et courriers n'en parlent que si elle est imprimée.",
+    "Tournée : « Naviguer » de retour à sa place (en bas à gauche, étape En route), toujours actif : coordonnées si l'adresse est localisée (nouveau service de l'IGN), sinon l'adresse écrite ; appli choisie une fois dans ⋯ (Waze, Plans ou Google Maps) ; hors connexion, le bandeau ne recouvre plus les boutons.",
+    "Un seul toucher par patient : ▶ lance la tournée et le guidage, ✓ Valider passe au suivant sans confirmation, arrivée enregistrée seule à moins de 150 m ; retour en arrière facilité : « Annuler » 30 secondes puis « ↩ Rouvrir NOM » dans la carte de tournée."
   ],
-  "label": "42e · 12/11 17:00"
+  "label": "42f · 18/11 20:12"
 }

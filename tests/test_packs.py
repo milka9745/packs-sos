@@ -67,7 +67,7 @@ async def run(width,height,label):
         ok(label+" cystite simple : MONURIL coché",any("MONURIL" in x["t"] and x["on"] for x in med))
         ok(label+" cystite simple : pas d'OROKEN",not any("OROKEN" in x["t"] for x in med))
         ok(label+" bascule S/R visible",await page.locator(".srtog").count()==1)
-        ns=await page.evaluate("document.querySelector('.title .sub').textContent"); ok(label+" cystite simple : 2 feuilles à imprimer (memo non comptée)",ns.startswith("2 "),ns)
+        ns=await page.evaluate("document.querySelector('.title .sub').textContent"); ok(label+" cystite simple : 1 feuille à imprimer (memo non comptée ; feuille Consignes décochée par défaut depuis le 18/11/2026, v42f)",ns.startswith("1 "),ns)
         await page.screenshot(path=f"{OUT}/{label}-cystite-simple.png",full_page=True)
         await page.evaluate("()=>{const b=document.querySelector('#fdock [data-sr=r]');if(b)b.click();}"); await page.wait_for_timeout(400)
         L=await lines(page); med=[x for x in L if x["lbl"]=="Médicaments"][0]["l"]
