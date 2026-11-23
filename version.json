@@ -1,10 +1,10 @@
 {
-  "version": "42g",
+  "version": "42h",
   "date": "2026-11-23",
   "notes": [
-    "Sur ordinateur, le code est redemandé à chaque ouverture : fermer l'onglet ou la fenêtre suffit, recharger la page aussi. Le navigateur ne peut plus enregistrer le code ni le remplir tout seul, et le cadenas verrouille toutes les fenêtres ouvertes. Sur téléphone, rien ne change (20 minutes).",
-    "Cadenas 🔒 toujours sous le doigt : dans la barre du haut du téléphone (à côté de ⋯), en premier dans le menu ⋯, et dans l'en-tête de Tournée, Journal, Fin de garde, Base médicaments et Patient validé.",
-    "Une fois verrouillé, plus rien n'est lisible : l'écran de code passe devant toute fenêtre ouverte (résumé ou document du patient, scanner, antibiotiques). Le dossier en cours est retrouvé tel quel après le code."
+    "Doses de l'enfant corrigées après une erreur signalée en garde : DOLIPRANE en sachet aux tranches de poids du RCP — 200 mg de 13 à 16 kg, 300 mg de 16 à 27 kg (de 25 à 27 kg : toutes les 4 heures au plus, 6 par jour), comprimé 500 mg à partir de 27 kg. L'application donnait 200 mg jusqu'à 20 kg et 300 mg jusqu'à 27 kg à 4 prises par jour, soit 40 à 48 mg/kg/j au lieu de 60.",
+    "Suppositoire DOLIPRANE en remplacement de la forme orale : ½ suppositoire de 100 mg de 3 à 4 kg, 100 mg de 5 à 8 kg, puis 150, 200 et 300 mg aux tranches du RCP. Sous 4 kg, l'ancienne règle proposait un suppositoire de 150 mg.",
+    "Amoxicilline de l'enfant : érythème migrant (maladie de Lyme) au poids, 50 mg/kg/j en 3 prises et 1 g par prise au plus dans les fiches Érythème migrant et Morsure de tique (un comprimé de 1 g était proposé quel que soit le poids, ou 2 prises) ; ligne enfant de la Base médicaments reprise (80 mg/kg/j pour otite, sinusite et pneumopathie, angine 50 mg/kg/j, pneumopathie 5 jours). Otite, angine, sinusite, pneumopathie et douleur dentaire : doses inchangées, revérifiées sur le RCP CLAMOXYL de septembre 2025 et les fiches HAS."
   ],
-  "label": "42g · 23/11 14:30"
+  "label": "42h · 23/11 20:56"
 }

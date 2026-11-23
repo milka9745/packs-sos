@@ -28,7 +28,7 @@
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · TIORFAN · 25 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 200 · 25 kg : ligne absente
-- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour »
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · DOLIPRANE 500 · 25 kg : ligne absente
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
 - OK — ordinateur · mode complet : Gastro-entérite — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
@@ -57,7 +57,7 @@
 - OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
 - OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
 - OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 200 · 25 kg : ligne absente
-- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour »
 - OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 500 · 25 kg : ligne absente
 - OK — ordinateur · mode complet : Fièvre — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
 - OK — ordinateur · mode complet : Fièvre — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
@@ -75,70 +75,70 @@
 - OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 25 kg : ligne absente
 - OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 40 kg : ligne absente
 - OK — ordinateur · mode complet : Bronchiolite — nourrisson · DOLIPRANE 200 · 40 kg : ligne absente
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml (soit 200 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1,5 ml (soit 150 mg d'amoxicilline) 3 fois par jour »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml (soit 80 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml matin et soir pendant 10 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1 dose-poids 5 kg 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml matin et soir »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 5 kg : non proposée faute de « âge ≥ 1 an pour AERIUS »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 2,5 ml (soit 250 mg d'amoxicilline) 3 fois par jour »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml (soit 160 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml matin et soir pendant 10 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 1 dose-poids 10 kg 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml matin et soir »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 10 kg : « 2,5 ml en une prise par jour »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml (soit 650 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 5 jours »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 4 ml (soit 400 mg d'amoxicilline) 3 fois par jour »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml (soit 220 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml matin et soir pendant 5 jours »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 1 dose-poids 15 kg 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml matin et soir »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 15 kg : « 2,5 ml en une prise par jour »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml (soit 1050 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 7 ml (soit 700 mg d'amoxicilline) 3 fois par jour »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml (soit 380 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 1 dose-poids 25 kg 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml matin et soir »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 25 kg : « 5 ml en une prise par jour »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml (soit 1500 mg) matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 10 ml (soit 1000 mg d'amoxicilline) 3 fois par jour »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml, soit 160 mg matin et soir »
-- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml (soit 400 mg de sulfaméthoxazole) matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 1 dose-poids 37 kg 3 fois par jour »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml matin et soir »
+- OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml matin et soir »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · AERIUS · 40 kg : « 10 ml en une prise par jour »
 - OK — ordinateur · mode complet : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : « 1,5 ml (soit 150 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 5 kg : « 2 ml (soit 50 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 100 mg) en une prise par jour pendant 3 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : non proposée faute de « angine avant 3 ans »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 5 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 5 kg : « 1 dose-poids 5 kg (soit 0,75 ml, 37,5 mg) matin et soir pendant 5 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 5 kg : non proposée faute de « angine avant 3 ans »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : « 2,5 ml (soit 250 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 10 kg : « 4 ml (soit 100 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 200 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : non proposée faute de « angine avant 3 ans »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 10 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 10 kg : « 1 dose-poids 10 kg (soit 1,5 ml, 75 mg) matin et soir pendant 5 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 10 kg : non proposée faute de « angine avant 3 ans »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml (soit 400 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml (soit 150 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml matin et soir pendant 6 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml matin et soir au cours des repas pendant 4 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg en une prise par jour pendant 3 jours »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 15 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg matin et soir pendant 5 jours »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 15 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml (soit 650 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml (soit 250 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg en une prise par jour »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 25 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg (soit 3,75 ml, 187,5 mg) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg matin et soir »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 25 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml (soit 1000 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml, soit 100 mg (dose maximale) »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml (soit 250 mg) matin et soir »
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml matin et soir pendant 6 jours »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml en une prise par jour »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZITHROMAX 250 · 40 kg : ligne absente
-- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml, soit 250 mg (dose maximale) matin et soir »
+- OK — ordinateur · mode complet : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml matin et soir »
 - OK — ordinateur · mode complet : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 40 kg : ligne absente
 - OK — ordinateur · mode complet : Vomissements isolés — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
 - OK — ordinateur · mode complet : Vomissements isolés — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
@@ -231,22 +231,60 @@
 - OK — ordinateur · mode complet : prednisolone asthme à 9.5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
 - OK — ordinateur · mode complet : prednisolone asthme à 20 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
 - OK — ordinateur · mode complet : prednisolone asthme à 20.5 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — ordinateur · mode complet : paracétamol à 12.5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 12.5 kg (soit 7,81 ml, 187,5 mg) » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 13 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures si fièvre ou douleur, sans dépasser 4 prises par jour » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 15.9 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 16 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures si fièvre ou douleur, sans dépasser 4 prises par jour » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 16 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — ordinateur · mode complet : paracétamol à 19 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 19 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — ordinateur · mode complet : paracétamol à 24.9 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 24.9 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — ordinateur · mode complet : paracétamol à 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 25 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — ordinateur · mode complet : paracétamol à 26.9 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 26.9 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — ordinateur · mode complet : paracétamol à 27 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : paracétamol à 41 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 comprimés par jour (3 g) » (tranche du RCP, 23/11/2026)
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 2.5 kg : aucun (hors tranches du RCP)
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 3 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire toutes les 6 heures », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 4 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire toutes les 6 heures », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 4.5 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 5 kg : « DOLIPRANE 100 mg suppositoire : 1 suppositoire toutes les 6 heures », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 7.9 kg : « DOLIPRANE 100 mg suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 8 kg : « DOLIPRANE 150 mg suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 12 kg : « DOLIPRANE 200 mg suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 16 kg : « DOLIPRANE 300 mg suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 23.9 kg : « DOLIPRANE 300 mg suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 24 kg : aucun (hors tranches du RCP)
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 45 kg : aucun (hors tranches du RCP)
+- OK — ordinateur · mode complet : suppositoire DOLIPRANE à 50 kg : « DOLIPRANE 1 g suppositoire : 1 suppositoire », décoché
+- OK — ordinateur · mode complet : Érythème migrant (Lyme précoce) · 15 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : érythème migrant 15 kg, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours » sans note ni comprimé de 1 g
+- OK — ordinateur · mode complet : Érythème migrant (Lyme précoce) · 8 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 1,5 ml 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : Érythème migrant (Lyme précoce) · 70 kg : « CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : Morsure de tique · 15 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : Morsure de tique · 25 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 4,5 ml 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : Morsure de tique · 70 kg : « CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours »
+- OK — ordinateur · mode complet : base médicaments, amoxicilline enfant 30 kg : « 12 ml matin et soir pendant 5 jours » (80 mg/kg/j), note « indiqué » à l'écran
+- OK — ordinateur · mode complet : base médicaments, amoxicilline enfant : la durée de la ligne adulte est reprise (« pendant 6 jours »)
+- OK — ordinateur · mode complet : toutes les fiches à 3 et 4 kg : aucun suppositoire DOLIPRANE entier (150 mg sous 4 kg corrigé le 23/11/2026)
 - OK — ordinateur · mode complet : TIORFAN à 20 jours de vie : non proposé (RCP : à partir de 1 mois)
 - OK — ordinateur · mode complet : TIORFAN à 2 mois (4,5 kg) : 1 sachet de 10 mg 3 fois par jour
 - OK — ordinateur · mode complet : gastro 10 kg, ordonnance : TIORFAN « 2 sachets (20 mg) 3 fois par jour » et VOGALÈNE « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
 - OK — ordinateur · mode complet : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
-- OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
-- OK — ordinateur · mode complet : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — ordinateur · mode complet : angine 15 kg, ordonnance : « clarithromycine (ZECLAR) … : 1 dose-poids 15 kg matin et soir pendant 5 jours » sans note HAS ni RCP
+- OK — ordinateur · mode complet : angine 15 kg, ordonnance : « céfuroxime axétil (ZINNAT) … : 6 ml matin et soir au cours des repas pendant 4 jours » sans note
 - OK — ordinateur · mode complet : angine enfant 15 kg : CLAMOXYL coché, ZITHROMAX décoché (option) et placé après ZECLAR
 - OK — ordinateur · mode complet : angine enfant : mention à l'écran « azithromycine retirée de la fiche HAS angine en 2024 »
-- OK — ordinateur · mode complet : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
+- OK — ordinateur · mode complet : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « azithromycine (ZITHROMAX) … : 1 dose-poids 15 kg en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
 - OK — ordinateur · mode complet : angine enfant, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas ZITHROMAX (HAS 2024)
 - OK — ordinateur · mode complet : angine adulte : CLAMOXYL coché, AZITHROMYCINE décochée (option) après ZECLAR, mention HAS 2024 à l'écran
 - OK — ordinateur · mode complet : angine adulte, AZITHROMYCINE choisie : ordonnance « 2 comprimés en une prise par jour pendant 3 jours » sans HAS ni 2024
 - OK — ordinateur · mode complet : angine adulte, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas AZITHROMYCINE (HAS 2024)
 - OK — ordinateur · mode complet : scarlatine 15 kg, allergie à la pénicilline : ZECLAR coché d'office, ZITHROMAX en alternative décochée avec la mention HAS 2024 à l'écran
-- OK — ordinateur · mode complet : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours » sans HAS ni 2024
-- OK — ordinateur · mode complet : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
+- OK — ordinateur · mode complet : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg en une prise par jour pendant 3 jours » sans HAS ni 2024
+- OK — ordinateur · mode complet : otite 10 kg, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 10 jours » sans note HAS (libellé allégé, DCI puis marque)
 - OK — ordinateur · mode complet : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
 - OK — ordinateur · mode complet : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
 - OK — ordinateur · mode complet : gastro 40 kg, ordonnance : TIORFAN « 2 sachets (60 mg) 3 fois par jour », jamais « 3 sachets » ; ZOPHREN « 10 ml (8 mg) en une seule prise »
@@ -283,7 +321,7 @@
 - OK — iPhone · Express : Gastro-entérite — enfant · TIORFAN · 25 kg : « TIORFAN enfant 30 mg sachets : 1 sachet (30 mg) 3 fois par jour »
 - OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
 - OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 200 · 25 kg : ligne absente
-- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour »
 - OK — iPhone · Express : Gastro-entérite — enfant · DOLIPRANE 500 · 25 kg : ligne absente
 - OK — iPhone · Express : Gastro-entérite — enfant · ZOPHREN · 25 kg : « 5 ml (4 mg) »
 - OK — iPhone · Express : Gastro-entérite — enfant · VOGALÈNE · 25 kg : « 1 suppositoire (5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 15 mg par jour »
@@ -312,7 +350,7 @@
 - OK — iPhone · Express : Fièvre — enfant · ADVILMED · 15 kg : « 1 dose-poids 15 kg (soit 5,63 ml, 112,5 mg) »
 - OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
 - OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 200 · 25 kg : ligne absente
-- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures »
+- OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 300 · 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour »
 - OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 500 · 25 kg : ligne absente
 - OK — iPhone · Express : Fièvre — enfant · ADVILMED · 25 kg : « 1 dose-poids 25 kg (soit 9,38 ml, 187,5 mg) »
 - OK — iPhone · Express : Fièvre — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
@@ -330,70 +368,70 @@
 - OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 25 kg : ligne absente
 - OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 2,4 · 40 kg : ligne absente
 - OK — iPhone · Express : Bronchiolite — nourrisson · DOLIPRANE 200 · 40 kg : ligne absente
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml (soit 200 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1,5 ml (soit 150 mg d'amoxicilline) 3 fois par jour »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml (soit 80 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 5 kg : « 2 ml matin et soir pendant 10 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 5 kg : « 1 dose-poids 5 kg 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 5 kg : « 1 dose-poids 5 kg matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 5 kg : « 2 ml matin et soir »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 5 kg : non proposée faute de « âge ≥ 1 an pour AERIUS »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 2,5 ml (soit 250 mg d'amoxicilline) 3 fois par jour »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml (soit 160 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 10 kg : « 4,5 ml matin et soir pendant 10 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 10 kg : « 1 dose-poids 10 kg 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 10 kg : « 1 dose-poids 10 kg matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 10 kg : « 4 ml matin et soir »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 10 kg : « 2,5 ml en une prise par jour »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml (soit 650 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 5 jours »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 4 ml (soit 400 mg d'amoxicilline) 3 fois par jour »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml (soit 220 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 15 kg : « 6,5 ml matin et soir pendant 5 jours »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 15 kg : « 1 dose-poids 15 kg 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 15 kg : « 1 dose-poids 15 kg matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 15 kg : « 5,5 ml matin et soir »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 15 kg : « 2,5 ml en une prise par jour »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 15 kg : ligne absente
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml (soit 1050 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 7 ml (soit 700 mg d'amoxicilline) 3 fois par jour »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml (soit 380 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 25 kg : « 10,5 ml matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 25 kg : « 1 dose-poids 25 kg 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 25 kg : « 1 dose-poids 25 kg matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 25 kg : « 9,5 ml matin et soir »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 25 kg : « 5 ml en une prise par jour »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 25 kg : ligne absente
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml (soit 1500 mg) matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 10 ml (soit 1000 mg d'amoxicilline) 3 fois par jour »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml, soit 160 mg matin et soir »
-- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml (soit 400 mg de sulfaméthoxazole) matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · CLAMOXYL · 40 kg : « 15 ml matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · AUGMENTIN · 40 kg : « 1 dose-poids 37 kg 3 fois par jour »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · ORELOX · 40 kg : « 20 ml matin et soir »
+- OK — iPhone · Express : Otite moyenne aiguë — enfant · BACTRIM · 40 kg : « 10 ml matin et soir »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · AERIUS · 40 kg : « 10 ml en une prise par jour »
 - OK — iPhone · Express : Otite moyenne aiguë — enfant · DOLIPRANE 2,4 · 40 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : « 1,5 ml (soit 150 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 20 mg) »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 5 kg : « 2 ml (soit 50 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : « 1 dose-poids 5 kg (soit 2,5 ml, 100 mg) en une prise par jour pendant 3 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 5 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 5 kg : non proposée faute de « angine avant 3 ans »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 5 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 5 kg : « 1 dose-poids 5 kg (soit 0,75 ml, 37,5 mg) matin et soir pendant 5 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 5 kg : non proposée faute de « angine avant 3 ans »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 5 kg (soit 3,13 ml, 75 mg) toutes les 6 heures »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : « 2,5 ml (soit 250 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 40 mg) »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 10 kg : « 4 ml (soit 100 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : « 1 dose-poids 10 kg (soit 5 ml, 200 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 10 kg : non proposée faute de « angine avant 3 ans »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 10 kg : non proposée faute de « angine avant 3 ans »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 10 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 10 kg : « 1 dose-poids 10 kg (soit 1,5 ml, 75 mg) matin et soir pendant 5 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 10 kg : non proposée faute de « angine avant 3 ans »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 10 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 10 kg (soit 6,25 ml, 150 mg) toutes les 6 heures »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml (soit 400 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 60 mg) »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml (soit 150 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 15 kg : « 4 ml matin et soir pendant 6 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 15 kg : « 1 dose-poids 15 kg matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 15 kg : « 6 ml matin et soir au cours des repas pendant 4 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 15 kg : « 1 dose-poids 15 kg en une prise par jour pendant 3 jours »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 15 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 15 kg : « 1 dose-poids 15 kg matin et soir pendant 5 jours »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 15 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml (soit 650 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 100 mg) »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml (soit 250 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg (soit 12,5 ml, 500 mg) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 25 kg : « 6,5 ml matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 25 kg : « 1 dose-poids 25 kg matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 25 kg : « 10 ml matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 25 kg : « 1 dose-poids 25 kg en une prise par jour »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 25 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg (soit 3,75 ml, 187,5 mg) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 25 kg : « 1 dose-poids 25 kg matin et soir »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 25 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml (soit 1000 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, pendant 6 jours »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml, soit 100 mg (dose maximale) »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml (soit 250 mg) matin et soir »
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml, soit 500 mg (dose maximale) »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · CLAMOXYL · 40 kg : « 10 ml matin et soir pendant 6 jours »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ORELOX · 40 kg : « 12,5 ml matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZINNAT · 40 kg : « 10 ml matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 40 · 40 kg : « 12,5 ml en une prise par jour »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · ZITHROMAX 250 · 40 kg : ligne absente
-- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml, soit 250 mg (dose maximale) matin et soir »
+- OK — iPhone · Express : Angine — enfant (TROD positif) · ZECLAR · 40 kg : « 5 ml matin et soir »
 - OK — iPhone · Express : Angine — enfant (TROD positif) · DOLIPRANE 2,4 · 40 kg : ligne absente
 - OK — iPhone · Express : Vomissements isolés — enfant · ADIARIL · 5 kg : « 1 sachet dans 200 ml d'eau »
 - OK — iPhone · Express : Vomissements isolés — enfant · ZOPHREN · 5 kg : non proposée faute de « âge ≥ 6 mois pour ondansétron »
@@ -486,22 +524,60 @@
 - OK — iPhone · Express : prednisolone asthme à 9.5 kg : « SOLUPRED 5 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (10 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
 - OK — iPhone · Express : prednisolone asthme à 20 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 1 comprimé (20 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
 - OK — iPhone · Express : prednisolone asthme à 20.5 kg : « SOLUPRED 20 mg comprimé orodispersible (prednisolone), dose enfant : 2 comprimés (40 mg) » (SP2A : 20 mg jusqu'à 20 kg, 40 mg au-delà, 1 à 2 mg/kg)
+- OK — iPhone · Express : paracétamol à 12.5 kg : « DOLIPRANE 2,4 % suspension buvable : 1 dose-poids 12.5 kg (soit 7,81 ml, 187,5 mg) » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 13 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures si fièvre ou douleur, sans dépasser 4 prises par jour » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 15.9 kg : « DOLIPRANE 200 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 16 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures si fièvre ou douleur, sans dépasser 4 prises par jour » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 16 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — iPhone · Express : paracétamol à 19 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 19 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — iPhone · Express : paracétamol à 24.9 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 6 heures » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 24.9 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — iPhone · Express : paracétamol à 25 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 sachets par jour » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 25 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — iPhone · Express : paracétamol à 26.9 kg : « DOLIPRANE 300 mg poudre en sachet : 1 sachet toutes les 4 à 6 heures » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 26.9 kg : plus jamais le sachet de 200 mg (40 à 48 mg/kg/j à 4 prises)
+- OK — iPhone · Express : paracétamol à 27 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 6 heures si fièvre ou douleur, sans dépasser 4 comprimés par jour » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : paracétamol à 41 kg : « DOLIPRANE 500 mg comprimé : 1 comprimé toutes les 4 à 6 heures si fièvre ou douleur, sans dépasser 6 comprimés par jour (3 g) » (tranche du RCP, 23/11/2026)
+- OK — iPhone · Express : suppositoire DOLIPRANE à 2.5 kg : aucun (hors tranches du RCP)
+- OK — iPhone · Express : suppositoire DOLIPRANE à 3 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire toutes les 6 heures », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 4 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire toutes les 6 heures », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 4.5 kg : « DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 5 kg : « DOLIPRANE 100 mg suppositoire : 1 suppositoire toutes les 6 heures », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 7.9 kg : « DOLIPRANE 100 mg suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 8 kg : « DOLIPRANE 150 mg suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 12 kg : « DOLIPRANE 200 mg suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 16 kg : « DOLIPRANE 300 mg suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 23.9 kg : « DOLIPRANE 300 mg suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : suppositoire DOLIPRANE à 24 kg : aucun (hors tranches du RCP)
+- OK — iPhone · Express : suppositoire DOLIPRANE à 45 kg : aucun (hors tranches du RCP)
+- OK — iPhone · Express : suppositoire DOLIPRANE à 50 kg : « DOLIPRANE 1 g suppositoire : 1 suppositoire », décoché
+- OK — iPhone · Express : Érythème migrant (Lyme précoce) · 15 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : érythème migrant 15 kg, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours » sans note ni comprimé de 1 g
+- OK — iPhone · Express : Érythème migrant (Lyme précoce) · 8 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 1,5 ml 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : Érythème migrant (Lyme précoce) · 70 kg : « CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : Morsure de tique · 15 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 2,5 ml 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : Morsure de tique · 25 kg : « CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : 4,5 ml 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : Morsure de tique · 70 kg : « CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours »
+- OK — iPhone · Express : base médicaments, amoxicilline enfant 30 kg : « 12 ml matin et soir pendant 5 jours » (80 mg/kg/j), note « indiqué » à l'écran
+- OK — iPhone · Express : base médicaments, amoxicilline enfant : la durée de la ligne adulte est reprise (« pendant 6 jours »)
+- OK — iPhone · Express : toutes les fiches à 3 et 4 kg : aucun suppositoire DOLIPRANE entier (150 mg sous 4 kg corrigé le 23/11/2026)
 - OK — iPhone · Express : TIORFAN à 20 jours de vie : non proposé (RCP : à partir de 1 mois)
 - OK — iPhone · Express : TIORFAN à 2 mois (4,5 kg) : 1 sachet de 10 mg 3 fois par jour
 - OK — iPhone · Express : gastro 10 kg, ordonnance : TIORFAN « 2 sachets (20 mg) 3 fois par jour » et VOGALÈNE « ½ suppositoire (2,5 mg) par prise, jusqu'à 3 fois par jour, sans dépasser 7,5 mg par jour »
 - OK — iPhone · Express : gastro 10 kg, ordonnance : notes RCP et règles jamais imprimées
-- OK — iPhone · Express : angine 15 kg, ordonnance : ZECLAR « 1 dose-poids 15 kg (soit 2,25 ml, 112,5 mg) matin et soir pendant 5 jours » sans note HAS ni RCP
-- OK — iPhone · Express : angine 15 kg, ordonnance : ZINNAT « 6 ml (soit 150 mg) matin et soir au cours des repas, à mesurer avec la seringue graduée en ml du flacon, pendant 4 jours » sans note
+- OK — iPhone · Express : angine 15 kg, ordonnance : « clarithromycine (ZECLAR) … : 1 dose-poids 15 kg matin et soir pendant 5 jours » sans note HAS ni RCP
+- OK — iPhone · Express : angine 15 kg, ordonnance : « céfuroxime axétil (ZINNAT) … : 6 ml matin et soir au cours des repas pendant 4 jours » sans note
 - OK — iPhone · Express : angine enfant 15 kg : CLAMOXYL coché, ZITHROMAX décoché (option) et placé après ZECLAR
 - OK — iPhone · Express : angine enfant : mention à l'écran « azithromycine retirée de la fiche HAS angine en 2024 »
-- OK — iPhone · Express : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
+- OK — iPhone · Express : angine enfant 15 kg, ZITHROMAX choisi : ordonnance « azithromycine (ZITHROMAX) … : 1 dose-poids 15 kg en une prise par jour pendant 3 jours », sans HAS, 2024, bêta-lactamines ni prélèvement
 - OK — iPhone · Express : angine enfant, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas ZITHROMAX (HAS 2024)
 - OK — iPhone · Express : angine adulte : CLAMOXYL coché, AZITHROMYCINE décochée (option) après ZECLAR, mention HAS 2024 à l'écran
 - OK — iPhone · Express : angine adulte, AZITHROMYCINE choisie : ordonnance « 2 comprimés en une prise par jour pendant 3 jours » sans HAS ni 2024
 - OK — iPhone · Express : angine adulte, allergie grave aux bêta-lactamines : ZECLAR sélectionné d'office, pas AZITHROMYCINE (HAS 2024)
 - OK — iPhone · Express : scarlatine 15 kg, allergie à la pénicilline : ZECLAR coché d'office, ZITHROMAX en alternative décochée avec la mention HAS 2024 à l'écran
-- OK — iPhone · Express : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg (soit 7,5 ml, 300 mg) en une prise par jour pendant 3 jours » sans HAS ni 2024
-- OK — iPhone · Express : otite 10 kg, ordonnance : CLAMOXYL « 4,5 ml (soit 450 mg) matin et soir, à mesurer avec une seringue pour administration orale graduée en ml, sans dépasser 15 ml par prise, pendant 10 jours » sans note HAS
+- OK — iPhone · Express : scarlatine 15 kg, ZITHROMAX choisi : ordonnance « 1 dose-poids 15 kg en une prise par jour pendant 3 jours » sans HAS ni 2024
+- OK — iPhone · Express : otite 10 kg, ordonnance : « amoxicilline (CLAMOXYL) 500 mg/5 ml poudre pour suspension buvable : 4,5 ml matin et soir pendant 10 jours » sans note HAS (libellé allégé, DCI puis marque)
 - OK — iPhone · Express : convulsion 15 kg, ordonnance : VALIUM « 1,5 ml (soit 7,5 mg) soit 0,5 mg/kg, en une seule administration » puis appel du 15, sans note RCP ni « renouvelable »
 - OK — iPhone · Express : asthme 15 kg, ordonnance : SOLUPRED 20 mg « 1 comprimé (20 mg) en une prise le matin pendant 3 jours, dispersé dans un peu d'eau » sans règle ; VENTOLINE 8 bouffées
 - OK — iPhone · Express : gastro 40 kg, ordonnance : TIORFAN « 2 sachets (60 mg) 3 fois par jour », jamais « 3 sachets » ; ZOPHREN « 10 ml (8 mg) en une seule prise »
@@ -511,4 +587,4 @@
 - OK — iPhone · Express : balayage sans erreur JS
 - OK — iPhone · Express : aucune erreur JS
 
-510/510 tests OK
+586/586 tests OK
