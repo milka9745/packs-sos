@@ -8,10 +8,13 @@
 #    6 par jour (RCP 300 mg, CIS 69002078 : 16 à 48 kg). L'application donnait 200 mg de 13 à 20 kg et 300 mg de 20 à 27 kg
 #    toutes les 6 h, 4 par jour : 40 à 48 mg/kg/j de 16 à 20 kg et de 25 à 27 kg au lieu de 60.
 # 2. paracetamolSuppo(p) — sous 4 kg la branche « p<12 » donnait un suppositoire de 150 mg (50 mg/kg à 3 kg) ; à 4 kg un
+#    (la demi-dose « ½ suppositoire » est reconnue par la clé de dédoublonnage et la garde d'ajout, sinon « DOLIPRANE en double »)
 #    suppositoire entier de 100 mg (25 mg/kg). RCP : 100 mg sécable, ½ suppositoire de 3 à 4 kg, 1 suppositoire de 5 à 8 kg
 #    (CIS 66057393) ; 150 mg 8-12 kg ; 200 mg 12-16 kg ; 300 mg 15-24 kg ; 1 g adulte et enfant de plus de 50 kg.
 # 3. Érythème migrant (lot 1) — « CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour » était la seule ligne, y compris pour
-#    « enfant de moins de 8 ans » ; chez l'enfant la ligne disparaissait (aucune amoxicilline proposée). Ligne enfant au poids :
+#    « enfant de moins de 8 ans » ; chez l'enfant la ligne disparaissait (ctxEdit() retire toute ligne citant « enceinte » ou
+#    « grossesse » avant 12 ans et chez l'homme) : aucune amoxicilline proposée. La note ne cite plus la grossesse (HAS 2025 :
+#    doxycycline en 1re intention, grossesse comprise ; la note ne peut citer ni « grossesse » ni « enceinte »). Ligne enfant au poids :
 #    50 mg/kg/j en 3 prises, 1 g par prise au plus (HAS 02/2025 : 50 mg/kg/j sans dépasser 4 g/j en 3 prises toutes les 8 h,
 #    14 jours ; RCP CLAMOXYL : 25 à 50 mg/kg/j en trois prises).
 # 4. Morsure de tique (bloc) — amoxicilline enfant en 3 prises (HAS 2025, RCP) au lieu de « matin et soir » ; 1 g par prise au plus.
@@ -35,7 +38,7 @@ REPL=[
   '  if(d==="½") return "DOLIPRANE 100 mg suppositoire sécable : ½ suppositoire toutes les 6 heures, en remplacement de la forme orale si la prise par la bouche est impossible (vomissements, refus), sans dépasser 4 demi-suppositoires par jour ni cumuler avec la forme orale.";'),
  ("érythème migrant lot 1 : amoxicilline enfant au poids",
   '{t:"CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours (femme enceinte, enfant de moins de 8 ans).",grp:"atb",alt:[',
-  '{t:"{agelt:15|CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.17|10} 3 fois par jour pendant 14 jours|CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours} (alternative à la doxycycline : femme enceinte, enfant de moins de 8 ans ; enfant : amoxicilline 50 mg/kg/j en 3 prises, 1 g par prise au plus, HAS 2025 et RCP ; ligne corrigée le 23/11/2026, un comprimé de 1 g était proposé quel que soit le poids).",grp:"atb",alt:['),
+  '{t:"{agelt:15|CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.17|10} 3 fois par jour pendant 14 jours|CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours} (alternative à la doxycycline, 2e intention HAS 2025 ; enfant : amoxicilline 50 mg/kg/j en 3 prises, 1 g par prise au plus, HAS 2025 et RCP ; ligne corrigée le 23/11/2026 : un comprimé de 1 g était proposé quel que soit le poids, et l\'ancienne note faisait disparaître la ligne chez l\'enfant).",grp:"atb",alt:['),
  ("morsure de tique : amoxicilline enfant en 3 prises",
   '{agelt:15|CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.25|20} matin et soir pendant 14 jours|CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours} (érythème migrant, 2e intention).',
   '{agelt:15|CLAMOXYL 500 mg/5 ml poudre pour suspension buvable : {ml:0.17|10} 3 fois par jour pendant 14 jours|CLAMOXYL 1 g comprimé : 1 comprimé 3 fois par jour pendant 14 jours} (érythème migrant, 2e intention ; enfant : 50 mg/kg/j en 3 prises toutes les 8 heures, 1 g par prise au plus, HAS 02/2025 et RCP).'),
@@ -51,15 +54,19 @@ REPL=[
  ("mémo grippe enfant : sachets",
   'seringue graduée en kg jusqu\'à 13 kg, puis sachets au poids)',
   'seringue graduée en kg jusqu\'à 13 kg, puis sachets 200 mg de 13 à 16 kg et 300 mg de 16 à 27 kg, comprimé 500 mg à partir de 27 kg ; tranches corrigées le 23/11/2026)'),
+ ("suppositoire : la demi-dose n'est plus prise pour un doublon de la ligne orale (clé de dédoublonnage et garde d'ajout)",
+  "/suppositoire : 1 suppositoire toutes les 6 heures, en remplacement/",
+  "/suppositoire(?: sécable)? : (?:1|½) suppositoire toutes les 6 heures, en remplacement/", 2),
 ]
 
 def apply(path):
     raw=open(path,"rb").read(); nl="\r\n" if b"\r\n" in raw[:20000] else "\n"
     s=raw.decode("utf-8")
-    for lab,a,b in REPL:
+    for item in REPL:
+        lab,a,b=item[0],item[1],item[2]; want=item[3] if len(item)>3 else 1
         a2=a.replace("\n",nl); b2=b.replace("\n",nl)
         n=s.count(a2)
-        if n!=1: sys.exit(f"ÉCHEC {path} : « {lab} » trouvé {n} fois (attendu 1) — rien n'est écrit")
+        if n!=want: sys.exit(f"ÉCHEC {path} : « {lab} » trouvé {n} fois (attendu {want}) — rien n'est écrit")
         s=s.replace(a2,b2)
     open(path,"wb").write(s.encode("utf-8"))
     print(f"{path} : {len(REPL)} remplacements appliqués")
