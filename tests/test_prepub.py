@@ -19,6 +19,11 @@ async def unlock(page,first=True):
         try:
             await page.wait_for_selector("#id_demo",timeout=8000); await page.click("#id_demo")
         except Exception: pass
+    else:  # 23/11/2026 (correctif cadenas) : sous une identité d'ordinateur la session n'est plus gardée, l'écran de code revient à chaque ouverture : on ressaisit le code
+        try:
+            await page.wait_for_selector("#pin1",timeout=5000)
+            await page.fill("#uid","testv41"); await page.fill("#pin1","1234"); await page.click("#pin_ok")
+        except Exception: pass
     await page.wait_for_selector("#lock",state="detached",timeout=15000)
     await page.wait_for_timeout(1000)
 

@@ -32,7 +32,9 @@ async def reopen(page,uid,path):
     if creation: return {"creation":True}
     asked=await page.locator("#pin1").count()>0
     if asked:
-        await page.fill("#uid",uid); await page.fill("#pin1","1234"); await page.click("#pin_ok")
+        await page.fill("#uid",uid); await page.fill("#pin1","1234")
+        try: await page.click("#pin_ok",timeout=3000)  # 23/11/2026 : bouton parfois déjà disparu (code validé à la frappe)
+        except Exception: pass
     try: await page.wait_for_selector("#lock",state="detached",timeout=15000)
     except Exception: pass
     await page.wait_for_timeout(1500)
@@ -110,8 +112,8 @@ async def main():
             ok("tournée identique (en mémoire)",jd(A["tourMem"],Bs["tourMem"])==[],jd(A["tourMem"],Bs["tourMem"])[:8])
             ok("réglages conservés (thème nuit, grand texte)",Bs["theme"]=="night" and Bs["big"]=="1",(Bs["theme"],Bs["big"]))
             changed=[k for k in A["ls"] if k not in Bs["ls"] or Bs["ls"][k]!=A["ls"][k]]
-            missing=[k for k in A["ls"] if k not in Bs["ls"]]
-            ok("stockage : aucune clé de la v41k supprimée",not missing,missing)
+            missing=[k for k in A["ls"] if k not in Bs["ls"] and k!="sos_sess"]  # 23/11/2026 (correctif cadenas) : sur ordinateur la session n'est plus gardée, sos_sess est effacée au démarrage
+            ok("stockage : aucune clé de la v41k supprimée (sos_sess exclue : session non gardée sur ordinateur depuis le 23/11/2026)",not missing,missing)
             print("    (clés réécrites par la nouvelle version : %s ; nouvelles clés : %s)"%(changed,[k for k in Bs["ls"] if k not in A["ls"]][:10]))
             # 3. une entrée de plus dans la nouvelle version, puis le secours /v41k/ sur les mêmes données
             w2=await page.evaluate("""()=>{newPatient();Object.assign(state,{patient:'ESSAI Quatrième',ddn:'04/04/1990',sexe:'f'});const i=PACKS.findIndex(p=>/^Lombalgie/.test(p.n));state.sel=i;journalUpsert(currentPack());journalSave();newPatient();return JOURNAL.length;}""")
