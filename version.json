@@ -1,10 +1,10 @@
 {
-  "version": "42d",
-  "date": "2026-11-11",
+  "version": "42g",
+  "date": "2026-11-23",
   "notes": [
-    "Antibiotiques : un seul par ordonnance (toucher une alternative remplace la précédente, « Ajouter quand même » avec confirmation) ; durée calculée sur l'âge et le diagnostic (otite 10 jours avant 2 ans puis 5, angine selon l'antibiotique et jamais avant 3 ans, pneumopathie 5 jours) ; durée et dose modifiables d'un geste, tracées au journal et au compte rendu, jamais sur l'ordonnance.",
-    "Ordonnances d'antibiotiques allégées : une seule unité (ml ou dose-poids), plus de « sans dépasser » ni de « seringue graduée », DCI avant le nom commercial ; AUGMENTIN enfant à la graduation en kg de sa seringue (1 dose-poids N kg 3 fois par jour).",
-    "Nouvelle fiche « Renouvellement d'ordonnance » (non relue) : médicaments un par un depuis la base ANSM embarquée (12 080 spécialités, hors ligne), posologie et durée d'un geste, non substituable, ALD (ordonnance bizone), stupéfiants signalés (ordonnance sécurisée à rédiger à la main), deux ordonnances si la page ne suffit pas, récents proposés en premier."
+    "Sur ordinateur, le code est redemandé à chaque ouverture : fermer l'onglet ou la fenêtre suffit, recharger la page aussi. Le navigateur ne peut plus enregistrer le code ni le remplir tout seul, et le cadenas verrouille toutes les fenêtres ouvertes. Sur téléphone, rien ne change (20 minutes).",
+    "Cadenas 🔒 toujours sous le doigt : dans la barre du haut du téléphone (à côté de ⋯), en premier dans le menu ⋯, et dans l'en-tête de Tournée, Journal, Fin de garde, Base médicaments et Patient validé.",
+    "Une fois verrouillé, plus rien n'est lisible : l'écran de code passe devant toute fenêtre ouverte (résumé ou document du patient, scanner, antibiotiques). Le dossier en cours est retrouvé tel quel après le code."
   ],
-  "label": "42d · 11/11 17:38"
+  "label": "42g · 23/11 14:30"
 }
