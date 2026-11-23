@@ -7799,10 +7799,18 @@ function secWriteNow(name){const p=_secP[name];if(!p)return _secW[name]||Promise
   const run=async()=>{const o=await aesEnc(p.key,new TextEncoder().encode(p.str));o.ts=p.ts;await encWrite(name,JSON.stringify(o));};
   const w=(_secW[name]||Promise.resolve()).catch(()=>{}).then(run);_secW[name]=w;
   w.then(()=>{if(Date.now()-KV.qTs>120000)storeQuick();}).catch(e=>storeFail(name,e));return w;}
-function secSet(name,obj){const str=JSON.stringify(obj);if(!SEC.key){try{localStorage.setItem(name,str);}catch(e){storeFail(name,e);}return;}
+/* 23/11/2026 (confidentialité) : jamais d'écriture en clair quand un code avec chiffrement est configuré. Application verrouillée (clé absente) :
+   l'écriture est gardée en mémoire (_secHold, la plus récente par nom) et chiffrée au déverrouillage, avant les relectures de unlockDone() —
+   la modification faite pendant le verrouillage n'est ni perdue ni lisible. Fenêtre fermée avant le déverrouillage : l'écriture gardée est perdue (jamais en clair).
+   Sans profil chiffré (aucun code, ou chiffrement indisponible : nocrypto), l'écriture en clair reste celle d'avant. */
+const _secHold={};
+function secLockedHold(){try{const m=secMeta();return !!(hasCrypto&&m&&!m.nocrypto&&!SEC.key);}catch(e){return false;}}
+function secSet(name,obj){const str=JSON.stringify(obj);if(!SEC.key){if(secLockedHold()){_secHold[name]={str,ts:Date.now()};return;}try{localStorage.setItem(name,str);}catch(e){storeFail(name,e);}return;}
   clearTimeout(_secQ[name]);_secP[name]={str,key:SEC.key,ts:Date.now()};_secQ[name]=setTimeout(()=>secWriteNow(name),150);}
 /* écran masqué, application fermée : tout ce qui attend est écrit tout de suite */
 function secFlush(){Object.keys(_secP).forEach(n=>secWriteNow(n));}
+/* déverrouillage : les écritures gardées pendant le verrouillage sont chiffrées et écrites (dans l'ordre), avant toute relecture */
+async function secHoldFlush(){const names=Object.keys(_secHold);if(!names.length||!SEC.key)return 0;for(const n of names){const h=_secHold[n];delete _secHold[n];clearTimeout(_secQ[n]);_secP[n]={str:h.str,key:SEC.key,ts:Date.now()};try{await secWriteNow(n);}catch(e){}}return names.length;}
 async function secGet(name,def){try{
   let ls=null;try{ls=localStorage.getItem(name+"_enc");}catch(e){}
   let db=null;if(SEC.key&&KV.idb.has(name)){try{db=await kvGet(name+"_enc");}catch(e){db=null;}}
@@ -7811,7 +7819,7 @@ async function secGet(name,def){try{
     if(KV.idb.has(name)&&enc===ls&&ls!==db&&!_secP[name]){_secP[name]={str:JSON.stringify(v),key:SEC.key,ts:Math.max(Date.now(),encTs(db)+1)};secWriteNow(name);} /* migration vers IndexedDB */
     return v;}
   const raw=localStorage.getItem(name);if(raw!=null)return JSON.parse(raw);}catch(e){console.warn("déchiffrement",e);}return def;}
-function secRemove(name){clearTimeout(_secQ[name]);delete _secP[name];localStorage.removeItem(name);localStorage.removeItem(name+"_enc");if(KV.idb.has(name))kvDel(name+"_enc").catch(()=>{});}
+function secRemove(name){clearTimeout(_secQ[name]);delete _secP[name];delete _secHold[name];localStorage.removeItem(name);localStorage.removeItem(name+"_enc");if(KV.idb.has(name))kvDel(name+"_enc").catch(()=>{});}
 /* bases médicaments importées (données publiques, non chiffrées) : IndexedDB, plus en localStorage */
 const KV_BIG=["sos_bdpm","sos_ansm"];
 async function bigBoot(){let got=false;for(const k of KV_BIG){try{const raw=localStorage.getItem(k);if(raw!=null){await kvPut(k,raw);localStorage.removeItem(k);}else{const v=await kvGet(k);if(v){const o=JSON.parse(v);if(k==="sos_bdpm")BDPM=o;else ANSM=o;got=true;}}}catch(e){}}
@@ -7881,6 +7889,7 @@ function lockScreen(mode,msg){
 }
 function showRecovery(rec,msg){const el=$("#lock");el.innerHTML=`<div class="lockbox"><div class="lockbrand"><img class="lk" src="${LOCK_ICON}" alt=""><div class="nm">Packs SOS<small>Docteur Mickaël DEIE — SOS Médecins Orléans</small></div></div><div class="lockttl">Votre clé de secours</div><div class="reckey">${esc(rec)}</div><div class="hint">${esc(msg)}</div><label class="hint" style="display:block;margin:10px 0"><input type="checkbox" id="rec_ack"> Je l'ai notée hors de cet appareil</label><button class="btn p" id="rec_done" disabled>Continuer</button></div>`;$("#rec_ack").onchange=e=>{$("#rec_done").disabled=!e.target.checked;};$("#rec_done").onclick=unlockDone;}
 async function unlockDone(){SEC.unlocked=true;const el=$("#lock");if(el)el.remove();document.body.classList.remove("locked");
+  try{await secHoldFlush();}catch(e){} /* 23/11/2026 : écritures gardées pendant le verrouillage, chiffrées avant les relectures */
   JOURNAL=await secGet("sos_journal",[]);
   try{await tourLoad();}catch(e){}
   try{await identLoad();}catch(e){}
