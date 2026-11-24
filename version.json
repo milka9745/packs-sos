@@ -1,10 +1,10 @@
 {
-  "version": "42h",
-  "date": "2026-11-23",
+  "version": "42i",
+  "date": "2026-11-24",
   "notes": [
-    "Doses de l'enfant corrigées après une erreur signalée en garde : DOLIPRANE en sachet aux tranches de poids du RCP — 200 mg de 13 à 16 kg, 300 mg de 16 à 27 kg (de 25 à 27 kg : toutes les 4 heures au plus, 6 par jour), comprimé 500 mg à partir de 27 kg. L'application donnait 200 mg jusqu'à 20 kg et 300 mg jusqu'à 27 kg à 4 prises par jour, soit 40 à 48 mg/kg/j au lieu de 60.",
-    "Suppositoire DOLIPRANE en remplacement de la forme orale : ½ suppositoire de 100 mg de 3 à 4 kg, 100 mg de 5 à 8 kg, puis 150, 200 et 300 mg aux tranches du RCP. Sous 4 kg, l'ancienne règle proposait un suppositoire de 150 mg.",
-    "Amoxicilline de l'enfant : érythème migrant (maladie de Lyme) au poids, 50 mg/kg/j en 3 prises et 1 g par prise au plus dans les fiches Érythème migrant et Morsure de tique (un comprimé de 1 g était proposé quel que soit le poids, ou 2 prises) ; ligne enfant de la Base médicaments reprise (80 mg/kg/j pour otite, sinusite et pneumopathie, angine 50 mg/kg/j, pneumopathie 5 jours). Otite, angine, sinusite, pneumopathie et douleur dentaire : doses inchangées, revérifiées sur le RCP CLAMOXYL de septembre 2025 et les fiches HAS."
+    "Renouvellement d'ordonnance, patient en ALD ou non : la fiche « Renouvellement d'ordonnance » (Fréquents, ou tapez « renouv ») s'ouvre maintenant sur le panneau de renouvellement, juste sous le bloc patient (il était tout en bas de la fiche sur ordinateur). Médicaments un par un depuis la base ANSM hors ligne, posologie et durée d'un geste.",
+    "Interrupteur « Patient en ALD (100 %) » : toutes les lignes passent à 100 % et l'ordonnance devient bizone (partie haute « affection exonérante », partie basse « maladies intercurrentes ») ; chaque ligne reste modifiable. Sans ALD : ordonnance simple.",
+    "Traitement en cours du patient repris en un geste : les médicaments saisis dans « Traitements en cours » (ou dictés) sont proposés sous la recherche ; « + AMLOR 5 mg » ajoute la ligne quand la présentation est unique, sinon la recherche est préremplie pour choisir le dosage. Jamais de dosage deviné."
   ],
-  "label": "42h · 23/11 20:56"
+  "label": "42i · 24/11 19:42"
 }

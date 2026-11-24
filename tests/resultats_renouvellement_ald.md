@@ -1,0 +1,53 @@
+# Renouvellement d'ordonnance — patients en ALD ou non (24/11/2026)
+
+- OK — ordinateur · mode complet : fiche « Renouvellement d'ordonnance » ouverte, panneau présent
+- OK — ordinateur · mode complet : mode complet : panneau en tête de la fiche, sous le bloc patient et avant la dictée (24/11/2026)
+- OK — ordinateur · mode complet : traitement en cours : « AMLOR 5 » (une seule présentation) proposé en ajout direct « + AMLOR 5 mg »
+- OK — ordinateur · mode complet : traitement en cours : « metformine » (plusieurs présentations) et « AVK » (introuvable) proposés en recherche préremplie, jamais de dosage deviné
+- OK — ordinateur · mode complet : toucher « + AMLOR 5 mg » : ligne ajoutée (amlodipine, AMLOR 5 mg, 1 mois, hors ALD), chip retirée
+- OK — ordinateur · mode complet : toucher « metformine … » : recherche préremplie « metformine » et présentations proposées (choix du dosage par le médecin)
+- OK — ordinateur · mode complet : « Patient en ALD » coché : la ligne existante passe à 100 %
+- OK — ordinateur · mode complet : ligne ajoutée après le choix ALD : LEVOTHYROX 75 à 100 % d'office
+- OK — ordinateur · mode complet : pied du panneau : « 2 lignes · ordonnance bizone (2 ALD) »
+- OK — ordinateur · mode complet : ordonnance bizone : les 2 lignes dans la partie « affection exonérante », partie basse « Néant. »
+- OK — ordinateur · mode complet : ligne LEVOTHYROX décochée : partie « maladies intercurrentes », AMLOR reste en haut, interrupteur toujours coché
+- OK — ordinateur · mode complet : « Patient en ALD » décoché : plus aucune ligne à 100 %, ordonnance simple (sans bizone)
+- OK — ordinateur · mode complet : rien n'attend avant l'impression (posologies renseignées, une page)
+- OK — ordinateur · mode complet : « Nouveau patient » : liste vide et interrupteur ALD remis à zéro
+- OK — ordinateur · mode complet : sans traitement en cours : pas de rangée « Traitement en cours »
+- OK — ordinateur · mode complet : patient non ALD : ligne ajoutée hors ALD, ordonnance simple
+- OK — ordinateur · mode complet : aucune erreur JS
+- OK — iPhone · mode complet : fiche « Renouvellement d'ordonnance » ouverte, panneau présent
+- OK — iPhone · mode complet : mode complet : panneau en tête de la fiche, sous le bloc patient et avant la dictée (24/11/2026)
+- OK — iPhone · mode complet : traitement en cours : « AMLOR 5 » (une seule présentation) proposé en ajout direct « + AMLOR 5 mg »
+- OK — iPhone · mode complet : traitement en cours : « metformine » (plusieurs présentations) et « AVK » (introuvable) proposés en recherche préremplie, jamais de dosage deviné
+- OK — iPhone · mode complet : toucher « + AMLOR 5 mg » : ligne ajoutée (amlodipine, AMLOR 5 mg, 1 mois, hors ALD), chip retirée
+- OK — iPhone · mode complet : toucher « metformine … » : recherche préremplie « metformine » et présentations proposées (choix du dosage par le médecin)
+- OK — iPhone · mode complet : « Patient en ALD » coché : la ligne existante passe à 100 %
+- OK — iPhone · mode complet : ligne ajoutée après le choix ALD : LEVOTHYROX 75 à 100 % d'office
+- OK — iPhone · mode complet : pied du panneau : « 2 lignes · ordonnance bizone (2 ALD) »
+- OK — iPhone · mode complet : ordonnance bizone : les 2 lignes dans la partie « affection exonérante », partie basse « Néant. »
+- OK — iPhone · mode complet : ligne LEVOTHYROX décochée : partie « maladies intercurrentes », AMLOR reste en haut, interrupteur toujours coché
+- OK — iPhone · mode complet : « Patient en ALD » décoché : plus aucune ligne à 100 %, ordonnance simple (sans bizone)
+- OK — iPhone · mode complet : rien n'attend avant l'impression (posologies renseignées, une page)
+- OK — iPhone · mode complet : « Nouveau patient » : liste vide et interrupteur ALD remis à zéro
+- OK — iPhone · mode complet : sans traitement en cours : pas de rangée « Traitement en cours »
+- OK — iPhone · mode complet : patient non ALD : ligne ajoutée hors ALD, ordonnance simple
+- OK — iPhone · mode complet : aucune erreur JS
+- OK — iPhone · Express : fiche « Renouvellement d'ordonnance » ouverte, panneau présent
+- OK — iPhone · Express : Express : panneau dans la section Express (comme avant)
+- OK — iPhone · Express : traitement en cours : « AMLOR 5 » (une seule présentation) proposé en ajout direct « + AMLOR 5 mg »
+- OK — iPhone · Express : traitement en cours : « metformine » (plusieurs présentations) et « AVK » (introuvable) proposés en recherche préremplie, jamais de dosage deviné
+- OK — iPhone · Express : toucher « + AMLOR 5 mg » : ligne ajoutée (amlodipine, AMLOR 5 mg, 1 mois, hors ALD), chip retirée
+- OK — iPhone · Express : toucher « metformine … » : recherche préremplie « metformine » et présentations proposées (choix du dosage par le médecin)
+- OK — iPhone · Express : « Patient en ALD » coché : la ligne existante passe à 100 %
+- OK — iPhone · Express : ligne ajoutée après le choix ALD : LEVOTHYROX 75 à 100 % d'office
+- OK — iPhone · Express : pied du panneau : « 2 lignes · ordonnance bizone (2 ALD) »
+- OK — iPhone · Express : ordonnance bizone : les 2 lignes dans la partie « affection exonérante », partie basse « Néant. »
+- OK — iPhone · Express : ligne LEVOTHYROX décochée : partie « maladies intercurrentes », AMLOR reste en haut, interrupteur toujours coché
+- OK — iPhone · Express : « Patient en ALD » décoché : plus aucune ligne à 100 %, ordonnance simple (sans bizone)
+- OK — iPhone · Express : rien n'attend avant l'impression (posologies renseignées, une page)
+- OK — iPhone · Express : « Nouveau patient » : liste vide et interrupteur ALD remis à zéro
+- OK — iPhone · Express : sans traitement en cours : pas de rangée « Traitement en cours »
+- OK — iPhone · Express : patient non ALD : ligne ajoutée hors ALD, ordonnance simple
+- OK — iPhone · Express : aucune erreur JS
