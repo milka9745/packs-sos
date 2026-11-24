@@ -74,7 +74,7 @@ async def main():
             ok("1. ⋯ → « Organiser ma fiche (ordre des blocs) »",await page.locator("#jmenu [data-blkorg]").count()==1)
             await page.click("#jmenu [data-blkorg]"); await page.wait_for_selector("#blk_list li",timeout=5000)
             lis=await page.evaluate("()=>[...document.querySelectorAll('#blk_list li')].map(l=>l.dataset.blkk)")
-            ok("1. écran « Organiser ma fiche » : liste des blocs avec poignée, Monter, Descendre, mode Visite / Consultation",lis==["patient","dict","docs","motif","synth","options","alerts","obs","sheets","lettres"] and await page.locator("#blk_list .blk-handle").count()==10 and await page.locator("[data-blkmode]").count()==2,lis)
+            ok("1. écran « Organiser ma fiche » : liste des blocs avec poignée, Monter, Descendre, mode Visite / Consultation (bloc « rnw » Renouvellement après le patient depuis le 24/11/2026)",lis==["patient","rnw","dict","docs","motif","synth","options","alerts","obs","sheets","lettres"] and await page.locator("#blk_list .blk-handle").count()==11 and await page.locator("[data-blkmode]").count()==2,lis)
             await page.screenshot(path=os.path.join(OUT,"docs2-iphone-organiser.png"))
             for _ in range(5): await page.click('#blk_list [data-blkup="obs"]'); await page.wait_for_timeout(60)
             await page.click("#blk_close"); await page.wait_for_timeout(200)
