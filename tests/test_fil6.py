@@ -120,7 +120,7 @@ async def ordre(browser):
     L = "ordre : "
     ctx = await browser.new_context(viewport={"width": 375, "height": 812}, device_scale_factor=2, is_mobile=True, has_touch=True)
     page = await ctx.new_page(); await unlock(page); await page.evaluate(SETUP); await page.wait_for_timeout(200)
-    ok(L + "« Optimiser l'ordre » retiré (écran Tournée)", await page.evaluate("()=>{state.view='tour';render();const r=!document.getElementById('tr_opt')&&!/Optimiser l'ordre/.test(document.body.innerText);state.view='';render();return r;}"))
+    ok(L + "« ⟳ Optimiser la tournée » présent sur l'écran Tournée (demande du 26/11/2026 ; l'ancien « Optimiser l'ordre » retiré le 12/11 reste absent)", await page.evaluate("()=>{state.view='tour';render();const r=!!document.getElementById('tr_opt')&&/Optimiser la tournée/.test(document.body.innerText)&&!/Optimiser l'ordre/.test(document.body.innerText);state.view='';render();return r;}"))
     calls = await page.evaluate(r"""()=>{let n=0;window.tourOptimize=async()=>{n++;};window.__n=()=>n;tourUse('r1');n=0;patientValidate(true);return 0;}""")
     await page.wait_for_timeout(200)
     ok(L + "patient validé → ordre recalculé automatiquement", await page.evaluate("window.__n()") >= 1)

@@ -1,0 +1,32 @@
+# Tournée — appui long pour déplacer, « Optimiser la tournée » (26/11/2026)
+
+- OK — iPhone (touches) : 4 visites, ordre automatique au plus proche voisin depuis le cabinet (hors connexion) : A → B → C → D
+- OK — iPhone (touches) : écran Tournée : 4 lignes avec identifiant, bouton « ⟳ Optimiser la tournée », aide « appui long », pas de ▲ ▼ en ordre automatique
+- OK — iPhone (touches) : appui long puis glisser D en tête : ordre manuel, D première, les autres dans leur ordre, plus d'état de glisser
+- OK — iPhone (touches) : ordre manuel : ▲ ▼ sur chaque visite et message « Ordre manuel … appui long »
+- OK — iPhone (touches) : ★ Priorité sur B en ordre manuel : aucun recalcul, ordre inchangé
+- OK — iPhone (touches) : « Optimiser la tournée » : B (prioritaire) en tête, puis A → C → D au plus court depuis B ; ordre toujours manuel ; message « optimisé à … à partir de B »
+- OK — iPhone (touches) : B retirée des prioritaires, C glissée en tête : C première, horodatage d'optimisation effacé
+- OK — iPhone (touches) : « Optimiser » sans prioritaire : la première visite (C) reste en tête, puis B → A → D ; message « à partir de C »
+- OK — iPhone (touches) : ▲ sur A : remontée d'une place, horodatage effacé
+- OK — iPhone (touches) : visite E ajoutée en ordre manuel : en fin de liste, ordre des autres conservé
+- OK — iPhone (touches) : tourSave : ordre manuel, optTs et optFrom enregistrés avec la tournée
+- OK — iPhone (touches) : carte de tournée (tiroir Plus) : bouton « Ordre automatique » proposé en ordre manuel
+- OK — iPhone (touches) : « Ordre automatique » : recalcul depuis le cabinet (A → E → B → C → D), plus de ▲ ▼
+- OK — iPhone (touches) : écran Tournée en ordre automatique : « ⟳ Optimiser » présent, pas de ▲ ▼
+- OK — iPhone (touches) : aucune erreur JS
+- OK — ordinateur (souris) : 4 visites, ordre automatique au plus proche voisin depuis le cabinet (hors connexion) : A → B → C → D
+- OK — ordinateur (souris) : écran Tournée : 4 lignes avec identifiant, bouton « ⟳ Optimiser la tournée », aide « appui long », pas de ▲ ▼ en ordre automatique
+- OK — ordinateur (souris) : appui long puis glisser D en tête : ordre manuel, D première, les autres dans leur ordre, plus d'état de glisser
+- OK — ordinateur (souris) : ordre manuel : ▲ ▼ sur chaque visite et message « Ordre manuel … appui long »
+- OK — ordinateur (souris) : ★ Priorité sur B en ordre manuel : aucun recalcul, ordre inchangé
+- OK — ordinateur (souris) : « Optimiser la tournée » : B (prioritaire) en tête, puis A → C → D au plus court depuis B ; ordre toujours manuel ; message « optimisé à … à partir de B »
+- OK — ordinateur (souris) : B retirée des prioritaires, C glissée en tête : C première, horodatage d'optimisation effacé
+- OK — ordinateur (souris) : « Optimiser » sans prioritaire : la première visite (C) reste en tête, puis B → A → D ; message « à partir de C »
+- OK — ordinateur (souris) : ▲ sur A : remontée d'une place, horodatage effacé
+- OK — ordinateur (souris) : visite E ajoutée en ordre manuel : en fin de liste, ordre des autres conservé
+- OK — ordinateur (souris) : tourSave : ordre manuel, optTs et optFrom enregistrés avec la tournée
+- OK — ordinateur (souris) : carte de tournée (tiroir Plus) : bouton « Ordre automatique » proposé en ordre manuel
+- OK — ordinateur (souris) : « Ordre automatique » : recalcul depuis le cabinet (A → E → B → C → D), plus de ▲ ▼
+- OK — ordinateur (souris) : écran Tournée en ordre automatique : « ⟳ Optimiser » présent, pas de ▲ ▼
+- OK — ordinateur (souris) : aucune erreur JS
